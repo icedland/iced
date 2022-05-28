@@ -55,10 +55,10 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:number() == 5)
 	/// ```
-	unsafe fn new(lua, _ignore: LuaIgnore, register: u32) -> 1 {
+	unsafe fn new(lua, register: u32) -> 1 {
 		let _ = unsafe { RegisterInfo::init_and_push(lua, &RegisterInfo { inner: *to_register(lua, register).info() }) };
 	}
 
@@ -71,11 +71,11 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.EAX)
+	/// local info = RegisterInfo.new(Register.EAX)
 	/// assert(info:register() == Register.EAX)
 	/// ```
-	unsafe fn register(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.register() as u32) }
+	unsafe fn register(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.register() as u32) }
 	}
 
 	/// Gets the base register, eg. `AL`, `AX`, `EAX`, `RAX`, `MM0`, `XMM0`, `YMM0`, `ZMM0`, `ES`
@@ -87,19 +87,19 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:base() == Register.ES)
-	/// info = RegisterInfo:new(Register.RDX)
+	/// info = RegisterInfo.new(Register.RDX)
 	/// assert(info:base() == Register.RAX)
-	/// info = RegisterInfo:new(Register.XMM13)
+	/// info = RegisterInfo.new(Register.XMM13)
 	/// assert(info:base() == Register.XMM0)
-	/// info = RegisterInfo:new(Register.YMM13)
+	/// info = RegisterInfo.new(Register.YMM13)
 	/// assert(info:base() == Register.YMM0)
-	/// info = RegisterInfo:new(Register.ZMM13)
+	/// info = RegisterInfo.new(Register.ZMM13)
 	/// assert(info:base() == Register.ZMM0)
 	/// ```
-	unsafe fn base(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.base() as u32) }
+	unsafe fn base(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.base() as u32) }
 	}
 
 	/// int: The register number (index) relative to `RegisterInfo.base()`, eg. 0-15, or 0-31, or if 8-bit GPR, 0-19
@@ -110,19 +110,19 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:number() == 5)
-	/// info = RegisterInfo:new(Register.RDX)
+	/// info = RegisterInfo.new(Register.RDX)
 	/// assert(info:number() == 2)
-	/// info = RegisterInfo:new(Register.XMM13)
+	/// info = RegisterInfo.new(Register.XMM13)
 	/// assert(info:number() == 13)
-	/// info = RegisterInfo:new(Register.YMM13)
+	/// info = RegisterInfo.new(Register.YMM13)
 	/// assert(info:number() == 13)
-	/// info = RegisterInfo:new(Register.ZMM13)
+	/// info = RegisterInfo.new(Register.ZMM13)
 	/// assert(info:number() == 13)
 	/// ```
-	unsafe fn number(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.number() as u32) }
+	unsafe fn number(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.number() as u32) }
 	}
 
 	/// The full register that this one is a part of, eg. `CL`/`CH`/`CX`/`ECX`/`RCX` -> `RCX`, `XMM11`/`YMM11`/`ZMM11` -> `ZMM11`
@@ -134,25 +134,25 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:full_register() == Register.GS)
-	/// info = RegisterInfo:new(Register.BH)
+	/// info = RegisterInfo.new(Register.BH)
 	/// assert(info:full_register() == Register.RBX)
-	/// info = RegisterInfo:new(Register.DX)
+	/// info = RegisterInfo.new(Register.DX)
 	/// assert(info:full_register() == Register.RDX)
-	/// info = RegisterInfo:new(Register.ESP)
+	/// info = RegisterInfo.new(Register.ESP)
 	/// assert(info:full_register() == Register.RSP)
-	/// info = RegisterInfo:new(Register.RCX)
+	/// info = RegisterInfo.new(Register.RCX)
 	/// assert(info:full_register() == Register.RCX)
-	/// info = RegisterInfo:new(Register.XMM3)
+	/// info = RegisterInfo.new(Register.XMM3)
 	/// assert(info:full_register() == Register.ZMM3)
-	/// info = RegisterInfo:new(Register.YMM3)
+	/// info = RegisterInfo.new(Register.YMM3)
 	/// assert(info:full_register() == Register.ZMM3)
-	/// info = RegisterInfo:new(Register.ZMM3)
+	/// info = RegisterInfo.new(Register.ZMM3)
 	/// assert(info:full_register() == Register.ZMM3)
 	/// ```
-	unsafe fn full_register(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.full_register() as u32) }
+	unsafe fn full_register(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.full_register() as u32) }
 	}
 
 	/// Gets the full register that this one is a part of, except if it's a GPR in which case the 32-bit register is returned,
@@ -165,25 +165,25 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:full_register32() == Register.GS)
-	/// info = RegisterInfo:new(Register.BH)
+	/// info = RegisterInfo.new(Register.BH)
 	/// assert(info:full_register32() == Register.EBX)
-	/// info = RegisterInfo:new(Register.DX)
+	/// info = RegisterInfo.new(Register.DX)
 	/// assert(info:full_register32() == Register.EDX)
-	/// info = RegisterInfo:new(Register.ESP)
+	/// info = RegisterInfo.new(Register.ESP)
 	/// assert(info:full_register32() == Register.ESP)
-	/// info = RegisterInfo:new(Register.RCX)
+	/// info = RegisterInfo.new(Register.RCX)
 	/// assert(info:full_register32() == Register.ECX)
-	/// info = RegisterInfo:new(Register.XMM3)
+	/// info = RegisterInfo.new(Register.XMM3)
 	/// assert(info:full_register32() == Register.ZMM3)
-	/// info = RegisterInfo:new(Register.YMM3)
+	/// info = RegisterInfo.new(Register.YMM3)
 	/// assert(info:full_register32() == Register.ZMM3)
-	/// info = RegisterInfo:new(Register.ZMM3)
+	/// info = RegisterInfo.new(Register.ZMM3)
 	/// assert(info:full_register32() == Register.ZMM3)
 	/// ```
-	unsafe fn full_register32(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.full_register32() as u32) }
+	unsafe fn full_register32(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.full_register32() as u32) }
 	}
 
 	/// int: Size of the register in bytes
@@ -194,24 +194,24 @@ lua_pub_methods! { static REGISTER_INFO_EXPORTS =>
 	/// local Register = require("iced_x86.Register")
 	/// local RegisterInfo = require("iced_x86.RegisterInfo")
 	///
-	/// local info = RegisterInfo:new(Register.GS)
+	/// local info = RegisterInfo.new(Register.GS)
 	/// assert(info:size() == 2)
-	/// info = RegisterInfo:new(Register.BH)
+	/// info = RegisterInfo.new(Register.BH)
 	/// assert(info:size() == 1)
-	/// info = RegisterInfo:new(Register.DX)
+	/// info = RegisterInfo.new(Register.DX)
 	/// assert(info:size() == 2)
-	/// info = RegisterInfo:new(Register.ESP)
+	/// info = RegisterInfo.new(Register.ESP)
 	/// assert(info:size() == 4)
-	/// info = RegisterInfo:new(Register.RCX)
+	/// info = RegisterInfo.new(Register.RCX)
 	/// assert(info:size() == 8)
-	/// info = RegisterInfo:new(Register.XMM3)
+	/// info = RegisterInfo.new(Register.XMM3)
 	/// assert(info:size() == 16)
-	/// info = RegisterInfo:new(Register.YMM3)
+	/// info = RegisterInfo.new(Register.YMM3)
 	/// assert(info:size() == 32)
-	/// info = RegisterInfo:new(Register.ZMM3)
+	/// info = RegisterInfo.new(Register.ZMM3)
 	/// assert(info:size() == 64)
 	/// ```
-	unsafe fn size(lua, info: &RegisterInfo) -> 1 {
-		unsafe { lua.push(info.inner.size() as u32) }
+	unsafe fn size(lua, this: &RegisterInfo) -> 1 {
+		unsafe { lua.push(this.inner.size() as u32) }
 	}
 }

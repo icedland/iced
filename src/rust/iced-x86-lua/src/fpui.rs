@@ -71,7 +71,7 @@ lua_pub_methods! { static FPU_INFO_EXPORTS =>
 	/// @param conditional boolean # `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
 	/// @param writes_top boolean # `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
 	/// @return FpuStackIncrementInfo
-	unsafe fn new(lua, _ignore: LuaIgnore, increment: i32, conditional: bool, writes_top: bool) -> 1 {
+	unsafe fn new(lua, increment: i32, conditional: bool, writes_top: bool) -> 1 {
 		unsafe { let _ = FpuStackIncrementInfo::push_new(lua, increment, conditional, writes_top); }
 	}
 
@@ -81,20 +81,20 @@ lua_pub_methods! { static FPU_INFO_EXPORTS =>
 	/// and `0` if it writes to `TOP` (eg. `FLDENV`, etc) without pushing/popping anything.
 	///
 	/// @return integer
-	unsafe fn increment(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push(fpui.inner.increment()); }
+	unsafe fn increment(lua, this: &FpuStackIncrementInfo) -> 1 {
+		unsafe { lua.push(this.inner.increment()); }
 	}
 
 	/// `true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
 	/// @return boolean
-	unsafe fn conditional(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push(fpui.inner.conditional()); }
+	unsafe fn conditional(lua, this: &FpuStackIncrementInfo) -> 1 {
+		unsafe { lua.push(this.inner.conditional()); }
 	}
 
 	/// `true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
 	/// @return boolean
-	unsafe fn writes_top(lua, fpui: &FpuStackIncrementInfo) -> 1 {
-		unsafe { lua.push(fpui.inner.writes_top()); }
+	unsafe fn writes_top(lua, this: &FpuStackIncrementInfo) -> 1 {
+		unsafe { lua.push(this.inner.writes_top()); }
 	}
 }
 

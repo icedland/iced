@@ -87,7 +87,7 @@ namespace Generator.Encoder.Lua {
 		}
 
 		void WriteMethodDeclArgs(in GenerateMethodContext ctx) {
-			ctx.Writer.Write("lua, _ignore: LuaIgnore");
+			ctx.Writer.Write("lua");
 			for (int i = 0; i < ctx.Method.Args.Count; i++) {
 				var arg = ctx.Method.Args[i];
 				ctx.Writer.Write(", ");
@@ -156,8 +156,7 @@ namespace Generator.Encoder.Lua {
 			ArgIndexToLuaStackIndex(group.Operands.Length);
 		static int ArgIndexToLuaStackIndex(int argIndex) =>
 			// +1 == 1-based indexes
-			// +1 == _ignore arg is the first arg and it's not part of method.Args array
-			argIndex + 2;
+			argIndex + 1;
 
 		void WriteCreateArgsCode(in GenerateMethodContext ctx) {
 			// First arg is the code value, ignore it

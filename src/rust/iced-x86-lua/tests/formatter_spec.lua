@@ -32,15 +32,15 @@ describe("Formatter", function()
 
 	it("invalid syntax", function()
 		assert.has_error(function()
-			Formatter:new(0x789A)
+			Formatter.new(0x789A)
 		end)
 	end)
 
 	it("invalid op access arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local decoder = Decoder:new(64, from_hex("62F24FDD725001"))
+			local decoder = Decoder.new(64, from_hex("62F24FDD725001"))
 			local instr = decoder:decode()
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:op_access(instr, OpAccess.None)
 			assert.has_error(function()
 				formatter:op_access(instr, 100)
@@ -56,9 +56,9 @@ describe("Formatter", function()
 
 	it("invalid get_instruction_operand() arg)", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local decoder = Decoder:new(64, from_hex("62F24FDD725001"))
+			local decoder = Decoder.new(64, from_hex("62F24FDD725001"))
 			local instr = decoder:decode()
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:get_instruction_operand(instr, 0)
 			assert.has_error(function()
 				formatter:get_instruction_operand(instr, 100)
@@ -74,9 +74,9 @@ describe("Formatter", function()
 
 	it("invalid format_operand() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local decoder = Decoder:new(64, from_hex("62F24FDD725001"))
+			local decoder = Decoder.new(64, from_hex("62F24FDD725001"))
 			local instr = decoder:decode()
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_operand(instr, 0)
 			assert.has_error(function()
 				formatter:format_operand(instr, 100)
@@ -93,7 +93,7 @@ describe("Formatter", function()
 	it("number base", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
 			for base = 0, 20 do
-				local formatter = Formatter:new(syntax)
+				local formatter = Formatter.new(syntax)
 				if base == 2 or base == 8 or base == 10 or base == 16 then
 					assert.equals(16, formatter:number_base())
 					formatter:set_number_base(base)
@@ -107,7 +107,7 @@ describe("Formatter", function()
 				end
 			end
 			do
-				local formatter = Formatter:new(syntax)
+				local formatter = Formatter.new(syntax)
 				assert.has_error(function()
 					formatter:set_number_base(-0x80000001)
 				end)
@@ -120,7 +120,7 @@ describe("Formatter", function()
 
 	it("options", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 
 			formatter:set_uppercase_prefixes(true)
 			formatter:set_uppercase_mnemonics(true)
@@ -256,7 +256,7 @@ describe("Formatter", function()
 
 	it("invalid memory_size_options() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_memory_size_options(MemorySizeOptions.Default)
 			assert.has_error(function()
 				formatter:set_memory_size_options(123)
@@ -272,7 +272,7 @@ describe("Formatter", function()
 
 	it("invalid cc_b() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_b(CC_b.b)
 			assert.has_error(function()
 				formatter:set_cc_b(123)
@@ -288,7 +288,7 @@ describe("Formatter", function()
 
 	it("invalid cc_ae() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_ae(CC_ae.ae)
 			assert.has_error(function()
 				formatter:set_cc_ae(123)
@@ -304,7 +304,7 @@ describe("Formatter", function()
 
 	it("invalid cc_e() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_e(CC_e.e)
 			assert.has_error(function()
 				formatter:set_cc_e(123)
@@ -320,7 +320,7 @@ describe("Formatter", function()
 
 	it("invalid cc_ne() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_ne(CC_ne.ne)
 			assert.has_error(function()
 				formatter:set_cc_ne(123)
@@ -336,7 +336,7 @@ describe("Formatter", function()
 
 	it("invalid cc_be() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_be(CC_be.be)
 			assert.has_error(function()
 				formatter:set_cc_be(123)
@@ -352,7 +352,7 @@ describe("Formatter", function()
 
 	it("invalid cc_a() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_a(CC_a.a)
 			assert.has_error(function()
 				formatter:set_cc_a(123)
@@ -368,7 +368,7 @@ describe("Formatter", function()
 
 	it("invalid cc_p() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_p(CC_p.p)
 			assert.has_error(function()
 				formatter:set_cc_p(123)
@@ -384,7 +384,7 @@ describe("Formatter", function()
 
 	it("invalid cc_np() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_np(CC_np.np)
 			assert.has_error(function()
 				formatter:set_cc_np(123)
@@ -400,7 +400,7 @@ describe("Formatter", function()
 
 	it("invalid cc_l() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_l(CC_l.l)
 			assert.has_error(function()
 				formatter:set_cc_l(123)
@@ -416,7 +416,7 @@ describe("Formatter", function()
 
 	it("invalid cc_ge() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_ge(CC_ge.ge)
 			assert.has_error(function()
 				formatter:set_cc_ge(123)
@@ -432,7 +432,7 @@ describe("Formatter", function()
 
 	it("invalid cc_le() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_le(CC_le.le)
 			assert.has_error(function()
 				formatter:set_cc_le(123)
@@ -448,7 +448,7 @@ describe("Formatter", function()
 
 	it("invalid cc_g() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:set_cc_g(CC_g.g)
 			assert.has_error(function()
 				formatter:set_cc_g(123)
@@ -464,7 +464,7 @@ describe("Formatter", function()
 
 	it("invalid format i8/u8 arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_i8(0)
 			assert.has_error(function()
 				formatter:format_i8(-0x81)
@@ -484,7 +484,7 @@ describe("Formatter", function()
 
 	it("invalid format i16/u16 arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_i16(0)
 			assert.has_error(function()
 				formatter:format_i16(-0x8001)
@@ -504,7 +504,7 @@ describe("Formatter", function()
 
 	it("invalid format i32/u32 arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_i32(0)
 			assert.has_error(function()
 				formatter:format_i32(-0x80000001)
@@ -524,9 +524,9 @@ describe("Formatter", function()
 
 	it("invalid format_mnemonic() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local decoder = Decoder:new(64, from_hex("62F24FDD725001"))
+			local decoder = Decoder.new(64, from_hex("62F24FDD725001"))
 			local instr = decoder:decode()
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_mnemonic(instr, 0)
 			assert.has_error(function()
 				formatter:format_mnemonic(instr, -0x80000001)
@@ -539,9 +539,9 @@ describe("Formatter", function()
 
 	it("invalid get_formatter_operand() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local decoder = Decoder:new(64, from_hex("62F24FDD725001"))
+			local decoder = Decoder.new(64, from_hex("62F24FDD725001"))
 			local instr = decoder:decode()
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:get_formatter_operand(instr, 0)
 			assert.has_error(function()
 				formatter:get_formatter_operand(instr, 0x789A)
@@ -557,7 +557,7 @@ describe("Formatter", function()
 
 	it("invalid format_register() arg", function()
 		for _, syntax in ipairs(fmt_syntaxes) do
-			local formatter = Formatter:new(syntax)
+			local formatter = Formatter.new(syntax)
 			formatter:format_register(Register.RCX)
 			assert.has_error(function()
 				formatter:format_register(0x789A)

@@ -25,12 +25,12 @@ describe("Instruction", function()
 	local RoundingControl = require("iced_x86.RoundingControl")
 
 	it("new", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		assert.equals(Code.INVALID, instr:code())
 	end)
 
 	it("ip", function()
-		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x123456789A)
+		local decoder = Decoder.new(64, from_hex("F390" .. "90"), nil, 0x123456789A)
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 
@@ -109,7 +109,7 @@ describe("Instruction", function()
 	end)
 
 	it("code mnemonic code_size len", function()
-		local decoder = Decoder:new(64, from_hex("F390" .. "90"), nil, 0x123456789A)
+		local decoder = Decoder.new(64, from_hex("F390" .. "90"), nil, 0x123456789A)
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 
@@ -142,8 +142,8 @@ describe("Instruction", function()
 	end)
 
 	it("eq eq_all_bits", function()
-		local decoder1 = Decoder:new(64, from_hex("F390" .. "26F390"), nil, 0x123456789A)
-		local decoder2 = Decoder:new(64, from_hex("F390"), nil, 0x123456789A)
+		local decoder1 = Decoder.new(64, from_hex("F390" .. "26F390"), nil, 0x123456789A)
+		local decoder2 = Decoder.new(64, from_hex("F390"), nil, 0x123456789A)
 		local instr1 = decoder1:decode()
 		local instr2 = decoder2:decode()
 		local instr3 = decoder1:decode()
@@ -158,7 +158,7 @@ describe("Instruction", function()
 	end)
 
 	it("is_invalid", function()
-		local decoder = Decoder:new(64, from_hex("F390" .. "F090" .. "00"), nil, 0x123456789A)
+		local decoder = Decoder.new(64, from_hex("F390" .. "F090" .. "00"), nil, 0x123456789A)
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 		local instr3 = decoder:decode()
@@ -169,13 +169,13 @@ describe("Instruction", function()
 	end)
 
 	it("tostring", function()
-		local decoder = Decoder:new(64, from_hex("83E55A"), nil, 0x123456789A)
+		local decoder = Decoder.new(64, from_hex("83E55A"), nil, 0x123456789A)
 		local instr = decoder:decode()
 		assert.equals("and ebp,5Ah", tostring(instr))
 	end)
 
 	it("copy", function()
-		local decoder = Decoder:new(64, from_hex("F390"), nil, 0x123456789A)
+		local decoder = Decoder.new(64, from_hex("F390"), nil, 0x123456789A)
 		local instr1 = decoder:decode()
 		local instr2 = instr1:copy()
 		assert.is_true(instr1 == instr2)
@@ -188,7 +188,7 @@ describe("Instruction", function()
 	end)
 
 	it("op_count", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "50" .. "83E55A" .. "69CE5AA51234"))
+		local decoder = Decoder.new(64, from_hex("90" .. "50" .. "83E55A" .. "69CE5AA51234"))
 		local instr0 = decoder:decode()
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
@@ -201,7 +201,7 @@ describe("Instruction", function()
 	end)
 
 	it("prefixes", function()
-		local decoder = Decoder:new(64, from_hex("0118"))
+		local decoder = Decoder.new(64, from_hex("0118"))
 		local instr = decoder:decode()
 
 		assert.is_false(instr:has_xacquire_prefix())
@@ -237,7 +237,7 @@ describe("Instruction", function()
 	end)
 
 	it("op_kind", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		instr:set_op0_kind(OpKind.Immediate64)
 		assert.equals(OpKind.Immediate64, instr:op0_kind())
@@ -306,7 +306,7 @@ describe("Instruction", function()
 	end)
 
 	it("segment prefix", function()
-		local decoder = Decoder:new(64, from_hex("6462F17C8B105001"))
+		local decoder = Decoder.new(64, from_hex("6462F17C8B105001"))
 		local instr = decoder:decode()
 
 		assert.is_true(instr:has_segment_prefix())
@@ -325,7 +325,7 @@ describe("Instruction", function()
 	end)
 
 	it("memory", function()
-		local decoder = Decoder:new(64, from_hex("62F27D09A0B48334125AA5"))
+		local decoder = Decoder.new(64, from_hex("62F27D09A0B48334125AA5"))
 		local instr = decoder:decode()
 
 		assert.equals(Code.EVEX_Vpscatterdd_vm32x_k1_xmm, instr:code())
@@ -366,9 +366,9 @@ describe("Instruction", function()
 	end)
 
 	it("ip rel mem", function()
-		local decoder1 = Decoder:new(64, from_hex("62F27D09A0B48334125AA5"))
+		local decoder1 = Decoder.new(64, from_hex("62F27D09A0B48334125AA5"))
 		local instr1 = decoder1:decode()
-		local decoder2 = Decoder:new(64, from_hex("013534125AA5"))
+		local decoder2 = Decoder.new(64, from_hex("013534125AA5"))
 		local instr2 = decoder2:decode()
 
 		assert.equals(Code.EVEX_Vpscatterdd_vm32x_k1_xmm, instr1:code())
@@ -382,7 +382,7 @@ describe("Instruction", function()
 	end)
 
 	it("evex/mvex props", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		assert.is_false(instr:is_broadcast())
 		instr:set_is_broadcast(true)
@@ -441,7 +441,7 @@ describe("Instruction", function()
 	end)
 
 	it("immediate", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		instr:set_op0_kind(OpKind.Immediate8)
 		assert.equals(OpKind.Immediate8, instr:op0_kind())
@@ -625,7 +625,7 @@ describe("Instruction", function()
 	end)
 
 	it("register", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		instr:set_op0_kind(OpKind.Register)
 		instr:set_op0_register(Register.ECX)
@@ -693,7 +693,7 @@ describe("Instruction", function()
 	end)
 
 	it("near branch", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		instr:set_op0_kind(OpKind.NearBranch16)
 		instr:set_near_branch16(-0x8000)
@@ -737,7 +737,7 @@ describe("Instruction", function()
 	end)
 
 	it("far branch", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 
 		instr:set_op0_kind(OpKind.FarBranch16)
 		instr:set_far_branch_selector(-0x8000)
@@ -775,7 +775,7 @@ describe("Instruction", function()
 	end)
 
 	it("vsib", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "C4E2499054A101" .. "C4E2499154A101"))
+		local decoder = Decoder.new(64, from_hex("90" .. "C4E2499054A101" .. "C4E2499154A101"))
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 		local instr3 = decoder:decode()
@@ -797,7 +797,7 @@ describe("Instruction", function()
 	end)
 
 	it("fpu info", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "DA18"))
+		local decoder = Decoder.new(64, from_hex("90" .. "DA18"))
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 
@@ -811,11 +811,11 @@ describe("Instruction", function()
 		assert.is_false(info2:conditional())
 		assert.is_true(info2:writes_top())
 
-		local fpui1 = FpuStackIncrementInfo:new(0, false, false)
+		local fpui1 = FpuStackIncrementInfo.new(0, false, false)
 		assert.is_true(info1 == fpui1)
 		assert.is_true(fpui1 == info1)
 
-		local fpui2 = FpuStackIncrementInfo:new(1, false, true)
+		local fpui2 = FpuStackIncrementInfo.new(1, false, true)
 		assert.is_true(info2 == fpui2)
 		assert.is_true(fpui2 == info2)
 
@@ -823,7 +823,7 @@ describe("Instruction", function()
 	end)
 
 	it("sp inc", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "50" .. "59"))
+		local decoder = Decoder.new(64, from_hex("90" .. "50" .. "59"))
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 		local instr3 = decoder:decode()
@@ -845,7 +845,7 @@ describe("Instruction", function()
 			.. "8FE848 85 10 40"
 			.. "62 F54C0B 58 D3"
 			.. "62 F2790B C6 74 A1 01"
-		local decoder = Decoder:new(64, from_hex(hex), DecoderOptions.KNC)
+		local decoder = Decoder.new(64, from_hex(hex), DecoderOptions.KNC)
 		local instr
 
 		instr = decoder:decode()
@@ -863,7 +863,7 @@ describe("Instruction", function()
 	end)
 
 	it("cpuid", function()
-		local decoder = Decoder:new(64, from_hex("62 F17C08 10 D3" .. "85 CE"))
+		local decoder = Decoder.new(64, from_hex("62 F17C08 10 D3" .. "85 CE"))
 
 		local instr1 = decoder:decode()
 		local cpuid1 = instr1:cpuid_features()
@@ -875,7 +875,7 @@ describe("Instruction", function()
 	end)
 
 	it("cflow", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "CC"))
+		local decoder = Decoder.new(64, from_hex("90" .. "CC"))
 		local instr1 = decoder:decode()
 		local instr2 = decoder:decode()
 
@@ -884,7 +884,7 @@ describe("Instruction", function()
 	end)
 
 	it("instr props", function()
-		local decoder = Decoder:new(64, from_hex("90" .. "E4 5A" .. "0F37" .. "A4"))
+		local decoder = Decoder.new(64, from_hex("90" .. "E4 5A" .. "0F37" .. "A4"))
 		local instr
 
 		instr = decoder:decode()
@@ -909,7 +909,7 @@ describe("Instruction", function()
 	end)
 
 	it("rflags", function()
-		local decoder = Decoder:new(64, from_hex("48 09 18" .. "F5" .. "F9" .. "90"))
+		local decoder = Decoder.new(64, from_hex("48 09 18" .. "F5" .. "F9" .. "90"))
 		local instr
 
 		instr = decoder:decode()
@@ -967,7 +967,7 @@ describe("Instruction", function()
 			.. "E2 5A"
 			.. "E1 5A"
 			.. "E0 5A"
-		decoder = Decoder:new(64, from_hex(hex), DecoderOptions.KNC)
+		decoder = Decoder.new(64, from_hex(hex), DecoderOptions.KNC)
 
 		-- Nopd
 		instr = decoder:decode()
@@ -1280,7 +1280,7 @@ describe("Instruction", function()
 		-- Far branches
 
 		hex = "9A 12345678 9ABC" .. "EA 12345678 EABC" .. "FF 18" .. "FF 28"
-		decoder = Decoder:new(32, from_hex(hex))
+		decoder = Decoder.new(32, from_hex(hex))
 
 		-- Call_ptr1632
 		instr = decoder:decode()
@@ -1372,7 +1372,7 @@ describe("Instruction", function()
 	end)
 
 	it("cc branches", function()
-		local decoder = Decoder:new(64, from_hex("74 5A" .. "90"))
+		local decoder = Decoder.new(64, from_hex("74 5A" .. "90"))
 		local instr
 
 		instr = decoder:decode()
@@ -1397,7 +1397,7 @@ describe("Instruction", function()
 	end)
 
 	it("db", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		instr:set_code(Code.DeclareByte)
 
 		assert.equals(1, instr:declare_data_len())
@@ -1426,7 +1426,7 @@ describe("Instruction", function()
 	end)
 
 	it("dw", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		instr:set_code(Code.DeclareWord)
 
 		assert.equals(1, instr:declare_data_len())
@@ -1455,7 +1455,7 @@ describe("Instruction", function()
 	end)
 
 	it("dd", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		instr:set_code(Code.DeclareDword)
 
 		assert.equals(1, instr:declare_data_len())
@@ -1484,7 +1484,7 @@ describe("Instruction", function()
 	end)
 
 	it("dq", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		instr:set_code(Code.DeclareQword)
 
 		assert.equals(1, instr:declare_data_len())
@@ -1513,7 +1513,7 @@ describe("Instruction", function()
 	end)
 
 	it("OpCodeInfo", function()
-		local instr = Instruction:new()
+		local instr = Instruction.new()
 		instr:set_code(Code.Adc_AL_imm8)
 
 		local op_code = instr:op_code()
@@ -1521,7 +1521,7 @@ describe("Instruction", function()
 	end)
 
 	it("instr info", function()
-		local decoder = Decoder:new(64, from_hex("C4E349 48 10 41"))
+		local decoder = Decoder.new(64, from_hex("C4E349 48 10 41"))
 		local instr = decoder:decode()
 
 		local used_registers1, is_nil1 = instr:used_registers()

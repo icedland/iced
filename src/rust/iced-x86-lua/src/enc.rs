@@ -61,10 +61,10 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// -- xchg ah,[rdx+rsi+16h]
 	/// local data = "\134\100\050\022"
-	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local decoder = Decoder.new(64, data, nil, 0x12345678)
 	/// local instr = decoder:decode()
 	///
-	/// local encoder = Encoder:new(64)
+	/// local encoder = Encoder.new(64)
 	/// local instr_len = encoder:encode(instr, 0x55555555)
 	/// assert(instr_len == 4)
 	///
@@ -72,7 +72,7 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// local buffer = encoder:take_buffer()
 	/// assert(buffer == "\134\100\050\022")
 	/// ```
-	unsafe fn new(lua, _ignore: LuaIgnore, bitness: u32, capacity: Option<usize>) -> 1 {
+	unsafe fn new(lua, bitness: u32, capacity: Option<usize>) -> 1 {
 		unsafe {
 			let capacity = capacity.unwrap_or(0);
 			let encoder = match iced_x86::Encoder::try_with_capacity(bitness, capacity) {
@@ -100,10 +100,10 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// -- je short $+4
 	/// local data = "\117\002"
-	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local decoder = Decoder.new(64, data, nil, 0x12345678)
 	/// local instr = decoder:decode()
 	///
-	/// local encoder = Encoder:new(64)
+	/// local encoder = Encoder.new(64)
 	/// -- Use a different IP (orig rip + 0x10)
 	/// local instr_len = encoder:encode(instr, 0x12345688)
 	/// assert(instr_len == 2)
@@ -112,8 +112,8 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// local buffer = encoder:take_buffer()
 	/// assert(buffer == "\117\242")
 	/// ```
-	unsafe fn encode(lua, encoder: &mut Encoder, instruction: &Instruction, rip: u64) -> 1 {
-		match encoder.inner.encode(&instruction.inner, rip) {
+	unsafe fn encode(lua, this: &mut Encoder, instruction: &Instruction, rip: u64) -> 1 {
+		match this.inner.encode(&instruction.inner, rip) {
 			Ok(size) => unsafe { lua.push(size) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -130,10 +130,10 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	///
 	/// -- je short $+4
 	/// local data = "\117\002"
-	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local decoder = Decoder.new(64, data, nil, 0x12345678)
 	/// local instr = decoder:decode()
 	///
-	/// local encoder = Encoder:new(64)
+	/// local encoder = Encoder.new(64)
 	/// -- Add a random byte
 	/// encoder:write_u8(0x90)
 	///
@@ -148,8 +148,8 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// local buffer = encoder:take_buffer()
 	/// assert(buffer == "\144\117\242\144")
 	/// ```
-	unsafe fn write_u8(lua, encoder: &mut Encoder, value: u8) -> 0 {
-		encoder.inner.write_u8(value)
+	unsafe fn write_u8(lua, this: &mut Encoder, value: u8) -> 0 {
+		this.inner.write_u8(value)
 	}
 
 	/// Returns the buffer and initializes the internal buffer to an empty array.
@@ -157,11 +157,11 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// Should be called when you've encoded all instructions and need the raw instruction bytes.
 	///
 	/// @return string # The encoded instructions
-	unsafe fn take_buffer(lua, encoder: &mut Encoder) -> 1 {
-		let mut buffer = encoder.inner.take_buffer();
+	unsafe fn take_buffer(lua, this: &mut Encoder) -> 1 {
+		let mut buffer = this.inner.take_buffer();
 		unsafe { lua.push(&buffer); }
 		buffer.clear();
-		encoder.inner.set_buffer(buffer);
+		this.inner.set_buffer(buffer);
 	}
 
 	/// Gets the offsets of the constants (memory displacement and immediate) in the encoded instruction.
@@ -169,75 +169,75 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	/// The caller can use this information to add relocations if needed.
 	///
 	/// @return ConstantOffsets # Offsets and sizes of immediates
-	unsafe fn get_constant_offsets(lua, encoder: &Encoder) -> 1 {
-		let co = ConstantOffsets { inner: encoder.inner.get_constant_offsets() };
+	unsafe fn get_constant_offsets(lua, this: &Encoder) -> 1 {
+		let co = ConstantOffsets { inner: this.inner.get_constant_offsets() };
 		let _ = unsafe { ConstantOffsets::init_and_push(lua, &co) };
 	}
 
 	/// Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
 	/// @return boolean
-	unsafe fn prevent_vex2(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.prevent_vex2()); }
+	unsafe fn prevent_vex2(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.prevent_vex2()); }
 	}
 
-	unsafe fn set_prevent_vex2(lua, encoder: &mut Encoder, new_value: bool) -> 0 {
-		encoder.inner.set_prevent_vex2(new_value)
+	unsafe fn set_prevent_vex2(lua, this: &mut Encoder, new_value: bool) -> 0 {
+		this.inner.set_prevent_vex2(new_value)
 	}
 
 	/// Value of the `VEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	/// @return integer
-	unsafe fn vex_wig(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.vex_wig()); }
+	unsafe fn vex_wig(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.vex_wig()); }
 	}
 
-	unsafe fn set_vex_wig(lua, encoder: &mut Encoder, new_value: u32) -> 0 {
-		encoder.inner.set_vex_wig(new_value)
+	unsafe fn set_vex_wig(lua, this: &mut Encoder, new_value: u32) -> 0 {
+		this.inner.set_vex_wig(new_value)
 	}
 
 	/// Value of the `VEX.L` bit to use if it's an instruction that ignores the bit. Default is 0.
 	/// @return integer
-	unsafe fn vex_lig(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.vex_lig()); }
+	unsafe fn vex_lig(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.vex_lig()); }
 	}
 
-	unsafe fn set_vex_lig(lua, encoder: &mut Encoder, new_value: u32) -> 0 {
-		encoder.inner.set_vex_lig(new_value)
+	unsafe fn set_vex_lig(lua, this: &mut Encoder, new_value: u32) -> 0 {
+		this.inner.set_vex_lig(new_value)
 	}
 
 	/// Value of the `EVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	/// @return integer
-	unsafe fn evex_wig(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.evex_wig()); }
+	unsafe fn evex_wig(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.evex_wig()); }
 	}
 
-	unsafe fn set_evex_wig(lua, encoder: &mut Encoder, new_value: u32) -> 0 {
-		encoder.inner.set_evex_wig(new_value)
+	unsafe fn set_evex_wig(lua, this: &mut Encoder, new_value: u32) -> 0 {
+		this.inner.set_evex_wig(new_value)
 	}
 
 	/// Value of the `EVEX.L'L` bits to use if it's an instruction that ignores the bits. Default is 0.
 	/// @return integer
-	unsafe fn evex_lig(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.evex_lig()); }
+	unsafe fn evex_lig(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.evex_lig()); }
 	}
 
-	unsafe fn set_evex_lig(lua, encoder: &mut Encoder, new_value: u32) -> 0 {
-		encoder.inner.set_evex_lig(new_value)
+	unsafe fn set_evex_lig(lua, this: &mut Encoder, new_value: u32) -> 0 {
+		this.inner.set_evex_lig(new_value)
 	}
 
 	/// Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
 	/// @return integer
-	unsafe fn mvex_wig(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.mvex_wig()); }
+	unsafe fn mvex_wig(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.mvex_wig()); }
 	}
 
-	unsafe fn set_mvex_wig(lua, encoder: &mut Encoder, new_value: u32) -> 0 {
-		encoder.inner.set_mvex_wig(new_value)
+	unsafe fn set_mvex_wig(lua, this: &mut Encoder, new_value: u32) -> 0 {
+		this.inner.set_mvex_wig(new_value)
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	/// @return integer
-	unsafe fn bitness(lua, encoder: &Encoder) -> 1 {
-		unsafe { lua.push(encoder.inner.bitness()); }
+	unsafe fn bitness(lua, this: &Encoder) -> 1 {
+		unsafe { lua.push(this.inner.bitness()); }
 	}
 }
 

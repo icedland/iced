@@ -55,10 +55,10 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// local info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:size() == 32)
 	/// ```
-	unsafe fn new(lua, _ignore: LuaIgnore, memory_size: u32) -> 1 {
+	unsafe fn new(lua, memory_size: u32) -> 1 {
 		let _ = unsafe { MemorySizeInfo::init_and_push(lua, &MemorySizeInfo { inner: *to_memory_size(lua, memory_size).info() }) };
 	}
 
@@ -71,11 +71,11 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// local info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:memory_size() == MemorySize.Packed256_UInt16)
 	/// ```
-	unsafe fn memory_size(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.memory_size() as u32) }
+	unsafe fn memory_size(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.memory_size() as u32) }
 	}
 
 	/// Gets the size in bytes of the memory location or 0 if it's not accessed or unknown
@@ -87,15 +87,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(info:size() == 4)
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:size() == 32)
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(info:size() == 8)
 	/// ```
-	unsafe fn size(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.size() as u32) }
+	unsafe fn size(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.size() as u32) }
 	}
 
 	/// Gets the size in bytes of the packed element. If it's not a packed data type, it's equal to `MemorySizeInfo.size()`.
@@ -107,15 +107,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(info:element_size() == 4)
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:element_size() == 2)
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(info:element_size() == 8)
 	/// ```
-	unsafe fn element_size(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.element_size() as u32) }
+	unsafe fn element_size(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.element_size() as u32) }
 	}
 
 	/// Gets the element type if it's packed data or the type itself if it's not packed data
@@ -127,15 +127,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(info:element_type() == MemorySize.UInt32)
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:element_type() == MemorySize.UInt16)
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(info:element_type() == MemorySize.UInt64)
 	/// ```
-	unsafe fn element_type(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.element_type() as u32) }
+	unsafe fn element_type(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.element_type() as u32) }
 	}
 
 	/// Gets the element type if it's packed data or the type itself if it's not packed data
@@ -147,15 +147,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32):element_type_info()
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32):element_type_info()
 	/// assert(info:memory_size() == MemorySize.UInt32)
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16):element_type_info()
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16):element_type_info()
 	/// assert(info:memory_size() == MemorySize.UInt16)
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64):element_type_info()
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64):element_type_info()
 	/// assert(info:memory_size() == MemorySize.UInt64)
 	/// ```
-	unsafe fn element_type_info(lua, info: &MemorySizeInfo) -> 1 {
-		let _ = unsafe { MemorySizeInfo::init_and_push(lua, &MemorySizeInfo { inner: *info.inner.element_type().info() }) };
+	unsafe fn element_type_info(lua, this: &MemorySizeInfo) -> 1 {
+		let _ = unsafe { MemorySizeInfo::init_and_push(lua, &MemorySizeInfo { inner: *this.inner.element_type().info() }) };
 	}
 
 	/// `true` if it's signed data (signed integer or a floating point value)
@@ -167,15 +167,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(not info:is_signed())
-	/// info = MemorySizeInfo:new(MemorySize.Int32)
+	/// info = MemorySizeInfo.new(MemorySize.Int32)
 	/// assert(info:is_signed())
-	/// info = MemorySizeInfo:new(MemorySize.Float64)
+	/// info = MemorySizeInfo.new(MemorySize.Float64)
 	/// assert(info:is_signed())
 	/// ```
-	unsafe fn is_signed(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.is_signed()) }
+	unsafe fn is_signed(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.is_signed()) }
 	}
 
 	/// `true` if it's a broadcast memory type
@@ -187,15 +187,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(not info:is_broadcast())
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(not info:is_broadcast())
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(info:is_broadcast())
 	/// ```
-	unsafe fn is_broadcast(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.is_broadcast()) }
+	unsafe fn is_broadcast(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.is_broadcast()) }
 	}
 
 	/// `true` if this is a packed data type, eg. `MemorySize.Packed128_Float32`. See also `MemorySizeInfo.element_count()`
@@ -207,15 +207,15 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(not info:is_packed())
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:is_packed())
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(not info:is_packed())
 	/// ```
-	unsafe fn is_packed(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.is_packed()) }
+	unsafe fn is_packed(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.is_packed()) }
 	}
 
 	/// Gets the number of elements in the packed data type or `1` if it's not packed data (`MemorySizeInfo.is_packed()`)
@@ -227,14 +227,14 @@ lua_pub_methods! { static MEMORY_SIZE_INFO_EXPORTS =>
 	/// local MemorySize = require("iced_x86.MemorySize")
 	/// local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 	///
-	/// local info = MemorySizeInfo:new(MemorySize.UInt32)
+	/// local info = MemorySizeInfo.new(MemorySize.UInt32)
 	/// assert(info:element_count() == 1)
-	/// info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+	/// info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 	/// assert(info:element_count() == 16)
-	/// info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+	/// info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 	/// assert(info:element_count() == 1)
 	/// ```
-	unsafe fn element_count(lua, info: &MemorySizeInfo) -> 1 {
-		unsafe { lua.push(info.inner.element_count() as u32) }
+	unsafe fn element_count(lua, this: &MemorySizeInfo) -> 1 {
+		unsafe { lua.push(this.inner.element_count() as u32) }
 	}
 }

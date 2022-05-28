@@ -77,7 +77,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// -- xacquire lock add dword ptr [rax],5Ah
 	/// -- vmovdqu64 zmm18{k3}{z},zmm11
 	/// local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
-	/// local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+	/// local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 	///
 	/// local instr1 = decoder:decode()
 	/// assert(instr1:code() == Code.Xchg_rm8_r8)
@@ -106,17 +106,17 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// -- lock add esi,ecx    lock not allowed
 	/// local bytes = "\240\001\206"
-	/// local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+	/// local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 	/// local instr = decoder:decode()
 	/// assert(instr:code() == Code.INVALID)
 	///
 	/// -- We want to decode some instructions with invalid encodings
-	/// local decoder2 = Decoder:new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
+	/// local decoder2 = Decoder.new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
 	/// local instr2 = decoder2:decode()
 	/// assert(instr2:code() == Code.Add_rm32_r32)
 	/// assert(instr2:has_lock_prefix())
 	/// ```
-	unsafe fn new(lua, _ignore: LuaIgnore, bitness: u32, data: &[u8], options: LuaDefaultU32<{DecoderOptions::NONE}>, ip: LuaDefaultU64<0>) -> 1 {
+	unsafe fn new(lua, bitness: u32, data: &[u8], options: LuaDefaultU32<{DecoderOptions::NONE}>, ip: LuaDefaultU64<0>) -> 1 {
 		unsafe {
 			let decoder = match Decoder::new(bitness, data, options, ip) {
 				Ok(decoder) => decoder,
@@ -131,21 +131,21 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 
 	/// The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 	/// @return integer
-	unsafe fn ip(lua, decoder: &Decoder) -> 1 {
+	unsafe fn ip(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.ip())
+			lua.push(this.inner.ip())
 		}
 	}
 
-	unsafe fn set_ip(lua, decoder: &mut Decoder, ip: u64) -> 0 {
-		decoder.inner.set_ip(ip);
+	unsafe fn set_ip(lua, this: &mut Decoder, ip: u64) -> 0 {
+		this.inner.set_ip(ip);
 	}
 
 	/// Gets the bitness (16, 32 or 64)
 	/// @return integer
-	unsafe fn bitness(lua, decoder: &Decoder) -> 1 {
+	unsafe fn bitness(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.bitness());
+			lua.push(this.inner.bitness());
 		}
 	}
 
@@ -153,9 +153,9 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// This is the size of the data that gets decoded to instructions and it's the length of the data that was passed to the constructor.
 	/// @return integer
-	unsafe fn max_position(lua, decoder: &Decoder) -> 1 {
+	unsafe fn max_position(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.max_position());
+			lua.push(this.inner.max_position());
 		}
 	}
 
@@ -173,7 +173,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// -- nop and pause
 	/// local data = "\144\243\144"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// assert(decoder:position() == 0)
 	/// assert(decoder:max_position() == 3)
@@ -193,15 +193,15 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// assert(decoder:decode():code() == Code.Pause)
 	/// assert(decoder:position() == 3)
 	/// ```
-	unsafe fn position(lua, decoder: &Decoder) -> 1 {
+	unsafe fn position(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.position());
+			lua.push(this.inner.position());
 		}
 	}
 
-	unsafe fn set_position(lua, decoder: &mut Decoder, pos: usize) -> 0 {
+	unsafe fn set_position(lua, this: &mut Decoder, pos: usize) -> 0 {
 		unsafe {
-			if let Err(e) = decoder.inner.set_position(pos) {
+			if let Err(e) = this.inner.set_position(pos) {
 				lua.throw_error(e);
 			}
 		}
@@ -225,7 +225,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// -- nop and an incomplete instruction
 	/// local data = "\144\243\015"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- 3 bytes left to read
 	/// assert(decoder:can_decode())
@@ -243,9 +243,9 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// -- 0 bytes left to read
 	/// assert(not decoder:can_decode())
 	/// ```
-	unsafe fn can_decode(lua, decoder: &Decoder) -> 1 {
+	unsafe fn can_decode(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.can_decode());
+			lua.push(this.inner.can_decode());
 		}
 	}
 
@@ -253,9 +253,9 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// Unless you need to know the reason it failed, it's better to check `Instruction:is_invalid()`.
 	/// @return integer #`DecoderError` enum value
-	unsafe fn last_error(lua, decoder: &Decoder) -> 1 {
+	unsafe fn last_error(lua, this: &Decoder) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.last_error() as u32);
+			lua.push(this.inner.last_error() as u32);
 		}
 	}
 
@@ -278,7 +278,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// -- xrelease lock add [rax],ebx
 	/// local data = "\240\243\001\024"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:code() == Code.Add_rm32_r32)
@@ -301,10 +301,10 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// assert(instr:has_lock_prefix())
 	/// assert(instr:has_xrelease_prefix())
 	/// ```
-	unsafe fn decode(lua, decoder: &mut Decoder) -> 1 {
+	unsafe fn decode(lua, this: &mut Decoder) -> 1 {
 		unsafe {
 			let instr = Instruction::push_new(lua);
-			decoder.inner.decode_out(&mut instr.inner);
+			this.inner.decode_out(&mut instr.inner);
 		}
 	}
 
@@ -329,8 +329,8 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	///
 	/// -- xrelease lock add [rax],ebx
 	/// local data = "\240\243\001\024"
-	/// local decoder = Decoder:new(64, data)
-	/// local instr = Instruction:new()
+	/// local decoder = Decoder.new(64, data)
+	/// local instr = Instruction.new()
 	/// decoder:decode_out(instr)
 	///
 	/// assert(instr:code() == Code.Add_rm32_r32)
@@ -353,11 +353,11 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// assert(instr:has_lock_prefix())
 	/// assert(instr:has_xrelease_prefix())
 	/// ```
-	unsafe fn decode_out(lua, decoder: &mut Decoder, instr: &mut Instruction) -> 1 {
+	unsafe fn decode_out(lua, this: &mut Decoder, instr: &mut Instruction) -> 1 {
 		unsafe {
-			lua.push(decoder.inner.can_decode());
+			lua.push(this.inner.can_decode());
 		}
-		decoder.inner.decode_out(&mut instr.inner);
+		this.inner.decode_out(&mut instr.inner);
 	}
 
 	/// An iterator that returns the remaining instructions.
@@ -375,7 +375,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// local DecoderOptions = require("iced_x86.DecoderOptions")
 	///
 	/// local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
-	/// local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+	/// local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 	///
 	/// local instrs = {}
 	/// -- This iterator stops when there's nothing left to decode, but the
@@ -395,7 +395,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// --     0x1234567C xacquire lock add dword ptr [rax],5Ah
 	/// --     0x12345681 vmovdqu64 zmm18{k3}{z},zmm11
 	/// ```
-	unsafe fn iter_out(lua, _decoder: &Decoder, instr: Option<&Instruction>) -> 3 {
+	unsafe fn iter_out(lua, _this: &Decoder, instr: Option<&Instruction>) -> 3 {
 		unsafe {
 			lua.push_c_function(iter_out_worker);
 			lua.push_value(1);
@@ -419,7 +419,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// local DecoderOptions = require("iced_x86.DecoderOptions")
 	///
 	/// local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
-	/// local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+	/// local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 	///
 	/// local instrs = {}
 	/// -- Decoder:iter_out() will overwrite the returned instruction
@@ -437,7 +437,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// --     0x1234567C xacquire lock add dword ptr [rax],5Ah
 	/// --     0x12345681 vmovdqu64 zmm18{k3}{z},zmm11
 	/// ```
-	unsafe fn iter_slow_copy(lua, _decoder: &Decoder) -> 3 {
+	unsafe fn iter_slow_copy(lua, _this: &Decoder) -> 3 {
 		unsafe {
 			lua.push_c_function(iter_slow_copy_worker);
 			lua.push_value(1);
@@ -463,7 +463,7 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// --                  00  01  02  03  04  05  06
 	/// --                \opc\mrm\displacement___\imm
 	/// local data = "\144\131\179\052\018\090\165\090"
-	/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+	/// local decoder = Decoder.new(64, data, nil, 0x12345678)
 	/// assert(decoder:decode():code() == Code.Nopd)
 	/// local instr = decoder:decode()
 	/// local co = decoder:get_constant_offsets(instr)
@@ -479,8 +479,8 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// assert(co:immediate_offset2() == 0)
 	/// assert(co:immediate_size2() == 0)
 	/// ```
-	unsafe fn get_constant_offsets(lua, decoder: &Decoder, instr: &Instruction) -> 1 {
-		let co = ConstantOffsets { inner: decoder.inner.get_constant_offsets(&instr.inner) };
+	unsafe fn get_constant_offsets(lua, this: &Decoder, instr: &Instruction) -> 1 {
+		let co = ConstantOffsets { inner: this.inner.get_constant_offsets(&instr.inner) };
 		let _ = unsafe { ConstantOffsets::init_and_push(lua, &co) };
 	}
 }

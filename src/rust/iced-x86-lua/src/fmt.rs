@@ -87,15 +87,15 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// local FormatterSyntax = require("iced_x86.FormatterSyntax")
 	///
 	/// local data = "\098\242\079\221\114\080\001"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
-	/// local formatter = Formatter:new(FormatterSyntax.Masm)
+	/// local formatter = Formatter.new(FormatterSyntax.Masm)
 	/// formatter:set_uppercase_mnemonics(true)
 	/// local disasm = formatter:format(instr)
 	/// assert(disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]")
 	/// ```
-	unsafe fn new(lua, _ignore: LuaIgnore, syntax: u32) -> 1 {
+	unsafe fn new(lua, syntax: u32) -> 1 {
 		let formatter: Box<dyn iced_x86::Formatter> = if syntax == FormatterSyntax::Gas as u32 {
 			Box::new(iced_x86::GasFormatter::new())
 		} else if syntax == FormatterSyntax::Intel as u32 {
@@ -115,10 +115,10 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	///
 	/// @param instruction Instruction # Instruction to format
 	/// @return string # The formatted string
-	unsafe fn format(lua, fmt: &mut Formatter, instruction: &Instruction) -> 1 {
-		fmt.output.clear();
-		fmt.inner.format(&instruction.inner, &mut fmt.output);
-		unsafe { lua.push(&fmt.output); }
+	unsafe fn format(lua, this: &mut Formatter, instruction: &Instruction) -> 1 {
+		this.output.clear();
+		this.inner.format(&instruction.inner, &mut this.output);
+		unsafe { lua.push(&this.output); }
 	}
 
 	/// Formats the mnemonic and any prefixes
@@ -126,30 +126,28 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// @param instruction Instruction # Instruction to format
 	/// @param options? integer # (default = `FormatMnemonicOptions.None`) Options (A `FormatMnemonicOptions` enum value)
 	/// @return string # The formatted string
-	unsafe fn format_mnemonic(lua, fmt: &mut Formatter, instruction: &Instruction, options: Option<u32>) -> 1 {
+	unsafe fn format_mnemonic(lua, this: &mut Formatter, instruction: &Instruction, options: Option<u32>) -> 1 {
 		let options = options.unwrap_or(iced_x86::FormatMnemonicOptions::NONE);
-		fmt.output.clear();
-		fmt.inner.format_mnemonic_options(&instruction.inner, &mut fmt.output, options);
-		unsafe { lua.push(&fmt.output); }
+		this.output.clear();
+		this.inner.format_mnemonic_options(&instruction.inner, &mut this.output, options);
+		unsafe { lua.push(&this.output); }
 	}
 
 	/// Gets the number of operands that will be formatted. A formatter can add and remove operands
 	///
 	/// @param instruction Instruction # Instruction
 	/// @return integer # Operand count
-	unsafe fn operand_count(lua, fmt: &mut Formatter, instruction: &Instruction) -> 1 {
-		unsafe { lua.push(fmt.inner.operand_count(&instruction.inner)); }
+	unsafe fn operand_count(lua, this: &mut Formatter, instruction: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.operand_count(&instruction.inner)); }
 	}
 
 	/// Returns the operand access but only if it's an operand added by the formatter.
 	///
-	/// If it's an operand that is part of `Instruction`, you should call eg. `InstructionInfoFactory:info()`.
-	///
 	/// @param instruction Instruction # Instruction
 	/// @param operand integer # Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter:operand_count()`
 	/// @return integer|nil # Operand access (an `OpAccess` enum value) or `nil`
-	unsafe fn op_access(lua, fmt: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
-		match fmt.inner.op_access(&instruction.inner, operand) {
+	unsafe fn op_access(lua, this: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
+		match this.inner.op_access(&instruction.inner, operand) {
 			Ok(res) => unsafe { lua.push(res.map(|v| v as u32)) },
 			Err(_) => unsafe { lua.throw_error(LuaError::MessageStr("Invalid operand")) },
 		}
@@ -162,8 +160,8 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// @param instruction Instruction # Instruction
 	/// @param operand integer # Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter:operand_count()`
 	/// @return integer|nil # Instruction operand or `nil` if it's an operand added by the formatter
-	unsafe fn get_instruction_operand(lua, fmt: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
-		match fmt.inner.get_instruction_operand(&instruction.inner, operand) {
+	unsafe fn get_instruction_operand(lua, this: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
+		match this.inner.get_instruction_operand(&instruction.inner, operand) {
 			Ok(res) => unsafe { lua.push(res) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -176,8 +174,8 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// @param instruction Instruction # Instruction
 	/// @param instruction_operand integer # Instruction operand
 	/// @return integer|nil # Instruction operand or `nil` if the instruction operand isn't used by the formatter
-	unsafe fn get_formatter_operand(lua, fmt: &mut Formatter, instruction: &Instruction, instruction_operand: u32) -> 1 {
-		match fmt.inner.get_formatter_operand(&instruction.inner, instruction_operand) {
+	unsafe fn get_formatter_operand(lua, this: &mut Formatter, instruction: &Instruction, instruction_operand: u32) -> 1 {
+		match this.inner.get_formatter_operand(&instruction.inner, instruction_operand) {
 			Ok(res) => unsafe { lua.push(res) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -188,10 +186,10 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// @param instruction Instruction # Instruction
 	/// @param operand integer # Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter:operand_count()`
 	/// @return string # The formatted string
-	unsafe fn format_operand(lua, fmt: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
-		fmt.output.clear();
-		match fmt.inner.format_operand(&instruction.inner, &mut fmt.output, operand) {
-			Ok(()) => unsafe { lua.push(&fmt.output) },
+	unsafe fn format_operand(lua, this: &mut Formatter, instruction: &Instruction, operand: u32) -> 1 {
+		this.output.clear();
+		match this.inner.format_operand(&instruction.inner, &mut this.output, operand) {
+			Ok(()) => unsafe { lua.push(&this.output) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
 	}
@@ -200,92 +198,92 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	///
 	/// @param instruction Instruction # Instruction
 	/// @return string # The formatted string
-	unsafe fn format_operand_separator(lua, fmt: &mut Formatter, instruction: &Instruction) -> 1 {
-		fmt.output.clear();
-		fmt.inner.format_operand_separator(&instruction.inner, &mut fmt.output);
-		unsafe { lua.push(&fmt.output); }
+	unsafe fn format_operand_separator(lua, this: &mut Formatter, instruction: &Instruction) -> 1 {
+		this.output.clear();
+		this.inner.format_operand_separator(&instruction.inner, &mut this.output);
+		unsafe { lua.push(&this.output); }
 	}
 
 	/// Formats all operands
 	///
 	/// @param instruction Instruction # Instruction to format
 	/// @return string # The formatted string
-	unsafe fn format_all_operands(lua, fmt: &mut Formatter, instruction: &Instruction) -> 1 {
-		fmt.output.clear();
-		fmt.inner.format_all_operands(&instruction.inner, &mut fmt.output);
-		unsafe { lua.push(&fmt.output); }
+	unsafe fn format_all_operands(lua, this: &mut Formatter, instruction: &Instruction) -> 1 {
+		this.output.clear();
+		this.inner.format_all_operands(&instruction.inner, &mut this.output);
+		unsafe { lua.push(&this.output); }
 	}
 
 	/// Formats a register
 	///
 	/// @param register integer # Register (A `Register` enum value)
 	/// @return string # The formatted string
-	unsafe fn format_register(lua, fmt: &mut Formatter, register: u32) -> 1 {
-		unsafe { lua.push(fmt.inner.format_register(to_register(lua, register))); }
+	unsafe fn format_register(lua, this: &mut Formatter, register: u32) -> 1 {
+		unsafe { lua.push(this.inner.format_register(to_register(lua, register))); }
 	}
 
 	/// Formats a `i8`
 	///
 	/// @param value integer # (`i8`) Value
 	/// @return string # The formatted string
-	unsafe fn format_i8(lua, fmt: &mut Formatter, value: i8) -> 1 {
-		unsafe { lua.push(fmt.inner.format_i8(value)); }
+	unsafe fn format_i8(lua, this: &mut Formatter, value: i8) -> 1 {
+		unsafe { lua.push(this.inner.format_i8(value)); }
 	}
 
 	/// Formats a `i16`
 	///
 	/// @param value integer # (`i16`) Value
 	/// @return string # The formatted string
-	unsafe fn format_i16(lua, fmt: &mut Formatter, value: i16) -> 1 {
-		unsafe { lua.push(fmt.inner.format_i16(value)); }
+	unsafe fn format_i16(lua, this: &mut Formatter, value: i16) -> 1 {
+		unsafe { lua.push(this.inner.format_i16(value)); }
 	}
 
 	/// Formats a `i32`
 	///
 	/// @param value integer # (`i32`) Value
 	/// @return string # The formatted string
-	unsafe fn format_i32(lua, fmt: &mut Formatter, value: i32) -> 1 {
-		unsafe { lua.push(fmt.inner.format_i32(value)); }
+	unsafe fn format_i32(lua, this: &mut Formatter, value: i32) -> 1 {
+		unsafe { lua.push(this.inner.format_i32(value)); }
 	}
 
 	/// Formats a `i64`
 	///
 	/// @param value integer # (`i64`) Value
 	/// @return string # The formatted string
-	unsafe fn format_i64(lua, fmt: &mut Formatter, value: i64) -> 1 {
-		unsafe { lua.push(fmt.inner.format_i64(value)); }
+	unsafe fn format_i64(lua, this: &mut Formatter, value: i64) -> 1 {
+		unsafe { lua.push(this.inner.format_i64(value)); }
 	}
 
 	/// Formats a `u8`
 	///
 	/// @param value integer # (`u8`) Value
 	/// @return string # The formatted string
-	unsafe fn format_u8(lua, fmt: &mut Formatter, value: u8) -> 1 {
-		unsafe { lua.push(fmt.inner.format_u8(value)); }
+	unsafe fn format_u8(lua, this: &mut Formatter, value: u8) -> 1 {
+		unsafe { lua.push(this.inner.format_u8(value)); }
 	}
 
 	/// Formats a `u16`
 	///
 	/// @param value integer # (`u16`) Value
 	/// @return string # The formatted string
-	unsafe fn format_u16(lua, fmt: &mut Formatter, value: u16) -> 1 {
-		unsafe { lua.push(fmt.inner.format_u16(value)); }
+	unsafe fn format_u16(lua, this: &mut Formatter, value: u16) -> 1 {
+		unsafe { lua.push(this.inner.format_u16(value)); }
 	}
 
 	/// Formats a `u32`
 	///
 	/// @param value integer # (`u32`) Value
 	/// @return string # The formatted string
-	unsafe fn format_u32(lua, fmt: &mut Formatter, value: u32) -> 1 {
-		unsafe { lua.push(fmt.inner.format_u32(value)); }
+	unsafe fn format_u32(lua, this: &mut Formatter, value: u32) -> 1 {
+		unsafe { lua.push(this.inner.format_u32(value)); }
 	}
 
 	/// Formats a `u64`
 	///
 	/// @param value integer # (`u64`) Value
 	/// @return string # The formatted string
-	unsafe fn format_u64(lua, fmt: &mut Formatter, value: u64) -> 1 {
-		unsafe { lua.push(fmt.inner.format_u64(value)); }
+	unsafe fn format_u64(lua, this: &mut Formatter, value: u64) -> 1 {
+		unsafe { lua.push(this.inner.format_u64(value)); }
 	}
 
 	/// Prefixes are uppercased
@@ -295,12 +293,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `REP stosd`
 	/// 👍 | `false` | `rep stosd`
-	unsafe fn uppercase_prefixes(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_prefixes()); }
+	unsafe fn uppercase_prefixes(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_prefixes()); }
 	}
 
-	unsafe fn set_uppercase_prefixes(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_prefixes(new_value);
+	unsafe fn set_uppercase_prefixes(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_prefixes(new_value);
 	}
 
 	/// Mnemonics are uppercased
@@ -310,12 +308,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `MOV rcx,rax`
 	/// 👍 | `false` | `mov rcx,rax`
-	unsafe fn uppercase_mnemonics(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_mnemonics()); }
+	unsafe fn uppercase_mnemonics(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_mnemonics()); }
 	}
 
-	unsafe fn set_uppercase_mnemonics(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_mnemonics(new_value);
+	unsafe fn set_uppercase_mnemonics(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_mnemonics(new_value);
 	}
 
 	/// Registers are uppercased
@@ -325,12 +323,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov RCX,[RAX+RDX*8]`
 	/// 👍 | `false` | `mov rcx,[rax+rdx*8]`
-	unsafe fn uppercase_registers(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_registers()); }
+	unsafe fn uppercase_registers(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_registers()); }
 	}
 
-	unsafe fn set_uppercase_registers(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_registers(new_value);
+	unsafe fn set_uppercase_registers(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_registers(new_value);
 	}
 
 	/// Keywords are uppercased (eg. `BYTE PTR`, `SHORT`)
@@ -340,12 +338,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov BYTE PTR [rcx],12h`
 	/// 👍 | `false` | `mov byte ptr [rcx],12h`
-	unsafe fn uppercase_keywords(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_keywords()); }
+	unsafe fn uppercase_keywords(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_keywords()); }
 	}
 
-	unsafe fn set_uppercase_keywords(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_keywords(new_value);
+	unsafe fn set_uppercase_keywords(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_keywords(new_value);
 	}
 
 	/// Uppercase decorators, eg. `{z}`, `{sae}`, `{rd-sae}` (but not opmask registers: `{k1}`)
@@ -355,12 +353,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `vunpcklps xmm2{k5}{Z},xmm6,dword bcst [rax+4]`
 	/// 👍 | `false` | `vunpcklps xmm2{k5}{z},xmm6,dword bcst [rax+4]`
-	unsafe fn uppercase_decorators(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_decorators()); }
+	unsafe fn uppercase_decorators(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_decorators()); }
 	}
 
-	unsafe fn set_uppercase_decorators(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_decorators(new_value);
+	unsafe fn set_uppercase_decorators(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_decorators(new_value);
 	}
 
 	/// Everything is uppercased, except numbers and their prefixes/suffixes
@@ -370,12 +368,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `MOV EAX,GS:[RCX*4+0ffh]`
 	/// 👍 | `false` | `mov eax,gs:[rcx*4+0ffh]`
-	unsafe fn uppercase_all(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_all()); }
+	unsafe fn uppercase_all(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_all()); }
 	}
 
-	unsafe fn set_uppercase_all(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_all(new_value);
+	unsafe fn set_uppercase_all(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_all(new_value);
 	}
 
 	/// (`u32`) Character index (0-based) where the first operand is formatted. Can be set to 0 to format it immediately after the mnemonic.
@@ -386,24 +384,24 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `0` | `mov•rcx,rbp`
 	/// _ | `8` | `mov•••••rcx,rbp`
-	unsafe fn first_operand_char_index(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().first_operand_char_index()); }
+	unsafe fn first_operand_char_index(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().first_operand_char_index()); }
 	}
 
-	unsafe fn set_first_operand_char_index(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_first_operand_char_index(new_value);
+	unsafe fn set_first_operand_char_index(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_first_operand_char_index(new_value);
 	}
 
 	/// (`u32`) Size of a tab character or 0 to use spaces
 	/// @return integer
 	///
 	/// Default: `0`
-	unsafe fn tab_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().tab_size()); }
+	unsafe fn tab_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().tab_size()); }
 	}
 
-	unsafe fn set_tab_size(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_tab_size(new_value);
+	unsafe fn set_tab_size(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_tab_size(new_value);
 	}
 
 	/// Add a space after the operand separator
@@ -413,12 +411,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov rax, rcx`
 	/// 👍 | `false` | `mov rax,rcx`
-	unsafe fn space_after_operand_separator(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().space_after_operand_separator()); }
+	unsafe fn space_after_operand_separator(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().space_after_operand_separator()); }
 	}
 
-	unsafe fn set_space_after_operand_separator(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_space_after_operand_separator(new_value);
+	unsafe fn set_space_after_operand_separator(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_space_after_operand_separator(new_value);
 	}
 
 	/// Add a space between the memory expression and the brackets
@@ -428,12 +426,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[ rcx+rdx ]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx]`
-	unsafe fn space_after_memory_bracket(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().space_after_memory_bracket()); }
+	unsafe fn space_after_memory_bracket(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().space_after_memory_bracket()); }
 	}
 
-	unsafe fn set_space_after_memory_bracket(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_space_after_memory_bracket(new_value);
+	unsafe fn set_space_after_memory_bracket(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_space_after_memory_bracket(new_value);
 	}
 
 	/// Add spaces between memory operand `+` and `-` operators
@@ -443,12 +441,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rcx + rdx*8 - 80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
-	unsafe fn space_between_memory_add_operators(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().space_between_memory_add_operators()); }
+	unsafe fn space_between_memory_add_operators(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().space_between_memory_add_operators()); }
 	}
 
-	unsafe fn set_space_between_memory_add_operators(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_space_between_memory_add_operators(new_value);
+	unsafe fn set_space_between_memory_add_operators(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_space_between_memory_add_operators(new_value);
 	}
 
 	/// Add spaces between memory operand `*` operator
@@ -458,12 +456,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rcx+rdx * 8-80h]`
 	/// 👍 | `false` | `mov eax,[rcx+rdx*8-80h]`
-	unsafe fn space_between_memory_mul_operators(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().space_between_memory_mul_operators()); }
+	unsafe fn space_between_memory_mul_operators(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().space_between_memory_mul_operators()); }
 	}
 
-	unsafe fn set_space_between_memory_mul_operators(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_space_between_memory_mul_operators(new_value);
+	unsafe fn set_space_between_memory_mul_operators(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_space_between_memory_mul_operators(new_value);
 	}
 
 	/// Show memory operand scale value before the index register
@@ -473,12 +471,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[8*rdx]`
 	/// 👍 | `false` | `mov eax,[rdx*8]`
-	unsafe fn scale_before_index(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().scale_before_index()); }
+	unsafe fn scale_before_index(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().scale_before_index()); }
 	}
 
-	unsafe fn set_scale_before_index(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_scale_before_index(new_value);
+	unsafe fn set_scale_before_index(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_scale_before_index(new_value);
 	}
 
 	/// Always show the scale value even if it's `*1`
@@ -488,12 +486,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
-	unsafe fn always_show_scale(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().always_show_scale()); }
+	unsafe fn always_show_scale(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().always_show_scale()); }
 	}
 
-	unsafe fn set_always_show_scale(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_always_show_scale(new_value);
+	unsafe fn set_always_show_scale(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_always_show_scale(new_value);
 	}
 
 	/// Always show the effective segment register.
@@ -505,12 +503,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,ds:[ecx]`
 	/// 👍 | `false` | `mov eax,[ecx]`
-	unsafe fn always_show_segment_register(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().always_show_segment_register()); }
+	unsafe fn always_show_segment_register(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().always_show_segment_register()); }
 	}
 
-	unsafe fn set_always_show_segment_register(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_always_show_segment_register(new_value);
+	unsafe fn set_always_show_segment_register(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_always_show_segment_register(new_value);
 	}
 
 	/// Show zero displacements
@@ -520,36 +518,36 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rcx*2+0]`
 	/// 👍 | `false` | `mov eax,[rcx*2]`
-	unsafe fn show_zero_displacements(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().show_zero_displacements()); }
+	unsafe fn show_zero_displacements(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().show_zero_displacements()); }
 	}
 
-	unsafe fn set_show_zero_displacements(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_show_zero_displacements(new_value);
+	unsafe fn set_show_zero_displacements(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_show_zero_displacements(new_value);
 	}
 
 	/// Hex number prefix or an empty string, eg. `"0x"`
 	/// @return string
 	///
 	/// Default: `""` (masm/nasm/intel), `"0x"` (gas)
-	unsafe fn hex_prefix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().hex_prefix()); }
+	unsafe fn hex_prefix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().hex_prefix()); }
 	}
 
-	unsafe fn set_hex_prefix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_hex_prefix_string(new_value.0.into_owned());
+	unsafe fn set_hex_prefix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_hex_prefix_string(new_value.0.into_owned());
 	}
 
 	/// Hex number suffix or an empty string, eg. `"h"`
 	/// @return string
 	///
 	/// Default: `"h"` (masm/nasm/intel), `""` (gas)
-	unsafe fn hex_suffix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().hex_suffix()); }
+	unsafe fn hex_suffix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().hex_suffix()); }
 	}
 
-	unsafe fn set_hex_suffix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_hex_suffix_string(new_value.0.into_owned());
+	unsafe fn set_hex_suffix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_hex_suffix_string(new_value.0.into_owned());
 	}
 
 	/// (`u8`) Size of a digit group, see also `Formatter:digit_separator()`
@@ -559,36 +557,36 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `0` | `0x12345678`
 	/// 👍 | `4` | `0x1234_5678`
-	unsafe fn hex_digit_group_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().hex_digit_group_size()); }
+	unsafe fn hex_digit_group_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().hex_digit_group_size()); }
 	}
 
-	unsafe fn set_hex_digit_group_size(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_hex_digit_group_size(new_value);
+	unsafe fn set_hex_digit_group_size(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_hex_digit_group_size(new_value);
 	}
 
 	/// Decimal number prefix or an empty string
 	/// @return string
 	///
 	/// Default: `""`
-	unsafe fn decimal_prefix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().decimal_prefix()); }
+	unsafe fn decimal_prefix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().decimal_prefix()); }
 	}
 
-	unsafe fn set_decimal_prefix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_decimal_prefix_string(new_value.0.into_owned());
+	unsafe fn set_decimal_prefix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_decimal_prefix_string(new_value.0.into_owned());
 	}
 
 	/// Decimal number suffix or an empty string
 	/// @return string
 	///
 	/// Default: `""`
-	unsafe fn decimal_suffix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().decimal_suffix()); }
+	unsafe fn decimal_suffix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().decimal_suffix()); }
 	}
 
-	unsafe fn set_decimal_suffix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_decimal_suffix_string(new_value.0.into_owned());
+	unsafe fn set_decimal_suffix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_decimal_suffix_string(new_value.0.into_owned());
 	}
 
 	/// (`u8`) Size of a digit group, see also `Formatter:digit_separator()`
@@ -598,36 +596,36 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `0` | `12345678`
 	/// 👍 | `3` | `12_345_678`
-	unsafe fn decimal_digit_group_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().decimal_digit_group_size()); }
+	unsafe fn decimal_digit_group_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().decimal_digit_group_size()); }
 	}
 
-	unsafe fn set_decimal_digit_group_size(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_decimal_digit_group_size(new_value);
+	unsafe fn set_decimal_digit_group_size(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_decimal_digit_group_size(new_value);
 	}
 
 	/// Octal number prefix or an empty string
 	/// @return string
 	///
 	/// Default: `""` (masm/nasm/intel), `"0"` (gas)
-	unsafe fn octal_prefix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().octal_prefix()); }
+	unsafe fn octal_prefix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().octal_prefix()); }
 	}
 
-	unsafe fn set_octal_prefix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_octal_prefix_string(new_value.0.into_owned());
+	unsafe fn set_octal_prefix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_octal_prefix_string(new_value.0.into_owned());
 	}
 
 	/// Octal number suffix or an empty string
 	/// @return string
 	///
 	/// Default: `"o"` (masm/nasm/intel), `""` (gas)
-	unsafe fn octal_suffix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().octal_suffix()); }
+	unsafe fn octal_suffix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().octal_suffix()); }
 	}
 
-	unsafe fn set_octal_suffix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_octal_suffix_string(new_value.0.into_owned());
+	unsafe fn set_octal_suffix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_octal_suffix_string(new_value.0.into_owned());
 	}
 
 	/// (`u8`) Size of a digit group, see also `Formatter:digit_separator()`
@@ -637,36 +635,36 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `0` | `12345670`
 	/// 👍 | `4` | `1234_5670`
-	unsafe fn octal_digit_group_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().octal_digit_group_size()); }
+	unsafe fn octal_digit_group_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().octal_digit_group_size()); }
 	}
 
-	unsafe fn set_octal_digit_group_size(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_octal_digit_group_size(new_value);
+	unsafe fn set_octal_digit_group_size(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_octal_digit_group_size(new_value);
 	}
 
 	/// Binary number prefix or an empty string
 	/// @return string
 	///
 	/// Default: `""` (masm/nasm/intel), `"0b"` (gas)
-	unsafe fn binary_prefix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().binary_prefix()); }
+	unsafe fn binary_prefix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().binary_prefix()); }
 	}
 
-	unsafe fn set_binary_prefix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_binary_prefix_string(new_value.0.into_owned());
+	unsafe fn set_binary_prefix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_binary_prefix_string(new_value.0.into_owned());
 	}
 
 	/// Binary number suffix or an empty string
 	/// @return string
 	///
 	/// Default: `"b"` (masm/nasm/intel), `""` (gas)
-	unsafe fn binary_suffix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().binary_suffix()); }
+	unsafe fn binary_suffix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().binary_suffix()); }
 	}
 
-	unsafe fn set_binary_suffix(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_binary_suffix_string(new_value.0.into_owned());
+	unsafe fn set_binary_suffix(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_binary_suffix_string(new_value.0.into_owned());
 	}
 
 	/// (`u8`) Size of a digit group, see also `Formatter:digit_separator()`
@@ -676,12 +674,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `0` | `11010111`
 	/// 👍 | `4` | `1101_0111`
-	unsafe fn binary_digit_group_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().binary_digit_group_size()); }
+	unsafe fn binary_digit_group_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().binary_digit_group_size()); }
 	}
 
-	unsafe fn set_binary_digit_group_size(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_binary_digit_group_size(new_value);
+	unsafe fn set_binary_digit_group_size(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_binary_digit_group_size(new_value);
 	}
 
 	/// Digit separator or an empty string. See also eg. `Formatter:hex_digit_group_size()`
@@ -691,12 +689,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `""` | `0x12345678`
 	/// _ | `"_"` | `0x1234_5678`
-	unsafe fn digit_separator(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().digit_separator()); }
+	unsafe fn digit_separator(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().digit_separator()); }
 	}
 
-	unsafe fn set_digit_separator(lua, fmt: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
-		fmt.inner.options_mut().set_digit_separator_string(new_value.0.into_owned());
+	unsafe fn set_digit_separator(lua, this: &mut Formatter, new_value: LuaLossyString<'_>) -> 0 {
+		this.inner.options_mut().set_digit_separator_string(new_value.0.into_owned());
 	}
 
 	/// Add leading zeros to hexadecimal/octal/binary numbers.
@@ -709,12 +707,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `0x0000000A`/`0000000Ah`
 	/// 👍 | `false` | `0xA`/`0Ah`
-	unsafe fn leading_zeros(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().leading_zeros()); }
+	unsafe fn leading_zeros(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().leading_zeros()); }
 	}
 
-	unsafe fn set_leading_zeros(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_leading_zeros(new_value);
+	unsafe fn set_leading_zeros(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_leading_zeros(new_value);
 	}
 
 	/// Use uppercase hex digits
@@ -724,12 +722,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `0xFF`
 	/// _ | `false` | `0xff`
-	unsafe fn uppercase_hex(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().uppercase_hex()); }
+	unsafe fn uppercase_hex(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().uppercase_hex()); }
 	}
 
-	unsafe fn set_uppercase_hex(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_uppercase_hex(new_value);
+	unsafe fn set_uppercase_hex(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_uppercase_hex(new_value);
 	}
 
 	/// Small hex numbers (-9 .. 9) are shown in decimal
@@ -739,12 +737,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `9`
 	/// _ | `false` | `0x9`
-	unsafe fn small_hex_numbers_in_decimal(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().small_hex_numbers_in_decimal()); }
+	unsafe fn small_hex_numbers_in_decimal(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().small_hex_numbers_in_decimal()); }
 	}
 
-	unsafe fn set_small_hex_numbers_in_decimal(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_small_hex_numbers_in_decimal(new_value);
+	unsafe fn set_small_hex_numbers_in_decimal(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_small_hex_numbers_in_decimal(new_value);
 	}
 
 	/// Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits `A-F`
@@ -754,20 +752,20 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `0FFh`
 	/// _ | `false` | `FFh`
-	unsafe fn add_leading_zero_to_hex_numbers(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().add_leading_zero_to_hex_numbers()); }
+	unsafe fn add_leading_zero_to_hex_numbers(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().add_leading_zero_to_hex_numbers()); }
 	}
 
-	unsafe fn set_add_leading_zero_to_hex_numbers(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_add_leading_zero_to_hex_numbers(new_value);
+	unsafe fn set_add_leading_zero_to_hex_numbers(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_add_leading_zero_to_hex_numbers(new_value);
 	}
 
 	/// Number base (`2`, `8`, `10`, `16`)
 	/// @return integer
 	///
 	/// Default: `16`
-	unsafe fn number_base(lua, fmt: &Formatter) -> 1 {
-		let base = match fmt.inner.options().number_base() {
+	unsafe fn number_base(lua, this: &Formatter) -> 1 {
+		let base = match this.inner.options().number_base() {
 			iced_x86::NumberBase::Binary => 2,
 			iced_x86::NumberBase::Octal => 8,
 			iced_x86::NumberBase::Decimal => 10,
@@ -776,7 +774,7 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 		unsafe { lua.push(base); }
 	}
 
-	unsafe fn set_number_base(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
+	unsafe fn set_number_base(lua, this: &mut Formatter, new_value: u32) -> 0 {
 		let base = match new_value {
 			2 => iced_x86::NumberBase::Binary,
 			8 => iced_x86::NumberBase::Octal,
@@ -784,7 +782,7 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 			16 => iced_x86::NumberBase::Hexadecimal,
 			_ => unsafe { lua.throw_error(LuaError::MessageStr("Invalid number base")) },
 		};
-		fmt.inner.options_mut().set_number_base(base);
+		this.inner.options_mut().set_number_base(base);
 	}
 
 	/// Add leading zeros to branch offsets. Used by `CALL NEAR`, `CALL FAR`, `JMP NEAR`, `JMP FAR`, `Jcc`, `LOOP`, `LOOPcc`, `XBEGIN`
@@ -794,12 +792,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `je 00000123h`
 	/// _ | `false` | `je 123h`
-	unsafe fn branch_leading_zeros(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().branch_leading_zeros()); }
+	unsafe fn branch_leading_zeros(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().branch_leading_zeros()); }
 	}
 
-	unsafe fn set_branch_leading_zeros(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_branch_leading_zeros(new_value);
+	unsafe fn set_branch_leading_zeros(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_branch_leading_zeros(new_value);
 	}
 
 	/// Show immediate operands as signed numbers
@@ -809,12 +807,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,-1`
 	/// 👍 | `false` | `mov eax,FFFFFFFF`
-	unsafe fn signed_immediate_operands(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().signed_immediate_operands()); }
+	unsafe fn signed_immediate_operands(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().signed_immediate_operands()); }
 	}
 
-	unsafe fn set_signed_immediate_operands(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_signed_immediate_operands(new_value);
+	unsafe fn set_signed_immediate_operands(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_signed_immediate_operands(new_value);
 	}
 
 	/// Displacements are signed numbers
@@ -824,12 +822,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov al,[eax-2000h]`
 	/// _ | `false` | `mov al,[eax+0FFFFE000h]`
-	unsafe fn signed_memory_displacements(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().signed_memory_displacements()); }
+	unsafe fn signed_memory_displacements(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().signed_memory_displacements()); }
 	}
 
-	unsafe fn set_signed_memory_displacements(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_signed_memory_displacements(new_value);
+	unsafe fn set_signed_memory_displacements(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_signed_memory_displacements(new_value);
 	}
 
 	/// Add leading zeros to displacements
@@ -839,12 +837,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov al,[eax+00000012h]`
 	/// 👍 | `false` | `mov al,[eax+12h]`
-	unsafe fn displacement_leading_zeros(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().displacement_leading_zeros()); }
+	unsafe fn displacement_leading_zeros(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().displacement_leading_zeros()); }
 	}
 
-	unsafe fn set_displacement_leading_zeros(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_displacement_leading_zeros(new_value);
+	unsafe fn set_displacement_leading_zeros(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_displacement_leading_zeros(new_value);
 	}
 
 	/// Options that control if the memory size (eg. `DWORD PTR`) is shown or not.
@@ -853,12 +851,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// This is ignored by the gas (AT&T) formatter.
 	///
 	/// Default: `MemorySizeOptions.Default`
-	unsafe fn memory_size_options(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().memory_size_options() as u32); }
+	unsafe fn memory_size_options(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().memory_size_options() as u32); }
 	}
 
-	unsafe fn set_memory_size_options(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_memory_size_options(unsafe { to_memory_size_options(lua, new_value) });
+	unsafe fn set_memory_size_options(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_memory_size_options(unsafe { to_memory_size_options(lua, new_value) });
 	}
 
 	/// Show `RIP+displ` or the virtual address
@@ -868,12 +866,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rip+12345678h]`
 	/// 👍 | `false` | `mov eax,[1029384756AFBECDh]`
-	unsafe fn rip_relative_addresses(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().rip_relative_addresses()); }
+	unsafe fn rip_relative_addresses(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().rip_relative_addresses()); }
 	}
 
-	unsafe fn set_rip_relative_addresses(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_rip_relative_addresses(new_value);
+	unsafe fn set_rip_relative_addresses(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_rip_relative_addresses(new_value);
 	}
 
 	/// Show `NEAR`, `SHORT`, etc if it's a branch instruction
@@ -883,12 +881,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `je short 1234h`
 	/// _ | `false` | `je 1234h`
-	unsafe fn show_branch_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().show_branch_size()); }
+	unsafe fn show_branch_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().show_branch_size()); }
 	}
 
-	unsafe fn set_show_branch_size(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_show_branch_size(new_value);
+	unsafe fn set_show_branch_size(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_show_branch_size(new_value);
 	}
 
 	/// Use pseudo instructions
@@ -898,12 +896,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `vcmpnltsd xmm2,xmm6,xmm3`
 	/// _ | `false` | `vcmpsd xmm2,xmm6,xmm3,5`
-	unsafe fn use_pseudo_ops(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().use_pseudo_ops()); }
+	unsafe fn use_pseudo_ops(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().use_pseudo_ops()); }
 	}
 
-	unsafe fn set_use_pseudo_ops(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_use_pseudo_ops(new_value);
+	unsafe fn set_use_pseudo_ops(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_use_pseudo_ops(new_value);
 	}
 
 	/// Show the original value after the symbol name
@@ -913,12 +911,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[myfield (12345678)]`
 	/// 👍 | `false` | `mov eax,[myfield]`
-	unsafe fn show_symbol_address(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().show_symbol_address()); }
+	unsafe fn show_symbol_address(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().show_symbol_address()); }
 	}
 
-	unsafe fn set_show_symbol_address(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_show_symbol_address(new_value);
+	unsafe fn set_show_symbol_address(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_show_symbol_address(new_value);
 	}
 
 	/// (gas only): If `true`, the formatter doesn't add `%` to registers
@@ -928,12 +926,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
-	unsafe fn gas_naked_registers(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().gas_naked_registers()); }
+	unsafe fn gas_naked_registers(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().gas_naked_registers()); }
 	}
 
-	unsafe fn set_gas_naked_registers(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_gas_naked_registers(new_value);
+	unsafe fn set_gas_naked_registers(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_gas_naked_registers(new_value);
 	}
 
 	/// (gas only): Shows the mnemonic size suffix even when not needed
@@ -943,12 +941,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `movl %eax,%ecx`
 	/// 👍 | `false` | `mov %eax,%ecx`
-	unsafe fn gas_show_mnemonic_size_suffix(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().gas_show_mnemonic_size_suffix()); }
+	unsafe fn gas_show_mnemonic_size_suffix(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().gas_show_mnemonic_size_suffix()); }
 	}
 
-	unsafe fn set_gas_show_mnemonic_size_suffix(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_gas_show_mnemonic_size_suffix(new_value);
+	unsafe fn set_gas_show_mnemonic_size_suffix(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_gas_show_mnemonic_size_suffix(new_value);
 	}
 
 	/// (gas only): Add a space after the comma if it's a memory operand
@@ -958,12 +956,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `(%eax, %ecx, 2)`
 	/// 👍 | `false` | `(%eax,%ecx,2)`
-	unsafe fn gas_space_after_memory_operand_comma(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().gas_space_after_memory_operand_comma()); }
+	unsafe fn gas_space_after_memory_operand_comma(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().gas_space_after_memory_operand_comma()); }
 	}
 
-	unsafe fn set_gas_space_after_memory_operand_comma(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_gas_space_after_memory_operand_comma(new_value);
+	unsafe fn set_gas_space_after_memory_operand_comma(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_gas_space_after_memory_operand_comma(new_value);
 	}
 
 	/// (masm only): Add a `DS` segment override even if it's not present. Used if it's 16/32-bit code and mem op is a displ
@@ -973,12 +971,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `mov eax,ds:[12345678]`
 	/// _ | `false` | `mov eax,[12345678]`
-	unsafe fn masm_add_ds_prefix32(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().masm_add_ds_prefix32()); }
+	unsafe fn masm_add_ds_prefix32(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().masm_add_ds_prefix32()); }
 	}
 
-	unsafe fn set_masm_add_ds_prefix32(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_masm_add_ds_prefix32(new_value);
+	unsafe fn set_masm_add_ds_prefix32(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_masm_add_ds_prefix32(new_value);
 	}
 
 	/// (masm only): Show symbols in brackets
@@ -988,12 +986,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+symbol]` / `[symbol]`
 	/// _ | `false` | `symbol[ecx]` / `symbol`
-	unsafe fn masm_symbol_displ_in_brackets(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().masm_symbol_displ_in_brackets()); }
+	unsafe fn masm_symbol_displ_in_brackets(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().masm_symbol_displ_in_brackets()); }
 	}
 
-	unsafe fn set_masm_symbol_displ_in_brackets(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_masm_symbol_displ_in_brackets(new_value);
+	unsafe fn set_masm_symbol_displ_in_brackets(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_masm_symbol_displ_in_brackets(new_value);
 	}
 
 	/// (masm only): Show displacements in brackets
@@ -1003,12 +1001,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// 👍 | `true` | `[ecx+1234h]`
 	/// _ | `false` | `1234h[ecx]`
-	unsafe fn masm_displ_in_brackets(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().masm_displ_in_brackets()); }
+	unsafe fn masm_displ_in_brackets(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().masm_displ_in_brackets()); }
 	}
 
-	unsafe fn set_masm_displ_in_brackets(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_masm_displ_in_brackets(new_value);
+	unsafe fn set_masm_displ_in_brackets(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_masm_displ_in_brackets(new_value);
 	}
 
 	/// (nasm only): Shows `BYTE`, `WORD`, `DWORD` or `QWORD` if it's a sign extended immediate operand value
@@ -1018,12 +1016,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `or rcx,byte -1`
 	/// 👍 | `false` | `or rcx,-1`
-	unsafe fn nasm_show_sign_extended_immediate_size(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().nasm_show_sign_extended_immediate_size()); }
+	unsafe fn nasm_show_sign_extended_immediate_size(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().nasm_show_sign_extended_immediate_size()); }
 	}
 
-	unsafe fn set_nasm_show_sign_extended_immediate_size(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_nasm_show_sign_extended_immediate_size(new_value);
+	unsafe fn set_nasm_show_sign_extended_immediate_size(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_nasm_show_sign_extended_immediate_size(new_value);
 	}
 
 	/// Use `st(0)` instead of `st` if `st` can be used. Ignored by the nasm formatter.
@@ -1033,12 +1031,12 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `fadd st(0),st(3)`
 	/// 👍 | `false` | `fadd st,st(3)`
-	unsafe fn prefer_st0(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().prefer_st0()); }
+	unsafe fn prefer_st0(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().prefer_st0()); }
 	}
 
-	unsafe fn set_prefer_st0(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_prefer_st0(new_value);
+	unsafe fn set_prefer_st0(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_prefer_st0(new_value);
 	}
 
 	/// Show useless prefixes. If it has useless prefixes, it could be data and not code.
@@ -1048,156 +1046,156 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `es rep add eax,ecx`
 	/// 👍 | `false` | `add eax,ecx`
-	unsafe fn show_useless_prefixes(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().show_useless_prefixes()); }
+	unsafe fn show_useless_prefixes(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().show_useless_prefixes()); }
 	}
 
-	unsafe fn set_show_useless_prefixes(lua, fmt: &mut Formatter, new_value: bool) -> 0 {
-		fmt.inner.options_mut().set_show_useless_prefixes(new_value)
+	unsafe fn set_show_useless_prefixes(lua, this: &mut Formatter, new_value: bool) -> 0 {
+		this.inner.options_mut().set_show_useless_prefixes(new_value)
 	}
 
 	/// Mnemonic condition code selector (eg. `JB` / `JC` / `JNAE`)
 	/// @return integer # A `CC_b` enum value
 	///
 	/// Default: `JB`, `CMOVB`, `SETB`
-	unsafe fn cc_b(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_b() as u32); }
+	unsafe fn cc_b(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_b() as u32); }
 	}
 
-	unsafe fn set_cc_b(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_b(unsafe { to_cc_b(lua, new_value) });
+	unsafe fn set_cc_b(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_b(unsafe { to_cc_b(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JAE` / `JNB` / `JNC`)
 	/// @return integer # A `CC_ae` enum value
 	///
 	/// Default: `JAE`, `CMOVAE`, `SETAE`
-	unsafe fn cc_ae(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_ae() as u32); }
+	unsafe fn cc_ae(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_ae() as u32); }
 	}
 
-	unsafe fn set_cc_ae(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_ae(unsafe { to_cc_ae(lua, new_value) });
+	unsafe fn set_cc_ae(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_ae(unsafe { to_cc_ae(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JE` / `JZ`)
 	/// @return integer # A `CC_e` enum value
 	///
 	/// Default: `JE`, `CMOVE`, `SETE`, `LOOPE`, `REPE`
-	unsafe fn cc_e(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_e() as u32); }
+	unsafe fn cc_e(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_e() as u32); }
 	}
 
-	unsafe fn set_cc_e(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_e(unsafe { to_cc_e(lua, new_value) });
+	unsafe fn set_cc_e(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_e(unsafe { to_cc_e(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JNE` / `JNZ`)
 	/// @return integer # A `CC_ne` enum value
 	///
 	/// Default: `JNE`, `CMOVNE`, `SETNE`, `LOOPNE`, `REPNE`
-	unsafe fn cc_ne(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_ne() as u32); }
+	unsafe fn cc_ne(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_ne() as u32); }
 	}
 
-	unsafe fn set_cc_ne(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_ne(unsafe { to_cc_ne(lua, new_value) });
+	unsafe fn set_cc_ne(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_ne(unsafe { to_cc_ne(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JBE` / `JNA`)
 	/// @return integer # A `CC_be` enum value
 	///
 	/// Default: `JBE`, `CMOVBE`, `SETBE`
-	unsafe fn cc_be(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_be() as u32); }
+	unsafe fn cc_be(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_be() as u32); }
 	}
 
-	unsafe fn set_cc_be(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_be(unsafe { to_cc_be(lua, new_value) });
+	unsafe fn set_cc_be(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_be(unsafe { to_cc_be(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JA` / `JNBE`)
 	/// @return integer # A `CC_a` enum value
 	///
 	/// Default: `JA`, `CMOVA`, `SETA`
-	unsafe fn cc_a(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_a() as u32); }
+	unsafe fn cc_a(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_a() as u32); }
 	}
 
-	unsafe fn set_cc_a(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_a(unsafe { to_cc_a(lua, new_value) });
+	unsafe fn set_cc_a(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_a(unsafe { to_cc_a(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JP` / `JPE`)
 	/// @return integer # A `CC_p` enum value
 	///
 	/// Default: `JP`, `CMOVP`, `SETP`
-	unsafe fn cc_p(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_p() as u32); }
+	unsafe fn cc_p(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_p() as u32); }
 	}
 
-	unsafe fn set_cc_p(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_p(unsafe { to_cc_p(lua, new_value) });
+	unsafe fn set_cc_p(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_p(unsafe { to_cc_p(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JNP` / `JPO`)
 	/// @return integer # A `CC_np` enum value
 	///
 	/// Default: `JNP`, `CMOVNP`, `SETNP`
-	unsafe fn cc_np(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_np() as u32); }
+	unsafe fn cc_np(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_np() as u32); }
 	}
 
-	unsafe fn set_cc_np(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_np(unsafe { to_cc_np(lua, new_value) });
+	unsafe fn set_cc_np(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_np(unsafe { to_cc_np(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JL` / `JNGE`)
 	/// @return integer # A `CC_l` enum value
 	///
 	/// Default: `JL`, `CMOVL`, `SETL`
-	unsafe fn cc_l(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_l() as u32); }
+	unsafe fn cc_l(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_l() as u32); }
 	}
 
-	unsafe fn set_cc_l(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_l(unsafe { to_cc_l(lua, new_value) });
+	unsafe fn set_cc_l(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_l(unsafe { to_cc_l(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JGE` / `JNL`)
 	/// @return integer # A `CC_ge` enum value
 	///
 	/// Default: `JGE`, `CMOVGE`, `SETGE`
-	unsafe fn cc_ge(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_ge() as u32); }
+	unsafe fn cc_ge(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_ge() as u32); }
 	}
 
-	unsafe fn set_cc_ge(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_ge(unsafe { to_cc_ge(lua, new_value) });
+	unsafe fn set_cc_ge(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_ge(unsafe { to_cc_ge(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JLE` / `JNG`)
 	/// @return integer # A `CC_le` enum value
 	///
 	/// Default: `JLE`, `CMOVLE`, `SETLE`
-	unsafe fn cc_le(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_le() as u32); }
+	unsafe fn cc_le(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_le() as u32); }
 	}
 
-	unsafe fn set_cc_le(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_le(unsafe { to_cc_le(lua, new_value) });
+	unsafe fn set_cc_le(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_le(unsafe { to_cc_le(lua, new_value) });
 	}
 
 	/// Mnemonic condition code selector (eg. `JG` / `JNLE`)
 	/// @return integer # A `CC_g` enum value
 	///
 	/// Default: `JG`, `CMOVG`, `SETG`
-	unsafe fn cc_g(lua, fmt: &Formatter) -> 1 {
-		unsafe { lua.push(fmt.inner.options().cc_g() as u32); }
+	unsafe fn cc_g(lua, this: &Formatter) -> 1 {
+		unsafe { lua.push(this.inner.options().cc_g() as u32); }
 	}
 
-	unsafe fn set_cc_g(lua, fmt: &mut Formatter, new_value: u32) -> 0 {
-		fmt.inner.options_mut().set_cc_g(unsafe { to_cc_g(lua, new_value) });
+	unsafe fn set_cc_g(lua, this: &mut Formatter, new_value: u32) -> 0 {
+		this.inner.options_mut().set_cc_g(unsafe { to_cc_g(lua, new_value) });
 	}
 }
 

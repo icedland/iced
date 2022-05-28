@@ -23,13 +23,13 @@ local OpCodeInfo = {}
 ---local EncodingKind = require("iced_x86.EncodingKind")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:op_code_string() == "EVEX.256.66.0F.W1 28 /r")
 ---assert(op_code:encoding() == EncodingKind.EVEX)
----assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code() == 0x2A)
----assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
+---assert(OpCodeInfo.new(Code.Sub_r8_rm8):op_code() == 0x2A)
+---assert(OpCodeInfo.new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
 ---```
-function OpCodeInfo:new(code) end
+function OpCodeInfo.new(code) end
 
 ---Gets the code (a `Code` enum value)
 ---
@@ -41,7 +41,7 @@ function OpCodeInfo:new(code) end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:code() == Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---```
 function OpCodeInfo:code() end
@@ -57,7 +57,7 @@ function OpCodeInfo:code() end
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---local Mnemonic = require("iced_x86.Mnemonic")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:mnemonic() == Mnemonic.Vmovapd)
 ---```
 function OpCodeInfo:mnemonic() end
@@ -73,7 +73,7 @@ function OpCodeInfo:mnemonic() end
 ---local EncodingKind = require("iced_x86.EncodingKind")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:encoding() == EncodingKind.EVEX)
 ---```
 function OpCodeInfo:encoding() end
@@ -88,9 +88,9 @@ function OpCodeInfo:encoding() end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----assert(OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256):is_instruction())
----assert(not OpCodeInfo:new(Code.INVALID):is_instruction())
----assert(not OpCodeInfo:new(Code.DeclareByte):is_instruction())
+---assert(OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256):is_instruction())
+---assert(not OpCodeInfo.new(Code.INVALID):is_instruction())
+---assert(not OpCodeInfo.new(Code.DeclareByte):is_instruction())
 ---```
 function OpCodeInfo:is_instruction() end
 
@@ -616,10 +616,10 @@ function OpCodeInfo:mandatory_prefix() end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----assert(OpCodeInfo:new(Code.Ffreep_sti):op_code() == 0xDFC0)
----assert(OpCodeInfo:new(Code.Vmrunw):op_code() == 0x01D8)
----assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code() == 0x2A)
----assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
+---assert(OpCodeInfo.new(Code.Ffreep_sti):op_code() == 0xDFC0)
+---assert(OpCodeInfo.new(Code.Vmrunw):op_code() == 0x01D8)
+---assert(OpCodeInfo.new(Code.Sub_r8_rm8):op_code() == 0x2A)
+---assert(OpCodeInfo.new(Code.Cvtpi2ps_xmm_mmm64):op_code() == 0x2A)
 ---```
 function OpCodeInfo:op_code() end
 
@@ -633,10 +633,10 @@ function OpCodeInfo:op_code() end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----assert(OpCodeInfo:new(Code.Ffreep_sti):op_code_len() == 2)
----assert(OpCodeInfo:new(Code.Vmrunw):op_code_len() == 2)
----assert(OpCodeInfo:new(Code.Sub_r8_rm8):op_code_len() == 1)
----assert(OpCodeInfo:new(Code.Cvtpi2ps_xmm_mmm64):op_code_len() == 1)
+---assert(OpCodeInfo.new(Code.Ffreep_sti):op_code_len() == 2)
+---assert(OpCodeInfo.new(Code.Vmrunw):op_code_len() == 2)
+---assert(OpCodeInfo.new(Code.Sub_r8_rm8):op_code_len() == 1)
+---assert(OpCodeInfo.new(Code.Cvtpi2ps_xmm_mmm64):op_code_len() == 1)
 ---```
 function OpCodeInfo:op_code_len() end
 
@@ -717,7 +717,7 @@ function OpCodeInfo:is_available_in_mode(bitness) end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:op_code_string() == "EVEX.256.66.0F.W1 28 /r")
 ---```
 function OpCodeInfo:op_code_string() end
@@ -732,7 +732,7 @@ function OpCodeInfo:op_code_string() end
 ---local Code = require("iced_x86.Code")
 ---local OpCodeInfo = require("iced_x86.OpCodeInfo")
 ---
----local op_code = OpCodeInfo:new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
+---local op_code = OpCodeInfo.new(Code.EVEX_Vmovapd_ymm_k1z_ymmm256)
 ---assert(op_code:instruction_string() == "VMOVAPD ymm1 {k1}{z}, ymm2/m256")
 ---```
 function OpCodeInfo:instruction_string() end

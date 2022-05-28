@@ -133,7 +133,7 @@ describe("Register", function()
 				return RegisterExt.info(register)
 			end,
 			function(register)
-				return RegisterInfo:new(register)
+				return RegisterInfo.new(register)
 			end,
 		}
 		for _, create in ipairs(fns) do
@@ -225,8 +225,8 @@ describe("Register", function()
 		assert.has_error(function() RegisterExt.is_tmm(0x789A) end)
 		assert.has_error(function() RegisterExt.is_tmm(-0x80000001) end)
 		assert.has_error(function() RegisterExt.is_tmm(0x100000000) end)
-		assert.has_error(function() RegisterInfo:new(0x789A) end)
-		assert.has_error(function() RegisterInfo:new(-0x80000001) end)
-		assert.has_error(function() RegisterInfo:new(0x100000000) end)
+		assert.has_error(function() RegisterInfo.new(0x789A) end)
+		assert.has_error(function() RegisterInfo.new(-0x80000001) end)
+		assert.has_error(function() RegisterInfo.new(0x100000000) end)
 	end)
 end)

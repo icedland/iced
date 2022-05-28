@@ -28,10 +28,10 @@ local Encoder = {}
 ---
 ----- xchg ah,[rdx+rsi+16h]
 ---local data = "\134\100\050\022"
----local decoder = Decoder:new(64, data, nil, 0x12345678)
+---local decoder = Decoder.new(64, data, nil, 0x12345678)
 ---local instr = decoder:decode()
 ---
----local encoder = Encoder:new(64)
+---local encoder = Encoder.new(64)
 ---local instr_len = encoder:encode(instr, 0x55555555)
 ---assert(instr_len == 4)
 ---
@@ -39,7 +39,7 @@ local Encoder = {}
 ---local buffer = encoder:take_buffer()
 ---assert(buffer == "\134\100\050\022")
 ---```
-function Encoder:new(bitness, capacity) end
+function Encoder.new(bitness, capacity) end
 
 ---Encodes an instruction and returns the size of the encoded instruction
 ---
@@ -57,10 +57,10 @@ function Encoder:new(bitness, capacity) end
 ---
 ----- je short $+4
 ---local data = "\117\002"
----local decoder = Decoder:new(64, data, nil, 0x12345678)
+---local decoder = Decoder.new(64, data, nil, 0x12345678)
 ---local instr = decoder:decode()
 ---
----local encoder = Encoder:new(64)
+---local encoder = Encoder.new(64)
 ----- Use a different IP (orig rip + 0x10)
 ---local instr_len = encoder:encode(instr, 0x12345688)
 ---assert(instr_len == 2)
@@ -83,10 +83,10 @@ function Encoder:encode(instruction, rip) end
 ---
 ----- je short $+4
 ---local data = "\117\002"
----local decoder = Decoder:new(64, data, nil, 0x12345678)
+---local decoder = Decoder.new(64, data, nil, 0x12345678)
 ---local instr = decoder:decode()
 ---
----local encoder = Encoder:new(64)
+---local encoder = Encoder.new(64)
 ----- Add a random byte
 ---encoder:write_u8(0x90)
 ---

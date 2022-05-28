@@ -25,7 +25,7 @@ describe("Formatter: intel", function()
 	local Register = require("iced_x86.Register")
 
 	it("default options", function()
-		local formatter = Formatter:new(formatter_syntax)
+		local formatter = Formatter.new(formatter_syntax)
 
 		assert.is_false(formatter:uppercase_prefixes())
 		assert.is_false(formatter:uppercase_mnemonics())
@@ -94,10 +94,10 @@ describe("Formatter: intel", function()
 	end)
 
 	it("format", function()
-		local decoder = Decoder:new(64, from_hex("62F24FDD725001F00018"))
+		local decoder = Decoder.new(64, from_hex("62F24FDD725001F00018"))
 		local instr = decoder:decode()
 		local instr2 = decoder:decode()
-		local formatter = Formatter:new(formatter_syntax)
+		local formatter = Formatter.new(formatter_syntax)
 
 		assert.equals("vcvtne2ps2bf16 zmm2{k5}{z},zmm6,[rax+4]{1to16}", formatter:format(instr))
 

@@ -37,7 +37,7 @@ describe("MemorySize", function()
 				return MemorySizeExt.info(memory_size)
 			end,
 			function(memory_size)
-				return MemorySizeInfo:new(memory_size)
+				return MemorySizeInfo.new(memory_size)
 			end,
 		}
 		for _, create in ipairs(fns) do
@@ -96,8 +96,8 @@ describe("MemorySize", function()
 		assert.has_error(function() MemorySizeExt.is_broadcast(0x789A) end)
 		assert.has_error(function() MemorySizeExt.is_broadcast(-0x80000001) end)
 		assert.has_error(function() MemorySizeExt.is_broadcast(0x100000000) end)
-		assert.has_error(function() MemorySizeInfo:new(0x789A) end)
-		assert.has_error(function() MemorySizeInfo:new(-0x80000001) end)
-		assert.has_error(function() MemorySizeInfo:new(0x100000000) end)
+		assert.has_error(function() MemorySizeInfo.new(0x789A) end)
+		assert.has_error(function() MemorySizeInfo.new(-0x80000001) end)
+		assert.has_error(function() MemorySizeInfo.new(0x100000000) end)
 	end)
 end)

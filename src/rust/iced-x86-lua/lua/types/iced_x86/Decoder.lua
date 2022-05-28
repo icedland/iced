@@ -31,7 +31,7 @@ local Decoder = {}
 ----- xacquire lock add dword ptr [rax],5Ah
 ----- vmovdqu64 zmm18{k3}{z},zmm11
 ---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
----local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 ---
 ---local instr1 = decoder:decode()
 ---assert(instr1:code() == Code.Xchg_rm8_r8)
@@ -60,17 +60,17 @@ local Decoder = {}
 ---
 ----- lock add esi,ecx    lock not allowed
 ---local bytes = "\240\001\206"
----local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 ---local instr = decoder:decode()
 ---assert(instr:code() == Code.INVALID)
 ---
 ----- We want to decode some instructions with invalid encodings
----local decoder2 = Decoder:new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
+---local decoder2 = Decoder.new(64, bytes, DecoderOptions.NoInvalidCheck, 0x12345678)
 ---local instr2 = decoder2:decode()
 ---assert(instr2:code() == Code.Add_rm32_r32)
 ---assert(instr2:has_lock_prefix())
 ---```
-function Decoder:new(bitness, data, options, ip) end
+function Decoder.new(bitness, data, options, ip) end
 
 ---The current `IP`/`EIP`/`RIP` value, see also `Decoder:position()`
 ---
@@ -109,7 +109,7 @@ function Decoder:max_position() end
 ---
 ----- nop and pause
 ---local data = "\144\243\144"
----local decoder = Decoder:new(64, data)
+---local decoder = Decoder.new(64, data)
 ---
 ---assert(decoder:position() == 0)
 ---assert(decoder:max_position() == 3)
@@ -146,7 +146,7 @@ function Decoder:position() end
 ---
 ----- nop and pause
 ---local data = "\144\243\144"
----local decoder = Decoder:new(64, data)
+---local decoder = Decoder.new(64, data)
 ---
 ---assert(decoder:position() == 0)
 ---assert(decoder:max_position() == 3)
@@ -187,7 +187,7 @@ function Decoder:set_position(pos) end
 ---
 ----- nop and an incomplete instruction
 ---local data = "\144\243\015"
----local decoder = Decoder:new(64, data)
+---local decoder = Decoder.new(64, data)
 ---
 ----- 3 bytes left to read
 ---assert(decoder:can_decode())
@@ -233,7 +233,7 @@ function Decoder:last_error() end
 ---
 ----- xrelease lock add [rax],ebx
 ---local data = "\240\243\001\024"
----local decoder = Decoder:new(64, data)
+---local decoder = Decoder.new(64, data)
 ---local instr = decoder:decode()
 ---
 ---assert(instr:code() == Code.Add_rm32_r32)
@@ -279,8 +279,8 @@ function Decoder:decode() end
 ---
 ----- xrelease lock add [rax],ebx
 ---local data = "\240\243\001\024"
----local decoder = Decoder:new(64, data)
----local instr = Instruction:new()
+---local decoder = Decoder.new(64, data)
+---local instr = Instruction.new()
 ---decoder:decode_out(instr)
 ---
 ---assert(instr:code() == Code.Add_rm32_r32)
@@ -320,7 +320,7 @@ function Decoder:decode_out(instr) end
 ---local DecoderOptions = require("iced_x86.DecoderOptions")
 ---
 ---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
----local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 ---
 ---local instrs = {}
 ----- This iterator stops when there's nothing left to decode, but the
@@ -354,7 +354,7 @@ function Decoder:iter_out(instr) end
 ---local DecoderOptions = require("iced_x86.DecoderOptions")
 ---
 ---local bytes = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
----local decoder = Decoder:new(64, bytes, DecoderOptions.None, 0x12345678)
+---local decoder = Decoder.new(64, bytes, DecoderOptions.None, 0x12345678)
 ---
 ---local instrs = {}
 ----- Decoder:iter_out() will overwrite the returned instruction
@@ -392,7 +392,7 @@ function Decoder:iter_slow_copy() end
 -----                  00  01  02  03  04  05  06
 -----                \opc\mrm\displacement___\imm
 ---local data = "\144\131\179\052\018\090\165\090"
----local decoder = Decoder:new(64, data, nil, 0x12345678)
+---local decoder = Decoder.new(64, data, nil, 0x12345678)
 ---assert(decoder:decode():code() == Code.Nopd)
 ---local instr = decoder:decode()
 ---local co = decoder:get_constant_offsets(instr)

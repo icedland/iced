@@ -571,7 +571,6 @@ namespace Generator.Misc.Lua {
 					argsLine = line;
 					line = string.Empty;
 				}
-				bool foundIgnored = false;
 				int argIndex = -1;
 				int parsedArgs = 0;
 				foreach (var tmp in GetArgs(argsLine)) {
@@ -591,31 +590,13 @@ namespace Generator.Misc.Lua {
 						name = name[1..];
 					if (name.Contains(' ', StringComparison.Ordinal))
 						throw GetException($"Name has a space: `{name}`");
-					if (kind != LuaMethodKind.Constructor && rustType.StartsWith("&"))
+					if (kind != LuaMethodKind.Constructor && name == "this")
 						kind = LuaMethodKind.Method;
 					if (argIndex == 1 && kind == LuaMethodKind.Method)
 						continue;
-					if (name == "ignore") {
-						if (foundIgnored)
-							throw GetException("Multiple ignored args found");
-						foundIgnored = true;
-						// eg. Instruction:db() etc
-						if (kind != LuaMethodKind.Constructor)
-							kind = LuaMethodKind.ConstructorMethod;
-					}
-					else {
-						bool isSelf = args.Count == 0 && kind == LuaMethodKind.Method;
-						var arg = new LuaMethodArg(name, rustType, isSelf);
-						args.Add(arg);
-					}
-				}
-				if (foundIgnored) {
-					if (kind != LuaMethodKind.Constructor && kind != LuaMethodKind.ConstructorMethod)
-						throw GetException("Did not expect _ignored since it's not a ctor");
-				}
-				else {
-					if (kind == LuaMethodKind.Constructor && parsedArgs != 1)
-						throw GetException("Expected _ignore arg since it's a ctor");
+					bool isSelf = args.Count == 0 && kind == LuaMethodKind.Method;
+					var arg = new LuaMethodArg(name, rustType, isSelf);
+					args.Add(arg);
 				}
 
 				if (line.StartsWith(')'))

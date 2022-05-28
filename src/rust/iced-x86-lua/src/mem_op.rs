@@ -65,7 +65,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param is_broadcast? boolean #(default = `false`) `true` if it's broadcast memory (EVEX instructions)
 	/// @param segment? integer #(A `Register` enum variant) (default = `None`) Segment override or `Register.None`
 	/// @return MemoryOperand
-	unsafe fn new(lua, _ignore: LuaIgnore, base: LuaDefaultU32<{iced_x86::Register::None as u32}>, index: LuaDefaultU32<{iced_x86::Register::None as u32}>, scale: LuaDefaultU32<1>, displ: LuaDefaultI64<0>, displ_size: LuaDefaultU32<0>, is_broadcast: LuaDefaultBool<false>, segment: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
+	unsafe fn new(lua, base: LuaDefaultU32<{iced_x86::Register::None as u32}>, index: LuaDefaultU32<{iced_x86::Register::None as u32}>, scale: LuaDefaultU32<1>, displ: LuaDefaultI64<0>, displ_size: LuaDefaultU32<0>, is_broadcast: LuaDefaultBool<false>, segment: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let index = unsafe { to_register(lua, index) };
 		let segment = unsafe { to_register(lua, segment) };
@@ -88,7 +88,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param displ integer #Memory displacement
 	/// @param displ_size integer #0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	/// @return MemoryOperand
-	unsafe fn with_base_index_scale_displ_size(lua, _ignore: LuaIgnore, base: u32, index: u32, scale: u32, displ: i64, displ_size: u32) -> 1 {
+	unsafe fn with_base_index_scale_displ_size(lua, base: u32, index: u32, scale: u32, displ: i64, displ_size: u32) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let index = unsafe { to_register(lua, index) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base_index_scale_displ_size(base, index, scale, displ, displ_size) };
@@ -101,7 +101,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param index integer #(A `Register` enum variant) Index register or `Register.None`
 	/// @param scale integer #Index register scale (1, 2, 4, or 8)
 	/// @return MemoryOperand
-	unsafe fn with_base_index_scale(lua, _ignore: LuaIgnore, base: u32, index: u32, scale: u32) -> 1 {
+	unsafe fn with_base_index_scale(lua, base: u32, index: u32, scale: u32) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let index = unsafe { to_register(lua, index) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base_index_scale(base, index, scale) };
@@ -113,7 +113,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param base integer #(A `Register` enum variant) Base register or `Register.None`
 	/// @param index integer #(A `Register` enum variant) Index register or `Register.None`
 	/// @return MemoryOperand
-	unsafe fn with_base_index(lua, _ignore: LuaIgnore, base: u32, index: u32) -> 1 {
+	unsafe fn with_base_index(lua, base: u32, index: u32) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let index = unsafe { to_register(lua, index) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base_index(base, index) };
@@ -126,7 +126,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param displ integer #Memory displacement
 	/// @param displ_size integer #0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	/// @return MemoryOperand
-	unsafe fn with_base_displ_size(lua, _ignore: LuaIgnore, base: u32, displ: i64, displ_size: u32) -> 1 {
+	unsafe fn with_base_displ_size(lua, base: u32, displ: i64, displ_size: u32) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base_displ_size(base, displ, displ_size) };
 		let _ = unsafe { MemoryOperand::init_and_push(lua, &mem_op) };
@@ -139,7 +139,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param displ integer #Memory displacement
 	/// @param displ_size integer #0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	/// @return MemoryOperand
-	unsafe fn with_index_scale_displ_size(lua, _ignore: LuaIgnore, index: u32, scale: u32, displ: i64, displ_size: u32) -> 1 {
+	unsafe fn with_index_scale_displ_size(lua, index: u32, scale: u32, displ: i64, displ_size: u32) -> 1 {
 		let index = unsafe { to_register(lua, index) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_index_scale_displ_size(index, scale, displ, displ_size) };
 		let _ = unsafe { MemoryOperand::init_and_push(lua, &mem_op) };
@@ -150,7 +150,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param base integer #(A `Register` enum variant) Base register or `Register.None`
 	/// @param displ integer #Memory displacement
 	/// @return MemoryOperand
-	unsafe fn with_base_displ(lua, _ignore: LuaIgnore, base: u32, displ: i64) -> 1 {
+	unsafe fn with_base_displ(lua, base: u32, displ: i64) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base_displ(base, displ) };
 		let _ = unsafe { MemoryOperand::init_and_push(lua, &mem_op) };
@@ -160,7 +160,7 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	///
 	/// @param base integer #(A `Register` enum variant) Base register or `Register.None`
 	/// @return MemoryOperand
-	unsafe fn with_base(lua, _ignore: LuaIgnore, base: u32) -> 1 {
+	unsafe fn with_base(lua, base: u32) -> 1 {
 		let base = unsafe { to_register(lua, base) };
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_base(base) };
 		let _ = unsafe { MemoryOperand::init_and_push(lua, &mem_op) };
@@ -171,15 +171,15 @@ lua_pub_methods! { static MEMORY_OPERAND_EXPORTS =>
 	/// @param displ integer #Memory displacement
 	/// @param displ_size? integer #(default = `1`) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	/// @return MemoryOperand
-	unsafe fn with_displ(lua, _ignore: LuaIgnore, displ: u64, displ_size: LuaDefaultU32<1>) -> 1 {
+	unsafe fn with_displ(lua, displ: u64, displ_size: LuaDefaultU32<1>) -> 1 {
 		let mem_op = MemoryOperand { inner: iced_x86::MemoryOperand::with_displ(displ, displ_size) };
 		let _ = unsafe { MemoryOperand::init_and_push(lua, &mem_op) };
 	}
 
 	/// Returns a copy of this instance.
 	/// @return MemoryOperand
-	unsafe fn copy(lua, mem_op: &MemoryOperand) -> 1 {
-		let _ = unsafe { MemoryOperand::init_and_push(lua, mem_op) };
+	unsafe fn copy(lua, this: &MemoryOperand) -> 1 {
+		let _ = unsafe { MemoryOperand::init_and_push(lua, this) };
 	}
 }
 

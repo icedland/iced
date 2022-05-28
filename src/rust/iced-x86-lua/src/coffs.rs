@@ -60,14 +60,14 @@ impl ConstantOffsets {
 lua_pub_methods! { static CONSTANT_OFFSETS_EXPORTS =>
 	/// The offset of the displacement, if any
 	/// @return integer
-	unsafe fn displacement_offset(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.displacement_offset() as u32); }
+	unsafe fn displacement_offset(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.displacement_offset() as u32); }
 	}
 
 	/// Size in bytes of the displacement, or 0 if there's no displacement
 	/// @return integer
-	unsafe fn displacement_size(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.displacement_size() as u32); }
+	unsafe fn displacement_size(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.displacement_size() as u32); }
 	}
 
 	/// The offset of the first immediate, if any.
@@ -76,50 +76,50 @@ lua_pub_methods! { static CONSTANT_OFFSETS_EXPORTS =>
 	/// of the instruction stream, eg. `SHL AL,1`.
 	///
 	/// @return integer
-	unsafe fn immediate_offset(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.immediate_offset() as u32); }
+	unsafe fn immediate_offset(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.immediate_offset() as u32); }
 	}
 
 	/// Size in bytes of the first immediate, or 0 if there's no immediate
 	/// @return integer
-	unsafe fn immediate_size(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.immediate_size() as u32); }
+	unsafe fn immediate_size(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.immediate_size() as u32); }
 	}
 
 	/// The offset of the second immediate, if any.
 	/// @return integer
-	unsafe fn immediate_offset2(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.immediate_offset2() as u32); }
+	unsafe fn immediate_offset2(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.immediate_offset2() as u32); }
 	}
 
 	/// Size in bytes of the second immediate, or 0 if there's no second immediate
 	/// @return integer
-	unsafe fn immediate_size2(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.immediate_size2() as u32); }
+	unsafe fn immediate_size2(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.immediate_size2() as u32); }
 	}
 
 	/// `true` if `ConstantOffsets:displacement_offset()` and `ConstantOffsets:displacement_size()` are valid
 	/// @return boolean
-	unsafe fn has_displacement(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.has_displacement()); }
+	unsafe fn has_displacement(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.has_displacement()); }
 	}
 
 	/// `true` if `ConstantOffsets:immediate_offset()` and `ConstantOffsets:immediate_size()` are valid
 	/// @return boolean
-	unsafe fn has_immediate(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.has_immediate()); }
+	unsafe fn has_immediate(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.has_immediate()); }
 	}
 
 	/// `true` if `ConstantOffsets:immediate_offset2()` and `ConstantOffsets:immediate_size2()` are valid
 	/// @return boolean
-	unsafe fn has_immediate2(lua, co: &ConstantOffsets) -> 1 {
-		unsafe { lua.push(co.inner.has_immediate2()); }
+	unsafe fn has_immediate2(lua, this: &ConstantOffsets) -> 1 {
+		unsafe { lua.push(this.inner.has_immediate2()); }
 	}
 
 	/// Returns a copy of this instance.
 	/// @return ConstantOffsets # A copy of this instance
-	unsafe fn copy(lua, co: &ConstantOffsets) -> 1 {
-		let _ = unsafe { ConstantOffsets::init_and_push(lua, co) };
+	unsafe fn copy(lua, this: &ConstantOffsets) -> 1 {
+		let _ = unsafe { ConstantOffsets::init_and_push(lua, this) };
 	}
 }
 

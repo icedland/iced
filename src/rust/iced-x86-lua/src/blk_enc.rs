@@ -22,7 +22,7 @@ lua_impl_userdata! { BlockEncoder }
 /// local Decoder = require("iced_x86.Decoder")
 ///
 /// local data = "\134\100\050\022\240\242\131\000\090\098\193\254\203\111\211"
-/// local decoder = Decoder:new(64, data, nil, 0x12345678)
+/// local decoder = Decoder.new(64, data, nil, 0x12345678)
 ///
 /// local instrs = {}
 /// for instr in decoder:iter_out() do

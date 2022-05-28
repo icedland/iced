@@ -56,62 +56,62 @@ impl UsedMemory {
 lua_pub_methods! { static USED_MEMORY_EXPORTS =>
 	/// Effective segment register or `Register.None` if the segment register is ignored
 	/// @return integer # A `Register` enum value
-	unsafe fn segment(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.segment() as u32) }
+	unsafe fn segment(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.segment() as u32) }
 	}
 
 	/// Base register or `Register.None` if none
 	/// @return integer # A `Register` enum value
-	unsafe fn base(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.base() as u32) }
+	unsafe fn base(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.base() as u32) }
 	}
 
 	/// Index register or `Register.None` if none
 	/// @return integer # A `Register` enum value
-	unsafe fn index(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.index() as u32) }
+	unsafe fn index(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.index() as u32) }
 	}
 
 	/// Index scale (1, 2, 4 or 8)
 	/// @return integer
-	unsafe fn scale(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.scale()) }
+	unsafe fn scale(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.scale()) }
 	}
 
 	/// Displacement
 	/// @return integer
-	unsafe fn displacement(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.displacement()) }
+	unsafe fn displacement(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.displacement()) }
 	}
 
 	/// Size of location (a `MemorySize` enum value)
 	/// @return integer # A `MemorySize` enum value
-	unsafe fn memory_size(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.memory_size() as u32) }
+	unsafe fn memory_size(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.memory_size() as u32) }
 	}
 
 	/// Memory access (an `OpAccess` enum value)
 	/// @return integer # An `OpAccess` enum value
-	unsafe fn access(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.access() as u32) }
+	unsafe fn access(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.access() as u32) }
 	}
 
 	/// Address size (a `CodeSize` enum value)
 	/// @return integer # A `CodeSize` enum value
-	unsafe fn address_size(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.address_size() as u32) }
+	unsafe fn address_size(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.address_size() as u32) }
 	}
 
 	/// VSIB size (`0`, `4` or `8`)
 	/// @return integer
-	unsafe fn vsib_size(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { lua.push(used_mem.inner.vsib_size()) }
+	unsafe fn vsib_size(lua, this: &UsedMemory) -> 1 {
+		unsafe { lua.push(this.inner.vsib_size()) }
 	}
 
 	/// Returns a copy of this instance.
 	/// @return UsedMemory # A copy of this instance
-	unsafe fn copy(lua, used_mem: &UsedMemory) -> 1 {
-		unsafe { let _ = UsedMemory::init_and_push(lua, used_mem); }
+	unsafe fn copy(lua, this: &UsedMemory) -> 1 {
+		unsafe { let _ = UsedMemory::init_and_push(lua, this); }
 	}
 }
 

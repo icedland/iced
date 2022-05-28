@@ -17,7 +17,7 @@ local FpuStackIncrementInfo = {}
 ---@param conditional boolean #`true` if it's a conditional push/pop (eg. `FPTAN` or `FSINCOS`)
 ---@param writes_top boolean #`true` if `TOP` is written (it's a conditional/unconditional push/pop, `FNSAVE`, `FLDENV`, etc)
 ---@return FpuStackIncrementInfo
-function FpuStackIncrementInfo:new(increment, conditional, writes_top) end
+function FpuStackIncrementInfo.new(increment, conditional, writes_top) end
 
 ---Used if `FpuStackIncrementInfo:writes_top()` is `true`. Value added to `TOP`.
 ---

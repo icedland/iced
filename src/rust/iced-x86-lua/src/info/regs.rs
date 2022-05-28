@@ -56,20 +56,20 @@ impl UsedRegister {
 lua_pub_methods! { static USED_REGISTER_EXPORTS =>
 	/// Gets the register (a `Register` enum value)
 	/// @return integer # A `Register` enum value
-	unsafe fn register(lua, used_reg: &UsedRegister) -> 1 {
-		unsafe { lua.push(used_reg.inner.register() as u32) }
+	unsafe fn register(lua, this: &UsedRegister) -> 1 {
+		unsafe { lua.push(this.inner.register() as u32) }
 	}
 
 	/// Gets the register access (an `OpAccess` enum value)
 	/// @return integer # An `OpAccess` enum value
-	unsafe fn access(lua, used_reg: &UsedRegister) -> 1 {
-		unsafe { lua.push(used_reg.inner.access() as u32) }
+	unsafe fn access(lua, this: &UsedRegister) -> 1 {
+		unsafe { lua.push(this.inner.access() as u32) }
 	}
 
 	/// Returns a copy of this instance.
 	/// @return UsedRegister # A copy of this instance
-	unsafe fn copy(lua, used_reg: &UsedRegister) -> 1 {
-		unsafe { let _ = UsedRegister::init_and_push(lua, used_reg); }
+	unsafe fn copy(lua, this: &UsedRegister) -> 1 {
+		unsafe { let _ = UsedRegister::init_and_push(lua, this); }
 	}
 }
 

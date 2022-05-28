@@ -56,8 +56,8 @@ namespace Generator.Misc.Lua {
 						sb.Append("function ");
 						sb.Append(clsName);
 						var methodSep = method.Kind switch {
-							LuaMethodKind.Method or LuaMethodKind.Constructor or LuaMethodKind.ConstructorMethod => ":",
-							LuaMethodKind.Function => ".",
+							LuaMethodKind.Method => ":",
+							LuaMethodKind.Function or LuaMethodKind.Constructor => ".",
 							_ => throw new InvalidOperationException(),
 						};
 						sb.Append(methodSep);

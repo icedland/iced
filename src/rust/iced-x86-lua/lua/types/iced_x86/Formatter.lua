@@ -24,15 +24,15 @@ local Formatter = {}
 ---local FormatterSyntax = require("iced_x86.FormatterSyntax")
 ---
 ---local data = "\098\242\079\221\114\080\001"
----local decoder = Decoder:new(64, data)
+---local decoder = Decoder.new(64, data)
 ---local instr = decoder:decode()
 ---
----local formatter = Formatter:new(FormatterSyntax.Masm)
+---local formatter = Formatter.new(FormatterSyntax.Masm)
 ---formatter:set_uppercase_mnemonics(true)
 ---local disasm = formatter:format(instr)
 ---assert(disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]")
 ---```
-function Formatter:new(syntax) end
+function Formatter.new(syntax) end
 
 ---Formats the whole instruction: prefixes, mnemonic, operands
 ---
@@ -54,8 +54,6 @@ function Formatter:format_mnemonic(instruction, options) end
 function Formatter:operand_count(instruction) end
 
 ---Returns the operand access but only if it's an operand added by the formatter.
----
----If it's an operand that is part of `Instruction`, you should call eg. `InstructionInfoFactory:info()`.
 ---
 ---@param instruction Instruction #Instruction
 ---@param operand integer #Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See `Formatter:operand_count()`

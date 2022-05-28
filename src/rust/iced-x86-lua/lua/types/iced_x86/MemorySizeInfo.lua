@@ -22,10 +22,10 @@ local MemorySizeInfo = {}
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---local info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:size() == 32)
 ---```
-function MemorySizeInfo:new(memory_size) end
+function MemorySizeInfo.new(memory_size) end
 
 ---Gets the `MemorySize` value
 ---
@@ -37,7 +37,7 @@ function MemorySizeInfo:new(memory_size) end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---local info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:memory_size() == MemorySize.Packed256_UInt16)
 ---```
 function MemorySizeInfo:memory_size() end
@@ -52,11 +52,11 @@ function MemorySizeInfo:memory_size() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(info:size() == 4)
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:size() == 32)
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(info:size() == 8)
 ---```
 function MemorySizeInfo:size() end
@@ -71,11 +71,11 @@ function MemorySizeInfo:size() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(info:element_size() == 4)
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:element_size() == 2)
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(info:element_size() == 8)
 ---```
 function MemorySizeInfo:element_size() end
@@ -90,11 +90,11 @@ function MemorySizeInfo:element_size() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(info:element_type() == MemorySize.UInt32)
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:element_type() == MemorySize.UInt16)
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(info:element_type() == MemorySize.UInt64)
 ---```
 function MemorySizeInfo:element_type() end
@@ -109,11 +109,11 @@ function MemorySizeInfo:element_type() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32):element_type_info()
+---local info = MemorySizeInfo.new(MemorySize.UInt32):element_type_info()
 ---assert(info:memory_size() == MemorySize.UInt32)
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16):element_type_info()
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16):element_type_info()
 ---assert(info:memory_size() == MemorySize.UInt16)
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64):element_type_info()
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64):element_type_info()
 ---assert(info:memory_size() == MemorySize.UInt64)
 ---```
 function MemorySizeInfo:element_type_info() end
@@ -128,11 +128,11 @@ function MemorySizeInfo:element_type_info() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(not info:is_signed())
----info = MemorySizeInfo:new(MemorySize.Int32)
+---info = MemorySizeInfo.new(MemorySize.Int32)
 ---assert(info:is_signed())
----info = MemorySizeInfo:new(MemorySize.Float64)
+---info = MemorySizeInfo.new(MemorySize.Float64)
 ---assert(info:is_signed())
 ---```
 function MemorySizeInfo:is_signed() end
@@ -147,11 +147,11 @@ function MemorySizeInfo:is_signed() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(not info:is_broadcast())
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(not info:is_broadcast())
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(info:is_broadcast())
 ---```
 function MemorySizeInfo:is_broadcast() end
@@ -166,11 +166,11 @@ function MemorySizeInfo:is_broadcast() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(not info:is_packed())
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:is_packed())
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(not info:is_packed())
 ---```
 function MemorySizeInfo:is_packed() end
@@ -185,11 +185,11 @@ function MemorySizeInfo:is_packed() end
 ---local MemorySize = require("iced_x86.MemorySize")
 ---local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
 ---
----local info = MemorySizeInfo:new(MemorySize.UInt32)
+---local info = MemorySizeInfo.new(MemorySize.UInt32)
 ---assert(info:element_count() == 1)
----info = MemorySizeInfo:new(MemorySize.Packed256_UInt16)
+---info = MemorySizeInfo.new(MemorySize.Packed256_UInt16)
 ---assert(info:element_count() == 16)
----info = MemorySizeInfo:new(MemorySize.Broadcast512_UInt64)
+---info = MemorySizeInfo.new(MemorySize.Broadcast512_UInt64)
 ---assert(info:element_count() == 1)
 ---```
 function MemorySizeInfo:element_count() end

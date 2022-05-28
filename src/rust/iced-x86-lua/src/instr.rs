@@ -13,7 +13,7 @@ use loona::prelude::*;
 lua_struct_module! { luaopen_iced_x86_Instruction : Instruction }
 lua_impl_userdata! { Instruction }
 
-/// A 16/32/64-bit x86 instruction. Created by `Decoder` or by `Instruction:create*()` methods
+/// A 16/32/64-bit x86 instruction. Created by `Decoder` or by `Instruction.create*()` methods
 /// @class Instruction
 #[derive(Clone, Copy)]
 pub(crate) struct Instruction {
@@ -71,7 +71,7 @@ macro_rules! mk_dx_body {
 	($lua:ident, $elem_size:literal, $lua_try_get_num:path, $str_arg_fn:path, $slice_arg_fn:path,
 	$err_string_arg:literal, $err_int_values:literal, $err_count_int_values:literal,) => {
 		const MAX_ELEMS: c_int = 16 / $elem_size;
-		const IGNORED_ARGS: c_int = 1;
+		const IGNORED_ARGS: c_int = 0;
 		const ERR_STRING_ARG: &str = $err_string_arg;
 		const ERR_INT_VALUES: &str = $err_int_values;
 		const ERR_COUNT_INT_VALUES: &str = $err_count_int_values;
@@ -155,78 +155,78 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Creates a new instruction that's exactly identical to this one
 	/// @return Instruction
-	unsafe fn copy(lua, instr: &Instruction) -> 1 {
+	unsafe fn copy(lua, this: &Instruction) -> 1 {
 		unsafe {
-			let _ = Instruction::init_and_push(lua, instr);
+			let _ = Instruction::init_and_push(lua, this);
 		}
 	}
 
 	/// Checks if two instructions are equal, comparing all bits, not ignoring anything. `==` ignores some fields.
 	/// @param other Instruction #Other instruction
-	unsafe fn eq_all_bits(lua, instr: &Instruction, other: &Instruction) -> 1 {
+	unsafe fn eq_all_bits(lua, this: &Instruction, other: &Instruction) -> 1 {
 		unsafe {
-			lua.push(instr.inner.eq_all_bits(&other.inner))
+			lua.push(this.inner.eq_all_bits(&other.inner))
 		}
 	}
 
 	/// Gets the 16-bit IP of the instruction
 	/// @return integer
-	unsafe fn ip16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.ip16()); }
+	unsafe fn ip16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.ip16()); }
 	}
 
-	unsafe fn set_ip16(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_ip16(new_value);
+	unsafe fn set_ip16(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_ip16(new_value);
 	}
 
 	/// Gets the 32-bit IP of the instruction
 	/// @return integer
-	unsafe fn ip32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.ip32()); }
+	unsafe fn ip32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.ip32()); }
 	}
 
-	unsafe fn set_ip32(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_ip32(new_value);
+	unsafe fn set_ip32(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_ip32(new_value);
 	}
 
 	/// Gets the 64-bit IP of the instruction
 	/// @return integer
-	unsafe fn ip(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.ip()); }
+	unsafe fn ip(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.ip()); }
 	}
 
-	unsafe fn set_ip(lua, instr: &mut Instruction, new_value: u64) -> 0 {
-		instr.inner.set_ip(new_value);
+	unsafe fn set_ip(lua, this: &mut Instruction, new_value: u64) -> 0 {
+		this.inner.set_ip(new_value);
 	}
 
 	/// Gets the 16-bit IP of the next instruction
 	/// @return integer
-	unsafe fn next_ip16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.next_ip16()); }
+	unsafe fn next_ip16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.next_ip16()); }
 	}
 
-	unsafe fn set_next_ip16(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_next_ip16(new_value);
+	unsafe fn set_next_ip16(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_next_ip16(new_value);
 	}
 
 	/// Gets the 32-bit IP of the next instruction
 	/// @return integer
-	unsafe fn next_ip32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.next_ip32()); }
+	unsafe fn next_ip32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.next_ip32()); }
 	}
 
-	unsafe fn set_next_ip32(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_next_ip32(new_value);
+	unsafe fn set_next_ip32(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_next_ip32(new_value);
 	}
 
 	/// Gets the 64-bit IP of the next instruction
 	/// @return integer
-	unsafe fn next_ip(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.next_ip()); }
+	unsafe fn next_ip(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.next_ip()); }
 	}
 
-	unsafe fn set_next_ip(lua, instr: &mut Instruction, new_value: u64) -> 0 {
-		instr.inner.set_next_ip(new_value);
+	unsafe fn set_next_ip(lua, this: &mut Instruction, new_value: u64) -> 0 {
+		this.inner.set_next_ip(new_value);
 	}
 
 	/// Gets the code size (a `CodeSize` enum value) when the instruction was decoded.
@@ -235,34 +235,34 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// This value is informational and can be used by a formatter.
 	///
 	/// @return integer # A `CodeSize` enum value
-	unsafe fn code_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.code_size() as u32); }
+	unsafe fn code_size(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.code_size() as u32); }
 	}
 
-	unsafe fn set_code_size(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_code_size(unsafe { to_code_size(lua, new_value) });
+	unsafe fn set_code_size(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_code_size(unsafe { to_code_size(lua, new_value) });
 	}
 
 	/// Checks if it's an invalid instruction (`Instruction:code()` == `Code.INVALID`)
 	/// @return boolean
-	unsafe fn is_invalid(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_invalid()); }
+	unsafe fn is_invalid(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_invalid()); }
 	}
 
 	/// Gets the instruction code (a `Code` enum value), see also `Instruction:mnemonic()`
 	/// @return integer # A `Code` enum value
-	unsafe fn code(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.code() as u32); }
+	unsafe fn code(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.code() as u32); }
 	}
 
-	unsafe fn set_code(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_code(unsafe { to_code(lua, new_value) });
+	unsafe fn set_code(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_code(unsafe { to_code(lua, new_value) });
 	}
 
 	/// Gets the mnemonic (a `Mnemonic` enum value), see also `Instruction:code()`
 	/// @return integer # A `Mnemonic` enum value
-	unsafe fn mnemonic(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.mnemonic() as u32); }
+	unsafe fn mnemonic(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.mnemonic() as u32); }
 	}
 
 	/// Gets the operand count. An instruction can have 0-5 operands.
@@ -274,13 +274,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- add [rax],ebx
 	/// local data = "\001\024"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:op_count() == 2)
 	/// ```
-	unsafe fn op_count(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op_count()); }
+	unsafe fn op_count(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op_count()); }
 	}
 
 	/// Gets the length of the instruction, 0-15 bytes.
@@ -291,122 +291,122 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// This is just informational. If you modify the instruction or create a new one, this method could return the wrong value.
 	///
 	/// @return integer
-	unsafe fn len(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.len()); }
+	unsafe fn len(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.len()); }
 	}
 
-	unsafe fn set_len(lua, instr: &mut Instruction, new_value: usize) -> 0 {
-		instr.inner.set_len(new_value);
+	unsafe fn set_len(lua, this: &mut Instruction, new_value: usize) -> 0 {
+		this.inner.set_len(new_value);
 	}
 
 	/// `true` if the instruction has the `XACQUIRE` prefix (`F2`)
 	/// @return boolean
-	unsafe fn has_xacquire_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_xacquire_prefix()); }
+	unsafe fn has_xacquire_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_xacquire_prefix()); }
 	}
 
-	unsafe fn set_has_xacquire_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_xacquire_prefix(new_value);
+	unsafe fn set_has_xacquire_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_xacquire_prefix(new_value);
 	}
 
 	/// `true` if the instruction has the `XRELEASE` prefix (`F3`)
 	/// @return boolean
-	unsafe fn has_xrelease_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_xrelease_prefix()); }
+	unsafe fn has_xrelease_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_xrelease_prefix()); }
 	}
 
-	unsafe fn set_has_xrelease_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_xrelease_prefix(new_value);
-	}
-
-	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
-	/// @return boolean
-	unsafe fn has_rep_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_rep_prefix()); }
-	}
-
-	unsafe fn set_has_rep_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_rep_prefix(new_value);
+	unsafe fn set_has_xrelease_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_xrelease_prefix(new_value);
 	}
 
 	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
 	/// @return boolean
-	unsafe fn has_repe_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_repe_prefix()); }
+	unsafe fn has_rep_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_rep_prefix()); }
 	}
 
-	unsafe fn set_has_repe_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_repe_prefix(new_value);
+	unsafe fn set_has_rep_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_rep_prefix(new_value);
+	}
+
+	/// `true` if the instruction has the `REPE` or `REP` prefix (`F3`)
+	/// @return boolean
+	unsafe fn has_repe_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_repe_prefix()); }
+	}
+
+	unsafe fn set_has_repe_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_repe_prefix(new_value);
 	}
 
 	/// `true` if the instruction has the `REPNE` prefix (`F2`)
 	/// @return boolean
-	unsafe fn has_repne_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_repne_prefix()); }
+	unsafe fn has_repne_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_repne_prefix()); }
 	}
 
-	unsafe fn set_has_repne_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_repne_prefix(new_value);
+	unsafe fn set_has_repne_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_repne_prefix(new_value);
 	}
 
 	/// `true` if the instruction has the `LOCK` prefix (`F0`)
 	/// @return boolean
-	unsafe fn has_lock_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_lock_prefix()); }
+	unsafe fn has_lock_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_lock_prefix()); }
 	}
 
-	unsafe fn set_has_lock_prefix(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_has_lock_prefix(new_value);
+	unsafe fn set_has_lock_prefix(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_has_lock_prefix(new_value);
 	}
 
 	/// Gets operand #0's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
-	unsafe fn op0_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op0_kind() as u32); }
+	unsafe fn op0_kind(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op0_kind() as u32); }
 	}
 
-	unsafe fn set_op0_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op0_kind(unsafe { to_op_kind(lua, new_value) });
+	unsafe fn set_op0_kind(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op0_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #1's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
-	unsafe fn op1_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op1_kind() as u32); }
+	unsafe fn op1_kind(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op1_kind() as u32); }
 	}
 
-	unsafe fn set_op1_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op1_kind(unsafe { to_op_kind(lua, new_value) });
+	unsafe fn set_op1_kind(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op1_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #2's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
-	unsafe fn op2_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op2_kind() as u32); }
+	unsafe fn op2_kind(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op2_kind() as u32); }
 	}
 
-	unsafe fn set_op2_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op2_kind(unsafe { to_op_kind(lua, new_value) });
+	unsafe fn set_op2_kind(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op2_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #3's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
-	unsafe fn op3_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op3_kind() as u32); }
+	unsafe fn op3_kind(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op3_kind() as u32); }
 	}
 
-	unsafe fn set_op3_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op3_kind(unsafe { to_op_kind(lua, new_value) });
+	unsafe fn set_op3_kind(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op3_kind(unsafe { to_op_kind(lua, new_value) });
 	}
 
 	/// Gets operand #4's kind (an `OpKind` enum value) if the operand exists (see `Instruction:op_count()` and `Instruction:op_kind()`)
 	/// @return integer # An `OpKind` enum value
-	unsafe fn op4_kind(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op4_kind() as u32); }
+	unsafe fn op4_kind(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op4_kind() as u32); }
 	}
 
-	unsafe fn set_op4_kind(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		match instr.inner.try_set_op4_kind(unsafe { to_op_kind(lua, new_value) }) {
+	unsafe fn set_op4_kind(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		match this.inner.try_set_op4_kind(unsafe { to_op_kind(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -425,7 +425,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- add [rax],ebx
 	/// local data = "\001\024"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:op_count() == 2)
@@ -435,15 +435,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr:op_kind(1) == OpKind.Register)
 	/// assert(instr:op_register(1) == Register.EBX)
 	/// ```
-	unsafe fn op_kind(lua, instr: &Instruction, operand: u32) -> 1 {
-		match instr.inner.try_op_kind(operand) {
+	unsafe fn op_kind(lua, this: &Instruction, operand: u32) -> 1 {
+		match this.inner.try_op_kind(operand) {
 			Ok(op_kind) => unsafe { lua.push(op_kind as u32) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
 	}
 
-	unsafe fn set_op_kind(lua, instr: &mut Instruction, operand: u32, op_kind: u32) -> 0 {
-		match instr.inner.try_set_op_kind(operand, unsafe { to_op_kind(lua, op_kind) }) {
+	unsafe fn set_op_kind(lua, this: &mut Instruction, operand: u32, op_kind: u32) -> 0 {
+		match this.inner.try_set_op_kind(operand, unsafe { to_op_kind(lua, op_kind) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -451,8 +451,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Checks if the instruction has a segment override prefix, see `Instruction:segment_prefix()`
 	/// @return boolean
-	unsafe fn has_segment_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_segment_prefix()); }
+	unsafe fn has_segment_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_segment_prefix()); }
 	}
 
 	/// Gets the segment override prefix (a `Register` enum value) or `Register.None` if none.
@@ -463,12 +463,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `OpKind.MemorySegSI`, `OpKind.MemorySegESI`, `OpKind.MemorySegRSI`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn segment_prefix(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.segment_prefix() as u32); }
+	unsafe fn segment_prefix(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.segment_prefix() as u32); }
 	}
 
-	unsafe fn set_segment_prefix(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_segment_prefix(unsafe { to_register(lua, new_value) });
+	unsafe fn set_segment_prefix(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_segment_prefix(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets the effective segment register used to reference the memory location (a `Register` enum value).
@@ -476,8 +476,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`, `OpKind.MemorySegSI`, `OpKind.MemorySegESI`, `OpKind.MemorySegRSI`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn memory_segment(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_segment() as u32); }
+	unsafe fn memory_segment(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_segment() as u32); }
 	}
 
 	/// Gets the size of the memory displacement in bytes.
@@ -490,42 +490,42 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`
 	///
 	/// @return integer
-	unsafe fn memory_displ_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_displ_size()); }
+	unsafe fn memory_displ_size(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_displ_size()); }
 	}
 
-	unsafe fn set_memory_displ_size(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_displ_size(new_value);
+	unsafe fn set_memory_displ_size(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_memory_displ_size(new_value);
 	}
 
 	/// `true` if the data is broadcast (EVEX instructions only)
 	/// @return boolean
-	unsafe fn is_broadcast(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_broadcast()); }
+	unsafe fn is_broadcast(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_broadcast()); }
 	}
 
-	unsafe fn set_is_broadcast(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_is_broadcast(new_value);
+	unsafe fn set_is_broadcast(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_is_broadcast(new_value);
 	}
 
 	/// `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
 	/// @return boolean
-	unsafe fn is_mvex_eviction_hint(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_mvex_eviction_hint()); }
+	unsafe fn is_mvex_eviction_hint(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_mvex_eviction_hint()); }
 	}
 
-	unsafe fn set_is_mvex_eviction_hint(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_is_mvex_eviction_hint(new_value);
+	unsafe fn set_is_mvex_eviction_hint(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_is_mvex_eviction_hint(new_value);
 	}
 
 	/// (MVEX) Register/memory operand conversion function (an `MvexRegMemConv` enum value)
 	/// @return integer # An `MvexRegMemConv` enum value
-	unsafe fn mvex_reg_mem_conv(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.mvex_reg_mem_conv() as u32); }
+	unsafe fn mvex_reg_mem_conv(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.mvex_reg_mem_conv() as u32); }
 	}
 
-	unsafe fn set_mvex_reg_mem_conv(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_mvex_reg_mem_conv(unsafe { to_mvex_reg_mem_conv(lua, new_value) });
+	unsafe fn set_mvex_reg_mem_conv(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_mvex_reg_mem_conv(unsafe { to_mvex_reg_mem_conv(lua, new_value) });
 	}
 
 	/// Gets the size of the memory location (a `MemorySize` enum value) that is referenced by the operand.
@@ -537,8 +537,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// `OpKind.MemoryESDI`, `OpKind.MemoryESEDI`, `OpKind.MemoryESRDI`
 	///
 	/// @return integer # A `MemorySize` enum value
-	unsafe fn memory_size(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_size() as u32); }
+	unsafe fn memory_size(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_size() as u32); }
 	}
 
 	/// Gets the index register scale value, valid values are `*1`, `*2`, `*4`, `*8`.
@@ -546,12 +546,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`
 	///
 	/// @return integer
-	unsafe fn memory_index_scale(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_index_scale()); }
+	unsafe fn memory_index_scale(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_index_scale()); }
 	}
 
-	unsafe fn set_memory_index_scale(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_index_scale(new_value);
+	unsafe fn set_memory_index_scale(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_memory_index_scale(new_value);
 	}
 
 	/// Gets the memory operand's displacement or the 64-bit absolute address if it's
@@ -560,20 +560,20 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`
 	///
 	/// @return integer
-	unsafe fn memory_displacement(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_displacement64()); }
+	unsafe fn memory_displacement(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_displacement64()); }
 	}
 
-	unsafe fn set_memory_displacement(lua, instr: &mut Instruction, new_value: u64) -> 0 {
-		instr.inner.set_memory_displacement64(new_value);
+	unsafe fn set_memory_displacement(lua, this: &mut Instruction, new_value: u64) -> 0 {
+		this.inner.set_memory_displacement64(new_value);
 	}
 
 	/// Gets an operand's immediate value
 	///
 	/// @param operand integer # Operand number, 0-4
 	/// @return integer # (`u64`) The immediate
-	unsafe fn immediate(lua, instr: &Instruction, operand: u32) -> 1 {
-		let value = match instr.inner.try_immediate(operand) {
+	unsafe fn immediate(lua, this: &Instruction, operand: u32) -> 1 {
+		let value = match this.inner.try_immediate(operand) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -584,8 +584,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param operand integer # Operand number, 0-4
 	/// @param new_value integer # (`i32`) Immediate
-	unsafe fn set_immediate_i32(lua, instr: &mut Instruction, operand: u32, new_value: i32) -> 0 {
-		match instr.inner.try_set_immediate_i32(operand, new_value) {
+	unsafe fn set_immediate_i32(lua, this: &mut Instruction, operand: u32, new_value: i32) -> 0 {
+		match this.inner.try_set_immediate_i32(operand, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -595,8 +595,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param operand integer # Operand number, 0-4
 	/// @param new_value integer # (`u32`) Immediate
-	unsafe fn set_immediate_u32(lua, instr: &mut Instruction, operand: u32, new_value: u32) -> 0 {
-		match instr.inner.try_set_immediate_u32(operand, new_value) {
+	unsafe fn set_immediate_u32(lua, this: &mut Instruction, operand: u32, new_value: u32) -> 0 {
+		match this.inner.try_set_immediate_u32(operand, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -606,8 +606,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param operand integer # Operand number, 0-4
 	/// @param new_value integer # (`i64`) Immediate
-	unsafe fn set_immediate_i64(lua, instr: &mut Instruction, operand: u32, new_value: i64) -> 0 {
-		match instr.inner.try_set_immediate_i64(operand, new_value) {
+	unsafe fn set_immediate_i64(lua, this: &mut Instruction, operand: u32, new_value: i64) -> 0 {
+		match this.inner.try_set_immediate_i64(operand, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -617,8 +617,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param operand integer # Operand number, 0-4
 	/// @param new_value integer # (`u64`) Immediate
-	unsafe fn set_immediate_u64(lua, instr: &mut Instruction, operand: u32, new_value: u64) -> 0 {
-		match instr.inner.try_set_immediate_u64(operand, new_value) {
+	unsafe fn set_immediate_u64(lua, this: &mut Instruction, operand: u32, new_value: u64) -> 0 {
+		match this.inner.try_set_immediate_u64(operand, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -629,12 +629,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate8`
 	///
 	/// @return integer
-	unsafe fn immediate8(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate8()); }
+	unsafe fn immediate8(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate8()); }
 	}
 
-	unsafe fn set_immediate8(lua, instr: &mut Instruction, new_value: u8) -> 0 {
-		instr.inner.set_immediate8(new_value);
+	unsafe fn set_immediate8(lua, this: &mut Instruction, new_value: u8) -> 0 {
+		this.inner.set_immediate8(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -642,12 +642,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate8_2nd`
 	///
 	/// @return integer
-	unsafe fn immediate8_2nd(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate8_2nd()); }
+	unsafe fn immediate8_2nd(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate8_2nd()); }
 	}
 
-	unsafe fn set_immediate8_2nd(lua, instr: &mut Instruction, new_value: u8) -> 0 {
-		instr.inner.set_immediate8_2nd(new_value);
+	unsafe fn set_immediate8_2nd(lua, this: &mut Instruction, new_value: u8) -> 0 {
+		this.inner.set_immediate8_2nd(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -655,12 +655,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate16`
 	///
 	/// @return integer
-	unsafe fn immediate16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate16()); }
+	unsafe fn immediate16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate16()); }
 	}
 
-	unsafe fn set_immediate16(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_immediate16(new_value);
+	unsafe fn set_immediate16(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_immediate16(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -668,12 +668,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate32`
 	///
 	/// @return integer
-	unsafe fn immediate32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate32()); }
+	unsafe fn immediate32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate32()); }
 	}
 
-	unsafe fn set_immediate32(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_immediate32(new_value);
+	unsafe fn set_immediate32(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_immediate32(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -681,12 +681,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate64`
 	///
 	/// @return integer
-	unsafe fn immediate64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate64()); }
+	unsafe fn immediate64(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate64()); }
 	}
 
-	unsafe fn set_immediate64(lua, instr: &mut Instruction, new_value: u64) -> 0 {
-		instr.inner.set_immediate64(new_value);
+	unsafe fn set_immediate64(lua, this: &mut Instruction, new_value: u64) -> 0 {
+		this.inner.set_immediate64(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -694,12 +694,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate8To16`
 	///
 	/// @return integer
-	unsafe fn immediate8to16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate8to16()); }
+	unsafe fn immediate8to16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate8to16()); }
 	}
 
-	unsafe fn set_immediate8to16(lua, instr: &mut Instruction, new_value: i16) -> 0 {
-		instr.inner.set_immediate8to16(new_value);
+	unsafe fn set_immediate8to16(lua, this: &mut Instruction, new_value: i16) -> 0 {
+		this.inner.set_immediate8to16(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -707,12 +707,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate8To32`
 	///
 	/// @return integer
-	unsafe fn immediate8to32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate8to32()); }
+	unsafe fn immediate8to32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate8to32()); }
 	}
 
-	unsafe fn set_immediate8to32(lua, instr: &mut Instruction, new_value: i32) -> 0 {
-		instr.inner.set_immediate8to32(new_value);
+	unsafe fn set_immediate8to32(lua, this: &mut Instruction, new_value: i32) -> 0 {
+		this.inner.set_immediate8to32(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -720,12 +720,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate8To64`
 	///
 	/// @return integer
-	unsafe fn immediate8to64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate8to64()); }
+	unsafe fn immediate8to64(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate8to64()); }
 	}
 
-	unsafe fn set_immediate8to64(lua, instr: &mut Instruction, new_value: i64) -> 0 {
-		instr.inner.set_immediate8to64(new_value);
+	unsafe fn set_immediate8to64(lua, this: &mut Instruction, new_value: i64) -> 0 {
+		this.inner.set_immediate8to64(new_value);
 	}
 
 	/// Gets the operand's immediate value.
@@ -733,12 +733,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Immediate32To64`
 	///
 	/// @return integer
-	unsafe fn immediate32to64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.immediate32to64()); }
+	unsafe fn immediate32to64(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.immediate32to64()); }
 	}
 
-	unsafe fn set_immediate32to64(lua, instr: &mut Instruction, new_value: i64) -> 0 {
-		instr.inner.set_immediate32to64(new_value);
+	unsafe fn set_immediate32to64(lua, this: &mut Instruction, new_value: i64) -> 0 {
+		this.inner.set_immediate32to64(new_value);
 	}
 
 	/// Gets the operand's branch target.
@@ -746,12 +746,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.NearBranch16`
 	///
 	/// @return integer
-	unsafe fn near_branch16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.near_branch16()); }
+	unsafe fn near_branch16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.near_branch16()); }
 	}
 
-	unsafe fn set_near_branch16(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_near_branch16(new_value);
+	unsafe fn set_near_branch16(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_near_branch16(new_value);
 	}
 
 	/// Gets the operand's branch target.
@@ -759,12 +759,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.NearBranch32`
 	///
 	/// @return integer
-	unsafe fn near_branch32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.near_branch32()); }
+	unsafe fn near_branch32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.near_branch32()); }
 	}
 
-	unsafe fn set_near_branch32(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_near_branch32(new_value);
+	unsafe fn set_near_branch32(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_near_branch32(new_value);
 	}
 
 	/// Gets the operand's branch target.
@@ -772,12 +772,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.NearBranch64`
 	///
 	/// @return integer
-	unsafe fn near_branch64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.near_branch64()); }
+	unsafe fn near_branch64(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.near_branch64()); }
 	}
 
-	unsafe fn set_near_branch64(lua, instr: &mut Instruction, new_value: u64) -> 0 {
-		instr.inner.set_near_branch64(new_value);
+	unsafe fn set_near_branch64(lua, this: &mut Instruction, new_value: u64) -> 0 {
+		this.inner.set_near_branch64(new_value);
 	}
 
 	/// Gets the near branch target if it's a `CALL`/`JMP`/`Jcc` near branch instruction
@@ -785,8 +785,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// (i.e., if `Instruction:op0_kind()` is `OpKind.NearBranch16`, `OpKind.NearBranch32` or `OpKind.NearBranch64`)
 	///
 	/// @return integer
-	unsafe fn near_branch_target(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.near_branch_target()); }
+	unsafe fn near_branch_target(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.near_branch_target()); }
 	}
 
 	/// Gets the operand's branch target.
@@ -794,12 +794,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.FarBranch16`
 	///
 	/// @return integer
-	unsafe fn far_branch16(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.far_branch16()); }
+	unsafe fn far_branch16(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.far_branch16()); }
 	}
 
-	unsafe fn set_far_branch16(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_far_branch16(new_value);
+	unsafe fn set_far_branch16(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_far_branch16(new_value);
 	}
 
 	/// Gets the operand's branch target.
@@ -807,12 +807,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.FarBranch32`
 	///
 	/// @return integer
-	unsafe fn far_branch32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.far_branch32()); }
+	unsafe fn far_branch32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.far_branch32()); }
 	}
 
-	unsafe fn set_far_branch32(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_far_branch32(new_value);
+	unsafe fn set_far_branch32(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_far_branch32(new_value);
 	}
 
 	/// Gets the operand's branch target selector.
@@ -820,12 +820,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.FarBranch16` or `OpKind.FarBranch32`
 	///
 	/// @return integer
-	unsafe fn far_branch_selector(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.far_branch_selector()); }
+	unsafe fn far_branch_selector(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.far_branch_selector()); }
 	}
 
-	unsafe fn set_far_branch_selector(lua, instr: &mut Instruction, new_value: u16) -> 0 {
-		instr.inner.set_far_branch_selector(new_value);
+	unsafe fn set_far_branch_selector(lua, this: &mut Instruction, new_value: u16) -> 0 {
+		this.inner.set_far_branch_selector(new_value);
 	}
 
 	/// Gets the memory operand's base register (a `Register` enum value) or `Register.None` if none.
@@ -833,12 +833,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn memory_base(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_base() as u32); }
+	unsafe fn memory_base(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_base() as u32); }
 	}
 
-	unsafe fn set_memory_base(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_base(unsafe { to_register(lua, new_value) });
+	unsafe fn set_memory_base(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_memory_base(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets the memory operand's index register (a `Register` enum value) or `Register.None` if none.
@@ -846,12 +846,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if the operand has kind `OpKind.Memory`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn memory_index(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.memory_index() as u32); }
+	unsafe fn memory_index(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.memory_index() as u32); }
 	}
 
-	unsafe fn set_memory_index(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_memory_index(unsafe { to_register(lua, new_value) });
+	unsafe fn set_memory_index(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_memory_index(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #0's register value (a `Register` enum value).
@@ -859,12 +859,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if operand #0 (`Instruction:op0_kind()`) has kind `OpKind.Register`, see `Instruction:op_count()` and `Instruction:op_register()`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn op0_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op0_register() as u32); }
+	unsafe fn op0_register(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op0_register() as u32); }
 	}
 
-	unsafe fn set_op0_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op0_register(unsafe { to_register(lua, new_value) });
+	unsafe fn set_op0_register(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op0_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #1's register value (a `Register` enum value).
@@ -872,12 +872,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if operand #1 (`Instruction:op0_kind()`) has kind `OpKind.Register`, see `Instruction:op_count()` and `Instruction:op_register()`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn op1_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op1_register() as u32); }
+	unsafe fn op1_register(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op1_register() as u32); }
 	}
 
-	unsafe fn set_op1_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op1_register(unsafe { to_register(lua, new_value) });
+	unsafe fn set_op1_register(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op1_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #2's register value (a `Register` enum value).
@@ -885,12 +885,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if operand #2 (`Instruction:op0_kind()`) has kind `OpKind.Register`, see `Instruction:op_count()` and `Instruction:op_register()`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn op2_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op2_register() as u32); }
+	unsafe fn op2_register(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op2_register() as u32); }
 	}
 
-	unsafe fn set_op2_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op2_register(unsafe { to_register(lua, new_value) });
+	unsafe fn set_op2_register(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op2_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #3's register value (a `Register` enum value).
@@ -898,12 +898,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if operand #3 (`Instruction:op0_kind()`) has kind `OpKind.Register`, see `Instruction:op_count()` and `Instruction:op_register()`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn op3_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op3_register() as u32); }
+	unsafe fn op3_register(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op3_register() as u32); }
 	}
 
-	unsafe fn set_op3_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op3_register(unsafe { to_register(lua, new_value) });
+	unsafe fn set_op3_register(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op3_register(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Gets operand #4's register value (a `Register` enum value).
@@ -911,12 +911,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Use this method if operand #4 (`Instruction:op0_kind()`) has kind `OpKind.Register`, see `Instruction:op_count()` and `Instruction:op_register()`
 	///
 	/// @return integer # A `Register` enum value
-	unsafe fn op4_register(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op4_register() as u32); }
+	unsafe fn op4_register(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op4_register() as u32); }
 	}
 
-	unsafe fn set_op4_register(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		match instr.inner.try_set_op4_register(unsafe { to_register(lua, new_value) }) {
+	unsafe fn set_op4_register(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		match this.inner.try_set_op4_register(unsafe { to_register(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -937,7 +937,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- add [rax],ebx
 	/// local data = "\001\024"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:op_count() == 2)
@@ -945,15 +945,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr:op_kind(1) == OpKind.Register)
 	/// assert(instr:op_register(1) == Register.EBX)
 	/// ```
-	unsafe fn op_register(lua, instr: &Instruction, operand: u32) -> 1 {
-		match instr.inner.try_op_register(operand) {
+	unsafe fn op_register(lua, this: &Instruction, operand: u32) -> 1 {
+		match this.inner.try_op_register(operand) {
 			Ok(register) => unsafe { lua.push(register as u32) },
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
 	}
 
-	unsafe fn set_op_register(lua, instr: &mut Instruction, operand: u32, new_value: u32) -> 0 {
-		match instr.inner.try_set_op_register(operand, unsafe { to_register(lua, new_value) }) {
+	unsafe fn set_op_register(lua, this: &mut Instruction, operand: u32, new_value: u32) -> 0 {
+		match this.inner.try_set_op_register(operand, unsafe { to_register(lua, new_value) }) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -961,18 +961,18 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the opmask register (`Register.K1` - `Register.K7`) or `Register.None` if none (a `Register` enum value)
 	/// @return integer # A `Register` enum value
-	unsafe fn op_mask(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.op_mask() as u32); }
+	unsafe fn op_mask(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.op_mask() as u32); }
 	}
 
-	unsafe fn set_op_mask(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_op_mask(unsafe { to_register(lua, new_value) });
+	unsafe fn set_op_mask(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_op_mask(unsafe { to_register(lua, new_value) });
 	}
 
 	/// Checks if there's an opmask register (`Instruction:op_mask()`)
 	/// @return boolean
-	unsafe fn has_op_mask(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.has_op_mask()); }
+	unsafe fn has_op_mask(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.has_op_mask()); }
 	}
 
 	/// `true` if zeroing-masking, `false` if merging-masking.
@@ -980,12 +980,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// @return boolean
-	unsafe fn zeroing_masking(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.zeroing_masking()); }
+	unsafe fn zeroing_masking(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.zeroing_masking()); }
 	}
 
-	unsafe fn set_zeroing_masking(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_zeroing_masking(new_value);
+	unsafe fn set_zeroing_masking(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_zeroing_masking(new_value);
 	}
 
 	/// `true` if merging-masking, `false` if zeroing-masking.
@@ -993,12 +993,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Only used by most EVEX encoded instructions that use opmask registers.
 	///
 	/// @return boolean
-	unsafe fn merging_masking(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.merging_masking()); }
+	unsafe fn merging_masking(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.merging_masking()); }
 	}
 
-	unsafe fn set_merging_masking(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_merging_masking(new_value);
+	unsafe fn set_merging_masking(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_merging_masking(new_value);
 	}
 
 	/// Gets the rounding control (a `RoundingControl` enum value) or `RoundingControl.None` if the instruction doesn't use it.
@@ -1007,12 +1007,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// SAE is implied but `Instruction:suppress_all_exceptions()` still returns `false`.
 	///
 	/// @return integer # A `RoundingControl` enum value
-	unsafe fn rounding_control(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rounding_control() as u32); }
+	unsafe fn rounding_control(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rounding_control() as u32); }
 	}
 
-	unsafe fn set_rounding_control(lua, instr: &mut Instruction, new_value: u32) -> 0 {
-		instr.inner.set_rounding_control(unsafe { to_rounding_control(lua, new_value) });
+	unsafe fn set_rounding_control(lua, this: &mut Instruction, new_value: u32) -> 0 {
+		this.inner.set_rounding_control(unsafe { to_rounding_control(lua, new_value) });
 	}
 
 	/// Gets the number of elements in a `db`/`dw`/`dd`/`dq` directive.
@@ -1020,12 +1020,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// Can only be called if `Instruction:code()` is `Code.DeclareByte`, `Code.DeclareWord`, `Code.DeclareDword`, `Code.DeclareQword`
 	///
 	/// @return integer
-	unsafe fn declare_data_len(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.declare_data_len()); }
+	unsafe fn declare_data_len(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.declare_data_len()); }
 	}
 
-	unsafe fn set_declare_data_len(lua, instr: &mut Instruction, new_value: usize) -> 0 {
-		instr.inner.set_declare_data_len(new_value);
+	unsafe fn set_declare_data_len(lua, this: &mut Instruction, new_value: usize) -> 0 {
+		this.inner.set_declare_data_len(new_value);
 	}
 
 	/// Sets a new `db` value, see also `Instruction:declare_data_len()`.
@@ -1034,8 +1034,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-15)
 	/// @param new_value integer # (`u8`) New value
-	unsafe fn set_declare_byte_value(lua, instr: &mut Instruction, index: usize, new_value: u8) -> 0 {
-		match instr.inner.try_set_declare_byte_value(index, new_value) {
+	unsafe fn set_declare_byte_value(lua, this: &mut Instruction, index: usize, new_value: u8) -> 0 {
+		match this.inner.try_set_declare_byte_value(index, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -1047,8 +1047,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-15)
 	/// @return integer # (`u8`) The value
-	unsafe fn get_declare_byte_value(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_byte_value(index) {
+	unsafe fn get_declare_byte_value(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_byte_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1061,8 +1061,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-15)
 	/// @return integer # (`i8`) The value
-	unsafe fn get_declare_byte_value_i8(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_byte_value(index) {
+	unsafe fn get_declare_byte_value_i8(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_byte_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1075,8 +1075,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-7)
 	/// @param new_value integer # (`u16`) New value
-	unsafe fn set_declare_word_value(lua, instr: &mut Instruction, index: usize, new_value: u16) -> 0 {
-		match instr.inner.try_set_declare_word_value(index, new_value) {
+	unsafe fn set_declare_word_value(lua, this: &mut Instruction, index: usize, new_value: u16) -> 0 {
+		match this.inner.try_set_declare_word_value(index, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -1088,8 +1088,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-7)
 	/// @return integer # (`u16`) The value
-	unsafe fn get_declare_word_value(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_word_value(index) {
+	unsafe fn get_declare_word_value(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_word_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1102,8 +1102,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-7)
 	/// @return integer # (`i16`) The value
-	unsafe fn get_declare_word_value_i16(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_word_value(index) {
+	unsafe fn get_declare_word_value_i16(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_word_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1116,8 +1116,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-3)
 	/// @param new_value integer # (`u32`) New value
-	unsafe fn set_declare_dword_value(lua, instr: &mut Instruction, index: usize, new_value: u32) -> 0 {
-		match instr.inner.try_set_declare_dword_value(index, new_value) {
+	unsafe fn set_declare_dword_value(lua, this: &mut Instruction, index: usize, new_value: u32) -> 0 {
+		match this.inner.try_set_declare_dword_value(index, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -1129,8 +1129,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-3)
 	/// @return integer # (`u32`) The value
-	unsafe fn get_declare_dword_value(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_dword_value(index) {
+	unsafe fn get_declare_dword_value(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_dword_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1143,8 +1143,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-3)
 	/// @return integer # (`i32`) The value
-	unsafe fn get_declare_dword_value_i32(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_dword_value(index) {
+	unsafe fn get_declare_dword_value_i32(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_dword_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1157,8 +1157,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-1)
 	/// @param new_value integer # (`u64`) New value
-	unsafe fn set_declare_qword_value(lua, instr: &mut Instruction, index: usize, new_value: u64) -> 0 {
-		match instr.inner.try_set_declare_qword_value(index, new_value) {
+	unsafe fn set_declare_qword_value(lua, this: &mut Instruction, index: usize, new_value: u64) -> 0 {
+		match this.inner.try_set_declare_qword_value(index, new_value) {
 			Ok(()) => {},
 			Err(e) => unsafe { lua.throw_error(e) },
 		}
@@ -1170,8 +1170,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-1)
 	/// @return integer # (`u64`) The value
-	unsafe fn get_declare_qword_value(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_qword_value(index) {
+	unsafe fn get_declare_qword_value(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_qword_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1184,8 +1184,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param index integer # Index (0-1)
 	/// @return integer # (`i64`) The value
-	unsafe fn get_declare_qword_value_i64(lua, instr: &Instruction, index: usize) -> 1 {
-		let value = match instr.inner.try_get_declare_qword_value(index) {
+	unsafe fn get_declare_qword_value_i64(lua, this: &Instruction, index: usize) -> 1 {
+		let value = match this.inner.try_get_declare_qword_value(index) {
 			Ok(value) => value,
 			Err(e) => unsafe { lua.throw_error(e) },
 		};
@@ -1194,20 +1194,20 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Checks if this is a VSIB instruction, see also `Instruction:is_vsib32()`, `Instruction:is_vsib64()`
 	/// @return boolean
-	unsafe fn is_vsib(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_vsib()); }
+	unsafe fn is_vsib(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_vsib()); }
 	}
 
 	/// VSIB instructions only (`Instruction:is_vsib()`): `true` if it's using 32-bit indexes, `false` if it's using 64-bit indexes
 	/// @return boolean
-	unsafe fn is_vsib32(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_vsib32()); }
+	unsafe fn is_vsib32(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_vsib32()); }
 	}
 
 	/// VSIB instructions only (`Instruction:is_vsib()`): `true` if it's using 64-bit indexes, `false` if it's using 32-bit indexes
 	/// @return boolean
-	unsafe fn is_vsib64(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_vsib64()); }
+	unsafe fn is_vsib64(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_vsib64()); }
 	}
 
 	/// Checks if it's a vsib instruction.
@@ -1217,8 +1217,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// - Returns `nil` if it's not a VSIB instruction.
 	///
 	/// @return boolean|nil
-	unsafe fn vsib(lua, instr: &Instruction) -> 1 {
-		match instr.inner.vsib() {
+	unsafe fn vsib(lua, this: &Instruction) -> 1 {
+		match this.inner.vsib() {
 			Some(b) => unsafe { lua.push(b) },
 			None => unsafe { lua.push(Nil) },
 		}
@@ -1226,18 +1226,18 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 
 	/// Gets the suppress all exceptions flag (EVEX/MVEX encoded instructions). Note that if `Instruction:rounding_control()` is not `RoundingControl.None`, SAE is implied but this method will still return `false`.
 	/// @return boolean
-	unsafe fn suppress_all_exceptions(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.suppress_all_exceptions()); }
+	unsafe fn suppress_all_exceptions(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.suppress_all_exceptions()); }
 	}
 
-	unsafe fn set_suppress_all_exceptions(lua, instr: &mut Instruction, new_value: bool) -> 0 {
-		instr.inner.set_suppress_all_exceptions(new_value);
+	unsafe fn set_suppress_all_exceptions(lua, this: &mut Instruction, new_value: bool) -> 0 {
+		this.inner.set_suppress_all_exceptions(new_value);
 	}
 
 	/// Checks if the memory operand is `RIP`/`EIP` relative
 	/// @return boolean
-	unsafe fn is_ip_rel_memory_operand(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_ip_rel_memory_operand()); }
+	unsafe fn is_ip_rel_memory_operand(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_ip_rel_memory_operand()); }
 	}
 
 	/// Gets the `RIP`/`EIP` releative address (`Instruction:memory_displacement()`).
@@ -1245,8 +1245,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// This method is only valid if there's a memory operand with `RIP`/`EIP` relative addressing, see `Instruction:is_ip_rel_memory_operand()`
 	///
 	/// @return integer
-	unsafe fn ip_rel_memory_address(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.ip_rel_memory_address()); }
+	unsafe fn ip_rel_memory_address(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.ip_rel_memory_address()); }
 	}
 
 	/// Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data.
@@ -1262,14 +1262,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- pushfq
 	/// local data = "\156"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:is_stack_instruction())
 	/// assert(instr:stack_pointer_increment() == -8)
 	/// ```
-	unsafe fn stack_pointer_increment(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.stack_pointer_increment()); }
+	unsafe fn stack_pointer_increment(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.stack_pointer_increment()); }
 	}
 
 	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
@@ -1282,7 +1282,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- ficomp dword ptr [rax]
 	/// local data = "\218\024"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// local info = instr:fpu_stack_increment_info()
@@ -1291,8 +1291,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(not info:conditional())
 	/// assert(info:writes_top())
 	/// ```
-	unsafe fn fpu_stack_increment_info(lua, instr: &Instruction) -> 1 {
-		unsafe { let _ = FpuStackIncrementInfo::init_and_push_iced(lua, &instr.inner.fpu_stack_increment_info()); }
+	unsafe fn fpu_stack_increment_info(lua, this: &Instruction) -> 1 {
+		unsafe { let _ = FpuStackIncrementInfo::init_and_push_iced(lua, &this.inner.fpu_stack_increment_info()); }
 	}
 
 	/// Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP (an `EncodingKind` enum value)
@@ -1305,13 +1305,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- vmovaps xmm1,xmm5
 	/// local data = "\197\248\040\205"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	/// local instr = decoder:decode()
 	///
 	/// assert(instr:encoding() == EncodingKind.VEX)
 	/// ```
-	unsafe fn encoding(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.encoding() as u32); }
+	unsafe fn encoding(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.encoding() as u32); }
 	}
 
 	/// Gets the CPU or CPUID feature flags (an array of `CpuidFeature` enum values)
@@ -1326,7 +1326,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- vmovaps xmm1,xmm5
 	/// -- vmovaps xmm10{k3}{z},xmm19
 	/// local data = "\197\248\040\205\098\049\124\139\040\211"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- vmovaps xmm1,xmm5
 	/// local instr = decoder:decode()
@@ -1341,8 +1341,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(cpuid2[1] == CpuidFeature.AVX512VL)
 	/// assert(cpuid2[2] == CpuidFeature.AVX512F)
 	/// ```
-	unsafe fn cpuid_features(lua, instr: &Instruction) -> 1 {
-		let cpuid_features = instr.inner.cpuid_features();
+	unsafe fn cpuid_features(lua, this: &Instruction) -> 1 {
+		let cpuid_features = this.inner.cpuid_features();
 		unsafe { lua.push_array(cpuid_features, |_, cpuid| *cpuid as u32); }
 	}
 
@@ -1358,7 +1358,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- ud0 rcx,rsi
 	/// -- call rcx
 	/// local data = "\011\206\072\015\255\206\255\209"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- or ecx,esi
 	/// local instr = decoder:decode()
@@ -1372,14 +1372,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local instr3 = decoder:decode()
 	/// assert(instr3:flow_control() == FlowControl.IndirectCall)
 	/// ```
-	unsafe fn flow_control(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.flow_control() as u32); }
+	unsafe fn flow_control(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.flow_control() as u32); }
 	}
 
 	/// `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
 	/// @return boolean
-	unsafe fn is_privileged(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_privileged()); }
+	unsafe fn is_privileged(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_privileged()); }
 	}
 
 	/// `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
@@ -1395,7 +1395,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- or ecx,esi
 	/// -- push rax
 	/// local data = "\011\206\080"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- or ecx,esi
 	/// local instr = decoder:decode()
@@ -1406,20 +1406,20 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:is_stack_instruction())
 	/// assert(instr2:stack_pointer_increment() == -8)
 	/// ```
-	unsafe fn is_stack_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_stack_instruction()); }
+	unsafe fn is_stack_instruction(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_stack_instruction()); }
 	}
 
 	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	/// @return boolean
-	unsafe fn is_save_restore_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_save_restore_instruction()); }
+	unsafe fn is_save_restore_instruction(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_save_restore_instruction()); }
 	}
 
 	/// `true` if it's a "string" instruction, such as `MOVS`, `LODS`, `SCAS`, etc.
 	/// @return boolean
-	unsafe fn is_string_instruction(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_string_instruction()); }
+	unsafe fn is_string_instruction(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_string_instruction()); }
 	}
 
 	/// All flags that are read by the CPU when executing the instruction.
@@ -1436,7 +1436,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1456,8 +1456,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_read(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_read()); }
+	unsafe fn rflags_read(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_read()); }
 	}
 
 	/// All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
@@ -1474,7 +1474,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1494,8 +1494,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_written(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_written()); }
+	unsafe fn rflags_written(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_written()); }
 	}
 
 	/// All flags that are always cleared by the CPU.
@@ -1512,7 +1512,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1532,8 +1532,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_cleared(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_cleared()); }
+	unsafe fn rflags_cleared(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_cleared()); }
 	}
 
 	/// All flags that are always set by the CPU.
@@ -1550,7 +1550,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1570,8 +1570,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_set(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_set()); }
+	unsafe fn rflags_set(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_set()); }
 	}
 
 	/// All flags that are undefined after executing the instruction.
@@ -1588,7 +1588,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1608,8 +1608,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_undefined(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_undefined()); }
+	unsafe fn rflags_undefined(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_undefined()); }
 	}
 
 	/// All flags that are modified by the CPU. This is `rflags_written + rflags_cleared + rflags_set + rflags_undefined`.
@@ -1626,7 +1626,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- adc rsi,rcx
 	/// -- xor rdi,5Ah
 	/// local data = "\072\017\206\072\131\247\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- adc rsi,rcx
 	/// local instr = decoder:decode()
@@ -1646,122 +1646,122 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr2:rflags_undefined() == RflagsBits.AF)
 	/// assert(instr2:rflags_modified() == RflagsBits.OF + RflagsBits.SF + RflagsBits.ZF + RflagsBits.AF + RflagsBits.CF + RflagsBits.PF)
 	/// ```
-	unsafe fn rflags_modified(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.rflags_modified()); }
+	unsafe fn rflags_modified(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.rflags_modified()); }
 	}
 
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jcc_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jcc_short_or_near()); }
+	unsafe fn is_jcc_short_or_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jcc_short_or_near()); }
 	}
 
 	/// Checks if it's a `Jcc NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jcc_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jcc_near()); }
+	unsafe fn is_jcc_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jcc_near()); }
 	}
 
 	/// Checks if it's a `Jcc SHORT` instruction
 	/// @return boolean
-	unsafe fn is_jcc_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jcc_short()); }
+	unsafe fn is_jcc_short(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jcc_short()); }
 	}
 
 	/// Checks if it's a `JMP SHORT` instruction
 	/// @return boolean
-	unsafe fn is_jmp_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_short()); }
+	unsafe fn is_jmp_short(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_short()); }
 	}
 
 	/// Checks if it's a `JMP NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jmp_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_near()); }
+	unsafe fn is_jmp_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_near()); }
 	}
 
 	/// Checks if it's a `JMP SHORT` or a `JMP NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jmp_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_short_or_near()); }
+	unsafe fn is_jmp_short_or_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_short_or_near()); }
 	}
 
 	/// Checks if it's a `JMP FAR` instruction
 	/// @return boolean
-	unsafe fn is_jmp_far(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_far()); }
+	unsafe fn is_jmp_far(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_far()); }
 	}
 
 	/// Checks if it's a `CALL NEAR` instruction
 	/// @return boolean
-	unsafe fn is_call_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_call_near()); }
+	unsafe fn is_call_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_call_near()); }
 	}
 
 	/// Checks if it's a `CALL FAR` instruction
 	/// @return boolean
-	unsafe fn is_call_far(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_call_far()); }
+	unsafe fn is_call_far(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_call_far()); }
 	}
 
 	/// Checks if it's a `JMP NEAR reg/[mem]` instruction
 	/// @return boolean
-	unsafe fn is_jmp_near_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_near_indirect()); }
+	unsafe fn is_jmp_near_indirect(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_near_indirect()); }
 	}
 
 	/// Checks if it's a `JMP FAR [mem]` instruction
 	/// @return boolean
-	unsafe fn is_jmp_far_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jmp_far_indirect()); }
+	unsafe fn is_jmp_far_indirect(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jmp_far_indirect()); }
 	}
 
 	/// Checks if it's a `CALL NEAR reg/[mem]` instruction
 	/// @return boolean
-	unsafe fn is_call_near_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_call_near_indirect()); }
+	unsafe fn is_call_near_indirect(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_call_near_indirect()); }
 	}
 
 	/// Checks if it's a `CALL FAR [mem]` instruction
 	/// @return boolean
-	unsafe fn is_call_far_indirect(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_call_far_indirect()); }
+	unsafe fn is_call_far_indirect(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_call_far_indirect()); }
 	}
 
 	/// Checks if it's a `JKccD SHORT` or `JKccD NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jkcc_short_or_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jkcc_short_or_near()); }
+	unsafe fn is_jkcc_short_or_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jkcc_short_or_near()); }
 	}
 
 	/// Checks if it's a `JKccD NEAR` instruction
 	/// @return boolean
-	unsafe fn is_jkcc_near(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jkcc_near()); }
+	unsafe fn is_jkcc_near(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jkcc_near()); }
 	}
 
 	/// Checks if it's a `JKccD SHORT` instruction
 	/// @return boolean
-	unsafe fn is_jkcc_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.is_jkcc_short()); }
+	unsafe fn is_jkcc_short(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.is_jkcc_short()); }
 	}
 
 	/// Checks if it's a `JCXZ SHORT`, `JECXZ SHORT` or `JRCXZ SHORT` instruction
 	/// @return boolean
-	unsafe fn is_jcx_short(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.code().is_jcx_short()); }
+	unsafe fn is_jcx_short(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.code().is_jcx_short()); }
 	}
 
 	/// Checks if it's a `LOOPcc SHORT` instruction
 	/// @return boolean
-	unsafe fn is_loopcc(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.code().is_loopcc()); }
+	unsafe fn is_loopcc(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.code().is_loopcc()); }
 	}
 
 	/// Checks if it's a `LOOP SHORT` instruction
 	/// @return boolean
-	unsafe fn is_loop(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.code().is_loop()); }
+	unsafe fn is_loop(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.code().is_loop()); }
 	}
 
 	/// Negates the condition code, eg. `JE` -> `JNE`.
@@ -1776,7 +1776,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- setbe al
 	/// local data = "\015\150\192"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// local instr = decoder:decode()
 	/// assert(instr:code() == Code.Setbe_rm8)
@@ -1785,8 +1785,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(instr:code() == Code.Seta_rm8)
 	/// assert(instr:condition_code() == ConditionCode.a)
 	/// ```
-	unsafe fn negate_condition_code(lua, instr: &mut Instruction) -> 0 {
-		instr.inner.negate_condition_code();
+	unsafe fn negate_condition_code(lua, this: &mut Instruction) -> 0 {
+		this.inner.negate_condition_code();
 	}
 
 	/// Converts `Jcc/JMP NEAR` to `Jcc/JMP SHORT` and does nothing if it's not a `Jcc/JMP NEAR` instruction
@@ -1798,7 +1798,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- jbe near ptr label
 	/// local data = "\015\134\090\165\018\052"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// local instr = decoder:decode()
 	/// assert(instr:code() == Code.Jbe_rel32_64)
@@ -1807,8 +1807,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// instr:as_short_branch()
 	/// assert(instr:code() == Code.Jbe_rel8_64)
 	/// ```
-	unsafe fn as_short_branch(lua, instr: &mut Instruction) -> 0 {
-		instr.inner.as_short_branch();
+	unsafe fn as_short_branch(lua, this: &mut Instruction) -> 0 {
+		this.inner.as_short_branch();
 	}
 
 	/// Converts `Jcc/JMP SHORT` to `Jcc/JMP NEAR` and does nothing if it's not a `Jcc/JMP SHORT` instruction
@@ -1820,7 +1820,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// -- jbe short label
 	/// local data = "\118\090"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// local instr = decoder:decode()
 	/// assert(instr:code() == Code.Jbe_rel8_64)
@@ -1829,8 +1829,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// instr:as_near_branch()
 	/// assert(instr:code() == Code.Jbe_rel32_64)
 	/// ```
-	unsafe fn as_near_branch(lua, instr: &mut Instruction) -> 0 {
-		instr.inner.as_near_branch();
+	unsafe fn as_near_branch(lua, this: &mut Instruction) -> 0 {
+		this.inner.as_near_branch();
 	}
 
 	/// Gets the condition code (a `ConditionCode` enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else `ConditionCode.None` is returned
@@ -1846,7 +1846,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// -- cmovne ecx,esi
 	/// -- nop
 	/// local data = "\015\150\192\124\090\015\069\206\144"
-	/// local decoder = Decoder:new(64, data)
+	/// local decoder = Decoder.new(64, data)
 	///
 	/// -- setbe al
 	/// local instr = decoder:decode()
@@ -1864,15 +1864,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local instr4 = decoder:decode()
 	/// assert(instr4:condition_code() == ConditionCode.None)
 	/// ```
-	unsafe fn condition_code(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(instr.inner.condition_code() as u32); }
+	unsafe fn condition_code(lua, this: &Instruction) -> 1 {
+		unsafe { lua.push(this.inner.condition_code() as u32); }
 	}
 
 	/// Gets the `OpCodeInfo`
 	///
 	/// @return OpCodeInfo # Op code info
-	unsafe fn op_code(lua, instr: &Instruction) -> 1 {
-		unsafe { let _ = OpCodeInfo::push_new(lua, instr.inner.code()); }
+	unsafe fn op_code(lua, this: &Instruction) -> 1 {
+		unsafe { let _ = OpCodeInfo::push_new(lua, this.inner.code()); }
 	}
 
 	/// Gets all used registers
@@ -1887,7 +1887,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local OpAccess = require("iced_x86.OpAccess")
 	/// local Register = require("iced_x86.Register")
 	///
-	/// local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+	/// local decoder = Decoder.new(64, "\196\227\073\072\016\065")
 	/// local instr = decoder:decode()
 	///
 	/// local used_registers = instr:used_registers()
@@ -1901,9 +1901,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(used_registers[4]:register() == Register.XMM4)
 	/// assert(used_registers[4]:access() == OpAccess.Read)
 	/// ```
-	unsafe fn used_registers(lua, instr: &Instruction) -> 1 {
+	unsafe fn used_registers(lua, this: &Instruction) -> 1 {
 		let mut factory = iced_x86::InstructionInfoFactory::new();
-		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE);
+		let info = factory.info_options(&this.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE);
 		unsafe { push_used_registers(lua, info); }
 	}
 
@@ -1921,7 +1921,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local OpAccess = require("iced_x86.OpAccess")
 	/// local Register = require("iced_x86.Register")
 	///
-	/// local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+	/// local decoder = Decoder.new(64, "\196\227\073\072\016\065")
 	/// local instr = decoder:decode()
 	///
 	/// local used_memory = instr:used_memory()
@@ -1937,9 +1937,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(mem:address_size() == CodeSize.Code64)
 	/// assert(mem:vsib_size() == 0)
 	/// ```
-	unsafe fn used_memory(lua, instr: &Instruction) -> 1 {
+	unsafe fn used_memory(lua, this: &Instruction) -> 1 {
 		let mut factory = iced_x86::InstructionInfoFactory::new();
-		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
+		let info = factory.info_options(&this.inner, iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
 		unsafe { push_used_memory(lua, info); }
 	}
 
@@ -1954,7 +1954,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local Decoder = require("iced_x86.Decoder")
 	/// local OpAccess = require("iced_x86.OpAccess")
 	///
-	/// local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+	/// local decoder = Decoder.new(64, "\196\227\073\072\016\065")
 	/// local instr = decoder:decode()
 	///
 	/// local op_accesses = instr:op_accesses()
@@ -1965,10 +1965,10 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(op_accesses[4] == OpAccess.Read)
 	/// assert(op_accesses[5] == OpAccess.Read)
 	/// ```
-	unsafe fn op_accesses(lua, instr: &Instruction) -> 1 {
+	unsafe fn op_accesses(lua, this: &Instruction) -> 1 {
 		let mut factory = iced_x86::InstructionInfoFactory::new();
-		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE | iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
-		unsafe { push_op_accesses(lua, info, &instr.inner); }
+		let info = factory.info_options(&this.inner, iced_x86::InstructionInfoOptions::NO_MEMORY_USAGE | iced_x86::InstructionInfoOptions::NO_REGISTER_USAGE);
+		unsafe { push_op_accesses(lua, info, &this.inner); }
 	}
 
 	/// Gets all used registers and all used memory locations
@@ -1985,7 +1985,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local OpAccess = require("iced_x86.OpAccess")
 	/// local Register = require("iced_x86.Register")
 	///
-	/// local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+	/// local decoder = Decoder.new(64, "\196\227\073\072\016\065")
 	/// local instr = decoder:decode()
 	///
 	/// local used_registers, used_memory = instr:used_regs_mem()
@@ -2012,9 +2012,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(mem:address_size() == CodeSize.Code64)
 	/// assert(mem:vsib_size() == 0)
 	/// ```
-	unsafe fn used_regs_mem(lua, instr: &Instruction) -> 2 {
+	unsafe fn used_regs_mem(lua, this: &Instruction) -> 2 {
 		let mut factory = iced_x86::InstructionInfoFactory::new();
-		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NONE);
+		let info = factory.info_options(&this.inner, iced_x86::InstructionInfoOptions::NONE);
 		unsafe {
 			push_used_registers(lua, info);
 			push_used_memory(lua, info);
@@ -2035,7 +2035,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// local OpAccess = require("iced_x86.OpAccess")
 	/// local Register = require("iced_x86.Register")
 	///
-	/// local decoder = Decoder:new(64, "\196\227\073\072\016\065")
+	/// local decoder = Decoder.new(64, "\196\227\073\072\016\065")
 	/// local instr = decoder:decode()
 	///
 	/// local used_registers, used_memory, op_accesses = instr:used_values()
@@ -2069,13 +2069,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// assert(op_accesses[4] == OpAccess.Read)
 	/// assert(op_accesses[5] == OpAccess.Read)
 	/// ```
-	unsafe fn used_values(lua, instr: &Instruction) -> 3 {
+	unsafe fn used_values(lua, this: &Instruction) -> 3 {
 		let mut factory = iced_x86::InstructionInfoFactory::new();
-		let info = factory.info_options(&instr.inner, iced_x86::InstructionInfoOptions::NONE);
+		let info = factory.info_options(&this.inner, iced_x86::InstructionInfoOptions::NONE);
 		unsafe {
 			push_used_registers(lua, info);
 			push_used_memory(lua, info);
-			push_op_accesses(lua, info, &instr.inner);
+			push_op_accesses(lua, info, &this.inner);
 		}
 	}
 
@@ -2089,9 +2089,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```lua
 	/// local Instruction = require("iced_x86.Instruction")
 	///
-	/// local instr1 = Instruction:db("abc")
-	/// local instr2 = Instruction:db({ 0x12, 0x34 })
-	/// local instr3 = Instruction:db(0x12, 0x34, 0x56)
+	/// local instr1 = Instruction.db("abc")
+	/// local instr2 = Instruction.db({ 0x12, 0x34 })
+	/// local instr3 = Instruction.db(0x12, 0x34, 0x56)
 	/// ```
 	///
 	/// @return Instruction
@@ -2113,7 +2113,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @overload fun(_self: Instruction, a1: integer): Instruction
 	/// @overload fun(_self: Instruction, values: integer[]): Instruction
 	/// @overload fun(_self: Instruction, bytes: string): Instruction
-	unsafe fn db(lua, _ignore: LuaIgnore) -> 1 {
+	unsafe fn db(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
 				lua,
@@ -2138,9 +2138,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```lua
 	/// local Instruction = require("iced_x86.Instruction")
 	///
-	/// local instr1 = Instruction:dw("abcd")
-	/// local instr2 = Instruction:dw({ 0x1234, 0x5678 })
-	/// local instr3 = Instruction:dw(0x1234, 0x5678, 0x9ABC)
+	/// local instr1 = Instruction.dw("abcd")
+	/// local instr2 = Instruction.dw({ 0x1234, 0x5678 })
+	/// local instr3 = Instruction.dw(0x1234, 0x5678, 0x9ABC)
 	/// ```
 	///
 	/// @return Instruction
@@ -2154,7 +2154,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @overload fun(_self: Instruction, a1: integer): Instruction
 	/// @overload fun(_self: Instruction, values: integer[]): Instruction
 	/// @overload fun(_self: Instruction, bytes: string): Instruction
-	unsafe fn dw(lua, _ignore: LuaIgnore) -> 1 {
+	unsafe fn dw(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
 				lua,
@@ -2179,9 +2179,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```lua
 	/// local Instruction = require("iced_x86.Instruction")
 	///
-	/// local instr1 = Instruction:dd("abcdefgh")
-	/// local instr2 = Instruction:dd({ 0x12345678, 0x9ABCDEF0 })
-	/// local instr3 = Instruction:dd(1, 2, 3, 4)
+	/// local instr1 = Instruction.dd("abcdefgh")
+	/// local instr2 = Instruction.dd({ 0x12345678, 0x9ABCDEF0 })
+	/// local instr3 = Instruction.dd(1, 2, 3, 4)
 	/// ```
 	///
 	/// @return Instruction
@@ -2191,7 +2191,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @overload fun(_self: Instruction, a1: integer): Instruction
 	/// @overload fun(_self: Instruction, values: integer[]): Instruction
 	/// @overload fun(_self: Instruction, bytes: string): Instruction
-	unsafe fn dd(lua, _ignore: LuaIgnore) -> 1 {
+	unsafe fn dd(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
 				lua,
@@ -2216,9 +2216,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```lua
 	/// local Instruction = require("iced_x86.Instruction")
 	///
-	/// local instr1 = Instruction:dq("abcdefgh")
-	/// local instr2 = Instruction:dq({ 0x12345678, 0x9ABCDEF0 })
-	/// local instr3 = Instruction:dq(1, 2)
+	/// local instr1 = Instruction.dq("abcdefgh")
+	/// local instr2 = Instruction.dq({ 0x12345678, 0x9ABCDEF0 })
+	/// local instr3 = Instruction.dq(1, 2)
 	/// ```
 	///
 	/// @return Instruction
@@ -2226,7 +2226,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @overload fun(_self: Instruction, a1: integer): Instruction
 	/// @overload fun(_self: Instruction, values: integer[]): Instruction
 	/// @overload fun(_self: Instruction, bytes: string): Instruction
-	unsafe fn dq(lua, _ignore: LuaIgnore) -> 1 {
+	unsafe fn dq(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
 				lua,
@@ -2276,7 +2276,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
 	/// @overload fun(_self: Instruction, code: integer): Instruction
 	#[rustfmt::skip]
-	unsafe fn create(lua, _ignore: LuaIgnore, code: u32) -> 1 {
+	unsafe fn create(lua, code: u32) -> 1 {
 		let code = unsafe { to_code(lua, code) };
 		let arg_count = unsafe { lua.get_top() };
 		let instr: Instruction;
@@ -2284,26 +2284,26 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 			// Invalid Code value, call some other create method instead, eg. create_branch(), etc
 			0 => unsafe { lua.throw_error_msg("Invalid Code value") },
 			1 => {
-				if arg_count != 2 {
+				if arg_count != 1 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer): Instruction
 				instr = Instruction { inner: iced_x86::Instruction::with(code) };
 			}
 			2 => {
-				if arg_count != 3 {
+				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with1(code, memory.inner) {
 						Ok(instr) => instr,
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with1(code, register) {
 						Ok(instr) => instr,
@@ -2312,11 +2312,11 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			3 => {
-				if arg_count != 3 {
+				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, register) {
 					Ok(instr) => instr,
@@ -2324,35 +2324,35 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			4 => {
-				if arg_count != 3 {
+				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, immediate: integer): Instruction
-				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, immediate) {
 					Ok(instr) => instr,
 					Err(e) => unsafe { lua.throw_error(e) },
 				}};
 			}
 			5 => {
-				if arg_count != 3 {
+				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, memory.inner) {
 					Ok(instr) => instr,
 					Err(e) => unsafe { lua.throw_error(e) },
 				}};
 			}
 			6 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, memory.inner, register) {
 						Ok(instr) => instr,
@@ -2360,8 +2360,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, register1, register2) {
@@ -2371,21 +2371,21 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			7 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, immediate: integer): Instruction
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, memory.inner, immediate) {
 						Ok(instr) => instr,
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, register, immediate) {
 						Ok(instr) => instr,
@@ -2394,13 +2394,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			8 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, register, memory.inner) {
 						Ok(instr) => instr,
@@ -2408,8 +2408,8 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, register1, register2) {
@@ -2419,12 +2419,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			9 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, register1, register2) {
@@ -2433,12 +2433,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			10 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, register, immediate) {
 					Ok(instr) => instr,
@@ -2446,12 +2446,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			11 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let immediate: <i64 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i64 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let immediate: <i64 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i64 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, register, immediate) {
 					Ok(instr) => instr,
@@ -2459,12 +2459,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			12 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, register, memory.inner) {
 					Ok(instr) => instr,
@@ -2472,12 +2472,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			13 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, immediate: integer, register: integer): Instruction
-				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, immediate, register) {
 					Ok(instr) => instr,
@@ -2485,24 +2485,24 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			14 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, immediate1: integer, immediate2: integer): Instruction
-				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, immediate1, immediate2) {
 					Ok(instr) => instr,
 					Err(e) => unsafe { lua.throw_error(e) },
 				}};
 			}
 			15 => {
-				if arg_count != 4 {
+				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, memory.inner, register) {
 					Ok(instr) => instr,
@@ -2510,14 +2510,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			16 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, memory.inner, register1, register2) {
@@ -2526,9 +2526,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2539,14 +2539,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			17 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, memory.inner, register, immediate) {
 						Ok(instr) => instr,
@@ -2554,9 +2554,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, register2, immediate) {
@@ -2566,14 +2566,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			18 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, memory.inner, register2) {
@@ -2582,9 +2582,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2595,14 +2595,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			19 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
-					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, register, memory.inner, immediate) {
 						Ok(instr) => instr,
@@ -2610,9 +2610,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, register2, immediate) {
@@ -2622,14 +2622,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			20 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, register2, memory.inner) {
@@ -2638,9 +2638,9 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2651,13 +2651,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			21 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				let register3 = unsafe { to_register(lua, register3) };
@@ -2667,13 +2667,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			22 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, register2, immediate) {
@@ -2682,13 +2682,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			23 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, register2, memory.inner) {
@@ -2697,13 +2697,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			24 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
-				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with3(code, register, immediate1, immediate2) {
 					Ok(instr) => instr,
@@ -2711,13 +2711,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			25 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with3(code, register1, memory.inner, register2) {
@@ -2726,13 +2726,13 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			26 => {
-				if arg_count != 5 {
+				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
-				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with3(code, memory.inner, register1, register2) {
@@ -2741,15 +2741,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			27 => {
-				if arg_count != 6 {
+				if arg_count != 5 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2759,10 +2759,10 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2774,15 +2774,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			28 => {
-				if arg_count != 6 {
+				if arg_count != 5 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with4(code, register1, register2, memory.inner, immediate) {
@@ -2791,10 +2791,10 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2805,15 +2805,15 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			29 => {
-				if arg_count != 6 {
+				if arg_count != 5 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(6) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2823,10 +2823,10 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2838,14 +2838,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			30 => {
-				if arg_count != 6 {
+				if arg_count != 5 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
-				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
+				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
 				let register1 = unsafe { to_register(lua, register1) };
 				let register2 = unsafe { to_register(lua, register2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with4(code, register1, register2, immediate1, immediate2) {
@@ -2854,16 +2854,16 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}};
 			}
 			31 => {
-				if arg_count != 7 {
+				if arg_count != 6 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 7) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2873,11 +2873,11 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 7) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2889,16 +2889,16 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				}
 			}
 			32 => {
-				if arg_count != 7 {
+				if arg_count != 6 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				if unsafe { lua.type_(6) } == loona::lua_api::LUA_TUSERDATA {
+				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 7) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2908,11 +2908,11 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					}};
 				} else {
 					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
-					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
-					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
-					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
-					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
-					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 7) };
+					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
+					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
+					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
+					let register4: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 5) };
+					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 6) };
 					let register1 = unsafe { to_register(lua, register1) };
 					let register2 = unsafe { to_register(lua, register2) };
 					let register3 = unsafe { to_register(lua, register3) };
@@ -2935,7 +2935,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param target integer #(`u64`) Target address
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_branch(lua, _ignore: LuaIgnore, code: u32, target: u64) -> 1 {
+	unsafe fn create_branch(lua, code: u32, target: u64) -> 1 {
 		let code = unsafe { to_code(lua, code) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_branch(code, target) {
 			Ok(instr) => instr,
@@ -2951,7 +2951,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param offset integer #(`u32`) Offset
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_far_branch(lua, _ignore: LuaIgnore, code: u32, selector: u16, offset: u32) -> 1 {
+	unsafe fn create_far_branch(lua, code: u32, selector: u16, offset: u32) -> 1 {
 		let code = unsafe { to_code(lua, code) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_far_branch(code, selector, offset) {
 			Ok(instr) => instr,
@@ -2966,7 +2966,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param target integer #(`u64`) Target address
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_xbegin(lua, _ignore: LuaIgnore, bitness: u32, target: u64) -> 1 {
+	unsafe fn create_xbegin(lua, bitness: u32, target: u64) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_xbegin(bitness, target) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -2981,7 +2981,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_outsb(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_outsb(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_outsb(address_size, segment_prefix, rep_prefix) {
@@ -2996,7 +2996,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_outsb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_outsb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_outsb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3011,7 +3011,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_outsw(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_outsw(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_outsw(address_size, segment_prefix, rep_prefix) {
@@ -3026,7 +3026,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_outsw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_outsw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_outsw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3041,7 +3041,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_outsd(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_outsd(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_outsd(address_size, segment_prefix, rep_prefix) {
@@ -3056,7 +3056,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_outsd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_outsd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_outsd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3071,7 +3071,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_lodsb(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_lodsb(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_lodsb(address_size, segment_prefix, rep_prefix) {
@@ -3086,7 +3086,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_lodsb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_lodsb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_lodsb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3101,7 +3101,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_lodsw(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_lodsw(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_lodsw(address_size, segment_prefix, rep_prefix) {
@@ -3116,7 +3116,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_lodsw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_lodsw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_lodsw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3131,7 +3131,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_lodsd(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_lodsd(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_lodsd(address_size, segment_prefix, rep_prefix) {
@@ -3146,7 +3146,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_lodsd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_lodsd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_lodsd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3161,7 +3161,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_lodsq(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_lodsq(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_lodsq(address_size, segment_prefix, rep_prefix) {
@@ -3176,7 +3176,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_lodsq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_lodsq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_lodsq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3190,7 +3190,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_scasb(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_scasb(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_scasb(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3204,7 +3204,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_scasb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_scasb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_scasb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3217,7 +3217,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_scasb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_scasb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_scasb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3231,7 +3231,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_scasw(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_scasw(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_scasw(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3245,7 +3245,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_scasw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_scasw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_scasw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3258,7 +3258,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_scasw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_scasw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_scasw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3272,7 +3272,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_scasd(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_scasd(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_scasd(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3286,7 +3286,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_scasd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_scasd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_scasd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3299,7 +3299,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_scasd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_scasd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_scasd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3313,7 +3313,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_scasq(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_scasq(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_scasq(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3327,7 +3327,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_scasq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_scasq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_scasq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3340,7 +3340,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_scasq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_scasq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_scasq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3354,7 +3354,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_insb(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_insb(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_insb(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3368,7 +3368,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_insb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_insb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_insb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3382,7 +3382,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_insw(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_insw(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_insw(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3396,7 +3396,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_insw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_insw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_insw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3410,7 +3410,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_insd(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_insd(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_insd(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3424,7 +3424,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_insd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_insd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_insd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3438,7 +3438,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_stosb(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_stosb(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_stosb(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3452,7 +3452,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_stosb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_stosb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_stosb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3466,7 +3466,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_stosw(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_stosw(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_stosw(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3480,7 +3480,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_stosw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_stosw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_stosw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3494,7 +3494,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_stosd(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_stosd(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_stosd(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3508,7 +3508,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_stosd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_stosd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_stosd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3522,7 +3522,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_stosq(lua, _ignore: LuaIgnore, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_stosq(lua, address_size: u32, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_stosq(address_size, rep_prefix) {
 			Ok(instr) => instr,
@@ -3536,7 +3536,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_stosq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_stosq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_stosq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3551,7 +3551,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_cmpsb(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_cmpsb(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_cmpsb(address_size, segment_prefix, rep_prefix) {
@@ -3566,7 +3566,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_cmpsb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_cmpsb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_cmpsb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3579,7 +3579,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_cmpsb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_cmpsb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_cmpsb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3594,7 +3594,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_cmpsw(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_cmpsw(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_cmpsw(address_size, segment_prefix, rep_prefix) {
@@ -3609,7 +3609,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_cmpsw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_cmpsw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_cmpsw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3622,7 +3622,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_cmpsw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_cmpsw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_cmpsw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3637,7 +3637,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_cmpsd(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_cmpsd(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_cmpsd(address_size, segment_prefix, rep_prefix) {
@@ -3652,7 +3652,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_cmpsd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_cmpsd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_cmpsd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3665,7 +3665,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_cmpsd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_cmpsd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_cmpsd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3680,7 +3680,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_cmpsq(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_cmpsq(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_cmpsq(address_size, segment_prefix, rep_prefix) {
@@ -3695,7 +3695,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repe_cmpsq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repe_cmpsq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repe_cmpsq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3708,7 +3708,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_repne_cmpsq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_repne_cmpsq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_repne_cmpsq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3723,7 +3723,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_movsb(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_movsb(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_movsb(address_size, segment_prefix, rep_prefix) {
@@ -3738,7 +3738,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_movsb(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_movsb(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_movsb(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3753,7 +3753,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_movsw(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_movsw(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_movsw(address_size, segment_prefix, rep_prefix) {
@@ -3768,7 +3768,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_movsw(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_movsw(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_movsw(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3783,7 +3783,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_movsd(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_movsd(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_movsd(address_size, segment_prefix, rep_prefix) {
@@ -3798,7 +3798,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_movsd(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_movsd(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_movsd(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3813,7 +3813,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param rep_prefix? integer #(default = `None`) (A `RepPrefixKind` enum variant) Rep prefix or `RepPrefixKind.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_movsq(lua, _ignore: LuaIgnore, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
+	unsafe fn create_movsq(lua, address_size: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>, rep_prefix: LuaDefaultU32<{iced_x86::RepPrefixKind::None as u32}>) -> 1 {
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
 		let rep_prefix = unsafe { to_rep_prefix_kind(lua, rep_prefix) };
 		let instr = Instruction { inner: match iced_x86::Instruction::with_movsq(address_size, segment_prefix, rep_prefix) {
@@ -3828,7 +3828,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param address_size integer #(`u32`) 16, 32, or 64
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_rep_movsq(lua, _ignore: LuaIgnore, address_size: u32) -> 1 {
+	unsafe fn create_rep_movsq(lua, address_size: u32) -> 1 {
 		let instr = Instruction { inner: match iced_x86::Instruction::with_rep_movsq(address_size) {
 			Ok(instr) => instr,
 			Err(e) => unsafe { lua.throw_error(e) },
@@ -3844,7 +3844,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_maskmovq(lua, _ignore: LuaIgnore, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
+	unsafe fn create_maskmovq(lua, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
 		let register1 = unsafe { to_register(lua, register1) };
 		let register2 = unsafe { to_register(lua, register2) };
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
@@ -3863,7 +3863,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_maskmovdqu(lua, _ignore: LuaIgnore, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
+	unsafe fn create_maskmovdqu(lua, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
 		let register1 = unsafe { to_register(lua, register1) };
 		let register2 = unsafe { to_register(lua, register2) };
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };
@@ -3882,7 +3882,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// @param segment_prefix? integer #(default = `None`) (A `Register` enum variant) Segment override or `Register.None`
 	/// @return Instruction
 	#[rustfmt::skip]
-	unsafe fn create_vmaskmovdqu(lua, _ignore: LuaIgnore, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
+	unsafe fn create_vmaskmovdqu(lua, address_size: u32, register1: u32, register2: u32, segment_prefix: LuaDefaultU32<{iced_x86::Register::None as u32}>) -> 1 {
 		let register1 = unsafe { to_register(lua, register1) };
 		let register2 = unsafe { to_register(lua, register2) };
 		let segment_prefix = unsafe { to_register(lua, segment_prefix) };

@@ -106,7 +106,6 @@ namespace Generator.Misc.Lua {
 		Method,
 		Function,
 		Constructor,
-		ConstructorMethod,
 	}
 
 	sealed class LuaMethod {

@@ -22,10 +22,10 @@ local RegisterInfo = {}
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:number() == 5)
 ---```
-function RegisterInfo:new(register) end
+function RegisterInfo.new(register) end
 
 ---Gets the register value passed into the constructor
 ---
@@ -37,7 +37,7 @@ function RegisterInfo:new(register) end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.EAX)
+---local info = RegisterInfo.new(Register.EAX)
 ---assert(info:register() == Register.EAX)
 ---```
 function RegisterInfo:register() end
@@ -52,15 +52,15 @@ function RegisterInfo:register() end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:base() == Register.ES)
----info = RegisterInfo:new(Register.RDX)
+---info = RegisterInfo.new(Register.RDX)
 ---assert(info:base() == Register.RAX)
----info = RegisterInfo:new(Register.XMM13)
+---info = RegisterInfo.new(Register.XMM13)
 ---assert(info:base() == Register.XMM0)
----info = RegisterInfo:new(Register.YMM13)
+---info = RegisterInfo.new(Register.YMM13)
 ---assert(info:base() == Register.YMM0)
----info = RegisterInfo:new(Register.ZMM13)
+---info = RegisterInfo.new(Register.ZMM13)
 ---assert(info:base() == Register.ZMM0)
 ---```
 function RegisterInfo:base() end
@@ -73,15 +73,15 @@ function RegisterInfo:base() end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:number() == 5)
----info = RegisterInfo:new(Register.RDX)
+---info = RegisterInfo.new(Register.RDX)
 ---assert(info:number() == 2)
----info = RegisterInfo:new(Register.XMM13)
+---info = RegisterInfo.new(Register.XMM13)
 ---assert(info:number() == 13)
----info = RegisterInfo:new(Register.YMM13)
+---info = RegisterInfo.new(Register.YMM13)
 ---assert(info:number() == 13)
----info = RegisterInfo:new(Register.ZMM13)
+---info = RegisterInfo.new(Register.ZMM13)
 ---assert(info:number() == 13)
 ---```
 function RegisterInfo:number() end
@@ -96,21 +96,21 @@ function RegisterInfo:number() end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:full_register() == Register.GS)
----info = RegisterInfo:new(Register.BH)
+---info = RegisterInfo.new(Register.BH)
 ---assert(info:full_register() == Register.RBX)
----info = RegisterInfo:new(Register.DX)
+---info = RegisterInfo.new(Register.DX)
 ---assert(info:full_register() == Register.RDX)
----info = RegisterInfo:new(Register.ESP)
+---info = RegisterInfo.new(Register.ESP)
 ---assert(info:full_register() == Register.RSP)
----info = RegisterInfo:new(Register.RCX)
+---info = RegisterInfo.new(Register.RCX)
 ---assert(info:full_register() == Register.RCX)
----info = RegisterInfo:new(Register.XMM3)
+---info = RegisterInfo.new(Register.XMM3)
 ---assert(info:full_register() == Register.ZMM3)
----info = RegisterInfo:new(Register.YMM3)
+---info = RegisterInfo.new(Register.YMM3)
 ---assert(info:full_register() == Register.ZMM3)
----info = RegisterInfo:new(Register.ZMM3)
+---info = RegisterInfo.new(Register.ZMM3)
 ---assert(info:full_register() == Register.ZMM3)
 ---```
 function RegisterInfo:full_register() end
@@ -126,21 +126,21 @@ function RegisterInfo:full_register() end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:full_register32() == Register.GS)
----info = RegisterInfo:new(Register.BH)
+---info = RegisterInfo.new(Register.BH)
 ---assert(info:full_register32() == Register.EBX)
----info = RegisterInfo:new(Register.DX)
+---info = RegisterInfo.new(Register.DX)
 ---assert(info:full_register32() == Register.EDX)
----info = RegisterInfo:new(Register.ESP)
+---info = RegisterInfo.new(Register.ESP)
 ---assert(info:full_register32() == Register.ESP)
----info = RegisterInfo:new(Register.RCX)
+---info = RegisterInfo.new(Register.RCX)
 ---assert(info:full_register32() == Register.ECX)
----info = RegisterInfo:new(Register.XMM3)
+---info = RegisterInfo.new(Register.XMM3)
 ---assert(info:full_register32() == Register.ZMM3)
----info = RegisterInfo:new(Register.YMM3)
+---info = RegisterInfo.new(Register.YMM3)
 ---assert(info:full_register32() == Register.ZMM3)
----info = RegisterInfo:new(Register.ZMM3)
+---info = RegisterInfo.new(Register.ZMM3)
 ---assert(info:full_register32() == Register.ZMM3)
 ---```
 function RegisterInfo:full_register32() end
@@ -153,21 +153,21 @@ function RegisterInfo:full_register32() end
 ---local Register = require("iced_x86.Register")
 ---local RegisterInfo = require("iced_x86.RegisterInfo")
 ---
----local info = RegisterInfo:new(Register.GS)
+---local info = RegisterInfo.new(Register.GS)
 ---assert(info:size() == 2)
----info = RegisterInfo:new(Register.BH)
+---info = RegisterInfo.new(Register.BH)
 ---assert(info:size() == 1)
----info = RegisterInfo:new(Register.DX)
+---info = RegisterInfo.new(Register.DX)
 ---assert(info:size() == 2)
----info = RegisterInfo:new(Register.ESP)
+---info = RegisterInfo.new(Register.ESP)
 ---assert(info:size() == 4)
----info = RegisterInfo:new(Register.RCX)
+---info = RegisterInfo.new(Register.RCX)
 ---assert(info:size() == 8)
----info = RegisterInfo:new(Register.XMM3)
+---info = RegisterInfo.new(Register.XMM3)
 ---assert(info:size() == 16)
----info = RegisterInfo:new(Register.YMM3)
+---info = RegisterInfo.new(Register.YMM3)
 ---assert(info:size() == 32)
----info = RegisterInfo:new(Register.ZMM3)
+---info = RegisterInfo.new(Register.ZMM3)
 ---assert(info:size() == 64)
 ---```
 function RegisterInfo:size() end
