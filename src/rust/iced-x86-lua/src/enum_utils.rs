@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-#![allow(dead_code)] //TODO:
-
 use loona::prelude::*;
 use std::convert::TryFrom;
 

@@ -15,6 +15,7 @@ namespace Generator.Misc.Lua {
 		static readonly Regex exportNameRegex = new Regex(@"\b([A-Z][A-Z_]+)\b", MyRegexOptions);
 		static readonly Regex structModMacroRegex = new Regex(@"lua_struct_module!\s*{\s*luaopen_(\w+)\s*:\s*(\w+)\s*}", MyRegexOptions);
 		static readonly Regex pubMethodsRegex = new Regex(@"lua_pub_methods!\s*{\s*static\s+(\w+)\s*=>", MyRegexOptions);
+		static readonly Regex moduleRegex = new Regex(@"fn luaopen_(\w+)\(lua\)", MyRegexOptions);
 		readonly string filename;
 		readonly Lines lines;
 		readonly List<string> docComments;
@@ -55,6 +56,7 @@ namespace Generator.Misc.Lua {
 			Fn,
 			LuaStructModuleMacro,
 			LuaPubMethodsMacro,
+			LuaModule,
 		}
 
 		sealed class Lines {
@@ -105,6 +107,8 @@ namespace Generator.Misc.Lua {
 					return LineKind.LuaStructModuleMacro;
 				if (trimmed.StartsWith("lua_pub_methods!", StringComparison.Ordinal))
 					return LineKind.LuaPubMethodsMacro;
+				if (trimmed.StartsWith("lua_module!", StringComparison.Ordinal))
+					return LineKind.LuaModule;
 				return LineKind.Other;
 			}
 		}
@@ -154,6 +158,12 @@ namespace Generator.Misc.Lua {
 					ReadLuaPubMethodsMacro(token.line);
 					break;
 
+				case LineKind.LuaModule:
+					if (docComments.Count != 0)
+						throw GetException("Unexpected doc comments");
+					ReadLuaModuleMacro(token.line);
+					break;
+
 				case LineKind.Eof:
 				default:
 					throw GetException($"Unexpected token {token.kind}");
@@ -164,12 +174,14 @@ namespace Generator.Misc.Lua {
 
 			foreach (var cls in classes) {
 				var clsAnnotsSect = cls.DocComments.Sections.OfType<LuaAnnotationDocCommentSection>().FirstOrDefault();
-				if (clsAnnotsSect is null)
+				if (clsAnnotsSect is null && !cls.Name.EndsWith("Ext"))
 					throw new InvalidOperationException($"Class {cls.Name} has no docs");
-				if (clsAnnotsSect.Class is not LuaClassAnnot clsAnnot)
-					throw new InvalidOperationException($"Class {cls.Name} has no @class in its docs");
-				if (clsAnnot.Type.Types.Length != 1 || clsAnnot.Type.Types[0] != cls.Name)
-					throw new InvalidOperationException($"Class {cls.Name} documentation has @class {clsAnnot.Type.Types[0]} but expected @class {cls.Name}");
+				if (clsAnnotsSect is not null) {
+					if (clsAnnotsSect.Class is not LuaClassAnnot clsAnnot)
+						throw new InvalidOperationException($"Class {cls.Name} has no @class in its docs");
+					if (clsAnnot.Type.Types.Length != 1 || clsAnnot.Type.Types[0] != cls.Name)
+						throw new InvalidOperationException($"Class {cls.Name} documentation has @class {clsAnnot.Type.Types[0]} but expected @class {cls.Name}");
+				}
 
 				foreach (var method in cls.Methods) {
 					if (method.DocComments.Sections.Count == 0)
@@ -385,12 +397,7 @@ namespace Generator.Misc.Lua {
 					break;
 
 				case LineKind.Fn:
-					var (startLine, endLine) = SkipBlock(token.line);
-					for (int lineNo = startLine; lineNo < endLine; lineNo++) {
-						var line = lines.GetLine(lineNo);
-						foreach (Match match in exportNameRegex.Matches(line))
-							exportsNameToClassName.Add(match.Value, implName);
-					}
+					ReadExportsFn(token.line, implName);
 					break;
 
 				case LineKind.Attribute:
@@ -401,9 +408,19 @@ namespace Generator.Misc.Lua {
 				case LineKind.Impl:
 				case LineKind.LuaStructModuleMacro:
 				case LineKind.LuaPubMethodsMacro:
+				case LineKind.LuaModule:
 				default:
 					throw GetException($"Unexpected token {token.kind}");
 				}
+			}
+		}
+
+		void ReadExportsFn(string fullLine, string className) {
+			var (startLine, endLine) = SkipBlock(fullLine);
+			for (int lineNo = startLine; lineNo < endLine; lineNo++) {
+				var line = lines.GetLine(lineNo);
+				foreach (Match match in exportNameRegex.Matches(line))
+					exportsNameToClassName.Add(match.Value, className);
 			}
 		}
 
@@ -449,10 +466,68 @@ namespace Generator.Misc.Lua {
 				case LineKind.Impl:
 				case LineKind.LuaStructModuleMacro:
 				case LineKind.LuaPubMethodsMacro:
+				case LineKind.LuaModule:
 				default:
 					throw GetException($"Unexpected token {token.kind}");
 				}
 			}
+		}
+
+		void ReadLuaModuleMacro(string fullLine) {
+			if (!fullLine.EndsWith("lua_module! {"))
+				throw GetException($"Couldn't parse Lua module macro, line: `{fullLine}`");
+			var endOfBlockStr = GetIndent(fullLine) + "}";
+			bool foundFn = false;
+			while (true) {
+				var token = lines.Next();
+				if (token.kind == LineKind.Eof)
+					break;
+				if (token.kind == LineKind.Other && token.line == endOfBlockStr)
+					break;
+
+				switch (token.kind) {
+				case LineKind.Other:
+					break;
+
+				case LineKind.Fn:
+					if (foundFn)
+						throw new InvalidOperationException();
+					foundFn = true;
+					var match = moduleRegex.Match(token.line);
+					if (!match.Success || match.Groups.Count != 2)
+						throw GetException($"Couldn't parse Lua struct module macro, line: {token.line}");
+					var moduleName = match.Groups[1].Value;
+					int index = moduleName.LastIndexOf('_');
+					if (index < 0)
+						throw GetException($"Invalid module name: {moduleName}");
+					var structName = moduleName[(index + 1)..];
+					classNameToLuaModuleName.Add(structName, moduleName);
+
+					if (!TryCreateDocComments(docComments, out var docComments2, out var error))
+						throw GetException(error);
+					classNameToDocs.Add(structName, docComments2);
+
+					ReadExportsFn(token.line, structName);
+					break;
+
+				case LineKind.DocComment:
+					AddDocCommentLine(token.line);
+					break;
+
+				case LineKind.Attribute:
+					break;
+
+				case LineKind.Struct:
+				case LineKind.Impl:
+				case LineKind.LuaStructModuleMacro:
+				case LineKind.LuaPubMethodsMacro:
+				case LineKind.LuaModule:
+				default:
+					throw GetException($"Unexpected token {token.kind}");
+				}
+			}
+			if (!foundFn)
+				throw new InvalidOperationException();
 		}
 
 		static IEnumerable<string> GetArgs(string argsLine) {
