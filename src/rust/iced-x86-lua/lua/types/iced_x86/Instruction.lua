@@ -1848,24 +1848,24 @@ function Instruction:used_values() end
 ---```
 ---
 ---@return Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
----@overload fun(_self: Instruction, a1: integer): Instruction
----@overload fun(_self: Instruction, values: integer[]): Instruction
----@overload fun(_self: Instruction, bytes: string): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(a1: integer, a2:integer): Instruction
+---@overload fun(a1: integer): Instruction
+---@overload fun(values: integer[]): Instruction
+---@overload fun(bytes: string): Instruction
 function Instruction.db() end
 
 ---Creates a `dw`/`.word` asm directive
@@ -1885,16 +1885,16 @@ function Instruction.db() end
 ---```
 ---
 ---@return Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
----@overload fun(_self: Instruction, a1: integer): Instruction
----@overload fun(_self: Instruction, values: integer[]): Instruction
----@overload fun(_self: Instruction, bytes: string): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(a1: integer, a2:integer): Instruction
+---@overload fun(a1: integer): Instruction
+---@overload fun(values: integer[]): Instruction
+---@overload fun(bytes: string): Instruction
 function Instruction.dw() end
 
 ---Creates a `dd`/`.int` asm directive
@@ -1914,12 +1914,12 @@ function Instruction.dw() end
 ---```
 ---
 ---@return Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
----@overload fun(_self: Instruction, a1: integer): Instruction
----@overload fun(_self: Instruction, values: integer[]): Instruction
----@overload fun(_self: Instruction, bytes: string): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+---@overload fun(a1: integer, a2:integer, a3:integer): Instruction
+---@overload fun(a1: integer, a2:integer): Instruction
+---@overload fun(a1: integer): Instruction
+---@overload fun(values: integer[]): Instruction
+---@overload fun(bytes: string): Instruction
 function Instruction.dd() end
 
 ---Creates a `dq`/`.quad` asm directive
@@ -1939,44 +1939,44 @@ function Instruction.dd() end
 ---```
 ---
 ---@return Instruction
----@overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
----@overload fun(_self: Instruction, a1: integer): Instruction
----@overload fun(_self: Instruction, values: integer[]): Instruction
----@overload fun(_self: Instruction, bytes: string): Instruction
+---@overload fun(a1: integer, a2:integer): Instruction
+---@overload fun(a1: integer): Instruction
+---@overload fun(values: integer[]): Instruction
+---@overload fun(bytes: string): Instruction
 function Instruction.dq() end
 
 ---Creates an instruction. All immediate values are assumed to be signed
 ---
 ---@param code integer #(A `Code` enum variant) Code value
 ---@return Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
----@overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
----@overload fun(_self: Instruction, code: integer, immediate1: integer, immediate2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, immediate: integer, register: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
----@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
----@overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
----@overload fun(_self: Instruction, code: integer, immediate: integer): Instruction
----@overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
----@overload fun(_self: Instruction, code: integer, register: integer): Instruction
----@overload fun(_self: Instruction, code: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
+---@overload fun(code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
+---@overload fun(code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
+---@overload fun(code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+---@overload fun(code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
+---@overload fun(code: integer, immediate1: integer, immediate2: integer): Instruction
+---@overload fun(code: integer, immediate: integer, register: integer): Instruction
+---@overload fun(code: integer, register: integer, memory: MemoryOperand): Instruction
+---@overload fun(code: integer, memory: MemoryOperand, immediate: integer): Instruction
+---@overload fun(code: integer, register: integer, immediate: integer): Instruction
+---@overload fun(code: integer, memory: MemoryOperand, register: integer): Instruction
+---@overload fun(code: integer, register1: integer, register2: integer): Instruction
+---@overload fun(code: integer, immediate: integer): Instruction
+---@overload fun(code: integer, memory: MemoryOperand): Instruction
+---@overload fun(code: integer, register: integer): Instruction
+---@overload fun(code: integer): Instruction
 function Instruction.create(code) end
 
 ---Creates a new near/short branch instruction

@@ -2095,24 +2095,24 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	///
 	/// @return Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer): Instruction
-	/// @overload fun(_self: Instruction, values: integer[]): Instruction
-	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer, a16:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer, a15:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer, a14:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer, a13:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer, a12:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer, a11:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer, a10:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer, a9:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer): Instruction
+	/// @overload fun(a1: integer): Instruction
+	/// @overload fun(values: integer[]): Instruction
+	/// @overload fun(bytes: string): Instruction
 	unsafe fn db(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
@@ -2144,16 +2144,16 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	///
 	/// @return Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer): Instruction
-	/// @overload fun(_self: Instruction, values: integer[]): Instruction
-	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer, a8:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer, a7:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer, a6:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer, a5:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer): Instruction
+	/// @overload fun(a1: integer): Instruction
+	/// @overload fun(values: integer[]): Instruction
+	/// @overload fun(bytes: string): Instruction
 	unsafe fn dw(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
@@ -2185,12 +2185,12 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	///
 	/// @return Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer, a4:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer, a3:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer): Instruction
-	/// @overload fun(_self: Instruction, values: integer[]): Instruction
-	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer, a4:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer, a3:integer): Instruction
+	/// @overload fun(a1: integer, a2:integer): Instruction
+	/// @overload fun(a1: integer): Instruction
+	/// @overload fun(values: integer[]): Instruction
+	/// @overload fun(bytes: string): Instruction
 	unsafe fn dd(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
@@ -2222,10 +2222,10 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	/// ```
 	///
 	/// @return Instruction
-	/// @overload fun(_self: Instruction, a1: integer, a2:integer): Instruction
-	/// @overload fun(_self: Instruction, a1: integer): Instruction
-	/// @overload fun(_self: Instruction, values: integer[]): Instruction
-	/// @overload fun(_self: Instruction, bytes: string): Instruction
+	/// @overload fun(a1: integer, a2:integer): Instruction
+	/// @overload fun(a1: integer): Instruction
+	/// @overload fun(values: integer[]): Instruction
+	/// @overload fun(bytes: string): Instruction
 	unsafe fn dq(lua) -> 1 {
 		unsafe {
 			mk_dx_body!(
@@ -2247,34 +2247,34 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 	///
 	/// @param code integer #(A `Code` enum variant) Code value
 	/// @return Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, immediate1: integer, immediate2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, immediate: integer, register: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
-	/// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, immediate: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
-	/// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
-	/// @overload fun(_self: Instruction, code: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
+	/// @overload fun(code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
+	/// @overload fun(code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
+	/// @overload fun(code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
+	/// @overload fun(code: integer, immediate1: integer, immediate2: integer): Instruction
+	/// @overload fun(code: integer, immediate: integer, register: integer): Instruction
+	/// @overload fun(code: integer, register: integer, memory: MemoryOperand): Instruction
+	/// @overload fun(code: integer, memory: MemoryOperand, immediate: integer): Instruction
+	/// @overload fun(code: integer, register: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, memory: MemoryOperand, register: integer): Instruction
+	/// @overload fun(code: integer, register1: integer, register2: integer): Instruction
+	/// @overload fun(code: integer, immediate: integer): Instruction
+	/// @overload fun(code: integer, memory: MemoryOperand): Instruction
+	/// @overload fun(code: integer, register: integer): Instruction
+	/// @overload fun(code: integer): Instruction
 	#[rustfmt::skip]
 	unsafe fn create(lua, code: u32) -> 1 {
 		let code = unsafe { to_code(lua, code) };
@@ -2287,7 +2287,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 1 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer): Instruction
+				// @overload fun(code: integer): Instruction
 				instr = Instruction { inner: iced_x86::Instruction::with(code) };
 			}
 			2 => {
@@ -2295,14 +2295,14 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
+					// @overload fun(code: integer, memory: MemoryOperand): Instruction
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					instr = Instruction { inner: match iced_x86::Instruction::with1(code, memory.inner) {
 						Ok(instr) => instr,
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
+					// @overload fun(code: integer, register: integer): Instruction
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register = unsafe { to_register(lua, register) };
 					instr = Instruction { inner: match iced_x86::Instruction::with1(code, register) {
@@ -2315,7 +2315,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register: integer): Instruction
+				// @overload fun(code: integer, register: integer): Instruction
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register = unsafe { to_register(lua, register) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, register) {
@@ -2327,7 +2327,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, immediate: integer): Instruction
+				// @overload fun(code: integer, immediate: integer): Instruction
 				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, immediate) {
 					Ok(instr) => instr,
@@ -2338,7 +2338,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 2 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand): Instruction
+				// @overload fun(code: integer, memory: MemoryOperand): Instruction
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				instr = Instruction { inner: match iced_x86::Instruction::with1(code, memory.inner) {
 					Ok(instr) => instr,
@@ -2350,7 +2350,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
+					// @overload fun(code: integer, memory: MemoryOperand, register: integer): Instruction
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
@@ -2359,7 +2359,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register1 = unsafe { to_register(lua, register1) };
@@ -2375,7 +2375,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, immediate: integer): Instruction
+					// @overload fun(code: integer, memory: MemoryOperand, immediate: integer): Instruction
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					instr = Instruction { inner: match iced_x86::Instruction::with2(code, memory.inner, immediate) {
@@ -2383,7 +2383,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register: integer, immediate: integer): Instruction
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
@@ -2398,7 +2398,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
+					// @overload fun(code: integer, register: integer, memory: MemoryOperand): Instruction
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register = unsafe { to_register(lua, register) };
@@ -2407,7 +2407,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register1 = unsafe { to_register(lua, register1) };
@@ -2422,7 +2422,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer): Instruction
+				// @overload fun(code: integer, register1: integer, register2: integer): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register1 = unsafe { to_register(lua, register1) };
@@ -2436,7 +2436,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
+				// @overload fun(code: integer, register: integer, immediate: integer): Instruction
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
@@ -2449,7 +2449,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register: integer, immediate: integer): Instruction
+				// @overload fun(code: integer, register: integer, immediate: integer): Instruction
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let immediate: <i64 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i64 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
@@ -2462,7 +2462,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand): Instruction
+				// @overload fun(code: integer, register: integer, memory: MemoryOperand): Instruction
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
@@ -2475,7 +2475,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, immediate: integer, register: integer): Instruction
+				// @overload fun(code: integer, immediate: integer, register: integer): Instruction
 				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
@@ -2488,7 +2488,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, immediate1: integer, immediate2: integer): Instruction
+				// @overload fun(code: integer, immediate1: integer, immediate2: integer): Instruction
 				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				instr = Instruction { inner: match iced_x86::Instruction::with2(code, immediate1, immediate2) {
@@ -2500,7 +2500,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 3 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer): Instruction
+				// @overload fun(code: integer, memory: MemoryOperand, register: integer): Instruction
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register = unsafe { to_register(lua, register) };
@@ -2514,7 +2514,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
+					// @overload fun(code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2525,7 +2525,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2543,7 +2543,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(2) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, memory: MemoryOperand, register: integer, immediate: integer): Instruction
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2553,7 +2553,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2570,7 +2570,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
+					// @overload fun(code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2581,7 +2581,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2599,7 +2599,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(3) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
+					// @overload fun(code: integer, register: integer, memory: MemoryOperand, immediate: integer): Instruction
 					let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2609,7 +2609,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2626,7 +2626,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2637,7 +2637,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2654,7 +2654,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer): Instruction
+				// @overload fun(code: integer, register1: integer, register2: integer, register3: integer): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2670,7 +2670,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate: integer): Instruction
+				// @overload fun(code: integer, register1: integer, register2: integer, immediate: integer): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let immediate: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2685,7 +2685,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
+				// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2700,7 +2700,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
+				// @overload fun(code: integer, register: integer, immediate1: integer, immediate2: integer): Instruction
 				let register: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let immediate2: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2714,7 +2714,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
+				// @overload fun(code: integer, register1: integer, memory: MemoryOperand, register2: integer): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2729,7 +2729,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 4 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
+				// @overload fun(code: integer, memory: MemoryOperand, register1: integer, register2: integer): Instruction
 				let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2745,7 +2745,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2758,7 +2758,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2778,7 +2778,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2790,7 +2790,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2809,7 +2809,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2822,7 +2822,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2841,7 +2841,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 				if arg_count != 5 {
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
-				// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
+				// @overload fun(code: integer, register1: integer, register2: integer, immediate1: integer, immediate2: integer): Instruction
 				let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 				let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 				let immediate1: <i32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <i32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2858,7 +2858,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(4) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, memory: MemoryOperand, register3: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let memory: <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::RetType = unsafe { <&crate::mem_op::MemoryOperand as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2872,7 +2872,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2893,7 +2893,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 					unsafe { lua.throw_error_msg("Invalid arg count") }
 				}
 				if unsafe { lua.type_(5) } == loona::lua_api::LUA_TUSERDATA {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, memory: MemoryOperand, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };
@@ -2907,7 +2907,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 						Err(e) => unsafe { lua.throw_error(e) },
 					}};
 				} else {
-					// @overload fun(_self: Instruction, code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
+					// @overload fun(code: integer, register1: integer, register2: integer, register3: integer, register4: integer, immediate: integer): Instruction
 					let register1: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 2) };
 					let register2: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 3) };
 					let register3: <u32 as loona::tofrom::FromLua<'_>>::RetType = unsafe { <u32 as loona::tofrom::FromLua<'_>>::from_lua(lua, 4) };

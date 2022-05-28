@@ -446,7 +446,7 @@ namespace Generator.Encoder.Lua {
 			if (method.Args.Count != group.Operands.Length + 1)
 				throw new InvalidOperationException();
 			sb.Clear();
-			sb.Append($"@overload fun(_self: Instruction, {method.Args[0].Name}: integer");
+			sb.Append($"@overload fun({method.Args[0].Name}: integer");
 			for (int i = 0; i < group.Operands.Length; i++) {
 				var type = group.Operands[i].Split(useReg) switch {
 					InstructionOperand.RegisterMemory => throw new InvalidOperationException(),
