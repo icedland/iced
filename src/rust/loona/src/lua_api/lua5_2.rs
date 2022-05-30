@@ -72,6 +72,7 @@ pub type lua_Integer = ptrdiff_t;
 pub type lua_Unsigned = c_uint;
 
 extern "C" {
+	#[cfg(feature = "lua5_2_2")]
 	pub static lua_ident: *const c_char;
 }
 

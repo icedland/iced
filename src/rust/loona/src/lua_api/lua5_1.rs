@@ -258,6 +258,7 @@ pub type lua_Chunkreader = lua_Reader;
 pub type lua_Chunkwriter = lua_Writer;
 
 extern "C" {
+	#[cfg(feature = "lua5_1_3")]
 	pub fn lua_setlevel(from: lua_State, to: lua_State);
 }
 

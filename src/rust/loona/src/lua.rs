@@ -1666,7 +1666,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
-	#[cfg(feature = "lua5_4")]
+	#[cfg(feature = "lua5_4_3")]
 	pub unsafe fn close_slot(&self, idx: c_int) {
 		unsafe {
 			lua_closeslot(self.state, idx);

@@ -260,6 +260,7 @@ extern "C" {
 	pub fn lua_setallocf(L: lua_State, f: lua_Alloc, ud: *mut c_void);
 
 	pub fn lua_toclose(L: lua_State, idx: c_int);
+	#[cfg(feature = "lua5_4_3")]
 	pub fn lua_closeslot(L: lua_State, idx: c_int);
 }
 
