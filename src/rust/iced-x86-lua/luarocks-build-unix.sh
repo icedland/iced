@@ -18,13 +18,13 @@ check_requirements() {
 build() {
 	lua_ver=$("$1" -v 2>&1)
 	if echo "$lua_ver" | grep 'Lua 5\.1\.' > /dev/null; then
-		lua_feat=lua51
+		lua_feat=lua5_1
 	elif echo "$lua_ver" | grep 'Lua 5\.2\.' > /dev/null; then
-		lua_feat=lua52
+		lua_feat=lua5_2
 	elif echo "$lua_ver" | grep 'Lua 5\.3\.' > /dev/null; then
-		lua_feat=lua53
+		lua_feat=lua5_3
 	elif echo "$lua_ver" | grep 'Lua 5\.4\.' > /dev/null; then
-		lua_feat=lua54
+		lua_feat=lua5_4
 	else
 		echo "Unsupported Lua version: $lua_ver"
 		exit 1

@@ -13,19 +13,19 @@ fn main() {
 	let lua_lib_name: PathBuf = if let Some(lua_lib_name) = env::var_os("LUA_LIB_NAME") {
 		lua_lib_name.into()
 	} else {
-		#[cfg(feature = "lua51")]
+		#[cfg(feature = "lua5_1")]
 		{
 			"lua5.1".into()
 		}
-		#[cfg(feature = "lua52")]
+		#[cfg(feature = "lua5_2")]
 		{
 			"lua5.2".into()
 		}
-		#[cfg(feature = "lua53")]
+		#[cfg(feature = "lua5_3")]
 		{
 			"lua5.3".into()
 		}
-		#[cfg(feature = "lua54")]
+		#[cfg(feature = "lua5_4")]
 		{
 			"lua5.4".into()
 		}
