@@ -39,6 +39,13 @@ namespace Generator.IO {
 				multiLineComment = ("", "# ", "");
 				break;
 
+			case TargetLanguage.Lua:
+				numberPrefix = "0x";
+				numberByteFormat = "X2";
+				singleLineCommentPrefix = "-- ";
+				multiLineComment = ("", "-- ", "");
+				break;
+
 			default:
 				throw new InvalidOperationException();
 			}

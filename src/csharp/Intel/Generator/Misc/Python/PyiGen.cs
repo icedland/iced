@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using Generator.Enums;
+using Generator.Enums.Python;
 using Generator.IO;
 
 namespace Generator.Misc.Python {

@@ -1,0 +1,103 @@
+-- SPDX-License-Identifier: MIT
+-- Copyright (C) 2018-present iced project and contributors
+
+describe("MemorySize", function()
+	local MemorySize = require("iced_x86.MemorySize")
+	local MemorySizeExt = require("iced_x86.MemorySizeExt")
+	local MemorySizeInfo = require("iced_x86.MemorySizeInfo")
+
+	it("memsz ext", function()
+		assert.equals(16, MemorySizeExt.size(MemorySize.UInt128))
+		assert.equals(16, MemorySizeExt.element_size(MemorySize.UInt128))
+		assert.equals(MemorySize.UInt128, MemorySizeExt.element_type(MemorySize.UInt128))
+		assert.is_false(MemorySizeExt.is_signed(MemorySize.UInt128))
+		assert.is_true(MemorySizeExt.is_signed(MemorySize.Packed256_Int16))
+		assert.is_false(MemorySizeExt.is_packed(MemorySize.UInt128))
+		assert.equals(1, MemorySizeExt.element_count(MemorySize.UInt128))
+		assert.is_false(MemorySizeExt.is_broadcast(MemorySize.UInt128))
+
+		assert.equals(32, MemorySizeExt.size(MemorySize.Packed256_Int16))
+		assert.equals(2, MemorySizeExt.element_size(MemorySize.Packed256_Int16))
+		assert.equals(MemorySize.Int16, MemorySizeExt.element_type(MemorySize.Packed256_Int16))
+		assert.is_true(MemorySizeExt.is_signed(MemorySize.Packed256_Int16))
+		assert.is_true(MemorySizeExt.is_packed(MemorySize.Packed256_Int16))
+		assert.equals(16, MemorySizeExt.element_count(MemorySize.Packed256_Int16))
+		assert.is_false(MemorySizeExt.is_broadcast(MemorySize.Packed256_Int16))
+
+		assert.is_true(MemorySizeExt.is_broadcast(MemorySize.Broadcast128_2xInt32))
+
+		assert.equals(MemorySize.Packed256_Int16, MemorySizeExt.info(MemorySize.Packed256_Int16):memory_size())
+		assert.equals(32, MemorySizeExt.info(MemorySize.Packed256_Int16):size())
+		assert.equals(MemorySize.Int16, MemorySizeExt.element_type_info(MemorySize.Packed256_Int16):element_type())
+	end)
+
+	it("create", function()
+		local fns = {
+			function(memory_size)
+				return MemorySizeExt.info(memory_size)
+			end,
+			function(memory_size)
+				return MemorySizeInfo.new(memory_size)
+			end,
+		}
+		for _, create in ipairs(fns) do
+			---@type MemorySizeInfo
+			local info = create(MemorySize.UInt128)
+			assert.equals(MemorySize.UInt128, info:memory_size())
+			assert.equals(16, info:size())
+			assert.equals(16, info:element_size())
+			assert.equals(MemorySize.UInt128, info:element_type())
+			assert.is_false(info:is_signed())
+			assert.is_true(create(MemorySize.Packed256_Int16):is_signed())
+			assert.is_false(info:is_packed())
+			assert.equals(1, info:element_count())
+			assert.is_false(info:is_broadcast())
+
+			info = create(MemorySize.Packed256_Int16)
+			assert.equals(MemorySize.Packed256_Int16, info:memory_size())
+			assert.equals(32, info:size())
+			assert.equals(2, info:element_size())
+			assert.equals(MemorySize.Int16, info:element_type())
+			assert.is_true(info:is_signed())
+			assert.is_true(info:is_packed())
+			assert.equals(16, info:element_count())
+			assert.is_false(info:is_broadcast())
+
+			assert.is_true(create(MemorySize.Broadcast128_2xInt32):is_broadcast())
+		end
+	end)
+
+	-- stylua: ignore
+	it("invalid", function()
+		assert.has_error(function() MemorySizeExt.info(0x789A) end)
+		assert.has_error(function() MemorySizeExt.info(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.info(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.size(0x789A) end)
+		assert.has_error(function() MemorySizeExt.size(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.size(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.element_size(0x789A) end)
+		assert.has_error(function() MemorySizeExt.element_size(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.element_size(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.element_type(0x789A) end)
+		assert.has_error(function() MemorySizeExt.element_type(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.element_type(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.element_type_info(0x789A) end)
+		assert.has_error(function() MemorySizeExt.element_type_info(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.element_type_info(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.is_signed(0x789A) end)
+		assert.has_error(function() MemorySizeExt.is_signed(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.is_signed(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.is_packed(0x789A) end)
+		assert.has_error(function() MemorySizeExt.is_packed(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.is_packed(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.element_count(0x789A) end)
+		assert.has_error(function() MemorySizeExt.element_count(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.element_count(0x100000000) end)
+		assert.has_error(function() MemorySizeExt.is_broadcast(0x789A) end)
+		assert.has_error(function() MemorySizeExt.is_broadcast(-0x80000001) end)
+		assert.has_error(function() MemorySizeExt.is_broadcast(0x100000000) end)
+		assert.has_error(function() MemorySizeInfo.new(0x789A) end)
+		assert.has_error(function() MemorySizeInfo.new(-0x80000001) end)
+		assert.has_error(function() MemorySizeInfo.new(0x100000000) end)
+	end)
+end)

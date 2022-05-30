@@ -11,17 +11,17 @@ using System.Text;
 namespace Generator.Misc.Python {
 	sealed class PyClassParser {
 		const string selfArgName = "$self";
-		readonly string Filename;
+		readonly string filename;
 		readonly Lines lines;
-		readonly List<string> DocComments;
-		RustAttributes? Attributes;
+		readonly List<string> docComments;
+		RustAttributes? attributes;
 		readonly Dictionary<string, PyClass> pyClasses;
 
 		public PyClassParser(string filename) {
-			Filename = filename;
-			lines = new Lines(File.ReadAllLines(filename));
-			DocComments = new List<string>();
-			pyClasses = new Dictionary<string, PyClass>(StringComparer.Ordinal);
+			this.filename = filename;
+			lines = new(File.ReadAllLines(filename));
+			docComments = new();
+			pyClasses = new(StringComparer.Ordinal);
 		}
 
 		PyClass[] GetClasses() => pyClasses.Values.ToArray();
@@ -36,14 +36,14 @@ namespace Generator.Misc.Python {
 		}
 
 		void ClearTempState() {
-			DocComments.Clear();
-			Attributes = null;
+			docComments.Clear();
+			attributes = null;
 		}
 
-		bool HasTempState => DocComments.Count != 0 || Attributes is not null;
+		bool HasTempState => docComments.Count != 0 || attributes is not null;
 
 		public Exception GetException(string message) =>
-			new InvalidOperationException($"{message}, line: {lines.LineNo}, file: {Filename}");
+			new InvalidOperationException($"{message}, line: {lines.LineNo}, file: {filename}");
 
 		enum LineKind {
 			Eof,
@@ -129,16 +129,16 @@ namespace Generator.Misc.Python {
 					break;
 
 				case LineKind.Impl:
-					if (DocComments.Count != 0)
+					if (docComments.Count != 0)
 						throw GetException("Unexpected doc comments");
 					var implName = GetName(token.line, "impl");
 					if (!TryGetPyClass(implName, out var pyClass) ||
-						Attributes is null ||
-						Attributes.Attributes.Count == 0) {
+						attributes is null ||
+						attributes.Attributes.Count == 0) {
 						SkipBlock(token.line);
 					}
 					else {
-						if (!Attributes.Any(AttributeKind.PyMethods, AttributeKind.PyProto))
+						if (!attributes.Any(AttributeKind.PyMethods))
 							SkipBlock(token.line);
 						else
 							ReadStructImpl(token.line, pyClass);
@@ -186,12 +186,12 @@ namespace Generator.Misc.Python {
 		}
 
 		void ReadStruct(string line) {
-			if (Attributes?.Any(AttributeKind.PyClass) == true) {
+			if (attributes?.Any(AttributeKind.PyClass) == true) {
 				line = RemovePub(line);
 				var name = GetName(line, "struct");
-				if (!TryCreateDocComments(DocComments, out var docComments, out var error))
+				if (!TryCreateDocComments(docComments, out var docComments2, out var error))
 					throw GetException(error);
-				var pyClass = new PyClass(name, docComments, Attributes ?? new RustAttributes());
+				var pyClass = new PyClass(name, docComments2, attributes ?? new RustAttributes());
 				AddPyClass(pyClass);
 			}
 			ClearTempState();
@@ -443,7 +443,6 @@ namespace Generator.Misc.Python {
 		}
 
 		IEnumerable<PyMethod> ReadMethod(PyClass pyClass, string fullLine) {
-			var firstLine = fullLine;
 			var line = RemovePub(fullLine.Trim());
 			const string fnPat = "fn ";
 			if (!line.StartsWith(fnPat, StringComparison.Ordinal))
@@ -459,7 +458,7 @@ namespace Generator.Misc.Python {
 			if (index >= 0)
 				name = name[..index].Trim();
 
-			var attributes = Attributes ?? new RustAttributes();
+			var attributes = this.attributes ?? new RustAttributes();
 			bool isStaticMethod = attributes.Any(AttributeKind.StaticMethod);
 			bool isClassMethod = attributes.Any(AttributeKind.ClassMethod);
 			bool isCtor = attributes.Any(AttributeKind.New);
@@ -472,7 +471,7 @@ namespace Generator.Misc.Python {
 				name != "__copy__" && name != "__deepcopy__" && name != "__getstate__";
 
 			fullLine = ParseMethodArgsAndRetType(fullLine, line, isInstanceMethod, isSpecial || name == "__deepcopy__", out var args, out var rustReturnType);
-			if (!TryCreateDocComments(DocComments, out var docComments, out var error))
+			if (!TryCreateDocComments(docComments, out var docComments2, out var error))
 				throw GetException(error);
 
 			bool isSetter = attributes.Any(AttributeKind.Setter);
@@ -483,7 +482,7 @@ namespace Generator.Misc.Python {
 			if (isGetter && name.StartsWith("get_"))
 				throw GetException($"Getters shouldn't have a `get_` prefix: {name}");
 
-			var method = new PyMethod(name, docComments, attributes, args, rustReturnType);
+			var method = new PyMethod(name, docComments2, attributes, args, rustReturnType);
 
 			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
 			if (isSpecial || isGetter || isSetter) {
@@ -607,12 +606,12 @@ namespace Generator.Misc.Python {
 			var docComment = line[DocCommentPrefix.Length..];
 			if (docComment.StartsWith(" ", StringComparison.Ordinal))
 				docComment = docComment[1..];
-			DocComments.Add(docComment);
+			docComments.Add(docComment);
 		}
 
 		void ReadAttribute(string line) {
-			Attributes ??= new RustAttributes();
-			Attributes.Attributes.Add(ParseAttribute(line));
+			attributes ??= new RustAttributes();
+			attributes.Attributes.Add(ParseAttribute(line));
 		}
 
 		RustAttribute ParseAttribute(string line) {
@@ -633,7 +632,6 @@ namespace Generator.Misc.Python {
 			var attrKind = attrName switch {
 				"pyclass" => AttributeKind.PyClass,
 				"pymethods" => AttributeKind.PyMethods,
-				"pyproto" => AttributeKind.PyProto,
 				"new" => AttributeKind.New,
 				"getter" => AttributeKind.Getter,
 				"setter" => AttributeKind.Setter,

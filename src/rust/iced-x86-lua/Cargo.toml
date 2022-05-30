@@ -1,0 +1,49 @@
+[package]
+name = "iced-x86-lua"
+version = "1.17.0"
+edition = "2018"
+publish = false
+
+[lib]
+name = "iced_x86"
+crate-type = ["cdylib"]
+
+[features]
+default = []
+lua5_1 = ["loona/lua5_1"]
+lua5_1_3 = ["loona/lua5_1_3"]
+lua5_2 = ["loona/lua5_2"]
+lua5_2_2 = ["loona/lua5_2_2"]
+lua5_3 = ["loona/lua5_3"]
+lua5_4 = ["loona/lua5_4"]
+lua5_4_3 = ["loona/lua5_4_3"]
+extra_checks = ["loona/extra_checks"]
+
+[dependencies]
+libc = "0.2"
+
+[dependencies.iced-x86]
+# The version must match the one we expect, it should not be the latest version on crates.io
+version = "=1.17.0"
+default-features = false
+features = ["std", "decoder", "mvex", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
+# To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
+#	paths = ["/abs/path/to/iced/src/rust/iced-x86"]
+# or uncomment this line:
+#path = "/abs/path/to/iced/src/rust/iced-x86"
+# Don't remove/modify the next line. Build scripts replace it with the real path
+#pathci
+
+[dependencies.loona]
+path = "../loona"
+default-features = false
+features = []
+
+[workspace]
+# We can only override [profile.release] if this is the root workspace.
+# So make sure this is the root workspace.
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3

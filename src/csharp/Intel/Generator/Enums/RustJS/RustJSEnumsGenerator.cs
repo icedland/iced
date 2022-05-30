@@ -30,7 +30,7 @@ namespace Generator.Enums.RustJS {
 		public RustJSEnumsGenerator(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
 			idConverter = RustJSIdentifierConverter.Create();
-			docWriter = new RustDocCommentWriter(idConverter, ".");
+			docWriter = new RustDocCommentWriter(idConverter, ".", ".", ".", ".");
 			deprecatedWriter = new RustJSDeprecatedWriter(idConverter);
 
 			var dirs = generatorContext.Types.Dirs;

@@ -622,7 +622,7 @@ impl Instruction {
 		self.instr.set_is_mvex_eviction_hint(new_value)
 	}
 
-	/// :class:`MvexRegMemConv`: (MVEX) Register/memory operand conversion function (a :class:`MvexRegMemConv` enum value)
+	/// :class:`MvexRegMemConv`: (MVEX) Register/memory operand conversion function (an :class:`MvexRegMemConv` enum value)
 	#[getter]
 	fn mvex_reg_mem_conv(&self) -> u32 {
 		self.instr.mvex_reg_mem_conv() as u32

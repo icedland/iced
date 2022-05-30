@@ -10,7 +10,6 @@ namespace Generator.Misc.Python {
 		Ignored,
 		PyClass,
 		PyMethods,
-		PyProto,
 		Derive,
 		New,
 		Getter,

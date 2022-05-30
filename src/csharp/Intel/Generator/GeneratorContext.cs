@@ -59,6 +59,7 @@ namespace Generator {
 		public string RustDir => langDirs[(int)TargetLanguage.Rust];
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
 		public string PythonDir => langDirs[(int)TargetLanguage.Python];
+		public string LuaDir => langDirs[(int)TargetLanguage.Lua];
 		public string GeneratorDir { get; }
 		readonly string[] langDirs;
 
@@ -73,6 +74,7 @@ namespace Generator {
 					TargetLanguage.Rust => GetAndVerifyPath(baseDir, "rust", "iced-x86", "src"),
 					TargetLanguage.RustJS => GetAndVerifyPath(baseDir, "rust", "iced-x86-js", "src"),
 					TargetLanguage.Python => GetAndVerifyPath(baseDir, "rust", "iced-x86-py"),
+					TargetLanguage.Lua => GetAndVerifyPath(baseDir, "rust", "iced-x86-lua"),
 					_ => throw new InvalidOperationException(),
 				};
 				langDirs[i] = path;
@@ -96,6 +98,10 @@ namespace Generator {
 		public string GetPythonDocsFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "docs"), Path.Combine(names));
 		public string GetPythonDocsSrcFilename(params string[] names) => Path.Combine(Path.Combine(PythonDir, "docs", "src"), Path.Combine(names));
 		public string GetPythonRustDir() => Path.Combine(PythonDir, "src");
+		public string GetLuaFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "lua"), Path.Combine(names));
+		public string GetLuaTypesFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "lua", "types"), Path.Combine(names));
+		public string GetLuaRustFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "src"), Path.Combine(names));
+		public string GetLuaRustDir() => Path.Combine(LuaDir, "src");
 		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
 

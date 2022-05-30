@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-namespace Generator.Enums {
+namespace Generator.Enums.Python {
 	static class PythonUtils {
 		public static bool UppercaseEnum(string name) =>
 			name switch {

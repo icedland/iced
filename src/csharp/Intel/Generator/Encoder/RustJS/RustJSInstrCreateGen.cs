@@ -26,7 +26,7 @@ namespace Generator.Encoder.RustJS {
 			this.generatorContext = generatorContext;
 			idConverter = RustJSIdentifierConverter.Create();
 			rustIdConverter = RustIdentifierConverter.Create();
-			docWriter = new RustDocCommentWriter(idConverter, ".");
+			docWriter = new RustDocCommentWriter(idConverter, ".", ".", ".", ".");
 			gen = new Rust.InstrCreateGenImpl(genTypes, idConverter, docWriter);
 			genNames = new Rust.GenCreateNameArgs {
 				CreatePrefix = "create",
