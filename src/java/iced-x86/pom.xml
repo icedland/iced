@@ -119,6 +119,10 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
+          <source>8</source>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-gpg-plugin</artifactId>

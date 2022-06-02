@@ -52,6 +52,7 @@ namespace Generator {
 		public string? RustJS { get; set; }
 		public string? Python { get; set; }
 		public string? Lua { get; set; }
+		public string? Java { get; set; }
 		public CommentAttribute(string comment) => Comment = comment ?? throw new InvalidOperationException();
 
 		public static LanguageDocumentation GetDocumentation(MemberInfo member) {
@@ -68,6 +69,8 @@ namespace Generator {
 				langComments.Add((TargetLanguage.Python, pythonComment));
 			if (attr.Lua is string luaComment)
 				langComments.Add((TargetLanguage.Lua, luaComment));
+			if (attr.Java is string javaComment)
+				langComments.Add((TargetLanguage.Java, javaComment));
 			return new(attr.Comment, langComments.Count == 0 ? Array.Empty<(TargetLanguage language, string comment)>() : langComments.ToArray());
 		}
 	}

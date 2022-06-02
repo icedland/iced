@@ -25,6 +25,7 @@ namespace Generator.IO {
 			case TargetLanguage.CSharp:
 			case TargetLanguage.Rust:
 			case TargetLanguage.RustJS:
+			case TargetLanguage.Java:
 				numberPrefix = "0x";
 				numberByteFormat = "X2";
 				singleLineCommentPrefix = "// ";

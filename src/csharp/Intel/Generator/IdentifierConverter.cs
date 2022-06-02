@@ -48,6 +48,7 @@ namespace Generator {
 				"Handler66Reg" => "HANDLER_66_REG",
 				"Handler66Mem" => "HANDLER_66_MEM",
 				"Cyrix_SMINT_0F7E" => "CYRIX_SMINT_0F7E",
+				"MAP0F" or "MAP0F38" or "MAP0F3A" or "D3NOW" => name,
 				_ => ToSnakeCase(name, upper: true),
 			};
 
@@ -179,5 +180,35 @@ namespace Generator {
 		public override string Static(string name) => ToScreamingSnakeCase(name);
 		public override string Namespace(string name) => ToSnakeCase(name);
 		public override string Argument(string name) => ToSnakeCase(name);
+	}
+
+	sealed class JavaIdentifierConverter : IdentifierConverter {
+		public static IdentifierConverter Create() => new JavaIdentifierConverter();
+		JavaIdentifierConverter() { }
+		protected override string EnumSeparator => ".";
+		public override string Type(string name) => name;
+		public override string Field(string name) => Escape(ToLowerCamelCase(name));
+		public override string EnumField(string name) => Escape(ToScreamingSnakeCase(name));
+		public override string PropertyDoc(string name) => Escape(ToLowerCamelCase("Get" + name)) + "()";
+		public override string MethodDoc(string name) => Escape(ToLowerCamelCase(name)) + "()";
+		public override string Method(string name) => Escape(ToLowerCamelCase(name));
+		public override string Constant(string name) => Escape(ToScreamingSnakeCase(name));
+		public override string Static(string name) => Escape(name);
+		public override string Namespace(string name) => Escape(name);
+		public override string Argument(string name) => Escape(name);
+
+		static readonly HashSet<string> keywords = new(StringComparer.Ordinal) {
+			"abstract", "assert", "boolean", "break", "byte",
+			"case", "catch", "char", "class", "const", "continue",
+			"default", "do", "double", "else", "enum", "extends",
+			"final", "finally", "float", "for", "goto", "if",
+			"implements", "import", "instanceof", "int", "interface",
+			"long", "native", "new", "package", "private", "protected",
+			"public", "return", "short", "static", "strictfp", "super",
+			"switch", "synchronized", "this", "throw", "throws",
+			"transient", "try", "void", "volatile", "while",
+		};
+
+		static string Escape(string name) => keywords.Contains(name) ? name + "_" : name;
 	}
 }
