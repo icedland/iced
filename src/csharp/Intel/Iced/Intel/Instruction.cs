@@ -611,7 +611,7 @@ namespace Iced.Intel {
 
 #if MVEX
 		/// <summary>
-		/// <see langword="true"/> if the data is broadcast (EVEX instructions only)
+		/// <see langword="true"/> if eviction hint bit is set (<c>{eh}</c>) (MVEX instructions only)
 		/// </summary>
 		public bool IsMvexEvictionHint {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
