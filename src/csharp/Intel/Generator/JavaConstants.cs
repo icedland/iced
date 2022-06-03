@@ -13,11 +13,11 @@ namespace Generator {
 		public const string EncoderPackage = IcedPackage + ".enc";
 		public const string InstructionInfoPackage = IcedPackage + ".info";
 		public const string FormatterPackage = IcedPackage + ".fmt";
-		public const string GasFormatterPackage = IcedPackage + ".fmt.gas";
-		public const string IntelFormatterPackage = IcedPackage + ".fmt.intel";
-		public const string MasmFormatterPackage = IcedPackage + ".fmt.masm";
-		public const string NasmFormatterPackage = IcedPackage + ".fmt.nasm";
-		public const string FastFormatterPackage = IcedPackage + ".fmt.fast";
+		public const string GasFormatterPackage = FormatterPackage + ".gas";
+		public const string IntelFormatterPackage = FormatterPackage + ".intel";
+		public const string MasmFormatterPackage = FormatterPackage + ".masm";
+		public const string NasmFormatterPackage = FormatterPackage + ".nasm";
+		public const string FastFormatterPackage = FormatterPackage + ".fast";
 
 		public const string IcedInternalPackage = IcedPackage + ".internal";
 		public const string CodeAssemblerInternalPackage = IcedInternalPackage + ".asm";
@@ -26,11 +26,11 @@ namespace Generator {
 		public const string EncoderInternalPackage = IcedInternalPackage + ".enc";
 		public const string InstructionInfoInternalPackage = IcedInternalPackage + ".info";
 		public const string FormatterInternalPackage = IcedInternalPackage + ".fmt";
-		public const string GasFormatterInternalPackage = IcedInternalPackage + ".fmt.gas";
-		public const string IntelFormatterInternalPackage = IcedInternalPackage + ".fmt.intel";
-		public const string MasmFormatterInternalPackage = IcedInternalPackage + ".fmt.masm";
-		public const string NasmFormatterInternalPackage = IcedInternalPackage + ".fmt.nasm";
-		public const string FastFormatterInternalPackage = IcedInternalPackage + ".fmt.fast";
+		public const string GasFormatterInternalPackage = FormatterInternalPackage+ ".gas";
+		public const string IntelFormatterInternalPackage = FormatterInternalPackage + ".intel";
+		public const string MasmFormatterInternalPackage = FormatterInternalPackage + ".masm";
+		public const string NasmFormatterInternalPackage = FormatterInternalPackage + ".nasm";
+		public const string FastFormatterInternalPackage = FormatterInternalPackage + ".fast";
 
 		public static string GetFilename(GenTypes genTypes, string package, params string[] names) =>
 			Path.Combine(new[] { genTypes.Dirs.JavaDir, "src", "main", "java" }.Concat(package.Split('.')).Concat(names).ToArray());
