@@ -120,6 +120,10 @@
           </execution>
         </executions>
         <configuration>
+          <excludePackageNames>
+            com.github.icedland.iced.x86.internal;
+            com.github.icedland.iced.x86.internal.*;
+          </excludePackageNames>
           <additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
           <source>8</source>
         </configuration>
