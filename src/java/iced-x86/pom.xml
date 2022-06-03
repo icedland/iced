@@ -124,7 +124,7 @@
             com.github.icedland.iced.x86.internal;
             com.github.icedland.iced.x86.internal.*;
           </excludePackageNames>
-          <additionalOptions>-Xdoclint:all -Xdoclint:-missing</additionalOptions>
+          <doclint>all,-missing</doclint>
           <source>8</source>
         </configuration>
       </plugin>
