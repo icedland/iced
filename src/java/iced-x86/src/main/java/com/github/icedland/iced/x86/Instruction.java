@@ -933,20 +933,28 @@ public final class Instruction {
 	public void setImmediate(int operand, long immediate) {
 		switch (getOpKind(operand)) {
 		case OpKind.IMMEDIATE8:
+			setImmediate8((byte)immediate);
+			break;
 		case OpKind.IMMEDIATE8TO16:
+			setImmediate8to16((short)immediate);
+			break;
 		case OpKind.IMMEDIATE8TO32:
+			setImmediate8to32((int)immediate);
+			break;
 		case OpKind.IMMEDIATE8TO64:
-			this.immediate = (int)immediate & 0xFF;
+			setImmediate8to64(immediate);
 			break;
 		case OpKind.IMMEDIATE8_2ND:
-			memDispl = (int)immediate & 0xFF;
+			setImmediate8_2nd((byte)immediate);
 			break;
 		case OpKind.IMMEDIATE16:
-			this.immediate = (int)immediate & 0xFFFF;
+			setImmediate16((short)immediate);
 			break;
 		case OpKind.IMMEDIATE32TO64:
+			setImmediate32to64(immediate);
+			break;
 		case OpKind.IMMEDIATE32:
-			this.immediate = (int)immediate;
+			setImmediate32((int)immediate);
 			break;
 		case OpKind.IMMEDIATE64:
 			setImmediate64(immediate);

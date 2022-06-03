@@ -773,20 +773,28 @@ namespace Iced.Intel {
 		public void SetImmediate(int operand, ulong immediate) {
 			switch (GetOpKind(operand)) {
 			case OpKind.Immediate8:
+				Immediate8 = (byte)immediate;
+				break;
 			case OpKind.Immediate8to16:
+				Immediate8to16 = (short)immediate;
+				break;
 			case OpKind.Immediate8to32:
+				Immediate8to32 = (int)immediate;
+				break;
 			case OpKind.Immediate8to64:
-				this.immediate = (byte)immediate;
+				Immediate8to64 = (long)immediate;
 				break;
 			case OpKind.Immediate8_2nd:
-				memDispl = (byte)immediate;
+				Immediate8_2nd = (byte)immediate;
 				break;
 			case OpKind.Immediate16:
-				this.immediate = (ushort)immediate;
+				Immediate16 = (ushort)immediate;
 				break;
 			case OpKind.Immediate32to64:
+				Immediate32to64 = (long)immediate;
+				break;
 			case OpKind.Immediate32:
-				this.immediate = (uint)immediate;
+				Immediate32 = (uint)immediate;
 				break;
 			case OpKind.Immediate64:
 				Immediate64 = immediate;
