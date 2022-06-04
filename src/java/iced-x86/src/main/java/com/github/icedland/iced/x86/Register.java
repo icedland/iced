@@ -3,11 +3,243 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.internal.IcedConstants;
+
 /**
  * A register
  */
 public final class Register {
 	private Register() {
+	}
+
+	/**
+	 * Gets register info
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static RegisterInfo getInfo(int register) {
+		RegisterInfo[] infos = RegisterInfo.infos;
+		return infos[register];
+	}
+
+	/**
+	 * Gets the base register (a {@link Register} enum variant), eg.<!-- --> <code>AL</code>, <code>AX</code>, <code>EAX</code>, <code>RAX</code>,
+	 * <code>MM0</code>, <code>XMM0</code>, <code>YMM0</code>, <code>ZMM0</code>, <code>ES</code>
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static int getBaseRegister(int register) {
+		return Register.getInfo(register).getBase();
+	}
+
+	/**
+	 * The register number (index) relative to {@link #getBaseRegister(int)}, eg.<!-- --> 0-15, or 0-31, or if 8-bit GPR, 0-19
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static int getNumber(int register) {
+		return Register.getInfo(register).getNumber();
+	}
+
+	/**
+	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, eg.<!-- --> CL/CH/CX/ECX/RCX -> RCX, XMM11/YMM11/ZMM11 ->
+	 * ZMM11
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static int getFullRegister(int register) {
+		return Register.getInfo(register).getFullRegister();
+	}
+
+	/**
+	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, except if it's a GPR in which case the 32-bit register is
+	 * returned, eg.<!-- --> CL/CH/CX/ECX/RCX -> ECX, XMM11/YMM11/ZMM11 -> ZMM11
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static int getFullRegister32(int register) {
+		return Register.getInfo(register).getFullRegister32();
+	}
+
+	/**
+	 * Gets the size of the register in bytes
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static int getSize(int register) {
+		return Register.getInfo(register).getSize();
+	}
+
+	/**
+	 * Checks if it's a segment register (<code>ES</code>, <code>CS</code>, <code>SS</code>, <code>DS</code>, <code>FS</code>, <code>GS</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isSegmentRegister(int register) {
+		return Register.ES <= register && register <= Register.GS;
+	}
+
+	/**
+	 * Checks if it's a general purpose register (<code>AL</code>-<code>R15L</code>, <code>AX</code>-<code>R15W</code>,
+	 * <code>EAX</code>-<code>R15D</code>, <code>RAX</code>-<code>R15</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isGPR(int register) {
+		return Register.AL <= register && register <= Register.R15;
+	}
+
+	/**
+	 * Checks if it's an 8-bit general purpose register (<code>AL</code>-<code>R15L</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isGPR8(int register) {
+		return Register.AL <= register && register <= Register.R15L;
+	}
+
+	/**
+	 * Checks if it's a 16-bit general purpose register (<code>AX</code>-<code>R15W</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isGPR16(int register) {
+		return Register.AX <= register && register <= Register.R15W;
+	}
+
+	/**
+	 * Checks if it's a 32-bit general purpose register (<code>EAX</code>-<code>R15D</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isGPR32(int register) {
+		return Register.EAX <= register && register <= Register.R15D;
+	}
+
+	/**
+	 * Checks if it's a 64-bit general purpose register (<code>RAX</code>-<code>R15</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isGPR64(int register) {
+		return Register.RAX <= register && register <= Register.R15;
+	}
+
+	/**
+	 * Checks if it's a 128-bit vector register (<code>XMM0</code>-<code>XMM31</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isXMM(int register) {
+		return Register.XMM0 <= register && register <= IcedConstants.XMM_LAST;
+	}
+
+	/**
+	 * Checks if it's a 256-bit vector register (<code>YMM0</code>-<code>YMM31</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isYMM(int register) {
+		return Register.YMM0 <= register && register <= IcedConstants.YMM_LAST;
+	}
+
+	/**
+	 * Checks if it's a 512-bit vector register (<code>ZMM0</code>-<code>ZMM31</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isZMM(int register) {
+		return Register.ZMM0 <= register && register <= IcedConstants.ZMM_LAST;
+	}
+
+	/**
+	 * Checks if it's <code>EIP</code>/<code>RIP</code>
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isIP(int register) {
+		return register == Register.EIP || register == Register.RIP;
+	}
+
+	/**
+	 * Checks if it's an opmask register (<code>K0</code>-<code>K7</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isK(int register) {
+		return Register.K0 <= register && register <= Register.K7;
+	}
+
+	/**
+	 * Checks if it's a control register (<code>CR0</code>-<code>CR15</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isCR(int register) {
+		return Register.CR0 <= register && register <= Register.CR15;
+	}
+
+	/**
+	 * Checks if it's a debug register (<code>DR0</code>-<code>DR15</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isDR(int register) {
+		return Register.DR0 <= register && register <= Register.DR15;
+	}
+
+	/**
+	 * Checks if it's a test register (<code>TR0</code>-<code>TR7</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isTR(int register) {
+		return Register.TR0 <= register && register <= Register.TR7;
+	}
+
+	/**
+	 * Checks if it's an FPU stack register (<code>ST0</code>-<code>ST7</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isST(int register) {
+		return Register.ST0 <= register && register <= Register.ST7;
+	}
+
+	/**
+	 * Checks if it's a bound register (<code>BND0</code>-<code>BND3</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isBND(int register) {
+		return Register.BND0 <= register && register <= Register.BND3;
+	}
+
+	/**
+	 * Checks if it's an MMX register (<code>MM0</code>-<code>MM7</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isMM(int register) {
+		return Register.MM0 <= register && register <= Register.MM7;
+	}
+
+	/**
+	 * Checks if it's a tile register (<code>TMM0</code>-<code>TMM7</code>)
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isTMM(int register) {
+		return Register.TMM0 <= register && register <= IcedConstants.TMM_LAST;
+	}
+
+	/**
+	 * Checks if it's an <code>XMM</code>, <code>YMM</code> or <code>ZMM</code> register
+	 *
+	 * @param register Register (a {@link Register} enum variant)
+	 */
+	public static boolean isVectorRegister(int register) {
+		return Register.XMM0 <= register && register <= IcedConstants.VMM_LAST;
 	}
 
 	// GENERATOR-BEGIN: Variants
