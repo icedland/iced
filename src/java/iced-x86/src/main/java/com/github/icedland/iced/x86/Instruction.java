@@ -2017,4 +2017,11 @@ public final class Instruction {
 	// public OpCodeInfo getOpCode() {
 	// return getCode().ToOpCode();
 	// }
+
+	/**
+	 * TODO: doc this
+	 */
+	public int getStackPointerIncrement() {
+		throw new UnsupportedOperationException(); //TODO:
+	}
 }
