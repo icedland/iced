@@ -17,23 +17,25 @@ namespace Generator.Enums.Java {
 			public readonly string Filename;
 			public readonly string Package;
 			public readonly bool IsTestFile;
+			public readonly string? Id;
 
-			public static FullEnumFileInfo Create(GenTypes genTypes, string package, string filename) =>
-				Create(genTypes, package, new[] { filename });
+			public static FullEnumFileInfo Create(GenTypes genTypes, string package, string filename, string? id = null) =>
+				Create(genTypes, package, new[] { filename }, id);
 
-			public static FullEnumFileInfo Create(GenTypes genTypes, string package, string[] paths) =>
-				new(JavaConstants.GetFilename(genTypes, package, paths), package, false);
+			public static FullEnumFileInfo Create(GenTypes genTypes, string package, string[] paths, string? id = null) =>
+				new(JavaConstants.GetFilename(genTypes, package, paths), package, false, id);
 
-			public static FullEnumFileInfo CreateTest(GenTypes genTypes, string package, string filename) =>
-				CreateTest(genTypes, package, new[] { filename });
+			public static FullEnumFileInfo CreateTest(GenTypes genTypes, string package, string filename, string? id = null) =>
+				CreateTest(genTypes, package, new[] { filename }, id);
 
-			public static FullEnumFileInfo CreateTest(GenTypes genTypes, string package, string[] paths) =>
-				new(JavaConstants.GetTestFilename(genTypes, package, paths), package, true);
+			public static FullEnumFileInfo CreateTest(GenTypes genTypes, string package, string[] paths, string? id = null) =>
+				new(JavaConstants.GetTestFilename(genTypes, package, paths), package, true, id);
 
-			public FullEnumFileInfo(string filename, string package, bool isTestFile) {
+			public FullEnumFileInfo(string filename, string package, bool isTestFile, string? id) {
 				Filename = filename;
 				Package = package;
 				IsTestFile = isTestFile;
+				Id = id;
 			}
 		}
 
@@ -46,7 +48,7 @@ namespace Generator.Enums.Java {
 
 			var dirs = genTypes.Dirs;
 			toFullFileInfo = new();
-			toFullFileInfo.Add(TypeIds.Code, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.Code) + ".java"));
+			toFullFileInfo.Add(TypeIds.Code, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.Code) + ".java", "Variants"));
 			toFullFileInfo.Add(TypeIds.CodeSize, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.CodeSize) + ".java"));
 			toFullFileInfo.Add(TypeIds.ConditionCode, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.ConditionCode) + ".java"));
 			toFullFileInfo.Add(TypeIds.CpuidFeature, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.CpuidFeature) + ".java"));
@@ -58,10 +60,10 @@ namespace Generator.Enums.Java {
 			toFullFileInfo.Add(TypeIds.MvexOpCodeHandlerKind, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.MvexOpCodeHandlerKind) + ".java"));
 			toFullFileInfo.Add(TypeIds.HandlerFlags, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.HandlerFlags) + ".java"));
 			toFullFileInfo.Add(TypeIds.LegacyHandlerFlags, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.LegacyHandlerFlags) + ".java"));
-			toFullFileInfo.Add(TypeIds.MemorySize, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.MemorySize) + ".java"));
+			toFullFileInfo.Add(TypeIds.MemorySize, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.MemorySize) + ".java", "Variants"));
 			toFullFileInfo.Add(TypeIds.LegacyOpCodeHandlerKind, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.LegacyOpCodeHandlerKind) + ".java"));
 			toFullFileInfo.Add(TypeIds.PseudoOpsKind, FullEnumFileInfo.Create(genTypes, JavaConstants.FormatterInternalPackage, nameof(TypeIds.PseudoOpsKind) + ".java"));
-			toFullFileInfo.Add(TypeIds.Register, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.Register) + ".java"));
+			toFullFileInfo.Add(TypeIds.Register, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.Register) + ".java", "Variants"));
 			toFullFileInfo.Add(TypeIds.SerializedDataKind, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.SerializedDataKind) + ".java"));
 			toFullFileInfo.Add(TypeIds.TupleType, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.TupleType) + ".java"));
 			toFullFileInfo.Add(TypeIds.VexOpCodeHandlerKind, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.VexOpCodeHandlerKind) + ".java"));
@@ -183,7 +185,7 @@ namespace Generator.Enums.Java {
 
 		void WriteFile(FullEnumFileInfo info, EnumType enumType) {
 			var constantsType = enumType.ToConstantsType(ConstantKind.UInt32);
-			constantsWriter.WriteFile(info.Package, info.Filename, constantsType, Array.Empty<string>(), info.IsTestFile);
+			constantsWriter.WriteFile(info.Package, info.Filename, constantsType, Array.Empty<string>(), info.IsTestFile, info.Id);
 		}
 	}
 }

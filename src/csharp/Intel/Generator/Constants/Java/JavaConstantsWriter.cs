@@ -8,7 +8,8 @@ using Generator.Documentation.Java;
 using Generator.IO;
 
 namespace Generator.Constants.Java {
-	readonly struct JavaConstantsWriter {
+	sealed class JavaConstantsWriter {
+			const string internalDoc = "DO NOT USE: INTERNAL API";
 		readonly GenTypes genTypes;
 		readonly IdentifierConverter idConverter;
 		readonly JavaDocCommentWriter docWriter;
@@ -22,7 +23,6 @@ namespace Generator.Constants.Java {
 		}
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes, bool forcePublic, bool isTestFile) {
-			const string internalDoc = "DO NOT USE: INTERNAL API";
 			if (forcePublic && !isTestFile)
 				docWriter.WriteSummary(writer, internalDoc, constantsType.RawName, null);
 			else
@@ -32,36 +32,39 @@ namespace Generator.Constants.Java {
 			var pub = forcePublic || constantsType.IsPublic ? "public " : string.Empty;
 			writer.WriteLine($"{pub}final class {constantsType.Name(idConverter)} {{");
 
-			var sb = new StringBuilder();
 			using (writer.Indent()) {
 				writer.WriteLine($"private {constantsType.Name(idConverter)}() {{");
 				writer.WriteLine("}");
 				writer.WriteLine();
-				var upperNames = Enums.EnumUtils.UppercaseTypeFields(constantsType.RawName);
-				foreach (var constant in constantsType.Constants) {
-					if (ShouldIgnore(constant))
-						continue;
-					if (forcePublic && !isTestFile)
-						docWriter.WriteSummary(writer, internalDoc, constantsType.RawName, null);
-					else {
-						var deprecMsg = deprecatedWriter.GetDeprecatedString(constant);
-						docWriter.WriteSummary(writer, constant.Documentation.GetComment(TargetLanguage.Java), constantsType.RawName, deprecMsg);
-					}
-					if (constant.DeprecatedInfo.IsDeprecated)
-						writer.WriteLine("@Deprecated");
-					sb.Clear();
-					sb.Append(forcePublic || constant.IsPublic ? "public " : string.Empty);
-					sb.Append("static final ");
-					sb.Append(GetType(constant.Kind));
-					sb.Append(" ");
-					sb.Append(upperNames ? constant.RawName.ToUpperInvariant() : constant.Name(idConverter));
-					sb.Append(" = "); sb.Append(GetValue(constant));
-					sb.Append(';');
-					writer.WriteLine(sb.ToString());
-				}
+				WriteVariants(writer, constantsType, forcePublic, isTestFile);
 			}
-
 			writer.WriteLine("}");
+		}
+
+		public void WriteVariants(FileWriter writer, ConstantsType constantsType, bool forcePublic, bool isTestFile) {
+			var sb = new StringBuilder();
+			var upperNames = Enums.EnumUtils.UppercaseTypeFields(constantsType.RawName);
+			foreach (var constant in constantsType.Constants) {
+				if (ShouldIgnore(constant))
+					continue;
+				if (forcePublic && !isTestFile)
+					docWriter.WriteSummary(writer, internalDoc, constantsType.RawName, null);
+				else {
+					var deprecMsg = deprecatedWriter.GetDeprecatedString(constant);
+					docWriter.WriteSummary(writer, constant.Documentation.GetComment(TargetLanguage.Java), constantsType.RawName, deprecMsg);
+				}
+				if (constant.DeprecatedInfo.IsDeprecated)
+					writer.WriteLine("@Deprecated");
+				sb.Clear();
+				sb.Append(forcePublic || constant.IsPublic ? "public " : string.Empty);
+				sb.Append("static final ");
+				sb.Append(GetType(constant.Kind));
+				sb.Append(" ");
+				sb.Append(upperNames ? constant.RawName.ToUpperInvariant() : constant.Name(idConverter));
+				sb.Append(" = "); sb.Append(GetValue(constant));
+				sb.Append(';');
+				writer.WriteLine(sb.ToString());
+			}
 		}
 
 		static bool ShouldIgnore(Constant constant) {
@@ -123,16 +126,20 @@ namespace Generator.Constants.Java {
 			return JavaConstants.IcedPackage + "." + idConverter.ToDeclTypeAndValue(enumValue);
 		}
 
-		public void WriteFile(string package, string filename, ConstantsType constantsType, string[] attributes, bool isTestFile) {
+		public void WriteFile(string package, string filename, ConstantsType constantsType, string[] attributes, bool isTestFile, string? id = null) {
 			bool forcePublic =
 				package.EndsWith(".internal", StringComparison.Ordinal) ||
 				package.Contains(".internal.", StringComparison.Ordinal) ||
 				isTestFile;
-			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(filename))) {
-				writer.WriteFileHeader();
-				writer.WriteLine($"package {package};");
-				writer.WriteLine();
-				Write(writer, constantsType, attributes, forcePublic, isTestFile);
+			if (id is string genId)
+				new FileUpdater(TargetLanguage.Java, genId, filename).Generate(writer => WriteVariants(writer, constantsType, forcePublic, isTestFile));
+			else {
+				using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(filename))) {
+					writer.WriteFileHeader();
+					writer.WriteLine($"package {package};");
+					writer.WriteLine();
+					Write(writer, constantsType, attributes, forcePublic, isTestFile);
+				}
 			}
 		}
 	}

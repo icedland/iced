@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using Generator.Documentation.Java;
-using Generator.IO;
 
 namespace Generator.Constants.Java {
 	[Generator(TargetLanguage.Java)]
@@ -16,23 +15,25 @@ namespace Generator.Constants.Java {
 			public readonly string Filename;
 			public readonly string Package;
 			public readonly bool IsTestFile;
+			public readonly string? Id;
 
-			public static FullConstantsFileInfo Create(GenTypes genTypes, string package, string filename) =>
-				Create(genTypes, package, new[] { filename });
+			public static FullConstantsFileInfo Create(GenTypes genTypes, string package, string filename, string? id = null) =>
+				Create(genTypes, package, new[] { filename }, id);
 
-			public static FullConstantsFileInfo Create(GenTypes genTypes, string package, string[] paths) =>
-				new(JavaConstants.GetFilename(genTypes, package, paths), package, false);
+			public static FullConstantsFileInfo Create(GenTypes genTypes, string package, string[] paths, string? id = null) =>
+				new(JavaConstants.GetFilename(genTypes, package, paths), package, false, id);
 
-			public static FullConstantsFileInfo CreateTest(GenTypes genTypes, string package, string filename) =>
-				CreateTest(genTypes, package, new[] { filename });
+			public static FullConstantsFileInfo CreateTest(GenTypes genTypes, string package, string filename, string? id = null) =>
+				CreateTest(genTypes, package, new[] { filename }, id);
 
-			public static FullConstantsFileInfo CreateTest(GenTypes genTypes, string package, string[] paths) =>
-				new(JavaConstants.GetTestFilename(genTypes, package, paths), package, true);
+			public static FullConstantsFileInfo CreateTest(GenTypes genTypes, string package, string[] paths, string? id = null) =>
+				new(JavaConstants.GetTestFilename(genTypes, package, paths), package, true, id);
 
-			public FullConstantsFileInfo(string filename, string package, bool isTestFile) {
+			public FullConstantsFileInfo(string filename, string package, bool isTestFile, string? id) {
 				Filename = filename;
 				Package = package;
 				IsTestFile = isTestFile;
+				Id = id;
 			}
 		}
 
@@ -64,6 +65,6 @@ namespace Generator.Constants.Java {
 		}
 
 		void WriteFile(FullConstantsFileInfo info, ConstantsType constantsType) =>
-			constantsWriter.WriteFile(info.Package, info.Filename, constantsType, Array.Empty<string>(), info.IsTestFile);
+			constantsWriter.WriteFile(info.Package, info.Filename, constantsType, Array.Empty<string>(), info.IsTestFile, info.Id);
 	}
 }
