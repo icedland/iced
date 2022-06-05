@@ -3,6 +3,8 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.internal.MnemonicUtilsData;
+
 /**
  * x86 instruction code
  */
@@ -514,8 +516,7 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static int mnemonic(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// return MnemonicUtilsData.toMnemonic[code];
+		return MnemonicUtilsData.toMnemonic[code] & 0xFFFF;
 	}
 
 	// GENERATOR-BEGIN: Variants

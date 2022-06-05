@@ -300,8 +300,7 @@ public final class Instruction {
 	 * @see #getCode()
 	 */
 	public int getMnemonic() {
-		throw new UnsupportedOperationException(); // TODO:
-		// TODO: return getCode().Mnemonic();
+		return Code.mnemonic(getCode());
 	}
 
 	/**
