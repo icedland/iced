@@ -144,7 +144,7 @@ namespace Generator.Documentation.Java {
 				case TokenKind.Method:
 					javadocType = TypeToJavaDocName(info.value);
 					javadocMember = MemberToJavaDocName(info.value, info.value2, info.kind);
-					sb.Append($"<code>{javadocType}#{javadocMember}</code>"); //TODO: use `{@link  package.class#member  label}`
+					sb.Append($"{{@link {javadocType}#{javadocMember}}}");
 					break;
 				default:
 					throw new InvalidOperationException();
@@ -174,7 +174,10 @@ namespace Generator.Documentation.Java {
 			case TokenKind.Property:
 				return idConverter.PropertyDoc(member);
 			case TokenKind.Method:
-				return idConverter.MethodDoc(member);
+				switch (member) {
+				case "GetOpRegister": return "getOpRegister(int)";
+				default: return idConverter.MethodDoc(member);
+				}
 			default:
 				throw new InvalidOperationException();
 			}

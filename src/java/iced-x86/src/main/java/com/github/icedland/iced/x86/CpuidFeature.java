@@ -273,7 +273,7 @@ public final class CpuidFeature {
 	 */
 	public static final int HLE = 64;
 	/**
-	 * <code>com.github.icedland.iced.x86.CpuidFeature#HLE</code> or <code>com.github.icedland.iced.x86.CpuidFeature#RTM</code>
+	 * {@link com.github.icedland.iced.x86.CpuidFeature#HLE} or {@link com.github.icedland.iced.x86.CpuidFeature#RTM}
 	 */
 	public static final int HLE_OR_RTM = 65;
 	/**
@@ -433,7 +433,7 @@ public final class CpuidFeature {
 	 */
 	public static final int SKINIT = 104;
 	/**
-	 * <code>com.github.icedland.iced.x86.CpuidFeature#SKINIT</code> or <code>com.github.icedland.iced.x86.CpuidFeature#SVM</code>
+	 * {@link com.github.icedland.iced.x86.CpuidFeature#SKINIT} or {@link com.github.icedland.iced.x86.CpuidFeature#SVM}
 	 */
 	public static final int SKINIT_OR_SVM = 105;
 	/**

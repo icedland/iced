@@ -17,7 +17,7 @@ public final class DecoderOptions {
 	 */
 	public static final int NONE = 0x0000_0000;
 	/**
-	 * Disable some checks for invalid encodings of instructions, eg.<!-- --> most instructions can&apos;t use a <code>LOCK</code> prefix so if one is found, they&apos;re decoded as <code>com.github.icedland.iced.x86.Code#INVALID</code> unless this option is enabled.<!-- -->
+	 * Disable some checks for invalid encodings of instructions, eg.<!-- --> most instructions can&apos;t use a <code>LOCK</code> prefix so if one is found, they&apos;re decoded as {@link com.github.icedland.iced.x86.Code#INVALID} unless this option is enabled.<!-- -->
 	 */
 	public static final int NO_INVALID_CHECK = 0x0000_0001;
 	/**
@@ -25,7 +25,7 @@ public final class DecoderOptions {
 	 */
 	public static final int AMD = 0x0000_0002;
 	/**
-	 * Decode opcodes <code>0F0D</code> and <code>0F18-0F1F</code> as reserved-nop instructions (eg.<!-- --> <code>com.github.icedland.iced.x86.Code#RESERVEDNOP_RM32_R32_0F1D</code>)
+	 * Decode opcodes <code>0F0D</code> and <code>0F18-0F1F</code> as reserved-nop instructions (eg.<!-- --> {@link com.github.icedland.iced.x86.Code#RESERVEDNOP_RM32_R32_0F1D})
 	 */
 	public static final int FORCE_RESERVED_NOP = 0x0000_0004;
 	/**

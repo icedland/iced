@@ -49,7 +49,7 @@ public final class FlowControl {
 	 */
 	public static final int XBEGIN_XABORT_XEND = 8;
 	/**
-	 * It&apos;s an invalid instruction, eg.<!-- --> <code>com.github.icedland.iced.x86.Code#INVALID</code>, <code>UD0</code>, <code>UD1</code>, <code>UD2</code>
+	 * It&apos;s an invalid instruction, eg.<!-- --> {@link com.github.icedland.iced.x86.Code#INVALID}, <code>UD0</code>, <code>UD1</code>, <code>UD2</code>
 	 */
 	public static final int EXCEPTION = 9;
 }
