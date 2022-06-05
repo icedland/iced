@@ -25,7 +25,7 @@ namespace Generator.Decoder.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent())
-							SerializeCore(writer);
+							SerializeCore(new TextFileByteTableWriter(writer));
 						writer.WriteLine("};");
 					}
 

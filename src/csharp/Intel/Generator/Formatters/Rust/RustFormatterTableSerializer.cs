@@ -18,7 +18,7 @@ namespace Generator.Formatters.Rust {
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"pub(super) static FORMATTER_TBL_DATA: &[u8] = &[");
 			using (writer.Indent())
-				SerializeTable(writer, stringsTable);
+				SerializeTable(new TextFileByteTableWriter(writer), stringsTable);
 			writer.WriteLine("];");
 		}
 	}

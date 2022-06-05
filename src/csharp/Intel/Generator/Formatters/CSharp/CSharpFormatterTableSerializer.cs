@@ -33,7 +33,7 @@ namespace Generator.Formatters.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent())
-							SerializeTable(writer, stringsTable);
+							SerializeTable(new TextFileByteTableWriter(writer), stringsTable);
 						writer.WriteLine("};");
 					}
 				}
