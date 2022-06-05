@@ -37,5 +37,8 @@ namespace Generator {
 
 		public static string GetTestFilename(GenTypes genTypes, string package, params string[] names) =>
 			Path.Combine(new[] { genTypes.Dirs.JavaDir, "src", "test", "java" }.Concat(package.Split('.')).Concat(names).ToArray());
+
+		public static string GetResourceFilename(GenTypes genTypes, string package, params string[] names) =>
+			Path.Combine(new[] { genTypes.Dirs.JavaDir, "src", "main", "resources" }.Concat(package.Split('.')).Concat(names).ToArray());
 	}
 }
