@@ -5,6 +5,7 @@ package com.github.icedland.iced.x86;
 
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
+import com.github.icedland.iced.x86.internal.InstructionMemorySizes;
 import com.github.icedland.iced.x86.internal.MvexInstrFlags;
 
 /**
@@ -159,7 +160,7 @@ public final class Instruction {
 	 */
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 	}
 
 	/**
@@ -298,7 +299,7 @@ public final class Instruction {
 	 * @see #getCode()
 	 */
 	public int getMnemonic() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 		// TODO: return getCode().Mnemonic();
 	}
 
@@ -306,7 +307,7 @@ public final class Instruction {
 	 * Gets the operand count. An instruction can have 0-5 operands.
 	 */
 	public int getOpCount() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 		// TODO: return InstructionOpCounts.OpCount[(int)code];
 	}
 
@@ -760,7 +761,7 @@ public final class Instruction {
 	 * <code>true</code> if eviction hint bit is set (<code>{eh}</code>) (MVEX instructions only)
 	 */
 	public boolean getMvexEvictionHint() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 		// TODO: return IcedConstants.isMvex(getCode()) && (immediate & (int)MvexInstrFlags.EVICTION_HINT) != 0;
 	}
 
@@ -778,7 +779,7 @@ public final class Instruction {
 	 * (MVEX) Register/memory operand conversion function (an {@link MvexRegMemConv} enum variant)
 	 */
 	public int getMvexRegMemConv() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 		// TODO:
 		// if (!IcedConstants.isMvex(getCode()))
 		// return MvexRegMemConv.NONE;
@@ -803,18 +804,17 @@ public final class Instruction {
 	 * @see #getBroadcast()
 	 */
 	public int getMemorySize() {
-		throw new UnsupportedOperationException(); //TODO:
+		int index = getCode();
 		// TODO:
-		// int index = getCode();
 		// if (IcedConstants.isMvex(index)) {
 		// MvexInfo mvex = new MvexInfo(index);
 		// int sss = ((int)getMvexRegMemConv() - (int)MvexRegMemConv.MEM_CONV_NONE) & 7;
 		// return MvexMemorySizeLut.Data[(int)mvex.getTupleTypeLutKind() * 8 + sss];
 		// }
-		// if (isBroadcast())
-		// return InstructionMemorySizes.SizesBcst[index];
-		// else
-		// return InstructionMemorySizes.SizesNormal[index];
+		if (getBroadcast())
+			return InstructionMemorySizes.sizesBcst[index];
+		else
+			return InstructionMemorySizes.sizesNormal[index];
 	}
 
 	/**
@@ -2022,6 +2022,6 @@ public final class Instruction {
 	 * TODO: doc this
 	 */
 	public int getStackPointerIncrement() {
-		throw new UnsupportedOperationException(); //TODO:
+		throw new UnsupportedOperationException(); // TODO:
 	}
 }
