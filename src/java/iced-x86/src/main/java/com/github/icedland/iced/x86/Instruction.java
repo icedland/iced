@@ -6,6 +6,7 @@ package com.github.icedland.iced.x86;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
 import com.github.icedland.iced.x86.internal.InstructionMemorySizes;
+import com.github.icedland.iced.x86.internal.InstructionOpCounts;
 import com.github.icedland.iced.x86.internal.MvexInstrFlags;
 
 /**
@@ -307,8 +308,7 @@ public final class Instruction {
 	 * Gets the operand count. An instruction can have 0-5 operands.
 	 */
 	public int getOpCount() {
-		throw new UnsupportedOperationException(); // TODO:
-		// TODO: return InstructionOpCounts.OpCount[(int)code];
+		return InstructionOpCounts.opCount[code] & 0xFF;
 	}
 
 	/**
