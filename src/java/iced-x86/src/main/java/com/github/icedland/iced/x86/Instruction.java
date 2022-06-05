@@ -72,7 +72,7 @@ public final class Instruction {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((int)memDispl ^ (int)(memDispl >>> 32));
-		result = prime * result + (flags1 & ~(int)InstrFlags1.EQUALS_IGNORE_MASK);
+		result = prime * result + (flags1 & ~InstrFlags1.EQUALS_IGNORE_MASK);
 		result = prime * result + immediate;
 		result = prime * result + code;
 		result = prime * result + memBaseReg;
@@ -109,7 +109,7 @@ public final class Instruction {
 			return false;
 		Instruction other = (Instruction)obj;
 		return memDispl == other.memDispl &&
-				((flags1 ^ other.flags1) & ~(int)InstrFlags1.EQUALS_IGNORE_MASK) == 0 &&
+				((flags1 ^ other.flags1) & ~InstrFlags1.EQUALS_IGNORE_MASK) == 0 &&
 				immediate == other.immediate &&
 				code == other.code &&
 				memBaseReg == other.memBaseReg &&
@@ -168,42 +168,42 @@ public final class Instruction {
 	 * 16-bit IP of the instruction
 	 */
 	public short getIP16() {
-		return (short)((int)nextRip - (int)getLength());
+		return (short)((int)nextRip - getLength());
 	}
 
 	/**
 	 * 16-bit IP of the instruction
 	 */
 	public void setIP16(short value) {
-		nextRip = (value + (int)getLength()) & 0xFFFF;
+		nextRip = (value + getLength()) & 0xFFFF;
 	}
 
 	/**
 	 * 32-bit IP of the instruction
 	 */
 	public int getIP32() {
-		return (int)nextRip - (int)getLength();
+		return (int)nextRip - getLength();
 	}
 
 	/**
 	 * 32-bit IP of the instruction
 	 */
 	public void setIP32(int value) {
-		nextRip = (value + (int)getLength()) & 0xFFFF_FFFF;
+		nextRip = (value + getLength()) & 0xFFFF_FFFF;
 	}
 
 	/**
 	 * 64-bit IP of the instruction
 	 */
 	public long getIP() {
-		return nextRip - (int)getLength();
+		return nextRip - getLength();
 	}
 
 	/**
 	 * 64-bit IP of the instruction
 	 */
 	public void setIP(long value) {
-		nextRip = value + (int)getLength();
+		nextRip = value + getLength();
 	}
 
 	/**
@@ -254,7 +254,7 @@ public final class Instruction {
 	 * This value is informational and can be used by a formatter.
 	 */
 	public int getCodeSize() {
-		return (flags1 >>> (int)InstrFlags1.CODE_SIZE_SHIFT) & (int)InstrFlags1.CODE_SIZE_MASK;
+		return (flags1 >>> InstrFlags1.CODE_SIZE_SHIFT) & InstrFlags1.CODE_SIZE_MASK;
 	}
 
 	/**
@@ -263,8 +263,8 @@ public final class Instruction {
 	 * This value is informational and can be used by a formatter.
 	 */
 	public void setCodeSize(int value) {
-		flags1 = ((flags1 & ~((int)InstrFlags1.CODE_SIZE_MASK << (int)InstrFlags1.CODE_SIZE_SHIFT))
-				| (((int)value & (int)InstrFlags1.CODE_SIZE_MASK) << (int)InstrFlags1.CODE_SIZE_SHIFT));
+		flags1 = ((flags1 & ~(InstrFlags1.CODE_SIZE_MASK << InstrFlags1.CODE_SIZE_SHIFT))
+				| ((value & InstrFlags1.CODE_SIZE_MASK) << InstrFlags1.CODE_SIZE_SHIFT));
 	}
 
 	/**
@@ -289,7 +289,7 @@ public final class Instruction {
 	 * @see #getMnemonic()
 	 */
 	public void setCode(int value) {
-		if (value < 0 || value >= (int)IcedConstants.CODE_ENUM_COUNT)
+		if (Integer.compareUnsigned(value, IcedConstants.CODE_ENUM_COUNT) >= 0)
 			throw new IllegalArgumentException();
 		code = (short)value;
 	}
@@ -362,7 +362,7 @@ public final class Instruction {
 	 * <code>true</code> if the instruction has the <code>XACQUIRE</code> prefix (<code>F2</code>)
 	 */
 	public boolean getXacquirePrefix() {
-		return (flags1 & (int)InstrFlags1.REPNE_PREFIX) != 0 && isXacquireInstr();
+		return (flags1 & InstrFlags1.REPNE_PREFIX) != 0 && isXacquireInstr();
 	}
 
 	/**
@@ -370,16 +370,16 @@ public final class Instruction {
 	 */
 	public void setXacquirePrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.REPNE_PREFIX;
+			flags1 |= InstrFlags1.REPNE_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.REPNE_PREFIX;
+			flags1 &= ~InstrFlags1.REPNE_PREFIX;
 	}
 
 	/**
 	 * <code>true</code> if the instruction has the <code>XRELEASE</code> prefix (<code>F3</code>)
 	 */
 	public boolean getXreleasePrefix() {
-		return (flags1 & (int)InstrFlags1.REPE_PREFIX) != 0 && isXreleaseInstr();
+		return (flags1 & InstrFlags1.REPE_PREFIX) != 0 && isXreleaseInstr();
 	}
 
 	/**
@@ -387,16 +387,16 @@ public final class Instruction {
 	 */
 	public void setXreleasePrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.REPE_PREFIX;
+			flags1 |= InstrFlags1.REPE_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.REPE_PREFIX;
+			flags1 &= ~InstrFlags1.REPE_PREFIX;
 	}
 
 	/**
 	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
 	 */
 	public boolean getRepPrefix() {
-		return (flags1 & (int)InstrFlags1.REPE_PREFIX) != 0;
+		return (flags1 & InstrFlags1.REPE_PREFIX) != 0;
 	}
 
 	/**
@@ -404,16 +404,16 @@ public final class Instruction {
 	 */
 	public void setRepPrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.REPE_PREFIX;
+			flags1 |= InstrFlags1.REPE_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.REPE_PREFIX;
+			flags1 &= ~InstrFlags1.REPE_PREFIX;
 	}
 
 	/**
 	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
 	 */
 	public boolean getRepePrefix() {
-		return (flags1 & (int)InstrFlags1.REPE_PREFIX) != 0;
+		return (flags1 & InstrFlags1.REPE_PREFIX) != 0;
 	}
 
 	/**
@@ -421,16 +421,16 @@ public final class Instruction {
 	 */
 	public void setRepePrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.REPE_PREFIX;
+			flags1 |= InstrFlags1.REPE_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.REPE_PREFIX;
+			flags1 &= ~InstrFlags1.REPE_PREFIX;
 	}
 
 	/**
 	 * <code>true</code> if the instruction has the <code>REPNE</code> prefix (<code>F2</code>)
 	 */
 	public boolean getRepnePrefix() {
-		return (flags1 & (int)InstrFlags1.REPNE_PREFIX) != 0;
+		return (flags1 & InstrFlags1.REPNE_PREFIX) != 0;
 	}
 
 	/**
@@ -438,16 +438,16 @@ public final class Instruction {
 	 */
 	public void setRepnePrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.REPNE_PREFIX;
+			flags1 |= InstrFlags1.REPNE_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.REPNE_PREFIX;
+			flags1 &= ~InstrFlags1.REPNE_PREFIX;
 	}
 
 	/**
 	 * <code>true</code> if the instruction has the <code>LOCK</code> prefix (<code>F0</code>)
 	 */
 	public boolean getLockPrefix() {
-		return (flags1 & (int)InstrFlags1.LOCK_PREFIX) != 0;
+		return (flags1 & InstrFlags1.LOCK_PREFIX) != 0;
 	}
 
 	/**
@@ -455,9 +455,9 @@ public final class Instruction {
 	 */
 	public void setLockPrefix(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.LOCK_PREFIX;
+			flags1 |= InstrFlags1.LOCK_PREFIX;
 		else
-			flags1 &= ~(int)InstrFlags1.LOCK_PREFIX;
+			flags1 &= ~InstrFlags1.LOCK_PREFIX;
 	}
 
 	/**
@@ -632,7 +632,7 @@ public final class Instruction {
 	 * @see #getSegmentPrefix()
 	 */
 	public boolean hasSegmentPrefix() {
-		return (((flags1 >>> (int)InstrFlags1.SEGMENT_PREFIX_SHIFT) & (int)InstrFlags1.SEGMENT_PREFIX_MASK) - 1) < 6;
+		return (((flags1 >>> InstrFlags1.SEGMENT_PREFIX_SHIFT) & InstrFlags1.SEGMENT_PREFIX_MASK) - 1) < 6;
 	}
 
 	/**
@@ -644,8 +644,8 @@ public final class Instruction {
 	 * @see #getMemorySegment()
 	 */
 	public int getSegmentPrefix() {
-		int index = ((flags1 >>> (int)InstrFlags1.SEGMENT_PREFIX_SHIFT) & (int)InstrFlags1.SEGMENT_PREFIX_MASK) - 1;
-		return index < 6 ? Register.ES + (int)index : Register.NONE;
+		int index = ((flags1 >>> InstrFlags1.SEGMENT_PREFIX_SHIFT) & InstrFlags1.SEGMENT_PREFIX_MASK) - 1;
+		return index < 6 ? Register.ES + index : Register.NONE;
 	}
 
 	/**
@@ -661,9 +661,9 @@ public final class Instruction {
 		if (value == Register.NONE)
 			encValue = 0;
 		else
-			encValue = (((int)value - (int)Register.ES) + 1) & (int)InstrFlags1.SEGMENT_PREFIX_MASK;
-		flags1 = (flags1 & ~((int)InstrFlags1.SEGMENT_PREFIX_MASK << (int)InstrFlags1.SEGMENT_PREFIX_SHIFT)) |
-				(encValue << (int)InstrFlags1.SEGMENT_PREFIX_SHIFT);
+			encValue = (value - Register.ES + 1) & InstrFlags1.SEGMENT_PREFIX_MASK;
+		flags1 = (flags1 & ~(InstrFlags1.SEGMENT_PREFIX_MASK << InstrFlags1.SEGMENT_PREFIX_SHIFT)) |
+				(encValue << InstrFlags1.SEGMENT_PREFIX_SHIFT);
 	}
 
 	/**
@@ -743,7 +743,7 @@ public final class Instruction {
 	 * <code>true</code> if the data is broadcast (EVEX instructions only)
 	 */
 	public boolean getBroadcast() {
-		return (flags1 & (int)InstrFlags1.BROADCAST) != 0;
+		return (flags1 & InstrFlags1.BROADCAST) != 0;
 	}
 
 	/**
@@ -751,9 +751,9 @@ public final class Instruction {
 	 */
 	public void setBroadcast(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.BROADCAST;
+			flags1 |= InstrFlags1.BROADCAST;
 		else
-			flags1 &= ~(int)InstrFlags1.BROADCAST;
+			flags1 &= ~InstrFlags1.BROADCAST;
 	}
 
 	/**
@@ -761,7 +761,7 @@ public final class Instruction {
 	 */
 	public boolean getMvexEvictionHint() {
 		throw new UnsupportedOperationException(); // TODO:
-		// TODO: return IcedConstants.isMvex(getCode()) && (immediate & (int)MvexInstrFlags.EVICTION_HINT) != 0;
+		// TODO: return IcedConstants.isMvex(getCode()) && (immediate & MvexInstrFlags.EVICTION_HINT) != 0;
 	}
 
 	/**
@@ -769,9 +769,9 @@ public final class Instruction {
 	 */
 	public void setMvexEvictionHint(boolean value) {
 		if (value)
-			immediate |= (int)MvexInstrFlags.EVICTION_HINT;
+			immediate |= MvexInstrFlags.EVICTION_HINT;
 		else
-			immediate &= ~(int)MvexInstrFlags.EVICTION_HINT;
+			immediate &= ~MvexInstrFlags.EVICTION_HINT;
 	}
 
 	/**
@@ -782,15 +782,15 @@ public final class Instruction {
 		// TODO:
 		// if (!IcedConstants.isMvex(getCode()))
 		// return MvexRegMemConv.NONE;
-		// return (immediate >>> (int)MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT) & (int)MvexInstrFlags.MVEX_REG_MEM_CONV_MASK;
+		// return (immediate >>> MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT) & MvexInstrFlags.MVEX_REG_MEM_CONV_MASK;
 	}
 
 	/**
 	 * (MVEX) Register/memory operand conversion function (an {@link MvexRegMemConv} enum variant)
 	 */
 	public void setMvexRegMemConv(int value) {
-		immediate = (immediate & ~((int)MvexInstrFlags.MVEX_REG_MEM_CONV_MASK << (int)MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT)) |
-				((int)value << (int)MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT);
+		immediate = (immediate & ~(MvexInstrFlags.MVEX_REG_MEM_CONV_MASK << MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT)) |
+				(value << MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT);
 	}
 
 	/**
@@ -807,8 +807,8 @@ public final class Instruction {
 		// TODO:
 		// if (IcedConstants.isMvex(index)) {
 		// MvexInfo mvex = new MvexInfo(index);
-		// int sss = ((int)getMvexRegMemConv() - (int)MvexRegMemConv.MEM_CONV_NONE) & 7;
-		// return MvexMemorySizeLut.Data[(int)mvex.getTupleTypeLutKind() * 8 + sss];
+		// int sss = (getMvexRegMemConv() - MvexRegMemConv.MEM_CONV_NONE) & 7;
+		// return MvexMemorySizeLut.Data[mvex.getTupleTypeLutKind() * 8 + sss];
 		// }
 		if (getBroadcast())
 			return InstructionMemorySizes.sizesBcst[index];
@@ -822,7 +822,7 @@ public final class Instruction {
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
 	public int getMemoryIndexScale() {
-		return 1 << (int)scale;
+		return 1 << scale;
 	}
 
 	/**
@@ -974,7 +974,7 @@ public final class Instruction {
 	 * Gets the operand's immediate value. Use this property if the operand has kind {@link OpKind#IMMEDIATE8}
 	 */
 	public void setImmediate8(byte value) {
-		immediate = (immediate & 0xFFFF_FF00) | ((int)value & 0xFF);
+		immediate = (immediate & 0xFFFF_FF00) | (value & 0xFF);
 	}
 
 	/**
@@ -1165,7 +1165,7 @@ public final class Instruction {
 	 * Gets the operand's branch target. Use this property if the operand has kind {@link OpKind#FAR_BRANCH16}
 	 */
 	public void setFarBranch16(short value) {
-		immediate = (int)value & 0xFFFF;
+		immediate = value & 0xFFFF;
 	}
 
 	/**
@@ -1413,7 +1413,7 @@ public final class Instruction {
 	 * Gets the opmask register ({@link Register#K1} - {@link Register#K7}) or {@link Register#NONE} if none
 	 */
 	public int getOpMask() {
-		int r = (int)(flags1 >>> (int)InstrFlags1.OP_MASK_SHIFT) & (int)InstrFlags1.OP_MASK_MASK;
+		int r = (flags1 >>> InstrFlags1.OP_MASK_SHIFT) & InstrFlags1.OP_MASK_MASK;
 		return r == 0 ? Register.NONE : r + Register.K0;
 	}
 
@@ -1425,16 +1425,16 @@ public final class Instruction {
 		if (value == Register.NONE)
 			r = 0;
 		else
-			r = (int)(value - Register.K0) & (int)InstrFlags1.OP_MASK_MASK;
-		flags1 = (flags1 & ~((int)InstrFlags1.OP_MASK_MASK << (int)InstrFlags1.OP_MASK_SHIFT)) |
-				(r << (int)InstrFlags1.OP_MASK_SHIFT);
+			r = (value - Register.K0) & InstrFlags1.OP_MASK_MASK;
+		flags1 = (flags1 & ~(InstrFlags1.OP_MASK_MASK << InstrFlags1.OP_MASK_SHIFT)) |
+				(r << InstrFlags1.OP_MASK_SHIFT);
 	}
 
 	/**
 	 * <code>true</code> if there's an opmask register ({@link #getOpMask()})
 	 */
 	public boolean getHasOpMask() {
-		return (flags1 & ((int)InstrFlags1.OP_MASK_MASK << (int)InstrFlags1.OP_MASK_SHIFT)) != 0;
+		return (flags1 & (InstrFlags1.OP_MASK_MASK << InstrFlags1.OP_MASK_SHIFT)) != 0;
 	}
 
 	/**
@@ -1443,7 +1443,7 @@ public final class Instruction {
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
 	public boolean getZeroingMasking() {
-		return (flags1 & (int)InstrFlags1.ZEROING_MASKING) != 0;
+		return (flags1 & InstrFlags1.ZEROING_MASKING) != 0;
 	}
 
 	/**
@@ -1453,9 +1453,9 @@ public final class Instruction {
 	 */
 	public void setZeroingMasking(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.ZEROING_MASKING;
+			flags1 |= InstrFlags1.ZEROING_MASKING;
 		else
-			flags1 &= ~(int)InstrFlags1.ZEROING_MASKING;
+			flags1 &= ~InstrFlags1.ZEROING_MASKING;
 	}
 
 	/**
@@ -1464,7 +1464,7 @@ public final class Instruction {
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
 	public boolean getMergingMasking() {
-		return (flags1 & (int)InstrFlags1.ZEROING_MASKING) == 0;
+		return (flags1 & InstrFlags1.ZEROING_MASKING) == 0;
 	}
 
 	/**
@@ -1474,9 +1474,9 @@ public final class Instruction {
 	 */
 	public void setMergingMasking(boolean value) {
 		if (value)
-			flags1 &= ~(int)InstrFlags1.ZEROING_MASKING;
+			flags1 &= ~InstrFlags1.ZEROING_MASKING;
 		else
-			flags1 |= (int)InstrFlags1.ZEROING_MASKING;
+			flags1 |= InstrFlags1.ZEROING_MASKING;
 	}
 
 	/**
@@ -1485,7 +1485,7 @@ public final class Instruction {
 	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns <code>false</code>.
 	 */
 	public int getRoundingControl() {
-		return (flags1 >>> (int)InstrFlags1.ROUNDING_CONTROL_SHIFT) & (int)InstrFlags1.ROUNDING_CONTROL_MASK;
+		return (flags1 >>> InstrFlags1.ROUNDING_CONTROL_SHIFT) & InstrFlags1.ROUNDING_CONTROL_MASK;
 	}
 
 	/**
@@ -1494,8 +1494,8 @@ public final class Instruction {
 	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns <code>false</code>.
 	 */
 	public void setRoundingControl(int value) {
-		flags1 = (flags1 & ~((int)InstrFlags1.ROUNDING_CONTROL_MASK << (int)InstrFlags1.ROUNDING_CONTROL_SHIFT))
-				| ((int)value << (int)InstrFlags1.ROUNDING_CONTROL_SHIFT);
+		flags1 = (flags1 & ~(InstrFlags1.ROUNDING_CONTROL_MASK << InstrFlags1.ROUNDING_CONTROL_SHIFT))
+				| (value << InstrFlags1.ROUNDING_CONTROL_SHIFT);
 	}
 
 	/**
@@ -1507,7 +1507,7 @@ public final class Instruction {
 	 * {@link Code#DECLAREQWORD}
 	 */
 	public int getDeclareDataCount() {
-		return (int)((flags1 >>> (int)InstrFlags1.DATA_LENGTH_SHIFT) & (int)InstrFlags1.DATA_LENGTH_MASK) + 1;
+		return ((flags1 >>> InstrFlags1.DATA_LENGTH_SHIFT) & InstrFlags1.DATA_LENGTH_MASK) + 1;
 	}
 
 	/**
@@ -1519,8 +1519,8 @@ public final class Instruction {
 	 * {@link Code#DECLAREQWORD}
 	 */
 	public void setDeclareDataCount(int value) {
-		flags1 = (flags1 & ~((int)InstrFlags1.DATA_LENGTH_MASK << (int)InstrFlags1.DATA_LENGTH_SHIFT))
-				| (((int)(value - 1) & (int)InstrFlags1.DATA_LENGTH_MASK) << (int)InstrFlags1.DATA_LENGTH_SHIFT);
+		flags1 = (flags1 & ~(InstrFlags1.DATA_LENGTH_MASK << InstrFlags1.DATA_LENGTH_SHIFT))
+				| (((value - 1) & InstrFlags1.DATA_LENGTH_MASK) << InstrFlags1.DATA_LENGTH_SHIFT);
 	}
 
 	/**
@@ -1548,37 +1548,37 @@ public final class Instruction {
 			reg3 = value;
 			break;
 		case 4:
-			immediate = (immediate & 0xFFFFFF00) | ((int)value & 0xFF);
+			immediate = (immediate & 0xFFFFFF00) | (value & 0xFF);
 			break;
 		case 5:
-			immediate = (immediate & 0xFFFF00FF) | (((int)value & 0xFF) << 8);
+			immediate = (immediate & 0xFFFF00FF) | ((value & 0xFF) << 8);
 			break;
 		case 6:
-			immediate = (immediate & 0xFF00FFFF) | (((int)value & 0xFF) << 16);
+			immediate = (immediate & 0xFF00FFFF) | ((value & 0xFF) << 16);
 			break;
 		case 7:
-			immediate = (immediate & 0x00FFFFFF) | (((int)value & 0xFF) << 24);
+			immediate = (immediate & 0x00FFFFFF) | ((value & 0xFF) << 24);
 			break;
 		case 8:
-			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_FF00L) | (long)((int)value & 0xFF);
+			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_FF00L) | (long)(value & 0xFF);
 			break;
 		case 9:
-			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_00FFL) | ((long)((int)value & 0xFF) << 8);
+			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_00FFL) | ((long)(value & 0xFF) << 8);
 			break;
 		case 10:
-			memDispl = (memDispl & 0xFFFF_FFFF_FF00_FFFFL) | ((long)((int)value & 0xFF) << 16);
+			memDispl = (memDispl & 0xFFFF_FFFF_FF00_FFFFL) | ((long)(value & 0xFF) << 16);
 			break;
 		case 11:
-			memDispl = (memDispl & 0xFFFF_FFFF_00FF_FFFFL) | ((long)((int)value & 0xFF) << 24);
+			memDispl = (memDispl & 0xFFFF_FFFF_00FF_FFFFL) | ((long)(value & 0xFF) << 24);
 			break;
 		case 12:
-			memDispl = (memDispl & 0xFFFF_FF00_FFFF_FFFFL) | ((long)((int)value & 0xFF) << 32);
+			memDispl = (memDispl & 0xFFFF_FF00_FFFF_FFFFL) | ((long)(value & 0xFF) << 32);
 			break;
 		case 13:
-			memDispl = (memDispl & 0xFFFF_00FF_FFFF_FFFFL) | ((long)((int)value & 0xFF) << 40);
+			memDispl = (memDispl & 0xFFFF_00FF_FFFF_FFFFL) | ((long)(value & 0xFF) << 40);
 			break;
 		case 14:
-			memDispl = (memDispl & 0xFF00_FFFF_FFFF_FFFFL) | ((long)((int)value & 0xFF) << 48);
+			memDispl = (memDispl & 0xFF00_FFFF_FFFF_FFFFL) | ((long)(value & 0xFF) << 48);
 			break;
 		case 15:
 			memDispl = (memDispl & 0x00FF_FFFF_FFFF_FFFFL) | ((long)value << 56);
@@ -1657,19 +1657,19 @@ public final class Instruction {
 			reg3 = (byte)(value >>> 8);
 			break;
 		case 2:
-			immediate = (immediate & 0xFFFF0000) | ((int)value & 0xFFFF);
+			immediate = (immediate & 0xFFFF0000) | (value & 0xFFFF);
 			break;
 		case 3:
-			immediate = (immediate & 0xFFFF) | ((int)value << 16);
+			immediate = (immediate & 0xFFFF) | (value << 16);
 			break;
 		case 4:
-			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_0000L) | (long)((int)value & 0xFFFF);
+			memDispl = (memDispl & 0xFFFF_FFFF_FFFF_0000L) | (long)(value & 0xFFFF);
 			break;
 		case 5:
-			memDispl = (memDispl & 0xFFFF_FFFF_0000_FFFFL) | ((long)((int)value & 0xFFFF) << 16);
+			memDispl = (memDispl & 0xFFFF_FFFF_0000_FFFFL) | ((long)(value & 0xFFFF) << 16);
 			break;
 		case 6:
-			memDispl = (memDispl & 0xFFFF_0000_FFFF_FFFFL) | ((long)((int)value & 0xFFFF) << 32);
+			memDispl = (memDispl & 0xFFFF_0000_FFFF_FFFFL) | ((long)(value & 0xFFFF) << 32);
 			break;
 		case 7:
 			memDispl = (memDispl & 0x0000_FFFF_FFFF_FFFFL) | ((long)value << 48);
@@ -1691,9 +1691,9 @@ public final class Instruction {
 	public short getDeclareWordValue(int index) {
 		switch (index) {
 		case 0:
-			return (short)(((int)reg0 & 0xFF) | (((int)reg1 & 0xFF) << 8));
+			return (short)((reg0 & 0xFF) | ((reg1 & 0xFF) << 8));
 		case 1:
-			return (short)(((int)reg2 & 0xFF) | (((int)reg3 & 0xFF) << 8));
+			return (short)((reg2 & 0xFF) | ((reg3 & 0xFF) << 8));
 		case 2:
 			return (short)immediate;
 		case 3:
@@ -1755,7 +1755,7 @@ public final class Instruction {
 	public int getDeclareDwordValue(int index) {
 		switch (index) {
 		case 0:
-			return ((int)reg0 & 0xFF) | (((int)reg1 & 0xFF) << 8) | (((int)reg2 & 0xFF) << 16) | ((int)reg3 << 24);
+			return (reg0 & 0xFF) | ((reg1 & 0xFF) << 8) | ((reg2 & 0xFF) << 16) | (reg3 << 24);
 		case 1:
 			return immediate;
 		case 2:
@@ -1808,7 +1808,7 @@ public final class Instruction {
 	public long getDeclareQwordValue(int index) {
 		switch (index) {
 		case 0:
-			return (long)((int)reg0 & 0xFF) | (long)(((int)reg1 & 0xFF) << 8) | (long)(((int)reg2 & 0xFF) << 16) | (((long)reg3 & 0xFF) << 24)
+			return (long)(reg0 & 0xFF) | (long)((reg1 & 0xFF) << 8) | (long)((reg2 & 0xFF) << 16) | (((long)reg3 & 0xFF) << 24)
 					| ((long)immediate << 32);
 		case 1:
 			return memDispl;
@@ -1976,7 +1976,7 @@ public final class Instruction {
 	 * SAE is implied but this property will still return <code>false</code>.
 	 */
 	public boolean getSuppressAllExceptions() {
-		return (flags1 & (int)InstrFlags1.SUPPRESS_ALL_EXCEPTIONS) != 0;
+		return (flags1 & InstrFlags1.SUPPRESS_ALL_EXCEPTIONS) != 0;
 	}
 
 	/**
@@ -1987,9 +1987,9 @@ public final class Instruction {
 	 */
 	public void setSuppressAllExceptions(boolean value) {
 		if (value)
-			flags1 |= (int)InstrFlags1.SUPPRESS_ALL_EXCEPTIONS;
+			flags1 |= InstrFlags1.SUPPRESS_ALL_EXCEPTIONS;
 		else
-			flags1 &= ~(int)InstrFlags1.SUPPRESS_ALL_EXCEPTIONS;
+			flags1 &= ~InstrFlags1.SUPPRESS_ALL_EXCEPTIONS;
 	}
 
 	/**
