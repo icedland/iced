@@ -41,8 +41,6 @@ namespace Generator.Formatters {
 			}
 		}
 
-		public abstract void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable);
-
 		protected void SerializeTable(GenTypes genTypes, ByteTableWriter writer, StringsTable stringsTable) {
 			var fastFmtFlags = genTypes[TypeIds.FastFmtFlags];
 			var hasVPrefixEnum = fastFmtFlags[nameof(FastFmtFlags.HasVPrefix)];

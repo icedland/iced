@@ -47,8 +47,6 @@ namespace Generator.Formatters {
 			}
 		}
 
-		public abstract void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable);
-
 		protected void SerializeTable(ByteTableWriter writer, StringsTable stringsTable) {
 			int index = -1;
 			for (int i = 0; i < defs.Length; i++) {
