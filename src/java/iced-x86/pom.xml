@@ -68,6 +68,7 @@
           <target>8</target>
           <compilerArgs>
             <arg>-Xlint:all</arg>
+            <arg>-Werror</arg>
           </compilerArgs>
         </configuration>
       </plugin>
