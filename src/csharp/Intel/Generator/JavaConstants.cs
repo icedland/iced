@@ -32,6 +32,8 @@ namespace Generator {
 		public const string NasmFormatterInternalPackage = FormatterInternalPackage + ".nasm";
 		public const string FastFormatterInternalPackage = FormatterInternalPackage + ".fast";
 
+		public const string InternalDoc = "DO NOT USE: INTERNAL API";
+
 		public static string GetFilename(GenTypes genTypes, string package, params string[] names) =>
 			Path.Combine(new[] { genTypes.Dirs.JavaDir, "src", "main", "java" }.Concat(package.Split('.')).Concat(names).ToArray());
 

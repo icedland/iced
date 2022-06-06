@@ -24,7 +24,7 @@ namespace Generator {
 		public abstract string Static(string name);
 		public abstract string Namespace(string name);
 		public abstract string Argument(string name);
-		public string ToDeclTypeAndValue(EnumValue value) =>
+		public virtual string ToDeclTypeAndValue(EnumValue value) =>
 			$"{value.DeclaringType.Name(this)}{EnumSeparator}{value.Name(this)}";
 
 		protected string ToSnakeCase(string name) => ToSnakeCase(name, upper: false);
@@ -196,6 +196,13 @@ namespace Generator {
 		public override string Static(string name) => Escape(name);
 		public override string Namespace(string name) => Escape(name);
 		public override string Argument(string name) => Escape(name);
+
+		public override string ToDeclTypeAndValue(EnumValue value) {
+			var declTypeName = value.DeclaringType.Name(this);
+			bool uppercase = EnumUtils.UppercaseTypeFields(value.DeclaringType.RawName);
+			var variantName = EnumUtils.GetEnumNameValue(this, value, uppercase).name;
+			return declTypeName + EnumSeparator + variantName;
+		}
 
 		static readonly HashSet<string> keywords = new(StringComparer.Ordinal) {
 			"abstract", "assert", "boolean", "break", "byte",

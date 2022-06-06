@@ -9,7 +9,6 @@ using Generator.IO;
 
 namespace Generator.Constants.Java {
 	sealed class JavaConstantsWriter {
-			const string internalDoc = "DO NOT USE: INTERNAL API";
 		readonly GenTypes genTypes;
 		readonly IdentifierConverter idConverter;
 		readonly JavaDocCommentWriter docWriter;
@@ -24,7 +23,7 @@ namespace Generator.Constants.Java {
 
 		public void Write(FileWriter writer, ConstantsType constantsType, string[] attributes, bool forcePublic, bool isTestFile) {
 			if (forcePublic && !isTestFile)
-				docWriter.WriteSummary(writer, internalDoc, constantsType.RawName, null);
+				docWriter.WriteSummary(writer, JavaConstants.InternalDoc, constantsType.RawName, null);
 			else
 				docWriter.WriteSummary(writer, constantsType.Documentation.GetComment(TargetLanguage.Java), constantsType.RawName, null);
 			foreach (var attr in attributes)
@@ -48,7 +47,7 @@ namespace Generator.Constants.Java {
 				if (ShouldIgnore(constant))
 					continue;
 				if (forcePublic && !isTestFile)
-					docWriter.WriteSummary(writer, internalDoc, constantsType.RawName, null);
+					docWriter.WriteSummary(writer, JavaConstants.InternalDoc, constantsType.RawName, null);
 				else {
 					var deprecMsg = deprecatedWriter.GetDeprecatedString(constant);
 					docWriter.WriteSummary(writer, constant.Documentation.GetComment(TargetLanguage.Java), constantsType.RawName, deprecMsg);
