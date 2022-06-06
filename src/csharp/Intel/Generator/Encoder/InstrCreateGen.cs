@@ -116,19 +116,20 @@ namespace Generator.Encoder {
 			writeItemSep = true;
 		}
 
+		public virtual bool SupportsUnsignedIntegers => true;
 		protected void GenCreateMethods(FileWriter writer, int id) {
 			var groups = new InstructionGroups(genTypes, true).GetGroups();
 			const bool useReg = false; // r/m was split into two groups, r and m so this can be anything
-			foreach (var info in GetCreateMethods(groups, useReg)) {
+			foreach (var info in GetCreateMethods(groups, useReg, SupportsUnsignedIntegers)) {
 				WriteItemSeparator(writer);
 				GenCreate(writer, info.method, info.group, id);
 			}
 		}
 
-		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups, bool useReg) {
+		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups, bool useReg, bool supportsUnsignedIntegers) {
 			foreach (var group in groups) {
 				yield return (GetMethod(group, unsigned: false, useReg), group);
-				if (GetOpKindCount(group, useReg).immCount > 0)
+				if (supportsUnsignedIntegers && GetOpKindCount(group, useReg).immCount > 0)
 					yield return (GetMethod(group, unsigned: true, useReg), group);
 			}
 		}

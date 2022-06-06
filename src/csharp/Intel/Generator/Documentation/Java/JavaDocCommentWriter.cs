@@ -158,7 +158,7 @@ namespace Generator.Documentation.Java {
 			type switch {
 				"Iced.Intel.Register" => JavaConstants.IcedPackage + ".Register",
 				"BlockEncoder" => JavaConstants.BlockEncoderPackage + "." + type,
-				"ConstantOffsets" or "CpuidFeature" or "Code" or "Instruction" => JavaConstants.IcedPackage + "." + type,
+				"ConstantOffsets" or "CpuidFeature" or "Code" or "Instruction" or "Register" or "RepPrefixKind" => JavaConstants.IcedPackage + "." + type,
 				"RelocInfo" => JavaConstants.BlockEncoderPackage + "." + type,
 				_ => throw new InvalidOperationException($"Unknown type: {type}"),
 			};

@@ -2021,4 +2021,2684 @@ public final class Instruction {
 	public int getStackPointerIncrement() {
 		throw new UnsupportedOperationException(); // TODO:
 	}
+
+	static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
+		int opKind = getImmediateOpKind(instruction.getCode(), operand);
+		instruction.setOpKind(operand, opKind);
+
+		switch (opKind) {
+		case OpKind.IMMEDIATE8:
+			// All byte and all ubyte values can be used
+			if (!(-0x80 <= immediate && immediate <= 0xFF))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate8((byte)immediate);
+			break;
+
+		case OpKind.IMMEDIATE8_2ND:
+			// All byte and all ubyte values can be used
+			if (!(-0x80 <= immediate && immediate <= 0xFF))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate8_2nd((byte)immediate);
+			break;
+
+		case OpKind.IMMEDIATE8TO16:
+			if (!(-0x80 <= immediate && immediate <= 0x7F))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate8((byte)immediate);
+			break;
+
+		case OpKind.IMMEDIATE8TO32:
+			if (!(-0x80 <= immediate && immediate <= 0x7F))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate8((byte)immediate);
+			break;
+
+		case OpKind.IMMEDIATE8TO64:
+			if (!(-0x80 <= immediate && immediate <= 0x7F))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate8((byte)immediate);
+			break;
+
+		case OpKind.IMMEDIATE16:
+			// All short and all ushort values can be used
+			if (!(-0x8000 <= immediate && immediate <= 0xFFFF))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate16((short)immediate);
+			break;
+
+		case OpKind.IMMEDIATE32:
+			// All int and all uint values can be used
+			if (!(-0x8000_0000 <= immediate && immediate <= 0xFFFF_FFFF))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate32((int)immediate);
+			break;
+
+		case OpKind.IMMEDIATE32TO64:
+			if (!(-0x8000_0000 <= immediate && immediate <= 0x7FFF_FFFF))
+				throw new IllegalArgumentException("immediate");
+			instruction.setImmediate32((int)immediate);
+			break;
+
+		case OpKind.IMMEDIATE64:
+			instruction.setImmediate64(immediate);
+			break;
+
+		default:
+			throw new IllegalArgumentException("instruction");
+		}
+	}
+
+	static int getImmediateOpKind(int code, int operand) {
+		throw new UnsupportedOperationException(); // TODO:
+		/*TODO:
+		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		if (Integer.compareUnsigned(code, handlers.length) >= 0)
+			throw new IllegalArgumentException("code");
+		var operands = handlers[code].operands;
+		if (Integer.compareUnsigned(operand, operands.length) >= 0)
+			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		int opKind = operands[operand].getImmediateOpKind();
+		if (opKind == OpKind.IMMEDIATE8 &&
+			operand > 0 &&
+			operand + 1 == operands.length) {
+			int opKindPrev = operands[operand - 1].getImmediateOpKind();
+			if (opKindPrev == OpKind.IMMEDIATE8 || opKindPrev == OpKind.IMMEDIATE16)
+				opKind = OpKind.IMMEDIATE8_2ND;
+		}
+		if (opKind == -1)
+			throw new IllegalArgumentException(String.format("Code %d's op%d isn't an immediate operand", code, operand));
+		return opKind;
+		*/
+	}
+
+	static int getNearBranchOpKind(int code, int operand) {
+		throw new UnsupportedOperationException(); // TODO:
+		/*TODO:
+		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		if (Integer.compareUnsigned(code, handlers.length) >= 0)
+			throw new IllegalArgumentException("code");
+		var operands = handlers[code].operands;
+		if (Integer.compareUnsigned(operand, operands.length) >= 0)
+			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		var opKind = operands[operand].getNearBranchOpKind();
+		if (opKind == -1)
+			throw new IllegalArgumentException(string.format("Code %d's op%d isn't a near branch operand", code, operand));
+		return opKind;
+		*/
+	}
+
+	static int getFarBranchOpKind(int code, int operand) {
+		throw new UnsupportedOperationException(); // TODO:
+		/*TODO:
+		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		if (Integer.compareUnsigned(code, handlers.length) >= 0)
+			throw new IllegalArgumentException("code");
+		var operands = handlers[code].operands;
+		if (Integer.compareUnsigned(operand, operands.length) >= 0)
+			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		var opKind = operands[operand].getFarBranchOpKind();
+		if (opKind == -1)
+			throw new IllegalArgumentException(string.format("Code %d's op%d isn't a far branch operand", code, operand));
+		return opKind;
+		*/
+	}
+
+	static Instruction createString_Reg_SegRSI(int code, int addressSize, int register, int segmentPrefix, int repPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (repPrefix == RepPrefixKind.REPE)
+			instruction.setRepePrefix(true);
+		else if (repPrefix == RepPrefixKind.REPNE)
+			instruction.setRepnePrefix(true);
+		else
+			assert repPrefix == RepPrefixKind.NONE : repPrefix;
+
+		instruction.setOp0Register(register);
+
+		if (addressSize == 64)
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_RSI);
+		else if (addressSize == 32)
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_ESI);
+		else if (addressSize == 16)
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_SI);
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		instruction.setSegmentPrefix(segmentPrefix);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static Instruction createString_Reg_ESRDI(int code, int addressSize, int register, int repPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (repPrefix == RepPrefixKind.REPE)
+			instruction.setRepePrefix(true);
+		else if (repPrefix == RepPrefixKind.REPNE)
+			instruction.setRepnePrefix(true);
+		else
+			assert repPrefix == RepPrefixKind.NONE : repPrefix;
+
+		instruction.setOp0Register(register);
+
+		if (addressSize == 64)
+			instruction.setOp1Kind(OpKind.MEMORY_ESRDI);
+		else if (addressSize == 32)
+			instruction.setOp1Kind(OpKind.MEMORY_ESEDI);
+		else if (addressSize == 16)
+			instruction.setOp1Kind(OpKind.MEMORY_ESDI);
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static Instruction createString_ESRDI_Reg(int code, int addressSize, int register, int repPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (repPrefix == RepPrefixKind.REPE)
+			instruction.setRepePrefix(true);
+		else if (repPrefix == RepPrefixKind.REPNE)
+			instruction.setRepnePrefix(true);
+		else
+			assert repPrefix == RepPrefixKind.NONE : repPrefix;
+
+		if (addressSize == 64)
+			instruction.setOp0Kind(OpKind.MEMORY_ESRDI);
+		else if (addressSize == 32)
+			instruction.setOp0Kind(OpKind.MEMORY_ESEDI);
+		else if (addressSize == 16)
+			instruction.setOp0Kind(OpKind.MEMORY_ESDI);
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		instruction.setOp1Register(register);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static Instruction createString_SegRSI_ESRDI(int code, int addressSize, int segmentPrefix, int repPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (repPrefix == RepPrefixKind.REPE)
+			instruction.setRepePrefix(true);
+		else if (repPrefix == RepPrefixKind.REPNE)
+			instruction.setRepnePrefix(true);
+		else
+			assert repPrefix == RepPrefixKind.NONE : repPrefix;
+
+		if (addressSize == 64) {
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_RSI);
+			instruction.setOp1Kind(OpKind.MEMORY_ESRDI);
+		}
+		else if (addressSize == 32) {
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_ESI);
+			instruction.setOp1Kind(OpKind.MEMORY_ESEDI);
+		}
+		else if (addressSize == 16) {
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_SI);
+			instruction.setOp1Kind(OpKind.MEMORY_ESDI);
+		}
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		instruction.setSegmentPrefix(segmentPrefix);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static Instruction createString_ESRDI_SegRSI(int code, int addressSize, int segmentPrefix, int repPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (repPrefix == RepPrefixKind.REPE)
+			instruction.setRepePrefix(true);
+		else if (repPrefix == RepPrefixKind.REPNE)
+			instruction.setRepnePrefix(true);
+		else
+			assert repPrefix == RepPrefixKind.NONE : repPrefix;
+
+		if (addressSize == 64) {
+			instruction.setOp0Kind(OpKind.MEMORY_ESRDI);
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_RSI);
+		}
+		else if (addressSize == 32) {
+			instruction.setOp0Kind(OpKind.MEMORY_ESEDI);
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_ESI);
+		}
+		else if (addressSize == 16) {
+			instruction.setOp0Kind(OpKind.MEMORY_ESDI);
+			instruction.setOp1Kind(OpKind.MEMORY_SEG_SI);
+		}
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		instruction.setSegmentPrefix(segmentPrefix);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static Instruction createMaskmov(int code, int addressSize, int register1, int register2, int segmentPrefix) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		if (addressSize == 64)
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_RDI);
+		else if (addressSize == 32)
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_EDI);
+		else if (addressSize == 16)
+			instruction.setOp0Kind(OpKind.MEMORY_SEG_DI);
+		else
+			throw new IllegalArgumentException("addressSize");
+
+		instruction.setOp1Register(register1);
+		instruction.setOp2Register(register2);
+		instruction.setSegmentPrefix(segmentPrefix);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	static void initMemoryOperand(Instruction instruction, MemoryOperand memory) {
+		instruction.setMemoryBase(memory.base);
+		instruction.setMemoryIndex(memory.index);
+		instruction.setMemoryIndexScale(memory.scale);
+		instruction.setMemoryDisplSize(memory.displSize);
+		instruction.setMemoryDisplacement64(memory.displacement);
+		instruction.setBroadcast(memory.isBroadcast);
+		instruction.setSegmentPrefix(memory.segmentPrefix);
+	}
+
+	// GENERATOR-BEGIN: Create
+	// ⚠️This was generated by GENERATOR!🦹‍♂️
+	/**
+	 * Creates an instruction with no operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 */
+	public static Instruction create(int code) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 1 operand
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createReg(int code, int register) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 1 operand
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param immediate op0: Immediate value
+	 */
+	public static Instruction createI32(int code, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		initializeSignedImmediate(instruction, 0, immediate);
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 1 operand
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param memory op0: Memory operand
+	 */
+	public static Instruction createMem(int code, MemoryOperand memory) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createRegReg(int code, int register1, int register2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op1: Immediate value
+	 */
+	public static Instruction createRegI32(int code, int register, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		initializeSignedImmediate(instruction, 1, immediate);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op1: Immediate value
+	 */
+	public static Instruction createRegI64(int code, int register, long immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		initializeSignedImmediate(instruction, 1, immediate);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op1: Memory operand
+	 */
+	public static Instruction createRegMem(int code, int register, MemoryOperand memory) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		instruction.setOp1Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param immediate op0: Immediate value
+	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createI32Reg(int code, int immediate, int register) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		initializeSignedImmediate(instruction, 0, immediate);
+
+		instruction.setOp1Register(register);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param immediate1 op0: Immediate value
+	 * @param immediate2 op1: Immediate value
+	 */
+	public static Instruction createI32I32(int code, int immediate1, int immediate2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		initializeSignedImmediate(instruction, 0, immediate1);
+
+		initializeSignedImmediate(instruction, 1, immediate2);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param memory op0: Memory operand
+	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createMemReg(int code, MemoryOperand memory, int register) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp1Register(register);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 2 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param memory op0: Memory operand
+	 * @param immediate op1: Immediate value
+	 */
+	public static Instruction createMemI32(int code, MemoryOperand memory, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		initializeSignedImmediate(instruction, 1, immediate);
+
+		assert instruction.getOpCount() == 2 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createRegRegReg(int code, int register1, int register2, int register3) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op2: Immediate value
+	 */
+	public static Instruction createRegRegI32(int code, int register1, int register2, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		initializeSignedImmediate(instruction, 2, immediate);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op2: Memory operand
+	 */
+	public static Instruction createRegRegMem(int code, int register1, int register2, MemoryOperand memory) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate1 op1: Immediate value
+	 * @param immediate2 op2: Immediate value
+	 */
+	public static Instruction createRegI32I32(int code, int register, int immediate1, int immediate2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		initializeSignedImmediate(instruction, 1, immediate1);
+
+		initializeSignedImmediate(instruction, 2, immediate2);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op1: Memory operand
+	 * @param register2 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createRegMemReg(int code, int register1, MemoryOperand memory, int register2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp2Register(register2);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op1: Memory operand
+	 * @param immediate op2: Immediate value
+	 */
+	public static Instruction createRegMemI32(int code, int register, MemoryOperand memory, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register);
+
+		instruction.setOp1Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		initializeSignedImmediate(instruction, 2, immediate);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param memory op0: Memory operand
+	 * @param register1 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createMemRegReg(int code, MemoryOperand memory, int register1, int register2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp1Register(register1);
+
+		instruction.setOp2Register(register2);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 3 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param memory op0: Memory operand
+	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op2: Immediate value
+	 */
+	public static Instruction createMemRegI32(int code, MemoryOperand memory, int register, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp1Register(register);
+
+		initializeSignedImmediate(instruction, 2, immediate);
+
+		assert instruction.getOpCount() == 3 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register4 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createRegRegRegReg(int code, int register1, int register2, int register3, int register4) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		instruction.setOp3Register(register4);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op3: Immediate value
+	 */
+	public static Instruction createRegRegRegI32(int code, int register1, int register2, int register3, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		initializeSignedImmediate(instruction, 3, immediate);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op3: Memory operand
+	 */
+	public static Instruction createRegRegRegMem(int code, int register1, int register2, int register3, MemoryOperand memory) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		instruction.setOp3Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate1 op2: Immediate value
+	 * @param immediate2 op3: Immediate value
+	 */
+	public static Instruction createRegRegI32I32(int code, int register1, int register2, int immediate1, int immediate2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		initializeSignedImmediate(instruction, 2, immediate1);
+
+		initializeSignedImmediate(instruction, 3, immediate2);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op2: Memory operand
+	 * @param register3 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createRegRegMemReg(int code, int register1, int register2, MemoryOperand memory, int register3) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp3Register(register3);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 4 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op2: Memory operand
+	 * @param immediate op3: Immediate value
+	 */
+	public static Instruction createRegRegMemI32(int code, int register1, int register2, MemoryOperand memory, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		initializeSignedImmediate(instruction, 3, immediate);
+
+		assert instruction.getOpCount() == 4 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 5 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register4 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op4: Immediate value
+	 */
+	public static Instruction createRegRegRegRegI32(int code, int register1, int register2, int register3, int register4, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		instruction.setOp3Register(register4);
+
+		initializeSignedImmediate(instruction, 4, immediate);
+
+		assert instruction.getOpCount() == 5 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 5 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op3: Memory operand
+	 * @param immediate op4: Immediate value
+	 */
+	public static Instruction createRegRegRegMemI32(int code, int register1, int register2, int register3, MemoryOperand memory, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Register(register3);
+
+		instruction.setOp3Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		initializeSignedImmediate(instruction, 4, immediate);
+
+		assert instruction.getOpCount() == 5 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates an instruction with 5 operands
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param memory op2: Memory operand
+	 * @param register3 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param immediate op4: Immediate value
+	 */
+	public static Instruction createRegRegMemRegI32(int code, int register1, int register2, MemoryOperand memory, int register3, int immediate) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Register(register1);
+
+		instruction.setOp1Register(register2);
+
+		instruction.setOp2Kind(OpKind.MEMORY);
+		initMemoryOperand(instruction, memory);
+
+		instruction.setOp3Register(register3);
+
+		initializeSignedImmediate(instruction, 4, immediate);
+
+		assert instruction.getOpCount() == 5 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a new near/short branch instruction
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param target Target address
+	 */
+	public static Instruction createBranch(int code, long target) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(getNearBranchOpKind(code, 0));
+		instruction.setNearBranch64(target);
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a new far branch instruction
+	 *
+	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
+	 * @param selector Selector/segment value
+	 * @param offset Offset
+	 */
+	public static Instruction createBranch(int code, short selector, int offset) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(code);
+
+		instruction.setOp0Kind(getFarBranchOpKind(code, 0));
+		instruction.setFarBranchSelector(selector);
+		instruction.setFarBranch32(offset);
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a new <code>XBEGIN</code> instruction
+	 *
+	 * @param bitness 16, 32, or 64
+	 * @param target Target address
+	 */
+	public static Instruction createXbegin(int bitness, long target) {
+		Instruction instruction = new Instruction();
+		switch (bitness) {
+		case 16:
+			instruction.setCode(Code.XBEGIN_REL16);
+			instruction.setOp0Kind(OpKind.NEAR_BRANCH32);
+			instruction.setNearBranch32((int)target);
+			break;
+
+		case 32:
+			instruction.setCode(Code.XBEGIN_REL32);
+			instruction.setOp0Kind(OpKind.NEAR_BRANCH32);
+			instruction.setNearBranch32((int)target);
+			break;
+
+		case 64:
+			instruction.setCode(Code.XBEGIN_REL32);
+			instruction.setOp0Kind(OpKind.NEAR_BRANCH64);
+			instruction.setNearBranch64(target);
+			break;
+
+		default:
+			throw new IllegalArgumentException("bitness");
+		}
+
+		assert instruction.getOpCount() == 1 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>OUTSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createOutsb(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP OUTSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepOutsb(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>OUTSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createOutsw(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP OUTSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepOutsw(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>OUTSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createOutsd(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP OUTSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepOutsd(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createLodsb(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP LODSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepLodsb(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createLodsw(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP LODSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepLodsw(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createLodsd(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP LODSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepLodsd(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createLodsq(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP LODSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepLodsq(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>SCASB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createScasb(int addressSize, int repPrefix) {
+		return createString_Reg_ESRDI(Code.SCASB_AL_M8, addressSize, Register.AL, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE SCASB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeScasb(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASB_AL_M8, addressSize, Register.AL, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE SCASB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneScasb(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASB_AL_M8, addressSize, Register.AL, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>SCASW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createScasw(int addressSize, int repPrefix) {
+		return createString_Reg_ESRDI(Code.SCASW_AX_M16, addressSize, Register.AX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE SCASW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeScasw(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASW_AX_M16, addressSize, Register.AX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE SCASW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneScasw(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASW_AX_M16, addressSize, Register.AX, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>SCASD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createScasd(int addressSize, int repPrefix) {
+		return createString_Reg_ESRDI(Code.SCASD_EAX_M32, addressSize, Register.EAX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE SCASD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeScasd(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASD_EAX_M32, addressSize, Register.EAX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE SCASD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneScasd(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASD_EAX_M32, addressSize, Register.EAX, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>SCASQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createScasq(int addressSize, int repPrefix) {
+		return createString_Reg_ESRDI(Code.SCASQ_RAX_M64, addressSize, Register.RAX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE SCASQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeScasq(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASQ_RAX_M64, addressSize, Register.RAX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE SCASQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneScasq(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASQ_RAX_M64, addressSize, Register.RAX, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>INSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createInsb(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.INSB_M8_DX, addressSize, Register.DX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP INSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepInsb(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSB_M8_DX, addressSize, Register.DX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>INSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createInsw(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.INSW_M16_DX, addressSize, Register.DX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP INSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepInsw(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSW_M16_DX, addressSize, Register.DX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>INSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createInsd(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.INSD_M32_DX, addressSize, Register.DX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP INSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepInsd(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSD_M32_DX, addressSize, Register.DX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createStosb(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.STOSB_M8_AL, addressSize, Register.AL, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP STOSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepStosb(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSB_M8_AL, addressSize, Register.AL, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createStosw(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.STOSW_M16_AX, addressSize, Register.AX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP STOSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepStosw(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSW_M16_AX, addressSize, Register.AX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createStosd(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.STOSD_M32_EAX, addressSize, Register.EAX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP STOSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepStosd(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSD_M32_EAX, addressSize, Register.EAX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createStosq(int addressSize, int repPrefix) {
+		return createString_ESRDI_Reg(Code.STOSQ_M64_RAX, addressSize, Register.RAX, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP STOSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepStosq(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSQ_M64_RAX, addressSize, Register.RAX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>CMPSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createCmpsb(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE CMPSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeCmpsb(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE CMPSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneCmpsb(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>CMPSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createCmpsw(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE CMPSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeCmpsw(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE CMPSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneCmpsw(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>CMPSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createCmpsd(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE CMPSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeCmpsd(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE CMPSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneCmpsd(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>CMPSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createCmpsq(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REPE CMPSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepeCmpsq(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>REPNE CMPSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepneCmpsq(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, Register.NONE, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>MOVSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createMovsb(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP MOVSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepMovsb(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MOVSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createMovsw(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP MOVSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepMovsw(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MOVSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createMovsd(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP MOVSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepMovsd(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MOVSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
+	 */
+	public static Instruction createMovsq(int addressSize, int segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, segmentPrefix, repPrefix);
+	}
+
+	/**
+	 * Creates a <code>REP MOVSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createRepMovsq(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MASKMOVQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createMaskmovq(int addressSize, int register1, int register2, int segmentPrefix) {
+		return createMaskmov(Code.MASKMOVQ_RDI_MM_MM, addressSize, register1, register2, segmentPrefix);
+	}
+
+	/**
+	 * Creates a <code>MASKMOVDQU</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createMaskmovdqu(int addressSize, int register1, int register2, int segmentPrefix) {
+		return createMaskmov(Code.MASKMOVDQU_RDI_XMM_XMM, addressSize, register1, register2, segmentPrefix);
+	}
+
+	/**
+	 * Creates a <code>VMASKMOVDQU</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 */
+	public static Instruction createVmaskmovdqu(int addressSize, int register1, int register2, int segmentPrefix) {
+		return createMaskmov(Code.VEX_VMASKMOVDQU_RDI_XMM_XMM, addressSize, register1, register2, segmentPrefix);
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 */
+	public static Instruction createDeclareByte(byte b0) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(1);
+
+		instruction.setDeclareByteValue(0, b0);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(2);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(3);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(4);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(5);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(6);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(7);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(8);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(9);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(10);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(11);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 * @param b11 Byte 11
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(12);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(11, b11);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 * @param b11 Byte 11
+	 * @param b12 Byte 12
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(13);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(11, b11);
+		instruction.setDeclareByteValue(12, b12);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 * @param b11 Byte 11
+	 * @param b12 Byte 12
+	 * @param b13 Byte 13
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(14);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(11, b11);
+		instruction.setDeclareByteValue(12, b12);
+		instruction.setDeclareByteValue(13, b13);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 * @param b11 Byte 11
+	 * @param b12 Byte 12
+	 * @param b13 Byte 13
+	 * @param b14 Byte 14
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(15);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(11, b11);
+		instruction.setDeclareByteValue(12, b12);
+		instruction.setDeclareByteValue(13, b13);
+		instruction.setDeclareByteValue(14, b14);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param b0 Byte 0
+	 * @param b1 Byte 1
+	 * @param b2 Byte 2
+	 * @param b3 Byte 3
+	 * @param b4 Byte 4
+	 * @param b5 Byte 5
+	 * @param b6 Byte 6
+	 * @param b7 Byte 7
+	 * @param b8 Byte 8
+	 * @param b9 Byte 9
+	 * @param b10 Byte 10
+	 * @param b11 Byte 11
+	 * @param b12 Byte 12
+	 * @param b13 Byte 13
+	 * @param b14 Byte 14
+	 * @param b15 Byte 15
+	 */
+	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14, byte b15) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(16);
+
+		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(11, b11);
+		instruction.setDeclareByteValue(12, b12);
+		instruction.setDeclareByteValue(13, b13);
+		instruction.setDeclareByteValue(14, b14);
+		instruction.setDeclareByteValue(15, b15);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareByte(byte[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareByte(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of bytes
+	 */
+	public static Instruction createDeclareByte(byte[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREBYTE);
+		instruction.setDeclareDataCount(length);
+
+		for (int i = 0; i < length; i++)
+			instruction.setDeclareByteValue(i, data[index + i]);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 */
+	public static Instruction createDeclareWord(short w0) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(1);
+
+		instruction.setDeclareWordValue(0, w0);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 */
+	public static Instruction createDeclareWord(short w0, short w1) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(2);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(3);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 * @param w3 Word 3
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(4);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(3, w3);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 * @param w3 Word 3
+	 * @param w4 Word 4
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(5);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(3, w3);
+		instruction.setDeclareWordValue(4, w4);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 * @param w3 Word 3
+	 * @param w4 Word 4
+	 * @param w5 Word 5
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(6);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(3, w3);
+		instruction.setDeclareWordValue(4, w4);
+		instruction.setDeclareWordValue(5, w5);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 * @param w3 Word 3
+	 * @param w4 Word 4
+	 * @param w5 Word 5
+	 * @param w6 Word 6
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5, short w6) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(7);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(3, w3);
+		instruction.setDeclareWordValue(4, w4);
+		instruction.setDeclareWordValue(5, w5);
+		instruction.setDeclareWordValue(6, w6);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param w0 Word 0
+	 * @param w1 Word 1
+	 * @param w2 Word 2
+	 * @param w3 Word 3
+	 * @param w4 Word 4
+	 * @param w5 Word 5
+	 * @param w6 Word 6
+	 * @param w7 Word 7
+	 */
+	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5, short w6, short w7) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(8);
+
+		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(3, w3);
+		instruction.setDeclareWordValue(4, w4);
+		instruction.setDeclareWordValue(5, w5);
+		instruction.setDeclareWordValue(6, w6);
+		instruction.setDeclareWordValue(7, w7);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareWord(byte[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareWord(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of bytes
+	 */
+	public static Instruction createDeclareWord(byte[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 1) != 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(length / 2);
+
+		for (int i = 0; i < length; i += 2) {
+			int v = (data[index + i] & 0xFF) | ((data[index + i + 1] & 0xFF) << 8);
+			instruction.setDeclareWordValue(i / 2, (short)v);
+		}
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareWord(short[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareWord(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of elements
+	 */
+	public static Instruction createDeclareWord(short[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 8 - 1) > 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREWORD);
+		instruction.setDeclareDataCount(length);
+
+		for (int i = 0; i < length; i++)
+			instruction.setDeclareWordValue(i, data[index + i]);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param d0 Dword 0
+	 */
+	public static Instruction createDeclareDword(int d0) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(1);
+
+		instruction.setDeclareDwordValue(0, d0);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param d0 Dword 0
+	 * @param d1 Dword 1
+	 */
+	public static Instruction createDeclareDword(int d0, int d1) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(2);
+
+		instruction.setDeclareDwordValue(0, d0);
+		instruction.setDeclareDwordValue(1, d1);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param d0 Dword 0
+	 * @param d1 Dword 1
+	 * @param d2 Dword 2
+	 */
+	public static Instruction createDeclareDword(int d0, int d1, int d2) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(3);
+
+		instruction.setDeclareDwordValue(0, d0);
+		instruction.setDeclareDwordValue(1, d1);
+		instruction.setDeclareDwordValue(2, d2);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param d0 Dword 0
+	 * @param d1 Dword 1
+	 * @param d2 Dword 2
+	 * @param d3 Dword 3
+	 */
+	public static Instruction createDeclareDword(int d0, int d1, int d2, int d3) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(4);
+
+		instruction.setDeclareDwordValue(0, d0);
+		instruction.setDeclareDwordValue(1, d1);
+		instruction.setDeclareDwordValue(2, d2);
+		instruction.setDeclareDwordValue(3, d3);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareDword(byte[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareDword(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of bytes
+	 */
+	public static Instruction createDeclareDword(byte[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 3) != 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(length / 4);
+
+		for (int i = 0; i < length; i += 4) {
+			int v = (data[index + i] & 0xFF) | ((data[index + i + 1] & 0xFF) << 8) | ((data[index + i + 2] & 0xFF) << 16) | (data[index + i + 3] << 24);
+			instruction.setDeclareDwordValue(i / 4, v);
+		}
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareDword(int[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareDword(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of elements
+	 */
+	public static Instruction createDeclareDword(int[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 4 - 1) > 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREDWORD);
+		instruction.setDeclareDataCount(length);
+
+		for (int i = 0; i < length; i++)
+			instruction.setDeclareDwordValue(i, data[index + i]);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param q0 Qword 0
+	 */
+	public static Instruction createDeclareQword(long q0) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREQWORD);
+		instruction.setDeclareDataCount(1);
+
+		instruction.setDeclareQwordValue(0, q0);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param q0 Qword 0
+	 * @param q1 Qword 1
+	 */
+	public static Instruction createDeclareQword(long q0, long q1) {
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREQWORD);
+		instruction.setDeclareDataCount(2);
+
+		instruction.setDeclareQwordValue(0, q0);
+		instruction.setDeclareQwordValue(1, q1);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareQword(byte[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareQword(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of bytes
+	 */
+	public static Instruction createDeclareQword(byte[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 7) != 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREQWORD);
+		instruction.setDeclareDataCount(length / 8);
+
+		for (int i = 0; i < length; i += 8) {
+			int v1 = (data[index + i] & 0xFF) | ((data[index + i + 1] & 0xFF) << 8) | ((data[index + i + 2] & 0xFF) << 16) | (data[index + i + 3] << 24);
+			int v2 = (data[index + i + 4] & 0xFF) | ((data[index + i + 5] & 0xFF) << 8) | ((data[index + i + 6] & 0xFF) << 16) | (data[index + i + 7] << 24);
+			instruction.setDeclareQwordValue(i / 8, ((long)v1 & 0xFFFF_FFFF) | ((long)v2 << 32));
+		}
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param data Data
+	 */
+	public static Instruction createDeclareQword(long[] data) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		return createDeclareQword(data, 0, data.length);
+	}
+
+	/**
+	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 *
+	 * @param data Data
+	 * @param index Start index
+	 * @param length Number of elements
+	 */
+	public static Instruction createDeclareQword(long[] data, int index, int length) {
+		if (data == null)
+			throw new IllegalArgumentException("data");
+		if (Integer.compareUnsigned(length - 1, 2 - 1) > 0)
+			throw new IllegalArgumentException("length");
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+			throw new IllegalArgumentException("index");
+
+		Instruction instruction = new Instruction();
+		instruction.setCode(Code.DECLAREQWORD);
+		instruction.setDeclareDataCount(length);
+
+		for (int i = 0; i < length; i++)
+			instruction.setDeclareQwordValue(i, data[index + i]);
+
+		assert instruction.getOpCount() == 0 : instruction.getOpCount();
+		return instruction;
+	}
+	// GENERATOR-END: Create
 }
