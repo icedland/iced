@@ -44,7 +44,7 @@ namespace Generator.Formatters.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent())
-							StringsTableSerializerUtils.SerializeTable(writer, sortedInfos);
+							StringsTableSerializerUtils.SerializeTable(new TextFileByteTableWriter(writer), sortedInfos);
 						writer.WriteLine("};");
 					}
 				}

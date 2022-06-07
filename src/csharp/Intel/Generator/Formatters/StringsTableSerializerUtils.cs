@@ -13,7 +13,7 @@ namespace Generator.Formatters {
 			return count;
 		}
 
-		public static void SerializeTable(FileWriter writer, StringsTable.Info[] sortedInfos, int extraPadding = -1, string fastStrMsg = "") {
+		public static void SerializeTable(ByteTableWriter writer, StringsTable.Info[] sortedInfos, int extraPadding = -1, string fastStrMsg = "") {
 			foreach (var info in sortedInfos) {
 				var s = info.String;
 				if (s.Length > byte.MaxValue)
