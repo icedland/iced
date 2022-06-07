@@ -1,0 +1,116 @@
+// SPDX-License-Identifier: MIT
+// Copyright (C) 2018-present iced project and contributors
+
+package com.github.icedland.iced.x86.internal;
+
+/** DO NOT USE: INTERNAL API */
+public final class MvexInfo {
+	static final byte[] data = ResourceReader.ReadByteArray(MvexInfo.class.getClassLoader(),
+			"com/github/icedland/iced/x86/internal/MvexInfoData.bin");
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean isMvex(int code) {
+		return Integer.compareUnsigned(code - IcedConstants.MVEX_START, IcedConstants.MVEX_LENGTH) < 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int getTupleTypeLutKind(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.TUPLE_TYPE_LUT_KIND_INDEX];
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int getEHBit(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.EH_BIT_INDEX];
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int getConvFn(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.CONV_FN_INDEX];
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int getInvalidConvFns(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.INVALID_CONV_FNS_INDEX];
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int getInvalidSwizzleFns(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.INVALID_SWIZZLE_FNS_INDEX];
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getIsNDD(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.NDD) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getIsNDS(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.NDS) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getCanUseEvictionHint(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.EVICTION_HINT) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getCanUseImmRoundingControl(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.IMM_ROUNDING_CONTROL) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getCanUseRoundingControl(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.ROUNDING_CONTROL) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getCanUseSuppressAllExceptions(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.SUPPRESS_ALL_EXCEPTIONS) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getIgnoresOpMaskRegister(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.IGNORES_OP_MASK_REGISTER) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getRequireOpMaskRegister(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.REQUIRE_OP_MASK_REGISTER) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getNoSaeRc(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS2_INDEX] & MvexInfoFlags2.NO_SAE_ROUNDING_CONTROL) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getIsConvFn32(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS2_INDEX] & MvexInfoFlags2.CONV_FN32) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static boolean getIgnoresEvictionHint(int code) {
+		int index = code - (int)IcedConstants.MVEX_START;
+		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS2_INDEX] & MvexInfoFlags2.IGNORES_EVICTION_HINT) != 0;
+	}
+
+	/** DO NOT USE: INTERNAL API */
+	public static int GetTupleType(int code, int sss) {
+		return MvexTupleTypeLut.data[getTupleTypeLutKind(code) * 8 + sss];
+	}
+}

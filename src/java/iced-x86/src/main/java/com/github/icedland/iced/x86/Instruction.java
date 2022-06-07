@@ -7,7 +7,9 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
 import com.github.icedland.iced.x86.internal.InstructionMemorySizes;
 import com.github.icedland.iced.x86.internal.InstructionOpCounts;
+import com.github.icedland.iced.x86.internal.MvexInfo;
 import com.github.icedland.iced.x86.internal.MvexInstrFlags;
+import com.github.icedland.iced.x86.internal.MvexMemorySizeLut;
 
 /**
  * A 16/32/64-bit instruction.
@@ -760,8 +762,7 @@ public final class Instruction {
 	 * <code>true</code> if eviction hint bit is set (<code>{eh}</code>) (MVEX instructions only)
 	 */
 	public boolean getMvexEvictionHint() {
-		throw new UnsupportedOperationException(); // TODO:
-		// TODO: return IcedConstants.isMvex(getCode()) && (immediate & MvexInstrFlags.EVICTION_HINT) != 0;
+		return MvexInfo.isMvex(getCode()) && (immediate & MvexInstrFlags.EVICTION_HINT) != 0;
 	}
 
 	/**
@@ -778,11 +779,9 @@ public final class Instruction {
 	 * (MVEX) Register/memory operand conversion function (an {@link MvexRegMemConv} enum variant)
 	 */
 	public int getMvexRegMemConv() {
-		throw new UnsupportedOperationException(); // TODO:
-		// TODO:
-		// if (!IcedConstants.isMvex(getCode()))
-		// return MvexRegMemConv.NONE;
-		// return (immediate >>> MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT) & MvexInstrFlags.MVEX_REG_MEM_CONV_MASK;
+		if (!MvexInfo.isMvex(getCode()))
+			return MvexRegMemConv.NONE;
+		return (immediate >>> MvexInstrFlags.MVEX_REG_MEM_CONV_SHIFT) & MvexInstrFlags.MVEX_REG_MEM_CONV_MASK;
 	}
 
 	/**
@@ -804,12 +803,10 @@ public final class Instruction {
 	 */
 	public int getMemorySize() {
 		int index = getCode();
-		// TODO:
-		// if (IcedConstants.isMvex(index)) {
-		// MvexInfo mvex = new MvexInfo(index);
-		// int sss = (getMvexRegMemConv() - MvexRegMemConv.MEM_CONV_NONE) & 7;
-		// return MvexMemorySizeLut.Data[mvex.getTupleTypeLutKind() * 8 + sss];
-		// }
+		if (MvexInfo.isMvex(index)) {
+			int sss = (getMvexRegMemConv() - MvexRegMemConv.MEM_CONV_NONE) & 7;
+			return MvexMemorySizeLut.data[MvexInfo.getTupleTypeLutKind(index) * 8 + sss];
+		}
 		if (getBroadcast())
 			return InstructionMemorySizes.sizesBcst[index];
 		else
