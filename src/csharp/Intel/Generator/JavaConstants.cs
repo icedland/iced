@@ -26,11 +26,6 @@ namespace Generator {
 		public const string EncoderInternalPackage = IcedInternalPackage + ".enc";
 		public const string InstructionInfoInternalPackage = IcedInternalPackage + ".info";
 		public const string FormatterInternalPackage = IcedInternalPackage + ".fmt";
-		public const string GasFormatterInternalPackage = FormatterInternalPackage+ ".gas";
-		public const string IntelFormatterInternalPackage = FormatterInternalPackage + ".intel";
-		public const string MasmFormatterInternalPackage = FormatterInternalPackage + ".masm";
-		public const string NasmFormatterInternalPackage = FormatterInternalPackage + ".nasm";
-		public const string FastFormatterInternalPackage = FormatterInternalPackage + ".fast";
 
 		public const string InternalDoc = "DO NOT USE: INTERNAL API";
 
