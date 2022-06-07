@@ -138,7 +138,7 @@ namespace Generator.Encoder.Java {
 				("opcFlags2", opcFlags2),
 			};
 
-			GenerateTables(defs, encoderInfo, "EncoderData", JavaConstants.EncoderInternalPackage);
+			GenerateTables(defs, encoderInfo, "EncoderData", JavaConstants.EncoderPackage);
 			GenerateTables(defs, opCodeInfo, "OpCodeInfoData", JavaConstants.InstructionInfoPackage);
 			GenerateTables(mvexInfos, "MvexInfoData");
 			GenerateTables(mvexTupleTypeData, "MvexTupleTypeLut", JavaConstants.IcedPackage);
@@ -162,9 +162,8 @@ namespace Generator.Encoder.Java {
 
 		void GenerateTables((InstructionDef def, MvexEncInfo mvex)[] mvexInfos, string className) {
 			var infos = mvexInfos.Where(x => x.def.Encoding == EncodingKind.MVEX).ToArray();
-			const string package = JavaConstants.IcedInternalPackage;
-			var srcFilename = JavaConstants.GetFilename(genTypes, package, className + ".java");
-			var rsrcFilename = JavaConstants.GetResourceFilename(genTypes, package, className + ".bin");
+			var srcFilename = JavaConstants.GetFilename(genTypes, JavaConstants.IcedInternalPackage, className + ".java");
+			var rsrcFilename = JavaConstants.GetResourceFilename(genTypes, JavaConstants.IcedPackage, className + ".bin");
 			const int StructSize = 8;
 			const int TupleTypeLutKindIndex = 0;
 			const int EHBitIndex = 1;
@@ -189,7 +188,7 @@ namespace Generator.Encoder.Java {
 			}
 			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(srcFilename))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"package {package};");
+				writer.WriteLine($"package {JavaConstants.IcedInternalPackage};");
 				writer.WriteLine();
 				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 				writer.WriteLine($"public final class {className} {{");

@@ -17,12 +17,13 @@ namespace Generator.Formatters.Java {
 			foreach (var info in sortedInfos)
 				maxStringLength = Math.Max(maxStringLength, info.String.Length);
 
-			var package = JavaConstants.FormatterInternalPackage;
+			var srcPackage = JavaConstants.FormatterInternalPackage;
+			var rsrcPackage = JavaConstants.FormatterPackage;
 			const string className = "FormatterStringsTable";
 
-			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetFilename(genTypes, package, className + ".java")))) {
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetFilename(genTypes, srcPackage, className + ".java")))) {
 				writer.WriteFileHeader();
-				writer.WriteLine($"package {package};");
+				writer.WriteLine($"package {srcPackage};");
 				writer.WriteLine();
 				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 				writer.WriteLine($"public final class {className} {{");
@@ -34,7 +35,7 @@ namespace Generator.Formatters.Java {
 				}
 				writer.WriteLine("}");
 			}
-			using (var writer = new BinaryByteTableWriter(JavaConstants.GetResourceFilename(genTypes, package, className + ".bin")))
+			using (var writer = new BinaryByteTableWriter(JavaConstants.GetResourceFilename(genTypes, rsrcPackage, className + ".bin")))
 				StringsTableSerializerUtils.SerializeTable(writer, sortedInfos);
 		}
 	}

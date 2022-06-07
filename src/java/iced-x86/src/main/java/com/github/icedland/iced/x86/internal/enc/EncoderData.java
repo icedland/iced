@@ -13,15 +13,15 @@ public final class EncoderData {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int[] encFlags1 = ResourceReader.ReadIntArray(EncoderData.class.getClassLoader(),
-			"com/github/icedland/iced/x86/internal/enc/EncoderData.encFlags1.bin");
+			"com/github/icedland/iced/x86/enc/EncoderData.encFlags1.bin");
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int[] encFlags2 = ResourceReader.ReadIntArray(EncoderData.class.getClassLoader(),
-			"com/github/icedland/iced/x86/internal/enc/EncoderData.encFlags2.bin");
+			"com/github/icedland/iced/x86/enc/EncoderData.encFlags2.bin");
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int[] encFlags3 = ResourceReader.ReadIntArray(EncoderData.class.getClassLoader(),
-			"com/github/icedland/iced/x86/internal/enc/EncoderData.encFlags3.bin");
+			"com/github/icedland/iced/x86/enc/EncoderData.encFlags3.bin");
 }
