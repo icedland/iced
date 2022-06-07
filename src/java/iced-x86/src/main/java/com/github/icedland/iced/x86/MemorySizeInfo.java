@@ -214,8 +214,8 @@ public final class MemorySizeInfo {
 		for (int i = 0, j = 0; i < infos.length; i++, j += 3) {
 			int elementType = data[j] & 0xFF;
 			int value = ((data[j + 2] & 0xFF) << 8) | (data[j + 1] & 0xFF);
-			int size = sizes[(value >> SIZE_SHIFT) & SIZE_MASK];
-			int elementSize = sizes[(value >> ELEM_SIZE_SHIFT) & SIZE_MASK];
+			int size = sizes[(value >>> SIZE_SHIFT) & SIZE_MASK];
+			int elementSize = sizes[(value >>> ELEM_SIZE_SHIFT) & SIZE_MASK];
 			infos[i] = new MemorySizeInfo(i, size, elementSize, elementType, (value & IS_SIGNED) != 0,
 					i >= IcedConstants.FIRST_BROADCAST_MEMORY_SIZE);
 		}
