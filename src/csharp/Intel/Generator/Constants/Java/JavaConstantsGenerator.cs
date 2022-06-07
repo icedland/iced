@@ -48,7 +48,7 @@ namespace Generator.Constants.Java {
 			toFullFileInfo.Add(TypeIds.DecoderConstants, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.DecoderConstants) + ".java"));
 
 			toFullFileInfo.Add(TypeIds.DecoderTestParserConstants, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.DecoderPackage, nameof(TypeIds.DecoderTestParserConstants) + ".java"));
-			toFullFileInfo.Add(TypeIds.InstrInfoConstants, FullConstantsFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.InstrInfoConstants) + ".java"));
+			toFullFileInfo.Add(TypeIds.InstrInfoConstants, FullConstantsFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.InstrInfoConstants) + ".java"));
 			toFullFileInfo.Add(TypeIds.MiscInstrInfoTestConstants, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.MiscInstrInfoTestConstants) + ".java"));
 			toFullFileInfo.Add(TypeIds.InstructionInfoKeys, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.InstructionInfoKeys) + ".java"));
 			toFullFileInfo.Add(TypeIds.RflagsBitsConstants, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.RflagsBitsConstants) + ".java"));

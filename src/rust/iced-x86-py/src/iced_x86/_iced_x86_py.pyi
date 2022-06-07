@@ -3335,7 +3335,7 @@ class Instruction:
 		...
 	def fpu_stack_increment_info(self) -> FpuStackIncrementInfo:
 		"""
-		Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
+		Gets the FPU status word's `TOP` increment value and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
 
 		### Returns:
 

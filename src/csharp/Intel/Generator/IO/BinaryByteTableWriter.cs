@@ -17,5 +17,15 @@ namespace Generator.IO {
 		public override IDisposable? Indent() => null;
 		public override void WriteByte(byte value) => writer.Write(value);
 		public void Dispose() => writer.Dispose();
+		public void WriteUInt16(ushort value) {
+			WriteByte((byte)value);
+			WriteByte((byte)(value >> 8));
+		}
+		public void WriteUInt32(uint value) {
+			WriteByte((byte)value);
+			WriteByte((byte)(value >> 8));
+			WriteByte((byte)(value >> 16));
+			WriteByte((byte)(value >> 24));
+		}
 	}
 }

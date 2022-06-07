@@ -346,7 +346,7 @@ namespace Generator.InstructionInfo.Rust {
 		string GetOpAccessString(OpAccess access) => GetEnumName(opAccessType[access.ToString()]);
 		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
-		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "::" + value.Name(idConverter);
+		string GetEnumName(EnumValue value) => idConverter.ToDeclTypeAndValue(value);
 
 		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
 			new FileUpdater(TargetLanguage.Rust, id, filename).Generate(writer => {

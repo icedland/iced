@@ -1083,7 +1083,7 @@ function Instruction:ip_rel_memory_address() end
 ---```
 function Instruction:stack_pointer_increment() end
 
----Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
+---Gets the FPU status word's `TOP` increment value and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
 ---
 ---@return FpuStackIncrementInfo #FPU stack info
 ---

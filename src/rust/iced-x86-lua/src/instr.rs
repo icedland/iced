@@ -1272,7 +1272,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 		unsafe { lua.push(this.inner.stack_pointer_increment()); }
 	}
 
-	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
+	/// Gets the FPU status word's `TOP` increment value and whether it's a conditional or unconditional push/pop and whether `TOP` is written.
 	///
 	/// @return FpuStackIncrementInfo # FPU stack info
 	///

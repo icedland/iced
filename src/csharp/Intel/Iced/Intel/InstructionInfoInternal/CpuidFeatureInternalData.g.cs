@@ -9,7 +9,7 @@
 namespace Iced.Intel.InstructionInfoInternal {
 	static partial class CpuidFeatureInternalData {
 #if HAS_SPAN
-		static System.ReadOnlySpan<byte> GetGetCpuidFeaturesData() =>
+		static System.ReadOnlySpan<byte> GetCpuidFeaturesData() =>
 #else
 		static byte[] GetGetCpuidFeaturesData() =>
 #endif

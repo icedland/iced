@@ -9,7 +9,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 	static partial class CpuidFeatureInternalData {
 		public static readonly CpuidFeature[][] ToCpuidFeatures = GetCpuidFeatures();
 		static CpuidFeature[][] GetCpuidFeatures() {
-			var data = GetGetCpuidFeaturesData();
+			var data = GetCpuidFeaturesData();
 			var reader = new DataReader(data);
 			reader.Index = (IcedConstants.MaxCpuidFeatureInternalValues + 7) / 8;
 			var cpuidFeatures = new CpuidFeature[IcedConstants.MaxCpuidFeatureInternalValues][];

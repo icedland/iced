@@ -2916,7 +2916,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop
+	/// Gets the FPU status word's `TOP` increment value and whether it's a conditional or unconditional push/pop
 	/// and whether `TOP` is written.
 	///
 	/// # Examples

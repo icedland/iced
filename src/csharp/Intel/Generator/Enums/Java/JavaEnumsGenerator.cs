@@ -111,11 +111,11 @@ namespace Generator.Enums.Java {
 			toFullFileInfo.Add(TypeIds.StateFlags, FullEnumFileInfo.Create(genTypes, JavaConstants.DecoderInternalPackage, nameof(TypeIds.StateFlags) + ".java"));
 			toFullFileInfo.Add(TypeIds.ImpliedAccess, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.ImpliedAccess) + ".java"));
 			toFullFileInfo.Add(TypeIds.RflagsInfo, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.RflagsInfo) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpInfo0, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.OpInfo0) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpInfo1, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.OpInfo1) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpInfo2, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.OpInfo2) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpInfo3, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.OpInfo3) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpInfo4, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.OpInfo4) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpInfo0, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpInfo0) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpInfo1, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpInfo1) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpInfo2, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpInfo2) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpInfo3, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpInfo3) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpInfo4, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpInfo4) + ".java"));
 			toFullFileInfo.Add(TypeIds.InfoFlags1, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.InfoFlags1) + ".java"));
 			toFullFileInfo.Add(TypeIds.InfoFlags2, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoInternalPackage, nameof(TypeIds.InfoFlags2) + ".java"));
 			toFullFileInfo.Add(TypeIds.MemorySizeFlags, FullEnumFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.MemorySizeFlags) + ".java"));

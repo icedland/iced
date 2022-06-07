@@ -170,7 +170,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the FPU status word's <c>TOP</c> increment and whether it's a conditional or unconditional push/pop
+		/// Gets the FPU status word's <c>TOP</c> increment value and whether it's a conditional or unconditional push/pop
 		/// and whether <c>TOP</c> is written.
 		/// </summary>
 		/// <returns></returns>
