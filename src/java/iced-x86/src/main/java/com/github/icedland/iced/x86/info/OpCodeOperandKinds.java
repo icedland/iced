@@ -6,7 +6,7 @@
 package com.github.icedland.iced.x86.info;
 
 final class OpCodeOperandKinds {
-	public static final byte[] legacyOpKinds = new byte[] {
+	static final byte[] legacyOpKinds = new byte[] {
 		(byte)OpCodeOperandKind.NONE,
 		(byte)OpCodeOperandKind.FARBR2_2,
 		(byte)OpCodeOperandKind.FARBR4_2,
@@ -84,7 +84,7 @@ final class OpCodeOperandKinds {
 		(byte)OpCodeOperandKind.BRDISP_2,
 		(byte)OpCodeOperandKind.BRDISP_4,
 	};
-	public static final byte[] vexOpKinds = new byte[] {
+	static final byte[] vexOpKinds = new byte[] {
 		(byte)OpCodeOperandKind.NONE,
 		(byte)OpCodeOperandKind.MEM,
 		(byte)OpCodeOperandKind.MEM_VSIB32X,
@@ -125,7 +125,7 @@ final class OpCodeOperandKinds {
 		(byte)OpCodeOperandKind.TMM_RM,
 		(byte)OpCodeOperandKind.TMM_VVVV,
 	};
-	public static final byte[] xopOpKinds = new byte[] {
+	static final byte[] xopOpKinds = new byte[] {
 		(byte)OpCodeOperandKind.NONE,
 		(byte)OpCodeOperandKind.R32_OR_MEM,
 		(byte)OpCodeOperandKind.R64_OR_MEM,
@@ -146,7 +146,7 @@ final class OpCodeOperandKinds {
 		(byte)OpCodeOperandKind.IMM8,
 		(byte)OpCodeOperandKind.IMM32,
 	};
-	public static final byte[] evexOpKinds = new byte[] {
+	static final byte[] evexOpKinds = new byte[] {
 		(byte)OpCodeOperandKind.NONE,
 		(byte)OpCodeOperandKind.MEM,
 		(byte)OpCodeOperandKind.MEM_VSIB32X,
@@ -180,7 +180,7 @@ final class OpCodeOperandKinds {
 		(byte)OpCodeOperandKind.ZMMP3_VVVV,
 		(byte)OpCodeOperandKind.IMM8,
 	};
-	public static final byte[] mvexOpKinds = new byte[] {
+	static final byte[] mvexOpKinds = new byte[] {
 		(byte)OpCodeOperandKind.NONE,
 		(byte)OpCodeOperandKind.MEM,
 		(byte)OpCodeOperandKind.MEM_VSIB32Z,

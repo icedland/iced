@@ -46,7 +46,7 @@ namespace Generator.Encoder.Java {
 			}
 
 			void Generate(FileWriter writer, string name, (EnumValue opCodeOperandKind, OpHandlerKind opHandlerKind, object[] args)[] table) {
-				writer.WriteLine($"public static final byte[] {name} = new byte[] {{");
+				writer.WriteLine($"static final byte[] {name} = new byte[] {{");
 				using (writer.Indent()) {
 					foreach (var info in table)
 						writer.WriteLine($"(byte){idConverter.ToDeclTypeAndValue(info.opCodeOperandKind)},");
@@ -56,7 +56,8 @@ namespace Generator.Encoder.Java {
 		}
 
 		void GenerateOpTables(OpCodeHandlers handlers) {
-			var filename = JavaConstants.GetFilename(genTypes, JavaConstants.EncoderInternalPackage, "OpTables.java");
+			var className = "OpTables";
+			var filename = JavaConstants.GetFilename(genTypes, JavaConstants.EncoderInternalPackage, className + ".java");
 			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 
@@ -65,7 +66,8 @@ namespace Generator.Encoder.Java {
 				writer.WriteLine("import com.github.icedland.iced.x86.OpKind;");
 				writer.WriteLine("import com.github.icedland.iced.x86.Register;");
 				writer.WriteLine();
-				writer.WriteLine("final class OpHandlerData {");
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
+				writer.WriteLine($"public final class {className} {{");
 				using (writer.Indent()) {
 					Generate(writer, "legacyOps", handlers.Legacy);
 					Generate(writer, "vexOps", handlers.Vex);
@@ -80,7 +82,8 @@ namespace Generator.Encoder.Java {
 				var declTypeStr = genTypes[TypeIds.OpCodeOperandKind].Name(idConverter);
 				if (table[0].opHandlerKind != OpHandlerKind.None)
 					throw new InvalidOperationException();
-				writer.WriteLine($"static final Op[] {name} = new Op[] {{");
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
+				writer.WriteLine($"public static final Op[] {name} = new Op[] {{");
 				using (writer.Indent()) {
 					for (int i = 1; i < table.Length; i++) {
 						var info = table[i];

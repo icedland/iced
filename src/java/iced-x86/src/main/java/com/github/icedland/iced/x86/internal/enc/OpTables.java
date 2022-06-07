@@ -8,8 +8,10 @@ package com.github.icedland.iced.x86.internal.enc;
 import com.github.icedland.iced.x86.OpKind;
 import com.github.icedland.iced.x86.Register;
 
-final class OpHandlerData {
-	static final Op[] legacyOps = new Op[] {
+/** DO NOT USE: INTERNAL API */
+public final class OpTables {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] legacyOps = new Op[] {
 		new OpA(2),
 		new OpA(4),
 		new OpO(),
@@ -86,7 +88,8 @@ final class OpHandlerData {
 		new OpJdisp(2),
 		new OpJdisp(4),
 	};
-	static final Op[] vexOps = new Op[] {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] vexOps = new Op[] {
 		new OpModRM_rm_mem_only(false),
 		new OpVsib(Register.XMM0, Register.XMM15),
 		new OpVsib(Register.XMM0, Register.XMM15),
@@ -126,7 +129,8 @@ final class OpHandlerData {
 		new OpModRM_rm_reg_only(Register.TMM0, Register.TMM7),
 		new OpHx(Register.TMM0, Register.TMM7),
 	};
-	static final Op[] xopOps = new Op[] {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] xopOps = new Op[] {
 		new OpModRM_rm(Register.EAX, Register.R15D),
 		new OpModRM_rm(Register.RAX, Register.R15),
 		new OpModRM_rm(Register.XMM0, Register.XMM15),
@@ -146,7 +150,8 @@ final class OpHandlerData {
 		new OpIb(OpKind.IMMEDIATE8),
 		new OpId(OpKind.IMMEDIATE32),
 	};
-	static final Op[] evexOps = new Op[] {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] evexOps = new Op[] {
 		new OpModRM_rm_mem_only(false),
 		new OpVsib(Register.XMM0, Register.XMM31),
 		new OpVsib(Register.XMM0, Register.XMM31),
@@ -179,7 +184,8 @@ final class OpHandlerData {
 		new OpHx(Register.ZMM0, Register.ZMM31),
 		new OpIb(OpKind.IMMEDIATE8),
 	};
-	static final Op[] mvexOps = new Op[] {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] mvexOps = new Op[] {
 		new OpModRM_rm_mem_only(false),
 		new OpVsib(Register.ZMM0, Register.ZMM31),
 		new OpModRM_rm(Register.ZMM0, Register.ZMM31),

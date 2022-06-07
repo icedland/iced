@@ -5,22 +5,31 @@ package com.github.icedland.iced.x86.internal.enc;
 
 import com.github.icedland.iced.x86.Instruction;
 import com.github.icedland.iced.x86.OpKind;
+import com.github.icedland.iced.x86.Register;
 import com.github.icedland.iced.x86.enc.Encoder;
 
-/**
- * DO NOT USE: INTERNAL API
- */
+/** DO NOT USE: INTERNAL API */
 public abstract class Op {
+	/** DO NOT USE: INTERNAL API */
+	public static final Op[] operands_3dnow = new Op[] {
+		new OpModRM_reg(Register.MM0, Register.MM7),
+		new OpModRM_rm(Register.MM0, Register.MM7),
+	};
+
+	/** DO NOT USE: INTERNAL API */
 	public abstract void encode(Encoder encoder, Instruction instruction, int operand);
 
+	/** DO NOT USE: INTERNAL API */
 	public int getImmediateOpKind() {
 		return -1;
 	}
 
+	/** DO NOT USE: INTERNAL API */
 	public int getNearBranchOpKind() {
 		return -1;
 	}
 
+	/** DO NOT USE: INTERNAL API */
 	public int getFarBranchOpKind() {
 		return -1;
 	}

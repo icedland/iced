@@ -3,6 +3,7 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.internal.EncoderOpCodeHandlers;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
 import com.github.icedland.iced.x86.internal.InstructionMemorySizes;
@@ -10,6 +11,8 @@ import com.github.icedland.iced.x86.internal.InstructionOpCounts;
 import com.github.icedland.iced.x86.internal.MvexInfo;
 import com.github.icedland.iced.x86.internal.MvexInstrFlags;
 import com.github.icedland.iced.x86.internal.MvexMemorySizeLut;
+import com.github.icedland.iced.x86.internal.enc.Op;
+import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
 
 /**
  * A 16/32/64-bit instruction.
@@ -2288,12 +2291,10 @@ public final class Instruction {
 	}
 
 	static int getImmediateOpKind(int code, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
-		var operands = handlers[code].operands;
+		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
 		int opKind = operands[operand].getImmediateOpKind();
@@ -2307,39 +2308,32 @@ public final class Instruction {
 		if (opKind == -1)
 			throw new IllegalArgumentException(String.format("Code %d's op%d isn't an immediate operand", code, operand));
 		return opKind;
-		*/
 	}
 
 	static int getNearBranchOpKind(int code, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
-		var operands = handlers[code].operands;
+		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
-		var opKind = operands[operand].getNearBranchOpKind();
+		int opKind = operands[operand].getNearBranchOpKind();
 		if (opKind == -1)
-			throw new IllegalArgumentException(string.format("Code %d's op%d isn't a near branch operand", code, operand));
+			throw new IllegalArgumentException(String.format("Code %d's op%d isn't a near branch operand", code, operand));
 		return opKind;
-		*/
 	}
 
 	static int getFarBranchOpKind(int code, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		var handlers = EncoderInternal.OpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
-		var operands = handlers[code].operands;
+		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
-		var opKind = operands[operand].getFarBranchOpKind();
+		int opKind = operands[operand].getFarBranchOpKind();
 		if (opKind == -1)
-			throw new IllegalArgumentException(string.format("Code %d's op%d isn't a far branch operand", code, operand));
+			throw new IllegalArgumentException(String.format("Code %d's op%d isn't a far branch operand", code, operand));
 		return opKind;
-		*/
 	}
 
 	static Instruction createString_Reg_SegRSI(int code, int addressSize, int register, int segmentPrefix, int repPrefix) {
