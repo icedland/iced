@@ -95,7 +95,7 @@ namespace Generator.InstructionInfo.Java {
 
 			var filename = JavaConstants.GetFilename(genTypes, JavaConstants.InstructionInfoInternalPackage, "CpuidFeatureInternalData.java");
 			new FileUpdater(TargetLanguage.Java, "Table", filename).Generate(writer => {
-				writer.WriteLine("static byte[] getCpuidFeaturesData() {");
+				writer.WriteLine("private static byte[] getCpuidFeaturesData() {");
 				using (writer.Indent()) {
 					writer.WriteLine("return new byte[] {");
 					using (writer.Indent()) {

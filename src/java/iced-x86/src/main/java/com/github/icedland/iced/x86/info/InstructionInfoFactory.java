@@ -10,7 +10,7 @@ import com.github.icedland.iced.x86.Register;
 import com.github.icedland.iced.x86.internal.info.ImpliedAccess;
 
 final class InstructionInfoFactory {
-	static final class Flags {
+	private static final class Flags {
 		static final int NONE = 0;
 		static final int NO_MEMORY_USAGE = 0x00000001;
 		static final int NO_REGISTER_USAGE = 0x00000002;

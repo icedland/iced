@@ -247,7 +247,7 @@ namespace Generator.Encoder.Java {
 		protected override void Generate((EnumValue value, uint size)[] immSizes) {
 			var filename = JavaConstants.GetFilename(genTypes, JavaConstants.EncoderPackage, "Encoder.java");
 			new FileUpdater(TargetLanguage.Java, "ImmSizes", filename).Generate(writer => {
-				writer.WriteLine("static final int[] s_immSizes = new int[] {");
+				writer.WriteLine("private static final int[] s_immSizes = new int[] {");
 				using (writer.Indent()) {
 					foreach (var info in immSizes)
 						writer.WriteLine($"{info.size},// {info.value.Name(idConverter)}");

@@ -10,12 +10,12 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
  */
 public final class RegisterInfo {
 	static final RegisterInfo[] infos = createRegisterInfos();
-	final byte register;
-	final byte baseRegister;
-	final byte fullRegister;
-	final short size;
+	private final byte register;
+	private final byte baseRegister;
+	private final byte fullRegister;
+	private final short size;
 
-	static RegisterInfo[] createRegisterInfos() {
+	private static RegisterInfo[] createRegisterInfos() {
 		RegisterInfo[] regInfos = new RegisterInfo[IcedConstants.REGISTER_ENUM_COUNT];
 
 		regInfos[(int)Register.EIP] = new RegisterInfo(Register.EIP, Register.EIP, Register.RIP, 4);

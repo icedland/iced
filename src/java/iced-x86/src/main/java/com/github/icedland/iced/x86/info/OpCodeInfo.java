@@ -34,31 +34,30 @@ import com.github.icedland.iced.x86.internal.enc.XopOpCodeTable;
  * Opcode info
  */
 public final class OpCodeInfo {
-	final String toOpCodeStringValue;
-	final String toInstructionStringValue;
-	final int encFlags2;
-	final int encFlags3;
-	final int opcFlags1;
-	final int opcFlags2;
-	final int code;
-	final byte encoding;
-	final byte operandSize;
-	final byte addressSize;
-	final byte l;
-	final byte tupleType;
-	final byte table;
-	final byte mandatoryPrefix;
-	final byte groupIndex;
-	final byte rmGroupIndex;
-	final byte op0Kind;
-	final byte op1Kind;
-	final byte op2Kind;
-	final byte op3Kind;
-	final byte op4Kind;
-	final int flags;
+	private final String toOpCodeStringValue;
+	private final String toInstructionStringValue;
+	private final int encFlags2;
+	private final int encFlags3;
+	private final int opcFlags1;
+	private final int opcFlags2;
+	private final int code;
+	private final byte encoding;
+	private final byte operandSize;
+	private final byte addressSize;
+	private final byte l;
+	private final byte tupleType;
+	private final byte table;
+	private final byte mandatoryPrefix;
+	private final byte groupIndex;
+	private final byte rmGroupIndex;
+	private final byte op0Kind;
+	private final byte op1Kind;
+	private final byte op2Kind;
+	private final byte op3Kind;
+	private final byte op4Kind;
+	private final int flags;
 
-	static final class Flags {
-		static final int NONE = 0;
+	private static final class Flags {
 		static final int IGNORES_ROUNDING_CONTROL = 0x00000001;
 		static final int AMD_LOCK_REG_BIT = 0x00000002;
 		static final int LIG = 0x00000004;

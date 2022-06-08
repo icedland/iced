@@ -28,7 +28,7 @@ import com.github.icedland.iced.x86.internal.enc.WBit;
 
 /** DO NOT USE: INTERNAL API */
 public final class InternalOpCodeHandlers {
-	InternalOpCodeHandlers() {
+	private InternalOpCodeHandlers() {
 	}
 
 	/**

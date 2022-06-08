@@ -332,7 +332,7 @@ public final class Instruction {
 		len = (byte)value;
 	}
 
-	boolean isXacquireInstr() {
+	private boolean isXacquireInstr() {
 		if (getOp0Kind() != OpKind.MEMORY)
 			return false;
 		if (getLockPrefix())
@@ -340,7 +340,7 @@ public final class Instruction {
 		return getMnemonic() == Mnemonic.XCHG;
 	}
 
-	boolean isXreleaseInstr() {
+	private boolean isXreleaseInstr() {
 		if (getOp0Kind() != OpKind.MEMORY)
 			return false;
 		if (getLockPrefix())
@@ -2224,7 +2224,7 @@ public final class Instruction {
 		}
 	}
 
-	static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
+	private static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
 		int opKind = getImmediateOpKind(instruction.getCode(), operand);
 		instruction.setOpKind(operand, opKind);
 
@@ -2290,7 +2290,7 @@ public final class Instruction {
 		}
 	}
 
-	static int getImmediateOpKind(int code, int operand) {
+	private static int getImmediateOpKind(int code, int operand) {
 		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
@@ -2310,7 +2310,7 @@ public final class Instruction {
 		return opKind;
 	}
 
-	static int getNearBranchOpKind(int code, int operand) {
+	private static int getNearBranchOpKind(int code, int operand) {
 		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
@@ -2323,7 +2323,7 @@ public final class Instruction {
 		return opKind;
 	}
 
-	static int getFarBranchOpKind(int code, int operand) {
+	private static int getFarBranchOpKind(int code, int operand) {
 		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
@@ -2336,7 +2336,7 @@ public final class Instruction {
 		return opKind;
 	}
 
-	static Instruction createString_Reg_SegRSI(int code, int addressSize, int register, int segmentPrefix, int repPrefix) {
+	private static Instruction createString_Reg_SegRSI(int code, int addressSize, int register, int segmentPrefix, int repPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2364,7 +2364,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static Instruction createString_Reg_ESRDI(int code, int addressSize, int register, int repPrefix) {
+	private static Instruction createString_Reg_ESRDI(int code, int addressSize, int register, int repPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2390,7 +2390,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static Instruction createString_ESRDI_Reg(int code, int addressSize, int register, int repPrefix) {
+	private static Instruction createString_ESRDI_Reg(int code, int addressSize, int register, int repPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2416,7 +2416,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static Instruction createString_SegRSI_ESRDI(int code, int addressSize, int segmentPrefix, int repPrefix) {
+	private static Instruction createString_SegRSI_ESRDI(int code, int addressSize, int segmentPrefix, int repPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2448,7 +2448,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static Instruction createString_ESRDI_SegRSI(int code, int addressSize, int segmentPrefix, int repPrefix) {
+	private static Instruction createString_ESRDI_SegRSI(int code, int addressSize, int segmentPrefix, int repPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2480,7 +2480,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static Instruction createMaskmov(int code, int addressSize, int register1, int register2, int segmentPrefix) {
+	private static Instruction createMaskmov(int code, int addressSize, int register1, int register2, int segmentPrefix) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -2501,7 +2501,7 @@ public final class Instruction {
 		return instruction;
 	}
 
-	static void initMemoryOperand(Instruction instruction, MemoryOperand memory) {
+	private static void initMemoryOperand(Instruction instruction, MemoryOperand memory) {
 		instruction.setMemoryBase(memory.base);
 		instruction.setMemoryIndex(memory.index);
 		instruction.setMemoryIndexScale(memory.scale);

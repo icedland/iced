@@ -10,9 +10,9 @@ package com.github.icedland.iced.x86.internal;
  */
 @Deprecated
 public final class DataReader {
-	final byte[] data;
-	final char[] stringData;
-	int index;
+	private final byte[] data;
+	private final char[] stringData;
+	private int index;
 
 	/** DO NOT USE: INTERNAL API */
 	public DataReader(byte[] data) {

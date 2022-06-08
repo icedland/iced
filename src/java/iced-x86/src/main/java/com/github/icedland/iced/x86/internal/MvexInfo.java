@@ -5,7 +5,7 @@ package com.github.icedland.iced.x86.internal;
 
 /** DO NOT USE: INTERNAL API */
 public final class MvexInfo {
-	static final byte[] data = ResourceReader.ReadByteArray(MvexInfo.class.getClassLoader(),
+	private static final byte[] data = ResourceReader.ReadByteArray(MvexInfo.class.getClassLoader(),
 			"com/github/icedland/iced/x86/MvexInfoData.bin");
 
 	/** DO NOT USE: INTERNAL API */

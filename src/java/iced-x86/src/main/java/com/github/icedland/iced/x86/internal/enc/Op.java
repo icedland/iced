@@ -36,7 +36,7 @@ public abstract class Op {
 }
 
 final class OpModRM_rm_mem_only extends Op {
-	final boolean mustUseSib;
+	private final boolean mustUseSib;
 
 	public OpModRM_rm_mem_only(boolean mustUseSib) {
 		this.mustUseSib = mustUseSib;
@@ -54,8 +54,8 @@ final class OpModRM_rm_mem_only extends Op {
 }
 
 final class OpModRM_rm extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpModRM_rm(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -72,8 +72,8 @@ final class OpModRM_rm extends Op {
 }
 
 final class OpRegEmbed8 extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpRegEmbed8(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -90,8 +90,8 @@ final class OpRegEmbed8 extends Op {
 }
 
 final class OpModRM_rm_reg_only extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpModRM_rm_reg_only(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -108,8 +108,8 @@ final class OpModRM_rm_reg_only extends Op {
 }
 
 final class OpModRM_reg extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpModRM_reg(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -126,8 +126,8 @@ final class OpModRM_reg extends Op {
 }
 
 final class OpModRM_reg_mem extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpModRM_reg_mem(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -145,8 +145,8 @@ final class OpModRM_reg_mem extends Op {
 }
 
 final class OpModRM_regF0 extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpModRM_regF0(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -169,7 +169,7 @@ final class OpModRM_regF0 extends Op {
 }
 
 final class OpReg extends Op {
-	final int register;
+	private final int register;
 
 	public OpReg(int register) {
 		this.register = register;
@@ -227,7 +227,7 @@ final class OprDI extends Op {
 }
 
 final class OpIb extends Op {
-	final int opKind;
+	private final int opKind;
 
 	public OpIb(int opKind) {
 		this.opKind = opKind;
@@ -286,7 +286,7 @@ final class OpIw extends Op {
 }
 
 final class OpId extends Op {
-	final int opKind;
+	private final int opKind;
 
 	public OpId(int opKind) {
 		this.opKind = opKind;
@@ -460,8 +460,8 @@ final class OpMRBX extends Op {
 }
 
 final class OpJ extends Op {
-	final int opKind;
-	final int immSize;
+	private final int opKind;
+	private final int immSize;
 
 	public OpJ(int opKind, int immSize) {
 		this.opKind = opKind;
@@ -483,7 +483,7 @@ final class OpJ extends Op {
 }
 
 final class OpJx extends Op {
-	final int immSize;
+	private final int immSize;
 
 	public OpJx(int immSize) {
 		this.immSize = immSize;
@@ -507,7 +507,7 @@ final class OpJx extends Op {
 }
 
 final class OpJdisp extends Op {
-	final int displSize;
+	private final int displSize;
 
 	public OpJdisp(int displSize) {
 		this.displSize = displSize;
@@ -528,7 +528,7 @@ final class OpJdisp extends Op {
 }
 
 final class OpA extends Op {
-	final int size;
+	private final int size;
 
 	public OpA(int size) {
 		assert size == 2 || size == 4 : size;
@@ -561,7 +561,7 @@ final class OpO extends Op {
 }
 
 final class OpImm extends Op {
-	final byte value;
+	private final byte value;
 
 	public OpImm(int value) {
 		assert -0x80 <= value && value <= 0x7F : value;
@@ -588,8 +588,8 @@ final class OpImm extends Op {
 }
 
 final class OpHx extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpHx(int regLo, int regHi) {
 		this.regLo = regLo;
@@ -611,8 +611,8 @@ final class OpHx extends Op {
 }
 
 final class OpVsib extends Op {
-	final int vsibIndexRegLo;
-	final int vsibIndexRegHi;
+	private final int vsibIndexRegLo;
+	private final int vsibIndexRegHi;
 
 	public OpVsib(int regLo, int regHi) {
 		vsibIndexRegLo = regLo;
@@ -630,8 +630,8 @@ final class OpVsib extends Op {
 }
 
 final class OpIsX extends Op {
-	final int regLo;
-	final int regHi;
+	private final int regLo;
+	private final int regHi;
 
 	public OpIsX(int regLo, int regHi) {
 		this.regLo = regLo;
