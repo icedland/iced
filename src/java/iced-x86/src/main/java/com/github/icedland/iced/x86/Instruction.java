@@ -2564,6 +2564,159 @@ public final class Instruction {
 		return Code.isStringInstruction(getCode());
 	}
 
+	/**
+	 * Gets the virtual address of a memory operand
+	 *
+	 * @param operand          Operand number, must be a memory operand
+	 * @param elementIndex     Only used if it's a vsib memory operand. This is the element index of the vector index register.
+	 * @param getRegisterValue Returns values of registers and segment base addresses
+	 * @return <code>null</code> if it failed to read all registers, else the calculated virtual address
+	 */
+	@SuppressWarnings("deprecation")
+	public Long getVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) {
+		if (getRegisterValue == null)
+			throw new IllegalArgumentException("getRegisterValue");
+		Long seg, base;
+		switch (getOpKind(operand)) {
+		case OpKind.REGISTER:
+		case OpKind.NEAR_BRANCH16:
+		case OpKind.NEAR_BRANCH32:
+		case OpKind.NEAR_BRANCH64:
+		case OpKind.FAR_BRANCH16:
+		case OpKind.FAR_BRANCH32:
+		case OpKind.IMMEDIATE8:
+		case OpKind.IMMEDIATE8_2ND:
+		case OpKind.IMMEDIATE16:
+		case OpKind.IMMEDIATE32:
+		case OpKind.IMMEDIATE64:
+		case OpKind.IMMEDIATE8TO16:
+		case OpKind.IMMEDIATE8TO32:
+		case OpKind.IMMEDIATE8TO64:
+		case OpKind.IMMEDIATE32TO64:
+			return 0L;
+
+		case OpKind.MEMORY_SEG_SI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.SI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_SEG_ESI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.ESI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_SEG_RSI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.RSI, 0, 0)) != null) {
+				return seg.longValue() + base.longValue();
+			}
+			break;
+
+		case OpKind.MEMORY_SEG_DI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.DI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_SEG_EDI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.EDI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_SEG_RDI:
+			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.RDI, 0, 0)) != null) {
+				return seg.longValue() + base.longValue();
+			}
+			break;
+
+		case OpKind.MEMORY_ESDI:
+			if ((seg = getRegisterValue.get(Register.ES, 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.DI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_ESEDI:
+			if ((seg = getRegisterValue.get(Register.ES, 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.EDI, 0, 0)) != null) {
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+			}
+			break;
+
+		case OpKind.MEMORY_ESRDI:
+			if ((seg = getRegisterValue.get(Register.ES, 0, 0)) != null &&
+				(base = getRegisterValue.get(Register.RDI, 0, 0)) != null) {
+				return seg.longValue() + base.longValue();
+			}
+			break;
+
+		case OpKind.MEMORY:
+			int baseReg = getMemoryBase();
+			int indexReg = getMemoryIndex();
+			int addrSize = com.github.icedland.iced.x86.InternalInstructionUtils.getAddressSizeInBytes(baseReg, indexReg, getMemoryDisplSize(), getCodeSize());
+			long offset = getMemoryDisplacement64();
+			long offsetMask;
+			if (addrSize == 8)
+				offsetMask = 0xFFFF_FFFF_FFFF_FFFFL;
+			else if (addrSize == 4)
+				offsetMask = 0xFFFF_FFFF;
+			else {
+				assert addrSize == 2 : addrSize;
+				offsetMask = 0xFFFF;
+			}
+			if (baseReg != Register.NONE && baseReg != Register.RIP && baseReg != Register.EIP) {
+				if ((base = getRegisterValue.get(baseReg, 0, 0)) == null)
+					break;
+				offset += base;
+			}
+			int code = getCode();
+			if (indexReg != Register.NONE && !Code.ignoresIndex(code) && !Code.isTileStrideIndex(code)) {
+				int vsib = getVsib();
+				if ((vsib & VsibFlags.VSIB) != 0) {
+					long base2;
+					if ((vsib & VsibFlags.VSIB64) != 0) {
+						if ((base = getRegisterValue.get(indexReg, elementIndex, 8)) == null)
+							break;
+						base2 = base.longValue();
+					}
+					else {
+						if ((base = getRegisterValue.get(indexReg, elementIndex, 4)) == null)
+							break;
+						base2 = (int)base.longValue();
+					}
+					offset += base2 << scale;
+				}
+				else {
+					if ((base = getRegisterValue.get(indexReg, 0, 0)) == null)
+						break;
+					offset += base.longValue() << scale;
+				}
+			}
+			if (code >= Code.MVEX_VLOADUNPACKHD_ZMM_K1_MT && code <= Code.MVEX_VPACKSTOREHPD_MT_K1_ZMM)
+				offset -= 0x40;
+			offset &= offsetMask;
+			if (!Code.ignoresSegment(code)) {
+				if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) == null)
+					break;
+				offset += seg.longValue();
+			}
+			return offset;
+
+		default:
+			throw new UnsupportedOperationException();
+		}
+
+		return null;
+	}
+
 	private static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
 		int opKind = getImmediateOpKind(instruction.getCode(), operand);
 		instruction.setOpKind(operand, opKind);
