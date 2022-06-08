@@ -26,17 +26,17 @@ import com.github.icedland.iced.x86.internal.enc.OpTables;
 import com.github.icedland.iced.x86.internal.enc.VexOpCodeTable;
 import com.github.icedland.iced.x86.internal.enc.WBit;
 
-/**
- * DO NOT USE: INTERNAL API
- *
- * @deprecated Not part of the public API
- */
-@Deprecated
+/** DO NOT USE: INTERNAL API */
 public final class InternalOpCodeHandlers {
 	InternalOpCodeHandlers() {
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class InvalidHandler extends OpCodeHandler {
 		/** DO NOT USE: INTERNAL API */
 		public static final String ERROR_MESSAGE = "Can't encode an invalid instruction";
@@ -53,7 +53,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class DeclareDataHandler extends OpCodeHandler {
 		final int elemLength;
 		final int maxLength;
@@ -94,7 +99,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class ZeroBytesHandler extends OpCodeHandler {
 		/** DO NOT USE: INTERNAL API */
 		public ZeroBytesHandler(int code) {
@@ -107,7 +117,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class LegacyHandler extends OpCodeHandler {
 		final int tableByte1, tableByte2;
 		final int mandatoryPrefix;
@@ -205,7 +220,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class VexHandler extends OpCodeHandler {
 		final int table;
 		final int lastByte;
@@ -297,7 +317,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class XopHandler extends OpCodeHandler {
 		final int table;
 		final int lastByte;
@@ -361,7 +386,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class EvexHandler extends OpCodeHandler {
 		final int wbit;
 		final int tupleType;
@@ -509,7 +539,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class MvexHandler extends OpCodeHandler {
 		final int wbit;
 		final int table;
@@ -660,7 +695,12 @@ public final class InternalOpCodeHandlers {
 		}
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public static final class D3nowHandler extends OpCodeHandler {
 		final int immediate;
 

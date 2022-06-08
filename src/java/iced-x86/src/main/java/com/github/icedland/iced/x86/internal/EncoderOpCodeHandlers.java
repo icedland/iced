@@ -5,6 +5,7 @@ package com.github.icedland.iced.x86.internal;
 
 import com.github.icedland.iced.x86.Code;
 import com.github.icedland.iced.x86.EncodingKind;
+import com.github.icedland.iced.x86.enc.InternalOpCodeHandlers;
 import com.github.icedland.iced.x86.internal.enc.EncFlags3;
 import com.github.icedland.iced.x86.internal.enc.EncoderData;
 import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
@@ -24,7 +25,7 @@ public final class EncoderOpCodeHandlers {
 		int[] encFlags3Data = EncoderData.encFlags3;
 		OpCodeHandler[] handlers = new OpCodeHandler[IcedConstants.CODE_ENUM_COUNT];
 		int i = 0;
-		com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.InvalidHandler invalidHandler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.InvalidHandler();
+		InternalOpCodeHandlers.InvalidHandler invalidHandler = new InternalOpCodeHandlers.InvalidHandler();
 		for (; i < encFlags1.length; i++) {
 			int encFlags3 = encFlags3Data[i];
 			OpCodeHandler handler;
@@ -33,31 +34,31 @@ public final class EncoderOpCodeHandlers {
 				if (i == Code.INVALID)
 					handler = invalidHandler;
 				else if (i <= Code.DECLAREQWORD)
-					handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.DeclareDataHandler(i);
+					handler = new InternalOpCodeHandlers.DeclareDataHandler(i);
 				else if (i == Code.ZERO_BYTES)
-					handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.ZeroBytesHandler(i);
+					handler = new InternalOpCodeHandlers.ZeroBytesHandler(i);
 				else
-					handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.LegacyHandler(encFlags1[i], encFlags2[i], encFlags3);
+					handler = new InternalOpCodeHandlers.LegacyHandler(encFlags1[i], encFlags2[i], encFlags3);
 				break;
 
 			case EncodingKind.VEX:
-				handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.VexHandler(encFlags1[i], encFlags2[i], encFlags3);
+				handler = new InternalOpCodeHandlers.VexHandler(encFlags1[i], encFlags2[i], encFlags3);
 				break;
 
 			case EncodingKind.EVEX:
-				handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.EvexHandler(encFlags1[i], encFlags2[i], encFlags3);
+				handler = new InternalOpCodeHandlers.EvexHandler(encFlags1[i], encFlags2[i], encFlags3);
 				break;
 
 			case EncodingKind.XOP:
-				handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.XopHandler(encFlags1[i], encFlags2[i], encFlags3);
+				handler = new InternalOpCodeHandlers.XopHandler(encFlags1[i], encFlags2[i], encFlags3);
 				break;
 
 			case EncodingKind.D3NOW:
-				handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.D3nowHandler(encFlags2[i], encFlags3);
+				handler = new InternalOpCodeHandlers.D3nowHandler(encFlags2[i], encFlags3);
 				break;
 
 			case EncodingKind.MVEX:
-				handler = new com.github.icedland.iced.x86.enc.InternalOpCodeHandlers.MvexHandler(encFlags1[i], encFlags2[i], encFlags3);
+				handler = new InternalOpCodeHandlers.MvexHandler(encFlags1[i], encFlags2[i], encFlags3);
 				break;
 
 			default:
