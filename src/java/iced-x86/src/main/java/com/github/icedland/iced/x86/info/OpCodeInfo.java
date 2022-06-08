@@ -200,8 +200,6 @@ public final class OpCodeInfo {
 			throw new UnsupportedOperationException();
 		}
 
-		String toOpCodeStringValue = null;
-		String toInstructionStringValue = null;
 		byte[] opKinds;
 		switch (encoding) {
 		case EncodingKind.LEGACY:
@@ -345,7 +343,7 @@ public final class OpCodeInfo {
 		}
 
 		flags = flagsTmp;
-		this.toOpCodeStringValue = null;//TODO:toOpCodeStringValue ?? new OpCodeFormatter(this, sb, lkind, (opcFlags1 & OpCodeInfoFlags1.ModRegRmString) != 0).Format();
+		this.toOpCodeStringValue = new OpCodeFormatter(this, sb, lkind, (opcFlags1 & OpCodeInfoFlags1.MOD_REG_RM_STRING) != 0).format();
 		int fmtOption = (opcFlags2 >>> OpCodeInfoFlags2.INSTR_STR_FMT_OPTION_SHIFT) & OpCodeInfoFlags2.INSTR_STR_FMT_OPTION_MASK;
 		this.toInstructionStringValue = null;//TODO:toInstructionStringValue ?? new InstructionFormatter(this, fmtOption, sb).Format();
 	}

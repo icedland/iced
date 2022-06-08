@@ -591,7 +591,7 @@ public final class InternalOpCodeHandlers {
 			mask_W = mask_W_tmp;
 		}
 
-		final static class TryConvertToDisp8NImpl extends TryConvertToDisp8N {
+		static final class TryConvertToDisp8NImpl extends TryConvertToDisp8N {
 			@Override
 			public boolean convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ, byte compressedValue) {
 				int sss = (instruction.getMvexRegMemConv() - MvexRegMemConv.MEM_CONV_NONE) & 7;

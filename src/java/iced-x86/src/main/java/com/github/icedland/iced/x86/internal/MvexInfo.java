@@ -44,13 +44,13 @@ public final class MvexInfo {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getIsNDD(int code) {
+	public static boolean isNDD(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.NDD) != 0;
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getIsNDS(int code) {
+	public static boolean isNDS(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.NDS) != 0;
 	}
@@ -98,7 +98,7 @@ public final class MvexInfo {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getIsConvFn32(int code) {
+	public static boolean isConvFn32(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS2_INDEX] & MvexInfoFlags2.CONV_FN32) != 0;
 	}
