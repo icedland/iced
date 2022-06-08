@@ -7,6 +7,7 @@ import com.github.icedland.iced.x86.info.OpCodeInfo;
 import com.github.icedland.iced.x86.internal.EncoderOpCodeHandlers;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
+import com.github.icedland.iced.x86.internal.InstrInfoTable;
 import com.github.icedland.iced.x86.internal.InstructionMemorySizes;
 import com.github.icedland.iced.x86.internal.InstructionOpCounts;
 import com.github.icedland.iced.x86.internal.MvexInfo;
@@ -14,6 +15,10 @@ import com.github.icedland.iced.x86.internal.MvexInstrFlags;
 import com.github.icedland.iced.x86.internal.MvexMemorySizeLut;
 import com.github.icedland.iced.x86.internal.enc.Op;
 import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
+import com.github.icedland.iced.x86.internal.info.ImpliedAccess;
+import com.github.icedland.iced.x86.internal.info.InfoFlags1;
+import com.github.icedland.iced.x86.internal.info.RflagsInfo;
+import com.github.icedland.iced.x86.internal.info.RflagsInfoConstants;
 
 /**
  * A 16/32/64-bit instruction.
@@ -2018,7 +2023,8 @@ public final class Instruction {
 	/**
 	 * Gets the number of bytes added to <code>SP</code>/<code>ESP</code>/<code>RSP</code> or 0 if it's not an instruction that pushes or pops data.
 	 * <p>
-	 * This method assumes the instruction doesn't change the privilege level (eg. <code>IRET/D/Q</code>). If it's the <code>LEAVE</code> instruction, this method returns 0.
+	 * This method assumes the instruction doesn't change the privilege level (eg. <code>IRET/D/Q</code>). If it's the <code>LEAVE</code> instruction,
+	 * this method returns 0.
 	 */
 	public int getStackPointerIncrement() {
 		switch (getCode()) {
@@ -2224,6 +2230,340 @@ public final class Instruction {
 		}
 	}
 
+	/**
+	 * Instruction encoding (an {@link EncodingKind} enum variant), eg.<!-- --> Legacy, 3DNow!, VEX, EVEX, XOP
+	 */
+	public int getEncoding() {
+		return Code.encoding(getCode());
+	}
+
+	/**
+	 * Gets the CPU or CPUID feature flags (an array of {@link CpuidFeature} enum variants)
+	 */
+	public int[] getCpuidFeatures() {
+		return Code.cpuidFeatures(getCode());
+	}
+
+	/**
+	 * Control flow info (a {@link FlowControl} enum variant)
+	 */
+	public int getFlowControl() {
+		return Code.flowControl(getCode());
+	}
+
+	/**
+	 * <code>true</code> if it's a privileged instruction (all CPL=0 instructions (except <code>VMCALL</code>) and IOPL instructions <code>IN</code>,
+	 * <code>INS</code>, <code>OUT</code>, <code>OUTS</code>, <code>CLI</code>, <code>STI</code>)
+	 */
+	public boolean isPrivileged() {
+		return Code.isPrivileged(getCode());
+	}
+
+	/**
+	 * <code>true</code> if this is an instruction that implicitly uses the stack pointer (<code>SP</code>/<code>ESP</code>/<code>RSP</code>), eg.<!--
+	 * --> <code>CALL</code>, <code>PUSH</code>, <code>POP</code>, <code>RET</code>, etc.
+	 *
+	 * @see #getStackPointerIncrement()
+	 */
+	public boolean isStackInstruction() {
+		return Code.isStackInstruction(getCode());
+	}
+
+	/**
+	 * <code>true</code> if it's an instruction that saves or restores too many registers (eg.<!-- --> <code>FXRSTOR</code>, <code>XSAVE</code>, etc).
+	 */
+	public boolean isSaveRestoreInstruction() {
+		return Code.isSaveRestoreInstruction(getCode());
+	}
+
+	private int getRflagsInfo() {
+		int flags1 = InstrInfoTable.data[getCode() << 1];
+		int impliedAccess = (flags1 >>> InfoFlags1.IMPLIED_ACCESS_SHIFT) & InfoFlags1.IMPLIED_ACCESS_MASK;
+		int result = (flags1 >>> InfoFlags1.RFLAGS_INFO_SHIFT) & InfoFlags1.RFLAGS_INFO_MASK;
+		int e = impliedAccess - ImpliedAccess.SHIFT_IB_MASK1_FMOD9;
+		switch (e) {
+		case ImpliedAccess.SHIFT_IB_MASK1_FMOD9 - ImpliedAccess.SHIFT_IB_MASK1_FMOD9:
+		case ImpliedAccess.SHIFT_IB_MASK1_FMOD11 - ImpliedAccess.SHIFT_IB_MASK1_FMOD9:
+			int m = e == ImpliedAccess.SHIFT_IB_MASK1_FMOD9 - ImpliedAccess.SHIFT_IB_MASK1_FMOD9 ? 9 : 17;
+			switch ((getImmediate8() & 0x1F) % m) {
+			case 0:
+				return RflagsInfo.NONE;
+			case 1:
+				return RflagsInfo.R_C_W_CO;
+			}
+			break;
+
+		case ImpliedAccess.SHIFT_IB_MASK1_F - ImpliedAccess.SHIFT_IB_MASK1_FMOD9:
+		case ImpliedAccess.SHIFT_IB_MASK3_F - ImpliedAccess.SHIFT_IB_MASK1_FMOD9:
+			int mask = e == ImpliedAccess.SHIFT_IB_MASK1_F - ImpliedAccess.SHIFT_IB_MASK1_FMOD9 ? 0x1F : 0x3F;
+			switch (getImmediate8() & mask) {
+			case 0:
+				return RflagsInfo.NONE;
+			case 1:
+				if (result == RflagsInfo.W_C_U_O)
+					return RflagsInfo.W_CO;
+				else if (result == RflagsInfo.R_C_W_C_U_O)
+					return RflagsInfo.R_C_W_CO;
+				else {
+					assert result == RflagsInfo.W_CPSZ_U_AO : result;
+					return RflagsInfo.W_COPSZ_U_A;
+				}
+			}
+			break;
+
+		case ImpliedAccess.CLEAR_RFLAGS - ImpliedAccess.SHIFT_IB_MASK1_FMOD9:
+			if (getOp0Register() != getOp1Register())
+				break;
+			if (getOp0Kind() != OpKind.REGISTER || getOp1Kind() != OpKind.REGISTER)
+				break;
+			if (getMnemonic() == Mnemonic.XOR)
+				return RflagsInfo.C_COS_S_PZ_U_A;
+			else
+				return RflagsInfo.C_ACOS_S_PZ;
+		}
+		return result;
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are read by the CPU when executing the instruction
+	 *
+	 * @see #getRflagsModified()
+	 */
+	public int getRflagsRead() {
+		// If the method call is used without a temp index, the jitter generates worse code.
+		// It stores the array in a temp local, then it calls the method, and then it reads
+		// the temp local and checks if we can read the array.
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsRead[index];
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are written by the CPU, except those flags that are known to be undefined, always set or
+	 * always cleared
+	 *
+	 * @see #getRflagsModified()
+	 */
+	public int getRflagsWritten() {
+		// See RflagsRead for the reason why a temp index is used here
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsWritten[index];
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are always cleared by the CPU
+	 *
+	 * @see #getRflagsModified()
+	 */
+	public int getRflagsCleared() {
+		// See RflagsRead for the reason why a temp index is used here
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsCleared[index];
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are always set by the CPU
+	 *
+	 * @see #getRflagsModified()
+	 */
+	public int getRflagsSet() {
+		// See RflagsRead for the reason why a temp index is used here
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsSet[index];
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are undefined after executing the instruction
+	 *
+	 * @see #getRflagsModified()
+	 */
+	public int getRflagsUndefined() {
+		// See RflagsRead for the reason why a temp index is used here
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsUndefined[index];
+	}
+
+	/**
+	 * All flags (an {@link RflagsBits} flags value) that are modified by the CPU.
+	 * <p>
+	 * This is {@link #getRflagsWritten()} + {@link #getRflagsCleared()} + {@link #getRflagsSet()} + {@link #getRflagsUndefined()}
+	 */
+	public int getRflagsModified() {
+		// See RflagsRead for the reason why a temp index is used here
+		int index = getRflagsInfo();
+		return RflagsInfoConstants.flagsModified[index];
+	}
+
+	/**
+	 * Checks if it's a <code>Jcc SHORT</code> or <code>Jcc NEAR</code> instruction
+	 */
+	public boolean isJccShortOrNear() {
+		return Code.isJccShortOrNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>Jcc NEAR</code> instruction
+	 */
+	public boolean isJccNear() {
+		return Code.isJccNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>Jcc SHORT</code> instruction
+	 */
+	public boolean isJccShort() {
+		return Code.isJccShort(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP SHORT</code> instruction
+	 */
+	public boolean isJmpShort() {
+		return Code.isJmpShort(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP NEAR</code> instruction
+	 */
+	public boolean isJmpNear() {
+		return Code.isJmpNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP SHORT</code> or a <code>JMP NEAR</code> instruction
+	 */
+	public boolean isJmpShortOrNear() {
+		return Code.isJmpShortOrNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP FAR</code> instruction
+	 */
+	public boolean isJmpFar() {
+		return Code.isJmpFar(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>CALL NEAR</code> instruction
+	 */
+	public boolean isCallNear() {
+		return Code.isCallNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>CALL FAR</code> instruction
+	 */
+	public boolean isCallFar() {
+		return Code.isCallFar(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP NEAR reg/[mem]</code> instruction
+	 */
+	public boolean isJmpNearIndirect() {
+		return Code.isJmpNearIndirect(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JMP FAR [mem]</code> instruction
+	 */
+	public boolean isJmpFarIndirect() {
+		return Code.isJmpFarIndirect(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>CALL NEAR reg/[mem]</code> instruction
+	 */
+	public boolean isCallNearIndirect() {
+		return Code.isCallNearIndirect(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>CALL FAR [mem]</code> instruction
+	 */
+	public boolean isCallFarIndirect() {
+		return Code.isCallFarIndirect(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JKccD SHORT</code> or <code>JKccD NEAR</code> instruction
+	 */
+	public boolean isJkccShortOrNear() {
+		return Code.isJkccShortOrNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JKccD NEAR</code> instruction
+	 */
+	public boolean isJkccNear() {
+		return Code.isJkccNear(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JKccD SHORT</code> instruction
+	 */
+	public boolean isJkccShort() {
+		return Code.isJkccShort(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>JCXZ SHORT</code>, <code>JECXZ SHORT</code> or <code>JRCXZ SHORT</code> instruction
+	 */
+	public boolean isJcxShort() {
+		return Code.isJcxShort(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>LOOPcc SHORT</code> instruction
+	 */
+	public boolean isLoopcc() {
+		return Code.isLoopcc(getCode());
+	}
+
+	/**
+	 * Checks if it's a <code>LOOP SHORT</code> instruction
+	 */
+	public boolean isLoop() {
+		return Code.isLoop(getCode());
+	}
+
+	/**
+	 * Negates the condition code, eg.<!-- --> <code>JE</code> -> <code>JNE</code>. Can be used if it's <code>Jcc</code>, <code>SETcc</code>,
+	 * <code>CMOVcc</code>, <code>LOOPcc</code>
+	 * and does nothing if the instruction doesn't have a condition code.
+	 */
+	public void negateConditionCode() {
+		setCode(Code.negateConditionCode(getCode()));
+	}
+
+	/**
+	 * Converts <code>Jcc/JMP NEAR</code> to <code>Jcc/JMP SHORT</code> and does nothing if it's not a <code>Jcc/JMP NEAR</code> instruction
+	 */
+	public void toShortBranch() {
+		setCode(Code.toShortBranch(getCode()));
+	}
+
+	/**
+	 * Converts <code>Jcc/JMP SHORT</code> to <code>Jcc/JMP NEAR</code> and does nothing if it's not a <code>Jcc/JMP SHORT</code> instruction
+	 */
+	public void toNearBranch() {
+		setCode(Code.toNearBranch(getCode()));
+	}
+
+	/**
+	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's <code>Jcc</code>, <code>SETcc</code>, <code>CMOVcc</code>,
+	 * <code>LOOPcc</code> else {@link ConditionCode#NONE} is returned
+	 */
+	public int getConditionCode() {
+		return Code.conditionCode(getCode());
+	}
+
+	/**
+	 * Checks if it's a string instruction such as <code>MOVS</code>, <code>LODS</code>, <code>STOS</code>, etc.
+	 */
+	public boolean isStringInstruction() {
+		return Code.isStringInstruction(getCode());
+	}
+
 	private static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
 		int opKind = getImmediateOpKind(instruction.getCode(), operand);
 		instruction.setOpKind(operand, opKind);
@@ -2299,8 +2639,8 @@ public final class Instruction {
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
 		int opKind = operands[operand].getImmediateOpKind();
 		if (opKind == OpKind.IMMEDIATE8 &&
-			operand > 0 &&
-			operand + 1 == operands.length) {
+				operand > 0 &&
+				operand + 1 == operands.length) {
 			int opKindPrev = operands[operand - 1].getImmediateOpKind();
 			if (opKindPrev == OpKind.IMMEDIATE8 || opKindPrev == OpKind.IMMEDIATE16)
 				opKind = OpKind.IMMEDIATE8_2ND;

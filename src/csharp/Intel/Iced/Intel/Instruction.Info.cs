@@ -268,12 +268,8 @@ namespace Iced.Intel {
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
 		public readonly CpuidFeature[] CpuidFeatures {
-			get {
-				var code = Code;
-				uint flags2 = InstructionInfoInternal.InstrInfoTable.Data[(int)code * 2 + 1];
-				var cpuidFeature = (InstructionInfoInternal.CpuidFeatureInternal)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalMask);
-				return InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
-			}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.CpuidFeatures();
 		}
 
 		/// <summary>
