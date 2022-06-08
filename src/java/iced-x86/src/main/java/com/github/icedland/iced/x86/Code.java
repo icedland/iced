@@ -72,7 +72,7 @@ public final class Code {
 	 */
 	@SuppressWarnings("deprecation")
 	public static OpCodeInfo toOpCode(int code) {
-		return com.github.icedland.iced.x86.info.OpCodeInfos.opCodes[code];
+		return com.github.icedland.iced.x86.info.InternalOpCodeInfos.opCodes[code];
 	}
 
 	/**

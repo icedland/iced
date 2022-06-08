@@ -15,7 +15,7 @@ import com.github.icedland.iced.x86.internal.enc.EncoderData;
  * @deprecated Not part of the public API
  */
 @Deprecated
-public final class OpCodeInfos {
+public final class InternalOpCodeInfos {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 *
