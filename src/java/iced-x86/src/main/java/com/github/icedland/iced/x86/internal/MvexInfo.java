@@ -56,25 +56,25 @@ public final class MvexInfo {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getCanUseEvictionHint(int code) {
+	public static boolean canUseEvictionHint(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.EVICTION_HINT) != 0;
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getCanUseImmRoundingControl(int code) {
+	public static boolean canUseImmRoundingControl(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.IMM_ROUNDING_CONTROL) != 0;
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getCanUseRoundingControl(int code) {
+	public static boolean canUseRoundingControl(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.ROUNDING_CONTROL) != 0;
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static boolean getCanUseSuppressAllExceptions(int code) {
+	public static boolean canUseSuppressAllExceptions(int code) {
 		int index = code - (int)IcedConstants.MVEX_START;
 		return (data[index * MvexInfoData.STRUCT_SIZE + MvexInfoData.FLAGS1_INDEX] & MvexInfoFlags1.SUPPRESS_ALL_EXCEPTIONS) != 0;
 	}

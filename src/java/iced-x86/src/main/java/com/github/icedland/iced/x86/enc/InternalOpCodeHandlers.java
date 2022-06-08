@@ -650,7 +650,7 @@ public final class InternalOpCodeHandlers {
 				else
 					encoder.setErrorMessage("Memory operands must use a valid MvexRegMemConv variant, eg. MvexRegMemConv.MEM_CONV_NONE");
 				if (instruction.getMvexEvictionHint()) {
-					if (MvexInfo.getCanUseEvictionHint(instruction.getCode()))
+					if (MvexInfo.canUseEvictionHint(instruction.getCode()))
 						b |= 0x80;
 					else
 						encoder.setErrorMessage("This instruction doesn't support eviction hint (`{eh}`)");

@@ -3,6 +3,7 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.info.OpCodeInfo;
 import com.github.icedland.iced.x86.internal.EncoderOpCodeHandlers;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
@@ -2007,13 +2008,12 @@ public final class Instruction {
 		return getMemoryBase() == Register.EIP ? getMemoryDisplacement32() : getMemoryDisplacement64();
 	}
 
-	// TODO:
-	// /**
-	// * Gets the {@link OpCodeInfo}
-	// */
-	// public OpCodeInfo getOpCode() {
-	// return getCode().ToOpCode();
-	// }
+	/**
+	 * Gets an {@link OpCodeInfo}
+	 */
+	public OpCodeInfo getOpCode() {
+		return Code.toOpCode(getCode());
+	}
 
 	/**
 	 * Gets the number of bytes added to <code>SP</code>/<code>ESP</code>/<code>RSP</code> or 0 if it's not an instruction that pushes or pops data.

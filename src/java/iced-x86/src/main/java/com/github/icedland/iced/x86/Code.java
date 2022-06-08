@@ -3,6 +3,7 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.info.OpCodeInfo;
 import com.github.icedland.iced.x86.internal.InstrInfoTable;
 import com.github.icedland.iced.x86.internal.MnemonicUtilsData;
 import com.github.icedland.iced.x86.internal.info.CpuidFeatureInternalData;
@@ -64,15 +65,15 @@ public final class Code {
 		}
 	}
 
-	//TODO:
-	// /**
-	//  * Gets a {@link OpCodeInfo}
-	//  *
-	//  * @param code Code value (a {@link Code} enum variant)
-	//  */
-	// public static OpCodeInfo toOpCode(int code) {
-	// 	return OpCodeInfos.Infos[code];
-	// }
+	/**
+	 * Gets an {@link OpCodeInfo}
+	 *
+	 * @param code Code value (a {@link Code} enum variant)
+	 */
+	@SuppressWarnings("deprecation")
+	public static OpCodeInfo toOpCode(int code) {
+		return com.github.icedland.iced.x86.info.OpCodeInfos.opCodes[code];
+	}
 
 	/**
 	 * Gets the encoding (an {@link EncodingKind} enum variant), eg.<!-- --> Legacy, 3DNow!, VEX, EVEX, XOP
