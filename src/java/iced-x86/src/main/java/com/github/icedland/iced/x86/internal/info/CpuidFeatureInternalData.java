@@ -3,9 +3,31 @@
 
 package com.github.icedland.iced.x86.internal.info;
 
+import com.github.icedland.iced.x86.internal.IcedConstants;
+
 /** DO NOT USE: INTERNAL API */
 public final class CpuidFeatureInternalData {
 	private CpuidFeatureInternalData() {
+	}
+
+	public static final int[][] toCpuidFeatures = getCpuidFeatures();
+
+	@SuppressWarnings("deprecation")
+	static int[][] getCpuidFeatures() {
+		byte[] data = getCpuidFeaturesData();
+		com.github.icedland.iced.x86.internal.DataReader reader = new com.github.icedland.iced.x86.internal.DataReader(data);
+		reader.setIndex((IcedConstants.MAX_CPUID_FEATURE_INTERNAL_VALUES + 7) / 8);
+		int[][] cpuidFeatures = new int[IcedConstants.MAX_CPUID_FEATURE_INTERNAL_VALUES][];
+		for (int i = 0; i < cpuidFeatures.length; i++) {
+			byte b = data[i / 8];
+			int[] features = new int[((b >>> (i % 8)) & 1) + 1];
+			for (int j = 0; j < features.length; j++)
+				features[j] = reader.ReadByte();
+			cpuidFeatures[i] = features;
+		}
+		if (reader.canRead())
+			throw new UnsupportedOperationException();
+		return cpuidFeatures;
 	}
 
 	// GENERATOR-BEGIN: Table

@@ -3,7 +3,10 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.internal.InstrInfoTable;
 import com.github.icedland.iced.x86.internal.MnemonicUtilsData;
+import com.github.icedland.iced.x86.internal.info.CpuidFeatureInternalData;
+import com.github.icedland.iced.x86.internal.info.InfoFlags2;
 
 /**
  * x86 instruction code
@@ -77,10 +80,9 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static int encoding(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// return (data[index] >>> InfoFlags2.EncodingShift) & (uint)InfoFlags2.EncodingMask;
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		return (data[index] >>> InfoFlags2.ENCODING_SHIFT) & InfoFlags2.ENCODING_MASK;
 	}
 
 	/**
@@ -89,12 +91,11 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static int[] cpuidFeatures(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// int cpuidFeature = (data[index] >>> InfoFlags2.CpuidFeatureInternalShift)
-		// 		& (uint)InfoFlags2.CpuidFeatureInternalMask;
-		// return CpuidFeatureInternalData.ToCpuidFeatures[cpuidFeature];
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		int cpuidFeature = (data[index] >>> InfoFlags2.CPUID_FEATURE_INTERNAL_SHIFT)
+				& InfoFlags2.CPUID_FEATURE_INTERNAL_MASK;
+		return CpuidFeatureInternalData.toCpuidFeatures[cpuidFeature];
 	}
 
 	/**
@@ -103,10 +104,9 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static int flowControl(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// return (data[index] >>> InfoFlags2.FlowControlShift) & (uint)InfoFlags2.FlowControlMask;
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		return (data[index] >>> InfoFlags2.FLOW_CONTROL_SHIFT) & InfoFlags2.FLOW_CONTROL_MASK;
 	}
 
 	/**
@@ -116,10 +116,9 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static boolean isPrivileged(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// return (data[index] & (uint)InfoFlags2.Privileged) != 0;
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		return (data[index] & InfoFlags2.PRIVILEGED) != 0;
 	}
 
 	/**
@@ -131,10 +130,9 @@ public final class Code {
 	 * @see Instruction#getStackPointerIncrement()
 	 */
 	public static boolean isStackInstruction(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// return (data[index] & (uint)InfoFlags2.StackInstruction) != 0;
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		return (data[index] & InfoFlags2.STACK_INSTRUCTION) != 0;
 	}
 
 	/**
@@ -143,10 +141,9 @@ public final class Code {
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
 	public static boolean isSaveRestoreInstruction(int code) {
-		throw new UnsupportedOperationException(); //TODO:
-		// int[] data = InstrInfoTable.Data;
-		// int index = code * 2 + 1;
-		// return (data[index] & (uint)InfoFlags2.SaveRestore) != 0;
+		int[] data = InstrInfoTable.data;
+		int index = code * 2 + 1;
+		return (data[index] & InfoFlags2.SAVE_RESTORE) != 0;
 	}
 
 	/**
