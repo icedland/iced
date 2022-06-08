@@ -3,6 +3,9 @@
 
 package com.github.icedland.iced.x86.info;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import com.github.icedland.iced.x86.Mnemonic;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.enc.EncoderData;
 
@@ -28,9 +31,30 @@ public final class OpCodeInfos {
 		int[] encFlags3 = EncoderData.encFlags3;
 		int[] opcFlags1 = OpCodeInfoData.opcFlags1;
 		int[] opcFlags2 = OpCodeInfoData.opcFlags2;
+		String[] mnemonics = getMnemonics();
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < infos.length; i++)
-			infos[i] = new OpCodeInfo(i, encFlags1[i], encFlags2[i], encFlags3[i], opcFlags1[i], opcFlags2[i], sb);
+			infos[i] = new OpCodeInfo(i, encFlags1[i], encFlags2[i], encFlags3[i], opcFlags1[i], opcFlags2[i], sb, mnemonics);
 		return infos;
+	}
+
+	private static String[] getMnemonics() {
+		String[] mnemonics = new String[IcedConstants.MNEMONIC_ENUM_COUNT];
+		for (Field field : Mnemonic.class.getDeclaredFields()) {
+			if ((field.getModifiers() & (Modifier.STATIC | Modifier.FINAL)) != (Modifier.STATIC | Modifier.FINAL))
+				continue;
+			int value;
+			try {
+				value = field.getInt(null);
+			} catch (IllegalAccessException ex) {
+				throw new UnsupportedOperationException();
+			}
+			mnemonics[value] = field.getName();
+		}
+		for (String s : mnemonics) {
+			if (s == null)
+				throw new UnsupportedOperationException();
+		}
+		return mnemonics;
 	}
 }

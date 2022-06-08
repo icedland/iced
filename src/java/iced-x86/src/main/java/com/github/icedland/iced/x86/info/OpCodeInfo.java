@@ -71,7 +71,7 @@ public final class OpCodeInfo {
 		static final int CPL3 = 0x00000200;
 	}
 
-	OpCodeInfo(int code, int encFlags1, int encFlags2, int encFlags3, int opcFlags1, int opcFlags2, StringBuilder sb) {
+	OpCodeInfo(int code, int encFlags1, int encFlags2, int encFlags3, int opcFlags1, int opcFlags2, StringBuilder sb, String[] mnemonics) {
 		this.code = code;
 		this.encFlags2 = encFlags2;
 		this.encFlags3 = encFlags3;
@@ -345,7 +345,7 @@ public final class OpCodeInfo {
 		flags = flagsTmp;
 		this.toOpCodeStringValue = new OpCodeFormatter(this, sb, lkind, (opcFlags1 & OpCodeInfoFlags1.MOD_REG_RM_STRING) != 0).format();
 		int fmtOption = (opcFlags2 >>> OpCodeInfoFlags2.INSTR_STR_FMT_OPTION_SHIFT) & OpCodeInfoFlags2.INSTR_STR_FMT_OPTION_MASK;
-		this.toInstructionStringValue = null;//TODO:toInstructionStringValue ?? new InstructionFormatter(this, fmtOption, sb).Format();
+		this.toInstructionStringValue = new InstructionFormatter(this, fmtOption, sb, mnemonics).format();
 	}
 
 	/**
