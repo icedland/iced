@@ -27,6 +27,28 @@ public final class ResourceReader {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
+	public static short[] ReadShortArray(ClassLoader classLoader, String resourceName) {
+		InputStream stream = classLoader.getResourceAsStream(resourceName);
+		if (stream == null)
+			throw new IllegalArgumentException();
+		byte[] bytes;
+		try {
+			bytes = stream.readAllBytes();
+		} catch (IOException ioex) {
+			throw new IllegalArgumentException();
+		}
+		if ((bytes.length & 1) != 0)
+			throw new IllegalArgumentException();
+		short[] result = new short[bytes.length / 2];
+		for (int i = 0, j = 0; i < bytes.length; i += 2, j++) {
+			result[j] = (short)((bytes[i] & 0xFF) | (bytes[i + 1] << 8));
+		}
+		return result;
+	}
+
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
 	public static int[] ReadIntArray(ClassLoader classLoader, String resourceName) {
 		InputStream stream = classLoader.getResourceAsStream(resourceName);
 		if (stream == null)

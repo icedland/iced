@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-using System;
+using System.Linq;
+using Generator.Enums;
 using Generator.IO;
 using Generator.Tables;
 
@@ -17,52 +18,19 @@ namespace Generator.Decoder.Java {
 		}
 
 		public void Generate() {
-			var icedConstants = genTypes.GetConstantsType(TypeIds.IcedConstants);
 			var defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
-			const string ClassName = "InstructionMemorySizes";
-			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetFilename(genTypes, JavaConstants.IcedInternalPackage, ClassName + ".java")))) {
-				writer.WriteFileHeader();
-				writer.WriteLine($"package {JavaConstants.IcedInternalPackage};");
-				writer.WriteLine();
-				var memSizeEnum = genTypes[TypeIds.MemorySize];
-				writer.WriteLine($"import com.github.icedland.iced.x86.{memSizeEnum.Name(idConverter)};");
-				writer.WriteLine();
-				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-				writer.WriteLine($"public final class {ClassName} {{");
-				using (writer.Indent()) {
-					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-					writer.WriteLine("public static final byte[] sizesNormal = new byte[] {");
-					using (writer.Indent()) {
-						foreach (var def in defs) {
-							if (def.Memory.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							string value;
-							if (def.Memory.Value == 0)
-								value = "0";
-							else
-								value = $"(byte){idConverter.ToDeclTypeAndValue(def.Memory)}";
-							writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
-						}
+			const string className = "InstructionMemorySizes";
+			var data = new (string name, EnumValue[] values)[] {
+				("sizesNormal", defs.Select(a => a.Memory).ToArray()),
+				("sizesBcst", defs.Select(a => a.MemoryBroadcast).ToArray()),
+			};
+			foreach (var (name, values) in data) {
+				var filename = JavaConstants.GetResourceFilename(genTypes, JavaConstants.IcedPackage, className + "." + name + ".bin");
+				using (var writer = new BinaryByteTableWriter(filename)) {
+					foreach (var value in values) {
+						writer.WriteByte(checked((byte)value.Value));
 					}
-					writer.WriteLine("};");
-					writer.WriteLine();
-					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-					writer.WriteLine($"public static final byte[] sizesBcst = new byte[] {{");
-					using (writer.Indent()) {
-						foreach (var def in defs) {
-							if (def.MemoryBroadcast.Value > byte.MaxValue)
-								throw new InvalidOperationException();
-							string value;
-							if (def.MemoryBroadcast.Value == 0)
-								value = "0";
-							else
-								value = $"(byte){idConverter.ToDeclTypeAndValue(def.MemoryBroadcast)}";
-							writer.WriteLine($"{value},// {def.Code.Name(idConverter)}");
-						}
-					}
-					writer.WriteLine("};");
 				}
-				writer.WriteLine("}");
 			}
 		}
 	}
