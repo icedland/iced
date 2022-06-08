@@ -26,7 +26,11 @@ import com.github.icedland.iced.x86.internal.enc.OpTables;
 import com.github.icedland.iced.x86.internal.enc.VexOpCodeTable;
 import com.github.icedland.iced.x86.internal.enc.WBit;
 
-/** DO NOT USE: INTERNAL API */
+/**
+ * DO NOT USE: INTERNAL API
+ *
+ * @deprecated Not part of the public API
+ */
 @Deprecated
 public final class InternalOpCodeHandlers {
 	InternalOpCodeHandlers() {
