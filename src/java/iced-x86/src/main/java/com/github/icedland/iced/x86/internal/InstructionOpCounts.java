@@ -5,7 +5,9 @@
 
 package com.github.icedland.iced.x86.internal;
 
+/** DO NOT USE: INTERNAL API */
 public final class InstructionOpCounts {
+	/** DO NOT USE: INTERNAL API */
 	public static final byte[] opCount = new byte[] {
 		0,// INVALID
 		0,// DECLARE_BYTE

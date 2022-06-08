@@ -27,8 +27,10 @@ namespace Generator.Decoder.Java {
 				var mnemonicEnum = genTypes[TypeIds.Mnemonic];
 				writer.WriteLine($"import com.github.icedland.iced.x86.{mnemonicEnum.Name(idConverter)};");
 				writer.WriteLine();
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 				writer.WriteLine($"public final class {ClassName} {{");
 				using (writer.Indent()) {
+					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 					writer.WriteLine("public static final short[] toMnemonic = new short[] {");
 					using (writer.Indent()) {
 						foreach (var def in defs) {

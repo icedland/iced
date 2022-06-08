@@ -27,8 +27,10 @@ namespace Generator.Decoder.Java {
 				var memSizeEnum = genTypes[TypeIds.MemorySize];
 				writer.WriteLine($"import com.github.icedland.iced.x86.{memSizeEnum.Name(idConverter)};");
 				writer.WriteLine();
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 				writer.WriteLine($"public final class {ClassName} {{");
 				using (writer.Indent()) {
+					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 					writer.WriteLine("public static final byte[] sizesNormal = new byte[] {");
 					using (writer.Indent()) {
 						foreach (var def in defs) {
@@ -44,6 +46,7 @@ namespace Generator.Decoder.Java {
 					}
 					writer.WriteLine("};");
 					writer.WriteLine();
+					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 					writer.WriteLine($"public static final byte[] sizesBcst = new byte[] {{");
 					using (writer.Indent()) {
 						foreach (var def in defs) {

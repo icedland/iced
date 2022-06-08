@@ -7,7 +7,9 @@ package com.github.icedland.iced.x86.internal;
 
 import com.github.icedland.iced.x86.Mnemonic;
 
+/** DO NOT USE: INTERNAL API */
 public final class MnemonicUtilsData {
+	/** DO NOT USE: INTERNAL API */
 	public static final short[] toMnemonic = new short[] {
 		(short)Mnemonic.INVALID,// INVALID
 		(short)Mnemonic.DB,// DECLARE_BYTE

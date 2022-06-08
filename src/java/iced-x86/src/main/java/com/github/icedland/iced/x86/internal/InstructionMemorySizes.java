@@ -7,7 +7,9 @@ package com.github.icedland.iced.x86.internal;
 
 import com.github.icedland.iced.x86.MemorySize;
 
+/** DO NOT USE: INTERNAL API */
 public final class InstructionMemorySizes {
+	/** DO NOT USE: INTERNAL API */
 	public static final byte[] sizesNormal = new byte[] {
 		0,// INVALID
 		0,// DECLARE_BYTE
@@ -4845,6 +4847,7 @@ public final class InstructionMemorySizes {
 		0,// ZERO_BYTES
 	};
 
+	/** DO NOT USE: INTERNAL API */
 	public static final byte[] sizesBcst = new byte[] {
 		0,// INVALID
 		0,// DECLARE_BYTE

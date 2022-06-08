@@ -23,8 +23,10 @@ namespace Generator.Decoder.Java {
 				writer.WriteFileHeader();
 				writer.WriteLine($"package {JavaConstants.IcedInternalPackage};");
 				writer.WriteLine();
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 				writer.WriteLine($"public final class {ClassName} {{");
 				using (writer.Indent()) {
+					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
 					writer.WriteLine("public static final byte[] opCount = new byte[] {");
 					using (writer.Indent()) {
 						foreach (var def in defs)
