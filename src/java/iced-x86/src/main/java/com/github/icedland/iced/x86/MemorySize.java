@@ -3,6 +3,8 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.internal.IcedConstants;
+
 /**
  * Size of a memory reference
  */
@@ -63,6 +65,15 @@ public final class MemorySize {
 	 */
 	public static boolean isSigned(int memorySize) {
 		return MemorySize.getInfo(memorySize).isSigned();
+	}
+
+	/**
+	 * Checks if <code>memorySize</code> is a broadcast memory type
+	 *
+	 * @param memorySize Memory size (a {@link MemorySize} enum variant)
+	 */
+	public static boolean isBroadcast(int memorySize) {
+		return Integer.compareUnsigned(memorySize, IcedConstants.FIRST_BROADCAST_MEMORY_SIZE) >= 0;
 	}
 
 	/**
