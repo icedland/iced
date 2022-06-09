@@ -662,7 +662,10 @@ impl Encoder {
 					self.displ = addr as u32;
 					self.displ_hi = (addr >> 32) as u32;
 				}
-				_ => unreachable!(),
+				_ => self.set_error_message(format!(
+					"Operand {}: Instruction::memory_displ_size() must be initialized to 2 (16-bit), 4 (32-bit) or 8 (64-bit)",
+					operand
+				)),
 			}
 		} else {
 			if cfg!(debug_assertions) {
