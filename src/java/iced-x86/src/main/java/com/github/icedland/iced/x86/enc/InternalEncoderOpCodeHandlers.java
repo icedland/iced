@@ -1,18 +1,17 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-package com.github.icedland.iced.x86.internal;
+package com.github.icedland.iced.x86.enc;
 
 import com.github.icedland.iced.x86.Code;
 import com.github.icedland.iced.x86.EncodingKind;
-import com.github.icedland.iced.x86.enc.InternalOpCodeHandlers;
+import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.enc.EncFlags3;
 import com.github.icedland.iced.x86.internal.enc.EncoderData;
-import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
 
 /** DO NOT USE: INTERNAL API */
-public final class EncoderOpCodeHandlers {
-	private EncoderOpCodeHandlers() {
+public final class InternalEncoderOpCodeHandlers {
+	private InternalEncoderOpCodeHandlers() {
 	}
 
 	/** DO NOT USE: INTERNAL API */

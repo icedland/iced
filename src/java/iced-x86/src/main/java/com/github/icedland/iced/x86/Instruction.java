@@ -3,8 +3,10 @@
 
 package com.github.icedland.iced.x86;
 
+import com.github.icedland.iced.x86.enc.InternalEncoderOpCodeHandlers;
+import com.github.icedland.iced.x86.enc.Op;
+import com.github.icedland.iced.x86.enc.OpCodeHandler;
 import com.github.icedland.iced.x86.info.OpCodeInfo;
-import com.github.icedland.iced.x86.internal.EncoderOpCodeHandlers;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.InstrFlags1;
 import com.github.icedland.iced.x86.internal.InstrInfoTable;
@@ -13,8 +15,6 @@ import com.github.icedland.iced.x86.internal.InstructionOpCounts;
 import com.github.icedland.iced.x86.internal.MvexInfo;
 import com.github.icedland.iced.x86.internal.MvexInstrFlags;
 import com.github.icedland.iced.x86.internal.MvexMemorySizeLut;
-import com.github.icedland.iced.x86.internal.enc.Op;
-import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
 import com.github.icedland.iced.x86.internal.info.ImpliedAccess;
 import com.github.icedland.iced.x86.internal.info.InfoFlags1;
 import com.github.icedland.iced.x86.internal.info.RflagsInfo;
@@ -2797,16 +2797,19 @@ public final class Instruction {
 	}
 
 	private static int getImmediateOpKind(int code, int operand) {
-		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = InternalEncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
+		@SuppressWarnings("deprecation")
 		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		@SuppressWarnings("deprecation")
 		int opKind = operands[operand].getImmediateOpKind();
 		if (opKind == OpKind.IMMEDIATE8 &&
 				operand > 0 &&
 				operand + 1 == operands.length) {
+			@SuppressWarnings("deprecation")
 			int opKindPrev = operands[operand - 1].getImmediateOpKind();
 			if (opKindPrev == OpKind.IMMEDIATE8 || opKindPrev == OpKind.IMMEDIATE16)
 				opKind = OpKind.IMMEDIATE8_2ND;
@@ -2817,12 +2820,14 @@ public final class Instruction {
 	}
 
 	private static int getNearBranchOpKind(int code, int operand) {
-		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = InternalEncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
+		@SuppressWarnings("deprecation")
 		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		@SuppressWarnings("deprecation")
 		int opKind = operands[operand].getNearBranchOpKind();
 		if (opKind == -1)
 			throw new IllegalArgumentException(String.format("Code %d's op%d isn't a near branch operand", code, operand));
@@ -2830,12 +2835,14 @@ public final class Instruction {
 	}
 
 	private static int getFarBranchOpKind(int code, int operand) {
-		OpCodeHandler[] handlers = EncoderOpCodeHandlers.handlers;
+		OpCodeHandler[] handlers = InternalEncoderOpCodeHandlers.handlers;
 		if (Integer.compareUnsigned(code, handlers.length) >= 0)
 			throw new IllegalArgumentException("code");
+		@SuppressWarnings("deprecation")
 		Op[] operands = handlers[code].operands;
 		if (Integer.compareUnsigned(operand, operands.length) >= 0)
 			throw new IllegalArgumentException(String.format("Code %d doesn't have at least %d operands", code, operand + 1));
+		@SuppressWarnings("deprecation")
 		int opKind = operands[operand].getFarBranchOpKind();
 		if (opKind == -1)
 			throw new IllegalArgumentException(String.format("Code %d's op%d isn't a far branch operand", code, operand));

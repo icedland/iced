@@ -1,35 +1,54 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
-package com.github.icedland.iced.x86.internal.enc;
+// These access Encoder fields/methods so must be in the same package
 
+package com.github.icedland.iced.x86.enc;
+
+import com.github.icedland.iced.x86.Code;
 import com.github.icedland.iced.x86.Instruction;
 import com.github.icedland.iced.x86.OpKind;
 import com.github.icedland.iced.x86.Register;
-import com.github.icedland.iced.x86.enc.Encoder;
+import com.github.icedland.iced.x86.internal.enc.EncoderFlags;
+import com.github.icedland.iced.x86.internal.enc.ImmSize;
 
 /** DO NOT USE: INTERNAL API */
 public abstract class Op {
-	/** DO NOT USE: INTERNAL API */
-	public static final Op[] operands_3dnow = new Op[] {
+	Op() {}
+
+	static final Op[] operands_3dnow = new Op[] {
 		new OpModRM_reg(Register.MM0, Register.MM7),
 		new OpModRM_rm(Register.MM0, Register.MM7),
 	};
 
-	/** DO NOT USE: INTERNAL API */
-	public abstract void encode(Encoder encoder, Instruction instruction, int operand);
+	abstract void encode(Encoder encoder, Instruction instruction, int operand);
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public int getImmediateOpKind() {
 		return -1;
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public int getNearBranchOpKind() {
 		return -1;
 	}
 
-	/** DO NOT USE: INTERNAL API */
+	/**
+	 * DO NOT USE: INTERNAL API
+	 *
+	 * @deprecated Not part of the public API
+	 */
+	@Deprecated
 	public int getFarBranchOpKind() {
 		return -1;
 	}
@@ -38,18 +57,15 @@ public abstract class Op {
 final class OpModRM_rm_mem_only extends Op {
 	private final boolean mustUseSib;
 
-	public OpModRM_rm_mem_only(boolean mustUseSib) {
+	OpModRM_rm_mem_only(boolean mustUseSib) {
 		this.mustUseSib = mustUseSib;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		if (mustUseSib)
 			encoder.encoderFlags |= EncoderFlags.MUST_USE_SIB;
 		encoder.addRegOrMem(instruction, operand, Register.NONE, Register.NONE, true, false);
-		*/
 	}
 }
 
@@ -57,17 +73,14 @@ final class OpModRM_rm extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpModRM_rm(int regLo, int regHi) {
+	OpModRM_rm(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addRegOrMem(instruction, operand, regLo, regHi, true, true);
-		*/
 	}
 }
 
@@ -75,17 +88,14 @@ final class OpRegEmbed8 extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpRegEmbed8(int regLo, int regHi) {
+	OpRegEmbed8(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addReg(instruction, operand, regLo, regHi);
-		*/
 	}
 }
 
@@ -93,17 +103,14 @@ final class OpModRM_rm_reg_only extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpModRM_rm_reg_only(int regLo, int regHi) {
+	OpModRM_rm_reg_only(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addRegOrMem(instruction, operand, regLo, regHi, false, true);
-		*/
 	}
 }
 
@@ -111,17 +118,14 @@ final class OpModRM_reg extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpModRM_reg(int regLo, int regHi) {
+	OpModRM_reg(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addModRMRegister(instruction, operand, regLo, regHi);
-		*/
 	}
 }
 
@@ -129,18 +133,15 @@ final class OpModRM_reg_mem extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpModRM_reg_mem(int regLo, int regHi) {
+	OpModRM_reg_mem(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addModRMRegister(instruction, operand, regLo, regHi);
 		encoder.encoderFlags |= EncoderFlags.REG_IS_MEMORY;
-		*/
 	}
 }
 
@@ -148,15 +149,13 @@ final class OpModRM_regF0 extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpModRM_regF0(int regLo, int regHi) {
+	OpModRM_regF0(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		if (encoder.getBitness() != 64 && instruction.getOpKind(operand) == OpKind.REGISTER && instruction.getOpRegister(operand) >= regLo + 8
 				&& instruction.getOpRegister(operand) <= regLo + 15) {
 			encoder.encoderFlags |= EncoderFlags.PF0;
@@ -164,40 +163,33 @@ final class OpModRM_regF0 extends Op {
 		}
 		else
 			encoder.addModRMRegister(instruction, operand, regLo, regHi);
-		*/
 	}
 }
 
 final class OpReg extends Op {
 	private final int register;
 
-	public OpReg(int register) {
+	OpReg(int register) {
 		this.register = register;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		encoder.verify(operand, OpKind.REGISTER, instruction.getOpKind(operand));
-		encoder.verify(operand, register, instruction.getOpRegister(operand));
-		*/
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		encoder.verifyOpKind(operand, OpKind.REGISTER, instruction.getOpKind(operand));
+		encoder.verifyRegister(operand, register, instruction.getOpRegister(operand));
 	}
 }
 
 final class OpRegSTi extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
 			return;
 		int reg = instruction.getOpRegister(operand);
 		if (!encoder.verify(operand, reg, Register.ST0, Register.ST7))
 			return;
 		assert (encoder.opCode & 7) == 0 : encoder.opCode;
 		encoder.opCode |= (reg - Register.ST0);
-		*/
 	}
 }
 
@@ -213,54 +205,49 @@ final class OprDI extends Op {
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		int regSize = GetRegSize(instruction.getOpKind(operand));
 		if (regSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_SEG_DI, MEMORY_SEG_EDI or MEMORY_SEG_RDI", operand));
 			return;
 		}
 		encoder.setAddrSize(regSize);
-		*/
 	}
 }
 
 final class OpIb extends Op {
 	private final int opKind;
 
-	public OpIb(int opKind) {
+	OpIb(int opKind) {
 		this.opKind = opKind;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		switch (encoder.immSize) {
 		case ImmSize.SIZE1:
-			if (!encoder.verify(operand, OpKind.IMMEDIATE8_2ND, instruction.getOpKind(operand)))
+			if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE8_2ND, instruction.getOpKind(operand)))
 				return;
 			encoder.immSize = ImmSize.SIZE1_1;
 			encoder.immediateHi = instruction.getImmediate8_2nd();
 			break;
 		case ImmSize.SIZE2:
-			if (!encoder.verify(operand, OpKind.IMMEDIATE8_2ND, instruction.getOpKind(operand)))
+			if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE8_2ND, instruction.getOpKind(operand)))
 				return;
 			encoder.immSize = ImmSize.SIZE2_1;
 			encoder.immediateHi = instruction.getImmediate8_2nd();
 			break;
 		default:
 			int opImmKind = instruction.getOpKind(operand);
-			if (!encoder.verify(operand, opKind, opImmKind))
+			if (!encoder.verifyOpKind(operand, opKind, opImmKind))
 				return;
 			encoder.immSize = ImmSize.SIZE1;
 			encoder.immediate = instruction.getImmediate8();
 			break;
 		}
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return opKind;
@@ -269,16 +256,14 @@ final class OpIb extends Op {
 
 final class OpIw extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.IMMEDIATE16, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE16, instruction.getOpKind(operand)))
 			return;
 		encoder.immSize = ImmSize.SIZE2;
 		encoder.immediate = instruction.getImmediate16();
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return OpKind.IMMEDIATE16;
@@ -288,22 +273,20 @@ final class OpIw extends Op {
 final class OpId extends Op {
 	private final int opKind;
 
-	public OpId(int opKind) {
+	OpId(int opKind) {
 		this.opKind = opKind;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		int opImmKind = instruction.getOpKind(operand);
-		if (!encoder.verify(operand, opKind, opImmKind))
+		if (!encoder.verifyOpKind(operand, opKind, opImmKind))
 			return;
 		encoder.immSize = ImmSize.SIZE4;
 		encoder.immediate = instruction.getImmediate32();
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return opKind;
@@ -312,18 +295,16 @@ final class OpId extends Op {
 
 final class OpIq extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.IMMEDIATE64, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE64, instruction.getOpKind(operand)))
 			return;
 		encoder.immSize = ImmSize.SIZE8;
 		long imm = instruction.getImmediate64();
 		encoder.immediate = (int)imm;
 		encoder.immediateHi = (int)(imm >>> 32);
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return OpKind.IMMEDIATE64;
@@ -332,11 +313,9 @@ final class OpIq extends Op {
 
 final class OpI4 extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		int opImmKind = instruction.getOpKind(operand);
-		if (!encoder.verify(operand, OpKind.IMMEDIATE8, opImmKind))
+		if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE8, opImmKind))
 			return;
 		assert encoder.immSize == ImmSize.SIZE_IB_REG : encoder.immSize;
 		assert (encoder.immediate & 0xF) == 0 : encoder.immediate;
@@ -347,9 +326,9 @@ final class OpI4 extends Op {
 		}
 		encoder.immSize = ImmSize.SIZE1;
 		encoder.immediate |= instruction.getImmediate8();
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return OpKind.IMMEDIATE8;
@@ -378,9 +357,7 @@ final class OpX extends Op {
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		int regXSize = GetXRegSize(instruction.getOpKind(operand));
 		if (regXSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_SEG_SI, MEMORY_SEG_ESI or MEMORY_SEG_RSI", operand));
@@ -399,15 +376,12 @@ final class OpX extends Op {
 			break;
 		}
 		encoder.setAddrSize(regXSize);
-		*/
 	}
 }
 
 final class OpY extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		int regYSize = OpX.GetYRegSize(instruction.getOpKind(operand));
 		if (regYSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_ESDI, MEMORY_ESEDI or MEMORY_ESRDI", operand));
@@ -427,16 +401,13 @@ final class OpY extends Op {
 			break;
 		}
 		encoder.setAddrSize(regYSize);
-		*/
 	}
 }
 
 final class OpMRBX extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.MEMORY, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.MEMORY, instruction.getOpKind(operand)))
 			return;
 		int baseReg = instruction.getMemoryBase();
 		if (instruction.getMemoryDisplSize() != 0 || instruction.getMemoryDisplacement64() != 0 ||
@@ -455,7 +426,6 @@ final class OpMRBX extends Op {
 			regSize = 2;
 		}
 		encoder.setAddrSize(regSize);
-		*/
 	}
 }
 
@@ -463,19 +433,17 @@ final class OpJ extends Op {
 	private final int opKind;
 	private final int immSize;
 
-	public OpJ(int opKind, int immSize) {
+	OpJ(int opKind, int immSize) {
 		this.opKind = opKind;
 		this.immSize = immSize;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addBranch(opKind, immSize, instruction, operand);
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getNearBranchOpKind() {
 		return opKind;
@@ -485,18 +453,16 @@ final class OpJ extends Op {
 final class OpJx extends Op {
 	private final int immSize;
 
-	public OpJx(int immSize) {
+	OpJx(int immSize) {
 		this.immSize = immSize;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addBranchX(immSize, instruction, operand);
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getNearBranchOpKind() {
 		// xbegin is special and doesn't mask the target IP. We need to know the code size to return the correct value.
@@ -509,18 +475,16 @@ final class OpJx extends Op {
 final class OpJdisp extends Op {
 	private final int displSize;
 
-	public OpJdisp(int displSize) {
+	OpJdisp(int displSize) {
 		this.displSize = displSize;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addBranchDisp(displSize, instruction, operand);
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getNearBranchOpKind() {
 		return displSize == 2 ? OpKind.NEAR_BRANCH16 : OpKind.NEAR_BRANCH32;
@@ -530,19 +494,17 @@ final class OpJdisp extends Op {
 final class OpA extends Op {
 	private final int size;
 
-	public OpA(int size) {
+	OpA(int size) {
 		assert size == 2 || size == 4 : size;
 		this.size = size;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addFarBranch(instruction, operand, size);
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getFarBranchOpKind() {
 		assert size == 2 || size == 4 : size;
@@ -552,35 +514,30 @@ final class OpA extends Op {
 
 final class OpO extends Op {
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.addAbsMem(instruction, operand);
-		*/
 	}
 }
 
 final class OpImm extends Op {
 	private final byte value;
 
-	public OpImm(int value) {
+	OpImm(int value) {
 		assert -0x80 <= value && value <= 0x7F : value;
 		this.value = (byte)value;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.IMMEDIATE8, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE8, instruction.getOpKind(operand)))
 			return;
 		if (instruction.getImmediate8() != value) {
 			encoder.setErrorMessage(String.format("Operand %d: Expected 0x%02X, actual: 0x%02X", operand, value, instruction.getImmediate8()));
 			return;
 		}
-		*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getImmediateOpKind() {
 		return OpKind.IMMEDIATE8;
@@ -591,22 +548,19 @@ final class OpHx extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpHx(int regLo, int regHi) {
+	OpHx(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
 			return;
 		int reg = instruction.getOpRegister(operand);
 		if (!encoder.verify(operand, reg, regLo, regHi))
 			return;
 		encoder.encoderFlags |= (reg - regLo) << EncoderFlags.VVVVV_SHIFT;
-		*/
 	}
 }
 
@@ -614,18 +568,15 @@ final class OpVsib extends Op {
 	private final int vsibIndexRegLo;
 	private final int vsibIndexRegHi;
 
-	public OpVsib(int regLo, int regHi) {
+	OpVsib(int regLo, int regHi) {
 		vsibIndexRegLo = regLo;
 		vsibIndexRegHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
+	void encode(Encoder encoder, Instruction instruction, int operand) {
 		encoder.encoderFlags |= EncoderFlags.MUST_USE_SIB;
 		encoder.addRegOrMem(instruction, operand, Register.NONE, Register.NONE, vsibIndexRegLo, vsibIndexRegHi, true, false);
-		*/
 	}
 }
 
@@ -633,22 +584,19 @@ final class OpIsX extends Op {
 	private final int regLo;
 	private final int regHi;
 
-	public OpIsX(int regLo, int regHi) {
+	OpIsX(int regLo, int regHi) {
 		this.regLo = regLo;
 		this.regHi = regHi;
 	}
 
 	@Override
-	public void encode(Encoder encoder, Instruction instruction, int operand) {
-		throw new UnsupportedOperationException(); // TODO:
-		/*TODO:
-		if (!encoder.verify(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
+	void encode(Encoder encoder, Instruction instruction, int operand) {
+		if (!encoder.verifyOpKind(operand, OpKind.REGISTER, instruction.getOpKind(operand)))
 			return;
 		int reg = instruction.getOpRegister(operand);
 		if (!encoder.verify(operand, reg, regLo, regHi))
 			return;
 		encoder.immSize = ImmSize.SIZE_IB_REG;
 		encoder.immediate = (reg - regLo) << 4;
-		*/
 	}
 }

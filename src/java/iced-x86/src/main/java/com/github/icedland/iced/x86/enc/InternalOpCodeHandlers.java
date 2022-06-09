@@ -20,9 +20,6 @@ import com.github.icedland.iced.x86.internal.enc.EncoderFlags;
 import com.github.icedland.iced.x86.internal.enc.ImmSize;
 import com.github.icedland.iced.x86.internal.enc.LBit;
 import com.github.icedland.iced.x86.internal.enc.LegacyOpCodeTable;
-import com.github.icedland.iced.x86.internal.enc.Op;
-import com.github.icedland.iced.x86.internal.enc.OpCodeHandler;
-import com.github.icedland.iced.x86.internal.enc.OpTables;
 import com.github.icedland.iced.x86.internal.enc.VexOpCodeTable;
 import com.github.icedland.iced.x86.internal.enc.WBit;
 
@@ -48,7 +45,7 @@ public final class InternalOpCodeHandlers {
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.setErrorMessage(ERROR_MESSAGE);
 		}
 	}
@@ -81,13 +78,13 @@ public final class InternalOpCodeHandlers {
 				break;
 			default:
 				throw new UnsupportedOperationException();
-			};
+			}
 			maxLength = 16 / elemLength;
 		}
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			int declDataCount = instruction.getDeclareDataCount();
 			if (declDataCount < 1 || declDataCount > maxLength) {
 				encoder.setErrorMessage(String.format("Invalid db/dw/dd/dq data count. Count = %d, max count = %d", declDataCount, maxLength));
@@ -113,7 +110,7 @@ public final class InternalOpCodeHandlers {
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 		}
 	}
 
@@ -134,7 +131,8 @@ public final class InternalOpCodeHandlers {
 			int op3 = (encFlags1 >>> EncFlags1.LEGACY_OP3_SHIFT) & EncFlags1.LEGACY_OP_MASK;
 			if (op3 != 0) {
 				assert op0 != 0 && op1 != 0 && op2 != 0;
-				return new Op[] { OpTables.legacyOps[op0 - 1], OpTables.legacyOps[op1 - 1], OpTables.legacyOps[op2 - 1], OpTables.legacyOps[op3 - 1] };
+				return new Op[] { OpTables.legacyOps[op0 - 1], OpTables.legacyOps[op1 - 1], OpTables.legacyOps[op2 - 1],
+						OpTables.legacyOps[op3 - 1] };
 			}
 			if (op2 != 0) {
 				assert op0 != 0 && op1 != 0;
@@ -178,26 +176,26 @@ public final class InternalOpCodeHandlers {
 			}
 
 			switch ((encFlags2 >>> EncFlags2.MANDATORY_PREFIX_SHIFT) & EncFlags2.MANDATORY_PREFIX_MASK) {
-				case MandatoryPrefixByte.NONE:
-					mandatoryPrefix = MandatoryPrefixByte.NONE;
-					break;
-				case MandatoryPrefixByte.P66:
-					mandatoryPrefix = MandatoryPrefixByte.P66;
-					break;
-				case MandatoryPrefixByte.PF3:
-					mandatoryPrefix = MandatoryPrefixByte.PF3;
-					break;
-				case MandatoryPrefixByte.PF2:
-					mandatoryPrefix = MandatoryPrefixByte.PF2;
-					break;
-				default:
-					throw new UnsupportedOperationException();
-			};
+			case MandatoryPrefixByte.NONE:
+				mandatoryPrefix = MandatoryPrefixByte.NONE;
+				break;
+			case MandatoryPrefixByte.P66:
+				mandatoryPrefix = MandatoryPrefixByte.P66;
+				break;
+			case MandatoryPrefixByte.PF3:
+				mandatoryPrefix = MandatoryPrefixByte.PF3;
+				break;
+			case MandatoryPrefixByte.PF2:
+				mandatoryPrefix = MandatoryPrefixByte.PF2;
+				break;
+			default:
+				throw new UnsupportedOperationException();
+			}
 		}
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			int b = mandatoryPrefix;
 			encoder.writePrefixes(instruction, b != 0xF3);
 			if (b != 0)
@@ -207,7 +205,8 @@ public final class InternalOpCodeHandlers {
 			b &= 0x4F;
 			if (b != 0) {
 				if ((encoder.encoderFlags & EncoderFlags.HIGH_LEGACY_8_BIT_REGS) != 0)
-					encoder.setErrorMessage("Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.");
+					encoder.setErrorMessage(
+							"Registers AH, CH, DH, BH can't be used if there's a REX prefix. Use AL, CL, DL, BL, SPL, BPL, SIL, DIL, R8L-R15L instead.");
 				b |= 0x40;
 				encoder.writeByteInternal(b);
 			}
@@ -241,7 +240,8 @@ public final class InternalOpCodeHandlers {
 			int op4 = (encFlags1 >>> EncFlags1.VEX_OP4_SHIFT) & EncFlags1.VEX_OP_MASK;
 			if (op4 != 0) {
 				assert op0 != 0 && op1 != 0 && op2 != 0 && op3 != 0;
-				return new Op[] { OpTables.vexOps[op0 - 1], OpTables.vexOps[op1 - 1], OpTables.vexOps[op2 - 1], OpTables.vexOps[op3 - 1], OpTables.vexOps[op4 - 1] };
+				return new Op[] { OpTables.vexOps[op0 - 1], OpTables.vexOps[op1 - 1], OpTables.vexOps[op2 - 1], OpTables.vexOps[op3 - 1],
+						OpTables.vexOps[op4 - 1] };
 			}
 			if (op3 != 0) {
 				assert op0 != 0 && op1 != 0 && op2 != 0;
@@ -292,7 +292,7 @@ public final class InternalOpCodeHandlers {
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
 
 			int encoderFlags = encoder.encoderFlags;
@@ -300,7 +300,8 @@ public final class InternalOpCodeHandlers {
 			int b = lastByte;
 			b |= (~encoderFlags >>> (EncoderFlags.VVVVV_SHIFT - 3)) & 0x78;
 
-			if ((encoder.internal_PreventVEX2 | W1 | (table - VexOpCodeTable.MAP0F) | (encoderFlags & (EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
+			if ((encoder.internal_PreventVEX2 | W1 | (table - VexOpCodeTable.MAP0F)
+					| (encoderFlags & (EncoderFlags.X | EncoderFlags.B | EncoderFlags.W))) != 0) {
 				encoder.writeByteInternal(0xC4);
 				int b2 = table;
 				b2 |= (~encoderFlags & 7) << 5;
@@ -370,7 +371,7 @@ public final class InternalOpCodeHandlers {
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
 
 			encoder.writeByteInternal(0x8F);
@@ -466,23 +467,20 @@ public final class InternalOpCodeHandlers {
 
 		static final class TryConvertToDisp8NImpl extends TryConvertToDisp8N {
 			@Override
-			public boolean convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ, byte compressedValue) {
+			Integer convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ) {
 				EvexHandler evexHandler = (EvexHandler)handler;
 				int n = TupleTypeTable.getDisp8N(evexHandler.tupleType, (encoder.encoderFlags & EncoderFlags.BROADCAST) != 0);
 				int res = displ / n;
-				if (res * n == displ && -0x80 <= res && res <= 0x7F) {
-					compressedValue = (byte)res;
-					return true;
-				}
+				if (res * n == displ && -0x80 <= res && res <= 0x7F)
+					return res;
 
-				compressedValue = 0;
-				return false;
+				return null;
 			}
 		}
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
 
 			int encoderFlags = encoder.encoderFlags;
@@ -593,25 +591,21 @@ public final class InternalOpCodeHandlers {
 
 		static final class TryConvertToDisp8NImpl extends TryConvertToDisp8N {
 			@Override
-			public boolean convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ, byte compressedValue) {
+			Integer convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ) {
 				int sss = (instruction.getMvexRegMemConv() - MvexRegMemConv.MEM_CONV_NONE) & 7;
 				int tupleType = MvexTupleTypeLut.data[MvexInfo.getTupleTypeLutKind(instruction.getCode()) * 8 + sss];
-
 				int n = TupleTypeTable.getDisp8N(tupleType, false);
 				int res = displ / n;
-				if (res * n == displ && -0x80 <= res && res <= 0x7F) {
-					compressedValue = (byte)res;
-					return true;
-				}
+				if (res * n == displ && -0x80 <= res && res <= 0x7F)
+					return res;
 
-				compressedValue = 0;
-				return false;
+				return null;
 			}
 		}
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
 
 			int encoderFlags = encoder.encoderFlags;
@@ -706,14 +700,15 @@ public final class InternalOpCodeHandlers {
 
 		/** DO NOT USE: INTERNAL API */
 		public D3nowHandler(int encFlags2, int encFlags3) {
-			super((encFlags2 & ~(0xFFFF << EncFlags2.OP_CODE_SHIFT)) | (0x000F << EncFlags2.OP_CODE_SHIFT), encFlags3, false, null, Op.operands_3dnow);
+			super((encFlags2 & ~(0xFFFF << EncFlags2.OP_CODE_SHIFT)) | (0x000F << EncFlags2.OP_CODE_SHIFT), encFlags3, false, null,
+					Op.operands_3dnow);
 			immediate = getOpCode(encFlags2);
 			assert Integer.compareUnsigned(immediate, 0xFF) <= 0 : immediate;
 		}
 
 		/** DO NOT USE: INTERNAL API */
 		@Override
-		public void encode(Encoder encoder, Instruction instruction) {
+		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
 			encoder.writeByteInternal(0x0F);
 			encoder.immSize = ImmSize.SIZE1_OP_CODE;
