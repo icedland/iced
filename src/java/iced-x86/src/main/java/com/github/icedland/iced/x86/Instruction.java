@@ -826,6 +826,8 @@ public final class Instruction {
 	 * Gets the index register scale value, valid values are <code>*1</code>, <code>*2</code>, <code>*4</code>, <code>*8</code>.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
+	 *
+	 * @see #getRawMemoryIndexScale()
 	 */
 	public int getMemoryIndexScale() {
 		return 1 << scale;
@@ -847,6 +849,17 @@ public final class Instruction {
 			assert value == 8 : value;
 			scale = 3;
 		}
+	}
+
+	/**
+	 * Gets the index register scale value, valid values are <code>0-3</code>.
+	 *
+	 * Use this property if the operand has kind {@link OpKind#MEMORY}
+	 *
+	 * @see #getMemoryIndexScale()
+	 */
+	public int getRawMemoryIndexScale() {
+		return scale;
 	}
 
 	/**
@@ -2692,12 +2705,12 @@ public final class Instruction {
 							break;
 						base2 = (int)base.longValue();
 					}
-					offset += base2 << scale;
+					offset += base2 << getRawMemoryIndexScale();
 				}
 				else {
 					if ((base = getRegisterValue.get(indexReg, 0, 0)) == null)
 						break;
-					offset += base.longValue() << scale;
+					offset += base.longValue() << getRawMemoryIndexScale();
 				}
 			}
 			if (code >= Code.MVEX_VLOADUNPACKHD_ZMM_K1_MT && code <= Code.MVEX_VPACKSTOREHPD_MT_K1_ZMM)
