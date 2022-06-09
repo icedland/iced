@@ -2540,7 +2540,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Negates the condition code, eg.<!-- --> <code>JE</code> -> <code>JNE</code>. Can be used if it's <code>Jcc</code>, <code>SETcc</code>,
+	 * Negates the condition code, eg.<!-- --> <code>JE</code> -&gt; <code>JNE</code>. Can be used if it's <code>Jcc</code>, <code>SETcc</code>,
 	 * <code>CMOVcc</code>, <code>LOOPcc</code>
 	 * and does nothing if the instruction doesn't have a condition code.
 	 */

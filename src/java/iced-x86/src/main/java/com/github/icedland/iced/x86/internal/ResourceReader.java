@@ -3,6 +3,7 @@
 
 package com.github.icedland.iced.x86.internal;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -10,17 +11,29 @@ import java.io.InputStream;
  * DO NOT USE: INTERNAL API
  */
 public final class ResourceReader {
+	// InputStream.readAllBytes() is available in JDK 9
+	private static byte[] readAllBytes(InputStream stream) throws IOException {
+		byte[] buffer = new byte[2048];
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		while (true) {
+			int read = stream.read(buffer);
+			if (read == -1)
+				break;
+			result.write(buffer, 0, read);
+		}
+		return result.toByteArray();
+	}
+
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static byte[] ReadByteArray(ClassLoader classLoader, String resourceName) {
-		InputStream stream = classLoader.getResourceAsStream(resourceName);
-		if (stream == null)
-			throw new IllegalArgumentException();
-		try {
-			return stream.readAllBytes();
+		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
+			if (stream == null)
+				throw new IllegalArgumentException(String.format("Missing resource: %s", resourceName));
+			return readAllBytes(stream);
 		} catch (IOException ioex) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(ioex);
 		}
 	}
 
@@ -28,14 +41,13 @@ public final class ResourceReader {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static short[] ReadShortArray(ClassLoader classLoader, String resourceName) {
-		InputStream stream = classLoader.getResourceAsStream(resourceName);
-		if (stream == null)
-			throw new IllegalArgumentException();
 		byte[] bytes;
-		try {
-			bytes = stream.readAllBytes();
+		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
+			if (stream == null)
+				throw new IllegalArgumentException(String.format("Missing resource: %s", resourceName));
+			bytes = readAllBytes(stream);
 		} catch (IOException ioex) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(ioex);
 		}
 		if ((bytes.length & 1) != 0)
 			throw new IllegalArgumentException();
@@ -50,14 +62,13 @@ public final class ResourceReader {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static int[] ReadIntArray(ClassLoader classLoader, String resourceName) {
-		InputStream stream = classLoader.getResourceAsStream(resourceName);
-		if (stream == null)
-			throw new IllegalArgumentException();
 		byte[] bytes;
-		try {
-			bytes = stream.readAllBytes();
+		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
+			if (stream == null)
+				throw new IllegalArgumentException(String.format("Missing resource: %s", resourceName));
+			bytes = readAllBytes(stream);
 		} catch (IOException ioex) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(ioex);
 		}
 		if ((bytes.length & 3) != 0)
 			throw new IllegalArgumentException();

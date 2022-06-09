@@ -17,7 +17,7 @@ public final class DecoderOptions {
 	 */
 	public static final int NONE = 0x0000_0000;
 	/**
-	 * Disable some checks for invalid encodings of instructions, eg.<!-- --> most instructions can&apos;t use a <code>LOCK</code> prefix so if one is found, they&apos;re decoded as {@link com.github.icedland.iced.x86.Code#INVALID} unless this option is enabled.<!-- -->
+	 * Disable some checks for invalid encodings of instructions, eg.<!-- --> most instructions can't use a <code>LOCK</code> prefix so if one is found, they're decoded as {@link com.github.icedland.iced.x86.Code#INVALID} unless this option is enabled.<!-- -->
 	 */
 	public static final int NO_INVALID_CHECK = 0x0000_0001;
 	/**
@@ -69,11 +69,11 @@ public final class DecoderOptions {
 	 */
 	public static final int JMPE = 0x0000_1000;
 	/**
-	 * Don&apos;t decode <code>PAUSE</code>, decode <code>NOP</code> instead
+	 * Don't decode <code>PAUSE</code>, decode <code>NOP</code> instead
 	 */
 	public static final int NO_PAUSE = 0x0000_2000;
 	/**
-	 * Don&apos;t decode <code>WBNOINVD</code>, decode <code>WBINVD</code> instead
+	 * Don't decode <code>WBNOINVD</code>, decode <code>WBINVD</code> instead
 	 */
 	public static final int NO_WBNOINVD = 0x0000_4000;
 	/**
@@ -81,15 +81,15 @@ public final class DecoderOptions {
 	 */
 	public static final int UDBG = 0x0000_8000;
 	/**
-	 * Don&apos;t decode <code>TZCNT</code>, decode <code>BSF</code> instead
+	 * Don't decode <code>TZCNT</code>, decode <code>BSF</code> instead
 	 */
 	public static final int NO_MPFX_0FBC = 0x0001_0000;
 	/**
-	 * Don&apos;t decode <code>LZCNT</code>, decode <code>BSR</code> instead
+	 * Don't decode <code>LZCNT</code>, decode <code>BSR</code> instead
 	 */
 	public static final int NO_MPFX_0FBD = 0x0002_0000;
 	/**
-	 * Don&apos;t decode <code>LAHF</code> and <code>SAHF</code> in 64-bit mode
+	 * Don't decode <code>LAHF</code> and <code>SAHF</code> in 64-bit mode
 	 */
 	public static final int NO_LAHF_SAHF_64 = 0x0004_0000;
 	/**

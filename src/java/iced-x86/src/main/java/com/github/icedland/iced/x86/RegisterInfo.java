@@ -88,8 +88,8 @@ public final class RegisterInfo {
 
 	/**
 	 * The full register (a {@link Register} enum variant) that this one is a part of, eg.<!-- -->
-	 * <code>CL</code>/<code>CH</code>/<code>CX</code>/<code>ECX</code>/<code>RCX</code> -> <code>RCX</code>,
-	 * <code>XMM11</code>/<code>YMM11</code>/<code>ZMM11</code> -> <code>ZMM11</code>
+	 * <code>CL</code>/<code>CH</code>/<code>CX</code>/<code>ECX</code>/<code>RCX</code> -&gt; <code>RCX</code>,
+	 * <code>XMM11</code>/<code>YMM11</code>/<code>ZMM11</code> -&gt; <code>ZMM11</code>
 	 */
 	public int getFullRegister() {
 		return fullRegister;
@@ -97,8 +97,8 @@ public final class RegisterInfo {
 
 	/**
 	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, except if it's a GPR in which case the 32-bit register is
-	 * returned, eg.<!-- --> <code>CL</code>/<code>CH</code>/<code>CX</code>/<code>ECX</code>/<code>RCX</code> -> <code>ECX</code>,
-	 * <code>XMM11</code>/<code>YMM11</code>/<code>ZMM11</code> -> <code>ZMM11</code>
+	 * returned, eg.<!-- --> <code>CL</code>/<code>CH</code>/<code>CX</code>/<code>ECX</code>/<code>RCX</code> -&gt; <code>ECX</code>,
+	 * <code>XMM11</code>/<code>YMM11</code>/<code>ZMM11</code> -&gt; <code>ZMM11</code>
 	 */
 	public int getFullRegister32() {
 		int fullRegister = (int)this.fullRegister;

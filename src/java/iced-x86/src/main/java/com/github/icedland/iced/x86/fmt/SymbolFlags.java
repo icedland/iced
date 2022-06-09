@@ -17,11 +17,11 @@ public final class SymbolFlags {
 	 */
 	public static final int NONE = 0x0000_0000;
 	/**
-	 * It&apos;s a symbol relative to a register, eg.<!-- --> a struct offset <code>[ebx+some_struct.field1]</code>.<!-- --> If this is cleared, it&apos;s the address of a symbol.<!-- -->
+	 * It's a symbol relative to a register, eg.<!-- --> a struct offset <code>[ebx+some_struct.field1]</code>.<!-- --> If this is cleared, it's the address of a symbol.<!-- -->
 	 */
 	public static final int RELATIVE = 0x0000_0001;
 	/**
-	 * It&apos;s a signed symbol and it should be displayed as <code>-symbol</code> or <code>reg-symbol</code> instead of <code>symbol</code> or <code>reg+symbol</code>
+	 * It's a signed symbol and it should be displayed as <code>-symbol</code> or <code>reg-symbol</code> instead of <code>symbol</code> or <code>reg+symbol</code>
 	 */
 	public static final int SIGNED = 0x0000_0002;
 }

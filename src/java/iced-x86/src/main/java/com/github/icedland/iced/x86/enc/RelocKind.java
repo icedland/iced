@@ -13,7 +13,7 @@ public final class RelocKind {
 	}
 
 	/**
-	 * 64-bit offset.<!-- --> Only used if it&apos;s 64-bit code.<!-- -->
+	 * 64-bit offset.<!-- --> Only used if it's 64-bit code.<!-- -->
 	 */
 	public static final int OFFSET64 = 0;
 }

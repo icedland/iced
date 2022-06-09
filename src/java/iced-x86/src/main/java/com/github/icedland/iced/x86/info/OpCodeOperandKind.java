@@ -157,7 +157,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R32_OPCODE = 34;
 	/**
-	 * 32-bit GPR encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * 32-bit GPR encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int R32_VVVV = 35;
 	/**
@@ -177,7 +177,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R64_OPCODE = 39;
 	/**
-	 * 64-bit GPR encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * 64-bit GPR encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int R64_VVVV = 40;
 	/**
@@ -197,7 +197,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int K_RM = 44;
 	/**
-	 * <code>K</code> register encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/MVEX/XOP)
+	 * <code>K</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/MVEX/XOP)
 	 */
 	public static final int K_VVVV = 45;
 	/**
@@ -217,11 +217,11 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int XMM_RM = 49;
 	/**
-	 * <code>XMM</code> register encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * <code>XMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int XMM_VVVV = 50;
 	/**
-	 * <code>XMM</code> register (+3) encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * <code>XMM</code> register (+3) encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int XMMP3_VVVV = 51;
 	/**
@@ -241,7 +241,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int YMM_RM = 55;
 	/**
-	 * <code>YMM</code> register encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * <code>YMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int YMM_VVVV = 56;
 	/**
@@ -261,11 +261,11 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int ZMM_RM = 60;
 	/**
-	 * <code>ZMM</code> register encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/MVEX/XOP)
+	 * <code>ZMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/MVEX/XOP)
 	 */
 	public static final int ZMM_VVVV = 61;
 	/**
-	 * <code>ZMM</code> register (+3) encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * <code>ZMM</code> register (+3) encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int ZMMP3_VVVV = 62;
 	/**
@@ -449,7 +449,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int TMM_RM = 107;
 	/**
-	 * <code>TMM</code> register encoded in the the <code>V&apos;vvvv</code> field (VEX/EVEX/XOP)
+	 * <code>TMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
 	 */
 	public static final int TMM_VVVV = 108;
 }

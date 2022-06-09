@@ -42,7 +42,7 @@ public final class Register {
 	}
 
 	/**
-	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, eg.<!-- --> CL/CH/CX/ECX/RCX -> RCX, XMM11/YMM11/ZMM11 ->
+	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, eg.<!-- --> CL/CH/CX/ECX/RCX -&gt; RCX, XMM11/YMM11/ZMM11 -&gt;
 	 * ZMM11
 	 *
 	 * @param register Register (a {@link Register} enum variant)
@@ -53,7 +53,7 @@ public final class Register {
 
 	/**
 	 * Gets the full register (a {@link Register} enum variant) that this one is a part of, except if it's a GPR in which case the 32-bit register is
-	 * returned, eg.<!-- --> CL/CH/CX/ECX/RCX -> ECX, XMM11/YMM11/ZMM11 -> ZMM11
+	 * returned, eg.<!-- --> CL/CH/CX/ECX/RCX -&gt; ECX, XMM11/YMM11/ZMM11 -&gt; ZMM11
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -494,49 +494,49 @@ public final class Register {
 	public static final int TMM6 = 247;
 	public static final int TMM7 = 248;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSE0 = 249;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSEFA = 250;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSEFB = 251;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSEFC = 252;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSEFD = 253;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
 	public static final int DONTUSEFE = 254;
 	/**
-	 * Don&apos;t use it!
+	 * Don't use it!
 	 *
 	 * @deprecated Not part of the public API
 	 */

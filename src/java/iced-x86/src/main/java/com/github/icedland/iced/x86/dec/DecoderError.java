@@ -17,11 +17,11 @@ public final class DecoderError {
 	 */
 	public static final int NONE = 0;
 	/**
-	 * It&apos;s an invalid instruction or an invalid encoding of an existing instruction (eg.<!-- --> some reserved bit is set/cleared)
+	 * It's an invalid instruction or an invalid encoding of an existing instruction (eg.<!-- --> some reserved bit is set/cleared)
 	 */
 	public static final int INVALID_INSTRUCTION = 1;
 	/**
-	 * There&apos;s not enough bytes left to decode the instruction
+	 * There's not enough bytes left to decode the instruction
 	 */
 	public static final int NO_MORE_BYTES = 2;
 }

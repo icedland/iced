@@ -17,11 +17,11 @@ public final class FormatMnemonicOptions {
 	 */
 	public static final int NONE = 0x0000_0000;
 	/**
-	 * Don&apos;t add any prefixes
+	 * Don't add any prefixes
 	 */
 	public static final int NO_PREFIXES = 0x0000_0001;
 	/**
-	 * Don&apos;t add the mnemonic
+	 * Don't add the mnemonic
 	 */
 	public static final int NO_MNEMONIC = 0x0000_0002;
 }

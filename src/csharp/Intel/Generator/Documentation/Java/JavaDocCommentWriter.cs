@@ -152,7 +152,14 @@ namespace Generator.Documentation.Java {
 			}
 		}
 
-		static string Escape(string value) => SecurityElement.Escape(value) ?? throw new InvalidOperationException();
+		static string Escape(string value) {
+			var s = SecurityElement.Escape(value) ?? throw new InvalidOperationException();
+			// JDK 8 will complain if we don't do this
+			s = s.Replace("&apos;", "'");
+			s = s.Replace(">", "&gt;");
+			s = s.Replace("<", "&lt;");
+			return s;
+		}
 
 		static string TypeToJavaDocName(string type) =>
 			type switch {

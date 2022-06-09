@@ -213,7 +213,7 @@ public final class Encoder {
 	 *
 	 * @param instruction Instruction to encode
 	 * @param rip         RIP of the encoded instruction
-	 * @throws EncoderException
+	 * @throws EncoderException If it fails to encode an instruction
 	 * @see #tryEncode(Instruction, long)
 	 */
 	public int encode(Instruction instruction, long rip) {

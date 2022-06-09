@@ -13,15 +13,15 @@ public final class MemorySizeOptions {
 	}
 
 	/**
-	 * Show memory size if the assembler requires it, else don&apos;t show anything
+	 * Show memory size if the assembler requires it, else don't show anything
 	 */
 	public static final int DEFAULT = 0;
 	/**
-	 * Always show the memory size, even if the assembler doesn&apos;t need it
+	 * Always show the memory size, even if the assembler doesn't need it
 	 */
 	public static final int ALWAYS = 1;
 	/**
-	 * Show memory size if a human can&apos;t figure out the size of the operand
+	 * Show memory size if a human can't figure out the size of the operand
 	 */
 	public static final int MINIMAL = 2;
 	/**

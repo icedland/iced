@@ -13,7 +13,7 @@ public final class ConditionCode {
 	}
 
 	/**
-	 * The instruction doesn&apos;t have a condition code
+	 * The instruction doesn't have a condition code
 	 */
 	public static final int NONE = 0;
 	/**
