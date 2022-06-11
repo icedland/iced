@@ -32,9 +32,6 @@ namespace Iced.Intel {
 
 	/// <summary>
 	/// Creates <see cref="InstructionInfo"/>s.
-	/// <br/>
-	/// If you don't need memory and register usage, it's faster to call <see cref="Instruction"/> and <see cref="Code"/>
-	/// methods/properties, eg. <see cref="Instruction.FlowControl"/>, etc instead of getting that info from this class.
 	/// </summary>
 	public sealed class InstructionInfoFactory {
 		const int defaultRegisterArrayCount = 2;

@@ -51,13 +51,7 @@ impl Flags {
 
 /// Creates [`InstructionInfo`]s.
 ///
-/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
-///
 /// [`InstructionInfo`]: struct.InstructionInfo.html
-/// [`Instruction`]: struct.Instruction.html
-/// [`Code`]: enum.Code.html
-/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 #[derive(Debug)]
 pub struct InstructionInfoFactory {
 	info: InstructionInfo,
@@ -66,13 +60,6 @@ pub struct InstructionInfoFactory {
 #[allow(clippy::new_without_default)]
 impl InstructionInfoFactory {
 	/// Creates a new instance.
-	///
-	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
-	///
-	/// [`Instruction`]: struct.Instruction.html
-	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Examples
 	///
@@ -107,14 +94,8 @@ impl InstructionInfoFactory {
 	/// Creates a new [`InstructionInfo`], see also [`info_options()`] if you only need register usage
 	/// but not memory usage or vice versa.
 	///
-	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
-	///
 	/// [`InstructionInfo`]: struct.InstructionInfo.html
 	/// [`info_options()`]: #method.info_options
-	/// [`Instruction`]: struct.Instruction.html
-	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///
@@ -160,14 +141,8 @@ impl InstructionInfoFactory {
 
 	/// Creates a new [`InstructionInfo`], see also [`info()`].
 	///
-	/// If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
-	/// [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
-	///
 	/// [`InstructionInfo`]: struct.InstructionInfo.html
 	/// [`info()`]: #method.info
-	/// [`Instruction`]: struct.Instruction.html
-	/// [`Code`]: enum.Code.html
-	/// [`Instruction::flow_control()`]: struct.Instruction.html#method.flow_control
 	///
 	/// # Arguments
 	///

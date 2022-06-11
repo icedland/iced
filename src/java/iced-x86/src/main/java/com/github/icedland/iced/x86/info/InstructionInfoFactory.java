@@ -19,10 +19,6 @@ import com.github.icedland.iced.x86.internal.info.InfoFlags2;
 
 /**
  * Creates {@link InstructionInfo}s.
- * <p>
- * If you don't need memory and register usage, it's faster to call {@link com.github.icedland.iced.x86.Instruction} and
- * {@link com.github.icedland.iced.x86.Code} methods/properties, eg. {@link com.github.icedland.iced.x86.Instruction#getFlowControl()}, etc instead of
- * getting that info from this class.
  */
 public final class InstructionInfoFactory {
 	private static final class Flags {
