@@ -5,7 +5,7 @@
 
 package com.github.icedland.iced.x86.info;
 
-final class RflagsInfoConstants {
+final class OpAccessTables {
 	static final int[] op1 = new int[] {
 		OpAccess.NONE,
 		OpAccess.COND_READ,

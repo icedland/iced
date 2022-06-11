@@ -128,7 +128,7 @@ namespace Generator.InstructionInfo.Java {
 				writer.WriteFileHeader();
 				writer.WriteLine($"package {JavaConstants.InstructionInfoPackage};");
 				writer.WriteLine();
-				writer.WriteLine("final class RflagsInfoConstants {");
+				writer.WriteLine("final class OpAccessTables {");
 				using (writer.Indent()) {
 					var opInfos = instrInfoTypes.EnumOpInfos;
 					// We assume max op count is 5, update the code if not

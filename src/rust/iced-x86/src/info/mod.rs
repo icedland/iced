@@ -289,7 +289,7 @@ impl fmt::Debug for UsedMemory {
 	}
 }
 
-/// Contains information about an instruction, eg. read/written registers, read/written `RFLAGS` bits, `CPUID` feature bit, etc.
+/// Contains information about an instruction, eg. read/written registers and memory locations, operand accesses.
 /// Created by an [`InstructionInfoFactory`].
 ///
 /// [`InstructionInfoFactory`]: struct.InstructionInfoFactory.html

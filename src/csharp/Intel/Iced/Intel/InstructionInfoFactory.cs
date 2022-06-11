@@ -1883,7 +1883,7 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoRegisterUsage) == 0)
 						AddRegister(flags, baseReg + 7 - i, OpAccess.Write);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(Register.SS, xsp, Register.None, 1, opSize * (uint)i & xspMask, memSize, OpAccess.Read, addressSize, 0);
+						AddMemory(Register.SS, xsp, Register.None, 1, (opSize * (uint)i) & xspMask, memSize, OpAccess.Read, addressSize, 0);
 				}
 			}
 		}

@@ -9,7 +9,7 @@ using Iced.Intel.InstructionInfoInternal;
 
 namespace Iced.Intel {
 	/// <summary>
-	/// Contains information about an instruction, eg. read/written registers, read/written <c>RFLAGS</c> bits, <c>CPUID</c> feature bit, etc
+	/// Contains information about an instruction, eg. read/written registers and memory locations, operand accesses
 	/// </summary>
 	public struct InstructionInfo {
 		internal SimpleList<UsedRegister> usedRegisters;

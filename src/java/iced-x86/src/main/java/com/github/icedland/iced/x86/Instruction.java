@@ -26,8 +26,6 @@ import com.github.icedland.iced.x86.internal.info.RflagsInfoConstants;
  * Created by {@link com.github.icedland.iced.x86.dec.Decoder} or by <code>Instruction.create()</code> methods.
  */
 public final class Instruction {
-	// If this changes to a short, this can be removed (just return the register field without masking)
-	static final int REG_MASK = 0xFF;
 	long nextRip;
 	long memDispl;
 	int flags1; // InstrFlags1
@@ -1222,8 +1220,9 @@ public final class Instruction {
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
+	@SuppressWarnings("deprecation")
 	public int getMemoryBase() {
-		return memBaseReg & REG_MASK;
+		return memBaseReg & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
@@ -1240,8 +1239,9 @@ public final class Instruction {
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
+	@SuppressWarnings("deprecation")
 	public int getMemoryIndex() {
-		return memIndexReg & REG_MASK;
+		return memIndexReg & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
@@ -1261,8 +1261,9 @@ public final class Instruction {
 	 * @see #getOpCount()
 	 * @see #getOpRegister(int)
 	 */
+	@SuppressWarnings("deprecation")
 	public int getOp0Register() {
-		return reg0 & REG_MASK;
+		return reg0 & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
@@ -1285,8 +1286,9 @@ public final class Instruction {
 	 * @see #getOpCount()
 	 * @see #getOpRegister(int)
 	 */
+	@SuppressWarnings("deprecation")
 	public int getOp1Register() {
-		return reg1 & REG_MASK;
+		return reg1 & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
@@ -1309,8 +1311,9 @@ public final class Instruction {
 	 * @see #getOpCount()
 	 * @see #getOpRegister(int)
 	 */
+	@SuppressWarnings("deprecation")
 	public int getOp2Register() {
-		return reg2 & REG_MASK;
+		return reg2 & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
@@ -1333,8 +1336,9 @@ public final class Instruction {
 	 * @see #getOpCount()
 	 * @see #getOpRegister(int)
 	 */
+	@SuppressWarnings("deprecation")
 	public int getOp3Register() {
-		return reg3 & REG_MASK;
+		return reg3 & com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 	}
 
 	/**
