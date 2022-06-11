@@ -82,7 +82,7 @@ public final class InstructionInfo {
 	 *
 	 * @param operand Operand number, 0-4
 	 */
-	public int GetOpAccess(int operand) {
+	public int getOpAccess(int operand) {
 		switch (operand) {
 		case 0:
 			return getOp0Access();
