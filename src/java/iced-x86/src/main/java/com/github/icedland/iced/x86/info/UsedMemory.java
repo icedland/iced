@@ -119,7 +119,7 @@ public final class UsedMemory {
 	 * @param getRegisterValue Returns values of registers and segment base addresses
 	 * @return <code>null</code> if it failed to read all registers, else the calculated virtual address
 	 */
-	public Long tryGetVirtualAddress(int elementIndex, VAGetRegisterValue getRegisterValue) {
+	public Long getVirtualAddress(int elementIndex, VAGetRegisterValue getRegisterValue) {
 		if (getRegisterValue == null)
 			throw new NullPointerException("getRegisterValue");
 
