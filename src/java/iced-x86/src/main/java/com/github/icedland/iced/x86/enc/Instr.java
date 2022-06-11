@@ -4,9 +4,43 @@
 package com.github.icedland.iced.x86.enc;
 
 import com.github.icedland.iced.x86.Code;
+import com.github.icedland.iced.x86.ConstantOffsets;
 import com.github.icedland.iced.x86.Instruction;
+import com.github.icedland.iced.x86.OpKind;
+import com.github.icedland.iced.x86.Register;
 
 abstract class Instr {
+	final Block block;
+	int size;
+	long ip;
+	final long origIP;
+	// If it can't be optimized, this will be set to true
+	boolean done;
+
+	// 6 = FF 15 XXXXXXXX = call qword ptr [rip+mem_target]
+	static final int CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64 = 6;
+
+	Instr(Block block, long origIp) {
+		this.origIP = origIp;
+		this.block = block;
+	}
+
+	/**
+	 * Initializes the target address and tries to optimize the instruction
+	 */
+	abstract void initialize(BlockEncoder blockEncoder);
+
+	/**
+	 * Returns <code>true</code> if the instruction was updated to a shorter instruction, <code>false</code> if nothing changed
+	 */
+	abstract boolean optimize(long gained);
+
+	abstract String tryEncode(Encoder encoder, TryEncodeResult result);
+
+	protected static String createErrorMessage(String errorMessage, Instruction instruction) {
+		return String.format("%s : 0x%X %s", errorMessage, instruction.getIP(), instruction.toString());
+	}
+
 	static Instr create(BlockEncoder blockEncoder, Block block, Instruction instruction) {
 		switch (instruction.getCode()) {
 		// GENERATOR-BEGIN: JccInstr
@@ -175,6 +209,70 @@ abstract class Instr {
 		default:
 			break;
 		}
-		throw new UnsupportedOperationException(); // TODO:
+
+		if (blockEncoder.getBitness() == 64) {
+			int ops = instruction.getOpCount();
+			for (int i = 0; i < ops; i++) {
+				if (instruction.getOpKind(i) == OpKind.MEMORY) {
+					if (instruction.isIPRelativeMemoryOperand())
+						return new IpRelMemOpInstr(blockEncoder, block, instruction);
+					break;
+				}
+			}
+		}
+
+		return new SimpleInstr(blockEncoder, block, instruction);
+	}
+
+	Object encodeBranchToPointerData(Encoder encoder, boolean isCall, long ip, BlockData pointerData, int minSize) {
+		if (minSize < 0)
+			throw new IllegalArgumentException("minSize");
+
+		Instruction instr = new Instruction();
+		instr.setOp0Kind(OpKind.MEMORY);
+		instr.setMemoryDisplSize(encoder.getBitness() / 8);
+		int relocKind;
+		switch (encoder.getBitness()) {
+		case 64:
+			instr.setCode(isCall ? Code.CALL_RM64 : Code.JMP_RM64);
+			instr.setMemoryBase(Register.RIP);
+
+			long nextRip = ip + CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
+			long diff = pointerData.getAddress() - nextRip;
+			if (!(-0x8000_0000 <= diff && diff <= 0x7FFF_FFFF))
+				return "Block is too big";
+
+			instr.setMemoryDisplacement64(pointerData.getAddress());
+			relocKind = RelocKind.OFFSET64;
+			break;
+
+		default:
+			throw new UnsupportedOperationException();
+		}
+
+		Object result = encoder.tryEncode(instr, ip);
+		if (result instanceof String)
+			return (String)result;
+		int size = ((Integer)result).intValue();
+		if (block.canAddRelocInfos() && relocKind != RelocKind.OFFSET64) {
+			ConstantOffsets constantOffsets = encoder.getConstantOffsets();
+			if (!constantOffsets.hasDisplacement())
+				return "Internal error: no displ";
+			block.addRelocInfo(new RelocInfo(relocKind, ip + constantOffsets.displacementOffset));
+		}
+		while (size < minSize) {
+			size++;
+			block.codeWriter.writeByte((byte)0x90);
+		}
+		return null;
+	}
+
+	protected static long correctDiff(boolean inBlock, long diff, long gained) {
+		if (inBlock && diff >= 0) {
+			assert Long.compareUnsigned(diff, gained) >= 0;
+			return diff - gained;
+		}
+		else
+			return diff;
 	}
 }

@@ -70,7 +70,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			// If it's in the lower 4GB we can use EIP relative addressing
+			// If it's in the low 4GB we can use EIP relative addressing
 			if (targetAddress <= uint.MaxValue) {
 				Size = eipInstructionSize;
 				instrKind = InstrKind.Eip;

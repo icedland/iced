@@ -4,8 +4,27 @@
 package com.github.icedland.iced.x86.enc;
 
 /**
- * TODO: docs here
+ * Relocation info
  */
 public final class RelocInfo {
-	// TODO:
+	/**
+	 * Address
+	 */
+	public final long address;
+
+	/**
+	 * Relocation kind (a {@link RelocKind} enum variant)
+	 */
+	public final int kind;
+
+	/**
+	 * Constructor
+	 *
+	 * @param kind    Relocation kind (a {@link RelocKind} enum variant)
+	 * @param address Address
+	 */
+	public RelocInfo(int kind, long address) {
+		this.kind = kind;
+		this.address = address;
+	}
 }
