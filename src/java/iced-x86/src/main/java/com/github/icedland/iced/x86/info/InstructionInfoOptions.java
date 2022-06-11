@@ -7,6 +7,9 @@ package com.github.icedland.iced.x86.info;
  * Instruction info options used by {@link InstructionInfoFactory}
  */
 public final class InstructionInfoOptions {
+	private InstructionInfoOptions() {
+	}
+
 	/**
 	 * No option is enabled
 	 */
