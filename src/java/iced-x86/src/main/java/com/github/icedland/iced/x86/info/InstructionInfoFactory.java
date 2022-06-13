@@ -201,7 +201,7 @@ public final class InstructionInfoFactory {
 				break;
 
 			case OpKind.MEMORY:
-				int segReg = instruction.getMemorySegment() & ~(flags1 >>> 31);
+				int segReg = instruction.getMemorySegment() & ~(flags1 >> 31);
 				int baseReg = instruction.getMemoryBase();
 				if (baseReg == Register.RIP) {
 					if ((flags & Flags.NO_MEMORY_USAGE) == 0)
