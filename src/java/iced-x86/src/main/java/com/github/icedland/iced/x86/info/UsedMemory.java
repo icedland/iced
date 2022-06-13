@@ -88,6 +88,14 @@ public final class UsedMemory {
 		return vsibSize;
 	}
 
+	/**
+	 * Returns a copy of this instance
+	 */
+	public UsedMemory copy() {
+		return new UsedMemory(getSegment(), getBase(), getIndex(), getScale(), getDisplacement(), getMemorySize(), getAccess(), getAddressSize(),
+				getVsibSize());
+	}
+
 	@SuppressWarnings("deprecation")
 	UsedMemory(int segReg, int baseReg, int indexReg, int scale, long displ, int memorySize, int access, int addressSize, int vsibSize) {
 		assert Integer.compareUnsigned(segReg, com.github.icedland.iced.x86.internal.Constants.REG_MASK) <= 0 : segReg;

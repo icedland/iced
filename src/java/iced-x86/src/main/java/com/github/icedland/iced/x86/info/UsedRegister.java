@@ -26,6 +26,13 @@ public final class UsedRegister {
 	}
 
 	/**
+	 * Returns a copy of this instance
+	 */
+	public UsedRegister copy() {
+		return new UsedRegister(getRegister(), getAccess());
+	}
+
+	/**
 	 * Constructor
 	 *
 	 * @param register Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
