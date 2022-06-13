@@ -121,10 +121,10 @@ public final class InternalOpCodeHandlers {
 	 */
 	@Deprecated
 	public static final class LegacyHandler extends OpCodeHandler {
-		final int tableByte1, tableByte2;
-		final int mandatoryPrefix;
+		private final int tableByte1, tableByte2;
+		private final int mandatoryPrefix;
 
-		static Op[] createOps(int encFlags1) {
+		private static Op[] createOps(int encFlags1) {
 			int op0 = (encFlags1 >>> EncFlags1.LEGACY_OP0_SHIFT) & EncFlags1.LEGACY_OP_MASK;
 			int op1 = (encFlags1 >>> EncFlags1.LEGACY_OP1_SHIFT) & EncFlags1.LEGACY_OP_MASK;
 			int op2 = (encFlags1 >>> EncFlags1.LEGACY_OP2_SHIFT) & EncFlags1.LEGACY_OP_MASK;
@@ -226,13 +226,13 @@ public final class InternalOpCodeHandlers {
 	 */
 	@Deprecated
 	public static final class VexHandler extends OpCodeHandler {
-		final int table;
-		final int lastByte;
-		final int mask_W_L;
-		final int mask_L;
-		final int W1;
+		private final int table;
+		private final int lastByte;
+		private final int mask_W_L;
+		private final int mask_L;
+		private final int W1;
 
-		static Op[] createOps(int encFlags1) {
+		private static Op[] createOps(int encFlags1) {
 			int op0 = (encFlags1 >>> EncFlags1.VEX_OP0_SHIFT) & EncFlags1.VEX_OP_MASK;
 			int op1 = (encFlags1 >>> EncFlags1.VEX_OP1_SHIFT) & EncFlags1.VEX_OP_MASK;
 			int op2 = (encFlags1 >>> EncFlags1.VEX_OP2_SHIFT) & EncFlags1.VEX_OP_MASK;
@@ -325,10 +325,10 @@ public final class InternalOpCodeHandlers {
 	 */
 	@Deprecated
 	public static final class XopHandler extends OpCodeHandler {
-		final int table;
-		final int lastByte;
+		private final int table;
+		private final int lastByte;
 
-		static Op[] createOps(int encFlags1) {
+		private static Op[] createOps(int encFlags1) {
 			int op0 = (encFlags1 >>> EncFlags1.XOP_OP0_SHIFT) & EncFlags1.XOP_OP_MASK;
 			int op1 = (encFlags1 >>> EncFlags1.XOP_OP1_SHIFT) & EncFlags1.XOP_OP_MASK;
 			int op2 = (encFlags1 >>> EncFlags1.XOP_OP2_SHIFT) & EncFlags1.XOP_OP_MASK;
@@ -394,15 +394,15 @@ public final class InternalOpCodeHandlers {
 	 */
 	@Deprecated
 	public static final class EvexHandler extends OpCodeHandler {
-		final int wbit;
-		final int tupleType;
-		final int table;
-		final int p1Bits;
-		final int llBits;
-		final int mask_W;
-		final int mask_LL;
+		private final int wbit;
+		private final int tupleType;
+		private final int table;
+		private final int p1Bits;
+		private final int llBits;
+		private final int mask_W;
+		private final int mask_LL;
 
-		static Op[] createOps(int encFlags1) {
+		private static Op[] createOps(int encFlags1) {
 			int op0 = (encFlags1 >>> EncFlags1.EVEX_OP0_SHIFT) & EncFlags1.EVEX_OP_MASK;
 			int op1 = (encFlags1 >>> EncFlags1.EVEX_OP1_SHIFT) & EncFlags1.EVEX_OP_MASK;
 			int op2 = (encFlags1 >>> EncFlags1.EVEX_OP2_SHIFT) & EncFlags1.EVEX_OP_MASK;
@@ -544,12 +544,12 @@ public final class InternalOpCodeHandlers {
 	 */
 	@Deprecated
 	public static final class MvexHandler extends OpCodeHandler {
-		final int wbit;
-		final int table;
-		final int p1Bits;
-		final int mask_W;
+		private final int wbit;
+		private final int table;
+		private final int p1Bits;
+		private final int mask_W;
 
-		static Op[] createOps(int encFlags1) {
+		private static Op[] createOps(int encFlags1) {
 			int op0 = (encFlags1 >>> EncFlags1.MVEX_OP0_SHIFT) & EncFlags1.MVEX_OP_MASK;
 			int op1 = (encFlags1 >>> EncFlags1.MVEX_OP1_SHIFT) & EncFlags1.MVEX_OP_MASK;
 			int op2 = (encFlags1 >>> EncFlags1.MVEX_OP2_SHIFT) & EncFlags1.MVEX_OP_MASK;

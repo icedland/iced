@@ -25,9 +25,11 @@ public abstract class OpCodeHandler {
 	 */
 	@Deprecated
 	public final Op[] operands;
+
 	abstract static class TryConvertToDisp8N {
 		abstract Integer convert(Encoder encoder, OpCodeHandler handler, Instruction instruction, int displ);
 	}
+
 	OpCodeHandler(int encFlags2, int encFlags3, boolean isSpecialInstr, TryConvertToDisp8N tryConvertToDisp8N, Op[] operands) {
 		this.encFlags3 = encFlags3;
 		this.opCode = getOpCode(encFlags2);
@@ -44,5 +46,6 @@ public abstract class OpCodeHandler {
 	static int getOpCode(int encFlags2) {
 		return (encFlags2 >>> EncFlags2.OP_CODE_SHIFT) & 0xFFFF;
 	}
+
 	abstract void encode(Encoder encoder, Instruction instruction);
 }

@@ -44,7 +44,7 @@ public final class BlockEncoder {
 		return (options & BlockEncoderOptions.RETURN_CONSTANT_OFFSETS) != 0;
 	}
 
-	static final class NullCodeWriter implements CodeWriter {
+	private static final class NullCodeWriter implements CodeWriter {
 		public static final NullCodeWriter instance = new NullCodeWriter();
 
 		NullCodeWriter() {

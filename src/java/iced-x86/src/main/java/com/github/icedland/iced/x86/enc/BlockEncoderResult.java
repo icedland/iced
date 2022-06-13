@@ -11,8 +11,8 @@ import com.github.icedland.iced.x86.ConstantOffsets;
  * {@link BlockEncoder} result if it was successful
  */
 public final class BlockEncoderResult {
-	static final int[] EmptyIntArray = new int[0];
-	static final ConstantOffsets[] EmptyConstantOffsets = new ConstantOffsets[0];
+	private static final int[] emptyIntArray = new int[0];
+	private static final ConstantOffsets[] emptyConstantOffsets = new ConstantOffsets[0];
 
 	/**
 	 * Base IP of all encoded instructions
@@ -47,9 +47,9 @@ public final class BlockEncoderResult {
 
 	BlockEncoderResult(long rip, ArrayList<RelocInfo> relocInfos, int[] newInstructionOffsets, ConstantOffsets[] constantOffsets) {
 		if (newInstructionOffsets == null)
-			newInstructionOffsets = EmptyIntArray;
+			newInstructionOffsets = emptyIntArray;
 		if (constantOffsets == null)
-			constantOffsets = EmptyConstantOffsets;
+			constantOffsets = emptyConstantOffsets;
 		this.rip = rip;
 		this.relocInfos = relocInfos;
 		this.newInstructionOffsets = newInstructionOffsets;
