@@ -89,7 +89,7 @@ public final class InstructionInfoFactory {
 			break;
 
 		case OpInfo0.WRITE:
-			if (instruction.getHasOpMask() && instruction.getMergingMasking()) {
+			if (instruction.hasOpMask() && instruction.getMergingMasking()) {
 				if (instruction.getOp0Kind() != OpKind.REGISTER)
 					op0Access = OpAccess.COND_WRITE;
 				else
@@ -100,7 +100,7 @@ public final class InstructionInfoFactory {
 			break;
 
 		case OpInfo0.WRITE_VMM:
-			if (instruction.getHasOpMask() && instruction.getMergingMasking()) {
+			if (instruction.hasOpMask() && instruction.getMergingMasking()) {
 				if (instruction.getOp0Kind() != OpKind.REGISTER)
 					op0Access = OpAccess.COND_WRITE;
 				else
@@ -131,7 +131,7 @@ public final class InstructionInfoFactory {
 			break;
 
 		case OpInfo0.READ_WRITE_VMM:
-			if (instruction.getHasOpMask() && instruction.getMergingMasking())
+			if (instruction.hasOpMask() && instruction.getMergingMasking())
 				op0Access = OpAccess.READ_COND_WRITE;
 			else
 				op0Access = OpAccess.READ_WRITE;
@@ -279,7 +279,7 @@ public final class InstructionInfoFactory {
 		if (impliedAccess != ImpliedAccess.NONE)
 			addImpliedAccesses(impliedAccess, instruction, flags);
 
-		if (instruction.getHasOpMask() && (flags & Flags.NO_REGISTER_USAGE) == 0)
+		if (instruction.hasOpMask() && (flags & Flags.NO_REGISTER_USAGE) == 0)
 			addRegister(flags, instruction.getOpMask(), (flags1 & InfoFlags1.OP_MASK_READ_WRITE) != 0 ? OpAccess.READ_WRITE : OpAccess.READ);
 
 		return info;

@@ -1456,7 +1456,7 @@ public final class Instruction {
 	/**
 	 * <code>true</code> if there's an opmask register ({@link #getOpMask()})
 	 */
-	public boolean getHasOpMask() {
+	public boolean hasOpMask() {
 		return (flags1 & (InstrFlags1.OP_MASK_MASK << InstrFlags1.OP_MASK_SHIFT)) != 0;
 	}
 
