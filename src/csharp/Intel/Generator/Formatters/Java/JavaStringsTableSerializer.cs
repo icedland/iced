@@ -21,20 +21,13 @@ namespace Generator.Formatters.Java {
 			var rsrcPackage = JavaConstants.FormatterPackage;
 			const string className = "FormatterStringsTable";
 
-			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetFilename(genTypes, srcPackage, className + ".java")))) {
-				writer.WriteFileHeader();
-				writer.WriteLine($"package {srcPackage};");
-				writer.WriteLine();
+			var filename = JavaConstants.GetFilename(genTypes, srcPackage, className + ".java");
+			new FileUpdater(TargetLanguage.Rust, "Table", filename).Generate(writer => {
 				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-				writer.WriteLine($"public final class {className} {{");
-				using (writer.Indent()) {
-					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-					writer.WriteLine($"public static final int MAX_STRING_LENGTH = {maxStringLength};");
-					writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
-					writer.WriteLine($"public static final int STRINGS_COUNT = {sortedInfos.Length};");
-				}
-				writer.WriteLine("}");
-			}
+				writer.WriteLine($"public static final int MAX_STRING_LENGTH = {maxStringLength};");
+				writer.WriteLine($"/** {JavaConstants.InternalDoc} */");
+				writer.WriteLine($"public static final int STRINGS_COUNT = {sortedInfos.Length};");
+			});
 			using (var writer = new BinaryByteTableWriter(JavaConstants.GetResourceFilename(genTypes, rsrcPackage, className + ".bin")))
 				StringsTableSerializerUtils.SerializeTable(writer, sortedInfos);
 		}

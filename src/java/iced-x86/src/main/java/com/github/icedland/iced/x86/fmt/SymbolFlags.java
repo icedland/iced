@@ -24,4 +24,8 @@ public final class SymbolFlags {
 	 * It's a signed symbol and it should be displayed as <code>-symbol</code> or <code>reg-symbol</code> instead of <code>symbol</code> or <code>reg+symbol</code>
 	 */
 	public static final int SIGNED = 0x0000_0002;
+	/**
+	 * Set if {@link com.github.icedland.iced.x86.fmt.SymbolResult#symbolSize} is valid
+	 */
+	public static final int HAS_SYMBOL_SIZE = 0x0000_0004;
 }

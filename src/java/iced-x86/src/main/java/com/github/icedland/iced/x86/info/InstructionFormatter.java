@@ -3,6 +3,8 @@
 
 package com.github.icedland.iced.x86.info;
 
+import java.util.Locale;
+
 import com.github.icedland.iced.x86.Code;
 import com.github.icedland.iced.x86.EncodingKind;
 import com.github.icedland.iced.x86.MemorySize;
@@ -882,11 +884,8 @@ final class InstructionFormatter {
 	}
 
 	private void write(String s, boolean upper) {
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			c = upper ? Character.toUpperCase(c) : Character.toLowerCase(c);
-			sb.append(c);
-		}
+		String fixed = upper ? s.toUpperCase(Locale.ROOT) : s.toLowerCase(Locale.ROOT);
+		sb.append(fixed);
 	}
 
 	private void writeGprMem(int regSize) {

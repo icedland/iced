@@ -44,8 +44,6 @@ namespace Generator.Constants.Java {
 			var sb = new StringBuilder();
 			var upperNames = Enums.EnumUtils.UppercaseTypeFields(constantsType.RawName);
 			foreach (var constant in constantsType.Constants) {
-				if (ShouldIgnore(constant))
-					continue;
 				if (forcePublic && !isTestFile)
 					docWriter.WriteSummary(writer, JavaConstants.InternalDoc, constantsType.RawName, null);
 				else {
@@ -64,13 +62,6 @@ namespace Generator.Constants.Java {
 				sb.Append(';');
 				writer.WriteLine(sb.ToString());
 			}
-		}
-
-		static bool ShouldIgnore(Constant constant) {
-			if (constant.DeclaringType.TypeId == TypeIds.SymbolFlags)
-				return constant.ValueUInt64 == (ulong)Enums.Formatter.SymbolFlags.HasSymbolSize;
-
-			return false;
 		}
 
 		string GetType(ConstantKind kind) =>

@@ -167,6 +167,7 @@ namespace Generator.Documentation.Java {
 				"BlockEncoder" => JavaConstants.BlockEncoderPackage + "." + type,
 				"ConstantOffsets" or "CpuidFeature" or "Code" or "Instruction" or "Register" or "RepPrefixKind" => JavaConstants.IcedPackage + "." + type,
 				"RelocInfo" => JavaConstants.BlockEncoderPackage + "." + type,
+				"SymbolResult" => JavaConstants.FormatterPackage + "." + type,
 				_ => throw new InvalidOperationException($"Unknown type: {type}"),
 			};
 

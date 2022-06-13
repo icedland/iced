@@ -22,7 +22,7 @@ public final class CpuidFeatureInternalData {
 			byte b = data[i / 8];
 			int[] features = new int[((b >>> (i % 8)) & 1) + 1];
 			for (int j = 0; j < features.length; j++)
-				features[j] = reader.ReadByte();
+				features[j] = reader.readByte();
 			cpuidFeatures[i] = features;
 		}
 		if (reader.canRead())

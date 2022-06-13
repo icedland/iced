@@ -8,7 +8,7 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
 final class MemorySizes {
 	static final String[] allMemorySizes = getMemorySizes();
 
-	static String[] getMemorySizes() {
+	private static String[] getMemorySizes() {
 		String[] memSizes = new String[IcedConstants.MEMORY_SIZE_ENUM_COUNT];
 		byte[] data = new byte[] {
 			// GENERATOR-BEGIN: MemorySizes

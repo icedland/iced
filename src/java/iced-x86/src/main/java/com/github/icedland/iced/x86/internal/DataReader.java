@@ -36,15 +36,15 @@ public final class DataReader {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public int ReadByte() {
+	public int readByte() {
 		return data[index++] & 0xFF;
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public int ReadCompressedUInt32() {
+	public int readCompressedUInt32() {
 		int result = 0;
 		for (int shift = 0; shift < 32; shift += 7) {
-			int b = ReadByte();
+			int b = readByte();
 			if ((b & 0x80) == 0)
 				return result | (b << shift);
 			result |= (b & 0x7F) << shift;
@@ -53,11 +53,11 @@ public final class DataReader {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public String ReadAsciiString() {
-		int length = ReadByte();
+	public String readAsciiString() {
+		int length = readByte();
 		char[] stringData = this.stringData;
 		for (int i = 0; i < length; i++)
-			stringData[i] = (char)ReadByte();
+			stringData[i] = (char)readByte();
 		return new String(stringData, 0, length);
 	}
 }

@@ -3,11 +3,30 @@
 
 package com.github.icedland.iced.x86.internal.fmt;
 
+import com.github.icedland.iced.x86.internal.IcedConstants;
+import com.github.icedland.iced.x86.internal.ResourceReader;
+
 /**
  * DO NOT USE: INTERNAL API
  */
 public final class RegistersTable {
 	private RegistersTable() {
+	}
+
+	@SuppressWarnings("deprecation")
+	public static FormatterString[] getRegisters() {
+		com.github.icedland.iced.x86.internal.DataReader reader = new com.github.icedland.iced.x86.internal.DataReader(getRegistersData(),
+				MAX_STRING_LENGTH);
+		FormatterString[] strings = new FormatterString[IcedConstants.REGISTER_ENUM_COUNT];
+		for (int i = 0; i < strings.length; i++)
+			strings[i] = new FormatterString(reader.readAsciiString());
+		if (reader.canRead())
+			throw new UnsupportedOperationException();
+		return strings;
+	}
+
+	private static byte[] getRegistersData() {
+		return ResourceReader.ReadByteArray(RegistersTable.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/RegistersTable.bin");
 	}
 
 	// GENERATOR-BEGIN: Registers
