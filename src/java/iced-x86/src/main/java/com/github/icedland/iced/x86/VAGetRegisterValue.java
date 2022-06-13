@@ -6,6 +6,7 @@ package com.github.icedland.iced.x86;
 /**
  * Called when calculating the virtual address of a memory operand
  */
+@FunctionalInterface
 public interface VAGetRegisterValue {
 	/**
 	 * Gets a register value. If <code>register</code> is a segment register, this method should return the segment's base address, not the segment's
