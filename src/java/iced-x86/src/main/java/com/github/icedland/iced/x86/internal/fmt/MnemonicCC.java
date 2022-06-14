@@ -12,7 +12,7 @@ import com.github.icedland.iced.x86.fmt.FormatterOptions;
  */
 @Deprecated
 public final class MnemonicCC {
-	public static FormatterString GetMnemonicCC(FormatterOptions options, int ccIndex, FormatterString[] mnemonics) {
+	public static FormatterString getMnemonicCC(FormatterOptions options, int ccIndex, FormatterString[] mnemonics) {
 		int index;
 		switch (ccIndex) {
 		case 0: // o

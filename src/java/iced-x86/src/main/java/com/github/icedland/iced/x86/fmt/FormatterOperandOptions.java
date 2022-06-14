@@ -10,6 +10,7 @@ public final class FormatterOperandOptions {
 	private int flags;
 
 	private static final class Flags {
+		static final int NONE = 0;
 		static final int NO_BRANCH_SIZE = 0x0000_0001;
 		static final int RIP_RELATIVE_ADDRESSES = 0x0000_0002;
 		static final int MEMORY_SIZE_SHIFT = 30;
@@ -71,13 +72,10 @@ public final class FormatterOperandOptions {
 	}
 
 	/**
-	 * DO NOT USE: INTERNAL API
-	 *
-	 * @deprecated Not part of the public API
+	 * Constructor
 	 */
-	@Deprecated
-	public FormatterOperandOptions withFlags(int flags) {
-		return new FormatterOperandOptions(flags);
+	public FormatterOperandOptions() {
+		this(Flags.NONE);
 	}
 
 	/**
@@ -86,7 +84,7 @@ public final class FormatterOperandOptions {
 	 * @deprecated Not part of the public API
 	 */
 	@Deprecated
-	public FormatterOperandOptions withMemorySizeOptions(int options) {
+	public static FormatterOperandOptions withMemorySizeOptions(int options) {
 		return new FormatterOperandOptions(options << Flags.MEMORY_SIZE_SHIFT);
 	}
 }

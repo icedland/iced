@@ -31,6 +31,11 @@ public final class DataReader {
 	}
 
 	/** DO NOT USE: INTERNAL API */
+	public int getIndex() {
+		return index;
+	}
+
+	/** DO NOT USE: INTERNAL API */
 	public void setIndex(int index) {
 		this.index = index;
 	}

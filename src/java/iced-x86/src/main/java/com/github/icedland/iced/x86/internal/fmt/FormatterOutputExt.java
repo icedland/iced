@@ -22,13 +22,13 @@ public final class FormatterOutputExt {
 	private FormatterOutputExt() {
 	}
 
-	public void write(FormatterOutput output, Instruction instruction, int operand, int instructionOperand, FormatterOptions options,
+	public static void write(FormatterOutput output, Instruction instruction, int operand, int instructionOperand, FormatterOptions options,
 			NumberFormatter numberFormatter, NumberFormattingOptions numberOptions, long address, SymbolResult symbol, boolean showSymbolAddress) {
 		write(output, instruction, operand, instructionOperand, options, numberFormatter, numberOptions, address, symbol, showSymbolAddress, true,
 				false);
 	}
 
-	public void write(FormatterOutput output, Instruction instruction, int operand, int instructionOperand, FormatterOptions options,
+	public static void write(FormatterOutput output, Instruction instruction, int operand, int instructionOperand, FormatterOptions options,
 			NumberFormatter numberFormatter, NumberFormattingOptions numberOptions, long address, SymbolResult symbol, boolean showSymbolAddress,
 			boolean writeMinusIfSigned, boolean spacesBetweenOp) {
 		long displ = address - symbol.address;
