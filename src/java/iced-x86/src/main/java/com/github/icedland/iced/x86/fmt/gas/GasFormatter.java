@@ -204,7 +204,7 @@ public final class GasFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		return opInfo.OpCount;
+		return opInfo.opCount;
 	}
 
 	/**
@@ -223,7 +223,7 @@ public final class GasFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 		// Although it's a tryXXX() method, it should only accept valid instruction operand indexes
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.tryGetOpAccess(operand);
 	}
@@ -240,7 +240,7 @@ public final class GasFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.getInstructionIndex(operand);
 	}
@@ -276,7 +276,7 @@ public final class GasFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		formatOperand(instruction, output, opInfo, operand);
 	}
@@ -324,7 +324,7 @@ public final class GasFormatter extends Formatter {
 
 		int column = formatMnemonic(instruction, output, opInfo, 0, FormatMnemonicOptions.NONE);
 
-		if (opInfo.OpCount != 0) {
+		if (opInfo.opCount != 0) {
 			com.github.icedland.iced.x86.internal.fmt.FormatterUtils.addTabs(output, column, options.getFirstOperandCharIndex(),
 					options.getTabSize());
 			formatOperands(instruction, output, opInfo);
@@ -334,12 +334,12 @@ public final class GasFormatter extends Formatter {
 	private int formatMnemonic(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int column, int mnemonicOptions) {
 		if (output == null)
 			throw new NullPointerException("output");
-		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
+		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
 			int prefixSeg = instruction.getSegmentPrefix();
 			FormatterString prefix;
 
-			if ((opInfo.Flags & InstrOpInfoFlags.OP_SIZE_IS_BYTE_DIRECTIVE) != 0) {
-				switch ((opInfo.Flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK) {
+			if ((opInfo.flags & InstrOpInfoFlags.OP_SIZE_IS_BYTE_DIRECTIVE) != 0) {
+				switch ((opInfo.flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK) {
 				case SizeOverride.NONE:
 					break;
 
@@ -364,12 +364,12 @@ public final class GasFormatter extends Formatter {
 				}
 			}
 			else {
-				prefix = opSizeStrings[(opInfo.Flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
+				prefix = opSizeStrings[(opInfo.flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
 				if (prefix.getLength() != 0)
 					column = formatPrefix(output, instruction, column, prefix, PrefixKind.OPERAND_SIZE);
 			}
 
-			prefix = addrSizeStrings[(opInfo.Flags >>> InstrOpInfoFlags.ADDR_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
+			prefix = addrSizeStrings[(opInfo.flags >>> InstrOpInfoFlags.ADDR_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
 			if (prefix.getLength() != 0)
 				column = formatPrefix(output, instruction, column, prefix, PrefixKind.ADDRESS_SIZE);
 
@@ -388,7 +388,7 @@ public final class GasFormatter extends Formatter {
 
 			if (hasNoTrackPrefix)
 				column = formatPrefix(output, instruction, column, str_notrack, PrefixKind.NOTRACK);
-			boolean hasBnd = (opInfo.Flags & InstrOpInfoFlags.BND_PREFIX) != 0;
+			boolean hasBnd = (opInfo.flags & InstrOpInfoFlags.BND_PREFIX) != 0;
 			if (hasBnd)
 				column = formatPrefix(output, instruction, column, str_bnd, PrefixKind.BND);
 
@@ -411,8 +411,8 @@ public final class GasFormatter extends Formatter {
 				output.write(" ", FormatterTextKind.TEXT);
 				column++;
 			}
-			FormatterString mnemonic = opInfo.Mnemonic;
-			if ((opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
+			FormatterString mnemonic = opInfo.mnemonic;
+			if ((opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
 				output.write(mnemonic.get(options.getUppercaseKeywords() || options.getUppercaseAll()), FormatterTextKind.DIRECTIVE);
 			}
 			else {
@@ -421,9 +421,9 @@ public final class GasFormatter extends Formatter {
 			column += mnemonic.getLength();
 		}
 		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0) {
-			if ((opInfo.Flags & InstrOpInfoFlags.JCC_NOT_TAKEN) != 0)
+			if ((opInfo.flags & InstrOpInfoFlags.JCC_NOT_TAKEN) != 0)
 				column = formatBranchHint(output, column, str_pn);
-			else if ((opInfo.Flags & InstrOpInfoFlags.JCC_TAKEN) != 0)
+			else if ((opInfo.flags & InstrOpInfoFlags.JCC_TAKEN) != 0)
 				column = formatBranchHint(output, column, str_pt);
 		}
 		return column & 0x7FFF_FFFF;
@@ -437,7 +437,7 @@ public final class GasFormatter extends Formatter {
 	}
 
 	private boolean showSegmentPrefix(Instruction instruction, InstrOpInfo opInfo) {
-		if ((opInfo.Flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
+		if ((opInfo.flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
 			return false;
 
 		switch (instruction.getCode()) {
@@ -462,7 +462,7 @@ public final class GasFormatter extends Formatter {
 			break;
 		}
 
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			switch (opInfo.getOpKind(i)) {
 			case InstrOpKind.REGISTER:
 			case InstrOpKind.NEAR_BRANCH16:
@@ -527,7 +527,7 @@ public final class GasFormatter extends Formatter {
 	private void formatOperands(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo) {
 		if (output == null)
 			throw new NullPointerException("output");
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			if (i > 0) {
 				output.write(",", FormatterTextKind.PUNCTUATION);
 				if (options.getSpaceAfterOperandSeparator())
@@ -538,7 +538,7 @@ public final class GasFormatter extends Formatter {
 	}
 
 	private void formatOperand(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int operand) {
-		assert Integer.compareUnsigned(operand, opInfo.OpCount) < 0 : operand;
+		assert Integer.compareUnsigned(operand, opInfo.opCount) < 0 : operand;
 		if (output == null)
 			throw new NullPointerException("output");
 
@@ -546,13 +546,13 @@ public final class GasFormatter extends Formatter {
 		if (MvexInfo.isMvex(instruction.getCode())) {
 			int opCount = instruction.getOpCount();
 			assert opCount != 0 : opCount;
-			mvexRmOperand = instruction.getOpKind(opCount - 1) == OpKind.IMMEDIATE8 && opInfo.OpCount == opCount ? 1 : 0;
+			mvexRmOperand = instruction.getOpKind(opCount - 1) == OpKind.IMMEDIATE8 && opInfo.opCount == opCount ? 1 : 0;
 		}
 		else
 			mvexRmOperand = -1;
 		int instructionOperand = opInfo.getInstructionIndex(operand);
 
-		if ((opInfo.Flags & InstrOpInfoFlags.INDIRECT_OPERAND) != 0)
+		if ((opInfo.flags & InstrOpInfoFlags.INDIRECT_OPERAND) != 0)
 			output.write("*", FormatterTextKind.OPERATOR);
 
 		String s;
@@ -861,7 +861,7 @@ public final class GasFormatter extends Formatter {
 				displ = instruction.getMemoryDisplacement64();
 			else
 				displ = instruction.getMemoryDisplacement32();
-			if ((opInfo.Flags & InstrOpInfoFlags.IGNORE_INDEX_REG) != 0)
+			if ((opInfo.flags & InstrOpInfoFlags.IGNORE_INDEX_REG) != 0)
 				indexReg = Register.NONE;
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), baseReg, indexReg,
 					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize);
@@ -907,7 +907,7 @@ public final class GasFormatter extends Formatter {
 			throw new UnsupportedOperationException();
 		}
 
-		if (operand + 1 == opInfo.OpCount && (instruction.hasOpMask() || instruction.getZeroingMasking())) {
+		if (operand + 1 == opInfo.opCount && (instruction.hasOpMask() || instruction.getZeroingMasking())) {
 			if (instruction.hasOpMask()) {
 				output.write("{", FormatterTextKind.PUNCTUATION);
 				formatRegister(output, instruction, operand, instructionOperand, instruction.getOpMask());

@@ -15,39 +15,39 @@ import com.github.icedland.iced.x86.internal.MvexInfo;
 import com.github.icedland.iced.x86.internal.fmt.FormatterString;
 
 final class InstrOpInfo {
-	FormatterString Mnemonic;
-	int Flags;
-	byte OpCount;
-	byte Op0Kind;
-	byte Op1Kind;
-	byte Op2Kind;
-	byte Op3Kind;
-	byte Op4Kind;
-	byte Op0Register;
-	byte Op1Register;
-	byte Op2Register;
-	byte Op3Register;
-	byte Op4Register;
-	byte Op0Index;
-	byte Op1Index;
-	byte Op2Index;
-	byte Op3Index;
-	byte Op4Index;
+	FormatterString mnemonic;
+	int flags;
+	byte opCount;
+	byte op0Kind;
+	byte op1Kind;
+	byte op2Kind;
+	byte op3Kind;
+	byte op4Kind;
+	byte op0Register;
+	byte op1Register;
+	byte op2Register;
+	byte op3Register;
+	byte op4Register;
+	byte op0Index;
+	byte op1Index;
+	byte op2Index;
+	byte op3Index;
+	byte op4Index;
 
 	@SuppressWarnings("deprecation")
 	int getOpRegister(int operand) {
 		final int REG_MASK = com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 		switch (operand) {
 		case 0:
-			return Op0Register & REG_MASK;
+			return op0Register & REG_MASK;
 		case 1:
-			return Op1Register & REG_MASK;
+			return op1Register & REG_MASK;
 		case 2:
-			return Op2Register & REG_MASK;
+			return op2Register & REG_MASK;
 		case 3:
-			return Op3Register & REG_MASK;
+			return op3Register & REG_MASK;
 		case 4:
-			return Op4Register & REG_MASK;
+			return op4Register & REG_MASK;
 		default:
 			throw new IllegalArgumentException("operand");
 		}
@@ -56,19 +56,19 @@ final class InstrOpInfo {
 	int getOpKind(int operand) {
 		switch (operand) {
 		case 0:
-			return Op0Kind;
+			return op0Kind;
 		case 1:
-			return Op1Kind;
+			return op1Kind;
 		case 2:
-			return Op2Kind;
+			return op2Kind;
 		case 3:
-			return Op3Kind;
+			return op3Kind;
 		case 4:
-			return Op4Kind;
+			return op4Kind;
 		default:
-			assert Op0Kind == InstrOpKind.DECLARE_BYTE || Op0Kind == InstrOpKind.DECLARE_WORD || Op0Kind == InstrOpKind.DECLARE_DWORD
-					|| Op0Kind == InstrOpKind.DECLARE_QWORD : Op0Kind;
-			return Op0Kind;
+			assert op0Kind == InstrOpKind.DECLARE_BYTE || op0Kind == InstrOpKind.DECLARE_WORD || op0Kind == InstrOpKind.DECLARE_DWORD
+					|| op0Kind == InstrOpKind.DECLARE_QWORD : op0Kind;
+			return op0Kind;
 		}
 	}
 
@@ -76,23 +76,23 @@ final class InstrOpInfo {
 		int instructionOperand;
 		switch (operand) {
 		case 0:
-			instructionOperand = Op0Index;
+			instructionOperand = op0Index;
 			break;
 		case 1:
-			instructionOperand = Op1Index;
+			instructionOperand = op1Index;
 			break;
 		case 2:
-			instructionOperand = Op2Index;
+			instructionOperand = op2Index;
 			break;
 		case 3:
-			instructionOperand = Op3Index;
+			instructionOperand = op3Index;
 			break;
 		case 4:
-			instructionOperand = Op4Index;
+			instructionOperand = op4Index;
 			break;
 		default:
-			assert Op0Kind == InstrOpKind.DECLARE_BYTE || Op0Kind == InstrOpKind.DECLARE_WORD || Op0Kind == InstrOpKind.DECLARE_DWORD
-					|| Op0Kind == InstrOpKind.DECLARE_QWORD : Op0Kind;
+			assert op0Kind == InstrOpKind.DECLARE_BYTE || op0Kind == InstrOpKind.DECLARE_WORD || op0Kind == InstrOpKind.DECLARE_DWORD
+					|| op0Kind == InstrOpKind.DECLARE_QWORD : op0Kind;
 			instructionOperand = -1;
 			break;
 		}
@@ -103,24 +103,24 @@ final class InstrOpInfo {
 		int instructionOperand;
 		switch (operand) {
 		case 0:
-			instructionOperand = Op0Index;
+			instructionOperand = op0Index;
 			break;
 		case 1:
-			instructionOperand = Op1Index;
+			instructionOperand = op1Index;
 			break;
 		case 2:
-			instructionOperand = Op2Index;
+			instructionOperand = op2Index;
 			break;
 		case 3:
-			instructionOperand = Op3Index;
+			instructionOperand = op3Index;
 			break;
 		case 4:
-			instructionOperand = Op4Index;
+			instructionOperand = op4Index;
 			break;
 		default:
-			assert Op0Kind == InstrOpKind.DECLARE_BYTE || Op0Kind == InstrOpKind.DECLARE_WORD || Op0Kind == InstrOpKind.DECLARE_DWORD
-					|| Op0Kind == InstrOpKind.DECLARE_QWORD : Op0Kind;
-			instructionOperand = Op0Index;
+			assert op0Kind == InstrOpKind.DECLARE_BYTE || op0Kind == InstrOpKind.DECLARE_WORD || op0Kind == InstrOpKind.DECLARE_DWORD
+					|| op0Kind == InstrOpKind.DECLARE_QWORD : op0Kind;
+			instructionOperand = op0Index;
 			break;
 		}
 		if (instructionOperand < InstrInfo.OP_ACCESS_INVALID)
@@ -130,172 +130,172 @@ final class InstrOpInfo {
 
 	int getOperandIndex(int instructionOperand) {
 		int index;
-		if (instructionOperand == Op0Index)
+		if (instructionOperand == op0Index)
 			index = 0;
-		else if (instructionOperand == Op1Index)
+		else if (instructionOperand == op1Index)
 			index = 1;
-		else if (instructionOperand == Op2Index)
+		else if (instructionOperand == op2Index)
 			index = 2;
-		else if (instructionOperand == Op3Index)
+		else if (instructionOperand == op3Index)
 			index = 3;
-		else if (instructionOperand == Op4Index)
+		else if (instructionOperand == op4Index)
 			index = 4;
 		else
 			index = -1;
-		return index < OpCount ? index : -1;
+		return index < opCount ? index : -1;
 	}
 
 	InstrOpInfo() {
 	}
 
 	InstrOpInfo(FormatterString mnemonic, Instruction instruction, int flags) {
-		Mnemonic = mnemonic;
-		Flags = flags;
+		this.mnemonic = mnemonic;
+		this.flags = flags;
 		int opCount = instruction.getOpCount();
-		OpCount = (byte)opCount;
+		opCount = (byte)opCount;
 		if ((flags & InstrOpInfoFlags.KEEP_OPERAND_ORDER) != 0) {
-			Op0Kind = (byte)instruction.getOp0Kind();
-			Op1Kind = (byte)instruction.getOp1Kind();
-			Op2Kind = (byte)instruction.getOp2Kind();
-			Op3Kind = (byte)instruction.getOp3Kind();
-			Op4Kind = (byte)instruction.getOp4Kind();
-			Op0Register = (byte)instruction.getOp0Register();
-			Op1Register = (byte)instruction.getOp1Register();
-			Op2Register = (byte)instruction.getOp2Register();
-			Op3Register = (byte)instruction.getOp3Register();
-			Op4Register = (byte)instruction.getOp4Register();
+			op0Kind = (byte)instruction.getOp0Kind();
+			op1Kind = (byte)instruction.getOp1Kind();
+			op2Kind = (byte)instruction.getOp2Kind();
+			op3Kind = (byte)instruction.getOp3Kind();
+			op4Kind = (byte)instruction.getOp4Kind();
+			op0Register = (byte)instruction.getOp0Register();
+			op1Register = (byte)instruction.getOp1Register();
+			op2Register = (byte)instruction.getOp2Register();
+			op3Register = (byte)instruction.getOp3Register();
+			op4Register = (byte)instruction.getOp4Register();
 		}
 		else {
 			switch (opCount) {
 			case 0:
-				Op0Kind = 0;
-				Op1Kind = 0;
-				Op2Kind = 0;
-				Op3Kind = 0;
-				Op4Kind = 0;
-				Op0Register = 0;
-				Op1Register = 0;
-				Op2Register = 0;
-				Op3Register = 0;
-				Op4Register = 0;
+				op0Kind = 0;
+				op1Kind = 0;
+				op2Kind = 0;
+				op3Kind = 0;
+				op4Kind = 0;
+				op0Register = 0;
+				op1Register = 0;
+				op2Register = 0;
+				op3Register = 0;
+				op4Register = 0;
 				break;
 
 			case 1:
-				Op0Kind = (byte)instruction.getOp0Kind();
-				Op1Kind = 0;
-				Op2Kind = 0;
-				Op3Kind = 0;
-				Op4Kind = 0;
-				Op0Register = (byte)instruction.getOp0Register();
-				Op1Register = 0;
-				Op2Register = 0;
-				Op3Register = 0;
-				Op4Register = 0;
+				op0Kind = (byte)instruction.getOp0Kind();
+				op1Kind = 0;
+				op2Kind = 0;
+				op3Kind = 0;
+				op4Kind = 0;
+				op0Register = (byte)instruction.getOp0Register();
+				op1Register = 0;
+				op2Register = 0;
+				op3Register = 0;
+				op4Register = 0;
 				break;
 
 			case 2:
-				Op0Kind = (byte)instruction.getOp1Kind();
-				Op1Kind = (byte)instruction.getOp0Kind();
-				Op2Kind = 0;
-				Op3Kind = 0;
-				Op4Kind = 0;
-				Op0Register = (byte)instruction.getOp1Register();
-				Op1Register = (byte)instruction.getOp0Register();
-				Op2Register = 0;
-				Op3Register = 0;
-				Op4Register = 0;
+				op0Kind = (byte)instruction.getOp1Kind();
+				op1Kind = (byte)instruction.getOp0Kind();
+				op2Kind = 0;
+				op3Kind = 0;
+				op4Kind = 0;
+				op0Register = (byte)instruction.getOp1Register();
+				op1Register = (byte)instruction.getOp0Register();
+				op2Register = 0;
+				op3Register = 0;
+				op4Register = 0;
 				break;
 
 			case 3:
-				Op0Kind = (byte)instruction.getOp2Kind();
-				Op1Kind = (byte)instruction.getOp1Kind();
-				Op2Kind = (byte)instruction.getOp0Kind();
-				Op3Kind = 0;
-				Op4Kind = 0;
-				Op0Register = (byte)instruction.getOp2Register();
-				Op1Register = (byte)instruction.getOp1Register();
-				Op2Register = (byte)instruction.getOp0Register();
-				Op3Register = 0;
-				Op4Register = 0;
+				op0Kind = (byte)instruction.getOp2Kind();
+				op1Kind = (byte)instruction.getOp1Kind();
+				op2Kind = (byte)instruction.getOp0Kind();
+				op3Kind = 0;
+				op4Kind = 0;
+				op0Register = (byte)instruction.getOp2Register();
+				op1Register = (byte)instruction.getOp1Register();
+				op2Register = (byte)instruction.getOp0Register();
+				op3Register = 0;
+				op4Register = 0;
 				break;
 
 			case 4:
-				Op0Kind = (byte)instruction.getOp3Kind();
-				Op1Kind = (byte)instruction.getOp2Kind();
-				Op2Kind = (byte)instruction.getOp1Kind();
-				Op3Kind = (byte)instruction.getOp0Kind();
-				Op4Kind = 0;
-				Op0Register = (byte)instruction.getOp3Register();
-				Op1Register = (byte)instruction.getOp2Register();
-				Op2Register = (byte)instruction.getOp1Register();
-				Op3Register = (byte)instruction.getOp0Register();
-				Op4Register = 0;
+				op0Kind = (byte)instruction.getOp3Kind();
+				op1Kind = (byte)instruction.getOp2Kind();
+				op2Kind = (byte)instruction.getOp1Kind();
+				op3Kind = (byte)instruction.getOp0Kind();
+				op4Kind = 0;
+				op0Register = (byte)instruction.getOp3Register();
+				op1Register = (byte)instruction.getOp2Register();
+				op2Register = (byte)instruction.getOp1Register();
+				op3Register = (byte)instruction.getOp0Register();
+				op4Register = 0;
 				break;
 
 			case 5:
-				Op0Kind = (byte)instruction.getOp4Kind();
-				Op1Kind = (byte)instruction.getOp3Kind();
-				Op2Kind = (byte)instruction.getOp2Kind();
-				Op3Kind = (byte)instruction.getOp1Kind();
-				Op4Kind = (byte)instruction.getOp0Kind();
-				Op0Register = (byte)instruction.getOp4Register();
-				Op1Register = (byte)instruction.getOp3Register();
-				Op2Register = (byte)instruction.getOp2Register();
-				Op3Register = (byte)instruction.getOp1Register();
-				Op4Register = (byte)instruction.getOp0Register();
+				op0Kind = (byte)instruction.getOp4Kind();
+				op1Kind = (byte)instruction.getOp3Kind();
+				op2Kind = (byte)instruction.getOp2Kind();
+				op3Kind = (byte)instruction.getOp1Kind();
+				op4Kind = (byte)instruction.getOp0Kind();
+				op0Register = (byte)instruction.getOp4Register();
+				op1Register = (byte)instruction.getOp3Register();
+				op2Register = (byte)instruction.getOp2Register();
+				op3Register = (byte)instruction.getOp1Register();
+				op4Register = (byte)instruction.getOp0Register();
 				break;
 
 			default:
 				throw new UnsupportedOperationException();
 			}
 		}
-		switch (OpCount) {
+		switch (opCount) {
 		case 0:
-			Op0Index = InstrInfo.OP_ACCESS_INVALID;
-			Op1Index = InstrInfo.OP_ACCESS_INVALID;
-			Op2Index = InstrInfo.OP_ACCESS_INVALID;
-			Op3Index = InstrInfo.OP_ACCESS_INVALID;
-			Op4Index = InstrInfo.OP_ACCESS_INVALID;
+			op0Index = InstrInfo.OP_ACCESS_INVALID;
+			op1Index = InstrInfo.OP_ACCESS_INVALID;
+			op2Index = InstrInfo.OP_ACCESS_INVALID;
+			op3Index = InstrInfo.OP_ACCESS_INVALID;
+			op4Index = InstrInfo.OP_ACCESS_INVALID;
 			break;
 
 		case 1:
-			Op0Index = 0;
-			Op1Index = InstrInfo.OP_ACCESS_INVALID;
-			Op2Index = InstrInfo.OP_ACCESS_INVALID;
-			Op3Index = InstrInfo.OP_ACCESS_INVALID;
-			Op4Index = InstrInfo.OP_ACCESS_INVALID;
+			op0Index = 0;
+			op1Index = InstrInfo.OP_ACCESS_INVALID;
+			op2Index = InstrInfo.OP_ACCESS_INVALID;
+			op3Index = InstrInfo.OP_ACCESS_INVALID;
+			op4Index = InstrInfo.OP_ACCESS_INVALID;
 			break;
 
 		case 2:
-			Op0Index = 1;
-			Op1Index = 0;
-			Op2Index = InstrInfo.OP_ACCESS_INVALID;
-			Op3Index = InstrInfo.OP_ACCESS_INVALID;
-			Op4Index = InstrInfo.OP_ACCESS_INVALID;
+			op0Index = 1;
+			op1Index = 0;
+			op2Index = InstrInfo.OP_ACCESS_INVALID;
+			op3Index = InstrInfo.OP_ACCESS_INVALID;
+			op4Index = InstrInfo.OP_ACCESS_INVALID;
 			break;
 
 		case 3:
-			Op0Index = 2;
-			Op1Index = 1;
-			Op2Index = 0;
-			Op3Index = InstrInfo.OP_ACCESS_INVALID;
-			Op4Index = InstrInfo.OP_ACCESS_INVALID;
+			op0Index = 2;
+			op1Index = 1;
+			op2Index = 0;
+			op3Index = InstrInfo.OP_ACCESS_INVALID;
+			op4Index = InstrInfo.OP_ACCESS_INVALID;
 			break;
 
 		case 4:
-			Op0Index = 3;
-			Op1Index = 2;
-			Op2Index = 1;
-			Op3Index = 0;
-			Op4Index = InstrInfo.OP_ACCESS_INVALID;
+			op0Index = 3;
+			op1Index = 2;
+			op2Index = 1;
+			op3Index = 0;
+			op4Index = InstrInfo.OP_ACCESS_INVALID;
 			break;
 
 		case 5:
-			Op0Index = 4;
-			Op1Index = 3;
-			Op2Index = 2;
-			Op3Index = 1;
-			Op4Index = 0;
+			op0Index = 4;
+			op1Index = 3;
+			op2Index = 2;
+			op3Index = 1;
+			op4Index = 0;
 			break;
 
 		default:
@@ -406,7 +406,7 @@ final class SimpleInstrInfo_AamAad extends InstrInfo {
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		if (instruction.getImmediate8() == 10) {
 			InstrOpInfo info = new InstrOpInfo();
-			info.Mnemonic = mnemonic;
+			info.mnemonic = mnemonic;
 			return info;
 		}
 		else
@@ -438,20 +438,20 @@ final class SimpleInstrInfo_nop extends InstrInfo {
 		else {
 			InstrOpInfo info = new InstrOpInfo();
 			if (!options.getGasShowMnemonicSizeSuffix())
-				info.Mnemonic = str_xchg;
+				info.mnemonic = str_xchg;
 			else if (register == Register.AX)
-				info.Mnemonic = str_xchgw;
+				info.mnemonic = str_xchgw;
 			else if (register == Register.EAX)
-				info.Mnemonic = str_xchgl;
+				info.mnemonic = str_xchgl;
 			else if (register == Register.RAX)
-				info.Mnemonic = str_xchgq;
+				info.mnemonic = str_xchgq;
 			else
 				throw new UnsupportedOperationException();
-			info.OpCount = 2;
-			info.Op0Register = (byte)register;
-			info.Op1Register = (byte)register;
-			info.Op0Index = OP_ACCESS_NONE;
-			info.Op1Index = OP_ACCESS_NONE;
+			info.opCount = 2;
+			info.op0Register = (byte)register;
+			info.op1Register = (byte)register;
+			info.op0Index = OP_ACCESS_NONE;
+			info.op1Index = OP_ACCESS_NONE;
 			return info;
 		}
 	}
@@ -469,13 +469,13 @@ final class SimpleInstrInfo_STIG1 extends InstrInfo {
 	@Override
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		InstrOpInfo info = new InstrOpInfo();
-		info.Mnemonic = mnemonic;
+		info.mnemonic = mnemonic;
 		assert instruction.getOpCount() == 2 : instruction.getOpCount();
 		assert instruction.getOp0Kind() == OpKind.REGISTER && instruction.getOp0Register() == Register.ST0;
 		if (!pseudoOp || !(options.getUsePseudoOps() && instruction.getOp1Register() == Register.ST1)) {
-			info.OpCount = 1;
-			info.Op0Register = (byte)instruction.getOp1Register();
-			info.Op0Index = 1;
+			info.opCount = 1;
+			info.op0Register = (byte)instruction.getOp1Register();
+			info.op0Index = 1;
 		}
 		return info;
 	}
@@ -496,12 +496,12 @@ final class SimpleInstrInfo_STi_ST extends InstrInfo {
 		InstrOpInfo info;
 		if (pseudoOp && options.getUsePseudoOps() && (instruction.getOp0Register() == Register.ST1 || instruction.getOp1Register() == Register.ST1)) {
 			info = new InstrOpInfo();
-			info.Mnemonic = mnemonic;
+			info.mnemonic = mnemonic;
 		}
 		else {
 			info = new InstrOpInfo(mnemonic, instruction, flags);
 			assert info.getOpRegister(0) == Register.ST0 : info.getOpRegister(0);
-			info.Op0Register = (byte)Registers.REGISTER_ST;
+			info.op0Register = (byte)Registers.REGISTER_ST;
 		}
 		return info;
 	}
@@ -518,7 +518,7 @@ final class SimpleInstrInfo_ST_STi extends InstrInfo {
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.NONE);
 		assert info.getOpRegister(1) == Register.ST0 : info.getOpRegister(1);
-		info.Op1Register = (byte)Registers.REGISTER_ST;
+		info.op1Register = (byte)Registers.REGISTER_ST;
 		return info;
 	}
 }
@@ -578,21 +578,21 @@ final class SimpleInstrInfo_maskmovq extends InstrInfo {
 		}
 
 		InstrOpInfo info = new InstrOpInfo();
-		info.Mnemonic = mnemonic;
-		info.OpCount = 2;
-		info.Op0Kind = (byte)instruction.getOp2Kind();
-		info.Op0Register = (byte)instruction.getOp2Register();
-		info.Op0Index = 2;
-		info.Op1Kind = (byte)instruction.getOp1Kind();
-		info.Op1Register = (byte)instruction.getOp1Register();
-		info.Op1Index = 1;
+		info.mnemonic = mnemonic;
+		info.opCount = 2;
+		info.op0Kind = (byte)instruction.getOp2Kind();
+		info.op0Register = (byte)instruction.getOp2Register();
+		info.op0Index = 2;
+		info.op1Kind = (byte)instruction.getOp1Kind();
+		info.op1Register = (byte)instruction.getOp1Register();
+		info.op1Index = 1;
 		if (instrBitness != 0 && instrBitness != bitness) {
 			if (bitness == 16)
-				info.Flags |= InstrOpInfoFlags.ADDR_SIZE16;
+				info.flags |= InstrOpInfoFlags.ADDR_SIZE16;
 			else if (bitness == 32)
-				info.Flags |= InstrOpInfoFlags.ADDR_SIZE32;
+				info.flags |= InstrOpInfoFlags.ADDR_SIZE32;
 			else
-				info.Flags |= InstrOpInfoFlags.ADDR_SIZE64;
+				info.flags |= InstrOpInfoFlags.ADDR_SIZE64;
 		}
 		return info;
 	}
@@ -609,15 +609,15 @@ final class SimpleInstrInfo_pblendvb extends InstrInfo {
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		InstrOpInfo info = new InstrOpInfo();
 		assert instruction.getOpCount() == 2 : instruction.getOpCount();
-		info.Mnemonic = mnemonic;
-		info.OpCount = 3;
-		info.Op0Register = (byte)Register.XMM0;
-		info.Op0Index = OP_ACCESS_READ;
-		info.Op1Kind = (byte)instruction.getOp1Kind();
-		info.Op1Index = 1;
-		info.Op1Register = (byte)instruction.getOp1Register();
-		info.Op2Kind = (byte)instruction.getOp0Kind();
-		info.Op2Register = (byte)instruction.getOp0Register();
+		info.mnemonic = mnemonic;
+		info.opCount = 3;
+		info.op0Register = (byte)Register.XMM0;
+		info.op0Index = OP_ACCESS_READ;
+		info.op1Kind = (byte)instruction.getOp1Kind();
+		info.op1Index = 1;
+		info.op1Register = (byte)instruction.getOp1Register();
+		info.op2Kind = (byte)instruction.getOp0Kind();
+		info.op2Register = (byte)instruction.getOp0Register();
 		return info;
 	}
 }
@@ -822,12 +822,12 @@ final class SimpleInstrInfo_Reg16 extends InstrInfo {
 		final int REG_MASK = com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 		int flags = InstrOpInfoFlags.NONE;
 		InstrOpInfo info = new InstrOpInfo(getMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
-		if (Register.EAX <= (info.Op0Register & REG_MASK) && (info.Op0Register & REG_MASK) <= Register.R15)
-			info.Op0Register = (byte)((((info.Op0Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
-		if (Register.EAX <= (info.Op1Register & REG_MASK) && (info.Op1Register & REG_MASK) <= Register.R15)
-			info.Op1Register = (byte)((((info.Op1Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
-		if (Register.EAX <= (info.Op2Register & REG_MASK) && (info.Op2Register & REG_MASK) <= Register.R15)
-			info.Op2Register = (byte)((((info.Op2Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
+		if (Register.EAX <= (info.op0Register & REG_MASK) && (info.op0Register & REG_MASK) <= Register.R15)
+			info.op0Register = (byte)((((info.op0Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
+		if (Register.EAX <= (info.op1Register & REG_MASK) && (info.op1Register & REG_MASK) <= Register.R15)
+			info.op1Register = (byte)((((info.op1Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
+		if (Register.EAX <= (info.op2Register & REG_MASK) && (info.op2Register & REG_MASK) <= Register.R15)
+			info.op2Register = (byte)((((info.op2Register & REG_MASK) - Register.EAX) & 0xF) + Register.AX);
 		return info;
 	}
 }
@@ -1076,40 +1076,40 @@ final class SimpleInstrInfo_er extends InstrInfo {
 	}
 
 	static void moveOperands(InstrOpInfo info, int index, int newOpKind) {
-		assert info.OpCount <= 4 : info.OpCount;
+		assert info.opCount <= 4 : info.opCount;
 
 		switch (index) {
 		case 0:
-			info.Op4Kind = info.Op3Kind;
-			info.Op4Register = info.Op3Register;
-			info.Op3Kind = info.Op2Kind;
-			info.Op3Register = info.Op2Register;
-			info.Op2Kind = info.Op1Kind;
-			info.Op2Register = info.Op1Register;
-			info.Op1Kind = info.Op0Kind;
-			info.Op1Register = info.Op0Register;
-			info.Op0Kind = (byte)newOpKind;
-			info.Op4Index = info.Op3Index;
-			info.Op3Index = info.Op2Index;
-			info.Op2Index = info.Op1Index;
-			info.Op1Index = info.Op0Index;
-			info.Op0Index = OP_ACCESS_NONE;
-			info.OpCount++;
+			info.op4Kind = info.op3Kind;
+			info.op4Register = info.op3Register;
+			info.op3Kind = info.op2Kind;
+			info.op3Register = info.op2Register;
+			info.op2Kind = info.op1Kind;
+			info.op2Register = info.op1Register;
+			info.op1Kind = info.op0Kind;
+			info.op1Register = info.op0Register;
+			info.op0Kind = (byte)newOpKind;
+			info.op4Index = info.op3Index;
+			info.op3Index = info.op2Index;
+			info.op2Index = info.op1Index;
+			info.op1Index = info.op0Index;
+			info.op0Index = OP_ACCESS_NONE;
+			info.opCount++;
 			break;
 
 		case 1:
-			info.Op4Kind = info.Op3Kind;
-			info.Op4Register = info.Op3Register;
-			info.Op3Kind = info.Op2Kind;
-			info.Op3Register = info.Op2Register;
-			info.Op2Kind = info.Op1Kind;
-			info.Op2Register = info.Op1Register;
-			info.Op1Kind = (byte)newOpKind;
-			info.Op4Index = info.Op3Index;
-			info.Op3Index = info.Op2Index;
-			info.Op2Index = info.Op1Index;
-			info.Op1Index = OP_ACCESS_NONE;
-			info.OpCount++;
+			info.op4Kind = info.op3Kind;
+			info.op4Register = info.op3Register;
+			info.op3Kind = info.op2Kind;
+			info.op3Register = info.op2Register;
+			info.op2Kind = info.op1Kind;
+			info.op2Register = info.op1Register;
+			info.op1Kind = (byte)newOpKind;
+			info.op4Index = info.op3Index;
+			info.op3Index = info.op2Index;
+			info.op2Index = info.op1Index;
+			info.op1Index = OP_ACCESS_NONE;
+			info.opCount++;
 			break;
 
 		default:
@@ -1208,63 +1208,63 @@ final class SimpleInstrInfo_pops extends InstrInfo {
 		int imm = instruction.getImmediate8();
 		if (options.getUsePseudoOps() && Integer.compareUnsigned(imm, pseudo_ops.length) < 0) {
 			removeFirstImm8Operand(info);
-			info.Mnemonic = pseudo_ops[imm];
+			info.mnemonic = pseudo_ops[imm];
 		}
 		return info;
 	}
 
 	static void removeFirstImm8Operand(InstrOpInfo info) {
-		assert info.Op0Kind == InstrOpKind.IMMEDIATE8 : info.Op0Kind;
-		info.OpCount--;
-		switch (info.OpCount) {
+		assert info.op0Kind == InstrOpKind.IMMEDIATE8 : info.op0Kind;
+		info.opCount--;
+		switch (info.opCount) {
 		case 0:
-			info.Op0Index = OP_ACCESS_INVALID;
+			info.op0Index = OP_ACCESS_INVALID;
 			break;
 
 		case 1:
-			info.Op0Kind = info.Op1Kind;
-			info.Op0Register = info.Op1Register;
-			info.Op0Index = info.Op1Index;
-			info.Op1Index = OP_ACCESS_INVALID;
+			info.op0Kind = info.op1Kind;
+			info.op0Register = info.op1Register;
+			info.op0Index = info.op1Index;
+			info.op1Index = OP_ACCESS_INVALID;
 			break;
 
 		case 2:
-			info.Op0Kind = info.Op1Kind;
-			info.Op0Register = info.Op1Register;
-			info.Op1Kind = info.Op2Kind;
-			info.Op1Register = info.Op2Register;
-			info.Op0Index = info.Op1Index;
-			info.Op1Index = info.Op2Index;
-			info.Op2Index = OP_ACCESS_INVALID;
+			info.op0Kind = info.op1Kind;
+			info.op0Register = info.op1Register;
+			info.op1Kind = info.op2Kind;
+			info.op1Register = info.op2Register;
+			info.op0Index = info.op1Index;
+			info.op1Index = info.op2Index;
+			info.op2Index = OP_ACCESS_INVALID;
 			break;
 
 		case 3:
-			info.Op0Kind = info.Op1Kind;
-			info.Op0Register = info.Op1Register;
-			info.Op1Kind = info.Op2Kind;
-			info.Op1Register = info.Op2Register;
-			info.Op2Kind = info.Op3Kind;
-			info.Op2Register = info.Op3Register;
-			info.Op0Index = info.Op1Index;
-			info.Op1Index = info.Op2Index;
-			info.Op2Index = info.Op3Index;
-			info.Op3Index = OP_ACCESS_INVALID;
+			info.op0Kind = info.op1Kind;
+			info.op0Register = info.op1Register;
+			info.op1Kind = info.op2Kind;
+			info.op1Register = info.op2Register;
+			info.op2Kind = info.op3Kind;
+			info.op2Register = info.op3Register;
+			info.op0Index = info.op1Index;
+			info.op1Index = info.op2Index;
+			info.op2Index = info.op3Index;
+			info.op3Index = OP_ACCESS_INVALID;
 			break;
 
 		case 4:
-			info.Op0Kind = info.Op1Kind;
-			info.Op0Register = info.Op1Register;
-			info.Op1Kind = info.Op2Kind;
-			info.Op1Register = info.Op2Register;
-			info.Op2Kind = info.Op3Kind;
-			info.Op2Register = info.Op3Register;
-			info.Op3Kind = info.Op4Kind;
-			info.Op3Register = info.Op4Register;
-			info.Op0Index = info.Op1Index;
-			info.Op1Index = info.Op2Index;
-			info.Op2Index = info.Op3Index;
-			info.Op3Index = info.Op4Index;
-			info.Op4Index = OP_ACCESS_INVALID;
+			info.op0Kind = info.op1Kind;
+			info.op0Register = info.op1Register;
+			info.op1Kind = info.op2Kind;
+			info.op1Register = info.op2Register;
+			info.op2Kind = info.op3Kind;
+			info.op2Register = info.op3Register;
+			info.op3Kind = info.op4Kind;
+			info.op3Register = info.op4Register;
+			info.op0Index = info.op1Index;
+			info.op1Index = info.op2Index;
+			info.op2Index = info.op3Index;
+			info.op3Index = info.op4Index;
+			info.op4Index = OP_ACCESS_INVALID;
 			break;
 
 		default:
@@ -1300,7 +1300,7 @@ final class SimpleInstrInfo_pclmulqdq extends InstrInfo {
 				index = -1;
 			if (index >= 0) {
 				SimpleInstrInfo_pops.removeFirstImm8Operand(info);
-				info.Mnemonic = pseudo_ops[index];
+				info.mnemonic = pseudo_ops[index];
 			}
 		}
 		return info;
@@ -1320,12 +1320,12 @@ final class SimpleInstrInfo_imul extends InstrInfo {
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		final int flags = InstrOpInfoFlags.NONE;
 		InstrOpInfo info = new InstrOpInfo(getMnemonic(options, instruction, mnemonic, mnemonic_suffix, flags), instruction, flags);
-		assert info.OpCount == 3 : info.OpCount;
-		if (options.getUsePseudoOps() && info.Op1Kind == InstrOpKind.REGISTER && info.Op2Kind == InstrOpKind.REGISTER
-				&& info.Op1Register == info.Op2Register) {
-			info.OpCount--;
-			info.Op1Index = OP_ACCESS_READ_WRITE;
-			info.Op2Index = OP_ACCESS_INVALID;
+		assert info.opCount == 3 : info.opCount;
+		if (options.getUsePseudoOps() && info.op1Kind == InstrOpKind.REGISTER && info.op2Kind == InstrOpKind.REGISTER
+				&& info.op1Register == info.op2Register) {
+			info.opCount--;
+			info.op1Index = OP_ACCESS_READ_WRITE;
+			info.op2Index = OP_ACCESS_INVALID;
 		}
 		return info;
 	}
@@ -1344,12 +1344,12 @@ final class SimpleInstrInfo_Reg32 extends InstrInfo {
 		final int REG_MASK = com.github.icedland.iced.x86.internal.Constants.REG_MASK;
 		final int flags = InstrOpInfoFlags.NONE;
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, flags);
-		if (Register.RAX <= (info.Op0Register & REG_MASK) && (info.Op0Register & REG_MASK) <= Register.R15)
-			info.Op0Register = (byte)((info.Op0Register & REG_MASK) - Register.RAX + Register.EAX);
-		if (Register.RAX <= (info.Op1Register & REG_MASK) && (info.Op1Register & REG_MASK) <= Register.R15)
-			info.Op1Register = (byte)((info.Op1Register & REG_MASK) - Register.RAX + Register.EAX);
-		if (Register.RAX <= (info.Op2Register & REG_MASK) && (info.Op2Register & REG_MASK) <= Register.R15)
-			info.Op2Register = (byte)((info.Op2Register & REG_MASK) - Register.RAX + Register.EAX);
+		if (Register.RAX <= (info.op0Register & REG_MASK) && (info.op0Register & REG_MASK) <= Register.R15)
+			info.op0Register = (byte)((info.op0Register & REG_MASK) - Register.RAX + Register.EAX);
+		if (Register.RAX <= (info.op1Register & REG_MASK) && (info.op1Register & REG_MASK) <= Register.R15)
+			info.op1Register = (byte)((info.op1Register & REG_MASK) - Register.RAX + Register.EAX);
+		if (Register.RAX <= (info.op2Register & REG_MASK) && (info.op2Register & REG_MASK) <= Register.R15)
+			info.op2Register = (byte)((info.op2Register & REG_MASK) - Register.RAX + Register.EAX);
 		return info;
 	}
 }
@@ -1383,17 +1383,17 @@ final class SimpleInstrInfo_DeclareData extends InstrInfo {
 	@Override
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.KEEP_OPERAND_ORDER | InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE);
-		info.OpCount = (byte)instruction.getDeclareDataCount();
-		info.Op0Kind = (byte)opKind;
-		info.Op1Kind = (byte)opKind;
-		info.Op2Kind = (byte)opKind;
-		info.Op3Kind = (byte)opKind;
-		info.Op4Kind = (byte)opKind;
-		info.Op0Index = OP_ACCESS_READ;
-		info.Op1Index = OP_ACCESS_READ;
-		info.Op2Index = OP_ACCESS_READ;
-		info.Op3Index = OP_ACCESS_READ;
-		info.Op4Index = OP_ACCESS_READ;
+		info.opCount = (byte)instruction.getDeclareDataCount();
+		info.op0Kind = (byte)opKind;
+		info.op1Kind = (byte)opKind;
+		info.op2Kind = (byte)opKind;
+		info.op3Kind = (byte)opKind;
+		info.op4Kind = (byte)opKind;
+		info.op0Index = OP_ACCESS_READ;
+		info.op1Index = OP_ACCESS_READ;
+		info.op2Index = OP_ACCESS_READ;
+		info.op3Index = OP_ACCESS_READ;
+		info.op4Index = OP_ACCESS_READ;
 		return info;
 	}
 }

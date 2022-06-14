@@ -229,7 +229,7 @@ public final class NasmFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		return opInfo.OpCount;
+		return opInfo.opCount;
 	}
 
 	/**
@@ -248,7 +248,7 @@ public final class NasmFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 		// Although it's a tryXXX() method, it should only accept valid instruction operand indexes
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.tryGetOpAccess(operand);
 	}
@@ -265,7 +265,7 @@ public final class NasmFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.getInstructionIndex(operand);
 	}
@@ -301,7 +301,7 @@ public final class NasmFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		formatOperand(instruction, output, opInfo, operand);
 	}
@@ -349,7 +349,7 @@ public final class NasmFormatter extends Formatter {
 
 		int column = formatMnemonic(instruction, output, opInfo, 0, FormatMnemonicOptions.NONE);
 
-		if (opInfo.OpCount != 0) {
+		if (opInfo.opCount != 0) {
 			com.github.icedland.iced.x86.internal.fmt.FormatterUtils.addTabs(output, column, options.getFirstOperandCharIndex(),
 					options.getTabSize());
 			formatOperands(instruction, output, opInfo);
@@ -359,15 +359,15 @@ public final class NasmFormatter extends Formatter {
 	private int formatMnemonic(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int column, int mnemonicOptions) {
 		if (output == null)
 			throw new NullPointerException("output");
-		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
+		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
 			int prefixSeg = instruction.getSegmentPrefix();
 			FormatterString prefix;
 
-			prefix = opSizeStrings[(opInfo.Flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
+			prefix = opSizeStrings[(opInfo.flags >>> InstrOpInfoFlags.OP_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
 			if (prefix.getLength() != 0)
 				column = formatPrefix(output, instruction, column, prefix, PrefixKind.OPERAND_SIZE);
 
-			prefix = addrSizeStrings[(opInfo.Flags >>> InstrOpInfoFlags.ADDR_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
+			prefix = addrSizeStrings[(opInfo.flags >>> InstrOpInfoFlags.ADDR_SIZE_SHIFT) & InstrOpInfoFlags.SIZE_OVERRIDE_MASK];
 			if (prefix.getLength() != 0)
 				column = formatPrefix(output, instruction, column, prefix, PrefixKind.ADDRESS_SIZE);
 
@@ -386,7 +386,7 @@ public final class NasmFormatter extends Formatter {
 
 			if (hasNoTrackPrefix)
 				column = formatPrefix(output, instruction, column, str_notrack, PrefixKind.NOTRACK);
-			boolean hasBnd = (opInfo.Flags & InstrOpInfoFlags.BND_PREFIX) != 0;
+			boolean hasBnd = (opInfo.flags & InstrOpInfoFlags.BND_PREFIX) != 0;
 			if (hasBnd)
 				column = formatPrefix(output, instruction, column, str_bnd, PrefixKind.BND);
 
@@ -409,8 +409,8 @@ public final class NasmFormatter extends Formatter {
 				output.write(" ", FormatterTextKind.TEXT);
 				column++;
 			}
-			FormatterString mnemonic = opInfo.Mnemonic;
-			if ((opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
+			FormatterString mnemonic = opInfo.mnemonic;
+			if ((opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
 				output.write(mnemonic.get(options.getUppercaseKeywords() || options.getUppercaseAll()), FormatterTextKind.DIRECTIVE);
 			}
 			else {
@@ -422,7 +422,7 @@ public final class NasmFormatter extends Formatter {
 	}
 
 	private boolean showSegmentPrefix(Instruction instruction, InstrOpInfo opInfo) {
-		if ((opInfo.Flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
+		if ((opInfo.flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
 			return true;
 
 		switch (instruction.getCode()) {
@@ -463,7 +463,7 @@ public final class NasmFormatter extends Formatter {
 			break;
 		}
 
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			switch (opInfo.getOpKind(i)) {
 			case InstrOpKind.REGISTER:
 			case InstrOpKind.NEAR_BRANCH16:
@@ -528,7 +528,7 @@ public final class NasmFormatter extends Formatter {
 	private void formatOperands(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo) {
 		if (output == null)
 			throw new NullPointerException("output");
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			if (i > 0) {
 				output.write(",", FormatterTextKind.PUNCTUATION);
 				if (options.getSpaceAfterOperandSeparator())
@@ -539,7 +539,7 @@ public final class NasmFormatter extends Formatter {
 	}
 
 	private void formatOperand(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int operand) {
-		assert Integer.compareUnsigned(operand, opInfo.OpCount) < 0 : operand;
+		assert Integer.compareUnsigned(operand, opInfo.opCount) < 0 : operand;
 		if (output == null)
 			throw new NullPointerException("output");
 
@@ -567,7 +567,7 @@ public final class NasmFormatter extends Formatter {
 		int opKind = opInfo.getOpKind(operand);
 		switch (opKind) {
 		case InstrOpKind.REGISTER:
-			if ((opInfo.Flags & InstrOpInfoFlags.REGISTER_TO) != 0) {
+			if ((opInfo.flags & InstrOpInfoFlags.REGISTER_TO) != 0) {
 				formatKeyword(output, str_to);
 				output.write(" ", FormatterTextKind.TEXT);
 			}
@@ -598,7 +598,7 @@ public final class NasmFormatter extends Formatter {
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64, immSize)) != null) {
-				formatFlowControl(output, opInfo.Flags, operandOptions);
+				formatFlowControl(output, opInfo.flags, operandOptions);
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
 						numberFormatter, numberOptions, imm64, symbol, options.getShowSymbolAddress());
 			}
@@ -608,7 +608,7 @@ public final class NasmFormatter extends Formatter {
 				if (optionsProvider != null)
 					optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 				flowControl = com.github.icedland.iced.x86.internal.fmt.FormatterUtils.getFlowControl(instruction);
-				formatFlowControl(output, opInfo.Flags, operandOptions);
+				formatFlowControl(output, opInfo.flags, operandOptions);
 				if (opKind == InstrOpKind.NEAR_BRANCH32)
 					s = numberFormatter.formatUInt32(options, numberOptions, instruction.getNearBranch32(), numberOptions.leadingZeros);
 				else if (opKind == InstrOpKind.NEAR_BRANCH64)
@@ -640,7 +640,7 @@ public final class NasmFormatter extends Formatter {
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 			if (symbolResolver != null
 					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64 & 0xFFFF_FFFF, immSize)) != null) {
-				formatFlowControl(output, opInfo.Flags, operandOptions);
+				formatFlowControl(output, opInfo.flags, operandOptions);
 				assert operand + 1 == 1 : operand;
 				SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, instructionOperand,
 						instruction.getFarBranchSelector(), 2);
@@ -658,7 +658,7 @@ public final class NasmFormatter extends Formatter {
 			}
 			else {
 				flowControl = com.github.icedland.iced.x86.internal.fmt.FormatterUtils.getFlowControl(instruction);
-				formatFlowControl(output, opInfo.Flags, operandOptions);
+				formatFlowControl(output, opInfo.flags, operandOptions);
 				s = numberFormatter.formatUInt16(options, numberOptions, instruction.getFarBranchSelector(), numberOptions.leadingZeros);
 				output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector(), NumberKind.UINT16,
 						FormatterTextKind.SELECTOR_VALUE);
@@ -710,7 +710,7 @@ public final class NasmFormatter extends Formatter {
 		case InstrOpKind.IMMEDIATE16:
 		case InstrOpKind.IMMEDIATE8TO16:
 		case InstrOpKind.DECLARE_WORD:
-			showSignExtendInfo(output, opInfo.Flags);
+			showSignExtendInfo(output, opInfo.flags);
 			if (opKind == InstrOpKind.IMMEDIATE16)
 				imm16 = instruction.getImmediate16();
 			else if (opKind == InstrOpKind.IMMEDIATE8TO16)
@@ -745,7 +745,7 @@ public final class NasmFormatter extends Formatter {
 		case InstrOpKind.IMMEDIATE32:
 		case InstrOpKind.IMMEDIATE8TO32:
 		case InstrOpKind.DECLARE_DWORD:
-			showSignExtendInfo(output, opInfo.Flags);
+			showSignExtendInfo(output, opInfo.flags);
 			if (opKind == InstrOpKind.IMMEDIATE32)
 				imm32 = instruction.getImmediate32();
 			else if (opKind == InstrOpKind.IMMEDIATE8TO32)
@@ -781,7 +781,7 @@ public final class NasmFormatter extends Formatter {
 		case InstrOpKind.IMMEDIATE8TO64:
 		case InstrOpKind.IMMEDIATE32TO64:
 		case InstrOpKind.DECLARE_QWORD:
-			showSignExtendInfo(output, opInfo.Flags);
+			showSignExtendInfo(output, opInfo.flags);
 			if (opKind == InstrOpKind.IMMEDIATE32TO64)
 				imm64 = instruction.getImmediate32to64();
 			else if (opKind == InstrOpKind.IMMEDIATE8TO64)
@@ -815,47 +815,47 @@ public final class NasmFormatter extends Formatter {
 
 		case InstrOpKind.MEMORY_SEG_SI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.SI,
-					Register.NONE, 0, 0, 0, 2, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 2, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_ESI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.ESI,
-					Register.NONE, 0, 0, 0, 4, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 4, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_RSI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.RSI,
-					Register.NONE, 0, 0, 0, 8, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 8, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_DI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.DI,
-					Register.NONE, 0, 0, 0, 2, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 2, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_EDI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.EDI,
-					Register.NONE, 0, 0, 0, 4, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 4, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_RDI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), Register.RDI,
-					Register.NONE, 0, 0, 0, 8, opInfo.Flags);
+					Register.NONE, 0, 0, 0, 8, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESDI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), Register.ES, Register.DI, Register.NONE, 0, 0, 0,
-					2, opInfo.Flags);
+					2, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESEDI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), Register.ES, Register.EDI, Register.NONE, 0, 0, 0,
-					4, opInfo.Flags);
+					4, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESRDI:
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), Register.ES, Register.RDI, Register.NONE, 0, 0, 0,
-					8, opInfo.Flags);
+					8, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY:
@@ -870,7 +870,7 @@ public final class NasmFormatter extends Formatter {
 			else
 				displ = instruction.getMemoryDisplacement32();
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), baseReg, indexReg,
-					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize, opInfo.Flags);
+					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize, opInfo.flags);
 			break;
 
 		case InstrOpKind.SAE:

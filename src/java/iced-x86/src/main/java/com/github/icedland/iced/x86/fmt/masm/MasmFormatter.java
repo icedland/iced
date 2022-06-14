@@ -196,7 +196,7 @@ public final class MasmFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		return opInfo.OpCount;
+		return opInfo.opCount;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public final class MasmFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 		// Although it's a tryXXX() method, it should only accept valid instruction operand indexes
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.tryGetOpAccess(operand);
 	}
@@ -232,7 +232,7 @@ public final class MasmFormatter extends Formatter {
 		assert Integer.compareUnsigned(instruction.getCode(), instrInfos.length) < 0;
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		return opInfo.getInstructionIndex(operand);
 	}
@@ -268,7 +268,7 @@ public final class MasmFormatter extends Formatter {
 		InstrInfo instrInfo = instrInfos[instruction.getCode()];
 		InstrOpInfo opInfo = instrInfo.getOpInfo(options, instruction);
 
-		if (Integer.compareUnsigned(operand, opInfo.OpCount) >= 0)
+		if (Integer.compareUnsigned(operand, opInfo.opCount) >= 0)
 			throw new IllegalArgumentException("operand");
 		formatOperand(instruction, output, opInfo, operand);
 	}
@@ -316,7 +316,7 @@ public final class MasmFormatter extends Formatter {
 
 		int column = formatMnemonic(instruction, output, opInfo, 0, FormatMnemonicOptions.NONE);
 
-		if (opInfo.OpCount != 0) {
+		if (opInfo.opCount != 0) {
 			com.github.icedland.iced.x86.internal.fmt.FormatterUtils.addTabs(output, column, options.getFirstOperandCharIndex(),
 					options.getTabSize());
 			formatOperands(instruction, output, opInfo);
@@ -326,7 +326,7 @@ public final class MasmFormatter extends Formatter {
 	private int formatMnemonic(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int column, int mnemonicOptions) {
 		if (output == null)
 			throw new NullPointerException("output");
-		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
+		if ((mnemonicOptions & FormatMnemonicOptions.NO_PREFIXES) == 0 && (opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) == 0) {
 			int prefixSeg = instruction.getSegmentPrefix();
 			boolean hasNoTrackPrefix = prefixSeg == Register.DS
 					&& com.github.icedland.iced.x86.internal.fmt.FormatterUtils.isNotrackPrefixBranch(instruction.getCode());
@@ -341,14 +341,14 @@ public final class MasmFormatter extends Formatter {
 			if (instruction.getLockPrefix())
 				column = formatPrefix(output, instruction, column, str_lock, PrefixKind.LOCK);
 
-			if ((opInfo.Flags & InstrOpInfoFlags.JCC_NOT_TAKEN) != 0)
+			if ((opInfo.flags & InstrOpInfoFlags.JCC_NOT_TAKEN) != 0)
 				column = formatPrefix(output, instruction, column, str_hnt, PrefixKind.HINT_NOT_TAKEN);
-			else if ((opInfo.Flags & InstrOpInfoFlags.JCC_TAKEN) != 0)
+			else if ((opInfo.flags & InstrOpInfoFlags.JCC_TAKEN) != 0)
 				column = formatPrefix(output, instruction, column, str_ht, PrefixKind.HINT_TAKEN);
 
 			if (hasNoTrackPrefix)
 				column = formatPrefix(output, instruction, column, str_notrack, PrefixKind.NOTRACK);
-			boolean hasBnd = (opInfo.Flags & InstrOpInfoFlags.BND_PREFIX) != 0;
+			boolean hasBnd = (opInfo.flags & InstrOpInfoFlags.BND_PREFIX) != 0;
 			if (hasBnd)
 				column = formatPrefix(output, instruction, column, str_bnd, PrefixKind.BND);
 
@@ -371,8 +371,8 @@ public final class MasmFormatter extends Formatter {
 				output.write(" ", FormatterTextKind.TEXT);
 				column++;
 			}
-			FormatterString mnemonic = opInfo.Mnemonic;
-			if ((opInfo.Flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
+			FormatterString mnemonic = opInfo.mnemonic;
+			if ((opInfo.flags & InstrOpInfoFlags.MNEMONIC_IS_DIRECTIVE) != 0) {
 				output.write(mnemonic.get(options.getUppercaseKeywords() || options.getUppercaseAll()), FormatterTextKind.DIRECTIVE);
 			}
 			else {
@@ -384,7 +384,7 @@ public final class MasmFormatter extends Formatter {
 	}
 
 	private boolean showSegmentPrefix(Instruction instruction, InstrOpInfo opInfo) {
-		if ((opInfo.Flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
+		if ((opInfo.flags & (InstrOpInfoFlags.JCC_NOT_TAKEN | InstrOpInfoFlags.JCC_TAKEN)) != 0)
 			return false;
 
 		switch (instruction.getCode()) {
@@ -406,7 +406,7 @@ public final class MasmFormatter extends Formatter {
 			break;
 		}
 
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			switch (opInfo.getOpKind(i)) {
 			case InstrOpKind.REGISTER:
 			case InstrOpKind.NEAR_BRANCH16:
@@ -463,7 +463,7 @@ public final class MasmFormatter extends Formatter {
 	private void formatOperands(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo) {
 		if (output == null)
 			throw new NullPointerException("output");
-		for (int i = 0; i < opInfo.OpCount; i++) {
+		for (int i = 0; i < opInfo.opCount; i++) {
 			if (i > 0) {
 				output.write(",", FormatterTextKind.PUNCTUATION);
 				if (options.getSpaceAfterOperandSeparator())
@@ -474,7 +474,7 @@ public final class MasmFormatter extends Formatter {
 	}
 
 	private void formatOperand(Instruction instruction, FormatterOutput output, InstrOpInfo opInfo, int operand) {
-		assert Integer.compareUnsigned(operand, opInfo.OpCount) < 0 : operand;
+		assert Integer.compareUnsigned(operand, opInfo.opCount) < 0 : operand;
 		if (output == null)
 			throw new NullPointerException("output");
 
@@ -762,44 +762,44 @@ public final class MasmFormatter extends Formatter {
 
 		case InstrOpKind.MEMORY_SEG_SI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.SI, Register.NONE, 0, 0, 0, 2,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_ESI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.ESI, Register.NONE, 0, 0, 0, 4,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_RSI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.RSI, Register.NONE, 0, 0, 0, 8,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_DI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.DI, Register.NONE, 0, 0, 0, 2,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_EDI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.EDI, Register.NONE, 0, 0, 0, 4,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_SEG_RDI:
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), Register.RDI, Register.NONE, 0, 0, 0, 8,
-					opInfo.Flags);
+					opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESDI:
-			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.DI, Register.NONE, 0, 0, 0, 2, opInfo.Flags);
+			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.DI, Register.NONE, 0, 0, 0, 2, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESEDI:
-			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.EDI, Register.NONE, 0, 0, 0, 4, opInfo.Flags);
+			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.EDI, Register.NONE, 0, 0, 0, 4, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY_ESRDI:
-			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.RDI, Register.NONE, 0, 0, 0, 8, opInfo.Flags);
+			formatMemory(output, instruction, operand, instructionOperand, Register.ES, Register.RDI, Register.NONE, 0, 0, 0, 8, opInfo.flags);
 			break;
 
 		case InstrOpKind.MEMORY:
@@ -813,10 +813,10 @@ public final class MasmFormatter extends Formatter {
 				displ = instruction.getMemoryDisplacement64();
 			else
 				displ = instruction.getMemoryDisplacement32();
-			if ((opInfo.Flags & InstrOpInfoFlags.IGNORE_INDEX_REG) != 0)
+			if ((opInfo.flags & InstrOpInfoFlags.IGNORE_INDEX_REG) != 0)
 				indexReg = Register.NONE;
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), baseReg, indexReg,
-					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize, opInfo.Flags);
+					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize, opInfo.flags);
 			break;
 
 		default:
@@ -832,7 +832,7 @@ public final class MasmFormatter extends Formatter {
 			if (instruction.getZeroingMasking())
 				formatDecorator(output, instruction, operand, instructionOperand, str_z, DecoratorKind.ZEROING_MASKING);
 		}
-		if (operand + 1 == opInfo.OpCount) {
+		if (operand + 1 == opInfo.opCount) {
 			int rc = instruction.getRoundingControl();
 			if (rc != RoundingControl.NONE && com.github.icedland.iced.x86.internal.fmt.FormatterUtils.canShowRoundingControl(instruction, options)) {
 				FormatterString decStr;
