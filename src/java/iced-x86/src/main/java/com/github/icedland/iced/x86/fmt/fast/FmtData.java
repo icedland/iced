@@ -13,7 +13,7 @@ final class FmtData {
 	static final byte[] flags;
 
 	static byte[] getSerializedData() {
-		return ResourceReader.ReadByteArray(FmtData.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/fast/FmtData.bin");
+		return ResourceReader.readByteArray(FmtData.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/fast/FmtData.bin");
 	}
 
 	static {

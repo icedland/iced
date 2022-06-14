@@ -21,7 +21,7 @@ public final class FormatterStringsTable {
 	}
 
 	private static byte[] getSerializedStrings() {
-		return ResourceReader.ReadByteArray(FormatterStringsTable.class.getClassLoader(),
+		return ResourceReader.readByteArray(FormatterStringsTable.class.getClassLoader(),
 				"com/github/icedland/iced/x86/fmt/FormatterStringsTable.bin");
 	}
 

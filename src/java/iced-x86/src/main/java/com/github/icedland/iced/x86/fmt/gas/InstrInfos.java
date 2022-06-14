@@ -11,7 +11,7 @@ final class InstrInfos {
 	static final InstrInfo[] allInfos = readInfos();
 
 	private static byte[] getSerializedInstrInfos() {
-		return ResourceReader.ReadByteArray(InstrInfos.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/gas/InstrInfos.bin");
+		return ResourceReader.readByteArray(InstrInfos.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/gas/InstrInfos.bin");
 	}
 
 	private static String addSuffix(String s, char[] ca) {

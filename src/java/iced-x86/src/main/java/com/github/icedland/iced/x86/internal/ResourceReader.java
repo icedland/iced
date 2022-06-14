@@ -27,7 +27,7 @@ public final class ResourceReader {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static byte[] ReadByteArray(ClassLoader classLoader, String resourceName) {
+	public static byte[] readByteArray(ClassLoader classLoader, String resourceName) {
 		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
 			if (stream == null)
 				throw new IllegalArgumentException(String.format("Missing resource: %s", resourceName));
@@ -40,7 +40,7 @@ public final class ResourceReader {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static short[] ReadShortArray(ClassLoader classLoader, String resourceName) {
+	public static short[] readShortArray(ClassLoader classLoader, String resourceName) {
 		byte[] bytes;
 		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
 			if (stream == null)
@@ -61,7 +61,7 @@ public final class ResourceReader {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static int[] ReadIntArray(ClassLoader classLoader, String resourceName) {
+	public static int[] readIntArray(ClassLoader classLoader, String resourceName) {
 		byte[] bytes;
 		try (InputStream stream = classLoader.getResourceAsStream(resourceName)) {
 			if (stream == null)

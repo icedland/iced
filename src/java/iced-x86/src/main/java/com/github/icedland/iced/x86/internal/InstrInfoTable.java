@@ -13,6 +13,6 @@ public final class InstrInfoTable {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int[] data = ResourceReader.ReadIntArray(InstrInfoTable.class.getClassLoader(),
+	public static final int[] data = ResourceReader.readIntArray(InstrInfoTable.class.getClassLoader(),
 			"com/github/icedland/iced/x86/info/InstrInfoTable.bin");
 }

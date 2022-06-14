@@ -26,7 +26,7 @@ public final class RegistersTable {
 	}
 
 	private static byte[] getRegistersData() {
-		return ResourceReader.ReadByteArray(RegistersTable.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/RegistersTable.bin");
+		return ResourceReader.readByteArray(RegistersTable.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/RegistersTable.bin");
 	}
 
 	// GENERATOR-BEGIN: Registers

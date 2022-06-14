@@ -6,6 +6,6 @@ package com.github.icedland.iced.x86.internal;
 /** DO NOT USE: INTERNAL API */
 public final class MnemonicUtilsData {
 	/** DO NOT USE: INTERNAL API */
-	public static final short[] toMnemonic = ResourceReader.ReadShortArray(MnemonicUtilsData.class.getClassLoader(),
+	public static final short[] toMnemonic = ResourceReader.readShortArray(MnemonicUtilsData.class.getClassLoader(),
 			"com/github/icedland/iced/x86/MnemonicUtilsData.bin");
 }

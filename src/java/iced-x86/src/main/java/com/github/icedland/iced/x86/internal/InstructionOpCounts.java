@@ -6,6 +6,6 @@ package com.github.icedland.iced.x86.internal;
 /** DO NOT USE: INTERNAL API */
 public final class InstructionOpCounts {
 	/** DO NOT USE: INTERNAL API */
-	public static final byte[] opCount = ResourceReader.ReadByteArray(InstructionOpCounts.class.getClassLoader(),
+	public static final byte[] opCount = ResourceReader.readByteArray(InstructionOpCounts.class.getClassLoader(),
 			"com/github/icedland/iced/x86/InstructionOpCounts.bin");
 }
