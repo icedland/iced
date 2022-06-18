@@ -3047,13 +3047,13 @@ public final class Instruction {
 	 * Creates an instruction with 1 operand
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createReg(int code, int register) {
+	public static Instruction create(int code, ICRegister register) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		assert instruction.getOpCount() == 1 : instruction.getOpCount();
 		return instruction;
@@ -3065,7 +3065,7 @@ public final class Instruction {
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param immediate op0: Immediate value
 	 */
-	public static Instruction createI32(int code, int immediate) {
+	public static Instruction create(int code, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -3081,7 +3081,7 @@ public final class Instruction {
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param memory op0: Memory operand
 	 */
-	public static Instruction createMem(int code, MemoryOperand memory) {
+	public static Instruction create(int code, MemoryOperand memory) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -3096,16 +3096,16 @@ public final class Instruction {
 	 * Creates an instruction with 2 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createRegReg(int code, int register1, int register2) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		assert instruction.getOpCount() == 2 : instruction.getOpCount();
 		return instruction;
@@ -3115,14 +3115,14 @@ public final class Instruction {
 	 * Creates an instruction with 2 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 * @param immediate op1: Immediate value
 	 */
-	public static Instruction createRegI32(int code, int register, int immediate) {
+	public static Instruction create(int code, ICRegister register, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		initializeSignedImmediate(instruction, 1, immediate);
 
@@ -3134,14 +3134,14 @@ public final class Instruction {
 	 * Creates an instruction with 2 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 * @param immediate op1: Immediate value
 	 */
-	public static Instruction createRegI64(int code, int register, long immediate) {
+	public static Instruction create(int code, ICRegister register, long immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		initializeSignedImmediate(instruction, 1, immediate);
 
@@ -3153,14 +3153,14 @@ public final class Instruction {
 	 * Creates an instruction with 2 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 * @param memory op1: Memory operand
 	 */
-	public static Instruction createRegMem(int code, int register, MemoryOperand memory) {
+	public static Instruction create(int code, ICRegister register, MemoryOperand memory) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		instruction.setOp1Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3174,15 +3174,15 @@ public final class Instruction {
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param immediate op0: Immediate value
-	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op1: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createI32Reg(int code, int immediate, int register) {
+	public static Instruction create(int code, int immediate, ICRegister register) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
 		initializeSignedImmediate(instruction, 0, immediate);
 
-		instruction.setOp1Register(register);
+		instruction.setOp1Register(register.get());
 
 		assert instruction.getOpCount() == 2 : instruction.getOpCount();
 		return instruction;
@@ -3195,7 +3195,7 @@ public final class Instruction {
 	 * @param immediate1 op0: Immediate value
 	 * @param immediate2 op1: Immediate value
 	 */
-	public static Instruction createI32I32(int code, int immediate1, int immediate2) {
+	public static Instruction create(int code, int immediate1, int immediate2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -3212,16 +3212,16 @@ public final class Instruction {
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param memory op0: Memory operand
-	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op1: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createMemReg(int code, MemoryOperand memory, int register) {
+	public static Instruction create(int code, MemoryOperand memory, ICRegister register) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
 		instruction.setOp0Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp1Register(register);
+		instruction.setOp1Register(register.get());
 
 		assert instruction.getOpCount() == 2 : instruction.getOpCount();
 		return instruction;
@@ -3234,7 +3234,7 @@ public final class Instruction {
 	 * @param memory op0: Memory operand
 	 * @param immediate op1: Immediate value
 	 */
-	public static Instruction createMemI32(int code, MemoryOperand memory, int immediate) {
+	public static Instruction create(int code, MemoryOperand memory, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
@@ -3251,19 +3251,19 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createRegRegReg(int code, int register1, int register2, int register3) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
 		assert instruction.getOpCount() == 3 : instruction.getOpCount();
 		return instruction;
@@ -3273,17 +3273,17 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param immediate op2: Immediate value
 	 */
-	public static Instruction createRegRegI32(int code, int register1, int register2, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		initializeSignedImmediate(instruction, 2, immediate);
 
@@ -3295,17 +3295,17 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param memory op2: Memory operand
 	 */
-	public static Instruction createRegRegMem(int code, int register1, int register2, MemoryOperand memory) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, MemoryOperand memory) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		instruction.setOp2Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3318,15 +3318,15 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 * @param immediate1 op1: Immediate value
 	 * @param immediate2 op2: Immediate value
 	 */
-	public static Instruction createRegI32I32(int code, int register, int immediate1, int immediate2) {
+	public static Instruction create(int code, ICRegister register, int immediate1, int immediate2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		initializeSignedImmediate(instruction, 1, immediate1);
 
@@ -3340,20 +3340,20 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
 	 * @param memory op1: Memory operand
-	 * @param register2 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register2 op2: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createRegMemReg(int code, int register1, MemoryOperand memory, int register2) {
+	public static Instruction create(int code, ICRegister register1, MemoryOperand memory, ICRegister register2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
 		instruction.setOp1Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp2Register(register2);
+		instruction.setOp2Register(register2.get());
 
 		assert instruction.getOpCount() == 3 : instruction.getOpCount();
 		return instruction;
@@ -3363,15 +3363,15 @@ public final class Instruction {
 	 * Creates an instruction with 3 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op0: Register (see {@link ICRegisters})
 	 * @param memory op1: Memory operand
 	 * @param immediate op2: Immediate value
 	 */
-	public static Instruction createRegMemI32(int code, int register, MemoryOperand memory, int immediate) {
+	public static Instruction create(int code, ICRegister register, MemoryOperand memory, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register);
+		instruction.setOp0Register(register.get());
 
 		instruction.setOp1Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3387,19 +3387,19 @@ public final class Instruction {
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param memory op0: Memory operand
-	 * @param register1 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op1: Register (see {@link ICRegisters})
+	 * @param register2 op2: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createMemRegReg(int code, MemoryOperand memory, int register1, int register2) {
+	public static Instruction create(int code, MemoryOperand memory, ICRegister register1, ICRegister register2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
 		instruction.setOp0Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp1Register(register1);
+		instruction.setOp1Register(register1.get());
 
-		instruction.setOp2Register(register2);
+		instruction.setOp2Register(register2.get());
 
 		assert instruction.getOpCount() == 3 : instruction.getOpCount();
 		return instruction;
@@ -3410,17 +3410,17 @@ public final class Instruction {
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
 	 * @param memory op0: Memory operand
-	 * @param register op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register op1: Register (see {@link ICRegisters})
 	 * @param immediate op2: Immediate value
 	 */
-	public static Instruction createMemRegI32(int code, MemoryOperand memory, int register, int immediate) {
+	public static Instruction create(int code, MemoryOperand memory, ICRegister register, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
 		instruction.setOp0Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp1Register(register);
+		instruction.setOp1Register(register.get());
 
 		initializeSignedImmediate(instruction, 2, immediate);
 
@@ -3432,22 +3432,22 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register4 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
+	 * @param register4 op3: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createRegRegRegReg(int code, int register1, int register2, int register3, int register4) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3, ICRegister register4) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
-		instruction.setOp3Register(register4);
+		instruction.setOp3Register(register4.get());
 
 		assert instruction.getOpCount() == 4 : instruction.getOpCount();
 		return instruction;
@@ -3457,20 +3457,20 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
 	 * @param immediate op3: Immediate value
 	 */
-	public static Instruction createRegRegRegI32(int code, int register1, int register2, int register3, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
 		initializeSignedImmediate(instruction, 3, immediate);
 
@@ -3482,20 +3482,20 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
 	 * @param memory op3: Memory operand
 	 */
-	public static Instruction createRegRegRegMem(int code, int register1, int register2, int register3, MemoryOperand memory) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3, MemoryOperand memory) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
 		instruction.setOp3Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3508,18 +3508,18 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param immediate1 op2: Immediate value
 	 * @param immediate2 op3: Immediate value
 	 */
-	public static Instruction createRegRegI32I32(int code, int register1, int register2, int immediate1, int immediate2) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, int immediate1, int immediate2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		initializeSignedImmediate(instruction, 2, immediate1);
 
@@ -3533,23 +3533,23 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param memory op2: Memory operand
-	 * @param register3 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op3: Register (see {@link ICRegisters})
 	 */
-	public static Instruction createRegRegMemReg(int code, int register1, int register2, MemoryOperand memory, int register3) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, MemoryOperand memory, ICRegister register3) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		instruction.setOp2Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp3Register(register3);
+		instruction.setOp3Register(register3.get());
 
 		assert instruction.getOpCount() == 4 : instruction.getOpCount();
 		return instruction;
@@ -3559,18 +3559,18 @@ public final class Instruction {
 	 * Creates an instruction with 4 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param memory op2: Memory operand
 	 * @param immediate op3: Immediate value
 	 */
-	public static Instruction createRegRegMemI32(int code, int register1, int register2, MemoryOperand memory, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, MemoryOperand memory, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		instruction.setOp2Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3585,23 +3585,23 @@ public final class Instruction {
 	 * Creates an instruction with 5 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register4 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
+	 * @param register4 op3: Register (see {@link ICRegisters})
 	 * @param immediate op4: Immediate value
 	 */
-	public static Instruction createRegRegRegRegI32(int code, int register1, int register2, int register3, int register4, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3, ICRegister register4, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
-		instruction.setOp3Register(register4);
+		instruction.setOp3Register(register4.get());
 
 		initializeSignedImmediate(instruction, 4, immediate);
 
@@ -3613,21 +3613,21 @@ public final class Instruction {
 	 * Creates an instruction with 5 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register3 op2: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
+	 * @param register3 op2: Register (see {@link ICRegisters})
 	 * @param memory op3: Memory operand
 	 * @param immediate op4: Immediate value
 	 */
-	public static Instruction createRegRegRegMemI32(int code, int register1, int register2, int register3, MemoryOperand memory, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, ICRegister register3, MemoryOperand memory, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
-		instruction.setOp2Register(register3);
+		instruction.setOp2Register(register3.get());
 
 		instruction.setOp3Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
@@ -3642,24 +3642,24 @@ public final class Instruction {
 	 * Creates an instruction with 5 operands
 	 *
 	 * @param code Code value (a {@link com.github.icedland.iced.x86.Code} enum variant)
-	 * @param register1 op0: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 op1: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 op0: Register (see {@link ICRegisters})
+	 * @param register2 op1: Register (see {@link ICRegisters})
 	 * @param memory op2: Memory operand
-	 * @param register3 op3: Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register3 op3: Register (see {@link ICRegisters})
 	 * @param immediate op4: Immediate value
 	 */
-	public static Instruction createRegRegMemRegI32(int code, int register1, int register2, MemoryOperand memory, int register3, int immediate) {
+	public static Instruction create(int code, ICRegister register1, ICRegister register2, MemoryOperand memory, ICRegister register3, int immediate) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register(register1);
+		instruction.setOp0Register(register1.get());
 
-		instruction.setOp1Register(register2);
+		instruction.setOp1Register(register2.get());
 
 		instruction.setOp2Kind(OpKind.MEMORY);
 		initMemoryOperand(instruction, memory);
 
-		instruction.setOp3Register(register3);
+		instruction.setOp3Register(register3.get());
 
 		initializeSignedImmediate(instruction, 4, immediate);
 
@@ -3742,11 +3742,11 @@ public final class Instruction {
 	 * Creates a <code>OUTSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createOutsb(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, segmentPrefix, repPrefix);
+	public static Instruction createOutsb(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3762,11 +3762,11 @@ public final class Instruction {
 	 * Creates a <code>OUTSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createOutsw(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, segmentPrefix, repPrefix);
+	public static Instruction createOutsw(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3782,11 +3782,11 @@ public final class Instruction {
 	 * Creates a <code>OUTSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createOutsd(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, segmentPrefix, repPrefix);
+	public static Instruction createOutsd(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3802,11 +3802,11 @@ public final class Instruction {
 	 * Creates a <code>LODSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createLodsb(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, segmentPrefix, repPrefix);
+	public static Instruction createLodsb(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3822,11 +3822,11 @@ public final class Instruction {
 	 * Creates a <code>LODSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createLodsw(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, segmentPrefix, repPrefix);
+	public static Instruction createLodsw(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3842,11 +3842,11 @@ public final class Instruction {
 	 * Creates a <code>LODSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createLodsd(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, segmentPrefix, repPrefix);
+	public static Instruction createLodsd(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -3862,11 +3862,11 @@ public final class Instruction {
 	 * Creates a <code>LODSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createLodsq(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, segmentPrefix, repPrefix);
+	public static Instruction createLodsq(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4127,11 +4127,11 @@ public final class Instruction {
 	 * Creates a <code>CMPSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createCmpsb(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createCmpsb(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4156,11 +4156,11 @@ public final class Instruction {
 	 * Creates a <code>CMPSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createCmpsw(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createCmpsw(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4185,11 +4185,11 @@ public final class Instruction {
 	 * Creates a <code>CMPSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createCmpsd(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createCmpsd(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4214,11 +4214,11 @@ public final class Instruction {
 	 * Creates a <code>CMPSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createCmpsq(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createCmpsq(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4243,11 +4243,11 @@ public final class Instruction {
 	 * Creates a <code>MOVSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createMovsb(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createMovsb(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4263,11 +4263,11 @@ public final class Instruction {
 	 * Creates a <code>MOVSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createMovsw(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createMovsw(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4283,11 +4283,11 @@ public final class Instruction {
 	 * Creates a <code>MOVSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createMovsd(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createMovsd(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4303,11 +4303,11 @@ public final class Instruction {
 	 * Creates a <code>MOVSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
-	public static Instruction createMovsq(int addressSize, int segmentPrefix, int repPrefix) {
-		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, segmentPrefix, repPrefix);
+	public static Instruction createMovsq(int addressSize, ICRegister segmentPrefix, int repPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, segmentPrefix.get(), repPrefix);
 	}
 
 	/**
@@ -4323,36 +4323,36 @@ public final class Instruction {
 	 * Creates a <code>MASKMOVQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 */
-	public static Instruction createMaskmovq(int addressSize, int register1, int register2, int segmentPrefix) {
-		return createMaskmov(Code.MASKMOVQ_RDI_MM_MM, addressSize, register1, register2, segmentPrefix);
+	public static Instruction createMaskmovq(int addressSize, ICRegister register1, ICRegister register2, ICRegister segmentPrefix) {
+		return createMaskmov(Code.MASKMOVQ_RDI_MM_MM, addressSize, register1.get(), register2.get(), segmentPrefix.get());
 	}
 
 	/**
 	 * Creates a <code>MASKMOVDQU</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 */
-	public static Instruction createMaskmovdqu(int addressSize, int register1, int register2, int segmentPrefix) {
-		return createMaskmov(Code.MASKMOVDQU_RDI_XMM_XMM, addressSize, register1, register2, segmentPrefix);
+	public static Instruction createMaskmovdqu(int addressSize, ICRegister register1, ICRegister register2, ICRegister segmentPrefix) {
+		return createMaskmov(Code.MASKMOVDQU_RDI_XMM_XMM, addressSize, register1.get(), register2.get(), segmentPrefix.get());
 	}
 
 	/**
 	 * Creates a <code>VMASKMOVDQU</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
-	 * @param register1 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param register2 Register (a {@link com.github.icedland.iced.x86.Register} enum variant)
-	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (a {@link com.github.icedland.iced.x86.Register} enum variant)
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 */
-	public static Instruction createVmaskmovdqu(int addressSize, int register1, int register2, int segmentPrefix) {
-		return createMaskmov(Code.VEX_VMASKMOVDQU_RDI_XMM_XMM, addressSize, register1, register2, segmentPrefix);
+	public static Instruction createVmaskmovdqu(int addressSize, ICRegister register1, ICRegister register2, ICRegister segmentPrefix) {
+		return createMaskmov(Code.VEX_VMASKMOVDQU_RDI_XMM_XMM, addressSize, register1.get(), register2.get(), segmentPrefix.get());
 	}
 
 	/**

@@ -15,7 +15,6 @@ namespace Generator.Encoder.Java {
 		readonly IdentifierConverter idConverter;
 		readonly JavaDocCommentWriter docWriter;
 		readonly InstrCreateGenImpl gen;
-		readonly GenCreateNameArgs genNames;
 		readonly StringBuilder sb;
 
 		public override bool SupportsUnsignedIntegers => false;
@@ -25,7 +24,6 @@ namespace Generator.Encoder.Java {
 			idConverter = JavaIdentifierConverter.Create();
 			docWriter = new JavaDocCommentWriter(idConverter);
 			gen = new InstrCreateGenImpl(genTypes, idConverter, docWriter);
-			genNames = GenCreateNameArgs.JavaNames;
 			sb = new StringBuilder();
 		}
 
@@ -47,7 +45,7 @@ namespace Generator.Encoder.Java {
 					docs = $"{docs} (a {{@link {JavaConstants.IcedPackage}.Code}} enum variant)";
 					break;
 				case MethodArgType.Register:
-					docs = $"{docs} (a {{@link {JavaConstants.IcedPackage}.Register}} enum variant)";
+					docs = $"{docs} (see {{@link ICRegisters}})";
 					break;
 				case MethodArgType.RepPrefixKind:
 					docs = $"{docs} (a {{@link {JavaConstants.IcedPackage}.RepPrefixKind}} enum variant)";
@@ -86,8 +84,7 @@ namespace Generator.Encoder.Java {
 
 		protected override void GenCreate(FileWriter writer, CreateMethod method, InstructionGroup group, int id) {
 			WriteDocs(writer, method);
-			var createName = InstrCreateGenImpl.GetCreateName(sb, method, genNames);
-			writer.Write($"public static Instruction {createName}(");
+			writer.Write("public static Instruction create(");
 			WriteMethodDeclArgs(writer, method);
 			writer.WriteLine(") {");
 			using (writer.Indent()) {
@@ -102,7 +99,7 @@ namespace Generator.Encoder.Java {
 					writer.WriteLine();
 					switch (arg.Type) {
 					case MethodArgType.Register:
-						writer.WriteLine($"instruction.setOp{op}Register({idConverter.Argument(arg.Name)});");
+						writer.WriteLine($"instruction.setOp{op}Register({idConverter.Argument(arg.Name)}.get());");
 						break;
 
 					case MethodArgType.Memory:
@@ -228,6 +225,7 @@ namespace Generator.Encoder.Java {
 		static void WriteComma(FileWriter writer) => writer.Write(", ");
 		void Write(FileWriter writer, EnumValue value) => writer.Write(idConverter.ToDeclTypeAndValue(value));
 		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
+		void WriteRegister(FileWriter writer, MethodArg arg) => writer.Write($"{arg.Name}.get()");
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			WriteDocs(writer, method);
@@ -247,7 +245,7 @@ namespace Generator.Encoder.Java {
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, method.Args[1]);
+					WriteRegister(writer, method.Args[1]);
 					WriteComma(writer);
 					Write(writer, method.Args[2]);
 					break;
@@ -372,7 +370,7 @@ namespace Generator.Encoder.Java {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, method.Args[1]);
+					WriteRegister(writer, method.Args[1]);
 					WriteComma(writer);
 					Write(writer, method.Args[2]);
 					break;
@@ -413,7 +411,7 @@ namespace Generator.Encoder.Java {
 					WriteComma(writer);
 					Write(writer, method.Args[0]);
 					WriteComma(writer);
-					Write(writer, method.Args[1]);
+					WriteRegister(writer, method.Args[1]);
 					WriteComma(writer);
 					Write(writer, method.Args[2]);
 					break;
@@ -452,11 +450,11 @@ namespace Generator.Encoder.Java {
 				WriteComma(writer);
 				Write(writer, method.Args[0]);
 				WriteComma(writer);
-				Write(writer, method.Args[1]);
+				WriteRegister(writer, method.Args[1]);
 				WriteComma(writer);
-				Write(writer, method.Args[2]);
+				WriteRegister(writer, method.Args[2]);
 				WriteComma(writer);
-				Write(writer, method.Args[3]);
+				WriteRegister(writer, method.Args[3]);
 				writer.WriteLine(");");
 			}
 			writer.WriteLine("}");
