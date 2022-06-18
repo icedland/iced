@@ -108,6 +108,10 @@ namespace Generator.Documentation.Java {
 					sb.Append("<p>");
 					RawWriteWithComment(writer);
 					break;
+				case TokenKind.HorizontalLine:
+					sb.Append("<hr>");
+					RawWriteWithComment(writer);
+					break;
 				case TokenKind.String:
 					var s = Escape(info.value);
 					if (isSummary && s.Contains("."))

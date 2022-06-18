@@ -144,6 +144,8 @@ namespace Generator.Documentation.Python {
 					RawWriteWithComment(writer);
 					RawWriteWithComment(writer);
 					break;
+				case TokenKind.HorizontalLine:
+					break;
 				case TokenKind.String:
 					hasColonText |= info.value.Contains(':', StringComparison.Ordinal);
 					sb.Append(Escape(info.value));
