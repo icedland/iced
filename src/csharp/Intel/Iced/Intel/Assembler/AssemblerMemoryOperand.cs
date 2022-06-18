@@ -156,7 +156,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(left.Size, Register.None, left.Base, left.Index, left.Scale, left.Displacement + displacement, left.Flags);
 
 		/// <summary>
-		/// Subtracts a displacement to a memory operand.
+		/// Subtracts a displacement from a memory operand.
 		/// </summary>
 		/// <param name="left">The memory operand.</param>
 		/// <param name="displacement">displacement.</param>

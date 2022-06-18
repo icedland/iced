@@ -43,9 +43,9 @@ namespace Iced.Intel {
 		/// </summary>
 		RoundTowardZero = RoundingControl.RoundTowardZero << 3,
 		/// <summary>
-		/// RoundControl mask.
+		/// RoundingControl mask.
 		/// </summary>
-		RoundControlMask = 0x7 << 3,
+		RoundingControlMask = 0x7 << 3,
 		/// <summary>
 		/// Mask register K1.
 		/// </summary>

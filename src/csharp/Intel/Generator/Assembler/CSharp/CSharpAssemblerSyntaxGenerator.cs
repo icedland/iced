@@ -34,26 +34,28 @@ namespace Generator.Assembler.CSharp {
 			memoryOperandSizeType = genTypes[TypeIds.CodeAsmMemoryOperandSize];
 		}
 
-		static string GetRegisterSuffix(RegisterDef def) => GetRegisterSuffix(def.GetRegisterKind());
-		static string GetRegisterSuffix(RegisterKind kind) =>
+		static string GetRegisterClassName(RegisterKind kind) =>
+			"AssemblerRegister" + GetRegisterInfo(kind).suffix;
+		static (string suffix, string isName) GetRegisterInfo(RegisterKind kind) =>
 			kind switch {
-				RegisterKind.GPR8 => "8",
-				RegisterKind.GPR16 => "16",
-				RegisterKind.GPR32 => "32",
-				RegisterKind.GPR64 => "64",
-				RegisterKind.IP => "IP",
-				RegisterKind.Segment => "Segment",
-				RegisterKind.ST => "ST",
-				RegisterKind.CR => "CR",
-				RegisterKind.DR => "DR",
-				RegisterKind.TR => "TR",
-				RegisterKind.BND => "BND",
-				RegisterKind.K => "K",
-				RegisterKind.MM => "MM",
-				RegisterKind.XMM => "XMM",
-				RegisterKind.YMM => "YMM",
-				RegisterKind.ZMM => "ZMM",
-				RegisterKind.TMM => "TMM",
+				RegisterKind.None => throw new InvalidOperationException(),
+				RegisterKind.GPR8 => ("8", "GPR8"),
+				RegisterKind.GPR16 => ("16", "GPR16"),
+				RegisterKind.GPR32 => ("32", "GPR32"),
+				RegisterKind.GPR64 => ("64", "GPR64"),
+				RegisterKind.IP => ("IP", "IP"),
+				RegisterKind.Segment => ("Segment", "SegmentRegister"),
+				RegisterKind.ST => ("ST", "ST"),
+				RegisterKind.CR => ("CR", "CR"),
+				RegisterKind.DR => ("DR", "DR"),
+				RegisterKind.TR => ("TR", "TR"),
+				RegisterKind.BND => ("BND", "BND"),
+				RegisterKind.K => ("K", "K"),
+				RegisterKind.MM => ("MM", "MM"),
+				RegisterKind.XMM => ("XMM", "XMM"),
+				RegisterKind.YMM => ("YMM", "YMM"),
+				RegisterKind.ZMM => ("ZMM", "ZMM"),
+				RegisterKind.TMM => ("TMM", "TMM"),
 				_ => throw new InvalidOperationException(),
 			};
 
@@ -70,7 +72,7 @@ namespace Generator.Assembler.CSharp {
 					using (writer.Indent()) {
 						foreach (var regDef in regGroups.SelectMany(a => a.regs)) {
 							var asmRegName = GetAsmRegisterName(regDef);
-							var registerTypeName = $"AssemblerRegister{GetRegisterSuffix(regDef)}";
+							var registerTypeName = GetRegisterClassName(regDef.GetRegisterKind());
 							writer.WriteLine($"public static readonly {registerTypeName} {asmRegName} = new {registerTypeName}({idConverter.ToDeclTypeAndValue(regDef.Register)});");
 						}
 					}
@@ -98,28 +100,8 @@ namespace Generator.Assembler.CSharp {
 					var memOpNoneName = idConverter.ToDeclTypeAndValue(memoryOperandSizeType[nameof(MemoryOperandSize.None)]);
 					for (int i = 0; i < infos.Length; i++) {
 						var reg = infos[i];
-						var className = $"AssemblerRegister{GetRegisterSuffix(reg.Kind)}";
-						var isName = reg.Kind switch {
-							RegisterKind.None => throw new InvalidOperationException(),
-							RegisterKind.GPR8 => "GPR8",
-							RegisterKind.GPR16 => "GPR16",
-							RegisterKind.GPR32 => "GPR32",
-							RegisterKind.GPR64 => "GPR64",
-							RegisterKind.IP => "IP",
-							RegisterKind.Segment => "SegmentRegister",
-							RegisterKind.ST => "ST",
-							RegisterKind.CR => "CR",
-							RegisterKind.DR => "DR",
-							RegisterKind.TR => "TR",
-							RegisterKind.BND => "BND",
-							RegisterKind.K => "K",
-							RegisterKind.MM => "MM",
-							RegisterKind.XMM => "XMM",
-							RegisterKind.YMM => "YMM",
-							RegisterKind.ZMM => "ZMM",
-							RegisterKind.TMM => "TMM",
-							_ => throw new InvalidOperationException(),
-						};
+						var className = GetRegisterClassName(reg.Kind);
+						var isName = GetRegisterInfo(reg.Kind).isName;
 
 						if (i != 0)
 							writer.WriteLine();
@@ -158,6 +140,9 @@ namespace Generator.Assembler.CSharp {
 								writer.WriteLine("/// <param name=\"flags\">The mask</param>");
 								writer.WriteLine($"public {className}({registerTypeName} value, AssemblerOperandFlags flags) {{");
 								using (writer.Indent()) {
+									writer.WriteLine($"if (!value.Is{isName}())");
+									using (writer.Indent())
+										writer.WriteLine($"throw new ArgumentOutOfRangeException($\"Invalid register {{value}}. Must be a {isName} register\", nameof(value));");
 									writer.WriteLine("Value = value;");
 									writer.WriteLine("Flags = flags;");
 								}
@@ -186,22 +171,22 @@ namespace Generator.Assembler.CSharp {
 									writer.WriteLine("/// <summary>");
 									writer.WriteLine("/// Round to nearest (even)");
 									writer.WriteLine("/// </summary>");
-									writer.WriteLine($"public {className} rn_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);");
+									writer.WriteLine($"public {className} rn_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
 									writer.WriteLine("/// Round down (toward -inf)");
 									writer.WriteLine("/// </summary>");
-									writer.WriteLine($"public {className} rd_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);");
+									writer.WriteLine($"public {className} rd_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
 									writer.WriteLine("/// Round up (toward +inf)");
 									writer.WriteLine("/// </summary>");
-									writer.WriteLine($"public {className} ru_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);");
+									writer.WriteLine($"public {className} ru_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);");
 									writer.WriteLine();
 									writer.WriteLine("/// <summary>");
 									writer.WriteLine("/// Round toward zero (truncate)");
 									writer.WriteLine("/// </summary>");
-									writer.WriteLine($"public {className} rz_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);");
+									writer.WriteLine($"public {className} rz_sae => new {className}(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);");
 								}
 							}
 							writer.WriteLine();
@@ -214,7 +199,7 @@ namespace Generator.Assembler.CSharp {
 							if (reg.IsGPR16_32_64) {
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Adds a register (base) to another register (index) and return a memory operand.");
+								writer.WriteLine("/// Adds a register (base) to another register (index) and returns a memory operand.");
 								writer.WriteLine("/// </summary>");
 								writer.WriteLine("/// <param name=\"left\">The base register.</param>");
 								writer.WriteLine("/// <param name=\"right\">The index register</param>");
@@ -226,7 +211,7 @@ namespace Generator.Assembler.CSharp {
 									foreach (var mm in new[] { "XMM", "YMM", "ZMM" }) {
 										writer.WriteLine();
 										writer.WriteLine("/// <summary>");
-										writer.WriteLine("/// Adds a register (base) to another register (index) and return a memory operand.");
+										writer.WriteLine("/// Adds a register (base) to another register (index) and returns a memory operand.");
 										writer.WriteLine("/// </summary>");
 										writer.WriteLine("/// <param name=\"left\">The base register.</param>");
 										writer.WriteLine("/// <param name=\"right\">The index register</param>");
@@ -237,10 +222,10 @@ namespace Generator.Assembler.CSharp {
 									}
 								}
 							}
-							if (reg.IsGPR16_32_64 || reg.IsVector) {
+							if (reg.IsGPR16_32_64) {
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Adds a register (base) with a displacement and return a memory operand.");
+								writer.WriteLine("/// Adds a register (base) to a displacement and returns a memory operand.");
 								writer.WriteLine("/// </summary>");
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
@@ -250,7 +235,7 @@ namespace Generator.Assembler.CSharp {
 									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Subtracts a register (base) with a displacement and return a memory operand.");
+								writer.WriteLine("/// Subtracts a displacement from a register (base) and returns a memory operand.");
 								writer.WriteLine("/// </summary>");
 								writer.WriteLine("/// <param name=\"left\">The base register</param>");
 								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
@@ -260,10 +245,42 @@ namespace Generator.Assembler.CSharp {
 									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, left, {regNoneName}, 1, -displacement, AssemblerOperandFlags.None);");
 								writer.WriteLine();
 								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Multiplies an index register by a scale and return a memory operand.");
+								writer.WriteLine("/// Multiplies an index register by a scale and returns a memory operand.");
 								writer.WriteLine("/// </summary>");
-								writer.WriteLine("/// <param name=\"left\">The base register</param>");
-								writer.WriteLine("/// <param name=\"scale\">The scale</param>");
+								writer.WriteLine("/// <param name=\"left\">The index register</param>");
+								writer.WriteLine("/// <param name=\"scale\">The scale (1, 2, 4 or 8)</param>");
+								writer.WriteLine("/// <returns></returns>");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator *({className} left, int scale) =>");
+								using (writer.Indent())
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, {regNoneName}, left, scale, 0, AssemblerOperandFlags.None);");
+							}
+							if (reg.IsVector) {
+								writer.WriteLine();
+								writer.WriteLine("/// <summary>");
+								writer.WriteLine("/// Adds a register (index) to a displacement and returns a memory operand.");
+								writer.WriteLine("/// </summary>");
+								writer.WriteLine("/// <param name=\"left\">The index register</param>");
+								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
+								writer.WriteLine("/// <returns></returns>");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator +({className} left, long displacement) =>");
+								using (writer.Indent())
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, {regNoneName}, left, 1, displacement, AssemblerOperandFlags.None);");
+								writer.WriteLine();
+								writer.WriteLine("/// <summary>");
+								writer.WriteLine("/// Subtracts a displacement from a register (index) and returns a memory operand.");
+								writer.WriteLine("/// </summary>");
+								writer.WriteLine("/// <param name=\"left\">The index register</param>");
+								writer.WriteLine("/// <param name=\"displacement\">The displacement</param>");
+								writer.WriteLine("/// <returns></returns>");
+								writer.WriteLine($"public static AssemblerMemoryOperand operator -({className} left, long displacement) =>");
+								using (writer.Indent())
+									writer.WriteLine($"new AssemblerMemoryOperand({memOpNoneName}, {regNoneName}, {regNoneName}, left, 1, -displacement, AssemblerOperandFlags.None);");
+								writer.WriteLine();
+								writer.WriteLine("/// <summary>");
+								writer.WriteLine("/// Multiplies an index register by a scale and returns a memory operand.");
+								writer.WriteLine("/// </summary>");
+								writer.WriteLine("/// <param name=\"left\">The index register</param>");
+								writer.WriteLine("/// <param name=\"scale\">The scale (1, 2, 4 or 8)</param>");
 								writer.WriteLine("/// <returns></returns>");
 								writer.WriteLine($"public static AssemblerMemoryOperand operator *({className} left, int scale) =>");
 								using (writer.Indent())
@@ -306,18 +323,6 @@ namespace Generator.Assembler.CSharp {
 							writer.WriteLine($"public static bool operator !=({className} left, {className} right) => !left.Equals(right);");
 						}
 						writer.WriteLine("}");
-						if (reg.IsGPR16_32_64) {
-							writer.WriteLine();
-							writer.WriteLine("public readonly partial struct AssemblerMemoryOperandFactory {");
-							using (writer.Indent()) {
-								writer.WriteLine("/// <summary>");
-								writer.WriteLine("/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)");
-								writer.WriteLine("/// </summary>");
-								writer.WriteLine("/// <param name=\"register\">Size of this memory operand.</param>");
-								writer.WriteLine($"public AssemblerMemoryOperand this[{className} register] => new AssemblerMemoryOperand(Size, Segment, register, {regNoneName}, 1, 0, Flags);");
-							}
-							writer.WriteLine("}");
-						}
 					}
 				}
 				writer.WriteLine("}");
@@ -415,7 +420,7 @@ namespace Generator.Assembler.CSharp {
 					bool isUnsafe = type == "float" || type == "double";
 					for (int i = 1; i <= argCount; i++) {
 						writer.WriteLine();
-						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "");
+						docWriter.WriteSummary(writer, $"Creates a #(c:{name})# asm directive with the type #(c:{type})#.", "");
 						writer.Write($"public {(isUnsafe ? "unsafe " : "")}void {name}(");
 						for (int j = 0; j < i; j++) {
 							if (j > 0) writer.Write(", ");

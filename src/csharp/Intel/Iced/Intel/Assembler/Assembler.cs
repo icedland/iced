@@ -212,8 +212,8 @@ namespace Iced.Intel {
 				}
 				if ((flags & AssemblerOperandFlags.SuppressAllExceptions) != 0)
 					instruction.SuppressAllExceptions = true;
-				if ((flags & AssemblerOperandFlags.RoundControlMask) != 0)
-					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundControlMask)) >> 3));
+				if ((flags & AssemblerOperandFlags.RoundingControlMask) != 0)
+					instruction.RoundingControl = (RoundingControl)((((int)(flags & AssemblerOperandFlags.RoundingControlMask)) >> 3));
 			}
 			AddInstruction(ref instruction);
 		}
@@ -487,6 +487,8 @@ namespace Iced.Intel {
 					else
 						db(0x67, 0x0F, 0x1F, 0x84, 0x00, 0x00, 0x00, 0x00, 0x00); // NOP word ptr [eax+eax]
 					break;
+				default:
+					throw new InvalidOperationException();
 				}
 			}
 		}

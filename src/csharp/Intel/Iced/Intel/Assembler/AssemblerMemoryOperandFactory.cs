@@ -9,7 +9,7 @@ namespace Iced.Intel {
 	/// Memory operand factory.
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public readonly partial struct AssemblerMemoryOperandFactory {
+	public readonly struct AssemblerMemoryOperandFactory {
 		/// <summary>
 		/// Creates a new instance.
 		/// </summary>
@@ -99,6 +99,24 @@ namespace Iced.Intel {
 		/// Specify a memory operand with a label.
 		/// </summary>
 		public AssemblerMemoryOperand this[Label label] => new AssemblerMemoryOperand(Size, Segment, Register.RIP, Register.None, 1, (long)label.Id, Flags);
+
+		/// <summary>
+		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
+		/// </summary>
+		/// <param name="register">Size of this memory operand.</param>
+		public AssemblerMemoryOperand this[AssemblerRegister16 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
+
+		/// <summary>
+		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
+		/// </summary>
+		/// <param name="register">Size of this memory operand.</param>
+		public AssemblerMemoryOperand this[AssemblerRegister32 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
+
+		/// <summary>
+		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
+		/// </summary>
+		/// <param name="register">Size of this memory operand.</param>
+		public AssemblerMemoryOperand this[AssemblerRegister64 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
 	}
 }
 #endif
