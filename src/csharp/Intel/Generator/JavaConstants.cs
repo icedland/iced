@@ -20,8 +20,6 @@ namespace Generator {
 		public const string FastFormatterPackage = FormatterPackage + ".fast";
 
 		public const string IcedInternalPackage = IcedPackage + ".internal";
-		public const string CodeAssemblerInternalPackage = IcedInternalPackage + ".asm";
-		public const string BlockEncoderInternalPackage = IcedInternalPackage + ".enc";
 		public const string DecoderInternalPackage = IcedInternalPackage + ".dec";
 		public const string EncoderInternalPackage = IcedInternalPackage + ".enc";
 		public const string InstructionInfoInternalPackage = IcedInternalPackage + ".info";

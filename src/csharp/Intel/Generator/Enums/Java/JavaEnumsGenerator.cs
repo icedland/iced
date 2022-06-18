@@ -100,7 +100,7 @@ namespace Generator.Enums.Java {
 			toFullFileInfo.Add(TypeIds.OpCodeTableKind, FullEnumFileInfo.Create(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpCodeTableKind) + ".java"));
 			toFullFileInfo.Add(TypeIds.FormatterTextKind, FullEnumFileInfo.Create(genTypes, JavaConstants.FormatterPackage, nameof(TypeIds.FormatterTextKind) + ".java"));
 			toFullFileInfo.Add(TypeIds.MemorySizeOptions, FullEnumFileInfo.Create(genTypes, JavaConstants.FormatterPackage, nameof(TypeIds.MemorySizeOptions) + ".java"));
-			toFullFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, FullEnumFileInfo.Create(genTypes, JavaConstants.CodeAssemblerInternalPackage, "MemoryOperandSize.java"));
+			toFullFileInfo.Add(TypeIds.CodeAsmMemoryOperandSize, FullEnumFileInfo.Create(genTypes, JavaConstants.CodeAssemblerPackage, "MemoryOperandSize.java"));
 			toFullFileInfo.Add(TypeIds.MvexConvFn, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.MvexConvFn) + ".java"));
 			toFullFileInfo.Add(TypeIds.MvexRegMemConv, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.MvexRegMemConv) + ".java"));
 			toFullFileInfo.Add(TypeIds.MvexTupleTypeLutKind, FullEnumFileInfo.Create(genTypes, JavaConstants.IcedPackage, nameof(TypeIds.MvexTupleTypeLutKind) + ".java"));
