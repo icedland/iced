@@ -191,7 +191,7 @@ public class CodeAssembler {
 	}
 
 	/**
-	 * References the next anonymous label created by a future call to {@link anonymousLabel()}
+	 * References the next anonymous label created by a future call to {@link #anonymousLabel()}
 	 */
 	public CodeLabel f() {
 		if (nextAnonLabel == null)
@@ -202,7 +202,7 @@ public class CodeAssembler {
 	/**
 	 * Add an instruction directly to the flow of instructions.
 	 *
-	 * @param instruction
+	 * @param instruction Instruction to add
 	 */
 	public void addInstruction(Instruction instruction) {
 		if (currentLabel != null && definedAnonLabel)
