@@ -203,14 +203,6 @@ namespace Generator.Assembler {
 				};
 		}
 
-		protected static string GetAsmRegisterName(RegisterDef regDef) {
-			var registerName = regDef.Name;
-			// st(0) -> st0 etc
-			if (regDef.GetRegisterKind() == RegisterKind.ST)
-				registerName = regDef.Register.RawName;
-			return registerName.ToLowerInvariant();
-		}
-
 		protected RegisterDef GetRegisterDef(Register register) => regDefs[(int)register];
 
 		protected abstract void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups);
@@ -1376,6 +1368,7 @@ namespace Generator.Assembler {
 			};
 		}
 
+		protected virtual bool SupportsUnsigned => true;
 		OpCodeInfoGroup AddOpCodeToGroup(string name, string mnemonicName, Signature signature, InstructionDef def, OpCodeArgFlags opCodeArgFlags,
 			PseudoOpsKind? pseudoOpsKind, int numberLeadingArgsToDiscard, List<int> argSizes, bool isOtherImmediate) {
 			var key = new GroupKey(name, signature);
@@ -1400,7 +1393,7 @@ namespace Generator.Assembler {
 			group.UpdateMaxArgSizes(argSizes);
 
 			// Duplicate immediate signatures with opposite unsigned/signed version
-			if (!isOtherImmediate && (opCodeArgFlags & OpCodeArgFlags.UnsignedUIntNotSupported) == 0) {
+			if (!isOtherImmediate && (opCodeArgFlags & OpCodeArgFlags.UnsignedUIntNotSupported) == 0 && SupportsUnsigned) {
 				var signatureWithOtherImmediate = new Signature();
 				for (int i = 0; i < signature.ArgCount; i++) {
 					var argKind = signature.GetArgKind(i);

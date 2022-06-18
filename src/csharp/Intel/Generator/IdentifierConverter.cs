@@ -214,6 +214,8 @@ namespace Generator {
 			"public", "return", "short", "static", "strictfp", "super",
 			"switch", "synchronized", "this", "throw", "throws",
 			"transient", "try", "void", "volatile", "while",
+			// Not keywords but need to be escaped if used as methods
+			"clone", "equals", "finalize", "notify", "wait",
 		};
 
 		static string Escape(string name) => keywords.Contains(name) ? name + "_" : name;

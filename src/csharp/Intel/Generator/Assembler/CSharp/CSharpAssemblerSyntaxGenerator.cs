@@ -71,7 +71,7 @@ namespace Generator.Assembler.CSharp {
 					writer.WriteLine("public static partial class AssemblerRegisters {");
 					using (writer.Indent()) {
 						foreach (var regDef in regGroups.SelectMany(a => a.regs)) {
-							var asmRegName = GetAsmRegisterName(regDef);
+							var asmRegName = regDef.GetAsmRegisterName();
 							var registerTypeName = GetRegisterClassName(regDef.GetRegisterKind());
 							writer.WriteLine($"public static readonly {registerTypeName} {asmRegName} = new {registerTypeName}({idConverter.ToDeclTypeAndValue(regDef.Register)});");
 						}
@@ -1030,13 +1030,13 @@ namespace Generator.Assembler.CSharp {
 			bool plus = false;
 			if (@base != Register.None) {
 				plus = true;
-				sb.Append(GetAsmRegisterName(GetRegisterDef(@base)));
+				sb.Append(GetRegisterDef(@base).GetAsmRegisterName());
 			}
 			if (index != Register.None) {
 				if (plus)
 					sb.Append('+');
 				plus = true;
-				sb.Append(GetAsmRegisterName(GetRegisterDef(index)));
+				sb.Append(GetRegisterDef(index).GetAsmRegisterName());
 				if (scale > 1) {
 					sb.Append('*');
 					sb.Append(scale);
@@ -1069,7 +1069,7 @@ namespace Generator.Assembler.CSharp {
 
 		protected override TestArgValueBitness RegToTestArgValue(Register register) {
 			var regDef = GetRegisterDef(register);
-			var asmReg = GetAsmRegisterName(regDef);
+			var asmReg = regDef.GetAsmRegisterName();
 			var withReg = idConverter.ToDeclTypeAndValue(regDef.Register);
 			return new(asmReg, withReg);
 		}

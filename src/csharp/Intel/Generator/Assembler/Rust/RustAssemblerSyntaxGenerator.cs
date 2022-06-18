@@ -84,7 +84,7 @@ namespace Generator.Assembler.Rust {
 						writer.WriteLine($"use crate::code_asm::reg::{asmInfo.StructName};");
 						writer.WriteLine($"use crate::{registerTypeName};");
 						foreach (var regDef in regs) {
-							var asmRegName = GetAsmRegisterName(regDef);
+							var asmRegName = regDef.GetAsmRegisterName();
 							writer.WriteLine($"pub const {asmRegName}: {asmInfo.StructName} = {asmInfo.StructName}::new({idConverter.ToDeclTypeAndValue(regDef.Register)});");
 						}
 						var aOrAn = kind switch {
@@ -1211,13 +1211,13 @@ namespace Generator.Assembler.Rust {
 			bool plus = false;
 			if (@base != Register.None) {
 				plus = true;
-				sb.Append(GetAsmRegisterName(GetRegisterDef(@base)));
+				sb.Append(GetRegisterDef(@base).GetAsmRegisterName());
 			}
 			if (index != Register.None) {
 				if (plus)
 					sb.Append('+');
 				plus = true;
-				sb.Append(GetAsmRegisterName(GetRegisterDef(index)));
+				sb.Append(GetRegisterDef(index).GetAsmRegisterName());
 				if (scale > 1) {
 					sb.Append('*');
 					sb.Append(scale);
@@ -1251,7 +1251,7 @@ namespace Generator.Assembler.Rust {
 
 		protected override TestArgValueBitness RegToTestArgValue(Register register) {
 			var regDef = GetRegisterDef(register);
-			var asmReg = GetAsmRegisterName(regDef);
+			var asmReg = regDef.GetAsmRegisterName();
 			var withReg = idConverter.ToDeclTypeAndValue(regDef.Register);
 			return new(asmReg, withReg);
 		}

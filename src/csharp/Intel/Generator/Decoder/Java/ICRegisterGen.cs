@@ -19,33 +19,8 @@ namespace Generator.Tables.Java {
 		}
 
 		public void Generate() {
-			var registerType = genTypes[TypeIds.Register];
 			var regGroups = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).GetRegisterGroups(kind => kind != RegisterKind.None);
-
-			var infos = new (string name, RegisterKind[] kinds)[] {
-				(AllRegistersClassName, Array.Empty<RegisterKind>()),
-				(AllRegistersClassName + "GPR", new[] { RegisterKind.GPR8, RegisterKind.GPR16, RegisterKind.GPR32, RegisterKind.GPR64 }),
-				(AllRegistersClassName + "Vec", new[] { RegisterKind.XMM, RegisterKind.YMM, RegisterKind.ZMM }),
-
-				(AllRegistersClassName + "GPR8", new[] { RegisterKind.GPR8 }),
-				(AllRegistersClassName + "GPR16", new[] { RegisterKind.GPR16 }),
-				(AllRegistersClassName + "GPR32", new[] { RegisterKind.GPR32 }),
-				(AllRegistersClassName + "GPR64", new[] { RegisterKind.GPR64 }),
-				(AllRegistersClassName + "IP", new[] { RegisterKind.IP }),
-				(AllRegistersClassName + "Segment", new[] { RegisterKind.Segment }),
-				(AllRegistersClassName + "ST", new[] { RegisterKind.ST }),
-				(AllRegistersClassName + "CR", new[] { RegisterKind.CR }),
-				(AllRegistersClassName + "DR", new[] { RegisterKind.DR }),
-				(AllRegistersClassName + "TR", new[] { RegisterKind.TR }),
-				(AllRegistersClassName + "BND", new[] { RegisterKind.BND }),
-				(AllRegistersClassName + "K", new[] { RegisterKind.K }),
-				(AllRegistersClassName + "MM", new[] { RegisterKind.MM }),
-				(AllRegistersClassName + "XMM", new[] { RegisterKind.XMM }),
-				(AllRegistersClassName + "YMM", new[] { RegisterKind.YMM }),
-				(AllRegistersClassName + "ZMM", new[] { RegisterKind.ZMM }),
-				(AllRegistersClassName + "TMM", new[] { RegisterKind.TMM }),
-			};
-
+			var infos = Tables.Java.RegisterUtils.GetRegisterInfos(AllRegistersClassName, regGroups);
 			var allGroups = regGroups.ToDictionary(a => a.kind, a => true);
 			allGroups.Remove(RegisterKind.None);
 			foreach (var (_, kinds) in infos) {
@@ -89,11 +64,7 @@ namespace Generator.Tables.Java {
 					foreach (var kind in kinds) {
 						var defs = toDefs[kind];
 						foreach (var def in defs) {
-							string regName;
-							if (kind == RegisterKind.ST)
-								regName = def.Register.RawName.ToLowerInvariant();
-							else
-								regName = def.Name.ToLowerInvariant();
+							string regName = def.GetAsmRegisterName();
 							if (isAllRegs)
 								writer.WriteLine($"public static final ICRegister {regName} = new ICRegister({idConverter.ToDeclTypeAndValue(def.Register)});");
 							else
