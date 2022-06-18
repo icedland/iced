@@ -45,7 +45,6 @@ namespace Generator.Tables.Java {
 				(AllRegistersClassName + "ZMM", new[] { RegisterKind.ZMM }),
 				(AllRegistersClassName + "TMM", new[] { RegisterKind.TMM }),
 			};
-			var allNames = infos.Select(a => a.name).ToArray();
 
 			var allGroups = regGroups.ToDictionary(a => a.kind, a => true);
 			allGroups.Remove(RegisterKind.None);
@@ -57,6 +56,7 @@ namespace Generator.Tables.Java {
 				throw new InvalidOperationException($"New register kind: {allGroups.ToArray()[0].Key}");
 
 			var toDefs = regGroups.ToDictionary(a => a.kind, a => a.regs);
+			var allNames = infos.Select(a => a.name).ToArray();
 			foreach (var (name, tmp) in infos) {
 				var kinds = tmp;
 				bool isAllRegs = kinds.Length == 0;

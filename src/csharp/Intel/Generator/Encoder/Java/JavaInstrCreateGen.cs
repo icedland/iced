@@ -17,7 +17,8 @@ namespace Generator.Encoder.Java {
 		readonly InstrCreateGenImpl gen;
 		readonly StringBuilder sb;
 
-		public override bool SupportsUnsignedIntegers => false;
+		protected override bool SupportsUnsignedIntegers => false;
+		protected override bool SupportsDefaultArguments => false;
 
 		public JavaInstrCreateGen(GeneratorContext generatorContext)
 			: base(generatorContext.Types) {
@@ -171,7 +172,9 @@ namespace Generator.Encoder.Java {
 				WriteInitializeInstruction(writer, method);
 				writer.WriteLine();
 				writer.WriteLine($"instruction.setOp0Kind(getFarBranchOpKind({idConverter.Argument(method.Args[0].Name)}, 0));");
-				writer.WriteLine($"instruction.setFarBranchSelector({idConverter.Argument(method.Args[1].Name)});");
+				writer.Write($"instruction.setFarBranchSelector(");
+				Write(writer, method, 1);
+				writer.WriteLine(");");
 				writer.WriteLine($"instruction.setFarBranch32({idConverter.Argument(method.Args[2].Name)});");
 				WriteMethodFooter(writer, 1);
 			}
@@ -224,8 +227,29 @@ namespace Generator.Encoder.Java {
 
 		static void WriteComma(FileWriter writer) => writer.Write(", ");
 		void Write(FileWriter writer, EnumValue value) => writer.Write(idConverter.ToDeclTypeAndValue(value));
-		void Write(FileWriter writer, MethodArg arg) => writer.Write(idConverter.Argument(arg.Name));
-		void WriteRegister(FileWriter writer, MethodArg arg) => writer.Write($"{arg.Name}.get()");
+		void Write(FileWriter writer, CreateMethod method, int argIndex) {
+			if ((uint)argIndex < (uint)method.Args.Count) {
+				var arg = method.Args[argIndex];
+				var convFn = InstrCreateGenImpl.GetIntConvertFunc(arg.Type);
+				if (convFn is not null)
+					writer.Write($"{convFn}(");
+				if (arg.Type == MethodArgType.Register)
+					writer.Write($"{arg.Name}.get()");
+				else
+					writer.Write(idConverter.Argument(arg.Name));
+				if (convFn is not null)
+					writer.Write(")");
+			} else {
+				argIndex -= method.Args.Count;
+				switch (method.DefaultArgs[argIndex]) {
+				case EnumValue enumValue:
+					writer.Write(idConverter.ToDeclTypeAndValue(enumValue));
+					break;
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+		}
 
 		protected override void GenCreateString_Reg_SegRSI(FileWriter writer, CreateMethod method, StringMethodKind kind, string methodBaseName, EnumValue code, EnumValue register) {
 			WriteDocs(writer, method);
@@ -237,24 +261,24 @@ namespace Generator.Encoder.Java {
 				writer.Write("return createString_Reg_SegRSI(");
 				switch (kind) {
 				case StringMethodKind.Full:
-					if (method.Args.Count != 3)
+					if (method.Args.Count + method.DefaultArgs.Count != 3)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					WriteRegister(writer, method.Args[1]);
+					Write(writer, method, 1);
 					WriteComma(writer);
-					Write(writer, method.Args[2]);
+					Write(writer, method, 2);
 					break;
 				case StringMethodKind.Rep:
 					if (method.Args.Count != 1)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
@@ -282,15 +306,15 @@ namespace Generator.Encoder.Java {
 				writer.Write("return createString_Reg_ESRDI(");
 				switch (kind) {
 				case StringMethodKind.Full:
-					if (method.Args.Count != 2)
+					if (method.Args.Count + method.DefaultArgs.Count != 2)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, method.Args[1]);
+					Write(writer, method, 1);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -298,7 +322,7 @@ namespace Generator.Encoder.Java {
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
@@ -323,22 +347,22 @@ namespace Generator.Encoder.Java {
 				writer.Write("return createString_ESRDI_Reg(");
 				switch (kind) {
 				case StringMethodKind.Full:
-					if (method.Args.Count != 2)
+					if (method.Args.Count + method.DefaultArgs.Count != 2)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
-					Write(writer, method.Args[1]);
+					Write(writer, method, 1);
 					break;
 				case StringMethodKind.Rep:
 					if (method.Args.Count != 1)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, register);
 					WriteComma(writer);
@@ -364,15 +388,15 @@ namespace Generator.Encoder.Java {
 				writer.Write("return createString_SegRSI_ESRDI(");
 				switch (kind) {
 				case StringMethodKind.Full:
-					if (method.Args.Count != 3)
+					if (method.Args.Count + method.DefaultArgs.Count != 3)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
-					WriteRegister(writer, method.Args[1]);
+					Write(writer, method, 1);
 					WriteComma(writer);
-					Write(writer, method.Args[2]);
+					Write(writer, method, 2);
 					break;
 				case StringMethodKind.Repe:
 				case StringMethodKind.Repne:
@@ -380,7 +404,7 @@ namespace Generator.Encoder.Java {
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
@@ -405,22 +429,22 @@ namespace Generator.Encoder.Java {
 				writer.Write("return createString_ESRDI_SegRSI(");
 				switch (kind) {
 				case StringMethodKind.Full:
-					if (method.Args.Count != 3)
+					if (method.Args.Count + method.DefaultArgs.Count != 3)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
-					WriteRegister(writer, method.Args[1]);
+					Write(writer, method, 1);
 					WriteComma(writer);
-					Write(writer, method.Args[2]);
+					Write(writer, method, 2);
 					break;
 				case StringMethodKind.Rep:
 					if (method.Args.Count != 1)
 						throw new InvalidOperationException();
 					Write(writer, code);
 					WriteComma(writer);
-					Write(writer, method.Args[0]);
+					Write(writer, method, 0);
 					WriteComma(writer);
 					Write(writer, genTypes[TypeIds.Register][nameof(Register.None)]);
 					WriteComma(writer);
@@ -444,17 +468,17 @@ namespace Generator.Encoder.Java {
 			writer.WriteLine(") {");
 			using (writer.Indent()) {
 				writer.Write("return createMaskmov(");
-				if (method.Args.Count != 4)
+				if (method.Args.Count + method.DefaultArgs.Count != 4)
 					throw new InvalidOperationException();
 				Write(writer, code);
 				WriteComma(writer);
-				Write(writer, method.Args[0]);
+				Write(writer, method, 0);
 				WriteComma(writer);
-				WriteRegister(writer, method.Args[1]);
+				Write(writer, method, 1);
 				WriteComma(writer);
-				WriteRegister(writer, method.Args[2]);
+				Write(writer, method, 2);
 				WriteComma(writer);
-				WriteRegister(writer, method.Args[3]);
+				Write(writer, method, 3);
 				writer.WriteLine(");");
 			}
 			writer.WriteLine("}");
@@ -502,8 +526,11 @@ namespace Generator.Encoder.Java {
 				WriteInitializeInstruction(writer, code);
 				writer.WriteLine($"instruction.setDeclareDataCount({method.Args.Count});");
 				writer.WriteLine();
-				for (int i = 0; i < method.Args.Count; i++)
-					writer.WriteLine($"instruction.{setValueName}({i}, {idConverter.Argument(method.Args[i].Name)});");
+				for (int i = 0; i < method.Args.Count; i++) {
+					writer.Write($"instruction.{setValueName}({i}, ");
+					Write(writer, method, i);
+					writer.WriteLine(");");
+				}
 				WriteMethodFooter(writer, 0);
 			}
 			writer.WriteLine("}");

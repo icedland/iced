@@ -20,8 +20,11 @@ namespace Generator.Encoder.Java {
 		public string GetArgTypeString(MethodArg arg) =>
 			arg.Type switch {
 				MethodArgType.Memory => "MemoryOperand",
-				MethodArgType.UInt8 => "byte",
-				MethodArgType.UInt16 => "short",
+				// If the parameter types are byte/short, the user has to cast literals to the
+				// target type, eg. `(byte)123` even though the literal fits in the target type.
+				// We use int args and then check at runtime if they fit in 8 or 16 bits instead.
+				MethodArgType.UInt8 => "int",
+				MethodArgType.UInt16 => "int",
 				MethodArgType.Register => "ICRegister",
 				MethodArgType.Code or MethodArgType.RepPrefixKind or
 				MethodArgType.Int32 or MethodArgType.PreferredInt32 or MethodArgType.UInt32 or
@@ -32,6 +35,13 @@ namespace Generator.Encoder.Java {
 				MethodArgType.DwordArray => "int[]",
 				MethodArgType.QwordArray => "long[]",
 				_ => throw new InvalidOperationException(),
+			};
+
+		internal static string? GetIntConvertFunc(MethodArgType kind) =>
+			kind switch {
+				MethodArgType.UInt8 => "toByte",
+				MethodArgType.UInt16 => "toShort",
+				_ => null,
 			};
 
 		public void WriteMethodDeclArgs(FileWriter writer, CreateMethod method) {

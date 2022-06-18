@@ -2734,6 +2734,18 @@ public final class Instruction {
 		return null;
 	}
 
+	private static byte toByte(int value) {
+		if (-0x80 <= value && value <= 0xFF)
+			return (byte)value;
+		throw new IllegalArgumentException("Invalid byte value, must fit in 8 bits: -0x80 .. 0xFF");
+	}
+
+	private static short toShort(int value) {
+		if (-0x8000 <= value && value <= 0xFFFF)
+			return (short)value;
+		throw new IllegalArgumentException("Invalid short value, must fit in 16 bits: -0x8000 .. 0xFFFF");
+	}
+
 	private static void initializeSignedImmediate(Instruction instruction, int operand, long immediate) {
 		int opKind = getImmediateOpKind(instruction.getCode(), operand);
 		instruction.setOpKind(operand, opKind);
@@ -3691,12 +3703,12 @@ public final class Instruction {
 	 * @param selector Selector/segment value
 	 * @param offset Offset
 	 */
-	public static Instruction createBranch(int code, short selector, int offset) {
+	public static Instruction createBranch(int code, int selector, int offset) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(code);
 
 		instruction.setOp0Kind(getFarBranchOpKind(code, 0));
-		instruction.setFarBranchSelector(selector);
+		instruction.setFarBranchSelector(toShort(selector));
 		instruction.setFarBranch32(offset);
 
 		assert instruction.getOpCount() == 1 : instruction.getOpCount();
@@ -3742,6 +3754,25 @@ public final class Instruction {
 	 * Creates a <code>OUTSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createOutsb(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>OUTSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createOutsb(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>OUTSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -3756,6 +3787,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepOutsb(int addressSize) {
 		return createString_Reg_SegRSI(Code.OUTSB_DX_M8, addressSize, Register.DX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>OUTSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createOutsw(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>OUTSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createOutsw(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSW_DX_M16, addressSize, Register.DX, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -3782,6 +3832,25 @@ public final class Instruction {
 	 * Creates a <code>OUTSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createOutsd(int addressSize) {
+		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>OUTSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createOutsd(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>OUTSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -3796,6 +3865,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepOutsd(int addressSize) {
 		return createString_Reg_SegRSI(Code.OUTSD_DX_M32, addressSize, Register.DX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createLodsb(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createLodsb(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.LODSB_AL_M8, addressSize, Register.AL, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -3822,6 +3910,25 @@ public final class Instruction {
 	 * Creates a <code>LODSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createLodsw(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createLodsw(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -3836,6 +3943,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepLodsw(int addressSize) {
 		return createString_Reg_SegRSI(Code.LODSW_AX_M16, addressSize, Register.AX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>LODSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createLodsd(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createLodsd(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.LODSD_EAX_M32, addressSize, Register.EAX, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -3862,6 +3988,25 @@ public final class Instruction {
 	 * Creates a <code>LODSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createLodsq(int addressSize) {
+		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createLodsq(int addressSize, ICRegister segmentPrefix) {
+		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>LODSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -3876,6 +4021,15 @@ public final class Instruction {
 	 */
 	public static Instruction createRepLodsq(int addressSize) {
 		return createString_Reg_SegRSI(Code.LODSQ_RAX_M64, addressSize, Register.RAX, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>SCASB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createScasb(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASB_AL_M8, addressSize, Register.AL, RepPrefixKind.NONE);
 	}
 
 	/**
@@ -3910,6 +4064,15 @@ public final class Instruction {
 	 * Creates a <code>SCASW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createScasw(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASW_AX_M16, addressSize, Register.AX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>SCASW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createScasw(int addressSize, int repPrefix) {
@@ -3932,6 +4095,15 @@ public final class Instruction {
 	 */
 	public static Instruction createRepneScasw(int addressSize) {
 		return createString_Reg_ESRDI(Code.SCASW_AX_M16, addressSize, Register.AX, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>SCASD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createScasd(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASD_EAX_M32, addressSize, Register.EAX, RepPrefixKind.NONE);
 	}
 
 	/**
@@ -3966,6 +4138,15 @@ public final class Instruction {
 	 * Creates a <code>SCASQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createScasq(int addressSize) {
+		return createString_Reg_ESRDI(Code.SCASQ_RAX_M64, addressSize, Register.RAX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>SCASQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createScasq(int addressSize, int repPrefix) {
@@ -3994,6 +4175,15 @@ public final class Instruction {
 	 * Creates a <code>INSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createInsb(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSB_M8_DX, addressSize, Register.DX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>INSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createInsb(int addressSize, int repPrefix) {
@@ -4007,6 +4197,15 @@ public final class Instruction {
 	 */
 	public static Instruction createRepInsb(int addressSize) {
 		return createString_ESRDI_Reg(Code.INSB_M8_DX, addressSize, Register.DX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>INSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createInsw(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSW_M16_DX, addressSize, Register.DX, RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4032,6 +4231,15 @@ public final class Instruction {
 	 * Creates a <code>INSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createInsd(int addressSize) {
+		return createString_ESRDI_Reg(Code.INSD_M32_DX, addressSize, Register.DX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>INSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createInsd(int addressSize, int repPrefix) {
@@ -4045,6 +4253,15 @@ public final class Instruction {
 	 */
 	public static Instruction createRepInsd(int addressSize) {
 		return createString_ESRDI_Reg(Code.INSD_M32_DX, addressSize, Register.DX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createStosb(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSB_M8_AL, addressSize, Register.AL, RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4070,6 +4287,15 @@ public final class Instruction {
 	 * Creates a <code>STOSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createStosw(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSW_M16_AX, addressSize, Register.AX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>STOSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createStosw(int addressSize, int repPrefix) {
@@ -4083,6 +4309,15 @@ public final class Instruction {
 	 */
 	public static Instruction createRepStosw(int addressSize) {
 		return createString_ESRDI_Reg(Code.STOSW_M16_AX, addressSize, Register.AX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>STOSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createStosd(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSD_M32_EAX, addressSize, Register.EAX, RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4108,6 +4343,15 @@ public final class Instruction {
 	 * Creates a <code>STOSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createStosq(int addressSize) {
+		return createString_ESRDI_Reg(Code.STOSQ_M64_RAX, addressSize, Register.RAX, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>STOSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
 	public static Instruction createStosq(int addressSize, int repPrefix) {
@@ -4121,6 +4365,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepStosq(int addressSize) {
 		return createString_ESRDI_Reg(Code.STOSQ_M64_RAX, addressSize, Register.RAX, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>CMPSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createCmpsb(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createCmpsb(int addressSize, ICRegister segmentPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSB_M8_M8, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4156,6 +4419,25 @@ public final class Instruction {
 	 * Creates a <code>CMPSW</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createCmpsw(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createCmpsw(int addressSize, ICRegister segmentPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -4179,6 +4461,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepneCmpsw(int addressSize) {
 		return createString_SegRSI_ESRDI(Code.CMPSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.REPNE);
+	}
+
+	/**
+	 * Creates a <code>CMPSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createCmpsd(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createCmpsd(int addressSize, ICRegister segmentPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSD_M32_M32, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4214,6 +4515,25 @@ public final class Instruction {
 	 * Creates a <code>CMPSQ</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createCmpsq(int addressSize) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createCmpsq(int addressSize, ICRegister segmentPrefix) {
+		return createString_SegRSI_ESRDI(Code.CMPSQ_M64_M64, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>CMPSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -4243,6 +4563,25 @@ public final class Instruction {
 	 * Creates a <code>MOVSB</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createMovsb(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createMovsb(int addressSize, ICRegister segmentPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSB</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -4257,6 +4596,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepMovsb(int addressSize) {
 		return createString_ESRDI_SegRSI(Code.MOVSB_M8_M8, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MOVSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createMovsw(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSW</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createMovsw(int addressSize, ICRegister segmentPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSW_M16_M16, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4283,6 +4641,25 @@ public final class Instruction {
 	 * Creates a <code>MOVSD</code> instruction
 	 *
 	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createMovsd(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createMovsd(int addressSize, ICRegister segmentPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSD</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
 	 */
@@ -4297,6 +4674,25 @@ public final class Instruction {
 	 */
 	public static Instruction createRepMovsd(int addressSize) {
 		return createString_ESRDI_SegRSI(Code.MOVSD_M32_M32, addressSize, Register.NONE, RepPrefixKind.REPE);
+	}
+
+	/**
+	 * Creates a <code>MOVSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 */
+	public static Instruction createMovsq(int addressSize) {
+		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, Register.NONE, RepPrefixKind.NONE);
+	}
+
+	/**
+	 * Creates a <code>MOVSQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
+	 */
+	public static Instruction createMovsq(int addressSize, ICRegister segmentPrefix) {
+		return createString_ESRDI_SegRSI(Code.MOVSQ_M64_M64, addressSize, segmentPrefix.get(), RepPrefixKind.NONE);
 	}
 
 	/**
@@ -4325,10 +4721,32 @@ public final class Instruction {
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
 	 * @param register2 Register (see {@link ICRegisters})
+	 */
+	public static Instruction createMaskmovq(int addressSize, ICRegister register1, ICRegister register2) {
+		return createMaskmov(Code.MASKMOVQ_RDI_MM_MM, addressSize, register1.get(), register2.get(), Register.NONE);
+	}
+
+	/**
+	 * Creates a <code>MASKMOVQ</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 */
 	public static Instruction createMaskmovq(int addressSize, ICRegister register1, ICRegister register2, ICRegister segmentPrefix) {
 		return createMaskmov(Code.MASKMOVQ_RDI_MM_MM, addressSize, register1.get(), register2.get(), segmentPrefix.get());
+	}
+
+	/**
+	 * Creates a <code>MASKMOVDQU</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
+	 */
+	public static Instruction createMaskmovdqu(int addressSize, ICRegister register1, ICRegister register2) {
+		return createMaskmov(Code.MASKMOVDQU_RDI_XMM_XMM, addressSize, register1.get(), register2.get(), Register.NONE);
 	}
 
 	/**
@@ -4349,6 +4767,17 @@ public final class Instruction {
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
 	 * @param register2 Register (see {@link ICRegisters})
+	 */
+	public static Instruction createVmaskmovdqu(int addressSize, ICRegister register1, ICRegister register2) {
+		return createMaskmov(Code.VEX_VMASKMOVDQU_RDI_XMM_XMM, addressSize, register1.get(), register2.get(), Register.NONE);
+	}
+
+	/**
+	 * Creates a <code>VMASKMOVDQU</code> instruction
+	 *
+	 * @param addressSize 16, 32, or 64
+	 * @param register1 Register (see {@link ICRegisters})
+	 * @param register2 Register (see {@link ICRegisters})
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
 	 */
 	public static Instruction createVmaskmovdqu(int addressSize, ICRegister register1, ICRegister register2, ICRegister segmentPrefix) {
@@ -4360,12 +4789,12 @@ public final class Instruction {
 	 *
 	 * @param b0 Byte 0
 	 */
-	public static Instruction createDeclareByte(byte b0) {
+	public static Instruction createDeclareByte(int b0) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(1);
 
-		instruction.setDeclareByteValue(0, b0);
+		instruction.setDeclareByteValue(0, toByte(b0));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4377,13 +4806,13 @@ public final class Instruction {
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1) {
+	public static Instruction createDeclareByte(int b0, int b1) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(2);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4396,14 +4825,14 @@ public final class Instruction {
 	 * @param b1 Byte 1
 	 * @param b2 Byte 2
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(3);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4417,15 +4846,15 @@ public final class Instruction {
 	 * @param b2 Byte 2
 	 * @param b3 Byte 3
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(4);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4440,16 +4869,16 @@ public final class Instruction {
 	 * @param b3 Byte 3
 	 * @param b4 Byte 4
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(5);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4465,17 +4894,17 @@ public final class Instruction {
 	 * @param b4 Byte 4
 	 * @param b5 Byte 5
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(6);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4492,18 +4921,18 @@ public final class Instruction {
 	 * @param b5 Byte 5
 	 * @param b6 Byte 6
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(7);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4521,19 +4950,19 @@ public final class Instruction {
 	 * @param b6 Byte 6
 	 * @param b7 Byte 7
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(8);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4552,20 +4981,20 @@ public final class Instruction {
 	 * @param b7 Byte 7
 	 * @param b8 Byte 8
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(9);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4585,21 +5014,21 @@ public final class Instruction {
 	 * @param b8 Byte 8
 	 * @param b9 Byte 9
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(10);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4620,22 +5049,22 @@ public final class Instruction {
 	 * @param b9 Byte 9
 	 * @param b10 Byte 10
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(11);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4657,23 +5086,23 @@ public final class Instruction {
 	 * @param b10 Byte 10
 	 * @param b11 Byte 11
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10, int b11) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(12);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
-		instruction.setDeclareByteValue(11, b11);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
+		instruction.setDeclareByteValue(11, toByte(b11));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4696,24 +5125,24 @@ public final class Instruction {
 	 * @param b11 Byte 11
 	 * @param b12 Byte 12
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10, int b11, int b12) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(13);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
-		instruction.setDeclareByteValue(11, b11);
-		instruction.setDeclareByteValue(12, b12);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
+		instruction.setDeclareByteValue(11, toByte(b11));
+		instruction.setDeclareByteValue(12, toByte(b12));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4737,25 +5166,25 @@ public final class Instruction {
 	 * @param b12 Byte 12
 	 * @param b13 Byte 13
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10, int b11, int b12, int b13) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(14);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
-		instruction.setDeclareByteValue(11, b11);
-		instruction.setDeclareByteValue(12, b12);
-		instruction.setDeclareByteValue(13, b13);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
+		instruction.setDeclareByteValue(11, toByte(b11));
+		instruction.setDeclareByteValue(12, toByte(b12));
+		instruction.setDeclareByteValue(13, toByte(b13));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4780,26 +5209,26 @@ public final class Instruction {
 	 * @param b13 Byte 13
 	 * @param b14 Byte 14
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10, int b11, int b12, int b13, int b14) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(15);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
-		instruction.setDeclareByteValue(11, b11);
-		instruction.setDeclareByteValue(12, b12);
-		instruction.setDeclareByteValue(13, b13);
-		instruction.setDeclareByteValue(14, b14);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
+		instruction.setDeclareByteValue(11, toByte(b11));
+		instruction.setDeclareByteValue(12, toByte(b12));
+		instruction.setDeclareByteValue(13, toByte(b13));
+		instruction.setDeclareByteValue(14, toByte(b14));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4825,27 +5254,27 @@ public final class Instruction {
 	 * @param b14 Byte 14
 	 * @param b15 Byte 15
 	 */
-	public static Instruction createDeclareByte(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8, byte b9, byte b10, byte b11, byte b12, byte b13, byte b14, byte b15) {
+	public static Instruction createDeclareByte(int b0, int b1, int b2, int b3, int b4, int b5, int b6, int b7, int b8, int b9, int b10, int b11, int b12, int b13, int b14, int b15) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREBYTE);
 		instruction.setDeclareDataCount(16);
 
-		instruction.setDeclareByteValue(0, b0);
-		instruction.setDeclareByteValue(1, b1);
-		instruction.setDeclareByteValue(2, b2);
-		instruction.setDeclareByteValue(3, b3);
-		instruction.setDeclareByteValue(4, b4);
-		instruction.setDeclareByteValue(5, b5);
-		instruction.setDeclareByteValue(6, b6);
-		instruction.setDeclareByteValue(7, b7);
-		instruction.setDeclareByteValue(8, b8);
-		instruction.setDeclareByteValue(9, b9);
-		instruction.setDeclareByteValue(10, b10);
-		instruction.setDeclareByteValue(11, b11);
-		instruction.setDeclareByteValue(12, b12);
-		instruction.setDeclareByteValue(13, b13);
-		instruction.setDeclareByteValue(14, b14);
-		instruction.setDeclareByteValue(15, b15);
+		instruction.setDeclareByteValue(0, toByte(b0));
+		instruction.setDeclareByteValue(1, toByte(b1));
+		instruction.setDeclareByteValue(2, toByte(b2));
+		instruction.setDeclareByteValue(3, toByte(b3));
+		instruction.setDeclareByteValue(4, toByte(b4));
+		instruction.setDeclareByteValue(5, toByte(b5));
+		instruction.setDeclareByteValue(6, toByte(b6));
+		instruction.setDeclareByteValue(7, toByte(b7));
+		instruction.setDeclareByteValue(8, toByte(b8));
+		instruction.setDeclareByteValue(9, toByte(b9));
+		instruction.setDeclareByteValue(10, toByte(b10));
+		instruction.setDeclareByteValue(11, toByte(b11));
+		instruction.setDeclareByteValue(12, toByte(b12));
+		instruction.setDeclareByteValue(13, toByte(b13));
+		instruction.setDeclareByteValue(14, toByte(b14));
+		instruction.setDeclareByteValue(15, toByte(b15));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4893,12 +5322,12 @@ public final class Instruction {
 	 *
 	 * @param w0 Word 0
 	 */
-	public static Instruction createDeclareWord(short w0) {
+	public static Instruction createDeclareWord(int w0) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(1);
 
-		instruction.setDeclareWordValue(0, w0);
+		instruction.setDeclareWordValue(0, toShort(w0));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4910,13 +5339,13 @@ public final class Instruction {
 	 * @param w0 Word 0
 	 * @param w1 Word 1
 	 */
-	public static Instruction createDeclareWord(short w0, short w1) {
+	public static Instruction createDeclareWord(int w0, int w1) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(2);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4929,14 +5358,14 @@ public final class Instruction {
 	 * @param w1 Word 1
 	 * @param w2 Word 2
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(3);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4950,15 +5379,15 @@ public final class Instruction {
 	 * @param w2 Word 2
 	 * @param w3 Word 3
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2, int w3) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(4);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
-		instruction.setDeclareWordValue(3, w3);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
+		instruction.setDeclareWordValue(3, toShort(w3));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4973,16 +5402,16 @@ public final class Instruction {
 	 * @param w3 Word 3
 	 * @param w4 Word 4
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2, int w3, int w4) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(5);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
-		instruction.setDeclareWordValue(3, w3);
-		instruction.setDeclareWordValue(4, w4);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
+		instruction.setDeclareWordValue(3, toShort(w3));
+		instruction.setDeclareWordValue(4, toShort(w4));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -4998,17 +5427,17 @@ public final class Instruction {
 	 * @param w4 Word 4
 	 * @param w5 Word 5
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2, int w3, int w4, int w5) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(6);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
-		instruction.setDeclareWordValue(3, w3);
-		instruction.setDeclareWordValue(4, w4);
-		instruction.setDeclareWordValue(5, w5);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
+		instruction.setDeclareWordValue(3, toShort(w3));
+		instruction.setDeclareWordValue(4, toShort(w4));
+		instruction.setDeclareWordValue(5, toShort(w5));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -5025,18 +5454,18 @@ public final class Instruction {
 	 * @param w5 Word 5
 	 * @param w6 Word 6
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5, short w6) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2, int w3, int w4, int w5, int w6) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(7);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
-		instruction.setDeclareWordValue(3, w3);
-		instruction.setDeclareWordValue(4, w4);
-		instruction.setDeclareWordValue(5, w5);
-		instruction.setDeclareWordValue(6, w6);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
+		instruction.setDeclareWordValue(3, toShort(w3));
+		instruction.setDeclareWordValue(4, toShort(w4));
+		instruction.setDeclareWordValue(5, toShort(w5));
+		instruction.setDeclareWordValue(6, toShort(w6));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;
@@ -5054,19 +5483,19 @@ public final class Instruction {
 	 * @param w6 Word 6
 	 * @param w7 Word 7
 	 */
-	public static Instruction createDeclareWord(short w0, short w1, short w2, short w3, short w4, short w5, short w6, short w7) {
+	public static Instruction createDeclareWord(int w0, int w1, int w2, int w3, int w4, int w5, int w6, int w7) {
 		Instruction instruction = new Instruction();
 		instruction.setCode(Code.DECLAREWORD);
 		instruction.setDeclareDataCount(8);
 
-		instruction.setDeclareWordValue(0, w0);
-		instruction.setDeclareWordValue(1, w1);
-		instruction.setDeclareWordValue(2, w2);
-		instruction.setDeclareWordValue(3, w3);
-		instruction.setDeclareWordValue(4, w4);
-		instruction.setDeclareWordValue(5, w5);
-		instruction.setDeclareWordValue(6, w6);
-		instruction.setDeclareWordValue(7, w7);
+		instruction.setDeclareWordValue(0, toShort(w0));
+		instruction.setDeclareWordValue(1, toShort(w1));
+		instruction.setDeclareWordValue(2, toShort(w2));
+		instruction.setDeclareWordValue(3, toShort(w3));
+		instruction.setDeclareWordValue(4, toShort(w4));
+		instruction.setDeclareWordValue(5, toShort(w5));
+		instruction.setDeclareWordValue(6, toShort(w6));
+		instruction.setDeclareWordValue(7, toShort(w7));
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
 		return instruction;

@@ -9,6 +9,9 @@ package com.github.icedland.iced.x86;
  * @see ICRegisters
  */
 public final class ICRegister {
+	/** No register */
+	public static final ICRegister NONE = new ICRegister(Register.NONE);
+
 	private final int register;
 
 	/**
