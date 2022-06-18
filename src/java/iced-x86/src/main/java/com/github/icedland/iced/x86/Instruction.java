@@ -3031,13 +3031,13 @@ public final class Instruction {
 	}
 
 	private static void initMemoryOperand(Instruction instruction, MemoryOperand memory) {
-		instruction.setMemoryBase(memory.base);
-		instruction.setMemoryIndex(memory.index);
+		instruction.setMemoryBase(memory.base.get());
+		instruction.setMemoryIndex(memory.index.get());
 		instruction.setMemoryIndexScale(memory.scale);
 		instruction.setMemoryDisplSize(memory.displSize);
 		instruction.setMemoryDisplacement64(memory.displacement);
 		instruction.setBroadcast(memory.isBroadcast);
-		instruction.setSegmentPrefix(memory.segmentPrefix);
+		instruction.setSegmentPrefix(memory.segmentPrefix.get());
 	}
 
 	// GENERATOR-BEGIN: Create
