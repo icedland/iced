@@ -195,7 +195,10 @@ public final class Instruction {
 	 */
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(); // TODO:
+		com.github.icedland.iced.x86.fmt.masm.MasmFormatter formatter = new com.github.icedland.iced.x86.fmt.masm.MasmFormatter();
+		com.github.icedland.iced.x86.fmt.StringOutput output = new com.github.icedland.iced.x86.fmt.StringOutput();
+		formatter.format(this, output);
+		return output.toString();
 	}
 
 	/**
