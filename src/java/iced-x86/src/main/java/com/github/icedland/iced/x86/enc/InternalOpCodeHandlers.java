@@ -174,16 +174,16 @@ public final class InternalOpCodeHandlers {
 
 			switch ((encFlags2 >>> EncFlags2.MANDATORY_PREFIX_SHIFT) & EncFlags2.MANDATORY_PREFIX_MASK) {
 			case MandatoryPrefixByte.NONE:
-				mandatoryPrefix = MandatoryPrefixByte.NONE;
+				mandatoryPrefix = 0x00;
 				break;
 			case MandatoryPrefixByte.P66:
-				mandatoryPrefix = MandatoryPrefixByte.P66;
+				mandatoryPrefix = 0x66;
 				break;
 			case MandatoryPrefixByte.PF3:
-				mandatoryPrefix = MandatoryPrefixByte.PF3;
+				mandatoryPrefix = 0xF3;
 				break;
 			case MandatoryPrefixByte.PF2:
-				mandatoryPrefix = MandatoryPrefixByte.PF2;
+				mandatoryPrefix = 0xF2;
 				break;
 			default:
 				throw new UnsupportedOperationException();
