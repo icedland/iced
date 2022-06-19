@@ -8,17 +8,17 @@ package com.github.icedland.iced.x86.fmt;
  */
 public final class NumberFormattingOptions {
 	/**
-	 * Digit separator or <code>null</code>/empty String to not use a digit separator
+	 * Digit separator or <code>null</code>/empty string to not use a digit separator
 	 */
 	public String digitSeparator;
 
 	/**
-	 * Number prefix or <code>null</code>/empty String
+	 * Number prefix or <code>null</code>/empty string
 	 */
 	public String prefix;
 
 	/**
-	 * Number suffix or <code>null</code>/empty String
+	 * Number suffix or <code>null</code>/empty string
 	 */
 	public String suffix;
 

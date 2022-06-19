@@ -1247,7 +1247,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the opcode String, eg.<!-- --> <code>VEX.128.66.0F38.W0 78 /r</code>
+	 * Gets the opcode string, eg.<!-- --> <code>VEX.128.66.0F38.W0 78 /r</code>
 	 *
 	 * @see #toInstructionString()
 	 */
@@ -1256,7 +1256,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the instruction String, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
+	 * Gets the instruction string, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
 	 *
 	 * @see #toOpCodeString()
 	 */
@@ -1265,7 +1265,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the instruction String, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
+	 * Gets the instruction string, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
 	 *
 	 * @see #toOpCodeString()
 	 */

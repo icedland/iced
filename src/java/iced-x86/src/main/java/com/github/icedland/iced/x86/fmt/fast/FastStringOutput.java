@@ -50,7 +50,7 @@ public final class FastStringOutput {
 	}
 
 	/**
-	 * Append a String
+	 * Append a string
 	 *
 	 * @param value String to append (may be <code>null</code>)
 	 */
@@ -81,14 +81,14 @@ public final class FastStringOutput {
 	}
 
 	/**
-	 * Resets the buffer to an empty String
+	 * Resets the buffer to an empty string
 	 */
 	public void clear() {
 		bufferLen = 0;
 	}
 
 	/**
-	 * Gets the current String
+	 * Gets the current string
 	 */
 	@Override
 	public String toString() {
