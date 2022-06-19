@@ -116,9 +116,9 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("static partial class CpuidFeatureInternalData {");
 					using (writer.Indent()) {
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine("static System.ReadOnlySpan<byte> GetCpuidFeaturesData() =>");
+						writer.WriteLine("internal static System.ReadOnlySpan<byte> GetCpuidFeaturesData() =>");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine("static byte[] GetGetCpuidFeaturesData() =>");
+						writer.WriteLine("internal static byte[] GetCpuidFeaturesData() =>");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							writer.WriteLine("new byte[] {");

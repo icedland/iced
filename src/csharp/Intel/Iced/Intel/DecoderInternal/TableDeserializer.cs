@@ -31,7 +31,7 @@ namespace Iced.Intel.DecoderInternal {
 #else
 	struct TableDeserializer {
 #endif
-		readonly DataReader reader;
+		DataReader reader;
 		readonly OpCodeHandlerReader handlerReader;
 		readonly List<HandlerInfo> idToHandler;
 		readonly OpCodeHandler?[] handlerArray;

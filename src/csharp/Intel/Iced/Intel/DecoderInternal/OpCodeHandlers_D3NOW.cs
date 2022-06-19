@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace Iced.Intel.DecoderInternal {
 #if !NO_D3NOW
 	sealed class OpCodeHandler_D3NOW : OpCodeHandlerModRM {
-		static readonly Code[] CodeValues = CreateCodeValues();
+		internal static readonly Code[] CodeValues = CreateCodeValues();
 
 		static Code[] CreateCodeValues() {
 			var result = new Code[0x100];
