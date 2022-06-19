@@ -547,7 +547,7 @@ public final class FastFormatter {
 		int shift = 0;
 		for (long tmp = value;;) {
 			shift += 4;
-			tmp >>= 4;
+			tmp >>>= 4;
 			if (tmp == 0)
 				break;
 		}

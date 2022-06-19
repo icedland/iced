@@ -601,7 +601,7 @@ public final class Decoder implements Iterable<Instruction> {
 					state_zs_extraRegisterBase = (p0x >>> 4) & 8;
 					state_zs_extraIndexRegisterBase = (p0x >>> 3) & 8;
 					state_extraRegisterBaseEVEX = p0x & 0x10;
-					p0x >>= 2;
+					p0x >>>= 2;
 					state_extraBaseRegisterBaseEVEX = p0x & 0x18;
 					state_zs_extraBaseRegisterBase = p0x & 8;
 				}
@@ -670,7 +670,7 @@ public final class Decoder implements Iterable<Instruction> {
 				state_zs_extraRegisterBase = (p0x >>> 4) & 8;
 				state_zs_extraIndexRegisterBase = (p0x >>> 3) & 8;
 				state_extraRegisterBaseEVEX = p0x & 0x10;
-				p0x >>= 2;
+				p0x >>>= 2;
 				state_extraBaseRegisterBaseEVEX = p0x & 0x18;
 				state_zs_extraBaseRegisterBase = p0x & 8;
 
