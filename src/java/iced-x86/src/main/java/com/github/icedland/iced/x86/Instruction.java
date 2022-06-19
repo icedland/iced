@@ -74,6 +74,31 @@ public final class Instruction {
 	}
 
 	/**
+	 * Clears all fields
+	 */
+	public void clear() {
+		nextRip = 0;
+		memDispl = 0;
+		flags1 = 0;
+		immediate = 0;
+		code = 0;
+		memBaseReg = 0;
+		memIndexReg = 0;
+		reg0 = 0;
+		reg1 = 0;
+		reg2 = 0;
+		reg3 = 0;
+		opKind0 = 0;
+		opKind1 = 0;
+		opKind2 = 0;
+		opKind3 = 0;
+		scale = 0;
+		displSize = 0;
+		len = 0;
+		pad = 0;
+	}
+
+	/**
 	 * Gets the hash code of this instance, ignoring some fields, eg.<!-- --> <code>IP</code>, <code>len</code> and a few unimportant fields
 	 */
 	@Override

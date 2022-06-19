@@ -31,7 +31,7 @@ namespace Iced.Intel.DecoderInternal {
 #else
 	struct TableDeserializer {
 #endif
-		DataReader reader;
+		readonly DataReader reader;
 		readonly OpCodeHandlerReader handlerReader;
 		readonly List<HandlerInfo> idToHandler;
 		readonly OpCodeHandler?[] handlerArray;
@@ -48,7 +48,7 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public void Deserialize() {
-			for (uint currentIndex = 0; reader.CanRead; currentIndex++) {
+			for (; reader.CanRead;) {
 				switch ((SerializedDataKind)reader.ReadByte()) {
 				case SerializedDataKind.HandlerReference:
 					idToHandler.Add(new HandlerInfo(ReadHandler()));

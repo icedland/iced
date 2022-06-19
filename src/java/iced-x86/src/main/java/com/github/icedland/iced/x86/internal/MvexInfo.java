@@ -110,7 +110,7 @@ public final class MvexInfo {
 	}
 
 	/** DO NOT USE: INTERNAL API */
-	public static int GetTupleType(int code, int sss) {
+	public static int getTupleType(int code, int sss) {
 		return MvexTupleTypeLut.data[getTupleTypeLutKind(code) * 8 + sss];
 	}
 }
