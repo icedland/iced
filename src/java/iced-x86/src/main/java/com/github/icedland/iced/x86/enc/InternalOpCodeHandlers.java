@@ -43,7 +43,6 @@ public final class InternalOpCodeHandlers {
 			super(EncFlags2.NONE, EncFlags3.BIT16OR32 | EncFlags3.BIT64, false, null, new Op[0]);
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.setErrorMessage(ERROR_MESSAGE);
@@ -82,7 +81,6 @@ public final class InternalOpCodeHandlers {
 			maxLength = 16 / elemLength;
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			int declDataCount = instruction.getDeclareDataCount();
@@ -108,7 +106,6 @@ public final class InternalOpCodeHandlers {
 			super(EncFlags2.NONE, EncFlags3.BIT16OR32 | EncFlags3.BIT64, true, null, new Op[0]);
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 		}
@@ -193,7 +190,6 @@ public final class InternalOpCodeHandlers {
 			}
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			int b = mandatoryPrefix;
@@ -290,7 +286,6 @@ public final class InternalOpCodeHandlers {
 			mask_L = mask_L_tmp;
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
@@ -369,7 +364,6 @@ public final class InternalOpCodeHandlers {
 			lastByte = lastByteTmp;
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
@@ -478,7 +472,6 @@ public final class InternalOpCodeHandlers {
 			}
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
@@ -603,7 +596,6 @@ public final class InternalOpCodeHandlers {
 			}
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
@@ -706,7 +698,6 @@ public final class InternalOpCodeHandlers {
 			assert Integer.compareUnsigned(immediate, 0xFF) <= 0 : immediate;
 		}
 
-		/** DO NOT USE: INTERNAL API */
 		@Override
 		void encode(Encoder encoder, Instruction instruction) {
 			encoder.writePrefixes(instruction);
