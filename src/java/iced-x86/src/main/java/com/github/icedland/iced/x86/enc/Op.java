@@ -194,7 +194,7 @@ final class OpRegSTi extends Op {
 }
 
 final class OprDI extends Op {
-	static int GetRegSize(int opKind) {
+	static int getRegSize(int opKind) {
 		if (opKind == OpKind.MEMORY_SEG_RDI)
 			return 8;
 		if (opKind == OpKind.MEMORY_SEG_EDI)
@@ -206,7 +206,7 @@ final class OprDI extends Op {
 
 	@Override
 	void encode(Encoder encoder, Instruction instruction, int operand) {
-		int regSize = GetRegSize(instruction.getOpKind(operand));
+		int regSize = getRegSize(instruction.getOpKind(operand));
 		if (regSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_SEG_DI, MEMORY_SEG_EDI or MEMORY_SEG_RDI", operand));
 			return;
@@ -336,7 +336,7 @@ final class OpI4 extends Op {
 }
 
 final class OpX extends Op {
-	static int GetXRegSize(int opKind) {
+	static int getXRegSize(int opKind) {
 		if (opKind == OpKind.MEMORY_SEG_RSI)
 			return 8;
 		if (opKind == OpKind.MEMORY_SEG_ESI)
@@ -346,7 +346,7 @@ final class OpX extends Op {
 		return 0;
 	}
 
-	static int GetYRegSize(int opKind) {
+	static int getYRegSize(int opKind) {
 		if (opKind == OpKind.MEMORY_ESRDI)
 			return 8;
 		if (opKind == OpKind.MEMORY_ESEDI)
@@ -358,7 +358,7 @@ final class OpX extends Op {
 
 	@Override
 	void encode(Encoder encoder, Instruction instruction, int operand) {
-		int regXSize = GetXRegSize(instruction.getOpKind(operand));
+		int regXSize = getXRegSize(instruction.getOpKind(operand));
 		if (regXSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_SEG_SI, MEMORY_SEG_ESI or MEMORY_SEG_RSI", operand));
 			return;
@@ -368,7 +368,7 @@ final class OpX extends Op {
 		case Code.MOVSW_M16_M16:
 		case Code.MOVSD_M32_M32:
 		case Code.MOVSQ_M64_M64:
-			int regYSize = GetYRegSize(instruction.getOp0Kind());
+			int regYSize = getYRegSize(instruction.getOp0Kind());
 			if (regXSize != regYSize) {
 				encoder.setErrorMessage(String.format("Same sized register must be used: reg #1 size = %d, reg #2 size = %d", regYSize * 8, regXSize * 8));
 				return;
@@ -382,7 +382,7 @@ final class OpX extends Op {
 final class OpY extends Op {
 	@Override
 	void encode(Encoder encoder, Instruction instruction, int operand) {
-		int regYSize = OpX.GetYRegSize(instruction.getOpKind(operand));
+		int regYSize = OpX.getYRegSize(instruction.getOpKind(operand));
 		if (regYSize == 0) {
 			encoder.setErrorMessage(String.format("Operand %d: expected OpKind = MEMORY_ESDI, MEMORY_ESEDI or MEMORY_ESRDI", operand));
 			return;
@@ -392,7 +392,7 @@ final class OpY extends Op {
 		case Code.CMPSW_M16_M16:
 		case Code.CMPSD_M32_M32:
 		case Code.CMPSQ_M64_M64:
-			int regXSize = OpX.GetXRegSize(instruction.getOp0Kind());
+			int regXSize = OpX.getXRegSize(instruction.getOp0Kind());
 			if (regXSize != regYSize) {
 				encoder.setErrorMessage(
 						String.format("Same sized register must be used: reg #1 size = %d, reg #2 size = %d", regXSize * 8, regYSize * 8));

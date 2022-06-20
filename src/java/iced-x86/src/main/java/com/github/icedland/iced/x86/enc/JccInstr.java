@@ -18,7 +18,7 @@ final class JccInstr extends Instr {
 	private final byte nearInstructionSize;
 	private final byte longInstructionSize64;
 
-	private static int GetLongInstructionSize64(Instruction instruction) {
+	private static int getLongInstructionSize64(Instruction instruction) {
 		// Check if JKZD/JKNZD
 		if (instruction.getOpCount() == 2)
 			return 5 + CALL_OR_JMP_POINTER_DATA_INSTRUCTION_SIZE64;
@@ -41,7 +41,7 @@ final class JccInstr extends Instr {
 		super(block, instruction.getIP());
 		this.instruction = instruction;
 		instrKind = InstrKind.UNINITIALIZED;
-		longInstructionSize64 = (byte)GetLongInstructionSize64(instruction);
+		longInstructionSize64 = (byte)getLongInstructionSize64(instruction);
 
 		Instruction instrCopy;
 

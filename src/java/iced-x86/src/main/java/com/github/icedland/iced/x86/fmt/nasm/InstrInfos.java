@@ -14,11 +14,11 @@ final class InstrInfos {
 		return ResourceReader.readByteArray(InstrInfos.class.getClassLoader(), "com/github/icedland/iced/x86/fmt/nasm/InstrInfos.bin");
 	}
 
-	private static String AddSuffix(String s, char[] ca) {
+	private static String addSuffix(String s, char[] ca) {
 		return (s + new String(ca)).intern();
 	}
 
-	private static String AddPrefix(String s, char[] ca) {
+	private static String addPrefix(String s, char[] ca) {
 		return (new String(ca) + s).intern();
 	}
 
@@ -48,7 +48,7 @@ final class InstrInfos {
 			s = strings[reader.readCompressedUInt32()];
 			if ((f & 0x80) != 0) {
 				ca[0] = 'v';
-				s = AddPrefix(s, ca);
+				s = addPrefix(s, ca);
 			}
 			InstrInfo instrInfo;
 			switch (ctorKind) {
@@ -131,11 +131,11 @@ final class InstrInfos {
 			case CtorKind.OP_SIZE:
 				v = reader.readByte();
 				ca[0] = 'w';
-				s2 = AddSuffix(s, ca);
+				s2 = addSuffix(s, ca);
 				ca[0] = 'd';
-				s3 = AddSuffix(s, ca);
+				s3 = addSuffix(s, ca);
 				ca[0] = 'q';
-				s4 = AddSuffix(s, ca);
+				s4 = addSuffix(s, ca);
 				instrInfo = new SimpleInstrInfo_OpSize(v, s, s2, s3, s4);
 				break;
 
@@ -148,7 +148,7 @@ final class InstrInfos {
 
 			case CtorKind.OP_SIZE3:
 				ca[0] = (char)reader.readByte();
-				s2 = AddSuffix(s, ca);
+				s2 = addSuffix(s, ca);
 				v = reader.readCompressedUInt32();
 				instrInfo = new SimpleInstrInfo_OpSize3(v, s, s2);
 				break;
