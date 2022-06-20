@@ -100,10 +100,10 @@ final class OpCodeHandler_EVEX_V_H_Ev_er extends OpCodeHandlerModRM {
 			tupleType = tupleTypeW0;
 			gpr = Register.EAX;
 		}
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setRoundingControl(decoder.state_vectorLength + RoundingControl.ROUND_TO_NEAREST);
 		}
@@ -144,10 +144,10 @@ final class OpCodeHandler_EVEX_V_H_Ev_Ib extends OpCodeHandlerModRM {
 			instruction.setCode(codeW0);
 			gpr = Register.EAX;
 		}
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp2Kind(OpKind.MEMORY);
@@ -191,7 +191,7 @@ final class OpCodeHandler_EVEX_Ed_V_Ib extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -200,7 +200,7 @@ final class OpCodeHandler_EVEX_Ed_V_Ib extends OpCodeHandlerModRM {
 			else
 				decoder.readOpMem(instruction, tupleType32);
 		}
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp2Kind(OpKind.IMMEDIATE8);
 		instruction.setImmediate8((byte)decoder.readByte());
 	}
@@ -225,10 +225,10 @@ final class OpCodeHandler_EVEX_VkHW_er extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0) {
 				if (onlySAE)
 					instruction.setSuppressAllExceptions(true);
@@ -335,9 +335,9 @@ final class OpCodeHandler_EVEX_VkW_er extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0) {
 				if (onlySAE)
 					instruction.setSuppressAllExceptions(true);
@@ -378,9 +378,9 @@ final class OpCodeHandler_EVEX_VkWIb_er extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setSuppressAllExceptions(true);
 		}
@@ -424,9 +424,9 @@ final class OpCodeHandler_EVEX_VkW extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -480,11 +480,11 @@ final class OpCodeHandler_EVEX_WkV extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg2);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg2);
 		if (((decoder.state_zs_flags & StateFlags.Z) & disallowZeroingMasking & decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg1);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg1);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -512,7 +512,7 @@ final class OpCodeHandler_EVEX_VkM extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
 		else {
@@ -543,9 +543,9 @@ final class OpCodeHandler_EVEX_VkWIb extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -584,7 +584,7 @@ final class OpCodeHandler_EVEX_WkVIb extends OpCodeHandlerModRM {
 		instruction.setCode(code);
 
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg1);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg1);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -592,7 +592,7 @@ final class OpCodeHandler_EVEX_WkVIb extends OpCodeHandlerModRM {
 				decoder.setInvalidInstruction();
 			decoder.readOpMem(instruction, tupleType);
 		}
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg2);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg2);
 		instruction.setOp2Kind(OpKind.IMMEDIATE8);
 		instruction.setImmediate8((byte)decoder.readByte());
 	}
@@ -619,7 +619,7 @@ final class OpCodeHandler_EVEX_HkWIb extends OpCodeHandlerModRM {
 
 		instruction.setOp0Register(decoder.state_vvvv + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -659,7 +659,7 @@ final class OpCodeHandler_EVEX_HWIb extends OpCodeHandlerModRM {
 
 		instruction.setOp0Register(decoder.state_vvvv + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -692,7 +692,7 @@ final class OpCodeHandler_EVEX_WkVIb_er extends OpCodeHandlerModRM {
 		instruction.setCode(code);
 
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg1);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg1);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setSuppressAllExceptions(true);
 		}
@@ -702,7 +702,7 @@ final class OpCodeHandler_EVEX_WkVIb_er extends OpCodeHandlerModRM {
 				decoder.setInvalidInstruction();
 			decoder.readOpMem(instruction, tupleType);
 		}
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg2);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg2);
 		instruction.setOp2Kind(OpKind.IMMEDIATE8);
 		instruction.setImmediate8((byte)decoder.readByte());
 	}
@@ -725,11 +725,11 @@ final class OpCodeHandler_EVEX_VW_er extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if ((((decoder.state_zs_flags & StateFlags.Z) | decoder.state_vvvv_invalidCheck | decoder.state_aaa) & decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setSuppressAllExceptions(true);
 		}
@@ -762,9 +762,9 @@ final class OpCodeHandler_EVEX_VW extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -795,9 +795,9 @@ final class OpCodeHandler_EVEX_WV extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg2);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg2);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -826,7 +826,7 @@ final class OpCodeHandler_EVEX_VM extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
 		else {
@@ -852,7 +852,7 @@ final class OpCodeHandler_EVEX_VK extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3) {
 			instruction.setOp1Register(decoder.state_rm + Register.K0);
 		}
@@ -879,7 +879,7 @@ final class OpCodeHandler_EVEX_KR extends OpCodeHandlerModRM {
 
 		instruction.setOp0Register(decoder.state_reg + Register.K0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 		}
 		else
 			decoder.setInvalidInstruction();
@@ -909,7 +909,7 @@ final class OpCodeHandler_EVEX_KkHWIb_sae extends OpCodeHandlerModRM {
 		instruction.setOp0Register(decoder.state_reg + Register.K0);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setSuppressAllExceptions(true);
 		}
@@ -958,10 +958,10 @@ final class OpCodeHandler_EVEX_VkHW extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg2);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg3);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg3);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -995,7 +995,7 @@ final class OpCodeHandler_EVEX_VkHM extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg2);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
@@ -1038,10 +1038,10 @@ final class OpCodeHandler_EVEX_VkHWIb extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg2);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg3);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg3);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -1081,10 +1081,10 @@ final class OpCodeHandler_EVEX_VkHWIb_er extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg2);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg3);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg3);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0)
 				instruction.setSuppressAllExceptions(true);
 		}
@@ -1126,7 +1126,7 @@ final class OpCodeHandler_EVEX_KkHW extends OpCodeHandlerModRM {
 				& decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -1164,7 +1164,7 @@ final class OpCodeHandler_EVEX_KP1HW extends OpCodeHandlerModRM {
 				& decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -1200,7 +1200,7 @@ final class OpCodeHandler_EVEX_KkHWIb extends OpCodeHandlerModRM {
 				& decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -1233,11 +1233,11 @@ final class OpCodeHandler_EVEX_WkHV extends OpCodeHandlerModRM {
 		instruction.setCode(code);
 
 		assert decoder.state_mod == 3 : decoder.state_mod;
-		instruction.setOp0Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 		if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
-		instruction.setOp2Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp2Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 	}
 }
 
@@ -1258,10 +1258,10 @@ final class OpCodeHandler_EVEX_VHWIb extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 		}
 		else {
 			instruction.setOp2Kind(OpKind.MEMORY);
@@ -1303,11 +1303,11 @@ final class OpCodeHandler_EVEX_VHW extends OpCodeHandlerModRM {
 		if ((((decoder.state_zs_flags & (StateFlags.B | StateFlags.Z)) | decoder.state_aaa) & decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg1);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg1);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg2);
 		if (decoder.state_mod == 3) {
 			instruction.setCode(codeR);
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg3);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg3);
 		}
 		else {
 			instruction.setCode(codeM);
@@ -1334,7 +1334,7 @@ final class OpCodeHandler_EVEX_VHM extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp1Register(decoder.state_vvvv + baseReg);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
@@ -1367,14 +1367,14 @@ final class OpCodeHandler_EVEX_Gv_W_er extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		if ((decoder.state_zs_flags & decoder.is64bMode_and_W) != 0) {
 			instruction.setCode(codeW1);
-			instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + Register.RAX);
+			instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + Register.RAX);
 		}
 		else {
 			instruction.setCode(codeW0);
-			instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + Register.EAX);
+			instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + Register.EAX);
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if ((decoder.state_zs_flags & StateFlags.B) != 0) {
 				if (onlySAE)
 					instruction.setSuppressAllExceptions(true);
@@ -1422,9 +1422,9 @@ final class OpCodeHandler_EVEX_VX_Ev extends OpCodeHandlerModRM {
 			tupleType = tupleTypeW0;
 			gpr = Register.EAX;
 		}
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.XMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.XMM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -1451,7 +1451,7 @@ final class OpCodeHandler_EVEX_Ev_VX extends OpCodeHandlerModRM {
 		if ((((decoder.state_zs_flags & (StateFlags.B | StateFlags.Z)) | decoder.state_vvvv_invalidCheck | decoder.state_aaa)
 				& decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.XMM0);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.XMM0);
 		int gpr;
 		int tupleType;
 		if ((decoder.state_zs_flags & decoder.is64bMode_and_W) != 0) {
@@ -1465,7 +1465,7 @@ final class OpCodeHandler_EVEX_Ev_VX extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -1499,9 +1499,9 @@ final class OpCodeHandler_EVEX_Ev_VX_Ib extends OpCodeHandlerModRM {
 			instruction.setCode(code32);
 			gpr = Register.EAX;
 		}
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + gpr);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + gpr);
 		assert decoder.state_mod == 3 : decoder.state_mod;
-		instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+		instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 		instruction.setOp2Kind(OpKind.IMMEDIATE8);
 		instruction.setImmediate8((byte)decoder.readByte());
 	}
@@ -1525,7 +1525,7 @@ final class OpCodeHandler_EVEX_MV extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
 		else {
@@ -1567,9 +1567,9 @@ final class OpCodeHandler_EVEX_VkEv_REXW extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else
 			decoder.setInvalidInstruction();
@@ -1633,7 +1633,7 @@ final class OpCodeHandler_EVEX_VSIB_k1_VX extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
 		else {
@@ -1701,7 +1701,7 @@ final class OpCodeHandler_EVEX_GvM_VX_Ib extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -1710,7 +1710,7 @@ final class OpCodeHandler_EVEX_GvM_VX_Ib extends OpCodeHandlerModRM {
 			else
 				decoder.readOpMem(instruction, tupleType32);
 		}
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + baseReg);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + baseReg);
 		instruction.setOp2Kind(OpKind.IMMEDIATE8);
 		instruction.setImmediate8((byte)decoder.readByte());
 	}
@@ -1738,7 +1738,7 @@ final class OpCodeHandler_EVEX_KkWIb extends OpCodeHandlerModRM {
 
 		instruction.setOp0Register(decoder.state_reg + Register.K0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + baseReg);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + baseReg);
 			if (((decoder.state_zs_flags & StateFlags.B) & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}

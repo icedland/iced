@@ -795,7 +795,7 @@ final class OpCodeHandler_Rv_32_64 extends OpCodeHandlerModRM {
 			baseReg = Register.EAX;
 		}
 		assert decoder.state_mod == 3 : decoder.state_mod;
-		instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + baseReg);
+		instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + baseReg);
 	}
 }
 
@@ -1573,9 +1573,9 @@ final class OpCodeHandler_Ev_Gv_32_64 extends OpCodeHandlerModRM {
 			instruction.setCode(code32);
 			baseReg = Register.EAX;
 		}
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + baseReg);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + baseReg);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + baseReg);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -2239,7 +2239,7 @@ final class OpCodeHandler_RvMw_Gw extends OpCodeHandlerModRM {
 			baseReg = Register.AX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + baseReg);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + baseReg);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -2332,9 +2332,9 @@ final class OpCodeHandler_Gv_Ev_32_64 extends OpCodeHandlerModRM {
 			instruction.setCode(code32);
 			baseReg = Register.EAX;
 		}
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + baseReg);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + baseReg);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + baseReg);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + baseReg);
 			if ((disallowReg & decoder.invalidCheckMask) != 0)
 				decoder.setInvalidInstruction();
 		}
@@ -3684,7 +3684,7 @@ final class OpCodeHandler_P_Ev extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + Register.MM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -3715,7 +3715,7 @@ final class OpCodeHandler_P_Ev_Ib extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + Register.MM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -3748,7 +3748,7 @@ final class OpCodeHandler_Ev_P extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -3808,7 +3808,7 @@ final class OpCodeHandler_V_Ev extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + Register.XMM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -3937,7 +3937,7 @@ final class OpCodeHandler_Ed_V_Ib extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -3970,7 +3970,7 @@ final class OpCodeHandler_VX_Ev extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + Register.XMM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -4001,7 +4001,7 @@ final class OpCodeHandler_Ev_VX extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);
@@ -4032,7 +4032,7 @@ final class OpCodeHandler_VX_E_Ib extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + Register.XMM0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -4200,7 +4200,7 @@ final class OpCodeHandler_B_Ev extends OpCodeHandlerModRM {
 		}
 		instruction.setOp0Register(decoder.state_reg + Register.BND0);
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + baseReg);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + baseReg);
 		}
 		else {
 			instruction.setOp1Kind(OpKind.MEMORY);
@@ -4468,7 +4468,7 @@ final class OpCodeHandler_GvM_VX_Ib extends OpCodeHandlerModRM {
 			gpr = Register.EAX;
 		}
 		if (decoder.state_mod == 3) {
-			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+			instruction.setOp0Register(decoder.state_rm + decoder.state_zs_extraBaseRegisterBase + gpr);
 		}
 		else {
 			instruction.setOp0Kind(OpKind.MEMORY);

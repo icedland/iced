@@ -75,7 +75,7 @@ final class OpCodeHandler_MVEX_MV extends OpCodeHandlerModRM {
 		if ((decoder.state_vvvv_invalidCheck & decoder.invalidCheckMask) != 0)
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
@@ -107,10 +107,10 @@ final class OpCodeHandler_MVEX_VW extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -158,7 +158,7 @@ final class OpCodeHandler_MVEX_HWIb extends OpCodeHandlerModRM {
 		instruction.setOp0Register(decoder.state_vvvv + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -207,10 +207,10 @@ final class OpCodeHandler_MVEX_VWIb extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp1Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp1Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -257,13 +257,13 @@ final class OpCodeHandler_MVEX_VHW extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		instruction.setOp1Register(decoder.state_vvvv + Register.ZMM0);
 		if (MvexInfo.getRequireOpMaskRegister(code) && decoder.invalidCheckMask != 0 && decoder.state_aaa == 0)
 			decoder.setInvalidInstruction();
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -308,11 +308,11 @@ final class OpCodeHandler_MVEX_VHWIb extends OpCodeHandlerModRM {
 	void decode(Decoder decoder, Instruction instruction) {
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		instruction.setOp1Register(decoder.state_vvvv + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -361,11 +361,11 @@ final class OpCodeHandler_MVEX_VKW extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp0Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp0Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		instruction.setOp1Register((decoder.state_vvvv & 7) + Register.K0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -416,7 +416,7 @@ final class OpCodeHandler_MVEX_KHW extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -465,7 +465,7 @@ final class OpCodeHandler_MVEX_KHWIb extends OpCodeHandlerModRM {
 		instruction.setOp1Register(decoder.state_vvvv + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3) {
-			instruction.setOp2Register((decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX) + Register.ZMM0);
+			instruction.setOp2Register(decoder.state_rm + decoder.state_extraBaseRegisterBaseEVEX + Register.ZMM0);
 			if ((decoder.state_zs_flags & StateFlags.MVEX_EH) != 0) {
 				if (MvexInfo.canUseSuppressAllExceptions(code)) {
 					if ((sss & 4) != 0)
@@ -547,7 +547,7 @@ final class OpCodeHandler_MVEX_VSIB_V extends OpCodeHandlerModRM {
 			decoder.setInvalidInstruction();
 		instruction.setCode(code);
 
-		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX) + Register.ZMM0);
+		instruction.setOp1Register(decoder.state_reg + decoder.state_zs_extraRegisterBase + decoder.state_extraRegisterBaseEVEX + Register.ZMM0);
 		int sss = decoder.getSss();
 		if (decoder.state_mod == 3)
 			decoder.setInvalidInstruction();
