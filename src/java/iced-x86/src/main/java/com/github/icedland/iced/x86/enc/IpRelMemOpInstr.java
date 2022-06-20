@@ -13,7 +13,7 @@ final class IpRelMemOpInstr extends Instr {
 	private final byte ripInstructionSize;
 	private TargetInstr targetInstr;
 
-	private static class InstrKind {
+	private static final class InstrKind {
 		static final byte UNCHANGED = 0;
 		static final byte RIP = 1;
 		static final byte EIP = 2;

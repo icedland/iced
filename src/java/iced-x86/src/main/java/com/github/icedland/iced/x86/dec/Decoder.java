@@ -773,7 +773,7 @@ public final class Decoder implements Iterable<Instruction> {
 			setInvalidInstruction();
 	}
 
-	private static class RegInfo2 {
+	private static final class RegInfo2 {
 		final int baseReg;
 		final int indexReg;
 

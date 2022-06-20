@@ -7,7 +7,7 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
 import com.github.icedland.iced.x86.internal.fmt.FormatterString;
 
 final class MemorySizes {
-	public static class Info {
+	public static final class Info {
 		public final FormatterString keyword;
 		public final FormatterString bcstTo;
 
