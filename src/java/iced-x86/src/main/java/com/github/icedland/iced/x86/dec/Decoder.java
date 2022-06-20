@@ -306,7 +306,7 @@ public final class Decoder implements Iterable<Instruction> {
 	/**
 	 * Decodes the next instruction, see also {@link #getLastError()}
 	 *
-	 * @param instruction Decoded instruction
+	 * @param instruction Updated with the next decoded instruction
 	 */
 	public void decode(Instruction instruction) {
 		instruction.clear();
