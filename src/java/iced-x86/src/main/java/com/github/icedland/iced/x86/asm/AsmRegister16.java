@@ -75,7 +75,7 @@ public final class AsmRegister16 {
 		return mem.add(this);
 	}
 
-	/** Checks if <code>obj</code> equals this object */
+	/** Checks if {@code obj} equals this object */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass())

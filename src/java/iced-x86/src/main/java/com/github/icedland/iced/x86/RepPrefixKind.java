@@ -6,22 +6,22 @@
 package com.github.icedland.iced.x86;
 
 /**
- * <code>REP</code>/<code>REPE</code>/<code>REPNE</code> prefix
+ * {@code REP}/{@code REPE}/{@code REPNE} prefix
  */
 public final class RepPrefixKind {
 	private RepPrefixKind() {
 	}
 
 	/**
-	 * No <code>REP</code>/<code>REPE</code>/<code>REPNE</code> prefix
+	 * No {@code REP}/{@code REPE}/{@code REPNE} prefix
 	 */
 	public static final int NONE = 0;
 	/**
-	 * <code>REP</code>/<code>REPE</code> prefix
+	 * {@code REP}/{@code REPE} prefix
 	 */
 	public static final int REPE = 1;
 	/**
-	 * <code>REPNE</code> prefix
+	 * {@code REPNE} prefix
 	 */
 	public static final int REPNE = 2;
 }

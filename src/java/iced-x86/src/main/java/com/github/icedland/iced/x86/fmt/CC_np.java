@@ -6,18 +6,18 @@
 package com.github.icedland.iced.x86.fmt;
 
 /**
- * Mnemonic condition code selector (eg.<!-- --> <code>JNP</code> / <code>JPO</code>)
+ * Mnemonic condition code selector (eg.<!-- --> {@code JNP} / {@code JPO})
  */
 public final class CC_np {
 	private CC_np() {
 	}
 
 	/**
-	 * <code>JNP</code>, <code>CMOVNP</code>, <code>SETNP</code>
+	 * {@code JNP}, {@code CMOVNP}, {@code SETNP}
 	 */
 	public static final int NP = 0;
 	/**
-	 * <code>JPO</code>, <code>CMOVPO</code>, <code>SETPO</code>
+	 * {@code JPO}, {@code CMOVPO}, {@code SETPO}
 	 */
 	public static final int PO = 1;
 }

@@ -121,18 +121,18 @@ namespace Generator.Documentation.Java {
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.Code:
-					sb.Append("<code>");
+					sb.Append("{@code ");
 					sb.Append(Escape(info.value));
-					sb.Append("</code>");
+					sb.Append("}");
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;
 				case TokenKind.PrimitiveType:
 					if (!toTypeInfo.TryGetValue(info.value, out var typeInfo))
 						throw new InvalidOperationException($"Unknown type '{info.value}, comment: {documentation}");
-					sb.Append("<code>");
+					sb.Append("{@code ");
 					sb.Append(Escape(idConverter.Type(typeInfo.type)));
-					sb.Append("</code>");
+					sb.Append("}");
 					if (!string.IsNullOrEmpty(info.value2))
 						throw new InvalidOperationException();
 					break;

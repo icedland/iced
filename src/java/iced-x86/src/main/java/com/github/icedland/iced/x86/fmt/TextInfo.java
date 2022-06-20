@@ -8,7 +8,7 @@ package com.github.icedland.iced.x86.fmt;
  */
 public final class TextInfo {
 	/**
-	 * <code>true</code> if this is the default instance
+	 * {@code true} if this is the default instance
 	 */
 	public boolean isDefault() {
 		return textArray == null && text == null;

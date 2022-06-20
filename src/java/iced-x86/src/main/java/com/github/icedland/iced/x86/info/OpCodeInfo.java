@@ -369,36 +369,36 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction, <code>false</code> if it's eg.<!-- --> {@link Code#INVALID}, <code>db</code>, <code>dw</code>,
-	 * <code>dd</code>, <code>dq</code>, <code>zero_bytes</code>
+	 * {@code true} if it's an instruction, {@code false} if it's eg.<!-- --> {@link Code#INVALID}, {@code db}, {@code dw},
+	 * {@code dd}, {@code dq}, {@code zero_bytes}
 	 */
 	public boolean isInstruction() {
 		return !(code <= Code.DECLAREQWORD || code == Code.ZERO_BYTES);
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction available in 16-bit mode
+	 * {@code true} if it's an instruction available in 16-bit mode
 	 */
 	public boolean getMode16() {
 		return (encFlags3 & EncFlags3.BIT16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction available in 32-bit mode
+	 * {@code true} if it's an instruction available in 32-bit mode
 	 */
 	public boolean getMode32() {
 		return (encFlags3 & EncFlags3.BIT16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction available in 64-bit mode
+	 * {@code true} if it's an instruction available in 64-bit mode
 	 */
 	public boolean getMode64() {
 		return (encFlags3 & EncFlags3.BIT64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if an <code>FWAIT</code> (<code>9B</code>) instruction is added before the instruction
+	 * {@code true} if an {@code FWAIT} ({@code 9B}) instruction is added before the instruction
 	 */
 	public boolean getFwait() {
 		return (encFlags3 & EncFlags3.FWAIT) != 0;
@@ -419,37 +419,37 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * (VEX/XOP/EVEX) <code>L</code> / <code>L'L</code> value or default value if {@link #isLIG()} is <code>true</code>
+	 * (VEX/XOP/EVEX) {@code L} / {@code L'L} value or default value if {@link #isLIG()} is {@code true}
 	 */
 	public int getL() {
 		return l;
 	}
 
 	/**
-	 * (VEX/XOP/EVEX/MVEX) <code>W</code> value or default value if {@link #isWIG()} or {@link #isWIG32()} is <code>true</code>
+	 * (VEX/XOP/EVEX/MVEX) {@code W} value or default value if {@link #isWIG()} or {@link #isWIG32()} is {@code true}
 	 */
 	public int getW() {
 		return (flags & Flags.W) != 0 ? 1 : 0;
 	}
 
 	/**
-	 * (VEX/XOP/EVEX) <code>true</code> if the <code>L</code> / <code>L'L</code> fields are ignored.
+	 * (VEX/XOP/EVEX) {@code true} if the {@code L} / {@code L'L} fields are ignored.
 	 * <p>
-	 * EVEX: if reg-only ops and <code>{er}</code> (<code>EVEX.b</code> is set), <code>L'L</code> is the rounding control and not ignored.
+	 * EVEX: if reg-only ops and {@code {er}} ({@code EVEX.b} is set), {@code L'L} is the rounding control and not ignored.
 	 */
 	public boolean isLIG() {
 		return (flags & Flags.LIG) != 0;
 	}
 
 	/**
-	 * (VEX/XOP/EVEX/MVEX) <code>true</code> if the <code>W</code> field is ignored in 16/32/64-bit modes
+	 * (VEX/XOP/EVEX/MVEX) {@code true} if the {@code W} field is ignored in 16/32/64-bit modes
 	 */
 	public boolean isWIG() {
 		return (flags & Flags.WIG) != 0;
 	}
 
 	/**
-	 * (VEX/XOP/EVEX/MVEX) <code>true</code> if the <code>W</code> field is ignored in 16/32-bit modes (but not 64-bit mode)
+	 * (VEX/XOP/EVEX/MVEX) {@code true} if the {@code W} field is ignored in 16/32-bit modes (but not 64-bit mode)
 	 */
 	public boolean isWIG32() {
 		return (flags & Flags.WIG32) != 0;
@@ -463,35 +463,35 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * (MVEX) Gets the <code>EH</code> bit that's required to encode this instruction (an {@link MvexEHBit} enum variant)
+	 * (MVEX) Gets the {@code EH} bit that's required to encode this instruction (an {@link MvexEHBit} enum variant)
 	 */
 	public int getMvexEHBit() {
 		return getEncoding() == EncodingKind.MVEX ? MvexInfo.getEHBit(getCode()) : MvexEHBit.NONE;
 	}
 
 	/**
-	 * (MVEX) <code>true</code> if the instruction supports eviction hint (if it has a memory operand)
+	 * (MVEX) {@code true} if the instruction supports eviction hint (if it has a memory operand)
 	 */
 	public boolean getMvexCanUseEvictionHint() {
 		return getEncoding() == EncodingKind.MVEX && MvexInfo.canUseEvictionHint(getCode());
 	}
 
 	/**
-	 * (MVEX) <code>true</code> if the instruction's rounding control bits are stored in <code>imm8[1:0]</code>
+	 * (MVEX) {@code true} if the instruction's rounding control bits are stored in {@code imm8[1:0]}
 	 */
 	public boolean getMvexCanUseImmRoundingControl() {
 		return getEncoding() == EncodingKind.MVEX && MvexInfo.canUseImmRoundingControl(getCode());
 	}
 
 	/**
-	 * (MVEX) <code>true</code> if the instruction ignores op mask registers (eg.<!-- --> <code>{k1}</code>)
+	 * (MVEX) {@code true} if the instruction ignores op mask registers (eg.<!-- --> {@code {k1}})
 	 */
 	public boolean getMvexIgnoresOpMaskRegister() {
 		return getEncoding() == EncodingKind.MVEX && MvexInfo.getIgnoresOpMaskRegister(getCode());
 	}
 
 	/**
-	 * (MVEX) <code>true</code> if the instruction must have <code>MVEX.SSS=000</code> if <code>MVEX.EH=1</code>
+	 * (MVEX) {@code true} if the instruction must have {@code MVEX.SSS=000} if {@code MVEX.EH=1}
 	 */
 	public boolean getMvexNoSaeRc() {
 		return getEncoding() == EncodingKind.MVEX && MvexInfo.getNoSaeRc(getCode());
@@ -505,7 +505,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * (MVEX) Gets the conversion function, eg.<!-- --> <code>Sf32</code> (an {@link MvexConvFn} enum variant)
+	 * (MVEX) Gets the conversion function, eg.<!-- --> {@code Sf32} (an {@link MvexConvFn} enum variant)
 	 */
 	public int getMvexConversionFunc() {
 		return getEncoding() == EncodingKind.MVEX ? MvexInfo.getConvFn(getCode()) : MvexConvFn.NONE;
@@ -540,42 +540,42 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * (EVEX) <code>true</code> if the instruction supports broadcasting (<code>EVEX.b</code> bit) (if it has a memory operand)
+	 * (EVEX) {@code true} if the instruction supports broadcasting ({@code EVEX.b} bit) (if it has a memory operand)
 	 */
 	public boolean canBroadcast() {
 		return (encFlags3 & EncFlags3.BROADCAST) != 0;
 	}
 
 	/**
-	 * (EVEX/MVEX) <code>true</code> if the instruction supports rounding control
+	 * (EVEX/MVEX) {@code true} if the instruction supports rounding control
 	 */
 	public boolean canUseRoundingControl() {
 		return (encFlags3 & EncFlags3.ROUNDING_CONTROL) != 0;
 	}
 
 	/**
-	 * (EVEX/MVEX) <code>true</code> if the instruction supports suppress all exceptions
+	 * (EVEX/MVEX) {@code true} if the instruction supports suppress all exceptions
 	 */
 	public boolean canSuppressAllExceptions() {
 		return (encFlags3 & EncFlags3.SUPPRESS_ALL_EXCEPTIONS) != 0;
 	}
 
 	/**
-	 * (EVEX/MVEX) <code>true</code> if an opmask register can be used
+	 * (EVEX/MVEX) {@code true} if an opmask register can be used
 	 */
 	public boolean canUseOpMaskRegister() {
 		return (encFlags3 & EncFlags3.OP_MASK_REGISTER) != 0;
 	}
 
 	/**
-	 * (EVEX/MVEX) <code>true</code> if a non-zero opmask register must be used
+	 * (EVEX/MVEX) {@code true} if a non-zero opmask register must be used
 	 */
 	public boolean getRequireOpMaskRegister() {
 		return (encFlags3 & EncFlags3.REQUIRE_OP_MASK_REGISTER) != 0;
 	}
 
 	/**
-	 * (EVEX) <code>true</code> if the instruction supports zeroing masking (if one of the opmask registers <code>K1</code>-<code>K7</code> is used
+	 * (EVEX) {@code true} if the instruction supports zeroing masking (if one of the opmask registers {@code K1}-{@code K7} is used
 	 * and destination operand is not a memory operand)
 	 */
 	public boolean canUseZeroingMasking() {
@@ -583,491 +583,491 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * <code>true</code> if the <code>LOCK</code> (<code>F0</code>) prefix can be used
+	 * {@code true} if the {@code LOCK} ({@code F0}) prefix can be used
 	 */
 	public boolean canUseLockPrefix() {
 		return (encFlags3 & EncFlags3.LOCK) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>XACQUIRE</code> (<code>F2</code>) prefix can be used
+	 * {@code true} if the {@code XACQUIRE} ({@code F2}) prefix can be used
 	 */
 	public boolean canUseXacquirePrefix() {
 		return (encFlags3 & EncFlags3.XACQUIRE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>XRELEASE</code> (<code>F3</code>) prefix can be used
+	 * {@code true} if the {@code XRELEASE} ({@code F3}) prefix can be used
 	 */
 	public boolean canUseXreleasePrefix() {
 		return (encFlags3 & EncFlags3.XRELEASE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>REP</code> / <code>REPE</code> (<code>F3</code>) prefixes can be used
+	 * {@code true} if the {@code REP} / {@code REPE} ({@code F3}) prefixes can be used
 	 */
 	public boolean canUseRepPrefix() {
 		return (encFlags3 & EncFlags3.REP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>REPNE</code> (<code>F2</code>) prefix can be used
+	 * {@code true} if the {@code REPNE} ({@code F2}) prefix can be used
 	 */
 	public boolean canUseRepnePrefix() {
 		return (encFlags3 & EncFlags3.REPNE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>BND</code> (<code>F2</code>) prefix can be used
+	 * {@code true} if the {@code BND} ({@code F2}) prefix can be used
 	 */
 	public boolean canUseBndPrefix() {
 		return (encFlags3 & EncFlags3.BND) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>HINT-TAKEN</code> (<code>3E</code>) and <code>HINT-NOT-TAKEN</code> (<code>2E</code>) prefixes can be used
+	 * {@code true} if the {@code HINT-TAKEN} ({@code 3E}) and {@code HINT-NOT-TAKEN} ({@code 2E}) prefixes can be used
 	 */
 	public boolean canUseHintTakenPrefix() {
 		return (encFlags3 & EncFlags3.HINT_TAKEN) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>NOTRACK</code> (<code>3E</code>) prefix can be used
+	 * {@code true} if the {@code NOTRACK} ({@code 3E}) prefix can be used
 	 */
 	public boolean canUseNotrackPrefix() {
 		return (encFlags3 & EncFlags3.NOTRACK) != 0;
 	}
 
 	/**
-	 * <code>true</code> if rounding control is ignored (#UD is not generated)
+	 * {@code true} if rounding control is ignored (#UD is not generated)
 	 */
 	public boolean getIgnoresRoundingControl() {
 		return (flags & Flags.IGNORES_ROUNDING_CONTROL) != 0;
 	}
 
 	/**
-	 * (AMD) <code>true</code> if the <code>LOCK</code> prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a
-	 * <code>REX</code> prefix (eg.<!-- --> in 32-bit mode)
+	 * (AMD) {@code true} if the {@code LOCK} prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a
+	 * {@code REX} prefix (eg.<!-- --> in 32-bit mode)
 	 */
 	public boolean getAmdLockRegBit() {
 		return (flags & Flags.AMD_LOCK_REG_BIT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the default operand size is 64 in 64-bit mode. A <code>66</code> prefix can switch to 16-bit operand size.
+	 * {@code true} if the default operand size is 64 in 64-bit mode. A {@code 66} prefix can switch to 16-bit operand size.
 	 */
 	public boolean getDefaultOpSize64() {
 		return (encFlags3 & EncFlags3.DEFAULT_OP_SIZE64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the operand size is always 64 in 64-bit mode. A <code>66</code> prefix is ignored.
+	 * {@code true} if the operand size is always 64 in 64-bit mode. A {@code 66} prefix is ignored.
 	 */
 	public boolean getForceOpSize64() {
 		return (opcFlags1 & OpCodeInfoFlags1.FORCE_OP_SIZE64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the Intel decoder forces 64-bit operand size. A <code>66</code> prefix is ignored.
+	 * {@code true} if the Intel decoder forces 64-bit operand size. A {@code 66} prefix is ignored.
 	 */
 	public boolean getIntelForceOpSize64() {
 		return (encFlags3 & EncFlags3.INTEL_FORCE_OP_SIZE64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can only be executed when CPL=0
+	 * {@code true} if it can only be executed when CPL=0
 	 */
 	public boolean getMustBeCpl0() {
 		return (flags & (Flags.CPL0 | Flags.CPL1 | Flags.CPL2 | Flags.CPL3)) == Flags.CPL0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed when CPL=0
+	 * {@code true} if it can be executed when CPL=0
 	 */
 	public boolean getCpl0() {
 		return (flags & Flags.CPL0) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed when CPL=1
+	 * {@code true} if it can be executed when CPL=1
 	 */
 	public boolean getCpl1() {
 		return (flags & Flags.CPL1) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed when CPL=2
+	 * {@code true} if it can be executed when CPL=2
 	 */
 	public boolean getCpl2() {
 		return (flags & Flags.CPL2) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed when CPL=3
+	 * {@code true} if it can be executed when CPL=3
 	 */
 	public boolean getCpl3() {
 		return (flags & Flags.CPL3) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction accesses the I/O address space (eg.<!-- --> <code>IN</code>, <code>OUT</code>, <code>INS</code>,
-	 * <code>OUTS</code>)
+	 * {@code true} if the instruction accesses the I/O address space (eg.<!-- --> {@code IN}, {@code OUT}, {@code INS},
+	 * {@code OUTS})
 	 */
 	public boolean isInputOutput() {
 		return (opcFlags1 & OpCodeInfoFlags1.INPUT_OUTPUT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's one of the many nop instructions (does not include FPU nop instructions, eg.<!-- --> <code>FNOP</code>)
+	 * {@code true} if it's one of the many nop instructions (does not include FPU nop instructions, eg.<!-- --> {@code FNOP})
 	 */
 	public boolean isNop() {
 		return (opcFlags1 & OpCodeInfoFlags1.NOP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's one of the many reserved nop instructions (eg.<!-- --> <code>0F0D</code>, <code>0F18-0F1F</code>)
+	 * {@code true} if it's one of the many reserved nop instructions (eg.<!-- --> {@code 0F0D}, {@code 0F18-0F1F})
 	 */
 	public boolean isReservedNop() {
 		return (opcFlags1 & OpCodeInfoFlags1.RESERVED_NOP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a serializing instruction (Intel CPUs)
+	 * {@code true} if it's a serializing instruction (Intel CPUs)
 	 */
 	public boolean isSerializingIntel() {
 		return (opcFlags1 & OpCodeInfoFlags1.SERIALIZING_INTEL) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a serializing instruction (AMD CPUs)
+	 * {@code true} if it's a serializing instruction (AMD CPUs)
 	 */
 	public boolean isSerializingAmd() {
 		return (opcFlags1 & OpCodeInfoFlags1.SERIALIZING_AMD) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction requires either CPL=0 or CPL&lt;=3 depending on some CPU option (eg.<!-- --> <code>CR4.TSD</code>,
-	 * <code>CR4.PCE</code>, <code>CR4.UMIP</code>)
+	 * {@code true} if the instruction requires either CPL=0 or CPL&lt;=3 depending on some CPU option (eg.<!-- --> {@code CR4.TSD},
+	 * {@code CR4.PCE}, {@code CR4.UMIP})
 	 */
 	public boolean getMayRequireCpl0() {
 		return (opcFlags1 & OpCodeInfoFlags1.MAY_REQUIRE_CPL0) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a tracked <code>JMP</code>/<code>CALL</code> indirect instruction (CET)
+	 * {@code true} if it's a tracked {@code JMP}/{@code CALL} indirect instruction (CET)
 	 */
 	public boolean isCetTracked() {
 		return (opcFlags1 & OpCodeInfoFlags1.CET_TRACKED) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a non-temporal hint memory access (eg.<!-- --> <code>MOVNTDQ</code>)
+	 * {@code true} if it's a non-temporal hint memory access (eg.<!-- --> {@code MOVNTDQ})
 	 */
 	public boolean isNonTemporal() {
 		return (opcFlags1 & OpCodeInfoFlags1.NON_TEMPORAL) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a no-wait FPU instruction, eg.<!-- --> <code>FNINIT</code>
+	 * {@code true} if it's a no-wait FPU instruction, eg.<!-- --> {@code FNINIT}
 	 */
 	public boolean isFpuNoWait() {
 		return (opcFlags1 & OpCodeInfoFlags1.FPU_NO_WAIT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the mod bits are ignored and it's assumed <code>modrm[7:6] == 11b</code>
+	 * {@code true} if the mod bits are ignored and it's assumed {@code modrm[7:6] == 11b}
 	 */
 	public boolean getIgnoresModBits() {
 		return (opcFlags1 & OpCodeInfoFlags1.IGNORES_MOD_BITS) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>66</code> prefix is not allowed (it will #UD)
+	 * {@code true} if the {@code 66} prefix is not allowed (it will #UD)
 	 */
 	public boolean getNo66() {
 		return (opcFlags1 & OpCodeInfoFlags1.NO66) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the <code>F2</code>/<code>F3</code> prefixes aren't allowed
+	 * {@code true} if the {@code F2}/{@code F3} prefixes aren't allowed
 	 */
 	public boolean getNFx() {
 		return (opcFlags1 & OpCodeInfoFlags1.NFX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
-	 * eg.<!-- --> <code>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</code> is invalid. Registers =
-	 * <code>XMM</code>/<code>YMM</code>/<code>ZMM</code>/<code>TMM</code>.
+	 * {@code true} if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
+	 * eg.<!-- --> {@code MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]} is invalid. Registers =
+	 * {@code XMM}/{@code YMM}/{@code ZMM}/{@code TMM}.
 	 */
 	public boolean getRequiresUniqueRegNums() {
 		return (opcFlags1 & OpCodeInfoFlags1.REQUIRES_UNIQUE_REG_NUMS) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the destination register's reg-num must not be present in any other operand, eg.<!-- -->
-	 * <code>MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]</code>
-	 * is invalid. Registers = <code>XMM</code>/<code>YMM</code>/<code>ZMM</code>/<code>TMM</code>.
+	 * {@code true} if the destination register's reg-num must not be present in any other operand, eg.<!-- -->
+	 * {@code MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]}
+	 * is invalid. Registers = {@code XMM}/{@code YMM}/{@code ZMM}/{@code TMM}.
 	 */
 	public boolean getRequiresUniqueDestRegNum() {
 		return (opcFlags1 & OpCodeInfoFlags1.REQUIRES_UNIQUE_DEST_REG_NUM) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's a privileged instruction (all CPL=0 instructions (except <code>VMCALL</code>) and IOPL instructions <code>IN</code>,
-	 * <code>INS</code>, <code>OUT</code>, <code>OUTS</code>, <code>CLI</code>, <code>STI</code>)
+	 * {@code true} if it's a privileged instruction (all CPL=0 instructions (except {@code VMCALL}) and IOPL instructions {@code IN},
+	 * {@code INS}, {@code OUT}, {@code OUTS}, {@code CLI}, {@code STI})
 	 */
 	public boolean isPrivileged() {
 		return (opcFlags1 & OpCodeInfoFlags1.PRIVILEGED) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it reads/writes too many registers
+	 * {@code true} if it reads/writes too many registers
 	 */
 	public boolean isSaveRestore() {
 		return (opcFlags1 & OpCodeInfoFlags1.SAVE_RESTORE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction that implicitly uses the stack register, eg.<!-- --> <code>CALL</code>, <code>POP</code>, etc
+	 * {@code true} if it's an instruction that implicitly uses the stack register, eg.<!-- --> {@code CALL}, {@code POP}, etc
 	 */
 	public boolean isStackInstruction() {
 		return (opcFlags1 & OpCodeInfoFlags1.STACK_INSTRUCTION) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction doesn't read the segment register if it uses a memory operand
+	 * {@code true} if the instruction doesn't read the segment register if it uses a memory operand
 	 */
 	public boolean getIgnoresSegment() {
 		return (opcFlags1 & OpCodeInfoFlags1.IGNORES_SEGMENT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the opmask register is read and written (instead of just read). This also implies that it can't be <code>K0</code>.
+	 * {@code true} if the opmask register is read and written (instead of just read). This also implies that it can't be {@code K0}.
 	 */
 	public boolean isOpMaskReadWrite() {
 		return (opcFlags1 & OpCodeInfoFlags1.OP_MASK_READ_WRITE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed in real mode
+	 * {@code true} if it can be executed in real mode
 	 */
 	public boolean getRealMode() {
 		return (opcFlags2 & OpCodeInfoFlags2.REAL_MODE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed in protected mode
+	 * {@code true} if it can be executed in protected mode
 	 */
 	public boolean getProtectedMode() {
 		return (opcFlags2 & OpCodeInfoFlags2.PROTECTED_MODE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed in virtual 8086 mode
+	 * {@code true} if it can be executed in virtual 8086 mode
 	 */
 	public boolean getVirtual8086Mode() {
 		return (opcFlags2 & OpCodeInfoFlags2.VIRTUAL8086_MODE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed in compatibility mode
+	 * {@code true} if it can be executed in compatibility mode
 	 */
 	public boolean getCompatibilityMode() {
 		return (opcFlags2 & OpCodeInfoFlags2.COMPATIBILITY_MODE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be executed in 64-bit mode
+	 * {@code true} if it can be executed in 64-bit mode
 	 */
 	public boolean getLongMode() {
 		return (encFlags3 & EncFlags3.BIT64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used outside SMM
+	 * {@code true} if it can be used outside SMM
 	 */
 	public boolean getUseOutsideSmm() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_OUTSIDE_SMM) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used in SMM
+	 * {@code true} if it can be used in SMM
 	 */
 	public boolean getUseInSmm() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_SMM) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used outside an enclave (SGX)
+	 * {@code true} if it can be used outside an enclave (SGX)
 	 */
 	public boolean getUseOutsideEnclaveSgx() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_OUTSIDE_ENCLAVE_SGX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used inside an enclave (SGX1)
+	 * {@code true} if it can be used inside an enclave (SGX1)
 	 */
 	public boolean getUseInEnclaveSgx1() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_ENCLAVE_SGX1) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used inside an enclave (SGX2)
+	 * {@code true} if it can be used inside an enclave (SGX2)
 	 */
 	public boolean getUseInEnclaveSgx2() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_ENCLAVE_SGX2) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used outside VMX operation
+	 * {@code true} if it can be used outside VMX operation
 	 */
 	public boolean getUseOutsideVmxOp() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_OUTSIDE_VMX_OP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used in VMX root operation
+	 * {@code true} if it can be used in VMX root operation
 	 */
 	public boolean getUseInVmxRootOp() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_VMX_ROOT_OP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used in VMX non-root operation
+	 * {@code true} if it can be used in VMX non-root operation
 	 */
 	public boolean getUseInVmxNonRootOp() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_VMX_NON_ROOT_OP) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used outside SEAM
+	 * {@code true} if it can be used outside SEAM
 	 */
 	public boolean getUseOutsideSeam() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_OUTSIDE_SEAM) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it can be used in SEAM
+	 * {@code true} if it can be used in SEAM
 	 */
 	public boolean getUseInSeam() {
 		return (opcFlags2 & OpCodeInfoFlags2.USE_IN_SEAM) != 0;
 	}
 
 	/**
-	 * <code>true</code> if #UD is generated in TDX non-root operation
+	 * {@code true} if #UD is generated in TDX non-root operation
 	 */
 	public boolean getTdxNonRootGenUd() {
 		return (opcFlags2 & OpCodeInfoFlags2.TDX_NON_ROOT_GEN_UD) != 0;
 	}
 
 	/**
-	 * <code>true</code> if #VE is generated in TDX non-root operation
+	 * {@code true} if #VE is generated in TDX non-root operation
 	 */
 	public boolean getTdxNonRootGenVe() {
 		return (opcFlags2 & OpCodeInfoFlags2.TDX_NON_ROOT_GEN_VE) != 0;
 	}
 
 	/**
-	 * <code>true</code> if an exception (eg.<!-- --> #GP(0), #VE) may be generated in TDX non-root operation
+	 * {@code true} if an exception (eg.<!-- --> #GP(0), #VE) may be generated in TDX non-root operation
 	 */
 	public boolean getTdxNonRootMayGenEx() {
 		return (opcFlags2 & OpCodeInfoFlags2.TDX_NON_ROOT_MAY_GEN_EX) != 0;
 	}
 
 	/**
-	 * (Intel VMX) <code>true</code> if it causes a VM exit in VMX non-root operation
+	 * (Intel VMX) {@code true} if it causes a VM exit in VMX non-root operation
 	 */
 	public boolean getIntelVmExit() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_VM_EXIT) != 0;
 	}
 
 	/**
-	 * (Intel VMX) <code>true</code> if it may cause a VM exit in VMX non-root operation
+	 * (Intel VMX) {@code true} if it may cause a VM exit in VMX non-root operation
 	 */
 	public boolean getIntelMayVmExit() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_MAY_VM_EXIT) != 0;
 	}
 
 	/**
-	 * (Intel VMX) <code>true</code> if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
+	 * (Intel VMX) {@code true} if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
 	 */
 	public boolean getIntelSmmVmExit() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_SMM_VM_EXIT) != 0;
 	}
 
 	/**
-	 * (AMD SVM) <code>true</code> if it causes a #VMEXIT in guest mode
+	 * (AMD SVM) {@code true} if it causes a #VMEXIT in guest mode
 	 */
 	public boolean getAmdVmExit() {
 		return (opcFlags2 & OpCodeInfoFlags2.AMD_VM_EXIT) != 0;
 	}
 
 	/**
-	 * (AMD SVM) <code>true</code> if it may cause a #VMEXIT in guest mode
+	 * (AMD SVM) {@code true} if it may cause a #VMEXIT in guest mode
 	 */
 	public boolean getAmdMayVmExit() {
 		return (opcFlags2 & OpCodeInfoFlags2.AMD_MAY_VM_EXIT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it causes a TSX abort inside a TSX transaction
+	 * {@code true} if it causes a TSX abort inside a TSX transaction
 	 */
 	public boolean getTsxAbort() {
 		return (opcFlags2 & OpCodeInfoFlags2.TSX_ABORT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it causes a TSX abort inside a TSX transaction depending on the implementation
+	 * {@code true} if it causes a TSX abort inside a TSX transaction depending on the implementation
 	 */
 	public boolean getTsxImplAbort() {
 		return (opcFlags2 & OpCodeInfoFlags2.TSX_IMPL_ABORT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it may cause a TSX abort inside a TSX transaction depending on some condition
+	 * {@code true} if it may cause a TSX abort inside a TSX transaction depending on some condition
 	 */
 	public boolean getTsxMayAbort() {
 		return (opcFlags2 & OpCodeInfoFlags2.TSX_MAY_ABORT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 16-bit Intel decoder
+	 * {@code true} if it's decoded by iced's 16-bit Intel decoder
 	 */
 	public boolean getIntelDecoder16() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_DECODER16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 32-bit Intel decoder
+	 * {@code true} if it's decoded by iced's 32-bit Intel decoder
 	 */
 	public boolean getIntelDecoder32() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_DECODER16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 64-bit Intel decoder
+	 * {@code true} if it's decoded by iced's 64-bit Intel decoder
 	 */
 	public boolean getIntelDecoder64() {
 		return (opcFlags2 & OpCodeInfoFlags2.INTEL_DECODER64) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 16-bit AMD decoder
+	 * {@code true} if it's decoded by iced's 16-bit AMD decoder
 	 */
 	public boolean getAmdDecoder16() {
 		return (opcFlags2 & OpCodeInfoFlags2.AMD_DECODER16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 32-bit AMD decoder
+	 * {@code true} if it's decoded by iced's 32-bit AMD decoder
 	 */
 	public boolean getAmdDecoder32() {
 		return (opcFlags2 & OpCodeInfoFlags2.AMD_DECODER16OR32) != 0;
 	}
 
 	/**
-	 * <code>true</code> if it's decoded by iced's 64-bit AMD decoder
+	 * {@code true} if it's decoded by iced's 64-bit AMD decoder
 	 */
 	public boolean getAmdDecoder64() {
 		return (opcFlags2 & OpCodeInfoFlags2.AMD_DECODER64) != 0;
@@ -1122,7 +1122,7 @@ public final class OpCodeInfo {
 	 * Gets the opcode byte(s). The low byte(s) of this value is the opcode. The length is in {@link #getOpCodeLength()}.
 	 * It doesn't include the table value, see {@link #getTable}.
 	 * <p>
-	 * Example values: <code>0xDFC0</code> ({@link Code#FFREEP_STI}), <code>0x01D8</code> ({@link Code#VMRUNW}), <code>0x2A</code>
+	 * Example values: {@code 0xDFC0} ({@link Code#FFREEP_STI}), {@code 0x01D8} ({@link Code#VMRUNW}), {@code 0x2A}
 	 * ({@link Code#SUB_R8_RM8}, {@link Code#CVTPI2PS_XMM_MMM64}, etc).
 	 */
 	public int getOpCode() {
@@ -1137,28 +1137,28 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * <code>true</code> if it's part of a group
+	 * {@code true} if it's part of a group
 	 */
 	public boolean isGroup() {
 		return groupIndex >= 0;
 	}
 
 	/**
-	 * Group index (0-7) or -1. If it's 0-7, it's stored in the <code>reg</code> field of the <code>modrm</code> byte.
+	 * Group index (0-7) or -1. If it's 0-7, it's stored in the {@code reg} field of the {@code modrm} byte.
 	 */
 	public int getGroupIndex() {
 		return groupIndex;
 	}
 
 	/**
-	 * <code>true</code> if it's part of a <code>modrm.rm</code> group
+	 * {@code true} if it's part of a {@code modrm.rm} group
 	 */
 	public boolean isRmGroup() {
 		return rmGroupIndex >= 0;
 	}
 
 	/**
-	 * <code>modrm.rm</code> group index (0-7) or -1. If it's 0-7, it's stored in the <code>rm</code> field of the <code>modrm</code> byte.
+	 * {@code modrm.rm} group index (0-7) or -1. If it's 0-7, it's stored in the {@code rm} field of the {@code modrm} byte.
 	 */
 	public int getRmGroupIndex() {
 		return rmGroupIndex;
@@ -1247,7 +1247,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the opcode string, eg.<!-- --> <code>VEX.128.66.0F38.W0 78 /r</code>
+	 * Gets the opcode string, eg.<!-- --> {@code VEX.128.66.0F38.W0 78 /r}
 	 *
 	 * @see #toInstructionString()
 	 */
@@ -1256,7 +1256,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the instruction string, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
+	 * Gets the instruction string, eg.<!-- --> {@code VPBROADCASTB xmm1, xmm2/m8}
 	 *
 	 * @see #toOpCodeString()
 	 */
@@ -1265,7 +1265,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets the instruction string, eg.<!-- --> <code>VPBROADCASTB xmm1, xmm2/m8</code>
+	 * Gets the instruction string, eg.<!-- --> {@code VPBROADCASTB xmm1, xmm2/m8}
 	 *
 	 * @see #toOpCodeString()
 	 */

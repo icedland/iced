@@ -17,7 +17,7 @@ public final class BlockEncoderOptions {
 	 */
 	public static final int NONE = 0x0000_0000;
 	/**
-	 * By default, branches get updated if the target is too far away, eg.<!-- --> <code>Jcc SHORT</code> -&gt; <code>Jcc NEAR</code> or if 64-bit mode, <code>Jcc + JMP [RIP+mem]</code>.<!-- --> If this option is enabled, no branches are fixed.<!-- -->
+	 * By default, branches get updated if the target is too far away, eg.<!-- --> {@code Jcc SHORT} -&gt; {@code Jcc NEAR} or if 64-bit mode, {@code Jcc + JMP [RIP+mem]}.<!-- --> If this option is enabled, no branches are fixed.<!-- -->
 	 */
 	public static final int DONT_FIX_BRANCHES = 0x0000_0001;
 	/**

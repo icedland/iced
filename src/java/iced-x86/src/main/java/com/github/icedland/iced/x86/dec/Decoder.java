@@ -78,7 +78,7 @@ public final class Decoder implements Iterable<Instruction> {
 	}
 
 	/**
-	 * Current <code>IP</code>/<code>EIP</code>/<code>RIP</code> value.
+	 * Current {@code IP}/{@code EIP}/{@code RIP} value.
 	 * <p>
 	 * Writing to this property only updates the IP value, it does not change a {@link CodeReader}'s byte position.
 	 * You can use {@link ByteArrayCodeReader#setPosition(int)} to change its position.
@@ -88,7 +88,7 @@ public final class Decoder implements Iterable<Instruction> {
 	}
 
 	/**
-	 * Current <code>IP</code>/<code>EIP</code>/<code>RIP</code> value.
+	 * Current {@code IP}/{@code EIP}/{@code RIP} value.
 	 * <p>
 	 * Writing to this property only updates the IP value, it does not change a {@link CodeReader}'s byte position.
 	 * You can use {@link ByteArrayCodeReader#setPosition(int)} to change its position.
@@ -109,7 +109,7 @@ public final class Decoder implements Iterable<Instruction> {
 	 *
 	 * @param bitness 16, 32 or 64
 	 * @param reader  Code reader
-	 * @param ip      <code>RIP</code> value
+	 * @param ip      {@code RIP} value
 	 */
 	public Decoder(int bitness, CodeReader reader, long ip) {
 		this(bitness, reader, ip, DecoderOptions.NONE);
@@ -120,7 +120,7 @@ public final class Decoder implements Iterable<Instruction> {
 	 *
 	 * @param bitness 16, 32 or 64
 	 * @param reader  Code reader
-	 * @param ip      <code>RIP</code> value
+	 * @param ip      {@code RIP} value
 	 * @param options Decoder options (a {@link DecoderOptions} flags value)
 	 */
 	public Decoder(int bitness, CodeReader reader, long ip, int options) {
@@ -190,7 +190,7 @@ public final class Decoder implements Iterable<Instruction> {
 	 *
 	 * @param bitness 16, 32 or 64
 	 * @param data    Data to decode
-	 * @param ip      <code>RIP</code> value
+	 * @param ip      {@code RIP} value
 	 */
 	public Decoder(int bitness, byte[] data, long ip) {
 		this(bitness, data, ip, DecoderOptions.NONE);
@@ -201,7 +201,7 @@ public final class Decoder implements Iterable<Instruction> {
 	 *
 	 * @param bitness 16, 32 or 64
 	 * @param data    Data to decode
-	 * @param ip      <code>RIP</code> value
+	 * @param ip      {@code RIP} value
 	 * @param options Decoder options (a {@link DecoderOptions} flags value)
 	 */
 	public Decoder(int bitness, byte[] data, long ip, int options) {

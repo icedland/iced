@@ -42,7 +42,7 @@ public final class OpKind {
 	 */
 	public static final int IMMEDIATE8 = 6;
 	/**
-	 * 8-bit constant used by the <code>ENTER</code>, <code>EXTRQ</code>, <code>INSERTQ</code> instructions.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getImmediate8_2nd()}
+	 * 8-bit constant used by the {@code ENTER}, {@code EXTRQ}, {@code INSERTQ} instructions.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getImmediate8_2nd()}
 	 */
 	public static final int IMMEDIATE8_2ND = 7;
 	/**
@@ -74,39 +74,39 @@ public final class OpKind {
 	 */
 	public static final int IMMEDIATE32TO64 = 14;
 	/**
-	 * <code>seg:[SI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[SI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_SI = 15;
 	/**
-	 * <code>seg:[ESI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[ESI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_ESI = 16;
 	/**
-	 * <code>seg:[RSI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[RSI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_RSI = 17;
 	/**
-	 * <code>seg:[DI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[DI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_DI = 18;
 	/**
-	 * <code>seg:[EDI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[EDI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_EDI = 19;
 	/**
-	 * <code>seg:[RDI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
+	 * {@code seg:[RDI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}, {@link com.github.icedland.iced.x86.Instruction#getMemorySegment()}, {@link com.github.icedland.iced.x86.Instruction#getSegmentPrefix()}
 	 */
 	public static final int MEMORY_SEG_RDI = 20;
 	/**
-	 * <code>ES:[DI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
+	 * {@code ES:[DI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
 	 */
 	public static final int MEMORY_ESDI = 21;
 	/**
-	 * <code>ES:[EDI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
+	 * {@code ES:[EDI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
 	 */
 	public static final int MEMORY_ESEDI = 22;
 	/**
-	 * <code>ES:[RDI]</code>.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
+	 * {@code ES:[RDI]}.<!-- --> This operand kind uses {@link com.github.icedland.iced.x86.Instruction#getMemorySize()}
 	 */
 	public static final int MEMORY_ESRDI = 23;
 	/**

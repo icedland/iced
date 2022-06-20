@@ -6,22 +6,22 @@
 package com.github.icedland.iced.x86.fmt;
 
 /**
- * Mnemonic condition code selector (eg.<!-- --> <code>JAE</code> / <code>JNB</code> / <code>JNC</code>)
+ * Mnemonic condition code selector (eg.<!-- --> {@code JAE} / {@code JNB} / {@code JNC})
  */
 public final class CC_ae {
 	private CC_ae() {
 	}
 
 	/**
-	 * <code>JAE</code>, <code>CMOVAE</code>, <code>SETAE</code>
+	 * {@code JAE}, {@code CMOVAE}, {@code SETAE}
 	 */
 	public static final int AE = 0;
 	/**
-	 * <code>JNB</code>, <code>CMOVNB</code>, <code>SETNB</code>
+	 * {@code JNB}, {@code CMOVNB}, {@code SETNB}
 	 */
 	public static final int NB = 1;
 	/**
-	 * <code>JNC</code>, <code>CMOVNC</code>, <code>SETNC</code>
+	 * {@code JNC}, {@code CMOVNC}, {@code SETNC}
 	 */
 	public static final int NC = 2;
 }

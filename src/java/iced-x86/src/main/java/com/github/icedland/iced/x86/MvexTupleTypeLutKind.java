@@ -6,66 +6,66 @@
 package com.github.icedland.iced.x86;
 
 /**
- * MVEX tuple type lut kind used together with the <code>MVEX.SSS</code> bits to get the tuple type
+ * MVEX tuple type lut kind used together with the {@code MVEX.SSS} bits to get the tuple type
  */
 public final class MvexTupleTypeLutKind {
 	private MvexTupleTypeLutKind() {
 	}
 
 	/**
-	 * <code>int</code> elements, eg.<!-- --> <code>Si32</code>/<code>Di32</code>/<code>Ui32</code>
+	 * {@code int} elements, eg.<!-- --> {@code Si32}/{@code Di32}/{@code Ui32}
 	 */
 	public static final int INT32 = 0;
 	/**
-	 * <code>int</code> elements, eg.<!-- --> <code>Si32</code>/<code>Di32</code>/<code>Ui32</code> with half memory size (32 bytes instead of 64 bytes, eg.<!-- --> <code>VCVTUDQ2PD</code>/<code>VCVTDQ2PD</code>)
+	 * {@code int} elements, eg.<!-- --> {@code Si32}/{@code Di32}/{@code Ui32} with half memory size (32 bytes instead of 64 bytes, eg.<!-- --> {@code VCVTUDQ2PD}/{@code VCVTDQ2PD})
 	 */
 	public static final int INT32_HALF = 1;
 	/**
-	 * <code>int</code> elements, eg.<!-- --> <code>Si32</code>/<code>Di32</code>/<code>Ui32</code> with built-in <code>{4to16}</code> broadcast
+	 * {@code int} elements, eg.<!-- --> {@code Si32}/{@code Di32}/{@code Ui32} with built-in {@code {4to16}} broadcast
 	 */
 	public static final int INT32_4TO16 = 2;
 	/**
-	 * <code>int</code> elements, eg.<!-- --> <code>Si32</code>/<code>Di32</code>/<code>Ui32</code> with built-in <code>{1to16}</code> broadcast or element level
+	 * {@code int} elements, eg.<!-- --> {@code Si32}/{@code Di32}/{@code Ui32} with built-in {@code {1to16}} broadcast or element level
 	 */
 	public static final int INT32_1TO16_OR_ELEM = 3;
 	/**
-	 * <code>long</code> elements, eg.<!-- --> <code>Si64</code>/<code>Di64</code>/<code>Ui64</code>
+	 * {@code long} elements, eg.<!-- --> {@code Si64}/{@code Di64}/{@code Ui64}
 	 */
 	public static final int INT64 = 4;
 	/**
-	 * <code>long</code> elements, eg.<!-- --> <code>Si64</code>/<code>Di64</code>/<code>Ui64</code> with built-in <code>{4to8}</code> broadcast
+	 * {@code long} elements, eg.<!-- --> {@code Si64}/{@code Di64}/{@code Ui64} with built-in {@code {4to8}} broadcast
 	 */
 	public static final int INT64_4TO8 = 5;
 	/**
-	 * <code>long</code> elements, eg.<!-- --> <code>Si64</code>/<code>Di64</code>/<code>Ui64</code> with built-in <code>{1to8}</code> broadcast or element level
+	 * {@code long} elements, eg.<!-- --> {@code Si64}/{@code Di64}/{@code Ui64} with built-in {@code {1to8}} broadcast or element level
 	 */
 	public static final int INT64_1TO8_OR_ELEM = 6;
 	/**
-	 * <code>float</code> elements, eg.<!-- --> <code>Sf32</code>/<code>Df32</code>/<code>Uf32</code>
+	 * {@code float} elements, eg.<!-- --> {@code Sf32}/{@code Df32}/{@code Uf32}
 	 */
 	public static final int FLOAT32 = 7;
 	/**
-	 * <code>float</code> elements, eg.<!-- --> <code>Sf32</code>/<code>Df32</code>/<code>Uf32</code> with half memory size (32 bytes instead of 64 bytes, eg.<!-- --> <code>VCVTPS2PD</code>
+	 * {@code float} elements, eg.<!-- --> {@code Sf32}/{@code Df32}/{@code Uf32} with half memory size (32 bytes instead of 64 bytes, eg.<!-- --> {@code VCVTPS2PD}
 	 */
 	public static final int FLOAT32_HALF = 8;
 	/**
-	 * <code>float</code> elements, eg.<!-- --> <code>Sf32</code>/<code>Df32</code>/<code>Uf32</code> with built-in <code>{4to16}</code> broadcast
+	 * {@code float} elements, eg.<!-- --> {@code Sf32}/{@code Df32}/{@code Uf32} with built-in {@code {4to16}} broadcast
 	 */
 	public static final int FLOAT32_4TO16 = 9;
 	/**
-	 * <code>float</code> elements, eg.<!-- --> <code>Sf32</code>/<code>Df32</code>/<code>Uf32</code> with built-in <code>{1to16}</code> broadcast or element level
+	 * {@code float} elements, eg.<!-- --> {@code Sf32}/{@code Df32}/{@code Uf32} with built-in {@code {1to16}} broadcast or element level
 	 */
 	public static final int FLOAT32_1TO16_OR_ELEM = 10;
 	/**
-	 * <code>double</code> elements, eg.<!-- --> <code>Sf64</code>/<code>Df64</code>/<code>Uf64</code>
+	 * {@code double} elements, eg.<!-- --> {@code Sf64}/{@code Df64}/{@code Uf64}
 	 */
 	public static final int FLOAT64 = 11;
 	/**
-	 * <code>double</code> elements, eg.<!-- --> <code>Sf64</code>/<code>Df64</code>/<code>Uf64</code> with built-in <code>{4to8}</code> broadcast
+	 * {@code double} elements, eg.<!-- --> {@code Sf64}/{@code Df64}/{@code Uf64} with built-in {@code {4to8}} broadcast
 	 */
 	public static final int FLOAT64_4TO8 = 12;
 	/**
-	 * <code>double</code> elements, eg.<!-- --> <code>Sf64</code>/<code>Df64</code>/<code>Uf64</code> with built-in <code>{1to8}</code> broadcast or element level
+	 * {@code double} elements, eg.<!-- --> {@code Sf64}/{@code Df64}/{@code Uf64} with built-in {@code {1to8}} broadcast or element level
 	 */
 	public static final int FLOAT64_1TO8_OR_ELEM = 13;
 }

@@ -56,49 +56,49 @@ public final class AsmRegisterYMM {
 	final int flags;
 
 	/**
-	 * Apply op mask register <code>K1</code>.
+	 * Apply op mask register {@code K1}.
 	 */
 	public AsmRegisterYMM k1() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K1);
 	}
 
 	/**
-	 * Apply op mask register <code>K2</code>.
+	 * Apply op mask register {@code K2}.
 	 */
 	public AsmRegisterYMM k2() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K2);
 	}
 
 	/**
-	 * Apply op mask register <code>K3</code>.
+	 * Apply op mask register {@code K3}.
 	 */
 	public AsmRegisterYMM k3() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K3);
 	}
 
 	/**
-	 * Apply op mask register <code>K4</code>.
+	 * Apply op mask register {@code K4}.
 	 */
 	public AsmRegisterYMM k4() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K4);
 	}
 
 	/**
-	 * Apply op mask register <code>K5</code>.
+	 * Apply op mask register {@code K5}.
 	 */
 	public AsmRegisterYMM k5() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K5);
 	}
 
 	/**
-	 * Apply op mask register <code>K6</code>.
+	 * Apply op mask register {@code K6}.
 	 */
 	public AsmRegisterYMM k6() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K6);
 	}
 
 	/**
-	 * Apply op mask register <code>K7</code>.
+	 * Apply op mask register {@code K7}.
 	 */
 	public AsmRegisterYMM k7() {
 		return new AsmRegisterYMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K7);
@@ -200,7 +200,7 @@ public final class AsmRegisterYMM {
 		return mem.add(this);
 	}
 
-	/** Checks if <code>obj</code> equals this object */
+	/** Checks if {@code obj} equals this object */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass())

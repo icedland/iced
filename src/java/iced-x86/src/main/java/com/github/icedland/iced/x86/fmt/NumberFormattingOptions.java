@@ -8,17 +8,17 @@ package com.github.icedland.iced.x86.fmt;
  */
 public final class NumberFormattingOptions {
 	/**
-	 * Digit separator or <code>null</code>/empty string to not use a digit separator
+	 * Digit separator or {@code null}/empty string to not use a digit separator
 	 */
 	public String digitSeparator;
 
 	/**
-	 * Number prefix or <code>null</code>/empty string
+	 * Number prefix or {@code null}/empty string
 	 */
 	public String prefix;
 
 	/**
-	 * Number suffix or <code>null</code>/empty string
+	 * Number suffix or {@code null}/empty string
 	 */
 	public String suffix;
 
@@ -43,17 +43,17 @@ public final class NumberFormattingOptions {
 	public boolean smallHexNumbersInDecimal;
 
 	/**
-	 * Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits <code>A-F</code>
+	 * Add a leading zero to hex numbers if there's no prefix and the number starts with hex digits {@code A-F}
 	 */
 	public boolean addLeadingZeroToHexNumbers;
 
 	/**
-	 * If <code>true</code>, add leading zeros to numbers, eg. '1h' vs '00000001h'
+	 * If {@code true}, add leading zeros to numbers, eg. '1h' vs '00000001h'
 	 */
 	public boolean leadingZeros;
 
 	/**
-	 * If <code>true</code>, the number is signed, and if <code>false</code> it's an unsigned number
+	 * If {@code true}, the number is signed, and if {@code false} it's an unsigned number
 	 */
 	public boolean signedNumber;
 
@@ -100,8 +100,8 @@ public final class NumberFormattingOptions {
 	 * Constructor
 	 *
 	 * @param options                  Formatter options to use
-	 * @param leadingZeros             Add leading zeros to numbers, eg. <code>1h</code> vs <code>00000001h</code>
-	 * @param signedNumber             Signed numbers if <code>true</code>, and unsigned numbers if <code>false</code>
+	 * @param leadingZeros             Add leading zeros to numbers, eg. {@code 1h} vs {@code 00000001h}
+	 * @param signedNumber             Signed numbers if {@code true}, and unsigned numbers if {@code false}
 	 * @param displacementLeadingZeros Add leading zeros to displacements
 	 */
 	public NumberFormattingOptions(FormatterOptions options, boolean leadingZeros, boolean signedNumber, boolean displacementLeadingZeros) {

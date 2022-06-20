@@ -6,7 +6,7 @@
 package com.github.icedland.iced.x86;
 
 /**
- * Registers passed to <code>Instruction.create()</code> methods.
+ * Registers passed to {@code Instruction.create()} methods.
  *
  * @see ICRegisters
  * @see ICRegistersGPR

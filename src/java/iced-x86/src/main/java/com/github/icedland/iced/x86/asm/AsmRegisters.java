@@ -490,7 +490,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -499,7 +499,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -509,7 +509,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -520,7 +520,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -530,7 +530,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -539,7 +539,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -549,7 +549,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -560,7 +560,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -572,7 +572,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -582,7 +582,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -593,7 +593,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -603,7 +603,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -614,7 +614,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -626,7 +626,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -636,7 +636,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -647,7 +647,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -659,7 +659,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -669,7 +669,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -680,7 +680,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -692,7 +692,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -701,7 +701,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -711,7 +711,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -722,7 +722,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -734,7 +734,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -744,7 +744,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -755,7 +755,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -765,7 +765,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -776,7 +776,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -788,7 +788,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -798,7 +798,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -809,7 +809,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -821,7 +821,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -831,7 +831,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -842,7 +842,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -854,7 +854,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -864,7 +864,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -875,7 +875,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -885,7 +885,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -896,7 +896,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -906,7 +906,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -917,7 +917,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>BYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -935,7 +935,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -944,7 +944,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -954,7 +954,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -965,7 +965,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -975,7 +975,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -984,7 +984,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -994,7 +994,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1005,7 +1005,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1017,7 +1017,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1027,7 +1027,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1038,7 +1038,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1048,7 +1048,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1059,7 +1059,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1071,7 +1071,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1081,7 +1081,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1092,7 +1092,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1104,7 +1104,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1114,7 +1114,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1125,7 +1125,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1137,7 +1137,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1146,7 +1146,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1156,7 +1156,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1167,7 +1167,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1179,7 +1179,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1189,7 +1189,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1200,7 +1200,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1210,7 +1210,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1221,7 +1221,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1233,7 +1233,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1243,7 +1243,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1254,7 +1254,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1266,7 +1266,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1276,7 +1276,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1287,7 +1287,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1299,7 +1299,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1309,7 +1309,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1320,7 +1320,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1330,7 +1330,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1341,7 +1341,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1351,7 +1351,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1362,7 +1362,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>WORD PTR</code> size hint
+	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -1380,7 +1380,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1389,7 +1389,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1399,7 +1399,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1410,7 +1410,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -1420,7 +1420,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1429,7 +1429,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1439,7 +1439,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1450,7 +1450,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1462,7 +1462,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1472,7 +1472,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1483,7 +1483,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1493,7 +1493,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1504,7 +1504,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1516,7 +1516,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1526,7 +1526,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1537,7 +1537,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1549,7 +1549,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1559,7 +1559,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1570,7 +1570,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1582,7 +1582,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1591,7 +1591,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1601,7 +1601,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1612,7 +1612,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1624,7 +1624,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1634,7 +1634,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1645,7 +1645,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1655,7 +1655,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1666,7 +1666,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1678,7 +1678,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1688,7 +1688,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1699,7 +1699,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1711,7 +1711,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1721,7 +1721,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1732,7 +1732,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1744,7 +1744,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1754,7 +1754,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1765,7 +1765,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1775,7 +1775,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1786,7 +1786,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1796,7 +1796,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1807,7 +1807,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>DWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -1825,7 +1825,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1834,7 +1834,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1844,7 +1844,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1855,7 +1855,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -1865,7 +1865,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -1874,7 +1874,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1884,7 +1884,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1895,7 +1895,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1907,7 +1907,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1917,7 +1917,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -1928,7 +1928,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1938,7 +1938,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1949,7 +1949,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1961,7 +1961,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1971,7 +1971,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1982,7 +1982,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -1994,7 +1994,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2004,7 +2004,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2015,7 +2015,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2027,7 +2027,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2036,7 +2036,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2046,7 +2046,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2057,7 +2057,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2069,7 +2069,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2079,7 +2079,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2090,7 +2090,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2100,7 +2100,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2111,7 +2111,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2123,7 +2123,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2133,7 +2133,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2144,7 +2144,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2156,7 +2156,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2166,7 +2166,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2177,7 +2177,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2189,7 +2189,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2199,7 +2199,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2210,7 +2210,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2220,7 +2220,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2231,7 +2231,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2241,7 +2241,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2252,7 +2252,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>QWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -2270,7 +2270,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2279,7 +2279,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2289,7 +2289,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2300,7 +2300,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -2310,7 +2310,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2319,7 +2319,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2329,7 +2329,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2340,7 +2340,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2352,7 +2352,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2362,7 +2362,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2373,7 +2373,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2383,7 +2383,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2394,7 +2394,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2406,7 +2406,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2416,7 +2416,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2427,7 +2427,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2439,7 +2439,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2449,7 +2449,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2460,7 +2460,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2472,7 +2472,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2481,7 +2481,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2491,7 +2491,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2502,7 +2502,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2514,7 +2514,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2524,7 +2524,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2535,7 +2535,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2545,7 +2545,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2556,7 +2556,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2568,7 +2568,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2578,7 +2578,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2589,7 +2589,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2601,7 +2601,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2611,7 +2611,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2622,7 +2622,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2634,7 +2634,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2644,7 +2644,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2655,7 +2655,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2665,7 +2665,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2676,7 +2676,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2686,7 +2686,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2697,7 +2697,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>MMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -2715,7 +2715,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2724,7 +2724,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2734,7 +2734,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2745,7 +2745,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -2755,7 +2755,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2764,7 +2764,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2774,7 +2774,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2785,7 +2785,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2797,7 +2797,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2807,7 +2807,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2818,7 +2818,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2828,7 +2828,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2839,7 +2839,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2851,7 +2851,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2861,7 +2861,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2872,7 +2872,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2884,7 +2884,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2894,7 +2894,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2905,7 +2905,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2917,7 +2917,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -2926,7 +2926,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2936,7 +2936,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2947,7 +2947,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2959,7 +2959,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2969,7 +2969,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -2980,7 +2980,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -2990,7 +2990,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3001,7 +3001,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3013,7 +3013,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3023,7 +3023,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3034,7 +3034,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3046,7 +3046,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3056,7 +3056,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3067,7 +3067,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3079,7 +3079,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3089,7 +3089,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3100,7 +3100,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3110,7 +3110,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3121,7 +3121,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3131,7 +3131,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3142,7 +3142,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TBYTE PTR</code> size hint
+	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -3160,7 +3160,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3169,7 +3169,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3179,7 +3179,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3190,7 +3190,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -3200,7 +3200,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3209,7 +3209,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3219,7 +3219,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3230,7 +3230,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3242,7 +3242,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3252,7 +3252,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3263,7 +3263,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3273,7 +3273,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3284,7 +3284,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3296,7 +3296,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3306,7 +3306,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3317,7 +3317,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3329,7 +3329,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3339,7 +3339,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3350,7 +3350,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3362,7 +3362,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3371,7 +3371,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3381,7 +3381,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3392,7 +3392,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3404,7 +3404,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3414,7 +3414,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3425,7 +3425,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3435,7 +3435,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3446,7 +3446,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3458,7 +3458,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3468,7 +3468,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3479,7 +3479,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3491,7 +3491,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3501,7 +3501,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3512,7 +3512,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3524,7 +3524,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3534,7 +3534,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3545,7 +3545,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3555,7 +3555,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3566,7 +3566,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3576,7 +3576,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3587,7 +3587,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>TWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -3605,7 +3605,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3614,7 +3614,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3624,7 +3624,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3635,7 +3635,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -3645,7 +3645,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3654,7 +3654,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3664,7 +3664,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3675,7 +3675,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3687,7 +3687,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3697,7 +3697,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3708,7 +3708,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3718,7 +3718,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3729,7 +3729,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3741,7 +3741,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3751,7 +3751,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3762,7 +3762,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3774,7 +3774,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3784,7 +3784,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3795,7 +3795,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3807,7 +3807,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -3816,7 +3816,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3826,7 +3826,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3837,7 +3837,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3849,7 +3849,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3859,7 +3859,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3870,7 +3870,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3880,7 +3880,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3891,7 +3891,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3903,7 +3903,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3913,7 +3913,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3924,7 +3924,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3936,7 +3936,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3946,7 +3946,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3957,7 +3957,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -3969,7 +3969,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3979,7 +3979,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -3990,7 +3990,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4000,7 +4000,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4011,7 +4011,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4021,7 +4021,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4032,7 +4032,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>FWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -4050,7 +4050,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4059,7 +4059,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4069,7 +4069,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4080,7 +4080,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -4090,7 +4090,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4099,7 +4099,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4109,7 +4109,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4120,7 +4120,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4132,7 +4132,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4142,7 +4142,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4153,7 +4153,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4163,7 +4163,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4174,7 +4174,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4186,7 +4186,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4196,7 +4196,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4207,7 +4207,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4219,7 +4219,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4229,7 +4229,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4240,7 +4240,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4252,7 +4252,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4261,7 +4261,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4271,7 +4271,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4282,7 +4282,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4294,7 +4294,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4304,7 +4304,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4315,7 +4315,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4325,7 +4325,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4336,7 +4336,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4348,7 +4348,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4358,7 +4358,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4369,7 +4369,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4381,7 +4381,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4391,7 +4391,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4402,7 +4402,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4414,7 +4414,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4424,7 +4424,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4435,7 +4435,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4445,7 +4445,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4456,7 +4456,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4466,7 +4466,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4477,7 +4477,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>OWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -4495,7 +4495,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4504,7 +4504,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4514,7 +4514,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4525,7 +4525,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -4535,7 +4535,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4544,7 +4544,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4554,7 +4554,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4565,7 +4565,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4577,7 +4577,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4587,7 +4587,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4598,7 +4598,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4608,7 +4608,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4619,7 +4619,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4631,7 +4631,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4641,7 +4641,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4652,7 +4652,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4664,7 +4664,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4674,7 +4674,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4685,7 +4685,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4697,7 +4697,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4706,7 +4706,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4716,7 +4716,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4727,7 +4727,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4739,7 +4739,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4749,7 +4749,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4760,7 +4760,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4770,7 +4770,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4781,7 +4781,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4793,7 +4793,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4803,7 +4803,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4814,7 +4814,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4826,7 +4826,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4836,7 +4836,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4847,7 +4847,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4859,7 +4859,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4869,7 +4869,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4880,7 +4880,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4890,7 +4890,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4901,7 +4901,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4911,7 +4911,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -4922,7 +4922,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with an <code>XMMWORD PTR</code> size hint
+	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -4940,7 +4940,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4949,7 +4949,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4959,7 +4959,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4970,7 +4970,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -4980,7 +4980,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -4989,7 +4989,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -4999,7 +4999,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5010,7 +5010,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5022,7 +5022,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5032,7 +5032,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5043,7 +5043,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5053,7 +5053,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5064,7 +5064,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5076,7 +5076,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5086,7 +5086,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5097,7 +5097,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5109,7 +5109,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5119,7 +5119,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5130,7 +5130,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5142,7 +5142,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -5151,7 +5151,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5161,7 +5161,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5172,7 +5172,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5184,7 +5184,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5194,7 +5194,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5205,7 +5205,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5215,7 +5215,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5226,7 +5226,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5238,7 +5238,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5248,7 +5248,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5259,7 +5259,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5271,7 +5271,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5281,7 +5281,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5292,7 +5292,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5304,7 +5304,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5314,7 +5314,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5325,7 +5325,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5335,7 +5335,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5346,7 +5346,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5356,7 +5356,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5367,7 +5367,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>YMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -5385,7 +5385,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -5394,7 +5394,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5404,7 +5404,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5415,7 +5415,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -5425,7 +5425,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -5434,7 +5434,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5444,7 +5444,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5455,7 +5455,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5467,7 +5467,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5477,7 +5477,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5488,7 +5488,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5498,7 +5498,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5509,7 +5509,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5521,7 +5521,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5531,7 +5531,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5542,7 +5542,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5554,7 +5554,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5564,7 +5564,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5575,7 +5575,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5587,7 +5587,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -5596,7 +5596,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5606,7 +5606,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5617,7 +5617,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5629,7 +5629,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5639,7 +5639,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5650,7 +5650,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5660,7 +5660,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5671,7 +5671,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5683,7 +5683,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5693,7 +5693,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5704,7 +5704,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5716,7 +5716,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5726,7 +5726,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5737,7 +5737,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -5749,7 +5749,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5759,7 +5759,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5770,7 +5770,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5780,7 +5780,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5791,7 +5791,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5801,7 +5801,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -5812,7 +5812,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a memory operand with a <code>ZMMWORD PTR</code> size hint
+	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -6275,7 +6275,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6284,7 +6284,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6294,7 +6294,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6305,7 +6305,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -6315,7 +6315,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6324,7 +6324,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6334,7 +6334,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6345,7 +6345,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6357,7 +6357,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6367,7 +6367,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6378,7 +6378,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6388,7 +6388,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6399,7 +6399,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6411,7 +6411,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6421,7 +6421,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6432,7 +6432,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6444,7 +6444,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6454,7 +6454,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6465,7 +6465,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6477,7 +6477,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6486,7 +6486,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6496,7 +6496,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6507,7 +6507,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6519,7 +6519,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6529,7 +6529,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6540,7 +6540,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6550,7 +6550,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6561,7 +6561,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6573,7 +6573,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6583,7 +6583,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6594,7 +6594,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6606,7 +6606,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6616,7 +6616,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6627,7 +6627,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6639,7 +6639,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6649,7 +6649,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6660,7 +6660,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6670,7 +6670,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6681,7 +6681,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6691,7 +6691,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6702,7 +6702,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>WORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -6720,7 +6720,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6729,7 +6729,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6739,7 +6739,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6750,7 +6750,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -6760,7 +6760,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6769,7 +6769,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6779,7 +6779,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6790,7 +6790,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6802,7 +6802,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6812,7 +6812,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6823,7 +6823,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6833,7 +6833,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6844,7 +6844,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6856,7 +6856,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6866,7 +6866,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6877,7 +6877,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6889,7 +6889,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6899,7 +6899,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6910,7 +6910,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6922,7 +6922,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -6931,7 +6931,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6941,7 +6941,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6952,7 +6952,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6964,7 +6964,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6974,7 +6974,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -6985,7 +6985,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -6995,7 +6995,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7006,7 +7006,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7018,7 +7018,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7028,7 +7028,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7039,7 +7039,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7051,7 +7051,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7061,7 +7061,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7072,7 +7072,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7084,7 +7084,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7094,7 +7094,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7105,7 +7105,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7115,7 +7115,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7126,7 +7126,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7136,7 +7136,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7147,7 +7147,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>DWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
 	 * @param displacement Displacement
 	 */
@@ -7165,7 +7165,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -7174,7 +7174,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7184,7 +7184,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7195,7 +7195,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param displacement Displacement
@@ -7205,7 +7205,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -7214,7 +7214,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7224,7 +7224,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7235,7 +7235,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7247,7 +7247,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7257,7 +7257,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7268,7 +7268,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7278,7 +7278,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7289,7 +7289,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7301,7 +7301,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7311,7 +7311,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7322,7 +7322,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7334,7 +7334,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7344,7 +7344,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7355,7 +7355,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7367,7 +7367,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 */
@@ -7376,7 +7376,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7386,7 +7386,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7397,7 +7397,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7409,7 +7409,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7419,7 +7419,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7430,7 +7430,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7440,7 +7440,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7451,7 +7451,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7463,7 +7463,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7473,7 +7473,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7484,7 +7484,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7496,7 +7496,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7506,7 +7506,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7517,7 +7517,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param base Base register
 	 * @param index Index register
@@ -7529,7 +7529,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7539,7 +7539,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7550,7 +7550,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7560,7 +7560,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7571,7 +7571,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7581,7 +7581,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param index Index register
 	 * @param scale Scale (1, 2, 4 or 8)
@@ -7592,7 +7592,7 @@ public final class AsmRegisters {
 	}
 
 	/**
-	 * Gets a broadcast memory operand with a <code>QWORD BCST</code> size hint
+	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
 	 * @param displacement Displacement
 	 */

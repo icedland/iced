@@ -52,7 +52,7 @@ public final class FastStringOutput {
 	/**
 	 * Append a string
 	 *
-	 * @param value String to append (may be <code>null</code>)
+	 * @param value String to append (may be {@code null})
 	 */
 	public void append(String value) {
 		if (value != null) {

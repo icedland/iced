@@ -49,19 +49,19 @@ public final class FormatterTextKind {
 	 */
 	public static final int REGISTER = 8;
 	/**
-	 * A decorator, eg.<!-- --> <code>sae</code> in <code>{sae}</code>
+	 * A decorator, eg.<!-- --> {@code sae} in {@code {sae}}
 	 */
 	public static final int DECORATOR = 9;
 	/**
-	 * Selector value (eg.<!-- --> far <code>JMP</code>/<code>CALL</code>)
+	 * Selector value (eg.<!-- --> far {@code JMP}/{@code CALL})
 	 */
 	public static final int SELECTOR_VALUE = 10;
 	/**
-	 * Label address (eg.<!-- --> <code>JE XXXXXX</code>)
+	 * Label address (eg.<!-- --> {@code JE XXXXXX})
 	 */
 	public static final int LABEL_ADDRESS = 11;
 	/**
-	 * Function address (eg.<!-- --> <code>CALL XXXXXX</code>)
+	 * Function address (eg.<!-- --> {@code CALL XXXXXX})
 	 */
 	public static final int FUNCTION_ADDRESS = 12;
 	/**

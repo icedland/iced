@@ -251,21 +251,21 @@ public final class MemorySizeInfo {
 	}
 
 	/**
-	 * <code>true</code> if it's signed data (signed integer or a floating point value)
+	 * {@code true} if it's signed data (signed integer or a floating point value)
 	 */
 	public boolean isSigned() {
 		return isSigned;
 	}
 
 	/**
-	 * <code>true</code> if it's a broadcast memory type
+	 * {@code true} if it's a broadcast memory type
 	 */
 	public boolean isBroadcast() {
 		return isBroadcast;
 	}
 
 	/**
-	 * <code>true</code> if this is a packed data type, eg.<!-- --> {@link MemorySize#PACKED128_FLOAT32}.
+	 * {@code true} if this is a packed data type, eg.<!-- --> {@link MemorySize#PACKED128_FLOAT32}.
 	 *
 	 * @see #getElementCount()
 	 */

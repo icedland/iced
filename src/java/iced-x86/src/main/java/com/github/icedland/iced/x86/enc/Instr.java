@@ -31,7 +31,7 @@ abstract class Instr {
 	abstract void initialize(BlockEncoder blockEncoder);
 
 	/**
-	 * Returns <code>true</code> if the instruction was updated to a shorter instruction, <code>false</code> if nothing changed
+	 * Returns {@code true} if the instruction was updated to a shorter instruction, {@code false} if nothing changed
 	 */
 	abstract boolean optimize(long gained);
 

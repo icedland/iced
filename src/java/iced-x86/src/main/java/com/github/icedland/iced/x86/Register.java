@@ -23,8 +23,8 @@ public final class Register {
 	}
 
 	/**
-	 * Gets the base register (a {@link Register} enum variant), eg.<!-- --> <code>AL</code>, <code>AX</code>, <code>EAX</code>, <code>RAX</code>,
-	 * <code>MM0</code>, <code>XMM0</code>, <code>YMM0</code>, <code>ZMM0</code>, <code>ES</code>
+	 * Gets the base register (a {@link Register} enum variant), eg.<!-- --> {@code AL}, {@code AX}, {@code EAX}, {@code RAX},
+	 * {@code MM0}, {@code XMM0}, {@code YMM0}, {@code ZMM0}, {@code ES}
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -71,7 +71,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a segment register (<code>ES</code>, <code>CS</code>, <code>SS</code>, <code>DS</code>, <code>FS</code>, <code>GS</code>)
+	 * Checks if it's a segment register ({@code ES}, {@code CS}, {@code SS}, {@code DS}, {@code FS}, {@code GS})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -80,8 +80,8 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a general purpose register (<code>AL</code>-<code>R15L</code>, <code>AX</code>-<code>R15W</code>,
-	 * <code>EAX</code>-<code>R15D</code>, <code>RAX</code>-<code>R15</code>)
+	 * Checks if it's a general purpose register ({@code AL}-{@code R15L}, {@code AX}-{@code R15W},
+	 * {@code EAX}-{@code R15D}, {@code RAX}-{@code R15})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -90,7 +90,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's an 8-bit general purpose register (<code>AL</code>-<code>R15L</code>)
+	 * Checks if it's an 8-bit general purpose register ({@code AL}-{@code R15L})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -99,7 +99,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 16-bit general purpose register (<code>AX</code>-<code>R15W</code>)
+	 * Checks if it's a 16-bit general purpose register ({@code AX}-{@code R15W})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -108,7 +108,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 32-bit general purpose register (<code>EAX</code>-<code>R15D</code>)
+	 * Checks if it's a 32-bit general purpose register ({@code EAX}-{@code R15D})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -117,7 +117,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 64-bit general purpose register (<code>RAX</code>-<code>R15</code>)
+	 * Checks if it's a 64-bit general purpose register ({@code RAX}-{@code R15})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -126,7 +126,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 128-bit vector register (<code>XMM0</code>-<code>XMM31</code>)
+	 * Checks if it's a 128-bit vector register ({@code XMM0}-{@code XMM31})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -135,7 +135,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 256-bit vector register (<code>YMM0</code>-<code>YMM31</code>)
+	 * Checks if it's a 256-bit vector register ({@code YMM0}-{@code YMM31})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -144,7 +144,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a 512-bit vector register (<code>ZMM0</code>-<code>ZMM31</code>)
+	 * Checks if it's a 512-bit vector register ({@code ZMM0}-{@code ZMM31})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -153,7 +153,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's <code>EIP</code>/<code>RIP</code>
+	 * Checks if it's {@code EIP}/{@code RIP}
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -162,7 +162,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's an opmask register (<code>K0</code>-<code>K7</code>)
+	 * Checks if it's an opmask register ({@code K0}-{@code K7})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -171,7 +171,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a control register (<code>CR0</code>-<code>CR15</code>)
+	 * Checks if it's a control register ({@code CR0}-{@code CR15})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -180,7 +180,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a debug register (<code>DR0</code>-<code>DR15</code>)
+	 * Checks if it's a debug register ({@code DR0}-{@code DR15})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -189,7 +189,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a test register (<code>TR0</code>-<code>TR7</code>)
+	 * Checks if it's a test register ({@code TR0}-{@code TR7})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -198,7 +198,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's an FPU stack register (<code>ST0</code>-<code>ST7</code>)
+	 * Checks if it's an FPU stack register ({@code ST0}-{@code ST7})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -207,7 +207,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a bound register (<code>BND0</code>-<code>BND3</code>)
+	 * Checks if it's a bound register ({@code BND0}-{@code BND3})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -216,7 +216,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's an MMX register (<code>MM0</code>-<code>MM7</code>)
+	 * Checks if it's an MMX register ({@code MM0}-{@code MM7})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -225,7 +225,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's a tile register (<code>TMM0</code>-<code>TMM7</code>)
+	 * Checks if it's a tile register ({@code TMM0}-{@code TMM7})
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */
@@ -234,7 +234,7 @@ public final class Register {
 	}
 
 	/**
-	 * Checks if it's an <code>XMM</code>, <code>YMM</code> or <code>ZMM</code> register
+	 * Checks if it's an {@code XMM}, {@code YMM} or {@code ZMM} register
 	 *
 	 * @param register Register (a {@link Register} enum variant)
 	 */

@@ -25,7 +25,7 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int FARBR4_2 = 2;
 	/**
-	 * Memory offset without a modrm byte (eg.<!-- --> <code>MOV AL,[offset]</code>)
+	 * Memory offset without a modrm byte (eg.<!-- --> {@code MOV AL,[offset]})
 	 */
 	public static final int MEM_OFFS = 3;
 	/**
@@ -45,27 +45,27 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int MEM_MIB = 6;
 	/**
-	 * Memory (modrm), vsib32, <code>XMM</code> registers
+	 * Memory (modrm), vsib32, {@code XMM} registers
 	 */
 	public static final int MEM_VSIB32X = 7;
 	/**
-	 * Memory (modrm), vsib64, <code>XMM</code> registers
+	 * Memory (modrm), vsib64, {@code XMM} registers
 	 */
 	public static final int MEM_VSIB64X = 8;
 	/**
-	 * Memory (modrm), vsib32, <code>YMM</code> registers
+	 * Memory (modrm), vsib32, {@code YMM} registers
 	 */
 	public static final int MEM_VSIB32Y = 9;
 	/**
-	 * Memory (modrm), vsib64, <code>YMM</code> registers
+	 * Memory (modrm), vsib64, {@code YMM} registers
 	 */
 	public static final int MEM_VSIB64Y = 10;
 	/**
-	 * Memory (modrm), vsib32, <code>ZMM</code> registers
+	 * Memory (modrm), vsib32, {@code ZMM} registers
 	 */
 	public static final int MEM_VSIB32Z = 11;
 	/**
-	 * Memory (modrm), vsib64, <code>ZMM</code> registers
+	 * Memory (modrm), vsib64, {@code ZMM} registers
 	 */
 	public static final int MEM_VSIB64Z = 12;
 	/**
@@ -93,31 +93,31 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R64_OR_MEM_MPX = 18;
 	/**
-	 * <code>MM</code> register or memory
+	 * {@code MM} register or memory
 	 */
 	public static final int MM_OR_MEM = 19;
 	/**
-	 * <code>XMM</code> register or memory
+	 * {@code XMM} register or memory
 	 */
 	public static final int XMM_OR_MEM = 20;
 	/**
-	 * <code>YMM</code> register or memory
+	 * {@code YMM} register or memory
 	 */
 	public static final int YMM_OR_MEM = 21;
 	/**
-	 * <code>ZMM</code> register or memory
+	 * {@code ZMM} register or memory
 	 */
 	public static final int ZMM_OR_MEM = 22;
 	/**
-	 * <code>BND</code> register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
+	 * {@code BND} register or memory, MPX: 16/32-bit mode: must be 32-bit addressing, 64-bit mode: 64-bit addressing is forced
 	 */
 	public static final int BND_OR_MEM_MPX = 23;
 	/**
-	 * <code>K</code> register or memory
+	 * {@code K} register or memory
 	 */
 	public static final int K_OR_MEM = 24;
 	/**
-	 * 8-bit GPR encoded in the <code>reg</code> field of the modrm byte
+	 * 8-bit GPR encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int R8_REG = 25;
 	/**
@@ -125,15 +125,15 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R8_OPCODE = 26;
 	/**
-	 * 16-bit GPR encoded in the <code>reg</code> field of the modrm byte
+	 * 16-bit GPR encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int R16_REG = 27;
 	/**
-	 * 16-bit GPR encoded in the <code>reg</code> field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix (<code>67h</code>) not the operand size prefix (<code>66h</code>).<!-- -->
+	 * 16-bit GPR encoded in the {@code reg} field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix ({@code 67h}) not the operand size prefix ({@code 66h}).<!-- -->
 	 */
 	public static final int R16_REG_MEM = 28;
 	/**
-	 * 16-bit GPR encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * 16-bit GPR encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int R16_RM = 29;
 	/**
@@ -141,15 +141,15 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R16_OPCODE = 30;
 	/**
-	 * 32-bit GPR encoded in the <code>reg</code> field of the modrm byte
+	 * 32-bit GPR encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int R32_REG = 31;
 	/**
-	 * 32-bit GPR encoded in the <code>reg</code> field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix (<code>67h</code>) not the operand size prefix (<code>66h</code>).<!-- -->
+	 * 32-bit GPR encoded in the {@code reg} field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix ({@code 67h}) not the operand size prefix ({@code 66h}).<!-- -->
 	 */
 	public static final int R32_REG_MEM = 32;
 	/**
-	 * 32-bit GPR encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * 32-bit GPR encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int R32_RM = 33;
 	/**
@@ -157,19 +157,19 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R32_OPCODE = 34;
 	/**
-	 * 32-bit GPR encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * 32-bit GPR encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int R32_VVVV = 35;
 	/**
-	 * 64-bit GPR encoded in the <code>reg</code> field of the modrm byte
+	 * 64-bit GPR encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int R64_REG = 36;
 	/**
-	 * 64-bit GPR encoded in the <code>reg</code> field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix (<code>67h</code>) not the operand size prefix (<code>66h</code>).<!-- -->
+	 * 64-bit GPR encoded in the {@code reg} field of the modrm byte.<!-- --> This is a memory operand and it uses the address size prefix ({@code 67h}) not the operand size prefix ({@code 66h}).<!-- -->
 	 */
 	public static final int R64_REG_MEM = 37;
 	/**
-	 * 64-bit GPR encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * 64-bit GPR encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int R64_RM = 38;
 	/**
@@ -177,171 +177,171 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int R64_OPCODE = 39;
 	/**
-	 * 64-bit GPR encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * 64-bit GPR encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int R64_VVVV = 40;
 	/**
-	 * Segment register encoded in the <code>reg</code> field of the modrm byte
+	 * Segment register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int SEG_REG = 41;
 	/**
-	 * <code>K</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code K} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int K_REG = 42;
 	/**
-	 * <code>K</code> register (+1) encoded in the <code>reg</code> field of the modrm byte
+	 * {@code K} register (+1) encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int KP1_REG = 43;
 	/**
-	 * <code>K</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code K} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int K_RM = 44;
 	/**
-	 * <code>K</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/MVEX/XOP)
+	 * {@code K} register encoded in the the {@code V'vvvv} field (VEX/EVEX/MVEX/XOP)
 	 */
 	public static final int K_VVVV = 45;
 	/**
-	 * <code>MM</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code MM} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int MM_REG = 46;
 	/**
-	 * <code>MM</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code MM} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int MM_RM = 47;
 	/**
-	 * <code>XMM</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code XMM} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int XMM_REG = 48;
 	/**
-	 * <code>XMM</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code XMM} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int XMM_RM = 49;
 	/**
-	 * <code>XMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * {@code XMM} register encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int XMM_VVVV = 50;
 	/**
-	 * <code>XMM</code> register (+3) encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * {@code XMM} register (+3) encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int XMMP3_VVVV = 51;
 	/**
-	 * <code>XMM</code> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <code>XMM0</code>-<code>XMM15</code>)
+	 * {@code XMM} register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only {@code XMM0}-{@code XMM15})
 	 */
 	public static final int XMM_IS4 = 52;
 	/**
-	 * <code>XMM</code> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <code>XMM0</code>-<code>XMM15</code>)
+	 * {@code XMM} register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only {@code XMM0}-{@code XMM15})
 	 */
 	public static final int XMM_IS5 = 53;
 	/**
-	 * <code>YMM</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code YMM} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int YMM_REG = 54;
 	/**
-	 * <code>YMM</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code YMM} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int YMM_RM = 55;
 	/**
-	 * <code>YMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * {@code YMM} register encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int YMM_VVVV = 56;
 	/**
-	 * <code>YMM</code> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <code>YMM0</code>-<code>YMM15</code>)
+	 * {@code YMM} register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only {@code YMM0}-{@code YMM15})
 	 */
 	public static final int YMM_IS4 = 57;
 	/**
-	 * <code>YMM</code> register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only <code>YMM0</code>-<code>YMM15</code>)
+	 * {@code YMM} register encoded in the the high 4 bits of the last 8-bit immediate (VEX/XOP only so only {@code YMM0}-{@code YMM15})
 	 */
 	public static final int YMM_IS5 = 58;
 	/**
-	 * <code>ZMM</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code ZMM} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int ZMM_REG = 59;
 	/**
-	 * <code>ZMM</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code ZMM} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int ZMM_RM = 60;
 	/**
-	 * <code>ZMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/MVEX/XOP)
+	 * {@code ZMM} register encoded in the the {@code V'vvvv} field (VEX/EVEX/MVEX/XOP)
 	 */
 	public static final int ZMM_VVVV = 61;
 	/**
-	 * <code>ZMM</code> register (+3) encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * {@code ZMM} register (+3) encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int ZMMP3_VVVV = 62;
 	/**
-	 * <code>CR</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code CR} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int CR_REG = 63;
 	/**
-	 * <code>DR</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code DR} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int DR_REG = 64;
 	/**
-	 * <code>TR</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code TR} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int TR_REG = 65;
 	/**
-	 * <code>BND</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code BND} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int BND_REG = 66;
 	/**
-	 * <code>ES</code> register
+	 * {@code ES} register
 	 */
 	public static final int ES = 67;
 	/**
-	 * <code>CS</code> register
+	 * {@code CS} register
 	 */
 	public static final int CS = 68;
 	/**
-	 * <code>SS</code> register
+	 * {@code SS} register
 	 */
 	public static final int SS = 69;
 	/**
-	 * <code>DS</code> register
+	 * {@code DS} register
 	 */
 	public static final int DS = 70;
 	/**
-	 * <code>FS</code> register
+	 * {@code FS} register
 	 */
 	public static final int FS = 71;
 	/**
-	 * <code>GS</code> register
+	 * {@code GS} register
 	 */
 	public static final int GS = 72;
 	/**
-	 * <code>AL</code> register
+	 * {@code AL} register
 	 */
 	public static final int AL = 73;
 	/**
-	 * <code>CL</code> register
+	 * {@code CL} register
 	 */
 	public static final int CL = 74;
 	/**
-	 * <code>AX</code> register
+	 * {@code AX} register
 	 */
 	public static final int AX = 75;
 	/**
-	 * <code>DX</code> register
+	 * {@code DX} register
 	 */
 	public static final int DX = 76;
 	/**
-	 * <code>EAX</code> register
+	 * {@code EAX} register
 	 */
 	public static final int EAX = 77;
 	/**
-	 * <code>RAX</code> register
+	 * {@code RAX} register
 	 */
 	public static final int RAX = 78;
 	/**
-	 * <code>ST(0)</code> register
+	 * {@code ST(0)} register
 	 */
 	public static final int ST0 = 79;
 	/**
-	 * <code>ST(i)</code> register encoded in the low 3 bits of the opcode
+	 * {@code ST(i)} register encoded in the low 3 bits of the opcode
 	 */
 	public static final int STI_OPCODE = 80;
 	/**
-	 * 4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg.<!-- --> <code>VPERMIL2PS</code>)
+	 * 4-bit immediate (m2z field, low 4 bits of the /is5 immediate, eg.<!-- --> {@code VPERMIL2PS})
 	 */
 	public static final int IMM4_M2Z = 81;
 	/**
@@ -381,19 +381,19 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int IMM64 = 90;
 	/**
-	 * <code>seg:[rSI]</code> memory operand (string instructions)
+	 * {@code seg:[rSI]} memory operand (string instructions)
 	 */
 	public static final int SEG_RSI = 91;
 	/**
-	 * <code>es:[rDI]</code> memory operand (string instructions)
+	 * {@code es:[rDI]} memory operand (string instructions)
 	 */
 	public static final int ES_RDI = 92;
 	/**
-	 * <code>seg:[rDI]</code> memory operand (<code>(V)MASKMOVQ</code> instructions)
+	 * {@code seg:[rDI]} memory operand ({@code (V)MASKMOVQ} instructions)
 	 */
 	public static final int SEG_RDI = 93;
 	/**
-	 * <code>seg:[rBX+al]</code> memory operand (<code>XLATB</code> instruction)
+	 * {@code seg:[rBX+al]} memory operand ({@code XLATB} instruction)
 	 */
 	public static final int SEG_RBX_AL = 94;
 	/**
@@ -421,19 +421,19 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int BR64_4 = 100;
 	/**
-	 * <code>XBEGIN</code>, 2-byte signed relative offset
+	 * {@code XBEGIN}, 2-byte signed relative offset
 	 */
 	public static final int XBEGIN_2 = 101;
 	/**
-	 * <code>XBEGIN</code>, 4-byte signed relative offset
+	 * {@code XBEGIN}, 4-byte signed relative offset
 	 */
 	public static final int XBEGIN_4 = 102;
 	/**
-	 * 2-byte branch offset (<code>JMPE</code> instruction)
+	 * 2-byte branch offset ({@code JMPE} instruction)
 	 */
 	public static final int BRDISP_2 = 103;
 	/**
-	 * 4-byte branch offset (<code>JMPE</code> instruction)
+	 * 4-byte branch offset ({@code JMPE} instruction)
 	 */
 	public static final int BRDISP_4 = 104;
 	/**
@@ -441,15 +441,15 @@ public final class OpCodeOperandKind {
 	 */
 	public static final int SIBMEM = 105;
 	/**
-	 * <code>TMM</code> register encoded in the <code>reg</code> field of the modrm byte
+	 * {@code TMM} register encoded in the {@code reg} field of the modrm byte
 	 */
 	public static final int TMM_REG = 106;
 	/**
-	 * <code>TMM</code> register encoded in the <code>mod + r/m</code> fields of the modrm byte
+	 * {@code TMM} register encoded in the {@code mod + r/m} fields of the modrm byte
 	 */
 	public static final int TMM_RM = 107;
 	/**
-	 * <code>TMM</code> register encoded in the the <code>V'vvvv</code> field (VEX/EVEX/XOP)
+	 * {@code TMM} register encoded in the the {@code V'vvvv} field (VEX/EVEX/XOP)
 	 */
 	public static final int TMM_VVVV = 108;
 }

@@ -6,7 +6,7 @@
 package com.github.icedland.iced.x86;
 
 /**
- * <code>CPUID</code> feature flags
+ * {@code CPUID} feature flags
  */
 public final class CpuidFeature {
 	private CpuidFeature() {
@@ -41,7 +41,7 @@ public final class CpuidFeature {
 	 */
 	public static final int INTEL386_ONLY = 6;
 	/**
-	 * 80386 A0-B0 stepping only (<code>XBTS</code>, <code>IBTS</code> instructions)
+	 * 80386 A0-B0 stepping only ({@code XBTS}, {@code IBTS} instructions)
 	 */
 	public static final int INTEL386_A0_ONLY = 7;
 	/**
@@ -49,7 +49,7 @@ public final class CpuidFeature {
 	 */
 	public static final int INTEL486 = 8;
 	/**
-	 * Intel486 A stepping only (<code>CMPXCHG</code>)
+	 * Intel486 A stepping only ({@code CMPXCHG})
 	 */
 	public static final int INTEL486_A_ONLY = 9;
 	/**
@@ -165,7 +165,7 @@ public final class CpuidFeature {
 	 */
 	public static final int CET_SS = 37;
 	/**
-	 * <code>CL1INVMB</code> instruction (Intel SCC = Single-Chip Computer)
+	 * {@code CL1INVMB} instruction (Intel SCC = Single-Chip Computer)
 	 */
 	public static final int CL1INVMB = 38;
 	/**
@@ -197,7 +197,7 @@ public final class CpuidFeature {
 	 */
 	public static final int CMPXCHG16B = 45;
 	/**
-	 * <code>RFLAGS.ID</code> can be toggled
+	 * {@code RFLAGS.ID} can be toggled
 	 */
 	public static final int CPUID = 46;
 	/**
@@ -333,7 +333,7 @@ public final class CpuidFeature {
 	 */
 	public static final int MSR = 79;
 	/**
-	 * Multi-byte nops (<code>0F1F /0</code>): CPUID.<!-- -->01H.<!-- -->EAX[Bits 11:8] = 0110B or 1111B
+	 * Multi-byte nops ({@code 0F1F /0}): CPUID.<!-- -->01H.<!-- -->EAX[Bits 11:8] = 0110B or 1111B
 	 */
 	public static final int MULTIBYTENOP = 80;
 	/**
@@ -353,7 +353,7 @@ public final class CpuidFeature {
 	 */
 	public static final int PADLOCK_RNG = 84;
 	/**
-	 * <code>PAUSE</code> instruction (Pentium 4 or later)
+	 * {@code PAUSE} instruction (Pentium 4 or later)
 	 */
 	public static final int PAUSE = 85;
 	/**
@@ -393,7 +393,7 @@ public final class CpuidFeature {
 	 */
 	public static final int RDPID = 94;
 	/**
-	 * <code>RDPMC</code> instruction (Pentium MMX or later, or Pentium Pro or later)
+	 * {@code RDPMC} instruction (Pentium MMX or later, or Pentium Pro or later)
 	 */
 	public static final int RDPMC = 95;
 	/**
@@ -565,23 +565,23 @@ public final class CpuidFeature {
 	 */
 	public static final int CYRIX_FPU = 137;
 	/**
-	 * Cyrix SMM instructions: <code>SVDC</code>, <code>RSDC</code>, <code>SVLDT</code>, <code>RSLDT</code>, <code>SVTS</code>, <code>RSTS</code> (Cyrix, AMD Geode GX/LX)
+	 * Cyrix SMM instructions: {@code SVDC}, {@code RSDC}, {@code SVLDT}, {@code RSLDT}, {@code SVTS}, {@code RSTS} (Cyrix, AMD Geode GX/LX)
 	 */
 	public static final int CYRIX_SMM = 138;
 	/**
-	 * Cyrix <code>SMINT 0F38</code> (6x86MX and later, AMD Geode GX/LX)
+	 * Cyrix {@code SMINT 0F38} (6x86MX and later, AMD Geode GX/LX)
 	 */
 	public static final int CYRIX_SMINT = 139;
 	/**
-	 * Cyrix <code>SMINT 0F7E</code> (6x86 or earlier)
+	 * Cyrix {@code SMINT 0F7E} (6x86 or earlier)
 	 */
 	public static final int CYRIX_SMINT_0F7E = 140;
 	/**
-	 * Cyrix SMM instructions: <code>RDSHR</code>, <code>WRSHR</code> (6x86MX, M II, Cyrix III)
+	 * Cyrix SMM instructions: {@code RDSHR}, {@code WRSHR} (6x86MX, M II, Cyrix III)
 	 */
 	public static final int CYRIX_SHR = 141;
 	/**
-	 * Cyrix DDI instructions: <code>BB0_Reset</code>, <code>BB1_Reset</code>, <code>CPU_READ</code>, <code>CPU_WRITE</code> (MediaGX, GXm, GXLV, GX1)
+	 * Cyrix DDI instructions: {@code BB0_Reset}, {@code BB1_Reset}, {@code CPU_READ}, {@code CPU_WRITE} (MediaGX, GXm, GXLV, GX1)
 	 */
 	public static final int CYRIX_DDI = 142;
 	/**
@@ -589,7 +589,7 @@ public final class CpuidFeature {
 	 */
 	public static final int CYRIX_EMMI = 143;
 	/**
-	 * Cyrix DMI instructions: <code>DMINT</code>, <code>RDM</code> (AMD Geode GX/LX)
+	 * Cyrix DMI instructions: {@code DMINT}, {@code RDM} (AMD Geode GX/LX)
 	 */
 	public static final int CYRIX_DMI = 144;
 	/**
@@ -601,7 +601,7 @@ public final class CpuidFeature {
 	 */
 	public static final int MOV_TR = 146;
 	/**
-	 * <code>RSM</code> instruction (some 386s, some 486s, Pentium and later)
+	 * {@code RSM} instruction (some 386s, some 486s, Pentium and later)
 	 */
 	public static final int SMM = 147;
 	/**
@@ -649,7 +649,7 @@ public final class CpuidFeature {
 	 */
 	public static final int AVX512_FP16 = 158;
 	/**
-	 * Undocumented Intel <code>RDUDBG</code> and <code>WRUDBG</code> instructions
+	 * Undocumented Intel {@code RDUDBG} and {@code WRUDBG} instructions
 	 */
 	public static final int UDBG = 159;
 	/**

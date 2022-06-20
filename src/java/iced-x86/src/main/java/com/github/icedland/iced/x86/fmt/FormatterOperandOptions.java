@@ -18,14 +18,14 @@ public final class FormatterOperandOptions {
 	}
 
 	/**
-	 * Show branch size (eg.<!-- --> <code>SHORT</code>, <code>NEAR PTR</code>)
+	 * Show branch size (eg.<!-- --> {@code SHORT}, {@code NEAR PTR})
 	 */
 	public boolean getBranchSize() {
 		return (flags & Flags.NO_BRANCH_SIZE) == 0;
 	}
 
 	/**
-	 * Show branch size (eg.<!-- --> <code>SHORT</code>, <code>NEAR PTR</code>)
+	 * Show branch size (eg.<!-- --> {@code SHORT}, {@code NEAR PTR})
 	 */
 	public void setBranchSize(boolean value) {
 		if (value)
@@ -35,16 +35,16 @@ public final class FormatterOperandOptions {
 	}
 
 	/**
-	 * If <code>true</code>, show <code>RIP</code> relative addresses as <code>[rip+12345678h]</code>, else show the linear address eg.<!-- -->
-	 * <code>[1029384756AFBECDh]</code>
+	 * If {@code true}, show {@code RIP} relative addresses as {@code [rip+12345678h]}, else show the linear address eg.<!-- -->
+	 * {@code [1029384756AFBECDh]}
 	 */
 	public boolean getRipRelativeAddresses() {
 		return (flags & Flags.RIP_RELATIVE_ADDRESSES) != 0;
 	}
 
 	/**
-	 * If <code>true</code>, show <code>RIP</code> relative addresses as <code>[rip+12345678h]</code>, else show the linear address eg.<!-- -->
-	 * <code>[1029384756AFBECDh]</code>
+	 * If {@code true}, show {@code RIP} relative addresses as {@code [rip+12345678h]}, else show the linear address eg.<!-- -->
+	 * {@code [1029384756AFBECDh]}
 	 */
 	public void setRipRelativeAddresses(boolean value) {
 		if (value)

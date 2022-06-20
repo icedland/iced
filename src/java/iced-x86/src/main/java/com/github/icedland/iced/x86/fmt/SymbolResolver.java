@@ -11,13 +11,13 @@ import com.github.icedland.iced.x86.Instruction;
 @FunctionalInterface
 public interface SymbolResolver {
 	/**
-	 * Tries to resolve a symbol. Returns <code>null</code> if there's no symbol.
+	 * Tries to resolve a symbol. Returns {@code null} if there's no symbol.
 	 *
 	 * @param instruction        Instruction
 	 * @param operand            Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand.
 	 * @param instructionOperand Instruction operand number, 0-based, or -1 if it's an operand created by the formatter.
 	 * @param address            Address
-	 * @param addressSize        Size of <code>address</code> in bytes (eg. 1, 2, 4 or 8)
+	 * @param addressSize        Size of {@code address} in bytes (eg. 1, 2, 4 or 8)
 	 */
 	SymbolResult getSymbol(Instruction instruction, int operand, int instructionOperand, long address, int addressSize);
 }

@@ -82,7 +82,7 @@ public final class UsedMemory {
 	}
 
 	/**
-	 * VSIB size (<code>0</code>, <code>4</code> or <code>8</code>)
+	 * VSIB size ({@code 0}, {@code 4} or {@code 8})
 	 */
 	public int getVsibSize() {
 		return vsibSize;
@@ -125,7 +125,7 @@ public final class UsedMemory {
 	 *
 	 * @param elementIndex     Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	 * @param getRegisterValue Returns values of registers and segment base addresses
-	 * @return <code>null</code> if it failed to read all registers, else the calculated virtual address
+	 * @return {@code null} if it failed to read all registers, else the calculated virtual address
 	 */
 	public Long getVirtualAddress(int elementIndex, VAGetRegisterValue getRegisterValue) {
 		if (getRegisterValue == null)

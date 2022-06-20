@@ -41,7 +41,7 @@ public final class OpAccess {
 	 */
 	public static final int READ_COND_WRITE = 6;
 	/**
-	 * The memory operand doesn't refer to memory (eg.<!-- --> <code>LEA</code> instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg.<!-- --> <code>INVLPG</code>, <code>PREFETCHNTA</code>, <code>VGATHERPF0DPS</code>, etc.<!-- --> Some of those instructions still check if the code can access the memory location.<!-- -->
+	 * The memory operand doesn't refer to memory (eg.<!-- --> {@code LEA} instruction) or it's an instruction that doesn't read the data to a register or doesn't write to the memory location, it just prefetches/invalidates it, eg.<!-- --> {@code INVLPG}, {@code PREFETCHNTA}, {@code VGATHERPF0DPS}, etc.<!-- --> Some of those instructions still check if the code can access the memory location.<!-- -->
 	 */
 	public static final int NO_MEM_ACCESS = 7;
 }

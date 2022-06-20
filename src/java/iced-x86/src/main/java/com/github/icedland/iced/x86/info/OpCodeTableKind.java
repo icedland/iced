@@ -13,39 +13,39 @@ public final class OpCodeTableKind {
 	}
 
 	/**
-	 * Legacy/<code>MAP0</code> table
+	 * Legacy/{@code MAP0} table
 	 */
 	public static final int NORMAL = 0;
 	/**
-	 * <code>0F</code>/<code>MAP1</code> table (legacy, VEX, EVEX, MVEX)
+	 * {@code 0F}/{@code MAP1} table (legacy, VEX, EVEX, MVEX)
 	 */
 	public static final int T0F = 1;
 	/**
-	 * <code>0F38</code>/<code>MAP2</code> table (legacy, VEX, EVEX, MVEX)
+	 * {@code 0F38}/{@code MAP2} table (legacy, VEX, EVEX, MVEX)
 	 */
 	public static final int T0F38 = 2;
 	/**
-	 * <code>0F3A</code>/<code>MAP3</code> table (legacy, VEX, EVEX, MVEX)
+	 * {@code 0F3A}/{@code MAP3} table (legacy, VEX, EVEX, MVEX)
 	 */
 	public static final int T0F3A = 3;
 	/**
-	 * <code>MAP5</code> table (EVEX)
+	 * {@code MAP5} table (EVEX)
 	 */
 	public static final int MAP5 = 4;
 	/**
-	 * <code>MAP6</code> table (EVEX)
+	 * {@code MAP6} table (EVEX)
 	 */
 	public static final int MAP6 = 5;
 	/**
-	 * <code>MAP8</code> table (XOP)
+	 * {@code MAP8} table (XOP)
 	 */
 	public static final int MAP8 = 6;
 	/**
-	 * <code>MAP9</code> table (XOP)
+	 * {@code MAP9} table (XOP)
 	 */
 	public static final int MAP9 = 7;
 	/**
-	 * <code>MAP10</code> table (XOP)
+	 * {@code MAP10} table (XOP)
 	 */
 	public static final int MAP10 = 8;
 }

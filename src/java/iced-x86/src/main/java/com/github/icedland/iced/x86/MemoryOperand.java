@@ -8,17 +8,17 @@ package com.github.icedland.iced.x86;
  */
 public final class MemoryOperand {
 	/**
-	 * Segment override or <code>null</code>
+	 * Segment override or {@code null}
 	 */
 	public final ICRegister segmentPrefix;
 
 	/**
-	 * Base register or <code>null</code>
+	 * Base register or {@code null}
 	 */
 	public final ICRegister base;
 
 	/**
-	 * Index register or <code>null</code>
+	 * Index register or {@code null}
 	 */
 	public final ICRegister index;
 
@@ -33,26 +33,26 @@ public final class MemoryOperand {
 	public final long displacement;
 
 	/**
-	 * 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
+	 * 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 	 */
 	public final int displSize;
 
 	/**
-	 * <code>true</code> if it's broadcast memory (EVEX instructions)
+	 * {@code true} if it's broadcast memory (EVEX instructions)
 	 */
 	public final boolean isBroadcast;
 
 	/**
 	 * Constructor
 	 *
-	 * @param base          Base register or <code>null</code>
-	 * @param index         Index register or <code>null</code>
+	 * @param base          Base register or {@code null}
+	 * @param index         Index register or {@code null}
 	 * @param scale         Index register scale (1, 2, 4, or 8)
 	 * @param displacement  Memory displacement
-	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                      (64-bit)
-	 * @param isBroadcast   <code>true</code> if it's broadcast memory (EVEX instructions)
-	 * @param segmentPrefix Segment override or <code>null</code>
+	 * @param isBroadcast   {@code true} if it's broadcast memory (EVEX instructions)
+	 * @param segmentPrefix Segment override or {@code null}
 	 */
 	public MemoryOperand(ICRegister base, ICRegister index, int scale, long displacement, int displSize, boolean isBroadcast,
 			ICRegister segmentPrefix) {
@@ -74,11 +74,11 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base          Base register or <code>null</code>
-	 * @param index         Index register or <code>null</code>
+	 * @param base          Base register or {@code null}
+	 * @param index         Index register or {@code null}
 	 * @param scale         Index register scale (1, 2, 4, or 8)
-	 * @param isBroadcast   <code>true</code> if it's broadcast memory (EVEX instructions)
-	 * @param segmentPrefix Segment override or <code>null</code>
+	 * @param isBroadcast   {@code true} if it's broadcast memory (EVEX instructions)
+	 * @param segmentPrefix Segment override or {@code null}
 	 */
 	public MemoryOperand(ICRegister base, ICRegister index, int scale, boolean isBroadcast, ICRegister segmentPrefix) {
 		if (base == null)
@@ -99,12 +99,12 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base          Base register or <code>null</code>
+	 * @param base          Base register or {@code null}
 	 * @param displacement  Memory displacement
-	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                      (64-bit)
-	 * @param isBroadcast   <code>true</code> if it's broadcast memory (EVEX instructions)
-	 * @param segmentPrefix Segment override or <code>null</code>
+	 * @param isBroadcast   {@code true} if it's broadcast memory (EVEX instructions)
+	 * @param segmentPrefix Segment override or {@code null}
 	 */
 	public MemoryOperand(ICRegister base, long displacement, int displSize, boolean isBroadcast, ICRegister segmentPrefix) {
 		if (base == null)
@@ -123,13 +123,13 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param index         Index register or <code>null</code>
+	 * @param index         Index register or {@code null}
 	 * @param scale         Index register scale (1, 2, 4, or 8)
 	 * @param displacement  Memory displacement
-	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize     0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                      (64-bit)
-	 * @param isBroadcast   <code>true</code> if it's broadcast memory (EVEX instructions)
-	 * @param segmentPrefix Segment override or <code>null</code>
+	 * @param isBroadcast   {@code true} if it's broadcast memory (EVEX instructions)
+	 * @param segmentPrefix Segment override or {@code null}
 	 */
 	public MemoryOperand(ICRegister index, int scale, long displacement, int displSize, boolean isBroadcast, ICRegister segmentPrefix) {
 		if (index == null)
@@ -148,10 +148,10 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base          Base register or <code>null</code>
+	 * @param base          Base register or {@code null}
 	 * @param displacement  Memory displacement
-	 * @param isBroadcast   <code>true</code> if it's broadcast memory (EVEX instructions)
-	 * @param segmentPrefix Segment override or <code>null</code>
+	 * @param isBroadcast   {@code true} if it's broadcast memory (EVEX instructions)
+	 * @param segmentPrefix Segment override or {@code null}
 	 */
 	public MemoryOperand(ICRegister base, long displacement, boolean isBroadcast, ICRegister segmentPrefix) {
 		if (base == null)
@@ -170,11 +170,11 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base         Base register or <code>null</code>
-	 * @param index        Index register or <code>null</code>
+	 * @param base         Base register or {@code null}
+	 * @param index        Index register or {@code null}
 	 * @param scale        Index register scale (1, 2, 4, or 8)
 	 * @param displacement Memory displacement
-	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                     (64-bit)
 	 */
 	public MemoryOperand(ICRegister base, ICRegister index, int scale, long displacement, int displSize) {
@@ -194,8 +194,8 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base  Base register or <code>null</code>
-	 * @param index Index register or <code>null</code>
+	 * @param base  Base register or {@code null}
+	 * @param index Index register or {@code null}
 	 * @param scale Index register scale (1, 2, 4, or 8)
 	 */
 	public MemoryOperand(ICRegister base, ICRegister index, int scale) {
@@ -215,8 +215,8 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base  Base register or <code>null</code>
-	 * @param index Index register or <code>null</code>
+	 * @param base  Base register or {@code null}
+	 * @param index Index register or {@code null}
 	 */
 	public MemoryOperand(ICRegister base, ICRegister index) {
 		if (base == null)
@@ -235,9 +235,9 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base         Base register or <code>null</code>
+	 * @param base         Base register or {@code null}
 	 * @param displacement Memory displacement
-	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                     (64-bit)
 	 */
 	public MemoryOperand(ICRegister base, long displacement, int displSize) {
@@ -255,10 +255,10 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param index        Index register or <code>null</code>
+	 * @param index        Index register or {@code null}
 	 * @param scale        Index register scale (1, 2, 4, or 8)
 	 * @param displacement Memory displacement
-	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                     (64-bit)
 	 */
 	public MemoryOperand(ICRegister index, int scale, long displacement, int displSize) {
@@ -276,7 +276,7 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base         Base register or <code>null</code>
+	 * @param base         Base register or {@code null}
 	 * @param displacement Memory displacement
 	 */
 	public MemoryOperand(ICRegister base, long displacement) {
@@ -294,7 +294,7 @@ public final class MemoryOperand {
 	/**
 	 * Constructor
 	 *
-	 * @param base Base register or <code>null</code>
+	 * @param base Base register or {@code null}
 	 */
 	public MemoryOperand(ICRegister base) {
 		if (base == null)
@@ -312,7 +312,7 @@ public final class MemoryOperand {
 	 * Constructor
 	 *
 	 * @param displacement Memory displacement
-	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a <code>byte</code>), 2 (16-bit), 4 (32-bit) or 8
+	 * @param displSize    0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a {@code byte}), 2 (16-bit), 4 (32-bit) or 8
 	 *                     (64-bit)
 	 */
 	public MemoryOperand(long displacement, int displSize) {

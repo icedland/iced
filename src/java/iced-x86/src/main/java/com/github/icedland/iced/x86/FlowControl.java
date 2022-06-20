@@ -17,39 +17,39 @@ public final class FlowControl {
 	 */
 	public static final int NEXT = 0;
 	/**
-	 * It's an unconditional branch instruction: <code>JMP NEAR</code>, <code>JMP FAR</code>
+	 * It's an unconditional branch instruction: {@code JMP NEAR}, {@code JMP FAR}
 	 */
 	public static final int UNCONDITIONAL_BRANCH = 1;
 	/**
-	 * It's an unconditional indirect branch: <code>JMP NEAR reg</code>, <code>JMP NEAR [mem]</code>, <code>JMP FAR [mem]</code>
+	 * It's an unconditional indirect branch: {@code JMP NEAR reg}, {@code JMP NEAR [mem]}, {@code JMP FAR [mem]}
 	 */
 	public static final int INDIRECT_BRANCH = 2;
 	/**
-	 * It's a conditional branch instruction: <code>Jcc SHORT</code>, <code>Jcc NEAR</code>, <code>LOOP</code>, <code>LOOPcc</code>, <code>JRCXZ</code>, <code>JKccD SHORT</code>, <code>JKccD NEAR</code>
+	 * It's a conditional branch instruction: {@code Jcc SHORT}, {@code Jcc NEAR}, {@code LOOP}, {@code LOOPcc}, {@code JRCXZ}, {@code JKccD SHORT}, {@code JKccD NEAR}
 	 */
 	public static final int CONDITIONAL_BRANCH = 3;
 	/**
-	 * It's a return instruction: <code>RET NEAR</code>, <code>RET FAR</code>, <code>IRET</code>, <code>SYSRET</code>, <code>SYSEXIT</code>, <code>RSM</code>, <code>SKINIT</code>, <code>RDM</code>, <code>UIRET</code>
+	 * It's a return instruction: {@code RET NEAR}, {@code RET FAR}, {@code IRET}, {@code SYSRET}, {@code SYSEXIT}, {@code RSM}, {@code SKINIT}, {@code RDM}, {@code UIRET}
 	 */
 	public static final int RETURN = 4;
 	/**
-	 * It's a call instruction: <code>CALL NEAR</code>, <code>CALL FAR</code>, <code>SYSCALL</code>, <code>SYSENTER</code>, <code>VMLAUNCH</code>, <code>VMRESUME</code>, <code>VMCALL</code>, <code>VMMCALL</code>, <code>VMGEXIT</code>, <code>VMRUN</code>, <code>TDCALL</code>, <code>SEAMCALL</code>, <code>SEAMRET</code>
+	 * It's a call instruction: {@code CALL NEAR}, {@code CALL FAR}, {@code SYSCALL}, {@code SYSENTER}, {@code VMLAUNCH}, {@code VMRESUME}, {@code VMCALL}, {@code VMMCALL}, {@code VMGEXIT}, {@code VMRUN}, {@code TDCALL}, {@code SEAMCALL}, {@code SEAMRET}
 	 */
 	public static final int CALL = 5;
 	/**
-	 * It's an indirect call instruction: <code>CALL NEAR reg</code>, <code>CALL NEAR [mem]</code>, <code>CALL FAR [mem]</code>
+	 * It's an indirect call instruction: {@code CALL NEAR reg}, {@code CALL NEAR [mem]}, {@code CALL FAR [mem]}
 	 */
 	public static final int INDIRECT_CALL = 6;
 	/**
-	 * It's an interrupt instruction: <code>INT n</code>, <code>INT3</code>, <code>INT1</code>, <code>INTO</code>, <code>SMINT</code>, <code>DMINT</code>
+	 * It's an interrupt instruction: {@code INT n}, {@code INT3}, {@code INT1}, {@code INTO}, {@code SMINT}, {@code DMINT}
 	 */
 	public static final int INTERRUPT = 7;
 	/**
-	 * It's <code>XBEGIN</code>
+	 * It's {@code XBEGIN}
 	 */
 	public static final int XBEGIN_XABORT_XEND = 8;
 	/**
-	 * It's an invalid instruction, eg.<!-- --> {@link com.github.icedland.iced.x86.Code#INVALID}, <code>UD0</code>, <code>UD1</code>, <code>UD2</code>
+	 * It's an invalid instruction, eg.<!-- --> {@link com.github.icedland.iced.x86.Code#INVALID}, {@code UD0}, {@code UD1}, {@code UD2}
 	 */
 	public static final int EXCEPTION = 9;
 }

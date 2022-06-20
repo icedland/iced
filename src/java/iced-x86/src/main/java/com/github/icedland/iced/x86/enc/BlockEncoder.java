@@ -126,7 +126,7 @@ public final class BlockEncoder {
 	 * If the target of a branch is too far away, it'll be rewritten to a longer branch.
 	 * You can disable this by passing in {@link BlockEncoderOptions#DONT_FIX_BRANCHES}.
 	 * <p>
-	 * If the block has any <code>RIP</code>-relative memory operands, make sure the data isn't too
+	 * If the block has any {@code RIP}-relative memory operands, make sure the data isn't too
 	 * far away from the new location of the encoded instructions. Every OS should have
 	 * some API to allocate memory close (+/-2GB) to the original code location.
 	 *
@@ -146,7 +146,7 @@ public final class BlockEncoder {
 	 * If the target of a branch is too far away, it'll be rewritten to a longer branch.
 	 * You can disable this by passing in {@link BlockEncoderOptions#DONT_FIX_BRANCHES}.
 	 * <p>
-	 * If the block has any <code>RIP</code>-relative memory operands, make sure the data isn't too
+	 * If the block has any {@code RIP}-relative memory operands, make sure the data isn't too
 	 * far away from the new location of the encoded instructions. Every OS should have
 	 * some API to allocate memory close (+/-2GB) to the original code location.
 	 *
@@ -175,7 +175,7 @@ public final class BlockEncoder {
 	 * If the target of a branch is too far away, it'll be rewritten to a longer branch.
 	 * You can disable this by passing in {@link BlockEncoderOptions#DONT_FIX_BRANCHES}.
 	 * <p>
-	 * If the block has any <code>RIP</code>-relative memory operands, make sure the data isn't too
+	 * If the block has any {@code RIP}-relative memory operands, make sure the data isn't too
 	 * far away from the new location of the encoded instructions. Every OS should have
 	 * some API to allocate memory close (+/-2GB) to the original code location.
 	 *
@@ -196,7 +196,7 @@ public final class BlockEncoder {
 	 * If the target of a branch is too far away, it'll be rewritten to a longer branch.
 	 * You can disable this by passing in {@link BlockEncoderOptions#DONT_FIX_BRANCHES}.
 	 * <p>
-	 * If the block has any <code>RIP</code>-relative memory operands, make sure the data isn't too
+	 * If the block has any {@code RIP}-relative memory operands, make sure the data isn't too
 	 * far away from the new location of the encoded instructions. Every OS should have
 	 * some API to allocate memory close (+/-2GB) to the original code location.
 	 *

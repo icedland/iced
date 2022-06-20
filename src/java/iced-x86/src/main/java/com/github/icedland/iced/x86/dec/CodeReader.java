@@ -8,7 +8,7 @@ package com.github.icedland.iced.x86.dec;
  */
 public abstract class CodeReader {
 	/**
-	 * Reads the next byte (<code>0x00-0xFF</code>) or returns less than 0 if there are no more bytes
+	 * Reads the next byte ({@code 0x00-0xFF}) or returns less than 0 if there are no more bytes
 	 */
 	public abstract int readByte();
 }

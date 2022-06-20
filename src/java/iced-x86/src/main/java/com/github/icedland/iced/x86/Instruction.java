@@ -23,7 +23,7 @@ import com.github.icedland.iced.x86.internal.info.RflagsInfoConstants;
 /**
  * A 16/32/64-bit instruction.
  *
- * Created by {@link com.github.icedland.iced.x86.dec.Decoder} or by <code>Instruction.create()</code> methods.
+ * Created by {@link com.github.icedland.iced.x86.dec.Decoder} or by {@code Instruction.create()} methods.
  */
 public final class Instruction {
 	long nextRip;
@@ -99,7 +99,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the hash code of this instance, ignoring some fields, eg.<!-- --> <code>IP</code>, <code>len</code> and a few unimportant fields
+	 * Gets the hash code of this instance, ignoring some fields, eg.<!-- --> {@code IP}, {@code len} and a few unimportant fields
 	 */
 	@Override
 	public int hashCode() {
@@ -126,7 +126,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Checks if <code>this</code> is equal to <code>obj</code>, ignoring some fields, eg.<!-- --> <code>IP</code>, <code>len</code> and a few
+	 * Checks if {@code this} is equal to {@code obj}, ignoring some fields, eg.<!-- --> {@code IP}, {@code len} and a few
 	 * unimportant fields
 	 *
 	 * @see #equalsAllBits(Instruction)
@@ -396,14 +396,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>XACQUIRE</code> prefix (<code>F2</code>)
+	 * {@code true} if the instruction has the {@code XACQUIRE} prefix ({@code F2})
 	 */
 	public boolean getXacquirePrefix() {
 		return (flags1 & InstrFlags1.REPNE_PREFIX) != 0 && isXacquireInstr();
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>XACQUIRE</code> prefix (<code>F2</code>)
+	 * {@code true} if the instruction has the {@code XACQUIRE} prefix ({@code F2})
 	 */
 	public void setXacquirePrefix(boolean value) {
 		if (value)
@@ -413,14 +413,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>XRELEASE</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code XRELEASE} prefix ({@code F3})
 	 */
 	public boolean getXreleasePrefix() {
 		return (flags1 & InstrFlags1.REPE_PREFIX) != 0 && isXreleaseInstr();
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>XRELEASE</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code XRELEASE} prefix ({@code F3})
 	 */
 	public void setXreleasePrefix(boolean value) {
 		if (value)
@@ -430,14 +430,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code REPE} or {@code REP} prefix ({@code F3})
 	 */
 	public boolean getRepPrefix() {
 		return (flags1 & InstrFlags1.REPE_PREFIX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code REPE} or {@code REP} prefix ({@code F3})
 	 */
 	public void setRepPrefix(boolean value) {
 		if (value)
@@ -447,14 +447,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code REPE} or {@code REP} prefix ({@code F3})
 	 */
 	public boolean getRepePrefix() {
 		return (flags1 & InstrFlags1.REPE_PREFIX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPE</code> or <code>REP</code> prefix (<code>F3</code>)
+	 * {@code true} if the instruction has the {@code REPE} or {@code REP} prefix ({@code F3})
 	 */
 	public void setRepePrefix(boolean value) {
 		if (value)
@@ -464,14 +464,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPNE</code> prefix (<code>F2</code>)
+	 * {@code true} if the instruction has the {@code REPNE} prefix ({@code F2})
 	 */
 	public boolean getRepnePrefix() {
 		return (flags1 & InstrFlags1.REPNE_PREFIX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>REPNE</code> prefix (<code>F2</code>)
+	 * {@code true} if the instruction has the {@code REPNE} prefix ({@code F2})
 	 */
 	public void setRepnePrefix(boolean value) {
 		if (value)
@@ -481,14 +481,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>LOCK</code> prefix (<code>F0</code>)
+	 * {@code true} if the instruction has the {@code LOCK} prefix ({@code F0})
 	 */
 	public boolean getLockPrefix() {
 		return (flags1 & InstrFlags1.LOCK_PREFIX) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the instruction has the <code>LOCK</code> prefix (<code>F0</code>)
+	 * {@code true} if the instruction has the {@code LOCK} prefix ({@code F0})
 	 */
 	public void setLockPrefix(boolean value) {
 		if (value)
@@ -722,8 +722,8 @@ public final class Instruction {
 	/**
 	 * Gets the size of the memory displacement in bytes.
 	 *
-	 * Valid values are <code>0</code>, <code>1</code> (16/32/64-bit), <code>2</code> (16-bit),
-	 * <code>4</code> (32-bit), <code>8</code> (64-bit).
+	 * Valid values are {@code 0}, {@code 1} (16/32/64-bit), {@code 2} (16-bit),
+	 * {@code 4} (32-bit), {@code 8} (64-bit).
 	 *
 	 * Note that the return value can be 1 and {@link #getMemoryDisplacement64()} may still not fit in
 	 * a signed byte if it's an EVEX/MVEX encoded instruction.
@@ -748,8 +748,8 @@ public final class Instruction {
 	/**
 	 * Gets the size of the memory displacement in bytes.
 	 *
-	 * Valid values are <code>0</code>, <code>1</code> (16/32/64-bit), <code>2</code> (16-bit),
-	 * <code>4</code> (32-bit), <code>8</code> (64-bit).
+	 * Valid values are {@code 0}, {@code 1} (16/32/64-bit), {@code 2} (16-bit),
+	 * {@code 4} (32-bit), {@code 8} (64-bit).
 	 *
 	 * Note that the return value can be 1 and {@link #getMemoryDisplacement64()} may still not fit in
 	 * a signed byte if it's an EVEX/MVEX encoded instruction.
@@ -777,14 +777,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if the data is broadcast (EVEX instructions only)
+	 * {@code true} if the data is broadcast (EVEX instructions only)
 	 */
 	public boolean getBroadcast() {
 		return (flags1 & InstrFlags1.BROADCAST) != 0;
 	}
 
 	/**
-	 * <code>true</code> if the data is broadcast (EVEX instructions only)
+	 * {@code true} if the data is broadcast (EVEX instructions only)
 	 */
 	public void setBroadcast(boolean value) {
 		if (value)
@@ -794,14 +794,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if eviction hint bit is set (<code>{eh}</code>) (MVEX instructions only)
+	 * {@code true} if eviction hint bit is set ({@code {eh}}) (MVEX instructions only)
 	 */
 	public boolean getMvexEvictionHint() {
 		return MvexInfo.isMvex(getCode()) && (immediate & MvexInstrFlags.EVICTION_HINT) != 0;
 	}
 
 	/**
-	 * <code>true</code> if eviction hint bit is set (<code>{eh}</code>) (MVEX instructions only)
+	 * {@code true} if eviction hint bit is set ({@code {eh}}) (MVEX instructions only)
 	 */
 	public void setMvexEvictionHint(boolean value) {
 		if (value)
@@ -849,7 +849,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the index register scale value, valid values are <code>*1</code>, <code>*2</code>, <code>*4</code>, <code>*8</code>.
+	 * Gets the index register scale value, valid values are {@code *1}, {@code *2}, {@code *4}, {@code *8}.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 *
@@ -860,7 +860,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the index register scale value, valid values are <code>*1</code>, <code>*2</code>, <code>*4</code>, <code>*8</code>.
+	 * Gets the index register scale value, valid values are {@code *1}, {@code *2}, {@code *4}, {@code *8}.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
@@ -878,7 +878,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the index register scale value, valid values are <code>0-3</code>.
+	 * Gets the index register scale value, valid values are {@code 0-3}.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 *
@@ -890,7 +890,7 @@ public final class Instruction {
 
 	/**
 	 * Gets the memory operand's displacement or the 32-bit absolute address if it's
-	 * an <code>EIP</code> or <code>RIP</code> relative memory operand.
+	 * an {@code EIP} or {@code RIP} relative memory operand.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
@@ -900,7 +900,7 @@ public final class Instruction {
 
 	/**
 	 * Gets the memory operand's displacement or the 32-bit absolute address if it's
-	 * an <code>EIP</code> or <code>RIP</code> relative memory operand.
+	 * an {@code EIP} or {@code RIP} relative memory operand.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
@@ -910,7 +910,7 @@ public final class Instruction {
 
 	/**
 	 * Gets the memory operand's displacement or the 64-bit absolute address if it's
-	 * an <code>EIP</code> or <code>RIP</code> relative memory operand.
+	 * an {@code EIP} or {@code RIP} relative memory operand.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
@@ -920,7 +920,7 @@ public final class Instruction {
 
 	/**
 	 * Gets the memory operand's displacement or the 64-bit absolute address if it's
-	 * an <code>EIP</code> or <code>RIP</code> relative memory operand.
+	 * an {@code EIP} or {@code RIP} relative memory operand.
 	 *
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
@@ -1178,7 +1178,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the near branch target if it's a <code>CALL</code>/<code>JMP</code>/<code>Jcc</code> near branch instruction.
+	 * Gets the near branch target if it's a {@code CALL}/{@code JMP}/{@code Jcc} near branch instruction.
 	 *
 	 * (i.e., if {@link #getOp0Kind()} is {@link OpKind#NEAR_BRANCH16}, {@link OpKind#NEAR_BRANCH32} or {@link OpKind#NEAR_BRANCH64})
 	 */
@@ -1482,14 +1482,14 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if there's an opmask register ({@link #getOpMask()})
+	 * {@code true} if there's an opmask register ({@link #getOpMask()})
 	 */
 	public boolean hasOpMask() {
 		return (flags1 & (InstrFlags1.OP_MASK_MASK << InstrFlags1.OP_MASK_SHIFT)) != 0;
 	}
 
 	/**
-	 * <code>true</code> if zeroing-masking, <code>false</code> if merging-masking.
+	 * {@code true} if zeroing-masking, {@code false} if merging-masking.
 	 *
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
@@ -1498,7 +1498,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if zeroing-masking, <code>false</code> if merging-masking.
+	 * {@code true} if zeroing-masking, {@code false} if merging-masking.
 	 *
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
@@ -1510,7 +1510,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if merging-masking, <code>false</code> if zeroing-masking.
+	 * {@code true} if merging-masking, {@code false} if zeroing-masking.
 	 *
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
@@ -1519,7 +1519,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if merging-masking, <code>false</code> if zeroing-masking.
+	 * {@code true} if merging-masking, {@code false} if zeroing-masking.
 	 *
 	 * Only used by most EVEX encoded instructions that use opmask registers.
 	 */
@@ -1533,7 +1533,7 @@ public final class Instruction {
 	/**
 	 * Rounding control (a {@link RoundingControl} enum variant) or {@link RoundingControl#NONE} if the instruction doesn't use it.
 	 *
-	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns <code>false</code>.
+	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns {@code false}.
 	 */
 	public int getRoundingControl() {
 		return (flags1 >>> InstrFlags1.ROUNDING_CONTROL_SHIFT) & InstrFlags1.ROUNDING_CONTROL_MASK;
@@ -1542,7 +1542,7 @@ public final class Instruction {
 	/**
 	 * Rounding control (a {@link RoundingControl} enum variant) or {@link RoundingControl#NONE} if the instruction doesn't use it.
 	 *
-	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns <code>false</code>.
+	 * SAE is implied but {@link #getSuppressAllExceptions()} still returns {@code false}.
 	 */
 	public void setRoundingControl(int value) {
 		flags1 = (flags1 & ~(InstrFlags1.ROUNDING_CONTROL_MASK << InstrFlags1.ROUNDING_CONTROL_SHIFT))
@@ -1550,9 +1550,9 @@ public final class Instruction {
 	}
 
 	/**
-	 * Number of elements in a <code>db</code>/<code>dw</code>/<code>dd</code>/<code>dq</code> directive: <code>db</code>: 1-16; <code>dw</code>: 1-8;
-	 * <code>dd</code>:
-	 * 1-4; <code>dq</code>: 1-2.
+	 * Number of elements in a {@code db}/{@code dw}/{@code dd}/{@code dq} directive: {@code db}: 1-16; {@code dw}: 1-8;
+	 * {@code dd}:
+	 * 1-4; {@code dq}: 1-2.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREBYTE}, {@link Code#DECLAREWORD}, {@link Code#DECLAREDWORD},
 	 * {@link Code#DECLAREQWORD}
@@ -1562,9 +1562,9 @@ public final class Instruction {
 	}
 
 	/**
-	 * Number of elements in a <code>db</code>/<code>dw</code>/<code>dd</code>/<code>dq</code> directive: <code>db</code>: 1-16; <code>dw</code>: 1-8;
-	 * <code>dd</code>:
-	 * 1-4; <code>dq</code>: 1-2.
+	 * Number of elements in a {@code db}/{@code dw}/{@code dd}/{@code dq} directive: {@code db}: 1-16; {@code dw}: 1-8;
+	 * {@code dd}:
+	 * 1-4; {@code dq}: 1-2.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREBYTE}, {@link Code#DECLAREWORD}, {@link Code#DECLAREDWORD},
 	 * {@link Code#DECLAREQWORD}
@@ -1575,7 +1575,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Sets a new <code>db</code> value.
+	 * Sets a new {@code db} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREBYTE}
 	 *
@@ -1640,7 +1640,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets a <code>db</code> value.
+	 * Gets a {@code db} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREBYTE}
 	 *
@@ -1688,7 +1688,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Sets a new <code>dw</code> value.
+	 * Sets a new {@code dw} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREWORD}
 	 *
@@ -1731,7 +1731,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets a <code>dw</code> value.
+	 * Gets a {@code dw} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREWORD}
 	 *
@@ -1763,7 +1763,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Sets a new <code>dd</code> value.
+	 * Sets a new {@code dd} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREDWORD}
 	 *
@@ -1795,7 +1795,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets a <code>dd</code> value.
+	 * Gets a {@code dd} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREDWORD}
 	 *
@@ -1819,7 +1819,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Sets a new <code>dq</code> value.
+	 * Sets a new {@code dq} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREQWORD}
 	 *
@@ -1848,7 +1848,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets a <code>dq</code> value.
+	 * Gets a {@code dq} value.
 	 *
 	 * Can only be called if {@link #getCode()} is {@link Code#DECLAREQWORD}
 	 *
@@ -1880,7 +1880,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * VSIB instructions only ({@link #isVsib()}): <code>true</code> if it's using 32-bit indexes, <code>false</code> if it's using 64-bit indexes
+	 * VSIB instructions only ({@link #isVsib()}): {@code true} if it's using 32-bit indexes, {@code false} if it's using 64-bit indexes
 	 *
 	 * @see #getVsib()
 	 */
@@ -1889,7 +1889,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * VSIB instructions only ({@link #isVsib()}): <code>true</code> if it's using 64-bit indexes, <code>false</code> if it's using 32-bit indexes
+	 * VSIB instructions only ({@link #isVsib()}): {@code true} if it's using 64-bit indexes, {@code false} if it's using 32-bit indexes
 	 *
 	 * @see #getVsib()
 	 */
@@ -2022,7 +2022,7 @@ public final class Instruction {
 	 * Suppress all exceptions (EVEX/MVEX encoded instructions).
 	 *
 	 * Note that if {@link #getRoundingControl()} is not {@link RoundingControl#NONE},
-	 * SAE is implied but this property will still return <code>false</code>.
+	 * SAE is implied but this property will still return {@code false}.
 	 */
 	public boolean getSuppressAllExceptions() {
 		return (flags1 & InstrFlags1.SUPPRESS_ALL_EXCEPTIONS) != 0;
@@ -2032,7 +2032,7 @@ public final class Instruction {
 	 * Suppress all exceptions (EVEX/MVEX encoded instructions).
 	 *
 	 * Note that if {@link #getRoundingControl()} is not {@link RoundingControl#NONE},
-	 * SAE is implied but this property will still return <code>false</code>.
+	 * SAE is implied but this property will still return {@code false}.
 	 */
 	public void setSuppressAllExceptions(boolean value) {
 		if (value)
@@ -2042,16 +2042,16 @@ public final class Instruction {
 	}
 
 	/**
-	 * Checks if the memory operand is <code>RIP</code>/<code>EIP</code> relative
+	 * Checks if the memory operand is {@code RIP}/{@code EIP} relative
 	 */
 	public boolean isIPRelativeMemoryOperand() {
 		return getMemoryBase() == Register.RIP || getMemoryBase() == Register.EIP;
 	}
 
 	/**
-	 * Gets the <code>RIP</code>/<code>EIP</code> releative address ({@link #getMemoryDisplacement32()} or {@link #getMemoryDisplacement64()}).
+	 * Gets the {@code RIP}/{@code EIP} releative address ({@link #getMemoryDisplacement32()} or {@link #getMemoryDisplacement64()}).
 	 *
-	 * This property is only valid if there's a memory operand with <code>RIP</code>/<code>EIP</code> relative addressing, see
+	 * This property is only valid if there's a memory operand with {@code RIP}/{@code EIP} relative addressing, see
 	 * {@link #isIPRelativeMemoryOperand}
 	 */
 	public long ipRelativeMemoryAddress() {
@@ -2066,9 +2066,9 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the number of bytes added to <code>SP</code>/<code>ESP</code>/<code>RSP</code> or 0 if it's not an instruction that pushes or pops data.
+	 * Gets the number of bytes added to {@code SP}/{@code ESP}/{@code RSP} or 0 if it's not an instruction that pushes or pops data.
 	 * <p>
-	 * This method assumes the instruction doesn't change the privilege level (eg. <code>IRET/D/Q</code>). If it's the <code>LEAVE</code> instruction,
+	 * This method assumes the instruction doesn't change the privilege level (eg. {@code IRET/D/Q}). If it's the {@code LEAVE} instruction,
 	 * this method returns 0.
 	 */
 	public int getStackPointerIncrement() {
@@ -2190,8 +2190,8 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the FPU status word's <code>TOP</code> increment value and whether it's a conditional or unconditional push/pop
-	 * and whether <code>TOP</code> is written.
+	 * Gets the FPU status word's {@code TOP} increment value and whether it's a conditional or unconditional push/pop
+	 * and whether {@code TOP} is written.
 	 */
 	public FpuStackIncrementInfo getFpuStackIncrementInfo() {
 		switch (getCode()) {
@@ -2297,16 +2297,16 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if it's a privileged instruction (all CPL=0 instructions (except <code>VMCALL</code>) and IOPL instructions <code>IN</code>,
-	 * <code>INS</code>, <code>OUT</code>, <code>OUTS</code>, <code>CLI</code>, <code>STI</code>)
+	 * {@code true} if it's a privileged instruction (all CPL=0 instructions (except {@code VMCALL}) and IOPL instructions {@code IN},
+	 * {@code INS}, {@code OUT}, {@code OUTS}, {@code CLI}, {@code STI})
 	 */
 	public boolean isPrivileged() {
 		return Code.isPrivileged(getCode());
 	}
 
 	/**
-	 * <code>true</code> if this is an instruction that implicitly uses the stack pointer (<code>SP</code>/<code>ESP</code>/<code>RSP</code>), eg.<!--
-	 * --> <code>CALL</code>, <code>PUSH</code>, <code>POP</code>, <code>RET</code>, etc.
+	 * {@code true} if this is an instruction that implicitly uses the stack pointer ({@code SP}/{@code ESP}/{@code RSP}), eg.<!--
+	 * --> {@code CALL}, {@code PUSH}, {@code POP}, {@code RET}, etc.
 	 *
 	 * @see #getStackPointerIncrement()
 	 */
@@ -2315,7 +2315,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * <code>true</code> if it's an instruction that saves or restores too many registers (eg.<!-- --> <code>FXRSTOR</code>, <code>XSAVE</code>, etc).
+	 * {@code true} if it's an instruction that saves or restores too many registers (eg.<!-- --> {@code FXRSTOR}, {@code XSAVE}, etc).
 	 */
 	public boolean isSaveRestoreInstruction() {
 		return Code.isSaveRestoreInstruction(getCode());
@@ -2439,141 +2439,141 @@ public final class Instruction {
 	}
 
 	/**
-	 * Checks if it's a <code>Jcc SHORT</code> or <code>Jcc NEAR</code> instruction
+	 * Checks if it's a {@code Jcc SHORT} or {@code Jcc NEAR} instruction
 	 */
 	public boolean isJccShortOrNear() {
 		return Code.isJccShortOrNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>Jcc NEAR</code> instruction
+	 * Checks if it's a {@code Jcc NEAR} instruction
 	 */
 	public boolean isJccNear() {
 		return Code.isJccNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>Jcc SHORT</code> instruction
+	 * Checks if it's a {@code Jcc SHORT} instruction
 	 */
 	public boolean isJccShort() {
 		return Code.isJccShort(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP SHORT</code> instruction
+	 * Checks if it's a {@code JMP SHORT} instruction
 	 */
 	public boolean isJmpShort() {
 		return Code.isJmpShort(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP NEAR</code> instruction
+	 * Checks if it's a {@code JMP NEAR} instruction
 	 */
 	public boolean isJmpNear() {
 		return Code.isJmpNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP SHORT</code> or a <code>JMP NEAR</code> instruction
+	 * Checks if it's a {@code JMP SHORT} or a {@code JMP NEAR} instruction
 	 */
 	public boolean isJmpShortOrNear() {
 		return Code.isJmpShortOrNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP FAR</code> instruction
+	 * Checks if it's a {@code JMP FAR} instruction
 	 */
 	public boolean isJmpFar() {
 		return Code.isJmpFar(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>CALL NEAR</code> instruction
+	 * Checks if it's a {@code CALL NEAR} instruction
 	 */
 	public boolean isCallNear() {
 		return Code.isCallNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>CALL FAR</code> instruction
+	 * Checks if it's a {@code CALL FAR} instruction
 	 */
 	public boolean isCallFar() {
 		return Code.isCallFar(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP NEAR reg/[mem]</code> instruction
+	 * Checks if it's a {@code JMP NEAR reg/[mem]} instruction
 	 */
 	public boolean isJmpNearIndirect() {
 		return Code.isJmpNearIndirect(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JMP FAR [mem]</code> instruction
+	 * Checks if it's a {@code JMP FAR [mem]} instruction
 	 */
 	public boolean isJmpFarIndirect() {
 		return Code.isJmpFarIndirect(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>CALL NEAR reg/[mem]</code> instruction
+	 * Checks if it's a {@code CALL NEAR reg/[mem]} instruction
 	 */
 	public boolean isCallNearIndirect() {
 		return Code.isCallNearIndirect(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>CALL FAR [mem]</code> instruction
+	 * Checks if it's a {@code CALL FAR [mem]} instruction
 	 */
 	public boolean isCallFarIndirect() {
 		return Code.isCallFarIndirect(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JKccD SHORT</code> or <code>JKccD NEAR</code> instruction
+	 * Checks if it's a {@code JKccD SHORT} or {@code JKccD NEAR} instruction
 	 */
 	public boolean isJkccShortOrNear() {
 		return Code.isJkccShortOrNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JKccD NEAR</code> instruction
+	 * Checks if it's a {@code JKccD NEAR} instruction
 	 */
 	public boolean isJkccNear() {
 		return Code.isJkccNear(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JKccD SHORT</code> instruction
+	 * Checks if it's a {@code JKccD SHORT} instruction
 	 */
 	public boolean isJkccShort() {
 		return Code.isJkccShort(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>JCXZ SHORT</code>, <code>JECXZ SHORT</code> or <code>JRCXZ SHORT</code> instruction
+	 * Checks if it's a {@code JCXZ SHORT}, {@code JECXZ SHORT} or {@code JRCXZ SHORT} instruction
 	 */
 	public boolean isJcxShort() {
 		return Code.isJcxShort(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>LOOPcc SHORT</code> instruction
+	 * Checks if it's a {@code LOOPcc SHORT} instruction
 	 */
 	public boolean isLoopcc() {
 		return Code.isLoopcc(getCode());
 	}
 
 	/**
-	 * Checks if it's a <code>LOOP SHORT</code> instruction
+	 * Checks if it's a {@code LOOP SHORT} instruction
 	 */
 	public boolean isLoop() {
 		return Code.isLoop(getCode());
 	}
 
 	/**
-	 * Negates the condition code, eg.<!-- --> <code>JE</code> -&gt; <code>JNE</code>. Can be used if it's <code>Jcc</code>, <code>SETcc</code>,
-	 * <code>CMOVcc</code>, <code>LOOPcc</code>
+	 * Negates the condition code, eg.<!-- --> {@code JE} -&gt; {@code JNE}. Can be used if it's {@code Jcc}, {@code SETcc},
+	 * {@code CMOVcc}, {@code LOOPcc}
 	 * and does nothing if the instruction doesn't have a condition code.
 	 */
 	public void negateConditionCode() {
@@ -2581,29 +2581,29 @@ public final class Instruction {
 	}
 
 	/**
-	 * Converts <code>Jcc/JMP NEAR</code> to <code>Jcc/JMP SHORT</code> and does nothing if it's not a <code>Jcc/JMP NEAR</code> instruction
+	 * Converts {@code Jcc/JMP NEAR} to {@code Jcc/JMP SHORT} and does nothing if it's not a {@code Jcc/JMP NEAR} instruction
 	 */
 	public void toShortBranch() {
 		setCode(Code.toShortBranch(getCode()));
 	}
 
 	/**
-	 * Converts <code>Jcc/JMP SHORT</code> to <code>Jcc/JMP NEAR</code> and does nothing if it's not a <code>Jcc/JMP SHORT</code> instruction
+	 * Converts {@code Jcc/JMP SHORT} to {@code Jcc/JMP NEAR} and does nothing if it's not a {@code Jcc/JMP SHORT} instruction
 	 */
 	public void toNearBranch() {
 		setCode(Code.toNearBranch(getCode()));
 	}
 
 	/**
-	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's <code>Jcc</code>, <code>SETcc</code>, <code>CMOVcc</code>,
-	 * <code>LOOPcc</code> else {@link ConditionCode#NONE} is returned
+	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's {@code Jcc}, {@code SETcc}, {@code CMOVcc},
+	 * {@code LOOPcc} else {@link ConditionCode#NONE} is returned
 	 */
 	public int getConditionCode() {
 		return Code.conditionCode(getCode());
 	}
 
 	/**
-	 * Checks if it's a string instruction such as <code>MOVS</code>, <code>LODS</code>, <code>STOS</code>, etc.
+	 * Checks if it's a string instruction such as {@code MOVS}, {@code LODS}, {@code STOS}, etc.
 	 */
 	public boolean isStringInstruction() {
 		return Code.isStringInstruction(getCode());
@@ -2615,7 +2615,7 @@ public final class Instruction {
 	 * @param operand          Operand number, must be a memory operand
 	 * @param elementIndex     Only used if it's a vsib memory operand. This is the element index of the vector index register.
 	 * @param getRegisterValue Returns values of registers and segment base addresses
-	 * @return <code>null</code> if it failed to read all registers, else the calculated virtual address
+	 * @return {@code null} if it failed to read all registers, else the calculated virtual address
 	 */
 	@SuppressWarnings("deprecation")
 	public Long getVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) {
@@ -3744,7 +3744,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a new <code>XBEGIN</code> instruction
+	 * Creates a new {@code XBEGIN} instruction
 	 *
 	 * @param bitness 16, 32, or 64
 	 * @param target Target address
@@ -3779,7 +3779,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSB</code> instruction
+	 * Creates a {@code OUTSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3788,7 +3788,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSB</code> instruction
+	 * Creates a {@code OUTSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3798,7 +3798,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSB</code> instruction
+	 * Creates a {@code OUTSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3809,7 +3809,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP OUTSB</code> instruction
+	 * Creates a {@code REP OUTSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3818,7 +3818,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSW</code> instruction
+	 * Creates a {@code OUTSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3827,7 +3827,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSW</code> instruction
+	 * Creates a {@code OUTSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3837,7 +3837,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSW</code> instruction
+	 * Creates a {@code OUTSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3848,7 +3848,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP OUTSW</code> instruction
+	 * Creates a {@code REP OUTSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3857,7 +3857,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSD</code> instruction
+	 * Creates a {@code OUTSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3866,7 +3866,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSD</code> instruction
+	 * Creates a {@code OUTSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3876,7 +3876,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>OUTSD</code> instruction
+	 * Creates a {@code OUTSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3887,7 +3887,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP OUTSD</code> instruction
+	 * Creates a {@code REP OUTSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3896,7 +3896,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSB</code> instruction
+	 * Creates a {@code LODSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3905,7 +3905,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSB</code> instruction
+	 * Creates a {@code LODSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3915,7 +3915,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSB</code> instruction
+	 * Creates a {@code LODSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3926,7 +3926,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP LODSB</code> instruction
+	 * Creates a {@code REP LODSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3935,7 +3935,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSW</code> instruction
+	 * Creates a {@code LODSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3944,7 +3944,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSW</code> instruction
+	 * Creates a {@code LODSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3954,7 +3954,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSW</code> instruction
+	 * Creates a {@code LODSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3965,7 +3965,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP LODSW</code> instruction
+	 * Creates a {@code REP LODSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3974,7 +3974,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSD</code> instruction
+	 * Creates a {@code LODSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -3983,7 +3983,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSD</code> instruction
+	 * Creates a {@code LODSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -3993,7 +3993,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSD</code> instruction
+	 * Creates a {@code LODSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4004,7 +4004,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP LODSD</code> instruction
+	 * Creates a {@code REP LODSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4013,7 +4013,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSQ</code> instruction
+	 * Creates a {@code LODSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4022,7 +4022,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSQ</code> instruction
+	 * Creates a {@code LODSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4032,7 +4032,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>LODSQ</code> instruction
+	 * Creates a {@code LODSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4043,7 +4043,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP LODSQ</code> instruction
+	 * Creates a {@code REP LODSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4052,7 +4052,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASB</code> instruction
+	 * Creates a {@code SCASB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4061,7 +4061,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASB</code> instruction
+	 * Creates a {@code SCASB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4071,7 +4071,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE SCASB</code> instruction
+	 * Creates a {@code REPE SCASB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4080,7 +4080,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE SCASB</code> instruction
+	 * Creates a {@code REPNE SCASB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4089,7 +4089,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASW</code> instruction
+	 * Creates a {@code SCASW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4098,7 +4098,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASW</code> instruction
+	 * Creates a {@code SCASW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4108,7 +4108,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE SCASW</code> instruction
+	 * Creates a {@code REPE SCASW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4117,7 +4117,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE SCASW</code> instruction
+	 * Creates a {@code REPNE SCASW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4126,7 +4126,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASD</code> instruction
+	 * Creates a {@code SCASD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4135,7 +4135,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASD</code> instruction
+	 * Creates a {@code SCASD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4145,7 +4145,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE SCASD</code> instruction
+	 * Creates a {@code REPE SCASD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4154,7 +4154,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE SCASD</code> instruction
+	 * Creates a {@code REPNE SCASD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4163,7 +4163,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASQ</code> instruction
+	 * Creates a {@code SCASQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4172,7 +4172,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>SCASQ</code> instruction
+	 * Creates a {@code SCASQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4182,7 +4182,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE SCASQ</code> instruction
+	 * Creates a {@code REPE SCASQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4191,7 +4191,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE SCASQ</code> instruction
+	 * Creates a {@code REPNE SCASQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4200,7 +4200,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSB</code> instruction
+	 * Creates a {@code INSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4209,7 +4209,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSB</code> instruction
+	 * Creates a {@code INSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4219,7 +4219,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP INSB</code> instruction
+	 * Creates a {@code REP INSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4228,7 +4228,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSW</code> instruction
+	 * Creates a {@code INSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4237,7 +4237,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSW</code> instruction
+	 * Creates a {@code INSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4247,7 +4247,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP INSW</code> instruction
+	 * Creates a {@code REP INSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4256,7 +4256,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSD</code> instruction
+	 * Creates a {@code INSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4265,7 +4265,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>INSD</code> instruction
+	 * Creates a {@code INSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4275,7 +4275,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP INSD</code> instruction
+	 * Creates a {@code REP INSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4284,7 +4284,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSB</code> instruction
+	 * Creates a {@code STOSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4293,7 +4293,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSB</code> instruction
+	 * Creates a {@code STOSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4303,7 +4303,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP STOSB</code> instruction
+	 * Creates a {@code REP STOSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4312,7 +4312,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSW</code> instruction
+	 * Creates a {@code STOSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4321,7 +4321,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSW</code> instruction
+	 * Creates a {@code STOSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4331,7 +4331,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP STOSW</code> instruction
+	 * Creates a {@code REP STOSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4340,7 +4340,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSD</code> instruction
+	 * Creates a {@code STOSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4349,7 +4349,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSD</code> instruction
+	 * Creates a {@code STOSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4359,7 +4359,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP STOSD</code> instruction
+	 * Creates a {@code REP STOSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4368,7 +4368,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSQ</code> instruction
+	 * Creates a {@code STOSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4377,7 +4377,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>STOSQ</code> instruction
+	 * Creates a {@code STOSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param repPrefix Rep prefix or {@link com.github.icedland.iced.x86.RepPrefixKind#NONE} (a {@link com.github.icedland.iced.x86.RepPrefixKind} enum variant)
@@ -4387,7 +4387,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP STOSQ</code> instruction
+	 * Creates a {@code REP STOSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4396,7 +4396,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSB</code> instruction
+	 * Creates a {@code CMPSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4405,7 +4405,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSB</code> instruction
+	 * Creates a {@code CMPSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4415,7 +4415,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSB</code> instruction
+	 * Creates a {@code CMPSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4426,7 +4426,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE CMPSB</code> instruction
+	 * Creates a {@code REPE CMPSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4435,7 +4435,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE CMPSB</code> instruction
+	 * Creates a {@code REPNE CMPSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4444,7 +4444,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSW</code> instruction
+	 * Creates a {@code CMPSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4453,7 +4453,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSW</code> instruction
+	 * Creates a {@code CMPSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4463,7 +4463,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSW</code> instruction
+	 * Creates a {@code CMPSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4474,7 +4474,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE CMPSW</code> instruction
+	 * Creates a {@code REPE CMPSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4483,7 +4483,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE CMPSW</code> instruction
+	 * Creates a {@code REPNE CMPSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4492,7 +4492,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSD</code> instruction
+	 * Creates a {@code CMPSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4501,7 +4501,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSD</code> instruction
+	 * Creates a {@code CMPSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4511,7 +4511,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSD</code> instruction
+	 * Creates a {@code CMPSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4522,7 +4522,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE CMPSD</code> instruction
+	 * Creates a {@code REPE CMPSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4531,7 +4531,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE CMPSD</code> instruction
+	 * Creates a {@code REPNE CMPSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4540,7 +4540,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSQ</code> instruction
+	 * Creates a {@code CMPSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4549,7 +4549,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSQ</code> instruction
+	 * Creates a {@code CMPSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4559,7 +4559,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>CMPSQ</code> instruction
+	 * Creates a {@code CMPSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4570,7 +4570,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPE CMPSQ</code> instruction
+	 * Creates a {@code REPE CMPSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4579,7 +4579,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REPNE CMPSQ</code> instruction
+	 * Creates a {@code REPNE CMPSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4588,7 +4588,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSB</code> instruction
+	 * Creates a {@code MOVSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4597,7 +4597,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSB</code> instruction
+	 * Creates a {@code MOVSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4607,7 +4607,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSB</code> instruction
+	 * Creates a {@code MOVSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4618,7 +4618,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP MOVSB</code> instruction
+	 * Creates a {@code REP MOVSB} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4627,7 +4627,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSW</code> instruction
+	 * Creates a {@code MOVSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4636,7 +4636,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSW</code> instruction
+	 * Creates a {@code MOVSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4646,7 +4646,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSW</code> instruction
+	 * Creates a {@code MOVSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4657,7 +4657,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP MOVSW</code> instruction
+	 * Creates a {@code REP MOVSW} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4666,7 +4666,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSD</code> instruction
+	 * Creates a {@code MOVSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4675,7 +4675,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSD</code> instruction
+	 * Creates a {@code MOVSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4685,7 +4685,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSD</code> instruction
+	 * Creates a {@code MOVSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4696,7 +4696,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP MOVSD</code> instruction
+	 * Creates a {@code REP MOVSD} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4705,7 +4705,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSQ</code> instruction
+	 * Creates a {@code MOVSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4714,7 +4714,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSQ</code> instruction
+	 * Creates a {@code MOVSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4724,7 +4724,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MOVSQ</code> instruction
+	 * Creates a {@code MOVSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param segmentPrefix Segment override or {@link com.github.icedland.iced.x86.Register#NONE} (see {@link ICRegisters})
@@ -4735,7 +4735,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>REP MOVSQ</code> instruction
+	 * Creates a {@code REP MOVSQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 */
@@ -4744,7 +4744,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MASKMOVQ</code> instruction
+	 * Creates a {@code MASKMOVQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4755,7 +4755,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MASKMOVQ</code> instruction
+	 * Creates a {@code MASKMOVQ} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4767,7 +4767,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MASKMOVDQU</code> instruction
+	 * Creates a {@code MASKMOVDQU} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4778,7 +4778,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>MASKMOVDQU</code> instruction
+	 * Creates a {@code MASKMOVDQU} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4790,7 +4790,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>VMASKMOVDQU</code> instruction
+	 * Creates a {@code VMASKMOVDQU} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4801,7 +4801,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>VMASKMOVDQU</code> instruction
+	 * Creates a {@code VMASKMOVDQU} instruction
 	 *
 	 * @param addressSize 16, 32, or 64
 	 * @param register1 Register (see {@link ICRegisters})
@@ -4813,7 +4813,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 */
@@ -4829,7 +4829,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4847,7 +4847,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4867,7 +4867,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4889,7 +4889,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4913,7 +4913,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4939,7 +4939,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4967,7 +4967,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -4997,7 +4997,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5029,7 +5029,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5063,7 +5063,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5099,7 +5099,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5137,7 +5137,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5177,7 +5177,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5219,7 +5219,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5263,7 +5263,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param b0 Byte 0
 	 * @param b1 Byte 1
@@ -5309,7 +5309,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5320,7 +5320,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>db</code>/<code>.byte</code> asm directive
+	 * Creates a {@code db}/{@code .byte} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5346,7 +5346,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 */
@@ -5362,7 +5362,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5380,7 +5380,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5400,7 +5400,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5422,7 +5422,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5446,7 +5446,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5472,7 +5472,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5500,7 +5500,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param w0 Word 0
 	 * @param w1 Word 1
@@ -5530,7 +5530,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5541,7 +5541,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5569,7 +5569,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5580,7 +5580,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dw</code>/<code>.word</code> asm directive
+	 * Creates a {@code dw}/{@code .word} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5606,7 +5606,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param d0 Dword 0
 	 */
@@ -5622,7 +5622,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param d0 Dword 0
 	 * @param d1 Dword 1
@@ -5640,7 +5640,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param d0 Dword 0
 	 * @param d1 Dword 1
@@ -5660,7 +5660,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param d0 Dword 0
 	 * @param d1 Dword 1
@@ -5682,7 +5682,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5693,7 +5693,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5721,7 +5721,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5732,7 +5732,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dd</code>/<code>.int</code> asm directive
+	 * Creates a {@code dd}/{@code .int} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5758,7 +5758,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param q0 Qword 0
 	 */
@@ -5774,7 +5774,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param q0 Qword 0
 	 * @param q1 Qword 1
@@ -5792,7 +5792,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5803,7 +5803,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index
@@ -5832,7 +5832,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param data Data
 	 */
@@ -5843,7 +5843,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Creates a <code>dq</code>/<code>.quad</code> asm directive
+	 * Creates a {@code dq}/{@code .quad} asm directive
 	 *
 	 * @param data Data
 	 * @param index Start index

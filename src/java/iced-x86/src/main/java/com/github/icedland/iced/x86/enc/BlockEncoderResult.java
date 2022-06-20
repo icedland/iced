@@ -24,7 +24,7 @@ public final class BlockEncoderResult {
 	 * <p>
 	 * All {@link RelocInfo}s
 	 * <p>
-	 * else this will be <code>null</code>
+	 * else this will be {@code null}
 	 */
 	public final ArrayList<RelocInfo> relocInfos;
 
@@ -32,8 +32,8 @@ public final class BlockEncoderResult {
 	 * If {@link BlockEncoderOptions#RETURN_NEW_INSTRUCTION_OFFSETS} option was enabled:
 	 * <p>
 	 * Offsets of the instructions relative to the base IP. If the instruction was rewritten to a new instruction
-	 * (eg. <code>JE TARGET_TOO_FAR_AWAY</code> -&gt; <code>JNE SHORT SKIP ; JMP QWORD PTR [MEM]</code>),
-	 * the value <code>0xFFFF_FFFF</code> is stored in that array element.
+	 * (eg. {@code JE TARGET_TOO_FAR_AWAY} -&gt; {@code JNE SHORT SKIP ; JMP QWORD PTR [MEM]}),
+	 * the value {@code 0xFFFF_FFFF} is stored in that array element.
 	 */
 	public final int[] newInstructionOffsets;
 

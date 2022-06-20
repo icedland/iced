@@ -19,23 +19,23 @@ public final class SymbolTestFlags {
 	 */
 	public static final int SIGNED = 0x0000_0002;
 	/**
-	 * <code>options.MasmSymbolDisplInBrackets</code>
+	 * {@code options.MasmSymbolDisplInBrackets}
 	 */
 	public static final int SYMBOL_DISPL_IN_BRACKETS = 0x0000_0004;
 	/**
-	 * <code>options.MasmDisplInBrackets</code>
+	 * {@code options.MasmDisplInBrackets}
 	 */
 	public static final int DISPL_IN_BRACKETS = 0x0000_0008;
 	/**
-	 * <code>options.RipRelativeAddresses</code>
+	 * {@code options.RipRelativeAddresses}
 	 */
 	public static final int RIP = 0x0000_0010;
 	/**
-	 * <code>options.ShowZeroDisplacements</code>
+	 * {@code options.ShowZeroDisplacements}
 	 */
 	public static final int SHOW_ZERO_DISPLACEMENTS = 0x0000_0020;
 	/**
-	 * <code>!options.MasmAddDsPrefix32</code>
+	 * {@code !options.MasmAddDsPrefix32}
 	 */
 	public static final int NO_ADD_DS_PREFIX32 = 0x0000_0040;
 }

@@ -201,7 +201,7 @@ namespace Generator.Assembler.Java {
 							for (int j = 1; j <= 7; j++) {
 								writer.WriteLine();
 								writer.WriteLine("/**");
-								writer.WriteLine($" * Apply op mask register <code>K{j}</code>.");
+								writer.WriteLine($" * Apply op mask register {{@code K{j}}}.");
 								writer.WriteLine(" */");
 								writer.WriteLine($"public {className} k{j}() {{");
 								using (writer.Indent())
@@ -392,7 +392,7 @@ namespace Generator.Assembler.Java {
 							writer.WriteLine("}");
 						}
 						writer.WriteLine();
-						writer.WriteLine("/** Checks if <code>obj</code> equals this object */");
+						writer.WriteLine("/** Checks if {@code obj} equals this object */");
 						writer.WriteLine("@Override");
 						writer.WriteLine($"public boolean equals(Object obj) {{");
 						using (writer.Indent()) {
@@ -529,7 +529,7 @@ namespace Generator.Assembler.Java {
 			bool addEmptyLine = false;
 			var paramDefs = new List<(string type, string name, string docs)>();
 			foreach (var info in infos) {
-				var doc = info.GetMethodDocs("Gets", s => $"<code>{s}</code>");
+				var doc = info.GetMethodDocs("Gets", s => $"{{@code {s}}}");
 				var name = GetName(info);
 
 				var enumValueStr = idConverter.ToDeclTypeAndValue(memoryOperandSizeType[info.Size.ToString()]);

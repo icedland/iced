@@ -6,18 +6,18 @@
 package com.github.icedland.iced.x86.fmt;
 
 /**
- * Mnemonic condition code selector (eg.<!-- --> <code>JBE</code> / <code>JNA</code>)
+ * Mnemonic condition code selector (eg.<!-- --> {@code JBE} / {@code JNA})
  */
 public final class CC_be {
 	private CC_be() {
 	}
 
 	/**
-	 * <code>JBE</code>, <code>CMOVBE</code>, <code>SETBE</code>
+	 * {@code JBE}, {@code CMOVBE}, {@code SETBE}
 	 */
 	public static final int BE = 0;
 	/**
-	 * <code>JNA</code>, <code>CMOVNA</code>, <code>SETNA</code>
+	 * {@code JNA}, {@code CMOVNA}, {@code SETNA}
 	 */
 	public static final int NA = 1;
 }

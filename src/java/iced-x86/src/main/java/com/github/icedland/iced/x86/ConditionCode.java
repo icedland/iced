@@ -6,7 +6,7 @@
 package com.github.icedland.iced.x86;
 
 /**
- * Instruction condition code (used by <code>Jcc</code>, <code>SETcc</code>, <code>CMOVcc</code>, <code>LOOPcc</code>)
+ * Instruction condition code (used by {@code Jcc}, {@code SETcc}, {@code CMOVcc}, {@code LOOPcc})
  */
 public final class ConditionCode {
 	private ConditionCode() {
@@ -17,67 +17,67 @@ public final class ConditionCode {
 	 */
 	public static final int NONE = 0;
 	/**
-	 * Overflow (<code>OF=1</code>)
+	 * Overflow ({@code OF=1})
 	 */
 	public static final int O = 1;
 	/**
-	 * Not overflow (<code>OF=0</code>)
+	 * Not overflow ({@code OF=0})
 	 */
 	public static final int NO = 2;
 	/**
-	 * Below (unsigned) (<code>CF=1</code>)
+	 * Below (unsigned) ({@code CF=1})
 	 */
 	public static final int B = 3;
 	/**
-	 * Above or equal (unsigned) (<code>CF=0</code>)
+	 * Above or equal (unsigned) ({@code CF=0})
 	 */
 	public static final int AE = 4;
 	/**
-	 * Equal / zero (<code>ZF=1</code>)
+	 * Equal / zero ({@code ZF=1})
 	 */
 	public static final int E = 5;
 	/**
-	 * Not equal / zero (<code>ZF=0</code>)
+	 * Not equal / zero ({@code ZF=0})
 	 */
 	public static final int NE = 6;
 	/**
-	 * Below or equal (unsigned) (<code>CF=1 or ZF=1</code>)
+	 * Below or equal (unsigned) ({@code CF=1 or ZF=1})
 	 */
 	public static final int BE = 7;
 	/**
-	 * Above (unsigned) (<code>CF=0 and ZF=0</code>)
+	 * Above (unsigned) ({@code CF=0 and ZF=0})
 	 */
 	public static final int A = 8;
 	/**
-	 * Signed (<code>SF=1</code>)
+	 * Signed ({@code SF=1})
 	 */
 	public static final int S = 9;
 	/**
-	 * Not signed (<code>SF=0</code>)
+	 * Not signed ({@code SF=0})
 	 */
 	public static final int NS = 10;
 	/**
-	 * Parity (<code>PF=1</code>)
+	 * Parity ({@code PF=1})
 	 */
 	public static final int P = 11;
 	/**
-	 * Not parity (<code>PF=0</code>)
+	 * Not parity ({@code PF=0})
 	 */
 	public static final int NP = 12;
 	/**
-	 * Less (signed) (<code>SF!=OF</code>)
+	 * Less (signed) ({@code SF!=OF})
 	 */
 	public static final int L = 13;
 	/**
-	 * Greater than or equal (signed) (<code>SF=OF</code>)
+	 * Greater than or equal (signed) ({@code SF=OF})
 	 */
 	public static final int GE = 14;
 	/**
-	 * Less than or equal (signed) (<code>ZF=1 or SF!=OF</code>)
+	 * Less than or equal (signed) ({@code ZF=1 or SF!=OF})
 	 */
 	public static final int LE = 15;
 	/**
-	 * Greater (signed) (<code>ZF=0 and SF=OF</code>)
+	 * Greater (signed) ({@code ZF=0 and SF=OF})
 	 */
 	public static final int G = 16;
 }

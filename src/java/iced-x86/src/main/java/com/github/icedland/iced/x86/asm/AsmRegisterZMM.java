@@ -56,49 +56,49 @@ public final class AsmRegisterZMM {
 	final int flags;
 
 	/**
-	 * Apply op mask register <code>K1</code>.
+	 * Apply op mask register {@code K1}.
 	 */
 	public AsmRegisterZMM k1() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K1);
 	}
 
 	/**
-	 * Apply op mask register <code>K2</code>.
+	 * Apply op mask register {@code K2}.
 	 */
 	public AsmRegisterZMM k2() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K2);
 	}
 
 	/**
-	 * Apply op mask register <code>K3</code>.
+	 * Apply op mask register {@code K3}.
 	 */
 	public AsmRegisterZMM k3() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K3);
 	}
 
 	/**
-	 * Apply op mask register <code>K4</code>.
+	 * Apply op mask register {@code K4}.
 	 */
 	public AsmRegisterZMM k4() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K4);
 	}
 
 	/**
-	 * Apply op mask register <code>K5</code>.
+	 * Apply op mask register {@code K5}.
 	 */
 	public AsmRegisterZMM k5() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K5);
 	}
 
 	/**
-	 * Apply op mask register <code>K6</code>.
+	 * Apply op mask register {@code K6}.
 	 */
 	public AsmRegisterZMM k6() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K6);
 	}
 
 	/**
-	 * Apply op mask register <code>K7</code>.
+	 * Apply op mask register {@code K7}.
 	 */
 	public AsmRegisterZMM k7() {
 		return new AsmRegisterZMM(register, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K7);
@@ -200,7 +200,7 @@ public final class AsmRegisterZMM {
 		return mem.add(this);
 	}
 
-	/** Checks if <code>obj</code> equals this object */
+	/** Checks if {@code obj} equals this object */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass())

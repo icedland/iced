@@ -13,27 +13,27 @@ public final class DecoratorKind {
 	}
 
 	/**
-	 * Broadcast decorator, eg.<!-- --> <code>{1to4}</code>
+	 * Broadcast decorator, eg.<!-- --> {@code {1to4}}
 	 */
 	public static final int BROADCAST = 0;
 	/**
-	 * Rounding control, eg.<!-- --> <code>{rd-sae}</code>
+	 * Rounding control, eg.<!-- --> {@code {rd-sae}}
 	 */
 	public static final int ROUNDING_CONTROL = 1;
 	/**
-	 * Suppress all exceptions: <code>{sae}</code>
+	 * Suppress all exceptions: {@code {sae}}
 	 */
 	public static final int SUPPRESS_ALL_EXCEPTIONS = 2;
 	/**
-	 * Zeroing masking: <code>{z}</code>
+	 * Zeroing masking: {@code {z}}
 	 */
 	public static final int ZEROING_MASKING = 3;
 	/**
-	 * MVEX swizzle or memory up/down conversion: <code>{dacb}</code> or <code>{sint16}</code>
+	 * MVEX swizzle or memory up/down conversion: {@code {dacb}} or {@code {sint16}}
 	 */
 	public static final int SWIZZLE_MEM_CONV = 4;
 	/**
-	 * MVEX eviction hint: <code>{eh}</code>
+	 * MVEX eviction hint: {@code {eh}}
 	 */
 	public static final int EVICTION_HINT = 5;
 }

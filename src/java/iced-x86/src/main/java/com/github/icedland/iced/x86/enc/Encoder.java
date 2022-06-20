@@ -65,14 +65,14 @@ public final class Encoder {
 	int internal_PreventVEX2;
 
 	/**
-	 * Value of the <code>VEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code VEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public int getVEX_WIG() {
 		return (internal_VEX_WIG_LIG >>> 7) & 1;
 	}
 
 	/**
-	 * Value of the <code>VEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code VEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public void setVEX_WIG(int value) {
 		internal_VEX_WIG_LIG = (internal_VEX_WIG_LIG & ~0x80) | ((value & 1) << 7);
@@ -82,14 +82,14 @@ public final class Encoder {
 	int internal_VEX_LIG;
 
 	/**
-	 * Value of the <code>VEX.L</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code VEX.L} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public int getVEX_LIG() {
 		return (internal_VEX_WIG_LIG >>> 2) & 1;
 	}
 
 	/**
-	 * Value of the <code>VEX.L</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code VEX.L} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public void setVEX_LIG(int value) {
 		internal_VEX_WIG_LIG = (internal_VEX_WIG_LIG & ~4) | ((value & 1) << 2);
@@ -97,14 +97,14 @@ public final class Encoder {
 	}
 
 	/**
-	 * Value of the <code>EVEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code EVEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public int getEVEX_WIG() {
 		return internal_EVEX_WIG >>> 7;
 	}
 
 	/**
-	 * Value of the <code>EVEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code EVEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public void setEVEX_WIG(int value) {
 		internal_EVEX_WIG = (value & 1) << 7;
@@ -113,14 +113,14 @@ public final class Encoder {
 	int internal_EVEX_WIG;
 
 	/**
-	 * Value of the <code>EVEX.L'L</code> bits to use if it's an instruction that ignores the bits. Default is 0.
+	 * Value of the {@code EVEX.L'L} bits to use if it's an instruction that ignores the bits. Default is 0.
 	 */
 	public int getEVEX_LIG() {
 		return internal_EVEX_LIG >>> 5;
 	}
 
 	/**
-	 * Value of the <code>EVEX.L'L</code> bits to use if it's an instruction that ignores the bits. Default is 0.
+	 * Value of the {@code EVEX.L'L} bits to use if it's an instruction that ignores the bits. Default is 0.
 	 */
 	public void setEVEX_LIG(int value) {
 		internal_EVEX_LIG = (value & 3) << 5;
@@ -129,14 +129,14 @@ public final class Encoder {
 	int internal_EVEX_LIG;
 
 	/**
-	 * Value of the <code>MVEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code MVEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public int getMVEX_WIG() {
 		return internal_MVEX_WIG >>> 7;
 	}
 
 	/**
-	 * Value of the <code>MVEX.W</code> bit to use if it's an instruction that ignores the bit. Default is 0.
+	 * Value of the {@code MVEX.W} bit to use if it's an instruction that ignores the bit. Default is 0.
 	 */
 	public void setMVEX_WIG(int value) {
 		internal_MVEX_WIG = (value & 1) << 7;
@@ -230,7 +230,7 @@ public final class Encoder {
 	 * instruction, else it will return a {@link String} with the error message.
 	 *
 	 * @param instruction Instruction to encode
-	 * @param rip         <code>RIP</code> of the encoded instruction
+	 * @param rip         {@code RIP} of the encoded instruction
 	 * @return An {@link Integer} (on success) or a {@link String} (on failure)
 	 * @see #encode(Instruction, long)
 	 */

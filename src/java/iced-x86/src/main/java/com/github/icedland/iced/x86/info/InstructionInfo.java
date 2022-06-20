@@ -24,12 +24,12 @@ public final class InstructionInfo {
 
 	/**
 	 * Gets an iterator that returns all accessed registers. This method doesn't return all accessed registers if
-	 * {@link com.github.icedland.iced.x86.Instruction#isSaveRestoreInstruction()} is <code>true</code>.
+	 * {@link com.github.icedland.iced.x86.Instruction#isSaveRestoreInstruction()} is {@code true}.
 	 * <p>
-	 * Some instructions have a <code>r16</code>/<code>r32</code> operand but only use the low 8 bits of the register. In that case this method
-	 * returns the 8-bit register even if it's <code>SPL</code>, <code>BPL</code>, <code>SIL</code>, <code>DIL</code> and the instruction was decoded
-	 * in 16 or 32-bit mode. This is more accurate than returning the <code>r16</code>/<code>r32</code> register. Example instructions that do this:
-	 * <code>PINSRB</code>, <code>ARPL</code>
+	 * Some instructions have a {@code r16}/{@code r32} operand but only use the low 8 bits of the register. In that case this method
+	 * returns the 8-bit register even if it's {@code SPL}, {@code BPL}, {@code SIL}, {@code DIL} and the instruction was decoded
+	 * in 16 or 32-bit mode. This is more accurate than returning the {@code r16}/{@code r32} register. Example instructions that do this:
+	 * {@code PINSRB}, {@code ARPL}
 	 */
 	public Iterator<UsedRegister> getUsedRegisters() {
 		return usedRegisters.iterator();

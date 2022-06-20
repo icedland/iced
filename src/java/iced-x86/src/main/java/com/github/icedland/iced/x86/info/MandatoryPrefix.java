@@ -17,19 +17,19 @@ public final class MandatoryPrefix {
 	 */
 	public static final int NONE = 0;
 	/**
-	 * Empty mandatory prefix (no <code>66</code>, <code>F3</code> or <code>F2</code> prefix)
+	 * Empty mandatory prefix (no {@code 66}, {@code F3} or {@code F2} prefix)
 	 */
 	public static final int PNP = 1;
 	/**
-	 * <code>66</code> prefix
+	 * {@code 66} prefix
 	 */
 	public static final int P66 = 2;
 	/**
-	 * <code>F3</code> prefix
+	 * {@code F3} prefix
 	 */
 	public static final int PF3 = 3;
 	/**
-	 * <code>F2</code> prefix
+	 * {@code F2} prefix
 	 */
 	public static final int PF2 = 4;
 }

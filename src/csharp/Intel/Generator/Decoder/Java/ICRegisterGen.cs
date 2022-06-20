@@ -49,7 +49,7 @@ namespace Generator.Tables.Java {
 				writer.WriteLine($"package {JavaConstants.IcedPackage};");
 				writer.WriteLine();
 				writer.WriteLine("/**");
-				writer.WriteLine(" * Registers passed to <code>Instruction.create()</code> methods.");
+				writer.WriteLine(" * Registers passed to {@code Instruction.create()} methods.");
 				writer.WriteLine(" *");
 				foreach (var otherName in allNames) {
 					if (otherName != name)

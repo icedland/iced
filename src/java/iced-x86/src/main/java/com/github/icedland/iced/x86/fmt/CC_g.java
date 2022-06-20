@@ -6,18 +6,18 @@
 package com.github.icedland.iced.x86.fmt;
 
 /**
- * Mnemonic condition code selector (eg.<!-- --> <code>JG</code> / <code>JNLE</code>)
+ * Mnemonic condition code selector (eg.<!-- --> {@code JG} / {@code JNLE})
  */
 public final class CC_g {
 	private CC_g() {
 	}
 
 	/**
-	 * <code>JG</code>, <code>CMOVG</code>, <code>SETG</code>
+	 * {@code JG}, {@code CMOVG}, {@code SETG}
 	 */
 	public static final int G = 0;
 	/**
-	 * <code>JNLE</code>, <code>CMOVNLE</code>, <code>SETNLE</code>
+	 * {@code JNLE}, {@code CMOVNLE}, {@code SETNLE}
 	 */
 	public static final int NLE = 1;
 }

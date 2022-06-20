@@ -64,7 +64,7 @@ public final class AsmMemoryOperand {
 	final int flags;
 
 	/**
-	 * <code>true</code> if memory is broadcast
+	 * {@code true} if memory is broadcast
 	 */
 	public boolean isBroadcast() {
 		return (flags & AsmOperandFlags.BROADCAST) != 0;
@@ -75,91 +75,91 @@ public final class AsmMemoryOperand {
 	}
 
 	/**
-	 * Apply op mask register <code>K1</code>
+	 * Apply op mask register {@code K1}
 	 */
 	public AsmMemoryOperand k1() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K1);
 	}
 
 	/**
-	 * Apply op mask register <code>K2</code>
+	 * Apply op mask register {@code K2}
 	 */
 	public AsmMemoryOperand k2() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K2);
 	}
 
 	/**
-	 * Apply op mask register <code>K3</code>
+	 * Apply op mask register {@code K3}
 	 */
 	public AsmMemoryOperand k3() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K3);
 	}
 
 	/**
-	 * Apply op mask register <code>K4</code>
+	 * Apply op mask register {@code K4}
 	 */
 	public AsmMemoryOperand k4() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K4);
 	}
 
 	/**
-	 * Apply op mask register <code>K5</code>
+	 * Apply op mask register {@code K5}
 	 */
 	public AsmMemoryOperand k5() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K5);
 	}
 
 	/**
-	 * Apply op mask register <code>K6</code>
+	 * Apply op mask register {@code K6}
 	 */
 	public AsmMemoryOperand k6() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K6);
 	}
 
 	/**
-	 * Apply op mask register <code>K7</code>
+	 * Apply op mask register {@code K7}
 	 */
 	public AsmMemoryOperand k7() {
 		return new AsmMemoryOperand(size, segment, base, index, scale, displacement, (flags & ~AsmOperandFlags.REGISTER_MASK) | AsmOperandFlags.K7);
 	}
 
 	/**
-	 * Changes segment to <code>ES:</code>
+	 * Changes segment to {@code ES:}
 	 */
 	public AsmMemoryOperand es() {
 		return new AsmMemoryOperand(size, ICRegisters.es, base, index, scale, displacement, flags);
 	}
 
 	/**
-	 * Changes segment to <code>CS:</code>
+	 * Changes segment to {@code CS:}
 	 */
 	public AsmMemoryOperand cs() {
 		return new AsmMemoryOperand(size, ICRegisters.cs, base, index, scale, displacement, flags);
 	}
 
 	/**
-	 * Changes segment to <code>SS:</code>
+	 * Changes segment to {@code SS:}
 	 */
 	public AsmMemoryOperand ss() {
 		return new AsmMemoryOperand(size, ICRegisters.ss, base, index, scale, displacement, flags);
 	}
 
 	/**
-	 * Changes segment to <code>DS:</code>
+	 * Changes segment to {@code DS:}
 	 */
 	public AsmMemoryOperand ds() {
 		return new AsmMemoryOperand(size, ICRegisters.ds, base, index, scale, displacement, flags);
 	}
 
 	/**
-	 * Changes segment to <code>FS:</code>
+	 * Changes segment to {@code FS:}
 	 */
 	public AsmMemoryOperand fs() {
 		return new AsmMemoryOperand(size, ICRegisters.fs, base, index, scale, displacement, flags);
 	}
 
 	/**
-	 * Changes segment to <code>GS:</code>
+	 * Changes segment to {@code GS:}
 	 */
 	public AsmMemoryOperand gs() {
 		return new AsmMemoryOperand(size, ICRegisters.gs, base, index, scale, displacement, flags);
@@ -307,7 +307,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the segment register
 	 *
-	 * @param segment Segment register or <code>null</code>
+	 * @param segment Segment register or {@code null}
 	 */
 	public AsmMemoryOperand segment(AsmRegisterSegment segment) {
 		return new AsmMemoryOperand(size, segment.get(), base, index, scale, displacement, flags);
@@ -316,7 +316,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the base register
 	 *
-	 * @param base Base register or <code>null</code>
+	 * @param base Base register or {@code null}
 	 */
 	public AsmMemoryOperand base(AsmRegister16 base) {
 		return new AsmMemoryOperand(size, segment, base.get(), index, scale, displacement, flags);
@@ -325,7 +325,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the base register
 	 *
-	 * @param base Base register or <code>null</code>
+	 * @param base Base register or {@code null}
 	 */
 	public AsmMemoryOperand base(AsmRegister32 base) {
 		return new AsmMemoryOperand(size, segment, base.get(), index, scale, displacement, flags);
@@ -334,7 +334,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the base register
 	 *
-	 * @param base Base register or <code>null</code>
+	 * @param base Base register or {@code null}
 	 */
 	public AsmMemoryOperand base(AsmRegister64 base) {
 		return new AsmMemoryOperand(size, segment, base.get(), index, scale, displacement, flags);
@@ -343,7 +343,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegister16 index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -352,7 +352,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegister32 index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -361,7 +361,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegister64 index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -370,7 +370,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegisterXMM index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -379,7 +379,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegisterYMM index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -388,7 +388,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 */
 	public AsmMemoryOperand index(AsmRegisterZMM index) {
 		return new AsmMemoryOperand(size, segment, base, index.get(), scale, displacement, flags);
@@ -397,7 +397,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register and scale
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 * @param scale Scale (1, 2, 4 or 8)
 	 */
 	public AsmMemoryOperand index(AsmRegister32 index, int scale) {
@@ -407,7 +407,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register and scale
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 * @param scale Scale (1, 2, 4 or 8)
 	 */
 	public AsmMemoryOperand index(AsmRegister64 index, int scale) {
@@ -417,7 +417,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register and scale
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 * @param scale Scale (1, 2, 4 or 8)
 	 */
 	public AsmMemoryOperand index(AsmRegisterXMM index, int scale) {
@@ -427,7 +427,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register and scale
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 * @param scale Scale (1, 2, 4 or 8)
 	 */
 	public AsmMemoryOperand index(AsmRegisterYMM index, int scale) {
@@ -437,7 +437,7 @@ public final class AsmMemoryOperand {
 	/**
 	 * Changes the index register and scale
 	 *
-	 * @param index Index register or <code>null</code>
+	 * @param index Index register or {@code null}
 	 * @param scale Scale (1, 2, 4 or 8)
 	 */
 	public AsmMemoryOperand index(AsmRegisterZMM index, int scale) {
@@ -476,7 +476,7 @@ public final class AsmMemoryOperand {
 		return new MemoryOperand(base, index, scale, displacement, dispSize, (flags & AsmOperandFlags.BROADCAST) != 0, segment);
 	}
 
-	/** Checks if this equals <code>obj</code> */
+	/** Checks if this equals {@code obj} */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || getClass() != obj.getClass())

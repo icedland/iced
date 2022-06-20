@@ -25,23 +25,23 @@ public final class AsmOperandFlags {
 	 */
 	public static final int ZEROING = 1 << 1;
 	/**
-	 * Suppress all exceptions (<code>.sae()</code>).
+	 * Suppress all exceptions ({@code .sae()}).
 	 */
 	public static final int SUPPRESS_ALL_EXCEPTIONS = 1 << 2;
 	/**
-	 * Round to nearest (<code>.rn_sae()</code>).
+	 * Round to nearest ({@code .rn_sae()}).
 	 */
 	public static final int ROUND_TO_NEAREST = RoundingControl.ROUND_TO_NEAREST << 3;
 	/**
-	 * Round to down (<code>.rd_sae()</code>).
+	 * Round to down ({@code .rd_sae()}).
 	 */
 	public static final int ROUND_DOWN = RoundingControl.ROUND_DOWN << 3;
 	/**
-	 * Round to up (<code>.ru_sae()</code>).
+	 * Round to up ({@code .ru_sae()}).
 	 */
 	public static final int ROUND_UP = RoundingControl.ROUND_UP << 3;
 	/**
-	 * Round towards zero (<code>.rz_sae()</code>).
+	 * Round towards zero ({@code .rz_sae()}).
 	 */
 	public static final int ROUND_TOWARD_ZERO = RoundingControl.ROUND_TOWARD_ZERO << 3;
 	/**

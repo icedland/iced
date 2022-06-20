@@ -24,7 +24,7 @@ public final class ConstantOffsets {
 	 * The offset of the first immediate, if any.
 	 * <p>
 	 * This field can be invalid even if the operand has an immediate if it's an immediate that isn't part of the instruction stream, eg.
-	 * <code>SHL AL,1</code>.
+	 * {@code SHL AL,1}.
 	 */
 	public byte immediateOffset;
 
@@ -44,21 +44,21 @@ public final class ConstantOffsets {
 	public byte immediateSize2;
 
 	/**
-	 * <code>true</code> if {@link #displacementOffset} and {@link #displacementSize} are valid
+	 * {@code true} if {@link #displacementOffset} and {@link #displacementSize} are valid
 	 */
 	public boolean hasDisplacement() {
 		return displacementSize != 0;
 	}
 
 	/**
-	 * <code>true</code> if {@link #immediateOffset} and {@link #immediateSize} are valid
+	 * {@code true} if {@link #immediateOffset} and {@link #immediateSize} are valid
 	 */
 	public boolean hasImmediate() {
 		return immediateSize != 0;
 	}
 
 	/**
-	 * <code>true</code> if {@link #immediateOffset2} and {@link #immediateSize2} are valid
+	 * {@code true} if {@link #immediateOffset2} and {@link #immediateSize2} are valid
 	 */
 	public boolean hasImmediate2() {
 		return immediateSize2 != 0;

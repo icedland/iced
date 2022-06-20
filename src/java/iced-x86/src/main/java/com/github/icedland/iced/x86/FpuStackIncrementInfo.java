@@ -4,26 +4,26 @@
 package com.github.icedland.iced.x86;
 
 /**
- * Contains the FPU <code>TOP</code> increment, whether it's conditional and whether the instruction writes to <code>TOP</code>
+ * Contains the FPU {@code TOP} increment, whether it's conditional and whether the instruction writes to {@code TOP}
  */
 public final class FpuStackIncrementInfo {
 	/**
-	 * Used if {@link #writesTop} is <code>true</code>.
+	 * Used if {@link #writesTop} is {@code true}.
 	 * <p>
-	 * Value added to <code>TOP</code>.
+	 * Value added to {@code TOP}.
 	 * <p>
 	 * This is negative if it pushes one or more values and positive if it pops one or more values
-	 * and <code>0</code> if it writes to <code>TOP</code> (eg. <code>FLDENV</code>, etc) without pushing/popping anything.
+	 * and {@code 0} if it writes to {@code TOP} (eg. {@code FLDENV}, etc) without pushing/popping anything.
 	 */
 	public final int increment;
 
 	/**
-	 * <code>true</code> if it's a conditional push/pop (eg. <code>FPTAN</code> or <code>FSINCOS</code>)
+	 * {@code true} if it's a conditional push/pop (eg. {@code FPTAN} or {@code FSINCOS})
 	 */
 	public final boolean conditional;
 
 	/**
-	 * <code>true</code> if <code>TOP</code> is written (it's a conditional/unconditional push/pop, <code>FNSAVE</code>, <code>FLDENV</code>, etc)
+	 * {@code true} if {@code TOP} is written (it's a conditional/unconditional push/pop, {@code FNSAVE}, {@code FLDENV}, etc)
 	 */
 	public final boolean writesTop;
 

@@ -27,11 +27,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Add a space after the operand separator
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov rax, rcx</code>
+	 * {@code true}: {@code mov rax, rcx}
 	 * <p>
-	 * <code>false</code>: <code>mov rax,rcx</code>
+	 * {@code false}: {@code mov rax,rcx}
 	 */
 	public boolean getSpaceAfterOperandSeparator() {
 		return (flags1 & Flags1.SPACE_AFTER_OPERAND_SEPARATOR) != 0;
@@ -40,11 +40,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Add a space after the operand separator
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov rax, rcx</code>
+	 * {@code true}: {@code mov rax, rcx}
 	 * <p>
-	 * <code>false</code>: <code>mov rax,rcx</code>
+	 * {@code false}: {@code mov rax,rcx}
 	 */
 	public void setSpaceAfterOperandSeparator(boolean value) {
 		if (value)
@@ -54,26 +54,26 @@ public final class FastFormatterOptions {
 	}
 
 	/**
-	 * Show <code>RIP+displ</code> or the virtual address
+	 * Show {@code RIP+displ} or the virtual address
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,[rip+12345678h]</code>
+	 * {@code true}: {@code mov eax,[rip+12345678h]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[1029384756AFBECDh]</code>
+	 * {@code false}: {@code mov eax,[1029384756AFBECDh]}
 	 */
 	public boolean getRipRelativeAddresses() {
 		return (flags1 & Flags1.RIP_RELATIVE_ADDRESSES) != 0;
 	}
 
 	/**
-	 * Show <code>RIP+displ</code> or the virtual address
+	 * Show {@code RIP+displ} or the virtual address
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,[rip+12345678h]</code>
+	 * {@code true}: {@code mov eax,[rip+12345678h]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[1029384756AFBECDh]</code>
+	 * {@code false}: {@code mov eax,[1029384756AFBECDh]}
 	 */
 	public void setRipRelativeAddresses(boolean value) {
 		if (value)
@@ -85,11 +85,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Use pseudo instructions
 	 * <p>
-	 * Default: <code>true</code>
+	 * Default: {@code true}
 	 * <p>
-	 * <code>true</code>: <code>vcmpnltsd xmm2,xmm6,xmm3</code>
+	 * {@code true}: {@code vcmpnltsd xmm2,xmm6,xmm3}
 	 * <p>
-	 * <code>false</code>: <code>vcmpsd xmm2,xmm6,xmm3,5</code>
+	 * {@code false}: {@code vcmpsd xmm2,xmm6,xmm3,5}
 	 */
 	public boolean getUsePseudoOps() {
 		return (flags1 & Flags1.USE_PSEUDO_OPS) != 0;
@@ -98,11 +98,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Use pseudo instructions
 	 * <p>
-	 * Default: <code>true</code>
+	 * Default: {@code true}
 	 * <p>
-	 * <code>true</code>: <code>vcmpnltsd xmm2,xmm6,xmm3</code>
+	 * {@code true}: {@code vcmpnltsd xmm2,xmm6,xmm3}
 	 * <p>
-	 * <code>false</code>: <code>vcmpsd xmm2,xmm6,xmm3,5</code>
+	 * {@code false}: {@code vcmpsd xmm2,xmm6,xmm3,5}
 	 */
 	public void setUsePseudoOps(boolean value) {
 		if (value)
@@ -114,11 +114,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Show the original value after the symbol name
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,[myfield (12345678)]</code>
+	 * {@code true}: {@code mov eax,[myfield (12345678)]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[myfield]</code>
+	 * {@code false}: {@code mov eax,[myfield]}
 	 */
 	public boolean getShowSymbolAddress() {
 		return (flags1 & Flags1.SHOW_SYMBOL_ADDRESS) != 0;
@@ -127,11 +127,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Show the original value after the symbol name
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,[myfield (12345678)]</code>
+	 * {@code true}: {@code mov eax,[myfield (12345678)]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[myfield]</code>
+	 * {@code false}: {@code mov eax,[myfield]}
 	 */
 	public void setShowSymbolAddress(boolean value) {
 		if (value)
@@ -141,28 +141,28 @@ public final class FastFormatterOptions {
 	}
 
 	/**
-	 * Always show the effective segment register. If the option is <code>false</code>, only show the segment register if
+	 * Always show the effective segment register. If the option is {@code false}, only show the segment register if
 	 * there's a segment override prefix.
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,ds:[ecx]</code>
+	 * {@code true}: {@code mov eax,ds:[ecx]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[ecx]</code>
+	 * {@code false}: {@code mov eax,[ecx]}
 	 */
 	public boolean getAlwaysShowSegmentRegister() {
 		return (flags1 & Flags1.ALWAYS_SHOW_SEGMENT_REGISTER) != 0;
 	}
 
 	/**
-	 * Always show the effective segment register. If the option is <code>false</code>, only show the segment register if
+	 * Always show the effective segment register. If the option is {@code false}, only show the segment register if
 	 * there's a segment override prefix.
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,ds:[ecx]</code>
+	 * {@code true}: {@code mov eax,ds:[ecx]}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[ecx]</code>
+	 * {@code false}: {@code mov eax,[ecx]}
 	 */
 	public void setAlwaysShowSegmentRegister(boolean value) {
 		if (value)
@@ -174,11 +174,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Always show memory operands' size
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,dword ptr [ebx]</code> / <code>add byte ptr [eax],0x12</code>
+	 * {@code true}: {@code mov eax,dword ptr [ebx]} / {@code add byte ptr [eax],0x12}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[ebx]</code> / <code>add byte ptr [eax],0x12</code>
+	 * {@code false}: {@code mov eax,[ebx]} / {@code add byte ptr [eax],0x12}
 	 */
 	public boolean getAlwaysShowMemorySize() {
 		return (flags1 & Flags1.ALWAYS_SHOW_MEMORY_SIZE) != 0;
@@ -187,11 +187,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Always show memory operands' size
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>mov eax,dword ptr [ebx]</code> / <code>add byte ptr [eax],0x12</code>
+	 * {@code true}: {@code mov eax,dword ptr [ebx]} / {@code add byte ptr [eax],0x12}
 	 * <p>
-	 * <code>false</code>: <code>mov eax,[ebx]</code> / <code>add byte ptr [eax],0x12</code>
+	 * {@code false}: {@code mov eax,[ebx]} / {@code add byte ptr [eax],0x12}
 	 */
 	public void setAlwaysShowMemorySize(boolean value) {
 		if (value)
@@ -203,11 +203,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Use uppercase hex digits
 	 * <p>
-	 * Default: <code>true</code>
+	 * Default: {@code true}
 	 * <p>
-	 * <code>true</code>: <code>0xFF</code>
+	 * {@code true}: {@code 0xFF}
 	 * <p>
-	 * <code>false</code>: <code>0xff</code>
+	 * {@code false}: {@code 0xff}
 	 */
 	public boolean getUppercaseHex() {
 		return (flags1 & Flags1.UPPERCASE_HEX) != 0;
@@ -216,11 +216,11 @@ public final class FastFormatterOptions {
 	/**
 	 * Use uppercase hex digits
 	 * <p>
-	 * Default: <code>true</code>
+	 * Default: {@code true}
 	 * <p>
-	 * <code>true</code>: <code>0xFF</code>
+	 * {@code true}: {@code 0xFF}
 	 * <p>
-	 * <code>false</code>: <code>0xff</code>
+	 * {@code false}: {@code 0xff}
 	 */
 	public void setUppercaseHex(boolean value) {
 		if (value)
@@ -230,26 +230,26 @@ public final class FastFormatterOptions {
 	}
 
 	/**
-	 * Use a hex prefix (<code>0x</code>) or a hex suffix (<code>h</code>)
+	 * Use a hex prefix ({@code 0x}) or a hex suffix ({@code h})
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>0x5A</code>
+	 * {@code true}: {@code 0x5A}
 	 * <p>
-	 * <code>false</code>: <code>5Ah</code>
+	 * {@code false}: {@code 5Ah}
 	 */
 	public boolean getUseHexPrefix() {
 		return (flags1 & Flags1.USE_HEX_PREFIX) != 0;
 	}
 
 	/**
-	 * Use a hex prefix (<code>0x</code>) or a hex suffix (<code>h</code>)
+	 * Use a hex prefix ({@code 0x}) or a hex suffix ({@code h})
 	 * <p>
-	 * Default: <code>false</code>
+	 * Default: {@code false}
 	 * <p>
-	 * <code>true</code>: <code>0x5A</code>
+	 * {@code true}: {@code 0x5A}
 	 * <p>
-	 * <code>false</code>: <code>5Ah</code>
+	 * {@code false}: {@code 5Ah}
 	 */
 	public void setUseHexPrefix(boolean value) {
 		if (value)

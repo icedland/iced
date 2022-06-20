@@ -207,7 +207,7 @@ public final class MasmFormatter extends Formatter {
 	 * @param instruction Instruction
 	 * @param operand     Operand number, 0-based. This is a formatter operand and isn't necessarily the same as an instruction operand. See
 	 *                    {@link #getOperandCount(Instruction)}
-	 * @return The operand access (an {@link com.github.icedland.iced.x86.info.OpAccess} enum variant) or <code>null</code>
+	 * @return The operand access (an {@link com.github.icedland.iced.x86.info.OpAccess} enum variant) or {@code null}
 	 */
 	@Override
 	public Integer tryGetOpAccess(Instruction instruction, int operand) {

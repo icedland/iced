@@ -6,18 +6,18 @@
 package com.github.icedland.iced.x86.fmt;
 
 /**
- * Mnemonic condition code selector (eg.<!-- --> <code>JNE</code> / <code>JNZ</code>)
+ * Mnemonic condition code selector (eg.<!-- --> {@code JNE} / {@code JNZ})
  */
 public final class CC_ne {
 	private CC_ne() {
 	}
 
 	/**
-	 * <code>JNE</code>, <code>CMOVNE</code>, <code>SETNE</code>, <code>LOOPNE</code>, <code>REPNE</code>
+	 * {@code JNE}, {@code CMOVNE}, {@code SETNE}, {@code LOOPNE}, {@code REPNE}
 	 */
 	public static final int NE = 0;
 	/**
-	 * <code>JNZ</code>, <code>CMOVNZ</code>, <code>SETNZ</code>, <code>LOOPNZ</code>, <code>REPNZ</code>
+	 * {@code JNZ}, {@code CMOVNZ}, {@code SETNZ}, {@code LOOPNZ}, {@code REPNZ}
 	 */
 	public static final int NZ = 1;
 }
