@@ -1092,10 +1092,12 @@ public final class Decoder implements Iterable<Instruction> {
 			nextInstruction = decode();
 		}
 
+		@Override
 		public boolean hasNext() {
 			return nextInstruction.getLength() != 0;
 		}
 
+		@Override
 		public Instruction next() {
 			Instruction result = nextInstruction;
 			nextInstruction = decode();
