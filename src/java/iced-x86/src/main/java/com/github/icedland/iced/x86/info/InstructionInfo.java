@@ -4,7 +4,6 @@
 package com.github.icedland.iced.x86.info;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.github.icedland.iced.x86.internal.IcedConstants;
 
@@ -31,15 +30,15 @@ public final class InstructionInfo {
 	 * in 16 or 32-bit mode. This is more accurate than returning the {@code r16}/{@code r32} register. Example instructions that do this:
 	 * {@code PINSRB}, {@code ARPL}
 	 */
-	public Iterator<UsedRegister> getUsedRegisters() {
-		return usedRegisters.iterator();
+	public Iterable<UsedRegister> getUsedRegisters() {
+		return usedRegisters;
 	}
 
 	/**
 	 * Gets an iterator that returns all accessed memory locations
 	 */
-	public Iterator<UsedMemory> getUsedMemory() {
-		return usedMemoryLocations.iterator();
+	public Iterable<UsedMemory> getUsedMemory() {
+		return usedMemoryLocations;
 	}
 
 	/**
