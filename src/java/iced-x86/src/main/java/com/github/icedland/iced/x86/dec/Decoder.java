@@ -274,7 +274,7 @@ public final class Decoder implements Iterable<Instruction> {
 	}
 
 	long readUInt64() {
-		return ((long)readUInt32() & 0xFFFF_FFFF) | ((long)readUInt32() << 32);
+		return ((long)readUInt32() & 0xFFFF_FFFFL) | ((long)readUInt32() << 32);
 	}
 
 	/**
@@ -359,7 +359,7 @@ public final class Decoder implements Iterable<Instruction> {
 				instruction.setMemoryDisplacement64(addr - ip);
 			}
 			if ((flags & StateFlags.IP_REL32) != 0)
-				instruction.setMemoryDisplacement64((long)((int)instruction.getMemoryDisplacement64() + (int)ip) & 0xFFFF_FFFF);
+				instruction.setMemoryDisplacement64((long)((int)instruction.getMemoryDisplacement64() + (int)ip) & 0xFFFF_FFFFL);
 
 			if ((flags & StateFlags.IS_INVALID) != 0 ||
 					(((flags & (StateFlags.LOCK | StateFlags.ALLOW_LOCK)) & invalidCheckMask) == StateFlags.LOCK)) {
@@ -577,7 +577,10 @@ public final class Decoder implements Iterable<Instruction> {
 
 				int aaa = p2 & 7;
 				state_aaa = aaa;
-				instruction.setOpMask(aaa);
+				if (aaa == 0)
+					instruction.setOpMask(Register.NONE);
+				else
+					instruction.setOpMask(Register.K0 + aaa);
 				if ((p2 & 0x80) != 0) {
 					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
 					if ((aaa ^ invalidCheckMask) == 0xFFFF_FFFF)
@@ -656,7 +659,10 @@ public final class Decoder implements Iterable<Instruction> {
 
 				int aaa = p2 & 7;
 				state_aaa = aaa;
-				instruction.setOpMask(aaa);
+				if (aaa == 0)
+					instruction.setOpMask(Register.NONE);
+				else
+					instruction.setOpMask(Register.K0 + aaa);
 
 				state_zs_flags |= (p2 & 0xF0) << (StateFlags.MVEX_SSS_SHIFT - 4);
 
@@ -848,11 +854,11 @@ public final class Decoder implements Iterable<Instruction> {
 				displIndex = state_zs_instructionLength;
 				if (state_addressSize == OpSize.SIZE64) {
 					instruction.setMemoryDisplacement64(readUInt32());
-					instruction.setMemoryDisplSize(4);
+					instruction.setMemoryDisplSize(8);
 				}
 				else {
-					instruction.setMemoryDisplacement64(readUInt32());
-					instruction.setMemoryDisplSize(3);
+					instruction.setMemoryDisplacement64((long)readUInt32() & 0xFFFF_FFFFL);
+					instruction.setMemoryDisplSize(4);
 				}
 				if (is64bMode) {
 					if (state_addressSize == OpSize.SIZE64) {
@@ -895,9 +901,9 @@ public final class Decoder implements Iterable<Instruction> {
 				}
 				else {
 					if (tupleType == TupleType.N1)
-						instruction.setMemoryDisplacement64((byte)readByte() & 0xFFFF_FFFF);
+						instruction.setMemoryDisplacement64((long)(byte)readByte() & 0xFFFF_FFFFL);
 					else
-						instruction.setMemoryDisplacement64((long)(getDisp8N(tupleType) * (byte)readByte()) & 0xFFFF_FFFF);
+						instruction.setMemoryDisplacement64((long)(getDisp8N(tupleType) * (byte)readByte()) & 0xFFFF_FFFFL);
 				}
 				instruction.setMemoryBase(state_zs_extraBaseRegisterBase + state_rm + baseReg);
 				return false;
@@ -907,7 +913,7 @@ public final class Decoder implements Iterable<Instruction> {
 			assert state_mod == 2 : state_mod;
 			if (state_rm == 4) {
 				sib = readByte();
-				displSizeScale = state_addressSize == OpSize.SIZE64 ? 4 : 3;
+				displSizeScale = state_addressSize == OpSize.SIZE64 ? 8 : 4;
 				displIndex = state_zs_instructionLength;
 				displ = readUInt32();
 				break;
@@ -917,11 +923,11 @@ public final class Decoder implements Iterable<Instruction> {
 				displIndex = state_zs_instructionLength;
 				if (state_addressSize == OpSize.SIZE64) {
 					instruction.setMemoryDisplacement64(readUInt32());
-					instruction.setMemoryDisplSize(4);
+					instruction.setMemoryDisplSize(8);
 				}
 				else {
-					instruction.setMemoryDisplacement64(readUInt32());
-					instruction.setMemoryDisplSize(3);
+					instruction.setMemoryDisplacement64((long)readUInt32() & 0xFFFF_FFFFL);
+					instruction.setMemoryDisplSize(4);
 				}
 				instruction.setMemoryBase(state_zs_extraBaseRegisterBase + state_rm + baseReg);
 				return false;
@@ -931,7 +937,7 @@ public final class Decoder implements Iterable<Instruction> {
 		int index = ((sib >>> 3) & 7) + state_zs_extraIndexRegisterBase;
 		int base = sib & 7;
 
-		instruction.setMemoryIndexScale(sib >>> 6);
+		instruction.setRawMemoryIndexScale(sib >>> 6);
 		if (!isVsib) {
 			if (index != 4)
 				instruction.setMemoryIndex(index + indexReg);
@@ -943,11 +949,11 @@ public final class Decoder implements Iterable<Instruction> {
 			displIndex = state_zs_instructionLength;
 			if (state_addressSize == OpSize.SIZE64) {
 				instruction.setMemoryDisplacement64(readUInt32());
-				instruction.setMemoryDisplSize(4);
+				instruction.setMemoryDisplSize(8);
 			}
 			else {
-				instruction.setMemoryDisplacement64(readUInt32());
-				instruction.setMemoryDisplSize(3);
+				instruction.setMemoryDisplacement64((long)readUInt32() & 0xFFFF_FFFFL);
+				instruction.setMemoryDisplSize(4);
 			}
 		}
 		else {
@@ -956,7 +962,7 @@ public final class Decoder implements Iterable<Instruction> {
 			if (state_addressSize == OpSize.SIZE64)
 				instruction.setMemoryDisplacement64(displ);
 			else
-				instruction.setMemoryDisplacement64((long)displ & 0xFFFF_FFFF);
+				instruction.setMemoryDisplacement64((long)displ & 0xFFFF_FFFFL);
 		}
 		return true;
 	}

@@ -226,7 +226,7 @@ public final class Instruction {
 	 * 32-bit IP of the instruction
 	 */
 	public void setIP32(int value) {
-		nextRip = (value + getLength()) & 0xFFFF_FFFF;
+		nextRip = (long)(value + getLength()) & 0xFFFF_FFFFL;
 	}
 
 	/**
@@ -268,7 +268,7 @@ public final class Instruction {
 	 * 32-bit IP of the next instruction
 	 */
 	public void setNextIP32(int value) {
-		nextRip = value & 0xFFFF_FFFF;
+		nextRip = (long)value & 0xFFFF_FFFFL;
 	}
 
 	/**
@@ -669,7 +669,7 @@ public final class Instruction {
 	 * @see #getSegmentPrefix()
 	 */
 	public boolean hasSegmentPrefix() {
-		return (((flags1 >>> InstrFlags1.SEGMENT_PREFIX_SHIFT) & InstrFlags1.SEGMENT_PREFIX_MASK) - 1) < 6;
+		return Integer.compareUnsigned(((flags1 >>> InstrFlags1.SEGMENT_PREFIX_SHIFT) & InstrFlags1.SEGMENT_PREFIX_MASK) - 1, 6) < 0;
 	}
 
 	/**
@@ -682,7 +682,7 @@ public final class Instruction {
 	 */
 	public int getSegmentPrefix() {
 		int index = ((flags1 >>> InstrFlags1.SEGMENT_PREFIX_SHIFT) & InstrFlags1.SEGMENT_PREFIX_MASK) - 1;
-		return index < 6 ? Register.ES + index : Register.NONE;
+		return Integer.compareUnsigned(index, 6) < 0 ? Register.ES + index : Register.NONE;
 	}
 
 	/**
@@ -843,9 +843,9 @@ public final class Instruction {
 			return MvexMemorySizeLut.data[MvexInfo.getTupleTypeLutKind(index) * 8 + sss];
 		}
 		if (getBroadcast())
-			return InstructionMemorySizes.sizesBcst[index];
+			return InstructionMemorySizes.sizesBcst[index] & 0xFF;
 		else
-			return InstructionMemorySizes.sizesNormal[index];
+			return InstructionMemorySizes.sizesNormal[index] & 0xFF;
 	}
 
 	/**
@@ -886,6 +886,17 @@ public final class Instruction {
 	 */
 	public int getRawMemoryIndexScale() {
 		return scale;
+	}
+
+	/**
+	 * Gets the index register scale value, valid values are {@code 0-3}.
+	 *
+	 * Use this property if the operand has kind {@link OpKind#MEMORY}
+	 *
+	 * @see #getMemoryIndexScale()
+	 */
+	public void setRawMemoryIndexScale(int value) {
+		scale = (byte)(value & 3);
 	}
 
 	/**
@@ -1068,7 +1079,7 @@ public final class Instruction {
 	 * Gets the operand's immediate value. Use this property if the operand has kind {@link OpKind#IMMEDIATE64}
 	 */
 	public long getImmediate64() {
-		return (memDispl << 32) | ((long)immediate & 0xFFFF_FFFF);
+		return (memDispl << 32) | ((long)immediate & 0xFFFF_FFFFL);
 	}
 
 	/**
@@ -1160,7 +1171,7 @@ public final class Instruction {
 	 * Gets the operand's branch target. Use this property if the operand has kind {@link OpKind#NEAR_BRANCH32}
 	 */
 	public void setNearBranch32(int value) {
-		memDispl = value & 0xFFFF_FFFF;
+		memDispl = (long)value & 0xFFFF_FFFFL;
 	}
 
 	/**
@@ -1784,7 +1795,7 @@ public final class Instruction {
 			immediate = value;
 			break;
 		case 2:
-			memDispl = (memDispl & 0xFFFF_FFFF_0000_0000L) | ((long)value & 0xFFFF_FFFF);
+			memDispl = (memDispl & 0xFFFF_FFFF_0000_0000L) | ((long)value & 0xFFFF_FFFFL);
 			break;
 		case 3:
 			memDispl = (memDispl & 0x0000_0000_FFFF_FFFFL) | ((long)value << 32);
@@ -2650,7 +2661,7 @@ public final class Instruction {
 		case OpKind.MEMORY_SEG_ESI:
 			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
 				(base = getRegisterValue.get(Register.ESI, 0, 0)) != null) {
-				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFFL);
 			}
 			break;
 
@@ -2671,7 +2682,7 @@ public final class Instruction {
 		case OpKind.MEMORY_SEG_EDI:
 			if ((seg = getRegisterValue.get(getMemorySegment(), 0, 0)) != null &&
 				(base = getRegisterValue.get(Register.EDI, 0, 0)) != null) {
-				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFFL);
 			}
 			break;
 
@@ -2692,7 +2703,7 @@ public final class Instruction {
 		case OpKind.MEMORY_ESEDI:
 			if ((seg = getRegisterValue.get(Register.ES, 0, 0)) != null &&
 				(base = getRegisterValue.get(Register.EDI, 0, 0)) != null) {
-				return seg.longValue() + (base.longValue() & 0xFFFF_FFFF);
+				return seg.longValue() + (base.longValue() & 0xFFFF_FFFFL);
 			}
 			break;
 
@@ -2712,7 +2723,7 @@ public final class Instruction {
 			if (addrSize == 8)
 				offsetMask = 0xFFFF_FFFF_FFFF_FFFFL;
 			else if (addrSize == 4)
-				offsetMask = 0xFFFF_FFFF;
+				offsetMask = 0xFFFF_FFFFL;
 			else {
 				assert addrSize == 2 : addrSize;
 				offsetMask = 0xFFFF;
@@ -2820,7 +2831,7 @@ public final class Instruction {
 
 		case OpKind.IMMEDIATE32:
 			// All int and all uint values can be used
-			if (!(-0x8000_0000 <= immediate && immediate <= 0xFFFF_FFFF))
+			if (!(-0x8000_0000 <= immediate && immediate <= 0xFFFF_FFFFL))
 				throw new IllegalArgumentException("immediate");
 			instruction.setImmediate32((int)immediate);
 			break;
@@ -5331,7 +5342,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5552,7 +5563,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 1) != 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5591,7 +5602,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 8 - 1) > 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5704,7 +5715,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 3) != 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5743,7 +5754,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 4 - 1) > 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5814,7 +5825,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 7) != 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();
@@ -5824,7 +5835,7 @@ public final class Instruction {
 		for (int i = 0; i < length; i += 8) {
 			int v1 = (data[index + i] & 0xFF) | ((data[index + i + 1] & 0xFF) << 8) | ((data[index + i + 2] & 0xFF) << 16) | (data[index + i + 3] << 24);
 			int v2 = (data[index + i + 4] & 0xFF) | ((data[index + i + 5] & 0xFF) << 8) | ((data[index + i + 6] & 0xFF) << 16) | (data[index + i + 7] << 24);
-			instruction.setDeclareQwordValue(i / 8, ((long)v1 & 0xFFFF_FFFF) | ((long)v2 << 32));
+			instruction.setDeclareQwordValue(i / 8, ((long)v1 & 0xFFFF_FFFFL) | ((long)v2 << 32));
 		}
 
 		assert instruction.getOpCount() == 0 : instruction.getOpCount();
@@ -5854,7 +5865,7 @@ public final class Instruction {
 			throw new IllegalArgumentException("data");
 		if (Integer.compareUnsigned(length - 1, 2 - 1) > 0)
 			throw new IllegalArgumentException("length");
-		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFF) + ((long)length & 0xFFFF_FFFF), (long)data.length & 0xFFFF_FFFF) > 0)
+		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
 			throw new IllegalArgumentException("index");
 
 		Instruction instruction = new Instruction();

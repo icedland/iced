@@ -147,7 +147,7 @@ public final class UsedMemory {
 				return null;
 			long v = tmpValue.longValue();
 			if (vsibSize == 4)
-				v &= 0xFFFF_FFFF;
+				v &= 0xFFFF_FFFFL;
 			tmpAddr += v * getScale();
 		}
 
@@ -156,7 +156,7 @@ public final class UsedMemory {
 			tmpAddr &= 0xFFFF;
 			break;
 		case CodeSize.CODE32:
-			tmpAddr &= 0xFFFF_FFFF;
+			tmpAddr &= 0xFFFF_FFFFL;
 			break;
 		}
 

@@ -73,7 +73,7 @@ final class IpRelMemOpInstr extends Instr {
 		}
 
 		// If it's in the low 4GB we can use EIP relative addressing
-		if (Long.compareUnsigned(targetAddress, 0xFFFF_FFFF) <= 0) {
+		if (Long.compareUnsigned(targetAddress, 0xFFFF_FFFFL) <= 0) {
 			size = eipInstructionSize;
 			instrKind = InstrKind.EIP;
 			done = true;
@@ -103,7 +103,7 @@ final class IpRelMemOpInstr extends Instr {
 			instruction.setMemoryDisplacement64(targetAddress);
 			Object encResult = encoder.tryEncode(instruction, ip);
 			boolean b = instruction
-					.ipRelativeMemoryAddress() == (instruction.getMemoryBase() == Register.EIP ? targetAddress & 0xFFFF_FFFF : targetAddress);
+					.ipRelativeMemoryAddress() == (instruction.getMemoryBase() == Register.EIP ? targetAddress & 0xFFFF_FFFFL : targetAddress);
 			assert b;
 			if (!b)
 				encResult = "Invalid IP relative address";

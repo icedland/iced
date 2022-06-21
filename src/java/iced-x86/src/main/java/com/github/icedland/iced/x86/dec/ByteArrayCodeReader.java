@@ -23,7 +23,7 @@ public final class ByteArrayCodeReader extends CodeReader {
 	 * Current position
 	 */
 	public void setPosition(int value) {
-		if (Integer.compareUnsigned(value, getCount()) > 0)
+		if (Integer.compareUnsigned(value, size()) > 0)
 			throw new IllegalArgumentException("value");
 		currentPosition = startPosition + value;
 	}
@@ -31,7 +31,7 @@ public final class ByteArrayCodeReader extends CodeReader {
 	/**
 	 * Number of bytes that can be read
 	 */
-	public int getCount() {
+	public int size() {
 		return endPosition - startPosition;
 	}
 

@@ -77,7 +77,7 @@ public final class FormatterOutputExt {
 			if (Long.compareUnsigned(address, 0xFFFF) <= 0) {
 				s = numberFormatter.formatUInt16(options, numberOptions, (short)address, true);
 				numberKind = NumberKind.UINT16;
-			} else if (Long.compareUnsigned(address, 0xFFFF_FFFF) <= 0) {
+			} else if (Long.compareUnsigned(address, 0xFFFF_FFFFL) <= 0) {
 				s = numberFormatter.formatUInt32(options, numberOptions, (int)address, true);
 				numberKind = NumberKind.UINT32;
 			} else {

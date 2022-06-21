@@ -599,7 +599,7 @@ public final class Encoder {
 			case 4:
 				encoderFlags |= adrSize32Flags;
 				displSize = DisplSize.SIZE4;
-				if (Long.compareUnsigned(instruction.getMemoryDisplacement64(), 0xFFFF_FFFF) > 0) {
+				if (Long.compareUnsigned(instruction.getMemoryDisplacement64(), 0xFFFF_FFFFL) > 0) {
 					setErrorMessage(String.format("Operand %d: Displacement must fit in a uint", operand));
 					return;
 				}
@@ -920,7 +920,7 @@ public final class Encoder {
 			}
 			else {
 				this.displSize = DisplSize.RIP_REL_SIZE4_TARGET32;
-				if (Long.compareUnsigned(target, 0xFFFF_FFFF) > 0) {
+				if (Long.compareUnsigned(target, 0xFFFF_FFFFL) > 0) {
 					setErrorMessage(String.format("Operand %d: Target address doesn't fit in 32 bits: 0x%X", operand, target));
 					return;
 				}
@@ -938,7 +938,7 @@ public final class Encoder {
 		}
 		else {
 			assert addrSize == 32 : addrSize;
-			if (instruction.getMemoryDisplacement64() < -0x8000_0000 || instruction.getMemoryDisplacement64() > 0xFFFF_FFFF) {
+			if (instruction.getMemoryDisplacement64() < -0x8000_0000 || instruction.getMemoryDisplacement64() > 0xFFFF_FFFFL) {
 				setErrorMessage(String.format("Operand %d: Displacement must fit in an int or a uint", operand));
 				return;
 			}
@@ -1127,7 +1127,7 @@ public final class Encoder {
 
 		case DisplSize.RIP_REL_SIZE4_TARGET64:
 			long rip = currentRip + 4 + immSizes[immSize];
-			long diff8 = (((long)displHi << 32) | ((long)displ & 0xFFFF_FFFF)) - rip;
+			long diff8 = (((long)displHi << 32) | ((long)displ & 0xFFFF_FFFFL)) - rip;
 			if (diff8 < -0x8000_0000 || diff8 > 0x7FFF_FFFF)
 				setErrorMessage(
 						String.format("RIP relative distance is too far away: NextIP: 0x%16X target: 0x%8X%8X, diff = %d, diff must fit in an Int32",
@@ -1243,7 +1243,7 @@ public final class Encoder {
 
 		case ImmSize.RIP_REL_SIZE1_TARGET64:
 			rip = currentRip + 1;
-			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFF)) - rip;
+			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFFL)) - rip;
 			if (diff8 < -0x80 || diff8 > 0x7F)
 				setErrorMessage(String.format("Branch distance is too far away: NextIP: 0x%16X target: 0x%8X%8X, diff = %d, diff must fit in an Int8",
 						rip, immediateHi, immediate, diff8));
@@ -1270,7 +1270,7 @@ public final class Encoder {
 
 		case ImmSize.RIP_REL_SIZE2_TARGET64:
 			rip = currentRip + 2;
-			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFF)) - (long)rip;
+			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFFL)) - (long)rip;
 			if (diff8 < -0x8000 || diff8 > 0x7FFF)
 				setErrorMessage(
 						String.format("Branch distance is too far away: NextIP: 0x%16X target: 0x%8X%8X, diff = %d, diff must fit in an Int16", rip,
@@ -1291,7 +1291,7 @@ public final class Encoder {
 
 		case ImmSize.RIP_REL_SIZE4_TARGET64:
 			rip = currentRip + 4;
-			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFF)) - rip;
+			diff8 = (((long)immediateHi << 32) | ((long)immediate & 0xFFFF_FFFFL)) - rip;
 			if (diff8 < -0x8000_0000 || diff8 > 0x7FFF_FFFF)
 				setErrorMessage(
 						String.format("Branch distance is too far away: NextIP: 0x%16X target: 0x%8X%8X, diff = %d, diff must fit in an Int32", rip,

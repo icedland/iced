@@ -183,6 +183,7 @@ final class OpCodeHandler_PrefixF2 extends OpCodeHandler {
 	@Override
 	void decode(Decoder decoder, Instruction instruction) {
 
+		instruction.setRepePrefix(false);
 		instruction.setRepnePrefix(true);
 		decoder.state_zs_mandatoryPrefix = MandatoryPrefixByte.PF2;
 
@@ -199,6 +200,7 @@ final class OpCodeHandler_PrefixF3 extends OpCodeHandler {
 	void decode(Decoder decoder, Instruction instruction) {
 
 		instruction.setRepePrefix(true);
+		instruction.setRepnePrefix(false);
 		decoder.state_zs_mandatoryPrefix = MandatoryPrefixByte.PF3;
 
 		decoder.resetRexPrefixState();
@@ -2819,12 +2821,12 @@ final class OpCodeHandler_Reg_Ob extends OpCodeHandler {
 		decoder.displIndex = decoder.state_zs_instructionLength;
 		instruction.setOp1Kind(OpKind.MEMORY);
 		if (decoder.state_addressSize == OpSize.SIZE64) {
-			instruction.setMemoryDisplSize(4);
+			instruction.setMemoryDisplSize(8);
 			decoder.state_zs_flags |= StateFlags.ADDR64;
 			instruction.setMemoryDisplacement64(decoder.readUInt64());
 		}
 		else if (decoder.state_addressSize == OpSize.SIZE32) {
-			instruction.setMemoryDisplSize(3);
+			instruction.setMemoryDisplSize(4);
 			instruction.setMemoryDisplacement64(decoder.readUInt32());
 		}
 		else {
@@ -2850,12 +2852,12 @@ final class OpCodeHandler_Ob_Reg extends OpCodeHandler {
 		instruction.setOp0Kind(OpKind.MEMORY);
 		instruction.setOp1Register(reg);
 		if (decoder.state_addressSize == OpSize.SIZE64) {
-			instruction.setMemoryDisplSize(4);
+			instruction.setMemoryDisplSize(8);
 			decoder.state_zs_flags |= StateFlags.ADDR64;
 			instruction.setMemoryDisplacement64(decoder.readUInt64());
 		}
 		else if (decoder.state_addressSize == OpSize.SIZE32) {
-			instruction.setMemoryDisplSize(3);
+			instruction.setMemoryDisplSize(4);
 			instruction.setMemoryDisplacement64(decoder.readUInt32());
 		}
 		else {
@@ -2880,12 +2882,12 @@ final class OpCodeHandler_Reg_Ov extends OpCodeHandler {
 		instruction.setCode(codes[operandSize]);
 		instruction.setOp0Register((operandSize << 4) + Register.AX);
 		if (decoder.state_addressSize == OpSize.SIZE64) {
-			instruction.setMemoryDisplSize(4);
+			instruction.setMemoryDisplSize(8);
 			decoder.state_zs_flags |= StateFlags.ADDR64;
 			instruction.setMemoryDisplacement64(decoder.readUInt64());
 		}
 		else if (decoder.state_addressSize == OpSize.SIZE32) {
-			instruction.setMemoryDisplSize(3);
+			instruction.setMemoryDisplSize(4);
 			instruction.setMemoryDisplacement64(decoder.readUInt32());
 		}
 		else {
@@ -2910,12 +2912,12 @@ final class OpCodeHandler_Ov_Reg extends OpCodeHandler {
 		instruction.setCode(codes[operandSize]);
 		instruction.setOp1Register((operandSize << 4) + Register.AX);
 		if (decoder.state_addressSize == OpSize.SIZE64) {
-			instruction.setMemoryDisplSize(4);
+			instruction.setMemoryDisplSize(8);
 			decoder.state_zs_flags |= StateFlags.ADDR64;
 			instruction.setMemoryDisplacement64(decoder.readUInt64());
 		}
 		else if (decoder.state_addressSize == OpSize.SIZE32) {
-			instruction.setMemoryDisplSize(3);
+			instruction.setMemoryDisplSize(4);
 			instruction.setMemoryDisplacement64(decoder.readUInt32());
 		}
 		else {

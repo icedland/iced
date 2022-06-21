@@ -197,7 +197,7 @@ public final class NumberFormatter {
 			flags |= Flags.ADD_MINUS_SIGN;
 			value = -value;
 		}
-		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFF, 32, flags);
+		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFFL, 32, flags);
 	}
 
 	public String formatInt64(FormatterOptions formatterOptions, NumberFormattingOptions options, long value) {
@@ -218,7 +218,7 @@ public final class NumberFormatter {
 	}
 
 	public String formatUInt32(FormatterOptions formatterOptions, NumberFormattingOptions options, int value) {
-		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFF, 32,
+		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFFL, 32,
 				getFlags(options.leadingZeros, options.smallHexNumbersInDecimal));
 	}
 
@@ -237,7 +237,7 @@ public final class NumberFormatter {
 	}
 
 	public String formatDisplUInt32(FormatterOptions formatterOptions, NumberFormattingOptions options, int value) {
-		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFF, 32,
+		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFFL, 32,
 				getFlags(options.displacementLeadingZeros, options.smallHexNumbersInDecimal));
 	}
 
@@ -251,7 +251,7 @@ public final class NumberFormatter {
 	}
 
 	public String formatUInt32(FormatterOptions formatterOptions, NumberFormattingOptions options, int value, boolean leadingZeros) {
-		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFF, 32, getFlags(leadingZeros, options.smallHexNumbersInDecimal));
+		return formatUnsignedInteger(formatterOptions, options, value & 0xFFFF_FFFFL, 32, getFlags(leadingZeros, options.smallHexNumbersInDecimal));
 	}
 
 	public String formatUInt64(FormatterOptions formatterOptions, NumberFormattingOptions options, long value, boolean leadingZeros) {

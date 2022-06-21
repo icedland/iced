@@ -644,7 +644,7 @@ namespace Generator.Encoder.Java {
 				writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, {16 / elemSize} - 1) > 0)");
 				using (writer.Indent())
 					writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
-				writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFF) + ((long){lengthName} & 0xFFFF_FFFF), (long){dataName}.length & 0xFFFF_FFFF) > 0)");
+				writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFFL) + ((long){lengthName} & 0xFFFF_FFFFL), (long){dataName}.length & 0xFFFF_FFFFL) > 0)");
 				using (writer.Indent())
 					writer.WriteLine($"throw new IllegalArgumentException(\"{indexName}\");");
 				writer.WriteLine();
@@ -691,7 +691,7 @@ namespace Generator.Encoder.Java {
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 1) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
-						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFF) + ((long){lengthName} & 0xFFFF_FFFF), (long){dataName}.length & 0xFFFF_FFFF) > 0)");
+						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFFL) + ((long){lengthName} & 0xFFFF_FFFFL), (long){dataName}.length & 0xFFFF_FFFFL) > 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{indexName}\");");
 						writer.WriteLine();
@@ -736,7 +736,7 @@ namespace Generator.Encoder.Java {
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 3) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
-						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFF) + ((long){lengthName} & 0xFFFF_FFFF), (long){dataName}.length & 0xFFFF_FFFF) > 0)");
+						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFFL) + ((long){lengthName} & 0xFFFF_FFFFL), (long){dataName}.length & 0xFFFF_FFFFL) > 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{indexName}\");");
 						writer.WriteLine();
@@ -781,7 +781,7 @@ namespace Generator.Encoder.Java {
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 7) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
-						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFF) + ((long){lengthName} & 0xFFFF_FFFF), (long){dataName}.length & 0xFFFF_FFFF) > 0)");
+						writer.WriteLine($"if (Long.compareUnsigned(((long){indexName} & 0xFFFF_FFFFL) + ((long){lengthName} & 0xFFFF_FFFFL), (long){dataName}.length & 0xFFFF_FFFFL) > 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{indexName}\");");
 						writer.WriteLine();
@@ -792,7 +792,7 @@ namespace Generator.Encoder.Java {
 						using (writer.Indent()) {
 							writer.WriteLine($"int v1 = ({dataName}[{indexName} + i] & 0xFF) | (({dataName}[{indexName} + i + 1] & 0xFF) << 8) | (({dataName}[{indexName} + i + 2] & 0xFF) << 16) | ({dataName}[{indexName} + i + 3] << 24);");
 							writer.WriteLine($"int v2 = ({dataName}[{indexName} + i + 4] & 0xFF) | (({dataName}[{indexName} + i + 5] & 0xFF) << 8) | (({dataName}[{indexName} + i + 6] & 0xFF) << 16) | ({dataName}[{indexName} + i + 7] << 24);");
-							writer.WriteLine("instruction.setDeclareQwordValue(i / 8, ((long)v1 & 0xFFFF_FFFF) | ((long)v2 << 32));");
+							writer.WriteLine("instruction.setDeclareQwordValue(i / 8, ((long)v1 & 0xFFFF_FFFFL) | ((long)v2 << 32));");
 						}
 						writer.WriteLine("}");
 						WriteMethodFooter(writer, 0);

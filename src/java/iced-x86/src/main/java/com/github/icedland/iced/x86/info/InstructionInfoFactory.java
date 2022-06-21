@@ -292,7 +292,7 @@ public final class InstructionInfoFactory {
 			return Register.RSP;
 		}
 		if (codeSize == CodeSize.CODE32) {
-			xspMask = 0xFFFF_FFFF;
+			xspMask = 0xFFFF_FFFFL;
 			xspAddressSize = CodeSize.CODE32;
 			return Register.ESP;
 		}
@@ -1801,7 +1801,7 @@ public final class InstructionInfoFactory {
 					UsedMemory mem = info.usedMemoryLocations.get(0);
 					long displ = mem.getDisplacement() + opSize;
 					if (instruction.getMemoryBase() == Register.ESP)
-						displ = displ & 0xFFFF_FFFF;
+						displ = displ & 0xFFFF_FFFFL;
 					info.usedMemoryLocations.set(0, new UsedMemory(mem.getSegment(), mem.getBase(), mem.getIndex(), mem.getScale(), displ,
 							mem.getMemorySize(), mem.getAccess(), mem.getAddressSize(), mem.getVsibSize()));
 				}
@@ -2502,7 +2502,7 @@ public final class InstructionInfoFactory {
 					mask = 0xFFFF;
 					break;
 				case CodeSize.CODE32:
-					mask = 0xFFFF_FFFF;
+					mask = 0xFFFF_FFFFL;
 					break;
 				default:
 					mask = 0xFFFF_FFFF_FFFF_FFFFL;

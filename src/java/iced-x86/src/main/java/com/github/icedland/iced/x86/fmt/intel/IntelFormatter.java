@@ -599,7 +599,7 @@ public final class IntelFormatter extends Formatter {
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 			if (symbolResolver != null
-					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64 & 0xFFFF_FFFF, immSize)) != null) {
+					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64 & 0xFFFF_FFFFL, immSize)) != null) {
 				formatFlowControl(output, opInfo.flags, operandOptions);
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
 						numberFormatter, numberOptions, imm64, symbol, options.getShowSymbolAddress());
@@ -930,7 +930,7 @@ public final class IntelFormatter extends Formatter {
 			displSize = 8;
 		}
 		else if (baseReg == Register.EIP) {
-			absAddr = displ & 0xFFFF_FFFF;
+			absAddr = displ & 0xFFFF_FFFFL;
 			if (options.getRipRelativeAddresses())
 				displ = (int)displ - instruction.getNextIP32();
 			else {
@@ -1056,7 +1056,7 @@ public final class IntelFormatter extends Formatter {
 					if (!numberOptions.signedNumber)
 						output.write("+", FormatterTextKind.OPERATOR);
 					else if ((int)displ < 0) {
-						displ = ((long)-(int)displ) & 0xFFFF_FFFF;
+						displ = ((long)-(int)displ) & 0xFFFF_FFFFL;
 						output.write("-", FormatterTextKind.OPERATOR);
 					}
 					else
@@ -1095,7 +1095,7 @@ public final class IntelFormatter extends Formatter {
 				s = numberFormatter.formatDisplUInt16(options, numberOptions, (short)displ);
 				displKind = isSigned ? NumberKind.INT16 : NumberKind.UINT16;
 			}
-			else if (displSize <= 4 && Long.compareUnsigned(displ, 0xFFFF_FFFF) <= 0) {
+			else if (displSize <= 4 && Long.compareUnsigned(displ, 0xFFFF_FFFFL) <= 0) {
 				s = numberFormatter.formatDisplUInt32(options, numberOptions, (int)displ);
 				displKind = isSigned ? NumberKind.INT32 : NumberKind.UINT32;
 			}

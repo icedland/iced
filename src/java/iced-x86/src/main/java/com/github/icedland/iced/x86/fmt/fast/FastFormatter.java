@@ -305,7 +305,7 @@ public final class FastFormatter {
 						imm64 = instruction.getFarBranch16();
 					}
 					if (symbolResolver != null
-							&& (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm64 & 0xFFFF_FFFF, immSize)) != null) {
+							&& (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm64 & 0xFFFF_FFFFL, immSize)) != null) {
 						assert operand + 1 == 1 : operand;
 						SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, operand, instruction.getFarBranchSelector(),
 								2);
@@ -624,7 +624,7 @@ public final class FastFormatter {
 			displSize = 8;
 		}
 		else if (baseReg == Register.EIP) {
-			absAddr = displ & 0xFFFF_FFFF;
+			absAddr = displ & 0xFFFF_FFFFL;
 			if (options.getRipRelativeAddresses())
 				displ = (int)displ - instruction.getNextIP32();
 			else {
@@ -713,7 +713,7 @@ public final class FastFormatter {
 				}
 				else if (addrSize == 4) {
 					if ((int)displ < 0) {
-						displ = ((long)-(int)displ) & 0xFFFF_FFFF;
+						displ = ((long)-(int)displ) & 0xFFFF_FFFFL;
 						output.append('-');
 					}
 					else
