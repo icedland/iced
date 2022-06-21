@@ -6,35 +6,34 @@
 package com.github.icedland.iced.x86;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import com.github.icedland.iced.x86.dec.DecoderOptions;
 
 public final class ToDecoderOptions {
-	static Integer tryGet(String key) {
+	public static Integer tryGet(String key) {
 		return map.get(key);
 	}
 
-	static Integer get(String key) {
+	public static int get(String key) {
 		Integer value = tryGet(key);
 		if (value == null)
 			throw new UnsupportedOperationException(String.format("Couldn't find enum variant DecoderOptions.%s", key));
-		return value;
+		return value.intValue();
 	}
 
-	static Iterator<String> names() {
-		return map.keySet().iterator();
+	public static String[] names() {
+		return map.entrySet().stream().sorted((a, b) -> Integer.compareUnsigned(a.getValue(), b.getValue())).map(a -> a.getKey()).toArray(String[]::new);
 	}
 
-	static Iterator<Integer> values() {
-		return map.values().iterator();
+	public static Iterable<Integer> values() {
+		return map.values();
 	}
 
-	static int size() {
+	public static int size() {
 		return map.size();
 	}
 
-	static HashMap<String, Integer> copy() {
+	public static HashMap<String, Integer> copy() {
 		return new HashMap<String, Integer>(map);
 	}
 

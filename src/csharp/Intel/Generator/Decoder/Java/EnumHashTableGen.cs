@@ -61,7 +61,6 @@ namespace Generator.Decoder.Java {
 					writer.WriteLine($"package {JavaConstants.IcedPackage};");
 					writer.WriteLine();
 					writer.WriteLine("import java.util.HashMap;");
-					writer.WriteLine("import java.util.Iterator;");
 					if (info.enumPackage != JavaConstants.IcedPackage) {
 						writer.WriteLine();
 						writer.WriteLine($"import {info.enumPackage}.{info.name};");
@@ -72,37 +71,37 @@ namespace Generator.Decoder.Java {
 						var enumValues = info.enumType.Values.
 							Where(a => !a.DeprecatedInfo.IsDeprecatedAndRenamed &&
 									!(a.DeprecatedInfo.IsDeprecated && a.DeprecatedInfo.IsError)).ToArray();
-						writer.WriteLine("static Integer tryGet(String key) {");
+						writer.WriteLine("public static Integer tryGet(String key) {");
 						using (writer.Indent())
 							writer.WriteLine("return map.get(key);");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						writer.WriteLine("static Integer get(String key) {");
+						writer.WriteLine("public static int get(String key) {");
 						using (writer.Indent()) {
 							writer.WriteLine("Integer value = tryGet(key);");
 							writer.WriteLine("if (value == null)");
 							using (writer.Indent())
 								writer.WriteLine($"throw new UnsupportedOperationException(String.format(\"Couldn't find enum variant {info.name}.%s\", key));");
-							writer.WriteLine("return value;");
+							writer.WriteLine("return value.intValue();");
 						}
 						writer.WriteLine("}");
 						writer.WriteLine();
-						writer.WriteLine("static Iterator<String> names() {");
+						writer.WriteLine("public static String[] names() {");
 						using (writer.Indent())
-							writer.WriteLine("return map.keySet().iterator();");
+							writer.WriteLine("return map.entrySet().stream().sorted((a, b) -> Integer.compareUnsigned(a.getValue(), b.getValue())).map(a -> a.getKey()).toArray(String[]::new);");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						writer.WriteLine("static Iterator<Integer> values() {");
+						writer.WriteLine("public static Iterable<Integer> values() {");
 						using (writer.Indent())
-							writer.WriteLine("return map.values().iterator();");
+							writer.WriteLine("return map.values();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						writer.WriteLine("static int size() {");
+						writer.WriteLine("public static int size() {");
 						using (writer.Indent())
 							writer.WriteLine("return map.size();");
 						writer.WriteLine("}");
 						writer.WriteLine();
-						writer.WriteLine("static HashMap<String, Integer> copy() {");
+						writer.WriteLine("public static HashMap<String, Integer> copy() {");
 						using (writer.Indent())
 							writer.WriteLine("return new HashMap<String, Integer>(map);");
 						writer.WriteLine("}");
