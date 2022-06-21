@@ -48,6 +48,12 @@
       <version>5.9.0-M1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>5.9.0-M1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
