@@ -10,10 +10,10 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
  */
 public final class RegisterInfo {
 	static final RegisterInfo[] infos = createRegisterInfos();
-	private final byte register;
-	private final byte baseRegister;
-	private final byte fullRegister;
-	private final short size;
+	private final int register;
+	private final int baseRegister;
+	private final int fullRegister;
+	private final int size;
 
 	private static RegisterInfo[] createRegisterInfos() {
 		RegisterInfo[] regInfos = new RegisterInfo[IcedConstants.REGISTER_ENUM_COUNT];
@@ -117,14 +117,9 @@ public final class RegisterInfo {
 	}
 
 	private RegisterInfo(int register, int baseRegister, int fullRegister, int size) {
-		assert baseRegister <= register : baseRegister;
-		assert register >= 0 && register <= 0xFF : register;
-		this.register = (byte)register;
-		assert baseRegister >= 0 && baseRegister <= 0xFF : baseRegister;
-		this.baseRegister = (byte)baseRegister;
-		assert fullRegister >= 0 && fullRegister <= 0xFF : fullRegister;
-		this.fullRegister = (byte)fullRegister;
-		assert size >= 0 && size <= 0xFFFF : size;
-		this.size = (short)size;
+		this.register = register;
+		this.baseRegister = baseRegister;
+		this.fullRegister = fullRegister;
+		this.size = size;
 	}
 }

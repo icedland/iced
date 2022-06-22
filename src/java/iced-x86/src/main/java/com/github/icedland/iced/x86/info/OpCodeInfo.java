@@ -1126,7 +1126,7 @@ public final class OpCodeInfo {
 	 * ({@link Code#SUB_R8_RM8}, {@link Code#CVTPI2PS_XMM_MMM64}, etc).
 	 */
 	public int getOpCode() {
-		return encFlags2 >>> EncFlags2.OP_CODE_SHIFT;
+		return (encFlags2 >>> EncFlags2.OP_CODE_SHIFT) & 0xFFFF;
 	}
 
 	/**
