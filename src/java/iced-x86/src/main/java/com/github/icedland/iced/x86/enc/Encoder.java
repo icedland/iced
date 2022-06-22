@@ -144,8 +144,8 @@ public final class Encoder {
 
 	int internal_MVEX_WIG;
 
-	private static final String ERROR_ONLY_1632_BIT_MODE = "The instruction can only be used in 16/32-bit mode";
-	private static final String ERROR_ONLY_64_BIT_MODE = "The instruction can only be used in 64-bit mode";
+	static final String ERROR_ONLY_1632_BIT_MODE = "The instruction can only be used in 16/32-bit mode";
+	static final String ERROR_ONLY_64_BIT_MODE = "The instruction can only be used in 64-bit mode";
 
 	private final CodeWriter writer;
 	private final int bitness;
@@ -341,7 +341,7 @@ public final class Encoder {
 				writeImmediate();
 		}
 		else {
-			assert handler instanceof InternalOpCodeHandlers.DeclareDataHandler;
+			assert handler instanceof InternalOpCodeHandlers.DeclareDataHandler || handler instanceof InternalOpCodeHandlers.ZeroBytesHandler;
 			handler.encode(this, instruction);
 		}
 

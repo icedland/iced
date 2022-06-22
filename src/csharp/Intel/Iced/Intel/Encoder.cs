@@ -292,7 +292,7 @@ namespace Iced.Intel {
 					WriteImmediate();
 			}
 			else {
-				Debug.Assert(handler is DeclareDataHandler);
+				Debug.Assert(handler is DeclareDataHandler || handler is ZeroBytesHandler);
 				handler.Encode(this, instruction);
 			}
 

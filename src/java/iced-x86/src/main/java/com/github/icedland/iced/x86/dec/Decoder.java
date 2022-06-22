@@ -577,10 +577,7 @@ public final class Decoder implements Iterable<Instruction> {
 
 				int aaa = p2 & 7;
 				state_aaa = aaa;
-				if (aaa == 0)
-					instruction.setOpMask(Register.NONE);
-				else
-					instruction.setOpMask(Register.K0 + aaa);
+				instruction.setRawOpMask(aaa);
 				if ((p2 & 0x80) != 0) {
 					// invalid if aaa == 0 and if we check for invalid instructions (it's all 1s)
 					if ((aaa ^ invalidCheckMask) == 0xFFFF_FFFF)
@@ -659,10 +656,7 @@ public final class Decoder implements Iterable<Instruction> {
 
 				int aaa = p2 & 7;
 				state_aaa = aaa;
-				if (aaa == 0)
-					instruction.setOpMask(Register.NONE);
-				else
-					instruction.setOpMask(Register.K0 + aaa);
+				instruction.setRawOpMask(aaa);
 
 				state_zs_flags |= (p2 & 0xF0) << (StateFlags.MVEX_SSS_SHIFT - 4);
 

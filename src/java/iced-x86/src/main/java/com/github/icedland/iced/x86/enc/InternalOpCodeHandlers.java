@@ -491,7 +491,7 @@ public final class InternalOpCodeHandlers {
 			b |= mask_W & encoder.internal_EVEX_WIG;
 			encoder.writeByteInternal(b);
 
-			b = instruction.getOpMask();
+			b = instruction.getRawOpMask();
 			if (b != 0) {
 				if ((encFlags3 & EncFlags3.OP_MASK_REGISTER) == 0)
 					encoder.setErrorMessage("The instruction doesn't support opmask registers");
@@ -615,7 +615,7 @@ public final class InternalOpCodeHandlers {
 			b |= mask_W & encoder.internal_MVEX_WIG;
 			encoder.writeByteInternal(b);
 
-			b = instruction.getOpMask();
+			b = instruction.getRawOpMask();
 			if (b != 0) {
 				if ((encFlags3 & EncFlags3.OP_MASK_REGISTER) == 0)
 					encoder.setErrorMessage("The instruction doesn't support opmask registers");

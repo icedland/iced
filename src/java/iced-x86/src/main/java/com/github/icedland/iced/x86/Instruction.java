@@ -1493,6 +1493,22 @@ public final class Instruction {
 	}
 
 	/**
+	 * Gets the raw opmask register (0-7)
+	 */
+	public int getRawOpMask() {
+		return (flags1 >>> InstrFlags1.OP_MASK_SHIFT) & InstrFlags1.OP_MASK_MASK;
+	}
+
+	/**
+	 * Gets the raw opmask register (0-7)
+	 */
+	public void setRawOpMask(int value) {
+		int r = value & InstrFlags1.OP_MASK_MASK;
+		flags1 = (flags1 & ~(InstrFlags1.OP_MASK_MASK << InstrFlags1.OP_MASK_SHIFT)) |
+				(r << InstrFlags1.OP_MASK_SHIFT);
+	}
+
+	/**
 	 * {@code true} if there's an opmask register ({@link #getOpMask()})
 	 */
 	public boolean hasOpMask() {
