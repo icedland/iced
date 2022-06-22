@@ -1283,7 +1283,8 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 #if !NO_EVEX
 		[Fact]
 		void EncodeInvalidEr() {
-			foreach (var er in Enum.GetValues<RoundingControl>()) {
+			for (int i = 0; i < IcedConstants.RoundingControlEnumCount; i++) {
+				var er = (RoundingControl)i;
 				var encoder = Encoder.Create(64, new CodeWriterImpl());
 				var instr = Instruction.Create(Code.EVEX_Vmovups_xmm_k1z_xmmm128, Register.XMM0, Register.XMM1);
 				instr.RoundingControl = er;

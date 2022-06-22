@@ -529,14 +529,14 @@ public final class OpCodeInfo {
 	 * If it has a memory operand, gets the {@link MemorySize} (non-broadcast memory type) (a {@link MemorySize} enum variant)
 	 */
 	public int getMemorySize() {
-		return InstructionMemorySizes.sizesNormal[code];
+		return InstructionMemorySizes.sizesNormal[code] & 0xFF;
 	}
 
 	/**
 	 * If it has a memory operand, gets the {@link MemorySize} (broadcast memory type) (a {@link MemorySize} enum variant)
 	 */
 	public int getBroadcastMemorySize() {
-		return InstructionMemorySizes.sizesBcst[code];
+		return InstructionMemorySizes.sizesBcst[code] & 0xFF;
 	}
 
 	/**

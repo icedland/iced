@@ -319,7 +319,7 @@ final class OpI4 extends Op {
 			return;
 		assert encoder.immSize == ImmSize.SIZE_IB_REG : encoder.immSize;
 		assert (encoder.immediate & 0xF) == 0 : encoder.immediate;
-		if (instruction.getImmediate8() > 0xF) {
+		if ((instruction.getImmediate8() & 0xFF) > 0xF) {
 			encoder.setErrorMessage(
 					String.format("Operand %d: Immediate value must be 0-15, but value is 0x%02X", operand, instruction.getImmediate8()));
 			return;
@@ -531,7 +531,7 @@ final class OpImm extends Op {
 	void encode(Encoder encoder, Instruction instruction, int operand) {
 		if (!encoder.verifyOpKind(operand, OpKind.IMMEDIATE8, instruction.getOpKind(operand)))
 			return;
-		if (instruction.getImmediate8() != value) {
+		if ((instruction.getImmediate8() & 0xFF) != value) {
 			encoder.setErrorMessage(String.format("Operand %d: Expected 0x%02X, actual: 0x%02X", operand, value, instruction.getImmediate8()));
 			return;
 		}

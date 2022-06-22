@@ -271,9 +271,9 @@ final class InstructionFormatter {
 	private int getMemorySize(boolean isBroadcast) {
 		int index = opCode.getCode();
 		if (isBroadcast)
-			return InstructionMemorySizes.sizesBcst[index];
+			return InstructionMemorySizes.sizesBcst[index] & 0xFF;
 		else
-			return InstructionMemorySizes.sizesNormal[index];
+			return InstructionMemorySizes.sizesNormal[index] & 0xFF;
 	}
 
 	public String format() {

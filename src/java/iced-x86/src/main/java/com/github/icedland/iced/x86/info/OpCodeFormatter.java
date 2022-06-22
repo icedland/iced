@@ -507,9 +507,9 @@ final class OpCodeFormatter {
 
 		sb.append(encodingName);
 		if (opCode.getEncoding() == EncodingKind.MVEX) {
-			if (MvexInfo.isNDD(opCode.getOpCode()))
+			if (MvexInfo.isNDD(opCode.getCode()))
 				sb.append(".NDD");
-			else if (MvexInfo.isNDS(opCode.getOpCode()))
+			else if (MvexInfo.isNDS(opCode.getCode()))
 				sb.append(".NDS");
 		}
 		sb.append('.');
