@@ -76,6 +76,7 @@ final class CallInstr extends Instr {
 	String tryEncode(Encoder encoder, TryEncodeResult result) {
 		if (useOrigInstruction) {
 			result.isOriginalInstruction = true;
+			Instruction instruction = this.instruction.copy();
 			instruction.setNearBranch64(targetInstr.getAddress());
 			Object encResult = encoder.tryEncode(instruction, ip);
 			if (encResult instanceof String) {

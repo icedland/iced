@@ -126,11 +126,13 @@ final class JccInstr extends Instr {
 	@Override
 	String tryEncode(Encoder encoder, TryEncodeResult result) {
 		Object encResult;
+		Instruction instruction;
 		switch (instrKind) {
 		case InstrKind.UNCHANGED:
 		case InstrKind.SHORT:
 		case InstrKind.NEAR:
 			result.isOriginalInstruction = true;
+			instruction = this.instruction.copy();
 			if (instrKind == InstrKind.UNCHANGED) {
 				// nothing
 			}
@@ -152,6 +154,7 @@ final class JccInstr extends Instr {
 			result.isOriginalInstruction = false;
 			result.constantOffsets = new ConstantOffsets();
 			pointerData.data = targetInstr.getAddress();
+			instruction = this.instruction; // No copy(), we don't mutate it
 			Instruction instr = new Instruction();
 			instr.setCode(shortBrToNativeBr(Code.toShortBranch(Code.negateConditionCode(instruction.getCode())), encoder.getBitness()));
 			if (instruction.getOpCount() == 1)

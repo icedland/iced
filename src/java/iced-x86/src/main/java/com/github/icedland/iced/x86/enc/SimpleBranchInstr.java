@@ -251,10 +251,11 @@ final class SimpleBranchInstr extends Instr {
 		case InstrKind.UNCHANGED:
 		case InstrKind.SHORT:
 			result.isOriginalInstruction = true;
-			instruction.setNearBranch64(targetInstr.getAddress());
-			encResult = encoder.tryEncode(instruction, ip);
+			instr = instruction.copy();
+			instr.setNearBranch64(targetInstr.getAddress());
+			encResult = encoder.tryEncode(instr, ip);
 			if (encResult instanceof String)
-				return createErrorMessage((String)encResult, instruction);
+				return createErrorMessage((String)encResult, instr);
 			result.constantOffsets = encoder.getConstantOffsets();
 			return null;
 
@@ -269,7 +270,7 @@ final class SimpleBranchInstr extends Instr {
 			//		jmp near target	; 3/5/5
 			//	skip:
 
-			instr = instruction;
+			instr = instruction.copy();
 			instr.setCode(nativeCode & 0xFFFF);
 			instr.setNearBranch64(ip + nativeInstructionSize + 2);
 			encResult = encoder.tryEncode(instr, ip);
@@ -328,7 +329,7 @@ final class SimpleBranchInstr extends Instr {
 			//		jmp [mem_loc]	; 6
 			//	skip:
 
-			instr = instruction;
+			instr = instruction.copy();
 			instr.setCode(nativeCode & 0xFFFF);
 			instr.setNearBranch64(ip + nativeInstructionSize + 2);
 			encResult = encoder.tryEncode(instr, ip);

@@ -87,6 +87,7 @@ final class XbeginInstr extends Instr {
 		case InstrKind.REL16:
 		case InstrKind.REL32:
 			result.isOriginalInstruction = true;
+			Instruction instruction = this.instruction.copy();
 			if (instrKind == InstrKind.UNCHANGED) {
 				// nothing
 			}

@@ -92,6 +92,7 @@ final class IpRelMemOpInstr extends Instr {
 		case InstrKind.EIP:
 			result.isOriginalInstruction = true;
 
+			Instruction instruction = this.instruction.copy();
 			if (instrKind == InstrKind.RIP)
 				instruction.setMemoryBase(Register.RIP);
 			else if (instrKind == InstrKind.EIP)

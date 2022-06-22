@@ -112,11 +112,13 @@ final class JmpInstr extends Instr {
 	@Override
 	String tryEncode(Encoder encoder, TryEncodeResult result) {
 		Object encResult;
+		Instruction instruction;
 		switch (instrKind) {
 		case InstrKind.UNCHANGED:
 		case InstrKind.SHORT:
 		case InstrKind.NEAR:
 			result.isOriginalInstruction = true;
+			instruction = this.instruction.copy();
 			if (instrKind == InstrKind.UNCHANGED) {
 				// nothing
 			}
@@ -140,7 +142,7 @@ final class JmpInstr extends Instr {
 			pointerData.data = targetInstr.getAddress();
 			encResult = encodeBranchToPointerData(encoder, false, ip, pointerData, size);
 			if (encResult instanceof String)
-				return createErrorMessage((String)encResult, instruction);
+				return createErrorMessage((String)encResult, this.instruction);
 			return null;
 
 		case InstrKind.UNINITIALIZED:
