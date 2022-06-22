@@ -1595,19 +1595,20 @@ public final class Instruction {
 	 *
 	 * @see #getDeclareDataCount()
 	 */
-	public void setDeclareByteValue(int index, byte value) {
+	public void setDeclareByteValue(int index, int value) {
+		byte v = toByte(value);
 		switch (index) {
 		case 0:
-			reg0 = value;
+			reg0 = v;
 			break;
 		case 1:
-			reg1 = value;
+			reg1 = v;
 			break;
 		case 2:
-			reg2 = value;
+			reg2 = v;
 			break;
 		case 3:
-			reg3 = value;
+			reg3 = v;
 			break;
 		case 4:
 			immediate = (immediate & 0xFFFFFF00) | (value & 0xFF);
@@ -1708,7 +1709,8 @@ public final class Instruction {
 	 *
 	 * @see #getDeclareDataCount()
 	 */
-	public void setDeclareWordValue(int index, short value) {
+	public void setDeclareWordValue(int index, int value) {
+		toShort(value); // Ignore return value, verify that it's a short
 		switch (index) {
 		case 0:
 			reg0 = (byte)value;
