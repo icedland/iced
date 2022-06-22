@@ -38,7 +38,6 @@ public final class PathUtils {
 		dirs.addAll(Arrays.asList(items));
 		Path path = Paths.get(rootDir.toString(), dirs.toArray(new String[dirs.size()]));
 		String result = path.toAbsolutePath().normalize().toString();
-		System.out.println("path: " + result);
 		return result;
 	}
 }

@@ -42,7 +42,7 @@ public final class NumberConverter {
 
 	public static int toUInt32(String value) {
 		long v = toUInt64(value);
-		if (Long.compareUnsigned(v, 0xFFFF_FFFF) <= 0)
+		if (Long.compareUnsigned(v, 0xFFFF_FFFFL) <= 0)
 			return (int)v;
 		throw new UnsupportedOperationException(String.format("Invalid number: '%s'", value));
 	}
