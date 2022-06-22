@@ -9,12 +9,6 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.InstructionTests {
 	public sealed class CreateTests {
-		sealed class CodeWriterImpl : CodeWriter {
-			readonly List<byte> bytes = new List<byte>();
-			public override void WriteByte(byte value) => bytes.Add(value);
-			public byte[] ToArray() => bytes.ToArray();
-		}
-
 		[Fact]
 		void EncoderIgnoresPrefixesIfDeclareData() {
 			Instruction instruction;

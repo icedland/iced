@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using Iced.Intel;
 
-namespace Iced.UnitTests.Intel.EncoderTests {
+namespace Iced.UnitTests.Intel {
 	sealed class CodeWriterImpl : CodeWriter {
 		readonly List<byte> bytes = new List<byte>();
 		public override void WriteByte(byte value) => bytes.Add(value);
