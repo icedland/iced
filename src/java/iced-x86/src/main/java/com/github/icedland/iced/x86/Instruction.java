@@ -916,7 +916,7 @@ public final class Instruction {
 	 * Use this property if the operand has kind {@link OpKind#MEMORY}
 	 */
 	public void setMemoryDisplacement32(int value) {
-		memDispl = value;
+		memDispl = (long)value & 0xFFFF_FFFFL;
 	}
 
 	/**
@@ -947,13 +947,13 @@ public final class Instruction {
 	public long getImmediate(int operand) {
 		switch (getOpKind(operand)) {
 		case OpKind.IMMEDIATE8:
-			return getImmediate8();
+			return getImmediate8() & 0xFF;
 		case OpKind.IMMEDIATE8_2ND:
-			return getImmediate8_2nd();
+			return getImmediate8_2nd() & 0xFF;
 		case OpKind.IMMEDIATE16:
-			return getImmediate16();
+			return getImmediate16() & 0xFFFF;
 		case OpKind.IMMEDIATE32:
-			return getImmediate32();
+			return getImmediate32() & 0xFFFF_FFFFL;
 		case OpKind.IMMEDIATE64:
 			return getImmediate64();
 		case OpKind.IMMEDIATE8TO16:
@@ -2068,7 +2068,7 @@ public final class Instruction {
 	 * {@link #isIPRelativeMemoryOperand}
 	 */
 	public long ipRelativeMemoryAddress() {
-		return getMemoryBase() == Register.EIP ? getMemoryDisplacement32() : getMemoryDisplacement64();
+		return getMemoryBase() == Register.EIP ? (long)getMemoryDisplacement32() & 0xFFFF_FFFFL : getMemoryDisplacement64();
 	}
 
 	/**
@@ -2633,7 +2633,7 @@ public final class Instruction {
 	@SuppressWarnings("deprecation")
 	public Long getVirtualAddress(int operand, int elementIndex, VAGetRegisterValue getRegisterValue) {
 		if (getRegisterValue == null)
-			throw new IllegalArgumentException("getRegisterValue");
+			throw new NullPointerException("getRegisterValue");
 		Long seg, base;
 		switch (getOpKind(operand)) {
 		case OpKind.REGISTER:
@@ -2807,13 +2807,13 @@ public final class Instruction {
 			break;
 
 		case OpKind.IMMEDIATE8TO16:
-			if (!(-0x80 <= immediate && immediate <= 0x7F))
+			if (!(-0x80 <= immediate && immediate <= 0x7F) && !(0xFF80 <= immediate && immediate <= 0xFFFF))
 				throw new IllegalArgumentException("immediate");
 			instruction.setImmediate8((byte)immediate);
 			break;
 
 		case OpKind.IMMEDIATE8TO32:
-			if (!(-0x80 <= immediate && immediate <= 0x7F))
+			if (!(-0x80 <= immediate && immediate <= 0x7F) && !(0xFFFF_FF80L <= immediate && immediate <= 0xFFFF_FFFFL))
 				throw new IllegalArgumentException("immediate");
 			instruction.setImmediate8((byte)immediate);
 			break;
@@ -5328,7 +5328,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareByte(byte[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareByte(data, 0, data.length);
 	}
 
@@ -5341,7 +5341,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareByte(byte[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5549,7 +5549,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareWord(byte[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareWord(data, 0, data.length);
 	}
 
@@ -5562,7 +5562,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareWord(byte[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 1) != 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5588,7 +5588,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareWord(short[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareWord(data, 0, data.length);
 	}
 
@@ -5601,7 +5601,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareWord(short[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 8 - 1) > 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5701,7 +5701,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareDword(byte[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareDword(data, 0, data.length);
 	}
 
@@ -5714,7 +5714,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareDword(byte[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 3) != 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5740,7 +5740,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareDword(int[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareDword(data, 0, data.length);
 	}
 
@@ -5753,7 +5753,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareDword(int[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 4 - 1) > 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5811,7 +5811,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareQword(byte[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareQword(data, 0, data.length);
 	}
 
@@ -5824,7 +5824,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareQword(byte[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 16 - 1) > 0 || (length & 7) != 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)
@@ -5851,7 +5851,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareQword(long[] data) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		return createDeclareQword(data, 0, data.length);
 	}
 
@@ -5864,7 +5864,7 @@ public final class Instruction {
 	 */
 	public static Instruction createDeclareQword(long[] data, int index, int length) {
 		if (data == null)
-			throw new IllegalArgumentException("data");
+			throw new NullPointerException("data");
 		if (Integer.compareUnsigned(length - 1, 2 - 1) > 0)
 			throw new IllegalArgumentException("length");
 		if (Long.compareUnsigned(((long)index & 0xFFFF_FFFFL) + ((long)length & 0xFFFF_FFFFL), (long)data.length & 0xFFFF_FFFFL) > 0)

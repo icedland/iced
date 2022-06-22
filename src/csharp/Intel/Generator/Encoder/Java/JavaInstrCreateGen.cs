@@ -546,7 +546,7 @@ namespace Generator.Encoder.Java {
 				var dataName = idConverter.Argument(method.Args[0].Name);
 				writer.WriteLine($"if ({dataName} == null)");
 				using (writer.Indent())
-					writer.WriteLine($"throw new IllegalArgumentException(\"{dataName}\");");
+					writer.WriteLine($"throw new NullPointerException(\"{dataName}\");");
 				writer.WriteLine($"return {calledMethodName}({dataName}, 0, {dataName}.length);");
 			}
 			writer.WriteLine("}");
@@ -640,7 +640,7 @@ namespace Generator.Encoder.Java {
 				var lengthName = idConverter.Argument(method.Args[2].Name);
 				writer.WriteLine($"if ({dataName} == null)");
 				using (writer.Indent())
-					writer.WriteLine($"throw new IllegalArgumentException(\"{dataName}\");");
+					writer.WriteLine($"throw new NullPointerException(\"{dataName}\");");
 				writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, {16 / elemSize} - 1) > 0)");
 				using (writer.Indent())
 					writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
@@ -687,7 +687,7 @@ namespace Generator.Encoder.Java {
 						lengthName = idConverter.Argument(method.Args[2].Name);
 						writer.WriteLine($"if ({dataName} == null)");
 						using (writer.Indent())
-							writer.WriteLine($"throw new IllegalArgumentException(\"{dataName}\");");
+							writer.WriteLine($"throw new NullPointerException(\"{dataName}\");");
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 1) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
@@ -732,7 +732,7 @@ namespace Generator.Encoder.Java {
 						lengthName = idConverter.Argument(method.Args[2].Name);
 						writer.WriteLine($"if ({dataName} == null)");
 						using (writer.Indent())
-							writer.WriteLine($"throw new IllegalArgumentException(\"{dataName}\");");
+							writer.WriteLine($"throw new NullPointerException(\"{dataName}\");");
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 3) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");
@@ -777,7 +777,7 @@ namespace Generator.Encoder.Java {
 						lengthName = idConverter.Argument(method.Args[2].Name);
 						writer.WriteLine($"if ({dataName} == null)");
 						using (writer.Indent())
-							writer.WriteLine($"throw new IllegalArgumentException(\"{dataName}\");");
+							writer.WriteLine($"throw new NullPointerException(\"{dataName}\");");
 						writer.WriteLine($"if (Integer.compareUnsigned({lengthName} - 1, 16 - 1) > 0 || ({lengthName} & 7) != 0)");
 						using (writer.Indent())
 							writer.WriteLine($"throw new IllegalArgumentException(\"{lengthName}\");");

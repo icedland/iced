@@ -392,18 +392,18 @@ public final class Encoder {
 			switch (opKind) {
 			case OpKind.NEAR_BRANCH16:
 				encoderFlags |= opSize16Flags;
-				immSize = ImmSize.RIP_REL_SIZE1_TARGET16;
+				this.immSize = ImmSize.RIP_REL_SIZE1_TARGET16;
 				immediate = instruction.getNearBranch16();
 				break;
 
 			case OpKind.NEAR_BRANCH32:
 				encoderFlags |= opSize32Flags;
-				immSize = ImmSize.RIP_REL_SIZE1_TARGET32;
+				this.immSize = ImmSize.RIP_REL_SIZE1_TARGET32;
 				immediate = instruction.getNearBranch32();
 				break;
 
 			case OpKind.NEAR_BRANCH64:
-				immSize = ImmSize.RIP_REL_SIZE1_TARGET64;
+				this.immSize = ImmSize.RIP_REL_SIZE1_TARGET64;
 				target = instruction.getNearBranch64();
 				immediate = (int)target;
 				immediateHi = (int)(target >>> 32);
@@ -418,7 +418,7 @@ public final class Encoder {
 			switch (opKind) {
 			case OpKind.NEAR_BRANCH16:
 				encoderFlags |= opSize16Flags;
-				immSize = ImmSize.RIP_REL_SIZE2_TARGET16;
+				this.immSize = ImmSize.RIP_REL_SIZE2_TARGET16;
 				immediate = instruction.getNearBranch16();
 				break;
 
@@ -431,12 +431,12 @@ public final class Encoder {
 			switch (opKind) {
 			case OpKind.NEAR_BRANCH32:
 				encoderFlags |= opSize32Flags;
-				immSize = ImmSize.RIP_REL_SIZE4_TARGET32;
+				this.immSize = ImmSize.RIP_REL_SIZE4_TARGET32;
 				immediate = instruction.getNearBranch32();
 				break;
 
 			case OpKind.NEAR_BRANCH64:
-				immSize = ImmSize.RIP_REL_SIZE4_TARGET64;
+				this.immSize = ImmSize.RIP_REL_SIZE4_TARGET64;
 				target = instruction.getNearBranch64();
 				immediate = (int)target;
 				immediateHi = (int)(target >>> 32);
@@ -461,13 +461,13 @@ public final class Encoder {
 			switch (immSize) {
 			case 2:
 				encoderFlags |= EncoderFlags.P66;
-				immSize = ImmSize.RIP_REL_SIZE2_TARGET64;
+				this.immSize = ImmSize.RIP_REL_SIZE2_TARGET64;
 				immediate = (int)target;
 				immediateHi = (int)(target >>> 32);
 				break;
 
 			case 4:
-				immSize = ImmSize.RIP_REL_SIZE4_TARGET64;
+				this.immSize = ImmSize.RIP_REL_SIZE4_TARGET64;
 				immediate = (int)target;
 				immediateHi = (int)(target >>> 32);
 				break;
@@ -484,13 +484,13 @@ public final class Encoder {
 			switch (immSize) {
 			case 2:
 				encoderFlags |= (bitness & 0x20) << 2;
-				immSize = ImmSize.RIP_REL_SIZE2_TARGET32;
+				this.immSize = ImmSize.RIP_REL_SIZE2_TARGET32;
 				immediate = instruction.getNearBranch32();
 				break;
 
 			case 4:
 				encoderFlags |= (bitness & 0x10) << 3;
-				immSize = ImmSize.RIP_REL_SIZE4_TARGET32;
+				this.immSize = ImmSize.RIP_REL_SIZE4_TARGET32;
 				immediate = instruction.getNearBranch32();
 				break;
 
