@@ -64,7 +64,7 @@ final class OpCodeFormatter {
 	}
 
 	private void appendHexByte(int value) {
-		sb.append(String.format("%02X", value));
+		sb.append(String.format("%02X", value & 0xFF));
 	}
 
 	private void appendOpCode(int value, int valueLen, boolean sep) {

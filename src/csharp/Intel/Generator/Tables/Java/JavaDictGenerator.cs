@@ -30,12 +30,24 @@ namespace Generator.Tables.Java {
 			// 	WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "MemorySizeFlagsTable");
 			// 	WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "RegisterFlagsTable");
 			// });
-			//TODO:
-			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.EncoderPackage, "OpCodeInfoConstants.java")).Generate(writer => {
-			// 	WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes), "ToEncodingKind");
-			// 	WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes), "ToMandatoryPrefix");
-			// 	WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes), "ToOpCodeTableKind");
-			// });
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.InstructionInfoPackage, "OpCodeInfoDicts.java")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"package {JavaConstants.InstructionInfoPackage};");
+				writer.WriteLine();
+				writer.WriteLine("import java.util.HashMap;");
+				writer.WriteLine();
+				writer.WriteLine($"import {JavaConstants.IcedPackage}.EncodingKind;");
+				writer.WriteLine();
+				writer.WriteLine("final class OpCodeInfoDicts {");
+				using (writer.Indent()) {
+					WriteDict(writer, EncoderConstants.EncodingKindTable(genTypes));
+					writer.WriteLine();
+					WriteDict(writer, EncoderConstants.MandatoryPrefixTable(genTypes));
+					writer.WriteLine();
+					WriteDict(writer, EncoderConstants.OpCodeTableKindTable(genTypes));
+				}
+				writer.WriteLine("}");
+			}
 			//TODO:
 			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.MasmFormatterPackage, "SymbolOptionsTests.java")).Generate(writer => {
 			// 	WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "ToSymbolTestFlags");
@@ -53,14 +65,17 @@ namespace Generator.Tables.Java {
 			});
 		}
 
-		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants, string fieldName, bool publicField = true) {
-			var declTypeStr = constants[0].value.DeclaringType.Name(idConverter);
-			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly Dictionary<string, {declTypeStr}> {fieldName} = new Dictionary<string, {declTypeStr}>({constants.Length}, StringComparer.Ordinal) {{");
+		void WriteDict(FileWriter writer, (string name, EnumValue value)[] constants) {
+			var fieldName = constants[0].value.DeclaringType.Name(idConverter);
+			writer.WriteLine($"static final HashMap<String, Integer> to{fieldName} = create{fieldName}();");
+			writer.WriteLine($"private static HashMap<String, Integer> create{fieldName}() {{");
 			using (writer.Indent()) {
+				writer.WriteLine($"HashMap<String, Integer> map = new HashMap<String, Integer>({constants.Length});");
 				foreach (var constant in constants)
-					writer.WriteLine($"{{ \"{constant.name}\", {idConverter.ToDeclTypeAndValue(constant.value)} }},");
+					writer.WriteLine($"map.put(\"{constant.name}\", {idConverter.ToDeclTypeAndValue(constant.value)});");
+				writer.WriteLine("return map;");
 			}
-			writer.WriteLine("};");
+			writer.WriteLine("}");
 		}
 
 		static void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string fieldName, string createFnName, bool publicField = true) {

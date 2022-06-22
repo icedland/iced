@@ -53,8 +53,8 @@ namespace Generator.Constants.Java {
 			toFullFileInfo.Add(TypeIds.InstructionInfoKeys, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.InstructionInfoKeys) + ".java"));
 			toFullFileInfo.Add(TypeIds.RflagsBitsConstants, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.RflagsBitsConstants) + ".java"));
 			toFullFileInfo.Add(TypeIds.MiscSectionNames, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.MiscSectionNames) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpCodeInfoKeys, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.EncoderPackage, nameof(TypeIds.OpCodeInfoKeys) + ".java"));
-			toFullFileInfo.Add(TypeIds.OpCodeInfoFlags, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.EncoderPackage, nameof(TypeIds.OpCodeInfoFlags) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpCodeInfoKeys, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpCodeInfoKeys) + ".java"));
+			toFullFileInfo.Add(TypeIds.OpCodeInfoFlags, FullConstantsFileInfo.CreateTest(genTypes, JavaConstants.InstructionInfoPackage, nameof(TypeIds.OpCodeInfoFlags) + ".java"));
 		}
 
 		public override void Generate(ConstantsType constantsType) {
