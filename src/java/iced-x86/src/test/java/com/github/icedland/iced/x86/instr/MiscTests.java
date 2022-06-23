@@ -180,7 +180,7 @@ final class MiscTests {
 		assertEquals((short)0, instruction.getNearBranchTarget());
 		instruction.setNearBranch16((short)0xFFFF);
 		assertEquals((short)0xFFFF, instruction.getNearBranch16());
-		assertEquals((short)0xFFFF, instruction.getNearBranchTarget());
+		assertEquals(0xFFFF, instruction.getNearBranchTarget());
 
 		instruction.setOp0Kind(OpKind.NEAR_BRANCH32);
 		instruction.setNearBranch32(0);
@@ -188,7 +188,7 @@ final class MiscTests {
 		assertEquals(0, instruction.getNearBranchTarget());
 		instruction.setNearBranch32(0xFFFF_FFFF);
 		assertEquals(0xFFFF_FFFF, instruction.getNearBranch32());
-		assertEquals(0xFFFF_FFFF, instruction.getNearBranchTarget());
+		assertEquals(0xFFFF_FFFFL, instruction.getNearBranchTarget());
 
 		instruction.setOp0Kind(OpKind.NEAR_BRANCH64);
 		instruction.setNearBranch64(0L);

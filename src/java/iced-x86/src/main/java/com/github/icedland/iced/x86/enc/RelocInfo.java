@@ -27,4 +27,25 @@ public final class RelocInfo {
 		this.kind = kind;
 		this.address = address;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + kind;
+		result = prime * result + Long.hashCode(address);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RelocInfo other = (RelocInfo)obj;
+		return 
+			kind == other.kind &&
+			address == other.address;
+	}
 }

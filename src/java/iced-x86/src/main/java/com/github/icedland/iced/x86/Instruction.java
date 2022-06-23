@@ -1200,9 +1200,9 @@ public final class Instruction {
 			opKind = getOp1Kind();
 		switch (opKind) {
 		case OpKind.NEAR_BRANCH16:
-			return getNearBranch16();
+			return getNearBranch16() & 0xFFFF;
 		case OpKind.NEAR_BRANCH32:
-			return getNearBranch32();
+			return getNearBranch32() & 0xFFFF_FFFFL;
 		case OpKind.NEAR_BRANCH64:
 			return getNearBranch64();
 		default:

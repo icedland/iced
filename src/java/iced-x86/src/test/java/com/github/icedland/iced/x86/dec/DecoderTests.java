@@ -283,12 +283,12 @@ final class DecoderTests {
 				break;
 
 			case OpKind.NEAR_BRANCH16:
-				assertEquals(tc.nearBranch, instruction.getNearBranch16());
+				assertEquals(tc.nearBranch, instruction.getNearBranch16() & 0xFFFF);
 				assertEquals(tc.nearBranch, instruction.getNearBranchTarget());
 				break;
 
 			case OpKind.NEAR_BRANCH32:
-				assertEquals(tc.nearBranch, instruction.getNearBranch32());
+				assertEquals(tc.nearBranch, instruction.getNearBranch32() & 0xFFFF_FFFFL);
 				assertEquals(tc.nearBranch, instruction.getNearBranchTarget());
 				break;
 

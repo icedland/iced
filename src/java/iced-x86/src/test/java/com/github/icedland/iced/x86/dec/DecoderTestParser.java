@@ -418,14 +418,14 @@ final class DecoderTestParser {
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.NEAR_BRANCH16);
-			tc.nearBranch = NumberConverter.toUInt16(parts[1]);
+			tc.nearBranch = NumberConverter.toUInt16(parts[1]) & 0xFFFF;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_NEAR_BRANCH32:
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.NEAR_BRANCH32);
-			tc.nearBranch = NumberConverter.toUInt32(parts[1]);
+			tc.nearBranch = NumberConverter.toUInt32(parts[1]) & 0xFFFF_FFFFL;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_NEAR_BRANCH64:
@@ -440,7 +440,7 @@ final class DecoderTestParser {
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 3 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.FAR_BRANCH16);
 			tc.farBranchSelector = NumberConverter.toUInt16(parts[1]);
-			tc.farBranch = NumberConverter.toUInt16(parts[2]);
+			tc.farBranch = NumberConverter.toUInt16(parts[2]) & 0xFFFF;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_FAR_BRANCH32:
@@ -462,14 +462,14 @@ final class DecoderTestParser {
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.IMMEDIATE16);
-			tc.immediate = NumberConverter.toUInt16(parts[1]);
+			tc.immediate = NumberConverter.toUInt16(parts[1]) & 0xFFFF;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_IMMEDIATE32:
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.IMMEDIATE32);
-			tc.immediate = NumberConverter.toUInt32(parts[1]);
+			tc.immediate = NumberConverter.toUInt32(parts[1]) & 0xFFFF_FFFFL;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_IMMEDIATE64:
@@ -483,14 +483,14 @@ final class DecoderTestParser {
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.IMMEDIATE8TO16);
-			tc.immediate = NumberConverter.toUInt16(parts[1]);
+			tc.immediate = NumberConverter.toUInt16(parts[1]) & 0xFFFF;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_IMMEDIATE8TO32:
 			if (parts.length != 2)
 				throw new UnsupportedOperationException(String.format("Operand %d: expected 2 values, actual = %d", operand, parts.length));
 			tc.setOpKind(operand, OpKind.IMMEDIATE8TO32);
-			tc.immediate = NumberConverter.toUInt32(parts[1]);
+			tc.immediate = NumberConverter.toUInt32(parts[1]) & 0xFFFF_FFFFL;
 			break;
 
 		case DecoderTestParserConstants.OP_KIND_IMMEDIATE8TO64:

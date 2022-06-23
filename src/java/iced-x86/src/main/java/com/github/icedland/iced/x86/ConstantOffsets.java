@@ -63,4 +63,33 @@ public final class ConstantOffsets {
 	public boolean hasImmediate2() {
 		return immediateSize2 != 0;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + displacementOffset;
+		result = prime * result + displacementSize;
+		result = prime * result + immediateOffset;
+		result = prime * result + immediateOffset2;
+		result = prime * result + immediateSize;
+		result = prime * result + immediateSize2;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConstantOffsets other = (ConstantOffsets)obj;
+		return 
+			displacementOffset == other.displacementOffset &&
+			displacementSize == other.displacementSize &&
+			immediateOffset == other.immediateOffset &&
+			immediateOffset2 == other.immediateOffset2 &&
+			immediateSize == other.immediateSize &&
+			immediateSize2 == other.immediateSize2;
+	}
 }
