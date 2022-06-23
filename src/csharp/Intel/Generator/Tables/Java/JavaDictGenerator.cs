@@ -24,12 +24,22 @@ namespace Generator.Tables.Java {
 		public void Generate() {
 			var genTypes = generatorContext.Types;
 			var dirs = genTypes.Dirs;
-			//TODO:
-			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.InstructionInfoPackage, "InstructionInfoConstants.java")).Generate(writer => {
-			// 	WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes), "ToAccess");
-			// 	WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes), "MemorySizeFlagsTable");
-			// 	WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes), "RegisterFlagsTable");
-			// });
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.InstructionInfoPackage, "InstrInfoDicts.java")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"package {JavaConstants.InstructionInfoPackage};");
+				writer.WriteLine();
+				writer.WriteLine("import java.util.HashMap;");
+				writer.WriteLine();
+				writer.WriteLine("final class InstrInfoDicts {");
+				using (writer.Indent()) {
+					WriteDict(writer, InstrInfoDictConstants.OpAccessConstants(genTypes));
+					writer.WriteLine();
+					WriteDict(writer, InstrInfoDictConstants.MemorySizeFlagsTable(genTypes));
+					writer.WriteLine();
+					WriteDict(writer, InstrInfoDictConstants.RegisterFlagsTable(genTypes));
+				}
+				writer.WriteLine("}");
+			}
 			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.InstructionInfoPackage, "OpCodeInfoDicts.java")))) {
 				writer.WriteFileHeader();
 				writer.WriteLine($"package {JavaConstants.InstructionInfoPackage};");

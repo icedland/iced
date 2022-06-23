@@ -91,7 +91,7 @@ final class DecoderTestParser {
 
 		boolean foundCode = false;
 		for (String key : parts[4].split(" ")) {
-			if (key == "")
+			if (key.equals(""))
 				continue;
 			String value;
 			int index = key.indexOf('=');
@@ -612,7 +612,7 @@ final class DecoderTestParser {
 	}
 
 	private static int toRegister(String value) {
-		if (value == "")
+		if (value.equals(""))
 			return Register.NONE;
 		Integer reg = ToRegister.tryGet(value);
 		if (reg == null)

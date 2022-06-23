@@ -2193,25 +2193,25 @@ public final class Instruction {
 		case Code.ERETS:
 			return 40;
 		case Code.ENTERW_IMM16_IMM8:
-			return -(2 + (getImmediate8_2nd() & 0x1F) * 2 + getImmediate16());
+			return -(2 + (getImmediate8_2nd() & 0x1F) * 2 + (getImmediate16() & 0xFFFF));
 		case Code.ENTERD_IMM16_IMM8:
-			return -(4 + (getImmediate8_2nd() & 0x1F) * 4 + getImmediate16());
+			return -(4 + (getImmediate8_2nd() & 0x1F) * 4 + (getImmediate16() & 0xFFFF));
 		case Code.ENTERQ_IMM16_IMM8:
-			return -(8 + (getImmediate8_2nd() & 0x1F) * 8 + getImmediate16());
+			return -(8 + (getImmediate8_2nd() & 0x1F) * 8 + (getImmediate16() & 0xFFFF));
 		case Code.IRETW:
 			return getCodeSize() == CodeSize.CODE64 ? 2 * 5 : 2 * 3;
 		case Code.IRETD:
 			return getCodeSize() == CodeSize.CODE64 ? 4 * 5 : 4 * 3;
 		case Code.RETNW_IMM16:
-			return 2 + getImmediate16();
+			return 2 + (getImmediate16() & 0xFFFF);
 		case Code.RETND_IMM16:
 		case Code.RETFW_IMM16:
-			return 4 + getImmediate16();
+			return 4 + (getImmediate16() & 0xFFFF);
 		case Code.RETNQ_IMM16:
 		case Code.RETFD_IMM16:
-			return 8 + getImmediate16();
+			return 8 + (getImmediate16() & 0xFFFF);
 		case Code.RETFQ_IMM16:
-			return 16 + getImmediate16();
+			return 16 + (getImmediate16() & 0xFFFF);
 		// GENERATOR-END: StackPointerIncrementTable
 		default:
 			return 0;

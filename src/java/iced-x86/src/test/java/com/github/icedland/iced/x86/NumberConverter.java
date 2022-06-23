@@ -33,7 +33,7 @@ public final class NumberConverter {
 			radix = 16;
 		}
 		try {
-			return Long.parseLong(value, radix) * mult;
+			return Long.parseLong(unsigned_value, radix) * mult;
 		}
 		catch (NumberFormatException ex) {
 			throw new UnsupportedOperationException(String.format("Invalid number: '%s'", value), ex);

@@ -18,8 +18,9 @@ public final class RegisterInfo {
 	private static RegisterInfo[] createRegisterInfos() {
 		RegisterInfo[] regInfos = new RegisterInfo[IcedConstants.REGISTER_ENUM_COUNT];
 
-		regInfos[(int)Register.EIP] = new RegisterInfo(Register.EIP, Register.EIP, Register.RIP, 4);
-		regInfos[(int)Register.RIP] = new RegisterInfo(Register.RIP, Register.EIP, Register.RIP, 8);
+		regInfos[Register.NONE] = new RegisterInfo(0, 0, 0, 0);
+		regInfos[Register.EIP] = new RegisterInfo(Register.EIP, Register.EIP, Register.RIP, 4);
+		regInfos[Register.RIP] = new RegisterInfo(Register.RIP, Register.EIP, Register.RIP, 8);
 
 		@SuppressWarnings("deprecation")
 		byte[] data = new byte[] {

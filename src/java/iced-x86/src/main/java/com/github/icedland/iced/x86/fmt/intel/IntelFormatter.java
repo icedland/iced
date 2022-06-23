@@ -826,7 +826,7 @@ public final class IntelFormatter extends Formatter {
 			if (addrSize == 8)
 				displ = instruction.getMemoryDisplacement64();
 			else
-				displ = instruction.getMemoryDisplacement32();
+				displ = instruction.getMemoryDisplacement32() & 0xFFFF_FFFFL;
 			if ((opInfo.flags & InstrOpInfoFlags.IGNORE_INDEX_REG) != 0)
 				indexReg = Register.NONE;
 			formatMemory(output, instruction, operand, instructionOperand, instruction.getMemorySegment(), baseReg, indexReg,

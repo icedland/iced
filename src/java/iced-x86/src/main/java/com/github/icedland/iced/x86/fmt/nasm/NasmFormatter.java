@@ -868,7 +868,7 @@ public final class NasmFormatter extends Formatter {
 			if (addrSize == 8)
 				displ = instruction.getMemoryDisplacement64();
 			else
-				displ = instruction.getMemoryDisplacement32();
+				displ = instruction.getMemoryDisplacement32() & 0xFFFF_FFFFL;
 			formatMemory(output, instruction, operand, instructionOperand, opInfo.getMemorySize(), instruction.getMemorySegment(), baseReg, indexReg,
 					instruction.getRawMemoryIndexScale(), displSize, displ, addrSize, opInfo.flags);
 			break;

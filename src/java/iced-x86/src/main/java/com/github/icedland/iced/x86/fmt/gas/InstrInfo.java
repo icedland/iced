@@ -152,7 +152,7 @@ final class InstrOpInfo {
 		this.mnemonic = mnemonic;
 		this.flags = flags;
 		int opCount = instruction.getOpCount();
-		opCount = (byte)opCount;
+		this.opCount = (byte)opCount;
 		if ((flags & InstrOpInfoFlags.KEEP_OPERAND_ORDER) != 0) {
 			op0Kind = (byte)instruction.getOp0Kind();
 			op1Kind = (byte)instruction.getOp1Kind();
@@ -1205,7 +1205,7 @@ final class SimpleInstrInfo_pops extends InstrInfo {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.NONE);
 		if (canUseSae && instruction.getSuppressAllExceptions())
 			SimpleInstrInfo_er.moveOperands(info, 1, InstrOpKind.SAE);
-		int imm = instruction.getImmediate8();
+		int imm = instruction.getImmediate8() & 0xFF;
 		if (options.getUsePseudoOps() && Integer.compareUnsigned(imm, pseudo_ops.length) < 0) {
 			removeFirstImm8Operand(info);
 			info.mnemonic = pseudo_ops[imm];
@@ -1287,7 +1287,7 @@ final class SimpleInstrInfo_pclmulqdq extends InstrInfo {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.NONE);
 		if (options.getUsePseudoOps()) {
 			int index;
-			int imm = instruction.getImmediate8();
+			int imm = instruction.getImmediate8() & 0xFF;
 			if (imm == 0)
 				index = 0;
 			else if (imm == 1)

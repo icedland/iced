@@ -147,7 +147,7 @@ public final class UsedMemory {
 				return null;
 			long v = tmpValue.longValue();
 			if (vsibSize == 4)
-				v &= 0xFFFF_FFFFL;
+				v = (int)v;
 			tmpAddr += v * getScale();
 		}
 
@@ -168,5 +168,39 @@ public final class UsedMemory {
 		}
 
 		return tmpAddr;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + access;
+		result = prime * result + addressSize;
+		result = prime * result + baseReg;
+		result = prime * result + Long.hashCode(displ);
+		result = prime * result + indexReg;
+		result = prime * result + memorySize;
+		result = prime * result + scale;
+		result = prime * result + segReg;
+		result = prime * result + vsibSize;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsedMemory other = (UsedMemory)obj;
+		return access == other.access &&
+			addressSize == other.addressSize &&
+			baseReg == other.baseReg &&
+			displ == other.displ &&
+			indexReg == other.indexReg &&
+			memorySize == other.memorySize &&
+			scale == other.scale &&
+			segReg == other.segReg &&
+			vsibSize == other.vsibSize;
 	}
 }

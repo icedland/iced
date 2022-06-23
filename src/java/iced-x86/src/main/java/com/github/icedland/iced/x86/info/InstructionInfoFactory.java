@@ -212,7 +212,7 @@ public final class InstructionInfoFactory {
 				}
 				else if (baseReg == Register.EIP) {
 					if ((flags & Flags.NO_MEMORY_USAGE) == 0)
-						addMemory(segReg, Register.NONE, Register.NONE, 1, instruction.getMemoryDisplacement32(), instruction.getMemorySize(), access,
+						addMemory(segReg, Register.NONE, Register.NONE, 1, instruction.getMemoryDisplacement32() & 0xFFFF_FFFFL, instruction.getMemorySize(), access,
 								CodeSize.CODE32, 0);
 					if ((flags & Flags.NO_REGISTER_USAGE) == 0 && segReg != Register.NONE)
 						addMemorySegmentRegister(flags, segReg, OpAccess.READ);
@@ -259,7 +259,7 @@ public final class InstructionInfoFactory {
 						if (addrSizeBytes == 8)
 							displ = instruction.getMemoryDisplacement64();
 						else
-							displ = instruction.getMemoryDisplacement32();
+							displ = instruction.getMemoryDisplacement32() & 0xFFFF_FFFFL;
 						addMemory(segReg, baseReg, indexReg, scale, displ, instruction.getMemorySize(), access, addrSize, vsibSize);
 					}
 					if ((flags & Flags.NO_REGISTER_USAGE) == 0) {

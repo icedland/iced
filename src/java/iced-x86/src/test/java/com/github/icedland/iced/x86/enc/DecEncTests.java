@@ -164,12 +164,12 @@ final class DecEncTests {
 
 					instruction.setLength(instruction.getLength() - 1);
 					instruction.setNextIP(instruction.getNextIP() - 1);
-					if (prefix == "F3") {
+					if (prefix.equals("F3")) {
 						assertTrue(instruction.getRepPrefix());
 						assertTrue(instruction.getRepePrefix());
 						instruction.setRepPrefix(false);
 					}
-					else if (prefix == "F2") {
+					else if (prefix.equals("F2")) {
 						assertTrue(instruction.getRepnePrefix());
 						instruction.setRepnePrefix(false);
 					}

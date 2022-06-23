@@ -143,7 +143,7 @@ public final class FastFormatter {
 		int opCount = instruction.getOpCount();
 		int pseudoOpsNum = flags >>> FastFmtFlags.PSEUDO_OPS_KIND_SHIFT;
 		if (pseudoOpsNum != 0 && options.getUsePseudoOps() && instruction.getOpKind(opCount - 1) == OpKind.IMMEDIATE8) {
-			int index = instruction.getImmediate8();
+			int index = instruction.getImmediate8() & 0xFF;
 			int pseudoOpKind = pseudoOpsNum - 1;
 			if (pseudoOpKind == PseudoOpsKind.VPCMPD6) {
 				switch (code) {
@@ -451,7 +451,7 @@ public final class FastFormatter {
 					if (addrSize == 8)
 						displ = instruction.getMemoryDisplacement64();
 					else
-						displ = instruction.getMemoryDisplacement32();
+						displ = instruction.getMemoryDisplacement32() & 0xFFFF_FFFFL;
 					if (code == Code.XLAT_M8)
 						indexReg = Register.NONE;
 					formatMemory(output, instruction, operand, instruction.getMemorySegment(), baseReg, indexReg,

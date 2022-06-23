@@ -160,7 +160,7 @@ final class InstrOpInfo {
 		op3Register = (byte)instruction.getOp3Register();
 		op4Register = (byte)instruction.getOp4Register();
 		int opCount = instruction.getOpCount();
-		opCount = (byte)opCount;
+		this.opCount = (byte)opCount;
 		switch (opCount) {
 		case 0:
 			op0Index = InstrInfo.OP_ACCESS_INVALID;
@@ -1169,7 +1169,7 @@ final class SimpleInstrInfo_pops extends InstrInfo {
 	@Override
 	InstrOpInfo getOpInfo(FormatterOptions options, Instruction instruction) {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, flags);
-		int imm = instruction.getImmediate8();
+		int imm = instruction.getImmediate8() & 0xFF;
 		if (options.getUsePseudoOps() && Integer.compareUnsigned(imm, pseudo_ops.length) < 0) {
 			info.mnemonic = pseudo_ops[imm];
 			removeLastOp(info);
@@ -1206,7 +1206,7 @@ final class SimpleInstrInfo_pclmulqdq extends InstrInfo {
 		InstrOpInfo info = new InstrOpInfo(mnemonic, instruction, InstrOpInfoFlags.NONE);
 		if (options.getUsePseudoOps()) {
 			int index;
-			int imm = instruction.getImmediate8();
+			int imm = instruction.getImmediate8() & 0xFF;
 			if (imm == 0)
 				index = 0;
 			else if (imm == 1)

@@ -421,7 +421,7 @@ public final class Code {
 
 		t = code - Code.SETO_RM8;
 		if (Integer.compareUnsigned(t, Code.SETG_RM8 - Code.SETO_RM8) <= 0)
-			return t ^ 1 + Code.SETO_RM8;
+			return (t ^ 1) + Code.SETO_RM8;
 
 		t = code - Code.LOOPNE_REL8_16_CX;
 		if (Integer.compareUnsigned(t, Code.LOOPE_REL8_64_RCX - Code.LOOPNE_REL8_16_CX) <= 0) {

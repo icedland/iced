@@ -59,7 +59,7 @@ final class VATestCaseReader {
 		int elementIndex = NumberConverter.toInt32(elems[5].trim());
 		long expectedValue = NumberConverter.toUInt64(elems[6].trim());
 		String decOptStr = elems[7].trim();
-		int decoderOptions = decOptStr == "" ? DecoderOptions.NONE : ToDecoderOptions.get(decOptStr);
+		int decoderOptions = decOptStr.equals("") ? DecoderOptions.NONE : ToDecoderOptions.get(decOptStr);
 
 		ArrayList<VARegisterValue> registerValues = new ArrayList<VARegisterValue>();
 		for (String tmp : elems[8].split(" ")) {

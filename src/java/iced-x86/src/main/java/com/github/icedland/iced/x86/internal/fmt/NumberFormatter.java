@@ -125,7 +125,7 @@ public final class NumberFormatter {
 			// between the "prefix" and the rest of the number, eg. "0" + "1234" with
 			// digit separator "`" and group size = 2 is "0`12`34" and not "012`34".
 			// Other prefixes, eg. "0o" prefix: 0o12`34 and never 0o`12`34.
-			if (prefix == "0") {
+			if (prefix.equals("0")) {
 				if (digits < 23 && (int)((value >>> (digits - 1) * 3) & 7) != 0)
 					digits++;// Another 0
 			}
