@@ -35,7 +35,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			NumberBase.Binary,
 		};
 		protected void FormatBase(int index, object number, string[] formattedStrings, Formatter formatter) {
-			if (numberBases.Length != ToEnumConverter.NumberBaseCount)
+			if (numberBases.Length != IcedConstants.NumberBaseEnumCount)
 				throw new InvalidOperationException();
 			if (formattedStrings.Length != numberBases.Length)
 				throw new InvalidOperationException();
