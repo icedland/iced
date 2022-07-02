@@ -20,7 +20,7 @@ import com.github.icedland.iced.x86.instr.VARegisterValue;
 import com.github.icedland.iced.x86.instr.VirtualAddressTestCase;
 import com.github.icedland.iced.x86.instr.VirtualAddressTestCases;
 
-public final class GetVirtualAddressTests {
+final class GetVirtualAddressTests {
 	@ParameterizedTest
 	@MethodSource("vaTestsData")
 	void VATests(VirtualAddressTestCase tc) {
