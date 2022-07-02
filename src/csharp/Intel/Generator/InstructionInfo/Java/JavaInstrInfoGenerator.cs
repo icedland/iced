@@ -426,13 +426,13 @@ namespace Generator.InstructionInfo.Java {
 							writer.WriteLine($"return {info.Value};");
 							break;
 						case StackInfoKind.Enter:
-							writer.WriteLine($"return -({info.Value} + (getImmediate8_2nd() & 0x1F) * {info.Value} + getImmediate16());");
+							writer.WriteLine($"return -({info.Value} + (getImmediate8_2nd() & 0x1F) * {info.Value} + (getImmediate16() & 0xFFFF));");
 							break;
 						case StackInfoKind.Iret:
 							writer.WriteLine($"return getCodeSize() == CodeSize.CODE64 ? {info.Value} * 5 : {info.Value} * 3;");
 							break;
 						case StackInfoKind.PopImm16:
-							writer.WriteLine($"return {info.Value} + getImmediate16();");
+							writer.WriteLine($"return {info.Value} + (getImmediate16() & 0xFFFF);");
 							break;
 						case StackInfoKind.None:
 						default:
