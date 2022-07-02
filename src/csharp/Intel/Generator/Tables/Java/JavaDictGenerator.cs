@@ -58,18 +58,39 @@ namespace Generator.Tables.Java {
 				}
 				writer.WriteLine("}");
 			}
-			//TODO:
-			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.MasmFormatterPackage, "SymbolOptionsTests.java")).Generate(writer => {
-			// 	WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes), "ToSymbolTestFlags");
-			// });
-			//TODO:
-			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.FormatterPackage, "MnemonicOptionsTestsReader.java")).Generate(writer => {
-			// 	WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes), "ToFormatMnemonicOptions");
-			// });
-			//TODO:
-			// new FileUpdater(TargetLanguage.Java, "Dicts", JavaConstants.GetTestFilename(genTypes, JavaConstants.FormatterPackage, "SymbolResolverTestsReader.java")).Generate(writer => {
-			// 	WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes), "ToSymbolFlags");
-			// });
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.MasmFormatterPackage, "SymbolTestFlagsDict.java")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"package {JavaConstants.MasmFormatterPackage};");
+				writer.WriteLine();
+				writer.WriteLine("import java.util.HashMap;");
+				writer.WriteLine();
+				writer.WriteLine("final class SymbolTestFlagsDict {");
+				using (writer.Indent())
+					WriteDict(writer, MasmSymbolOptionsConstants.SymbolTestFlagsTable(genTypes));
+				writer.WriteLine("}");
+			}
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.FormatterPackage, "MnemonicOptionsDict.java")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"package {JavaConstants.FormatterPackage};");
+				writer.WriteLine();
+				writer.WriteLine("import java.util.HashMap;");
+				writer.WriteLine();
+				writer.WriteLine("final class MnemonicOptionsDict {");
+				using (writer.Indent())
+					WriteDict(writer, FormatMnemonicOptionsConstants.FormatMnemonicOptionsTable(genTypes));
+				writer.WriteLine("}");
+			}
+			using (var writer = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(JavaConstants.GetTestFilename(genTypes, JavaConstants.FormatterPackage, "SymbolResolverDicts.java")))) {
+				writer.WriteFileHeader();
+				writer.WriteLine($"package {JavaConstants.FormatterPackage};");
+				writer.WriteLine();
+				writer.WriteLine("import java.util.HashMap;");
+				writer.WriteLine();
+				writer.WriteLine("final class SymbolResolverDicts {");
+				using (writer.Indent())
+					WriteDict(writer, SymbolFlagsConstants.SymbolFlagsTable(genTypes));
+				writer.WriteLine("}");
+			}
 			new FileUpdater(TargetLanguage.Java, "IgnoredCode", JavaConstants.GetTestFilename(genTypes, JavaConstants.IcedPackage, "CodeUtils.java")).Generate(writer => {
 				WriteHash(writer, genTypes.GetObject<HashSet<EnumValue>>(TypeIds.RemovedCodeValues), "ignored", "getIgnored", false);
 			});

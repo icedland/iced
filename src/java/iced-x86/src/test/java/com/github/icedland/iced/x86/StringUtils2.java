@@ -8,17 +8,20 @@ public final class StringUtils2 {
 		return s == null || s.isBlank();
 	}
 
-	public static String[] split(String s, String regex, int expectedLength) {
+	public static String[] split(String s, String regex) {
+		String charStr = regex;
+		if (charStr.startsWith("\\"))
+			charStr = charStr.substring(1);
+		if (charStr.length() != 1)
+			throw new UnsupportedOperationException();
+
 		String[] result = s.split(regex);
-		if (result.length >= expectedLength)
+		if (!s.endsWith(charStr))
 			return result;
-		String[] padded = new String[expectedLength];
-		for (int i = 0; i < expectedLength; i++) {
-			if (i < result.length)
-				padded[i] = result[i];
-			else
-				padded[i] = "";
-		}
+		String[] padded = new String[result.length + 1];
+		for (int i = 0; i < result.length; i++)
+			padded[i] = result[i];
+		padded[padded.length - 1] = "";
 		return padded;
 	}
 }

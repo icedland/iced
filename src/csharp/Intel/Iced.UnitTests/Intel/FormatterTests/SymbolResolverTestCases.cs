@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
-	//TODO: also rename these
 	static class SymbolResolverTestCases {
 		public static readonly (SymbolResolverTestCase[] testCases, HashSet<int> ignored) AllTests = GetTests();
 

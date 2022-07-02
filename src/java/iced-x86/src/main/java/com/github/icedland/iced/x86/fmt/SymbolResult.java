@@ -113,6 +113,21 @@ public final class SymbolResult {
 	 * @param address The address of the symbol
 	 * @param text    Symbol
 	 * @param flags   Symbol flags (a {@link SymbolFlags} flags value)
+	 * @param ignored Ignored
+	 */
+	public SymbolResult(long address, TextInfo text, int flags, boolean ignored) {
+		this.address = address;
+		this.text = text;
+		this.flags = flags & ~SymbolFlags.HAS_SYMBOL_SIZE;
+		this.symbolSize = MemorySize.UNKNOWN;
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param address The address of the symbol
+	 * @param text    Symbol
+	 * @param flags   Symbol flags (a {@link SymbolFlags} flags value)
 	 * @param size    Symbol size (a {@link com.github.icedland.iced.x86.MemorySize} enum variant)
 	 */
 	public SymbolResult(long address, TextInfo text, int flags, int size) {

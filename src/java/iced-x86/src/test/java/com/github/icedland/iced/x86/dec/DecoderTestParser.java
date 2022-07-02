@@ -48,7 +48,7 @@ final class DecoderTestParser {
 	}
 
 	private static DecoderTestCase readTestCase(int bitness, String line, int lineNumber) {
-		String[] parts = StringUtils2.split(line, ",", 5);
+		String[] parts = StringUtils2.split(line, ",");
 		if (parts.length != 5)
 			throw new UnsupportedOperationException(String.format("Invalid number of commas (%d commas)", parts.length - 1));
 

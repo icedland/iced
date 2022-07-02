@@ -72,6 +72,14 @@ public final class MasmFormatter extends Formatter {
 		this(symbolResolver, null);
 	}
 
+	private static FormatterOptions createMasm() {
+		FormatterOptions options = new FormatterOptions();
+		options.setHexSuffix("h");
+		options.setOctalSuffix("o");
+		options.setBinarySuffix("b");
+		return options;
+	}
+
 	/**
 	 * Constructor
 	 *
@@ -79,7 +87,7 @@ public final class MasmFormatter extends Formatter {
 	 * @param optionsProvider Operand options provider or null
 	 */
 	public MasmFormatter(SymbolResolver symbolResolver, FormatterOptionsProvider optionsProvider) {
-		this.options = com.github.icedland.iced.x86.internal.fmt.FormatterOptionsExt.createMasm();
+		this.options = createMasm();
 		this.symbolResolver = symbolResolver;
 		this.optionsProvider = optionsProvider;
 		allRegisters = Registers.allRegisters;
@@ -515,12 +523,12 @@ public final class MasmFormatter extends Formatter {
 			}
 			else if (opKind == InstrOpKind.NEAR_BRANCH32) {
 				immSize = 4;
-				imm64 = instruction.getNearBranch32();
+				imm64 = instruction.getNearBranch32() & 0xFFFF_FFFFL;
 				numberKind = NumberKind.UINT32;
 			}
 			else {
 				immSize = 2;
-				imm64 = instruction.getNearBranch16();
+				imm64 = instruction.getNearBranch16() & 0xFFFF;
 				numberKind = NumberKind.UINT16;
 			}
 			numberOptions = NumberFormattingOptions.createBranch(options);
@@ -552,12 +560,12 @@ public final class MasmFormatter extends Formatter {
 		case InstrOpKind.FAR_BRANCH32:
 			if (opKind == InstrOpKind.FAR_BRANCH32) {
 				immSize = 4;
-				imm64 = instruction.getFarBranch32();
+				imm64 = instruction.getFarBranch32() & 0xFFFF_FFFFL;
 				numberKind = NumberKind.UINT32;
 			}
 			else {
 				immSize = 2;
-				imm64 = instruction.getFarBranch16();
+				imm64 = instruction.getFarBranch16() & 0xFFFF;
 				numberKind = NumberKind.UINT16;
 			}
 			numberOptions = NumberFormattingOptions.createBranch(options);
@@ -566,19 +574,20 @@ public final class MasmFormatter extends Formatter {
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 			if (symbolResolver != null
-					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64 & 0xFFFF_FFFFL, immSize)) != null) {
+					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64, immSize)) != null) {
 				formatFlowControl(output, com.github.icedland.iced.x86.internal.fmt.FormatterUtils.getFlowControl(instruction), operandOptions);
 				assert operand + 1 == 1 : operand;
 				SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, instructionOperand,
-						instruction.getFarBranchSelector(), 2);
-				if (selectorSymbol != null) {
+						instruction.getFarBranchSelector() & 0xFFFF, 2);
+				if (selectorSymbol == null) {
 					s = numberFormatter.formatUInt16(options, numberOptions, instruction.getFarBranchSelector(), numberOptions.leadingZeros);
-					output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector(), NumberKind.UINT16,
+					output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector() & 0xFFFF, NumberKind.UINT16,
 							FormatterTextKind.SELECTOR_VALUE);
 				}
 				else
 					com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-							numberFormatter, numberOptions, instruction.getFarBranchSelector(), selectorSymbol, options.getShowSymbolAddress());
+							numberFormatter, numberOptions, instruction.getFarBranchSelector() & 0xFFFF, selectorSymbol,
+							options.getShowSymbolAddress());
 				output.write(":", FormatterTextKind.PUNCTUATION);
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
 						numberFormatter, numberOptions, imm64, symbol, options.getShowSymbolAddress());
@@ -587,7 +596,7 @@ public final class MasmFormatter extends Formatter {
 				flowControl = com.github.icedland.iced.x86.internal.fmt.FormatterUtils.getFlowControl(instruction);
 				formatFlowControl(output, flowControl, operandOptions);
 				s = numberFormatter.formatUInt16(options, numberOptions, instruction.getFarBranchSelector(), numberOptions.leadingZeros);
-				output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector(), NumberKind.UINT16,
+				output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector() & 0xFFFF, NumberKind.UINT16,
 						FormatterTextKind.SELECTOR_VALUE);
 				output.write(":", FormatterTextKind.PUNCTUATION);
 				if (opKind == InstrOpKind.FAR_BRANCH32)
@@ -616,13 +625,13 @@ public final class MasmFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm8, 1)) != null) {
+			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm8 & 0xFF, 1)) != null) {
 				if ((symbol.flags & SymbolFlags.RELATIVE) == 0) {
 					formatKeyword(output, str_offset);
 					output.write(" ", FormatterTextKind.TEXT);
 				}
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm8, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, imm8 & 0xFF, symbol, options.getShowSymbolAddress());
 			}
 			else {
 				if (numberOptions.signedNumber) {
@@ -634,7 +643,7 @@ public final class MasmFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm8;
+					imm64 = imm8 & 0xFF;
 					numberKind = NumberKind.UINT8;
 				}
 				s = numberFormatter.formatUInt8(options, numberOptions, imm8);
@@ -655,13 +664,13 @@ public final class MasmFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm16, 2)) != null) {
+			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm16 & 0xFFFF, 2)) != null) {
 				if ((symbol.flags & SymbolFlags.RELATIVE) == 0) {
 					formatKeyword(output, str_offset);
 					output.write(" ", FormatterTextKind.TEXT);
 				}
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm16, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, imm16 & 0xFFFF, symbol, options.getShowSymbolAddress());
 			}
 			else {
 				if (numberOptions.signedNumber) {
@@ -673,7 +682,7 @@ public final class MasmFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm16;
+					imm64 = imm16 & 0xFFFF;
 					numberKind = NumberKind.UINT16;
 				}
 				s = numberFormatter.formatUInt16(options, numberOptions, imm16);
@@ -694,13 +703,14 @@ public final class MasmFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm32, 4)) != null) {
+			if (symbolResolver != null
+					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, (long)imm32 & 0xFFFF_FFFFL, 4)) != null) {
 				if ((symbol.flags & SymbolFlags.RELATIVE) == 0) {
 					formatKeyword(output, str_offset);
 					output.write(" ", FormatterTextKind.TEXT);
 				}
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm32, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, (long)imm32 & 0xFFFF_FFFFL, symbol, options.getShowSymbolAddress());
 			}
 			else {
 				if (numberOptions.signedNumber) {
@@ -712,7 +722,7 @@ public final class MasmFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm32;
+					imm64 = (long)imm32 & 0xFFFF_FFFFL;
 					numberKind = NumberKind.UINT32;
 				}
 				s = numberFormatter.formatUInt32(options, numberOptions, imm32);
@@ -956,7 +966,7 @@ public final class MasmFormatter extends Formatter {
 		}
 		if (!displInBrackets)
 			formatMemoryDispl(output, instruction, operand, instructionOperand, symbol, numberOptions, absAddr, displ, displSize, addrSize,
-					symbol != null, false, !hasMemReg);
+					false, !hasMemReg);
 		if (needBrackets) {
 			output.write("[", FormatterTextKind.PUNCTUATION);
 			if (options.getSpaceAfterMemoryBracket())
@@ -1005,7 +1015,7 @@ public final class MasmFormatter extends Formatter {
 
 		if (displInBrackets)
 			formatMemoryDispl(output, instruction, operand, instructionOperand, symbol, numberOptions, absAddr, displ, displSize, addrSize,
-					symbol != null, needPlus, !needPlus);
+					needPlus, !needPlus);
 
 		if (needBrackets) {
 			if (options.getSpaceAfterMemoryBracket())
@@ -1017,9 +1027,8 @@ public final class MasmFormatter extends Formatter {
 	}
 
 	private void formatMemoryDispl(FormatterOutput output, Instruction instruction, int operand, int instructionOperand, SymbolResult symbol,
-			NumberFormattingOptions numberOptions, long absAddr, long displ, int displSize, int addrSize, boolean useSymbol, boolean needPlus,
-			boolean forceDispl) {
-		if (useSymbol) {
+			NumberFormattingOptions numberOptions, long absAddr, long displ, int displSize, int addrSize, boolean needPlus, boolean forceDispl) {
+		if (symbol != null) {
 			if (needPlus) {
 				if (options.getSpaceBetweenMemoryAddOperators())
 					output.write(" ", FormatterTextKind.TEXT);

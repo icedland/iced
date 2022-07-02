@@ -139,7 +139,7 @@ public final class FastFormatter {
 
 		int code = instruction.getCode();
 		String mnemonic = codeMnemonics[code];
-		byte flags = codeFlags[code];
+		int flags = codeFlags[code] & 0xFF;
 		int opCount = instruction.getOpCount();
 		int pseudoOpsNum = flags >>> FastFmtFlags.PSEUDO_OPS_KIND_SHIFT;
 		if (pseudoOpsNum != 0 && options.getUsePseudoOps() && instruction.getOpKind(opCount - 1) == OpKind.IMMEDIATE8) {
@@ -282,11 +282,11 @@ public final class FastFormatter {
 					}
 					else if (opKind == OpKind.NEAR_BRANCH32) {
 						immSize = 4;
-						imm64 = instruction.getNearBranch32();
+						imm64 = instruction.getNearBranch32() & 0xFFFF_FFFFL;
 					}
 					else {
 						immSize = 2;
-						imm64 = instruction.getNearBranch16();
+						imm64 = instruction.getNearBranch16() & 0xFFFF;
 					}
 					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm64, immSize)) != null)
 						writeSymbol(output, imm64, symbol);
@@ -298,31 +298,31 @@ public final class FastFormatter {
 				case OpKind.FAR_BRANCH32:
 					if (opKind == OpKind.FAR_BRANCH32) {
 						immSize = 4;
-						imm64 = instruction.getFarBranch32();
+						imm64 = instruction.getFarBranch32() & 0xFFFF_FFFFL;
 					}
 					else {
 						immSize = 2;
-						imm64 = instruction.getFarBranch16();
+						imm64 = instruction.getFarBranch16() & 0xFFFF;
 					}
 					if (symbolResolver != null
-							&& (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm64 & 0xFFFF_FFFFL, immSize)) != null) {
+							&& (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm64, immSize)) != null) {
 						assert operand + 1 == 1 : operand;
-						SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, operand, instruction.getFarBranchSelector(),
-								2);
+						SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, operand,
+								instruction.getFarBranchSelector() & 0xFFFF, 2);
 						if (selectorSymbol == null)
-							formatNumber(output, instruction.getFarBranchSelector());
+							formatNumber(output, instruction.getFarBranchSelector() & 0xFFFF);
 						else
-							writeSymbol(output, instruction.getFarBranchSelector(), selectorSymbol);
+							writeSymbol(output, instruction.getFarBranchSelector() & 0xFFFF, selectorSymbol);
 						output.append(':');
 						writeSymbol(output, imm64, symbol);
 					}
 					else {
-						formatNumber(output, instruction.getFarBranchSelector());
+						formatNumber(output, instruction.getFarBranchSelector() & 0xFFFF);
 						output.append(':');
 						if (opKind == OpKind.FAR_BRANCH32)
-							formatNumber(output, instruction.getFarBranch32());
+							formatNumber(output, instruction.getFarBranch32() & 0xFFFF_FFFFL);
 						else
-							formatNumber(output, instruction.getFarBranch16());
+							formatNumber(output, instruction.getFarBranch16() & 0xFFFF);
 					}
 					break;
 
@@ -336,13 +336,13 @@ public final class FastFormatter {
 						assert opKind == OpKind.IMMEDIATE8_2ND : opKind;
 						imm8 = instruction.getImmediate8_2nd();
 					}
-					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm8, 1)) != null) {
+					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm8 & 0xFF, 1)) != null) {
 						if ((symbol.flags & SymbolFlags.RELATIVE) == 0)
 							output.append("offset ");
-						writeSymbol(output, imm8, symbol);
+						writeSymbol(output, imm8 & 0xFF, symbol);
 					}
 					else
-						formatNumber(output, imm8);
+						formatNumber(output, imm8 & 0xFF);
 					break;
 
 				case OpKind.IMMEDIATE16:
@@ -355,13 +355,13 @@ public final class FastFormatter {
 						assert opKind == OpKind.IMMEDIATE8TO16 : opKind;
 						imm16 = instruction.getImmediate8to16();
 					}
-					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm16, 2)) != null) {
+					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm16 & 0xFFFF, 2)) != null) {
 						if ((symbol.flags & SymbolFlags.RELATIVE) == 0)
 							output.append("offset ");
-						writeSymbol(output, imm16, symbol);
+						writeSymbol(output, imm16 & 0xFFFF, symbol);
 					}
 					else
-						formatNumber(output, imm16);
+						formatNumber(output, imm16 & 0xFFFF);
 					break;
 
 				case OpKind.IMMEDIATE32:
@@ -374,13 +374,14 @@ public final class FastFormatter {
 						assert opKind == OpKind.IMMEDIATE8TO32 : opKind;
 						imm32 = instruction.getImmediate8to32();
 					}
-					if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, operand, imm32, 4)) != null) {
+					if (symbolResolver != null
+							&& (symbol = symbolResolver.getSymbol(instruction, operand, operand, (long)imm32 & 0xFFFF_FFFFL, 4)) != null) {
 						if ((symbol.flags & SymbolFlags.RELATIVE) == 0)
 							output.append("offset ");
-						writeSymbol(output, imm32, symbol);
+						writeSymbol(output, (long)imm32 & 0xFFFF_FFFFL, symbol);
 					}
 					else
-						formatNumber(output, imm32);
+						formatNumber(output, (long)imm32 & 0xFFFF_FFFFL);
 					break;
 
 				case OpKind.IMMEDIATE64:

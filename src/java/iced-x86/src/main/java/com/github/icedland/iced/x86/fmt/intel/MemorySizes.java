@@ -229,7 +229,7 @@ final class MemorySizes {
 		};
 
 		for (int i = 0; i < infos.length; i++) {
-			byte d = data[i];
+			int d = data[i] & 0xFF;
 			FormatterString[] keywords;
 			FormatterString bcstTo;
 			switch (d & MEMORY_KEYWORDS_MASK) {

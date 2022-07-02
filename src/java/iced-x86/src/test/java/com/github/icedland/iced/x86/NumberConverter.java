@@ -32,12 +32,20 @@ public final class NumberConverter {
 			unsigned_value = unsigned_value.substring(2);
 			radix = 16;
 		}
+		long parsedValue;
 		try {
-			return Long.parseLong(unsigned_value, radix) * mult;
+			parsedValue = Long.parseUnsignedLong(unsigned_value, radix);
 		}
 		catch (NumberFormatException ex) {
 			throw new UnsupportedOperationException(String.format("Invalid number: '%s'", value), ex);
 		}
+		if (mult == -1) {
+			if (Long.compareUnsigned(parsedValue, 0x8000_0000_0000_0000L) > 0)
+				throw new UnsupportedOperationException(String.format("Invalid number: '%s'", value));
+		}
+		else if (Long.compareUnsigned(parsedValue, 0x7FFF_FFFF_FFFF_FFFFL) > 0)
+			throw new UnsupportedOperationException(String.format("Invalid number: '%s'", value));
+		return parsedValue * mult;
 	}
 
 	public static int toUInt32(String value) {

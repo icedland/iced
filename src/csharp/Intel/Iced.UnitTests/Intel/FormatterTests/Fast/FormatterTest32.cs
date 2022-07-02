@@ -13,6 +13,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Fast {
 		[MemberData(nameof(Format_Data_Default))]
 		void Format_Default(int index, FormatterTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create_Default());
 		public static IEnumerable<object[]> Format_Data_Default => FormatterTestCases.GetFormatData(32, "Fast", "Default");
+
 		[Theory]
 		[MemberData(nameof(Format_Data_Inverted))]
 		void Format_Inverted(int index, FormatterTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create_Inverted());

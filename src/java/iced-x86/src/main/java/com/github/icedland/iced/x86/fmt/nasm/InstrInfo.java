@@ -159,7 +159,7 @@ final class InstrOpInfo {
 
 	InstrOpInfo(FormatterString mnemonic, Instruction instruction, int flags) {
 		this.mnemonic = mnemonic;
-		flags = flags | (instruction.getMemorySize() << InstrOpInfoFlags.MEMORY_SIZE_SHIFT);
+		this.flags = flags | (instruction.getMemorySize() << InstrOpInfoFlags.MEMORY_SIZE_SHIFT);
 		op0Kind = (byte)instruction.getOp0Kind();
 		op1Kind = (byte)instruction.getOp1Kind();
 		op2Kind = (byte)instruction.getOp2Kind();

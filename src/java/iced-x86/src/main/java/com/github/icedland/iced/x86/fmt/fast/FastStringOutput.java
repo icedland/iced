@@ -13,7 +13,7 @@ public final class FastStringOutput {
 	/**
 	 * Gets the current length
 	 */
-	public int getLength() {
+	public int size() {
 		return bufferLen;
 	}
 
@@ -78,6 +78,7 @@ public final class FastStringOutput {
 			throw new OutOfMemoryError();
 		char[] newArray = new char[(int)newCount];
 		System.arraycopy(buffer, 0, newArray, 0, bufferLen);
+		this.buffer = newArray;
 	}
 
 	/**

@@ -74,6 +74,14 @@ public final class GasFormatter extends Formatter {
 		this(symbolResolver, null);
 	}
 
+	private static FormatterOptions createGas() {
+		FormatterOptions options = new FormatterOptions();
+		options.setHexPrefix("0x");
+		options.setOctalPrefix("0");
+		options.setBinaryPrefix("0b");
+		return options;
+	}
+
 	/**
 	 * Constructor
 	 *
@@ -81,7 +89,7 @@ public final class GasFormatter extends Formatter {
 	 * @param optionsProvider Operand options provider or null
 	 */
 	public GasFormatter(SymbolResolver symbolResolver, FormatterOptionsProvider optionsProvider) {
-		this.options = com.github.icedland.iced.x86.internal.fmt.FormatterOptionsExt.createGas();
+		this.options = createGas();
 		this.symbolResolver = symbolResolver;
 		this.optionsProvider = optionsProvider;
 		allRegisters = Registers.allRegisters;
@@ -582,12 +590,12 @@ public final class GasFormatter extends Formatter {
 			}
 			else if (opKind == InstrOpKind.NEAR_BRANCH32) {
 				immSize = 4;
-				imm64 = instruction.getNearBranch32();
+				imm64 = instruction.getNearBranch32() & 0xFFFF_FFFFL;
 				numberKind = NumberKind.UINT32;
 			}
 			else {
 				immSize = 2;
-				imm64 = instruction.getNearBranch16();
+				imm64 = instruction.getNearBranch16() & 0xFFFF;
 				numberKind = NumberKind.UINT16;
 			}
 			numberOptions = NumberFormattingOptions.createBranch(options);
@@ -615,12 +623,12 @@ public final class GasFormatter extends Formatter {
 		case InstrOpKind.FAR_BRANCH32:
 			if (opKind == InstrOpKind.FAR_BRANCH32) {
 				immSize = 4;
-				imm64 = instruction.getFarBranch32();
+				imm64 = instruction.getFarBranch32() & 0xFFFF_FFFFL;
 				numberKind = NumberKind.UINT32;
 			}
 			else {
 				immSize = 2;
-				imm64 = instruction.getFarBranch16();
+				imm64 = instruction.getFarBranch16() & 0xFFFF;
 				numberKind = NumberKind.UINT16;
 			}
 			numberOptions = NumberFormattingOptions.createBranch(options);
@@ -628,19 +636,20 @@ public final class GasFormatter extends Formatter {
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
 			if (symbolResolver != null
-					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64 & 0xFFFF_FFFFL, immSize)) != null) {
+					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm64, immSize)) != null) {
 				output.write(IMMEDIATE_VALUE_PREFIX, FormatterTextKind.OPERATOR);
 				assert operand + 1 == 1 : operand;
 				SymbolResult selectorSymbol = symbolResolver.getSymbol(instruction, operand + 1, instructionOperand,
-						instruction.getFarBranchSelector(), 2);
-				if (selectorSymbol != null) {
+						instruction.getFarBranchSelector() & 0xFFFF, 2);
+				if (selectorSymbol == null) {
 					s = numberFormatter.formatUInt16(options, numberOptions, instruction.getFarBranchSelector(), numberOptions.leadingZeros);
-					output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector(), NumberKind.UINT16,
+					output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector() & 0xFFFF, NumberKind.UINT16,
 							FormatterTextKind.SELECTOR_VALUE);
 				}
 				else
 					com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-							numberFormatter, numberOptions, instruction.getFarBranchSelector(), selectorSymbol, options.getShowSymbolAddress());
+							numberFormatter, numberOptions, instruction.getFarBranchSelector() & 0xFFFF, selectorSymbol,
+							options.getShowSymbolAddress());
 				output.write(",", FormatterTextKind.PUNCTUATION);
 				if (options.getSpaceAfterOperandSeparator())
 					output.write(" ", FormatterTextKind.TEXT);
@@ -652,7 +661,7 @@ public final class GasFormatter extends Formatter {
 				flowControl = com.github.icedland.iced.x86.internal.fmt.FormatterUtils.getFlowControl(instruction);
 				s = numberFormatter.formatUInt16(options, numberOptions, instruction.getFarBranchSelector(), numberOptions.leadingZeros);
 				output.write(IMMEDIATE_VALUE_PREFIX, FormatterTextKind.OPERATOR);
-				output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector(), NumberKind.UINT16,
+				output.writeNumber(instruction, operand, instructionOperand, s, instruction.getFarBranchSelector() & 0xFFFF, NumberKind.UINT16,
 						FormatterTextKind.SELECTOR_VALUE);
 				output.write(",", FormatterTextKind.PUNCTUATION);
 				if (options.getSpaceAfterOperandSeparator())
@@ -683,9 +692,9 @@ public final class GasFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm8, 1)) != null)
+			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm8 & 0xFF, 1)) != null)
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm8, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, imm8 & 0xFF, symbol, options.getShowSymbolAddress());
 			else {
 				if (numberOptions.signedNumber) {
 					imm64 = (byte)imm8;
@@ -696,7 +705,7 @@ public final class GasFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm8;
+					imm64 = imm8 & 0xFF;
 					numberKind = NumberKind.UINT8;
 				}
 				s = numberFormatter.formatUInt8(options, numberOptions, imm8);
@@ -719,9 +728,9 @@ public final class GasFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm16, 2)) != null)
+			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm16 & 0xFFFF, 2)) != null)
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm16, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, imm16 & 0xFFFF, symbol, options.getShowSymbolAddress());
 			else {
 				if (numberOptions.signedNumber) {
 					imm64 = (short)imm16;
@@ -732,7 +741,7 @@ public final class GasFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm16;
+					imm64 = imm16 & 0xFFFF;
 					numberKind = NumberKind.UINT16;
 				}
 				s = numberFormatter.formatUInt16(options, numberOptions, imm16);
@@ -755,9 +764,10 @@ public final class GasFormatter extends Formatter {
 			operandOptions = new FormatterOperandOptions();
 			if (optionsProvider != null)
 				optionsProvider.getOperandOptions(instruction, operand, instructionOperand, operandOptions, numberOptions);
-			if (symbolResolver != null && (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, imm32, 4)) != null)
+			if (symbolResolver != null
+					&& (symbol = symbolResolver.getSymbol(instruction, operand, instructionOperand, (long)imm32 & 0xFFFF_FFFFL, 4)) != null)
 				com.github.icedland.iced.x86.internal.fmt.FormatterOutputExt.write(output, instruction, operand, instructionOperand, options,
-						numberFormatter, numberOptions, imm32, symbol, options.getShowSymbolAddress());
+						numberFormatter, numberOptions, (long)imm32 & 0xFFFF_FFFFL, symbol, options.getShowSymbolAddress());
 			else {
 				if (numberOptions.signedNumber) {
 					imm64 = imm32;
@@ -768,7 +778,7 @@ public final class GasFormatter extends Formatter {
 					}
 				}
 				else {
-					imm64 = imm32;
+					imm64 = (long)imm32 & 0xFFFF_FFFFL;
 					numberKind = NumberKind.UINT32;
 				}
 				s = numberFormatter.formatUInt32(options, numberOptions, imm32);

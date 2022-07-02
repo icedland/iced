@@ -256,7 +256,7 @@ public final class FormatterUtils {
 	}
 
 	public static boolean showIndexScale(Instruction instruction, FormatterOptions options) {
-		return options.getShowUselessPrefixes() || !Code.ignoresSegment(instruction.getCode());
+		return options.getShowUselessPrefixes() || !Code.ignoresIndex(instruction.getCode());
 	}
 
 	public static boolean showSegmentPrefix(int defaultSegReg, Instruction instruction, FormatterOptions options) {
