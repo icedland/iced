@@ -71,8 +71,8 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		public static void TestFormatterDoesNotThrow(Formatter formatter) {
 			var output = new StringOutput();
-			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
-				var decoder = CreateDecoder(info.Bitness, info.HexBytes, info.IP, info.Options);
+			foreach (var tc in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: true)) {
+				var decoder = CreateDecoder(tc.Bitness, tc.HexBytes, tc.IP, tc.Options);
 				decoder.Decode(out var instruction);
 				formatter.Format(instruction, output);
 				output.Reset();

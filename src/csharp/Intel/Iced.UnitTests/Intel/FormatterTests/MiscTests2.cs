@@ -21,13 +21,13 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				(64, true),
 			};
 			foreach (var args in allArgs) {
-				var data = FormatterTestCases.GetInstructionInfos(args.bitness, args.isMisc);
-				foreach (var info in data.infos)
-					tested[(int)info.Code] = 1;
+				var data = FormatterTestCases.GetTests(args.bitness, args.isMisc);
+				foreach (var tc in data.tests)
+					tested[(int)tc.Code] = 1;
 			}
 #if ENCODER
-			foreach (var info in NonDecodedInstructions.GetTests())
-				tested[(int)info.instruction.Code] = 1;
+			foreach (var tc in NonDecodedInstructions.GetTests())
+				tested[(int)tc.instruction.Code] = 1;
 #else
 			foreach (var code in CodeValueTests.NonDecodedCodeValues1632)
 				tested[(int)code] = 1;

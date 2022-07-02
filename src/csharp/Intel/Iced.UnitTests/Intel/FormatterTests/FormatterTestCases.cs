@@ -9,13 +9,13 @@ using System.Linq;
 using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
-	public readonly struct InstructionInfo {
+	public readonly struct FormatterTestCase {
 		public readonly int Bitness;
 		public readonly string HexBytes;
 		public readonly ulong IP;
 		public readonly Code Code;
 		public readonly DecoderOptions Options;
-		public InstructionInfo(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options) {
+		public FormatterTestCase(int bitness, string hexBytes, ulong ip, Code code, DecoderOptions options) {
 			Bitness = bitness;
 			HexBytes = hexBytes;
 			IP = ip;
@@ -25,45 +25,45 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	}
 
 	static class FormatterTestCases {
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos16;
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos32;
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos64;
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos16_Misc;
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos32_Misc;
-		static (InstructionInfo[] infos, HashSet<int> ignored) instrInfos64_Misc;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests16;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests32;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests64;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests16_Misc;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests32_Misc;
+		static (FormatterTestCase[] tests, HashSet<int> ignored) tests64_Misc;
 
-		public static (InstructionInfo[] infos, HashSet<int> ignored) GetInstructionInfos(int bitness, bool isMisc) {
+		public static (FormatterTestCase[] tests, HashSet<int> ignored) GetTests(int bitness, bool isMisc) {
 			if (isMisc) {
 				return bitness switch {
-					16 => GetInstructionInfos(ref instrInfos16_Misc, bitness, isMisc),
-					32 => GetInstructionInfos(ref instrInfos32_Misc, bitness, isMisc),
-					64 => GetInstructionInfos(ref instrInfos64_Misc, bitness, isMisc),
+					16 => GetTests(ref tests16_Misc, bitness, isMisc),
+					32 => GetTests(ref tests32_Misc, bitness, isMisc),
+					64 => GetTests(ref tests64_Misc, bitness, isMisc),
 					_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
 				};
 			}
 			else {
 				return bitness switch {
-					16 => GetInstructionInfos(ref instrInfos16, bitness, isMisc),
-					32 => GetInstructionInfos(ref instrInfos32, bitness, isMisc),
-					64 => GetInstructionInfos(ref instrInfos64, bitness, isMisc),
+					16 => GetTests(ref tests16, bitness, isMisc),
+					32 => GetTests(ref tests32, bitness, isMisc),
+					64 => GetTests(ref tests64, bitness, isMisc),
 					_ => throw new ArgumentOutOfRangeException(nameof(bitness)),
 				};
 			}
 		}
 
-		static (InstructionInfo[] infos, HashSet<int> ignored) GetInstructionInfos(ref (InstructionInfo[] infos, HashSet<int> ignored) data, int bitness, bool isMisc) {
-			if (data.infos is null) {
+		static (FormatterTestCase[] tests, HashSet<int> ignored) GetTests(ref (FormatterTestCase[] tests, HashSet<int> ignored) data, int bitness, bool isMisc) {
+			if (data.tests is null) {
 				var filename = "InstructionInfos" + bitness;
 				if (isMisc)
 					filename += "_Misc";
 				data.ignored = new HashSet<int>();
-				data.infos = GetInstructionInfos(filename, bitness, data.ignored).ToArray();
+				data.tests = GetTests(filename, bitness, data.ignored).ToArray();
 			}
 			return data;
 		}
 
 		static readonly char[] sep = new[] { ',' };
-		static IEnumerable<InstructionInfo> GetInstructionInfos(string filename, int bitness, HashSet<int> ignored) {
+		static IEnumerable<FormatterTestCase> GetTests(string filename, int bitness, HashSet<int> ignored) {
 			int lineNo = 0;
 			int testCaseNo = 0;
 			filename = FileUtils.GetFormatterFilename(filename);
@@ -94,39 +94,39 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 				else {
 					if (!ToEnumConverter.TryCode(codeStr, out var code))
 						throw new InvalidOperationException($"Invalid line #{lineNo} in file {filename}");
-					yield return new InstructionInfo(bitness, hexBytes, ip, code, options);
+					yield return new FormatterTestCase(bitness, hexBytes, ip, code, options);
 				}
 				testCaseNo++;
 			}
 		}
 
 		public static IEnumerable<object[]> GetFormatData(int bitness, string formatterDir, string formattedStringsFile, bool isMisc = false) {
-			var data = GetInstructionInfos(bitness, isMisc);
+			var data = GetTests(bitness, isMisc);
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, $"Test{bitness}_{formattedStringsFile}")).ToArray();
-			return GetFormatData(data.infos, data.ignored, formattedStrings);
+			return GetFormatData(data.tests, data.ignored, formattedStrings);
 		}
 
-		static IEnumerable<object[]> GetFormatData(InstructionInfo[] infos, HashSet<int> ignored, string[] formattedStrings) {
+		static IEnumerable<object[]> GetFormatData(FormatterTestCase[] tests, HashSet<int> ignored, string[] formattedStrings) {
 			formattedStrings = Utils.Filter(formattedStrings, ignored);
-			if (infos.Length != formattedStrings.Length)
-				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].HexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
-			var res = new object[infos.Length][];
-			for (int i = 0; i < infos.Length; i++)
-				res[i] = new object[3] { i, infos[i], formattedStrings[i] };
+			if (tests.Length != formattedStrings.Length)
+				throw new ArgumentException($"(tests.Length) {tests.Length} != (formattedStrings.Length) {formattedStrings.Length} . tests[0].HexBytes = {(tests.Length == 0 ? "<EMPTY>" : tests[0].HexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
+			var res = new object[tests.Length][];
+			for (int i = 0; i < tests.Length; i++)
+				res[i] = new object[3] { i, tests[i], formattedStrings[i] };
 			return res;
 		}
 
-		public static IEnumerable<object[]> GetFormatData(int bitness, (string hexBytes, Instruction instruction)[] infos, string formatterDir, string formattedStringsFile) {
+		public static IEnumerable<object[]> GetFormatData(int bitness, (string hexBytes, Instruction instruction)[] tests, string formatterDir, string formattedStringsFile) {
 			var formattedStrings = FileUtils.ReadRawStrings(Path.Combine(formatterDir, $"Test{bitness}_{formattedStringsFile}")).ToArray();
-			return GetFormatData(infos, formattedStrings);
+			return GetFormatData(tests, formattedStrings);
 		}
 
-		static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] infos, string[] formattedStrings) {
-			if (infos.Length != formattedStrings.Length)
-				throw new ArgumentException($"(infos.Length) {infos.Length} != (formattedStrings.Length) {formattedStrings.Length} . infos[0].hexBytes = {(infos.Length == 0 ? "<EMPTY>" : infos[0].hexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
-			var res = new object[infos.Length][];
-			for (int i = 0; i < infos.Length; i++)
-				res[i] = new object[3] { i, infos[i].instruction, formattedStrings[i] };
+		static IEnumerable<object[]> GetFormatData((string hexBytes, Instruction instruction)[] tests, string[] formattedStrings) {
+			if (tests.Length != formattedStrings.Length)
+				throw new ArgumentException($"(tests.Length) {tests.Length} != (formattedStrings.Length) {formattedStrings.Length} . tests[0].hexBytes = {(tests.Length == 0 ? "<EMPTY>" : tests[0].hexBytes)} & formattedStrings[0] = {(formattedStrings.Length == 0 ? "<EMPTY>" : formattedStrings[0])}");
+			var res = new object[tests.Length][];
+			for (int i = 0; i < tests.Length; i++)
+				res[i] = new object[3] { i, tests[i].instruction, formattedStrings[i] };
 			return res;
 		}
 	}

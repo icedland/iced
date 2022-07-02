@@ -9,14 +9,14 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	static class OptionsTestsReader {
-		public static IEnumerable<OptionsInstructionInfo> ReadFile(string filename, HashSet<int> ignored) {
+		public static IEnumerable<OptionsTestCase> ReadFile(string filename, HashSet<int> ignored) {
 			int lineNo = 0;
 			int testCaseNo = 0;
 			foreach (var line in File.ReadLines(filename)) {
 				lineNo++;
 				if (line.Length == 0 || line[0] == '#')
 					continue;
-				OptionsInstructionInfo? testCase;
+				OptionsTestCase? testCase;
 				try {
 					testCase = ReadTestCase(line, lineNo);
 				}
@@ -33,7 +33,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		static readonly char[] seps = new char[] { ',' };
 		static readonly char[] optsseps = new char[] { ' ' };
-		static OptionsInstructionInfo? ReadTestCase(string line, int lineNo) {
+		static OptionsTestCase? ReadTestCase(string line, int lineNo) {
 			var parts = line.Split(seps);
 			if (parts.Length != 4)
 				throw new InvalidOperationException($"Invalid number of commas ({parts.Length - 1} commas)");
@@ -56,7 +56,7 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 			foreach (var part in parts[3].Split(optsseps, StringSplitOptions.RemoveEmptyEntries))
 				properties.Add(OptionsParser.ParseOption(part));
 
-			return new OptionsInstructionInfo(bitness, hexBytes, ip, code, properties);
+			return new OptionsTestCase(bitness, hexBytes, ip, code, properties);
 		}
 
 		static Code ToCode(string value) {

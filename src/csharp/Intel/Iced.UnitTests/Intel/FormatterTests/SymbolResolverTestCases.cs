@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
-	static class SymbolResolverTestInfos {
-		public static readonly (SymbolResolverTestCase[] testCases, HashSet<int> ignored) AllInfos = GetTests();
+	//TODO: also rename these
+	static class SymbolResolverTestCases {
+		public static readonly (SymbolResolverTestCase[] testCases, HashSet<int> ignored) AllTests = GetTests();
 
 		static (SymbolResolverTestCase[] testCases, HashSet<int> ignored) GetTests() {
 			var filename = PathUtils.GetTestTextFilename("SymbolResolverTests.txt", "Formatter");

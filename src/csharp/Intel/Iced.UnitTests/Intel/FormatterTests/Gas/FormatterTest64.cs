@@ -11,29 +11,29 @@ namespace Iced.UnitTests.Intel.FormatterTests.Gas {
 	public sealed class FormatterTest64 : FormatterTest {
 		[Theory]
 		[MemberData(nameof(Format_Data_ForceSuffix))]
-		void Format_ForceSuffix(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_ForceSuffix());
+		void Format_ForceSuffix(int index, FormatterTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create_ForceSuffix());
 		public static IEnumerable<object[]> Format_Data_ForceSuffix => FormatterTestCases.GetFormatData(64, "Gas", "ForceSuffix");
 
 		[Theory]
 		[MemberData(nameof(Format_Data_NoSuffix))]
-		void Format_NoSuffix(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_NoSuffix());
+		void Format_NoSuffix(int index, FormatterTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create_NoSuffix());
 		public static IEnumerable<object[]> Format_Data_NoSuffix => FormatterTestCases.GetFormatData(64, "Gas", "NoSuffix");
 
 #if ENCODER
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_ForceSuffix))]
-		void Format_NonDec_ForceSuffix(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_ForceSuffix());
+		void Format_NonDec_ForceSuffix(int index, Instruction instr, string formattedString) => FormatBase(index, instr, formattedString, FormatterFactory.Create_ForceSuffix());
 		public static IEnumerable<object[]> Format_Data_NonDec_ForceSuffix => FormatterTestCases.GetFormatData(64, NonDecodedInstructions.Infos64, "Gas", "NonDec_ForceSuffix");
 
 		[Theory]
 		[MemberData(nameof(Format_Data_NonDec_NoSuffix))]
-		void Format_NonDec_NoSuffix(int index, Instruction info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_NoSuffix());
+		void Format_NonDec_NoSuffix(int index, Instruction instr, string formattedString) => FormatBase(index, instr, formattedString, FormatterFactory.Create_NoSuffix());
 		public static IEnumerable<object[]> Format_Data_NonDec_NoSuffix => FormatterTestCases.GetFormatData(64, NonDecodedInstructions.Infos64, "Gas", "NonDec_NoSuffix");
 #endif
 
 		[Theory]
 		[MemberData(nameof(Format_Data_Misc))]
-		void Format_Misc(int index, InstructionInfo info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create());
+		void Format_Misc(int index, FormatterTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create());
 		public static IEnumerable<object[]> Format_Data_Misc => FormatterTestCases.GetFormatData(64, "Gas", "Misc", isMisc: true);
 	}
 }

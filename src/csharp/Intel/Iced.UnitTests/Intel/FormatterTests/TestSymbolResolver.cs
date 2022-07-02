@@ -7,12 +7,12 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	sealed class TestSymbolResolver : ISymbolResolver {
-		readonly SymbolResolverTestCase info;
+		readonly SymbolResolverTestCase tc;
 
-		public TestSymbolResolver(in SymbolResolverTestCase info) => this.info = info;
+		public TestSymbolResolver(in SymbolResolverTestCase tc) => this.tc = tc;
 
 		public bool TryGetSymbol(in Instruction instruction, int operand, int instructionOperand, ulong address, int addressSize, out SymbolResult symbol) {
-			foreach (var tc in info.SymbolResults) {
+			foreach (var tc in tc.SymbolResults) {
 				if (tc.Address != address || tc.AddressSize != addressSize)
 					continue;
 				var text = new TextInfo(tc.SymbolParts.Select(a => new TextPart(a, FormatterTextKind.Text)).ToArray());

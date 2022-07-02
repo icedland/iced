@@ -8,9 +8,9 @@ using Xunit;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OptionsTests {
-		protected void FormatBase(int index, OptionsInstructionInfo info, string formattedString, Formatter formatter) {
-			info.Initialize(formatter.Options);
-			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.IP, info.Code, info.DecoderOptions, formattedString, formatter, decoder => info.Initialize(decoder));
+		protected void FormatBase(int index, OptionsTestCase tc, string formattedString, Formatter formatter) {
+			tc.Initialize(formatter.Options);
+			FormatterTestUtils.SimpleFormatTest(tc.Bitness, tc.HexBytes, tc.IP, tc.Code, tc.DecoderOptions, formattedString, formatter, decoder => tc.Initialize(decoder));
 		}
 
 		protected void TestOptionsBase(FormatterOptions options) {
