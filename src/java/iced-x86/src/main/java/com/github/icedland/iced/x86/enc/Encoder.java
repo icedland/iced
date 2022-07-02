@@ -194,7 +194,7 @@ public final class Encoder {
 		if (!(bitness == 16 || bitness == 32 || bitness == 64))
 			throw new IllegalArgumentException("bitness");
 		if (writer == null)
-			throw new IllegalArgumentException("writer");
+			throw new NullPointerException("writer");
 		immSizes = s_immSizes;
 		this.writer = writer;
 		this.bitness = bitness;
