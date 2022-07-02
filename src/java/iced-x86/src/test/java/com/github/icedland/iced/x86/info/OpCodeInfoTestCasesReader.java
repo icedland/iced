@@ -3,15 +3,11 @@
 
 package com.github.icedland.iced.x86.info;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.github.icedland.iced.x86.CodeUtils;
 import com.github.icedland.iced.x86.EncodingKind;
+import com.github.icedland.iced.x86.FileUtils;
 import com.github.icedland.iced.x86.MvexEHBit;
 import com.github.icedland.iced.x86.NumberConverter;
 import com.github.icedland.iced.x86.ToCode;
@@ -26,13 +22,7 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
 
 final class OpCodeInfoTestCasesReader {
 	static OpCodeInfoTestCase[] readFile(String filename) {
-		List<String> lines;
-		try {
-			lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-		}
-		catch (IOException ex) {
-			throw new UnsupportedOperationException(String.format("Couldn't read `%s`", filename));
-		}
+		ArrayList<String> lines = FileUtils.readAllLines(filename);
 		ArrayList<OpCodeInfoTestCase> result = new ArrayList<OpCodeInfoTestCase>(lines.size());
 		int lineNo = 0;
 		for (String line : lines) {

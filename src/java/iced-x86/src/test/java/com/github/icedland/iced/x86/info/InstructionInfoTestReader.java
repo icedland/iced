@@ -3,19 +3,15 @@
 
 package com.github.icedland.iced.x86.info;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import com.github.icedland.iced.x86.CodeSize;
 import com.github.icedland.iced.x86.CodeUtils;
 import com.github.icedland.iced.x86.DecoderConstants;
 import com.github.icedland.iced.x86.EncodingKind;
+import com.github.icedland.iced.x86.FileUtils;
 import com.github.icedland.iced.x86.HexUtils;
 import com.github.icedland.iced.x86.NumberConverter;
 import com.github.icedland.iced.x86.PathUtils;
@@ -55,13 +51,7 @@ final class InstructionInfoTestReader {
 			toRegister.put(MiscInstrInfoTestConstants.VMM_PREFIX + Integer.toString(i), IcedConstants.VMM_FIRST + i);
 
 		String filename = PathUtils.getTestTextFilename("InstructionInfo", String.format("InstructionInfoTest_%d.txt", bitness));
-		List<String> lines;
-		try {
-			lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-		}
-		catch (IOException ex) {
-			throw new UnsupportedOperationException(String.format("Couldn't read `%s`", filename));
-		}
+		ArrayList<String> lines = FileUtils.readAllLines(filename);
 		ArrayList<InstructionInfoTestCase> result = new ArrayList<InstructionInfoTestCase>(lines.size());
 		int lineNo = 0;
 		for (String line : lines) {

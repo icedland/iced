@@ -3,14 +3,10 @@
 
 package com.github.icedland.iced.x86.instr;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.github.icedland.iced.x86.CodeUtils;
+import com.github.icedland.iced.x86.FileUtils;
 import com.github.icedland.iced.x86.NumberConverter;
 import com.github.icedland.iced.x86.ToDecoderOptions;
 import com.github.icedland.iced.x86.ToRegister;
@@ -18,13 +14,7 @@ import com.github.icedland.iced.x86.dec.DecoderOptions;
 
 final class VATestCaseReader {
 	public static VirtualAddressTestCase[] readFile(String filename) {
-		List<String> lines;
-		try {
-			lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-		}
-		catch (IOException ex) {
-			throw new UnsupportedOperationException(String.format("Couldn't read `%s`", filename));
-		}
+		ArrayList<String> lines = FileUtils.readAllLines(filename);
 		ArrayList<VirtualAddressTestCase> result = new ArrayList<VirtualAddressTestCase>(lines.size());
 		int lineNo = 0;
 		for (String line : lines) {

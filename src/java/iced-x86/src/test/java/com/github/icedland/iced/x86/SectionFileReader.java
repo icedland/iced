@@ -3,23 +3,13 @@
 
 package com.github.icedland.iced.x86;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.function.BiConsumer;
 
 public final class SectionFileReader {
 	public static void read(String filename, SectionInfo[] sectionInfos) {
 		SectionInfo currentSectionInfo = null;
-		List<String> lines;
-		try {
-			lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-		}
-		catch (IOException ex) {
-			throw new UnsupportedOperationException(String.format("Couldn't read `%s`", filename));
-		}
+		ArrayList<String> lines = FileUtils.readAllLines(filename);
 		int lineNo = 0;
 		for (String line : lines) {
 			lineNo++;

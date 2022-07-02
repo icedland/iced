@@ -3,12 +3,9 @@
 
 package com.github.icedland.iced.x86.info;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.ArrayList;
 
+import com.github.icedland.iced.x86.FileUtils;
 import com.github.icedland.iced.x86.NumberConverter;
 import com.github.icedland.iced.x86.PathUtils;
 import com.github.icedland.iced.x86.ToMemorySize;
@@ -17,13 +14,7 @@ import com.github.icedland.iced.x86.internal.IcedConstants;
 final class MemorySizeInfoTestReader {
 	public static MemorySizeInfoTestCase[] getTestCases() {
 		String filename = PathUtils.getTestTextFilename("InstructionInfo", "MemorySizeInfo.txt");
-		List<String> lines;
-		try {
-			lines = Files.readAllLines(Paths.get(filename), StandardCharsets.UTF_8);
-		}
-		catch (IOException ex) {
-			throw new UnsupportedOperationException(String.format("Couldn't read `%s`", filename));
-		}
+		ArrayList<String> lines = FileUtils.readAllLines(filename);
 		MemorySizeInfoTestCase[] result = new MemorySizeInfoTestCase[IcedConstants.MEMORY_SIZE_ENUM_COUNT];
 		int lineNo = 0;
 		for (String line : lines) {
