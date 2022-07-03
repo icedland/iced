@@ -770,10 +770,10 @@ namespace Generator.Assembler.Java {
 						var renderArgs = GetRenderArgs(group);
 						RenderTests(bitness, writerTests, group, renderArgs);
 					}
-				}
 
-				if (bitness == 64)
-					GenerateDeclareDataTests(writerTests);
+					if (bitness == 64)
+						GenerateDeclareDataTests(writerTests);
+				}
 
 				writerTests.WriteLine("}");
 			}
@@ -784,9 +784,13 @@ namespace Generator.Assembler.Java {
 				int maxSize = 16;
 				int argCount = maxSize / size;
 
+				bool addEmptyLine = false;
 				for (var typeIndex = 0; typeIndex < types.Length; typeIndex++) {
 					var type = types[typeIndex];
 					for (int i = 1; i <= argCount; i++) {
+						if (addEmptyLine)
+							writer.WriteLine();
+						addEmptyLine = true;
 						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "", null);
 						writer.WriteLine("@Test");
 						writer.WriteLine($"void {testMethodName}_{name}_{type}_{i}() {{");
