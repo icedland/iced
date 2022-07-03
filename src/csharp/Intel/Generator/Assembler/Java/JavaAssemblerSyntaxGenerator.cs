@@ -732,14 +732,16 @@ namespace Generator.Assembler.Java {
 					dict.Add(key, list = new());
 				list.Add(group);
 			}
+			bool generateDeclData = bitness == 64;
 			foreach (var kv in dict.OrderBy(a => a.Key, StringComparer.Ordinal)) {
 				var id = kv.Key;
 				var smallGroups = kv.Value.ToArray();
-				GenerateAssemblerTests(bitness, id, smallGroups);
+				GenerateAssemblerTests(bitness, id, smallGroups, generateDeclData);
+				generateDeclData = false;
 			}
 		}
 
-		void GenerateAssemblerTests(int bitness, string id, OpCodeInfoGroup[] groups) {
+		void GenerateAssemblerTests(int bitness, string id, OpCodeInfoGroup[] groups, bool generateDeclData) {
 			string testName = $"CodeAssembler{bitness}Gen{id}Tests";
 
 			var filenameTests = JavaConstants.GetTestFilename(genTypes, JavaConstants.CodeAssemblerPackage, testName + ".java");
@@ -771,7 +773,7 @@ namespace Generator.Assembler.Java {
 						RenderTests(bitness, writerTests, group, renderArgs);
 					}
 
-					if (bitness == 64)
+					if (generateDeclData)
 						GenerateDeclareDataTests(writerTests);
 				}
 
