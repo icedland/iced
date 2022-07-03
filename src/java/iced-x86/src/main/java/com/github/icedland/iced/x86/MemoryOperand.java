@@ -324,4 +324,36 @@ public final class MemoryOperand {
 		this.displSize = displSize;
 		this.isBroadcast = false;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + base.hashCode();
+		result = prime * result + displSize;
+		result = prime * result + Long.hashCode(displacement);
+		result = prime * result + index.hashCode();
+		result = prime * result + (isBroadcast ? 1231 : 1237);
+		result = prime * result + scale;
+		result = prime * result + segmentPrefix.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MemoryOperand other = (MemoryOperand)obj;
+		return base.equals(other.base) &&
+				displSize == other.displSize &&
+				displacement == other.displacement &&
+				index.equals(other.index) &&
+				isBroadcast == other.isBroadcast &&
+				scale == other.scale &&
+				segmentPrefix.equals(other.segmentPrefix);
+	}
 }

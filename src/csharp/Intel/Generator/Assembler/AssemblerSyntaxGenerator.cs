@@ -2389,8 +2389,11 @@ namespace Generator.Assembler {
 			case OperandEncoding.NearBranch:
 			case OperandEncoding.Xbegin:
 			case OperandEncoding.AbsNearBranch:
-				if (argKind == ArgKind.LabelU64)
-					return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				if (argKind == ArgKind.LabelU64) {
+					if (SupportsUnsigned)
+						return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+					return new TestArgValue(SignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				}
 				return new TestArgValue(LabelToTestArgValue());
 
 			case OperandEncoding.Immediate:

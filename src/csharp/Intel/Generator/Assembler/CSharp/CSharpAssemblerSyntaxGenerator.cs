@@ -894,7 +894,7 @@ namespace Generator.Assembler.CSharp {
 			if (node.Def is InstructionDef def) {
 				if (isLeaf)
 					writer.Write("code = ");
-				writer.Write($"Code.{def.Code.Name(idConverter)}");
+				writer.Write(idConverter.ToDeclTypeAndValue(def.Code));
 				if (isLeaf)
 					writer.WriteLine(";");
 			}

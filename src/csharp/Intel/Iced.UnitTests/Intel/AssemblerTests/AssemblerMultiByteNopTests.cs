@@ -4,7 +4,6 @@
 #if ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER
 using System;
 using Iced.Intel;
-using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 
 namespace Iced.UnitTests.Intel.AssemblerTests {
@@ -44,7 +43,6 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 				}
 			}
 		}
-
 	}
 }
 #endif

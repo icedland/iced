@@ -24,7 +24,6 @@ final class CallInstr extends Instr {
 		if (!blockEncoder.fixBranches()) {
 			size = origInstructionSize;
 			useOrigInstruction = true;
-			done = true;
 		}
 		else if (blockEncoder.getBitness() == 64) {
 			// Make sure it's not shorter than the real instruction. It can happen if there are extra prefixes.
@@ -45,8 +44,10 @@ final class CallInstr extends Instr {
 	}
 
 	private boolean tryOptimize(long gained) {
-		if (done)
+		if (done || useOrigInstruction) {
+			done = true;
 			return false;
+		}
 
 		// If it's in the same block, we assume the target is at most 2GB away.
 		boolean useShort = bitness != 64 || targetInstr.isInBlock(block);

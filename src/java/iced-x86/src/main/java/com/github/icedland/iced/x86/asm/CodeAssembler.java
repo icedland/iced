@@ -5,8 +5,11 @@ package com.github.icedland.iced.x86.asm;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.github.icedland.iced.x86.Code;
 import com.github.icedland.iced.x86.CodeWriter;
+import com.github.icedland.iced.x86.ICRegister;
+import com.github.icedland.iced.x86.ICRegisters;
 import com.github.icedland.iced.x86.Instruction;
 import com.github.icedland.iced.x86.MemoryOperand;
 import com.github.icedland.iced.x86.Mnemonic;
@@ -80,7 +83,7 @@ public class CodeAssembler {
 	 * @see #vex()
 	 * @see #evex()
 	 */
-	public void getPreferVex(boolean value) {
+	public void setPreferVex(boolean value) {
 		preferVex = value;
 	}
 
@@ -393,20 +396,20 @@ public class CodeAssembler {
 
 	/** xlatb instruction */
 	public void xlatb() {
-		int baseReg;
+		ICRegister baseReg;
 		switch (getBitness()) {
 		case 64:
-			baseReg = Register.RBX;
+			baseReg = ICRegisters.rbx;
 			break;
 		case 32:
-			baseReg = Register.EBX;
+			baseReg = ICRegisters.ebx;
 			break;
 		default:
 			assert getBitness() == 16 : getBitness();
-			baseReg = Register.BX;
+			baseReg = ICRegisters.bx;
 			break;
 		}
-		addInstruction(Instruction.create(Code.XLAT_M8, new MemoryOperand(baseReg, Register.AL)));
+		addInstruction(Instruction.create(Code.XLAT_M8, new MemoryOperand(baseReg, ICRegisters.al)));
 	}
 
 	/**

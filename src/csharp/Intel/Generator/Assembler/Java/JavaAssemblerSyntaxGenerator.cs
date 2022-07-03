@@ -20,11 +20,11 @@ namespace Generator.Assembler.Java {
 		readonly EnumType registerType;
 		readonly EnumType memoryOperandSizeType;
 
-		static readonly List<(string, int, string[], string)> declareDataList = new() {
-			("db", 1, new[] { "byte" }, "createDeclareByte"),
-			("dw", 2, new[] { "short" }, "createDeclareWord"),
-			("dd", 4, new[] { "int", "float" }, "createDeclareDword"),
-			("dq", 8, new[] { "long", "double" }, "createDeclareQword"),
+		static readonly List<(string, int, string[], string, string)> declareDataList = new() {
+			("db", 1, new[] { "byte" }, "createDeclareByte", "testAssemblerDeclareByte"),
+			("dw", 2, new[] { "short" }, "createDeclareWord", "testAssemblerDeclareWord"),
+			("dd", 4, new[] { "int", "float" }, "createDeclareDword", "testAssemblerDeclareDword"),
+			("dq", 8, new[] { "long", "double" }, "createDeclareQword", "testAssemblerDeclareQword"),
 		};
 
 		protected override bool SupportsUnsigned => false;
@@ -478,7 +478,9 @@ namespace Generator.Assembler.Java {
 				(GPR32, GPR32, false, false),	// [base+index]
 				(GPR32, GPR32, true, false),	// [base+index*scale]
 				(GPR32, GPR32, true, true),		// [base+index*scale+displ]
-				(null , GPR32, true, false),	// [index*scale]
+				(GPR32, null , false, true),	// [base+displ]
+				// Too similar to [base+displ], i.e., int vs long
+				// (null , GPR32, true, false),	// [index*scale]
 				(null , GPR32, true, true),		// [index*scale+displ]
 
 				(GPR32, XMM, false, false),		// [base+xmm]
@@ -498,7 +500,9 @@ namespace Generator.Assembler.Java {
 				(GPR64, GPR64, false, false),	// [base+index]
 				(GPR64, GPR64, true, false),	// [base+index*scale]
 				(GPR64, GPR64, true, true),		// [base+index*scale+displ]
-				(null , GPR64, true, false),	// [index*scale]
+				(GPR64, null , false, true),	// [base+displ]
+				// Too similar to [base+displ], i.e., int vs long
+				// (null , GPR64, true, false),	// [index*scale]
 				(null , GPR64, true, true),		// [index*scale+displ]
 
 				(GPR64, XMM, false, false),		// [base+xmm]
@@ -631,7 +635,7 @@ namespace Generator.Assembler.Java {
 		}
 
 		void GenerateDeclareDataCode(FileWriter writer) {
-			foreach (var (name, size, types, methodName) in declareDataList) {
+			foreach (var (name, size, types, methodName, _) in declareDataList) {
 				int maxSize = 16;
 				int argCount = maxSize / size;
 
@@ -682,27 +686,79 @@ namespace Generator.Assembler.Java {
 		}
 
 		void GenerateTests(OpCodeInfoGroup[] groups) {
-			//TODO:
-			// foreach (var bitness in new[] { 16, 32, 64 })
-			// 	GenerateAssemblerTests(bitness, groups);
+			foreach (var bitness in new[] { 16, 32, 64 })
+				GenerateAssemblerTests(bitness, groups);
 		}
 
+		static bool IsVPrefixInstruction(OpCodeInfoGroup group) {
+			foreach (var def in group.Defs) {
+				switch (def.Encoding) {
+				case EncodingKind.Legacy:
+				case EncodingKind.D3NOW:
+					break;
+				case EncodingKind.VEX:
+				case EncodingKind.EVEX:
+				case EncodingKind.XOP:
+				case EncodingKind.MVEX:
+					// These instructions have a 'v' mnemonic prefix
+					return true;
+				default:
+					throw new InvalidOperationException();
+				}
+			}
+			return false;
+		}
+
+		static string GetRealName(OpCodeInfoGroup group) {
+			var name = group.Name;
+			if (IsVPrefixInstruction(group) && name.StartsWith("v", StringComparison.Ordinal))
+				name = name.Substring(1);
+			if (name == string.Empty)
+				throw new InvalidOperationException();
+			return name;
+		}
+
+		static string GetGroupId(OpCodeInfoGroup group) {
+			var name = GetRealName(group);
+			return name.Substring(0, 1).ToUpperInvariant();
+		}
+
+		// Too many constants in the class file so split them up into multiple files...
 		void GenerateAssemblerTests(int bitness, OpCodeInfoGroup[] groups) {
-			const string assemblerTestsNameBase = "AssemblerTests";
-			string testName = assemblerTestsNameBase + bitness;
+			var dict = new Dictionary<String, List<OpCodeInfoGroup>>();
+			foreach (var group in groups) {
+				var key = GetGroupId(group);
+				if (!dict.TryGetValue(key, out var list))
+					dict.Add(key, list = new());
+				list.Add(group);
+			}
+			foreach (var kv in dict.OrderBy(a => a.Key, StringComparer.Ordinal)) {
+				var id = kv.Key;
+				var smallGroups = kv.Value.ToArray();
+				GenerateAssemblerTests(bitness, id, smallGroups);
+			}
+		}
+
+		void GenerateAssemblerTests(int bitness, string id, OpCodeInfoGroup[] groups) {
+			string testName = $"CodeAssembler{bitness}Gen{id}Tests";
 
 			var filenameTests = JavaConstants.GetTestFilename(genTypes, JavaConstants.CodeAssemblerPackage, testName + ".java");
 			using (var writerTests = new FileWriter(TargetLanguage.Java, FileUtils.OpenWrite(filenameTests))) {
 				writerTests.WriteFileHeader();
-				writerTests.WriteLine($"package {JavaConstants.CodeAssemblerPackage} {{");
+				writerTests.WriteLine($"package {JavaConstants.CodeAssemblerPackage};");
 				writerTests.WriteLine();
-				writerTests.WriteLine("using Iced.Intel;");
-				writerTests.WriteLine("using Xunit;");
-				writerTests.WriteLine("using static Iced.Intel.AsmRegisters;");
+				writerTests.WriteLine("import org.junit.jupiter.api.Test;");
+				writerTests.WriteLine();
+				writerTests.WriteLine("import com.github.icedland.iced.x86.*;");
+				writerTests.WriteLine("import static com.github.icedland.iced.x86.asm.AsmRegisters.*;");
+				writerTests.WriteLine();
 
-				writerTests.WriteLine($"public sealed class {testName} : AssemblerTestsBase {{");
+				writerTests.WriteLine($"final class {testName} extends CodeAssemblerTestsBase {{");
 				using (writerTests.Indent()) {
-					writerTests.WriteLine($"public {testName}() : base({bitness}) {{ }}");
+					writerTests.WriteLine($"{testName}() {{");
+					using (writerTests.Indent())
+						writerTests.WriteLine($"super({bitness});");
+					writerTests.WriteLine("}");
 					writerTests.WriteLine();
 
 					foreach (var group in groups) {
@@ -724,7 +780,7 @@ namespace Generator.Assembler.Java {
 		}
 
 		void GenerateDeclareDataTests(FileWriter writer) {
-			foreach (var (name, size, types, _) in declareDataList) {
+			foreach (var (name, size, types, _, testMethodName) in declareDataList) {
 				int maxSize = 16;
 				int argCount = maxSize / size;
 
@@ -732,10 +788,10 @@ namespace Generator.Assembler.Java {
 					var type = types[typeIndex];
 					for (int i = 1; i <= argCount; i++) {
 						docWriter.WriteSummary(writer, $"Creates a {name} asm directive with the type {type}.", "", null);
-						writer.WriteLine("[Fact]");
-						writer.WriteLine($"public void TestDeclareData_{name}_{type}_{i}() {{");
+						writer.WriteLine("@Test");
+						writer.WriteLine($"void {testMethodName}_{name}_{type}_{i}() {{");
 						using (writer.Indent()) {
-							writer.Write($"TestAssemblerDeclareData(c => c.{name}(");
+								writer.Write($"{testMethodName}(c -> c.{name}(");
 							for (int j = 0; j < i; j++) {
 								if (j > 0)
 									writer.Write(", ");
@@ -974,8 +1030,8 @@ namespace Generator.Assembler.Java {
 			var fullMethodNameStr = fullMethodName.ToString();
 			if (ignoredTestsPerBitness.TryGetValue(bitness, out var ignoredTests) && ignoredTests.Contains(fullMethodNameStr))
 				return;
-			writer.WriteLine("[Fact]");
-			writer.WriteLine($"public void {fullMethodNameStr}() {{");
+			writer.WriteLine("@Test");
+			writer.WriteLine($"void {fullMethodNameStr}() {{");
 			using (writer.Indent()) {
 				var args = new TestArgValues(renderArgs.Length);
 
@@ -1031,7 +1087,7 @@ namespace Generator.Assembler.Java {
 							writer.WriteLine("{");
 							using (writer.Indent()) {
 								int testBitness = GetInvalidTestBitness(bitness, group);
-								writer.WriteLine("AssertInvalid(() => {");
+								writer.WriteLine("assertInvalid(() -> {");
 								using (writer.Indent()) {
 									var oldValue = args.Set(selector.ArgIndex, newArg);
 									GenerateOpCodeTest(writer, testBitness, group, selector.IfTrue, renderArgs, args, contextFlags | contextIfFlags);
@@ -1075,9 +1131,9 @@ namespace Generator.Assembler.Java {
 				}
 
 				if ((def.Flags1 & InstructionDefFlags1.OpMaskRegister) != 0 && i == 0) {
-					asmArg += ".k1";
+					asmArg += ".k1()";
 					var opMask = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.K1).Register);
-					withFns.Add(("ApplyK(", $", {opMask})"));
+					withFns.Add(("applyK(", $", {opMask})"));
 				}
 
 				asmArgs.Add(asmArg);
@@ -1086,7 +1142,7 @@ namespace Generator.Assembler.Java {
 			if (group.ParentPseudoOpsKind is not null)
 				withArgs.Add($"{group.PseudoOpsKindImmediateValue}");
 			if (group.HasLabel && (group.Flags & OpCodeArgFlags.HasLabelUlong) == 0)
-				withFns.Add(("AssignLabel(", $", {withArgs[1]})"));
+				withFns.Add(("assignLabel(", $", {withArgs[1]})"));
 
 			string withFnName;
 			if ((group.Flags & OpCodeArgFlags.HasSpecialInstructionEncoding) != 0)
@@ -1098,13 +1154,16 @@ namespace Generator.Assembler.Java {
 			var asmName = idConverter.Method(group.Name);
 			var asmArgsStr = string.Join(", ", asmArgs);
 			var instrFlags = GetInstrTestFlags(def, group, contextFlags);
-			var testInstrFlagsStr = instrFlags.Count > 0 ?
-				$", {string.Join(" | ", instrFlags.Select(x => idConverter.ToDeclTypeAndValue(x)))}" : string.Empty;
 			var decoderOptions = GetDecoderOptions(bitness, def);
+			var testInstrFlagsStr = instrFlags.Count > 0 ?
+				$", {string.Join(" | ", instrFlags.Select(x => idConverter.ToDeclTypeAndValue(x)))}" :
+				decoderOptions.Count != 0 ?
+				$", {idConverter.ToDeclTypeAndValue(testInstrFlags[nameof(TestInstrFlags.None)])}" :
+				string.Empty;
 			string decoderOptionsStr;
 			if (decoderOptions.Count != 0) {
-				var options = string.Join(" | ", decoderOptions.Select(x => idConverter.ToDeclTypeAndValue(x)));
-				decoderOptionsStr = $", decoderOptions: {options}";
+				var options = string.Join(" | ", decoderOptions.Select(x => JavaConstants.DecoderPackage + "." + idConverter.ToDeclTypeAndValue(x)));
+				decoderOptionsStr = $", {options}";
 			}
 			else
 				decoderOptionsStr = string.Empty;
@@ -1112,7 +1171,7 @@ namespace Generator.Assembler.Java {
 			var withArgsStr = string.Join(", ", withArgs);
 			var withFnsPreStr = string.Join(string.Empty, ((IEnumerable<(string pre, string post)>)withFns).Reverse().Select(x => x.pre));
 			var withFnsPostStr = string.Join(string.Empty, withFns.Select(x => x.post));
-			writer.WriteLine($"TestAssembler(c => c.{asmName}({asmArgsStr}), {withFnsPreStr}Instruction.{withFnName}({withArgsStr}){withFnsPostStr}{testInstrFlagsStr}{decoderOptionsStr});");
+			writer.WriteLine($"testAssembler(c -> c.{asmName}({asmArgsStr}), {withFnsPreStr}Instruction.{withFnName}({withArgsStr}){withFnsPostStr}{testInstrFlagsStr}{decoderOptionsStr});");
 			return true;
 		}
 
@@ -1123,7 +1182,7 @@ namespace Generator.Assembler.Java {
 			if (node.Def is InstructionDef def) {
 				if (isLeaf)
 					writer.Write("code = ");
-				writer.Write($"Code.{def.Code.Name(idConverter)}");
+				writer.Write(idConverter.ToDeclTypeAndValue(def.Code));
 				if (isLeaf)
 					writer.WriteLine(";");
 			}
@@ -1270,14 +1329,22 @@ namespace Generator.Assembler.Java {
 			}
 			var asmStr = sb.ToString();
 
-			var baseStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(@base).Register);
-			var indexStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(index).Register);
+			string baseStr;
+			string indexStr;
+			if (@base == Register.None)
+				baseStr = "ICRegister.NONE";
+			else
+				baseStr = "ICRegisters." + GetRegisterDef(@base).GetAsmRegisterName();
+			if (index == Register.None)
+				indexStr = "ICRegister.NONE";
+			else
+				indexStr = "ICRegisters." + GetRegisterDef(index).GetAsmRegisterName();
 			var displStr = displ < 0 ?
 				"-0x" + (-displ).ToString("X", CultureInfo.InvariantCulture) :
 				"0x" + displ.ToString("X", CultureInfo.InvariantCulture);
 			var displSize = displ == 0 ? "0" : "1";
 			var isBcstStr = size.IsBroadcast ? "true" : "false";
-			var regNoneStr = idConverter.ToDeclTypeAndValue(GetRegisterDef(Register.None).Register);
+			var regNoneStr = "ICRegister.NONE";
 			var withStr = $"new MemoryOperand({baseStr}, {indexStr}, {scale}, {displStr}L, {displSize}, {isBcstStr}, {regNoneStr})";
 
 			return new(asmStr, withStr);
@@ -1286,7 +1353,7 @@ namespace Generator.Assembler.Java {
 		protected override TestArgValueBitness RegToTestArgValue(Register register) {
 			var regDef = GetRegisterDef(register);
 			var asmReg = regDef.GetAsmRegisterName();
-			var withReg = idConverter.ToDeclTypeAndValue(regDef.Register);
+			var withReg = "ICRegisters." + regDef.GetAsmRegisterName();
 			return new(asmReg, withReg);
 		}
 
@@ -1314,10 +1381,12 @@ namespace Generator.Assembler.Java {
 			if (isNeg)
 				numStr = "-" + numStr;
 
-			return new(numStr + "L");
+			if (encImmSizeBits == 64 && immSizeBits == 64)
+				numStr += "L";
+			return new(numStr);
 		}
 
-		protected override TestArgValueBitness LabelToTestArgValue() => new("createAndEmitLabel(c)", "getFirstLabelId()");
+		protected override TestArgValueBitness LabelToTestArgValue() => new("createAndEmitLabel(c)", "FIRST_LABEL_ID");
 
 		readonly struct RenderArg {
 			public RenderArg(string name, string type, ArgKind kind, int maxArgSize) {

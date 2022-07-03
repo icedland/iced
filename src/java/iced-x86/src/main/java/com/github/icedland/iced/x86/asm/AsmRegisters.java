@@ -129,11 +129,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with no size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand mem_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand mem_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -291,11 +291,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with no size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand mem_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand mem_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -574,11 +574,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand byte_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.BYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand byte_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.BYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -736,11 +736,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code BYTE PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand byte_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.BYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand byte_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.BYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -1019,11 +1019,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand word_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand word_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -1181,11 +1181,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code WORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand word_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand word_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -1464,11 +1464,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand dword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand dword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -1626,11 +1626,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code DWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand dword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand dword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -1909,11 +1909,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand qword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand qword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -2071,11 +2071,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code QWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand qword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand qword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -2354,11 +2354,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand mmword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand mmword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -2516,11 +2516,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code MMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand mmword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand mmword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -2799,11 +2799,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand tbyte_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand tbyte_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -2961,11 +2961,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code TBYTE PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand tbyte_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand tbyte_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -3244,11 +3244,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand tword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand tword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -3406,11 +3406,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code TWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand tword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand tword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.TBYTE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -3689,11 +3689,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand fword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.FWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand fword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.FWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -3851,11 +3851,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code FWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand fword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.FWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand fword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.FWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -4134,11 +4134,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand oword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand oword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -4296,11 +4296,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code OWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand oword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand oword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -4579,11 +4579,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand xmmword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand xmmword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -4741,11 +4741,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with an {@code XMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand xmmword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand xmmword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.XWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -5024,11 +5024,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand ymmword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.YWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand ymmword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.YWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -5186,11 +5186,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code YMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand ymmword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.YWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand ymmword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.YWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -5469,11 +5469,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand zmmword_ptr(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.ZWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand zmmword_ptr(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.ZWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -5631,11 +5631,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a memory operand with a {@code ZMMWORD PTR} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand zmmword_ptr(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.ZWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.NONE);
+	public static AsmMemoryOperand zmmword_ptr(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.ZWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.NONE);
 	}
 
 	/**
@@ -5914,11 +5914,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with no size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand bcst(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand bcst(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -6076,11 +6076,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with no size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand bcst(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand bcst(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.NONE, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -6359,11 +6359,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand word_bcst(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand word_bcst(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -6521,11 +6521,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code WORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand word_bcst(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand word_bcst(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.WORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -6804,11 +6804,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand dword_bcst(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand dword_bcst(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -6966,11 +6966,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code DWORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand dword_bcst(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand dword_bcst(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.DWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -7249,11 +7249,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand qword_bcst(AsmRegister32 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand qword_bcst(AsmRegister32 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
@@ -7411,11 +7411,11 @@ public final class AsmRegisters {
 	/**
 	 * Gets a broadcast memory operand with a {@code QWORD BCST} size hint
 	 *
-	 * @param index Index register
-	 * @param scale Scale (1, 2, 4 or 8)
+	 * @param base Base register
+	 * @param displacement Displacement
 	 */
-	public static AsmMemoryOperand qword_bcst(AsmRegister64 index, int scale) {
-		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, ICRegister.NONE, index.get(), scale, 0, AsmOperandFlags.BROADCAST);
+	public static AsmMemoryOperand qword_bcst(AsmRegister64 base, long displacement) {
+		return new AsmMemoryOperand(MemoryOperandSize.QWORD, ICRegister.NONE, base.get(), ICRegister.NONE, 1, displacement, AsmOperandFlags.BROADCAST);
 	}
 
 	/**
