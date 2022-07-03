@@ -725,7 +725,7 @@ namespace Generator.Assembler.Java {
 
 		// Too many constants in the class file so split them up into multiple files...
 		void GenerateAssemblerTests(int bitness, OpCodeInfoGroup[] groups) {
-			var dict = new Dictionary<String, List<OpCodeInfoGroup>>();
+			var dict = new Dictionary<String, List<OpCodeInfoGroup>>(StringComparer.Ordinal);
 			foreach (var group in groups) {
 				var key = GetGroupId(group);
 				if (!dict.TryGetValue(key, out var list))
