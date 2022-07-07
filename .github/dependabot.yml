@@ -10,6 +10,11 @@ updates:
     schedule:
       interval: "daily"
 
+  - package-ecosystem: "maven"
+    directory: "/src/java/iced-x86"
+    schedule:
+      interval: "daily"
+
   - package-ecosystem: "cargo"
     directory: "/src/rust/iced-x86/"
     schedule:

@@ -10,6 +10,8 @@ env:
   CI_NODE_MIN_VER: '14.0.0'
   RUSTFLAGS: '-D warnings'
   MACOSX_DEPLOYMENT_TARGET: '10.12'
+  JAVA_DISTRIBUTION: 'temurin'
+  JAVA_VERSION: '8'
 
 jobs:
 
@@ -45,6 +47,41 @@ jobs:
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-java:
+    name: Java (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+
+      - name: Build and test
+        shell: bash
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-java $extra_args
+
+      - uses: actions/upload-artifact@v3
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: java
+          path: src/java/iced-x86/target/iced-x86*
           if-no-files-found: error
 
   #############################################################################
@@ -542,6 +579,7 @@ jobs:
     name: Upload files
     needs:
       - build-dotnet
+      - build-java
       - build-rust
       - build-rust-js-wasm
       - build-rust-python-linux-aarch64
@@ -558,6 +596,10 @@ jobs:
       - uses: actions/setup-dotnet@v2
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+      - uses: actions/setup-java@v3
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
       - uses: actions/setup-python@v3
         with:
           python-version: '3.x'
@@ -607,6 +649,7 @@ jobs:
           dotnet nuget push --help
           cargo publish --help
           npm publish --help
+          mvn --help
 
       - name: Upload to nuget.org
         shell: bash
@@ -637,3 +680,23 @@ jobs:
           npm publish /tmp/artifacts/npm/iced-x86-*.tgz
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+      - name: Set up Apache Maven Central
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_CENTRAL_TOKEN
+          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
+      - name: Publish to Apache Maven Central
+        run: mvn deploy
+        #TODO: remove this once this works
+        continue-on-error: true
+        env:
+          MAVEN_USERNAME: wtfsck
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}

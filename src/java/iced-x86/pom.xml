@@ -6,7 +6,7 @@
 
   <groupId>io.github.icedland.iced</groupId>
   <artifactId>iced-x86</artifactId>
-  <version>1.17.0</version>
+  <version>1.17.0-SNAPSHOT</version>
 
   <name>iced-x86</name>
   <description>x86/x64 disassembler, encoder, assembler written in Java</description>
@@ -24,6 +24,8 @@
     </developer>
   </developers>
   <scm>
+    <connection>scm:git:https://github.com/icedland/iced.git</connection>
+    <developerConnection>scm:git:https://github.com/icedland/iced.git</developerConnection>
     <url>https://github.com/icedland/iced</url>
   </scm>
   <distributionManagement>
@@ -159,6 +161,14 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <!-- https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#extra-setup-for-pomxml -->
+          <!-- Prevent gpg from using pinentry programs -->
+          <gpgArguments>
+            <arg>--pinentry-mode</arg>
+            <arg>loopback</arg>
+          </gpgArguments>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
