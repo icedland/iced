@@ -72,7 +72,7 @@ public final class FormatterTestCases {
 			filename += "_Misc";
 		Info info = new Info();
 		info.ignored = new HashSet<Integer>();
-		info.tests = readTests(filename, bitness, info.ignored).toArray(FormatterTestCase[]::new);
+		info.tests = readTests(filename, bitness, info.ignored).toArray(new FormatterTestCase[0]);
 		return info;
 	}
 
@@ -135,7 +135,7 @@ public final class FormatterTestCases {
 	public static Iterable<Arguments> getFormatData(int bitness, String formatterDir, String formattedStringsFile, boolean isMisc) {
 		Info info = getTests(bitness, isMisc);
 		String[] formattedStrings = FmtFileUtils
-				.readRawStrings(Paths.get(formatterDir, String.format("Test%d_%s", bitness, formattedStringsFile)).toString()).toArray(String[]::new);
+				.readRawStrings(Paths.get(formatterDir, String.format("Test%d_%s", bitness, formattedStringsFile)).toString()).toArray(new String[0]);
 		return getFormatData(info.tests, info.ignored, formattedStrings);
 	}
 
@@ -151,7 +151,7 @@ public final class FormatterTestCases {
 
 	public static Iterable<Arguments> getFormatData(int bitness, NonDecodedTestCase[] tests, String formatterDir, String formattedStringsFile) {
 		String[] formattedStrings = FmtFileUtils
-				.readRawStrings(Paths.get(formatterDir, String.format("Test%d_%s", bitness, formattedStringsFile)).toString()).toArray(String[]::new);
+				.readRawStrings(Paths.get(formatterDir, String.format("Test%d_%s", bitness, formattedStringsFile)).toString()).toArray(new String[0]);
 		return getFormatData(tests, formattedStrings);
 	}
 

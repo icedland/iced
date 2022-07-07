@@ -74,6 +74,6 @@ final class OptionsTestsReader {
 			properties.add(OptionsParser.parseOption(part));
 		}
 
-		return new OptionsTestCase(bitness, hexBytes, ip, code, properties.toArray(OptionsTestCase.Info[]::new));
+		return new OptionsTestCase(bitness, hexBytes, ip, code, properties.toArray(new OptionsTestCase.Info[0]));
 	}
 }

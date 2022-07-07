@@ -50,7 +50,7 @@ final class BlockEncoderMiscTests {
 		BlockEncoderResult blockResult;
 		CodeWriterImpl codeWriter = new CodeWriterImpl();
 
-		result = BlockEncoder.tryEncode(16, new InstructionBlock(codeWriter, List.of(), 0), BlockEncoderOptions.NONE);
+		result = BlockEncoder.tryEncode(16, new InstructionBlock(codeWriter, new ArrayList<Instruction>(), 0), BlockEncoderOptions.NONE);
 		assertTrue(result instanceof BlockEncoderResult);
 		blockResult = (BlockEncoderResult)result;
 		assertEquals(0, codeWriter.toArray().length);
@@ -61,7 +61,7 @@ final class BlockEncoderMiscTests {
 		assertNotNull(blockResult.constantOffsets);
 		assertTrue(blockResult.constantOffsets.length == 0);
 
-		result = BlockEncoder.tryEncode(32, new InstructionBlock(codeWriter, List.of(), 0), BlockEncoderOptions.NONE);
+		result = BlockEncoder.tryEncode(32, new InstructionBlock(codeWriter, new ArrayList<Instruction>(), 0), BlockEncoderOptions.NONE);
 		assertTrue(result instanceof BlockEncoderResult);
 		blockResult = (BlockEncoderResult)result;
 		assertEquals(0, codeWriter.toArray().length);
@@ -72,7 +72,7 @@ final class BlockEncoderMiscTests {
 		assertNotNull(blockResult.constantOffsets);
 		assertTrue(blockResult.constantOffsets.length == 0);
 
-		result = BlockEncoder.tryEncode(64, new InstructionBlock(codeWriter, List.of(), 0), BlockEncoderOptions.NONE);
+		result = BlockEncoder.tryEncode(64, new InstructionBlock(codeWriter, new ArrayList<Instruction>(), 0), BlockEncoderOptions.NONE);
 		assertTrue(result instanceof BlockEncoderResult);
 		blockResult = (BlockEncoderResult)result;
 		assertEquals(0, codeWriter.toArray().length);
@@ -219,10 +219,10 @@ final class BlockEncoderMiscTests {
 		final long newRip = 0x8000000000000000L;
 
 		byte[] data = HexUtils.toByteArray(hexBytes);
-		List<Instruction> instructions = List.of(
-				Instruction.create(Code.NOPD),
-				Instruction.createDeclareByte(data),
-				Instruction.create(Code.NOPD));
+		List<Instruction> instructions = new ArrayList<Instruction>();
+		instructions.add(Instruction.create(Code.NOPD));
+		instructions.add(Instruction.createDeclareByte(data));
+		instructions.add(Instruction.create(Code.NOPD));
 
 		byte[] expectedData = new byte[data.length + 2];
 		expectedData[0] = (byte)0x90;
@@ -258,15 +258,15 @@ final class BlockEncoderMiscTests {
 	void tryEncode_with_invalid_bitness_throws() {
 		for (int bitness : BitnessUtils.getInvalidBitnessValues())
 			assertThrows(IllegalArgumentException.class,
-					() -> BlockEncoder.tryEncode(bitness, new InstructionBlock(new CodeWriterImpl(), List.of(), 0)));
+					() -> BlockEncoder.tryEncode(bitness, new InstructionBlock(new CodeWriterImpl(), new ArrayList<Instruction>(), 0)));
 		for (int bitness : BitnessUtils.getInvalidBitnessValues())
 			assertThrows(IllegalArgumentException.class,
-					() -> BlockEncoder.tryEncode(bitness, new InstructionBlock[] { new InstructionBlock(new CodeWriterImpl(), List.of(), 0) }));
+					() -> BlockEncoder.tryEncode(bitness, new InstructionBlock[] { new InstructionBlock(new CodeWriterImpl(), new ArrayList<Instruction>(), 0) }));
 	}
 
 	@Test
 	void instructionBlock_throws_if_invalid_input() {
-		assertThrows(NullPointerException.class, () -> new InstructionBlock(null, List.of(), 0));
+		assertThrows(NullPointerException.class, () -> new InstructionBlock(null, new ArrayList<Instruction>(), 0));
 		assertThrows(NullPointerException.class, () -> new InstructionBlock(new CodeWriterImpl(), null, 0));
 	}
 
@@ -275,7 +275,9 @@ final class BlockEncoderMiscTests {
 		Instruction instr = Instruction.create(Code.ADD_R32_RM32, ICRegisters.ecx,
 				new MemoryOperand(ICRegisters.rip, ICRegister.NONE, 1, 0x1234_5678_9ABC_DEF1L, 8, false, ICRegister.NONE));
 		CodeWriterImpl codeWriter = new CodeWriterImpl();
-		Object result = BlockEncoder.tryEncode(64, new InstructionBlock(codeWriter, List.of(instr), 0x1234_5678_ABCD_EF02L));
+		List<Instruction> instrs = new ArrayList<Instruction>();
+		instrs.add(instr);
+		Object result = BlockEncoder.tryEncode(64, new InstructionBlock(codeWriter, instrs, 0x1234_5678_ABCD_EF02L));
 		assertTrue(result instanceof BlockEncoderResult);
 		byte[] encoded = codeWriter.toArray();
 		byte[] expected = new byte[] { 0x03, 0x0D, (byte)0xE9, (byte)0xEF, (byte)0xEE, (byte)0xEE };

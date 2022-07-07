@@ -27,7 +27,7 @@ class BlockEncoderTests {
 			list.add(decoder.decode());
 		if (decoder.getIP() - rip != data.length)
 			throw new UnsupportedOperationException();
-		return list.toArray(Instruction[]::new);
+		return list.toArray(new Instruction[0]);
 	}
 
 	private static RelocInfo[] sort(ArrayList<RelocInfo> list) {
@@ -37,7 +37,7 @@ class BlockEncoderTests {
 				return c;
 			return (int)a.kind - (int)b.kind;
 		});
-		return list.toArray(RelocInfo[]::new);
+		return list.toArray(new RelocInfo[0]);
 	}
 
 	static final class CodeReaderImpl extends CodeReader {

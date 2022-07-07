@@ -31,7 +31,7 @@ final class MnemonicOptionsTestsReader {
 			if (tc != null)
 				result.add(tc);
 		}
-		return result.toArray(MnemonicOptionsTestCase[]::new);
+		return result.toArray(new MnemonicOptionsTestCase[0]);
 	}
 
 	static MnemonicOptionsTestCase parseLine(String line) {

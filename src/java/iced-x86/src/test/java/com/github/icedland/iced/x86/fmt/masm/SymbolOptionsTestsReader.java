@@ -29,7 +29,7 @@ final class SymbolOptionsTestsReader {
 			if (tc != null)
 				result.add(tc);
 		}
-		return result.toArray(SymbolOptionsTestCase[]::new);
+		return result.toArray(new SymbolOptionsTestCase[0]);
 	}
 
 	static SymbolOptionsTestCase parseLine(String line) {

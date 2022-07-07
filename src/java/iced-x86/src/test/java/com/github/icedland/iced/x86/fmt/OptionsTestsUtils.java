@@ -23,12 +23,12 @@ final class OptionsTestsUtils {
 	static Iterable<Arguments> getFormatData(String formatterDir, String formattedStringsFile, String optionsFile) {
 		String testsFilename = FmtFileUtils.getFormatterFilename(Paths.get(formatterDir, optionsFile).toString());
 		HashSet<Integer> ignored = new HashSet<Integer>();
-		OptionsTestCase[] tests = OptionsTestsReader.readFile(testsFilename, ignored).toArray(OptionsTestCase[]::new);
+		OptionsTestCase[] tests = OptionsTestsReader.readFile(testsFilename, ignored).toArray(new OptionsTestCase[0]);
 		return getFormatData(formatterDir, formattedStringsFile, tests, ignored);
 	}
 
 	private static Iterable<Arguments> getFormatData(String formatterDir, String formattedStringsFile, OptionsTestCase[] tests, HashSet<Integer> ignored) {
-		String[] formattedStrings = FmtFileUtils.readRawStrings(Paths.get(formatterDir, formattedStringsFile).toString()).toArray(String[]::new);
+		String[] formattedStrings = FmtFileUtils.readRawStrings(Paths.get(formatterDir, formattedStringsFile).toString()).toArray(new String[0]);
 		formattedStrings = Utils.filter(formattedStrings, ignored);
 		if (tests.length != formattedStrings.length)
 			throw new UnsupportedOperationException();

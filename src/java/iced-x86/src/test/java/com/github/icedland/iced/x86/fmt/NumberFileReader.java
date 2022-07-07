@@ -26,7 +26,7 @@ final class NumberFileReader {
 			}
 			result.add(testCase);
 		}
-		return result.toArray(TestNumber[]::new);
+		return result.toArray(new TestNumber[0]);
 	}
 
 	static TestNumber readTestCase(String line, int lineNo) {

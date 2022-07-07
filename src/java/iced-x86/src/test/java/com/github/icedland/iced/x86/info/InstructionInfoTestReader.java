@@ -69,7 +69,7 @@ final class InstructionInfoTestReader {
 			if (testCase != null)
 				result.add(testCase);
 		}
-		return result.toArray(InstructionInfoTestCase[]::new);
+		return result.toArray(new InstructionInfoTestCase[0]);
 	}
 
 	private static InstructionInfoTestCase parseLine(String line, int bitness, int lineNo, HashMap<String, Integer> toRegister) {

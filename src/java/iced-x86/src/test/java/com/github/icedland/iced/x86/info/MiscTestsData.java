@@ -217,14 +217,14 @@ final class MiscTestsData {
 		stringInstr = tmp_stringInstr;
 		jkccShort = tmp_jkccShort;
 		jkccNear = tmp_jkccNear;
-		jmpInfos = tmp_jmpInfos.toArray(JmpInfo[]::new);
-		jccShortInfos = tmp_jccShortInfos.toArray(JccShortInfo[]::new);
-		jccNearInfos = tmp_jccNearInfos.toArray(JccNearInfo[]::new);
-		jkccShortInfos = tmp_jkccShortInfos.toArray(JkccShortInfo[]::new);
-		jkccNearInfos = tmp_jkccNearInfos.toArray(JkccNearInfo[]::new);
-		setccInfos = tmp_setccInfos.toArray(SetccInfo[]::new);
-		cmovccInfos = tmp_cmovccInfos.toArray(CmovccInfo[]::new);
-		loopccInfos = tmp_loopccInfos.toArray(LoopccInfo[]::new);
+		jmpInfos = tmp_jmpInfos.toArray(new JmpInfo[0]);
+		jccShortInfos = tmp_jccShortInfos.toArray(new JccShortInfo[0]);
+		jccNearInfos = tmp_jccNearInfos.toArray(new JccNearInfo[0]);
+		jkccShortInfos = tmp_jkccShortInfos.toArray(new JkccShortInfo[0]);
+		jkccNearInfos = tmp_jkccNearInfos.toArray(new JkccNearInfo[0]);
+		setccInfos = tmp_setccInfos.toArray(new SetccInfo[0]);
+		cmovccInfos = tmp_cmovccInfos.toArray(new CmovccInfo[0]);
+		loopccInfos = tmp_loopccInfos.toArray(new LoopccInfo[0]);
 	}
 
 	private static void addCode(HashSet<Integer> hash, String line) {

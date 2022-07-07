@@ -100,6 +100,6 @@ final class SymbolResolverTestsReader {
 			symbolResults[i] = new SymbolResultTestCase(address, symbolAddress, addressSize, flags, memorySize, symbolParts);
 		}
 
-		return new SymbolResolverTestCase(bitness, hexBytes, ip, code, options.toArray(OptionsTestCase.Info[]::new), symbolResults);
+		return new SymbolResolverTestCase(bitness, hexBytes, ip, code, options.toArray(new OptionsTestCase.Info[0]), symbolResults);
 	}
 }

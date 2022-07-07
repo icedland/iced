@@ -23,6 +23,6 @@ final class SymbolResolverTestCases {
 	private static Info getTests() {
 		String filename = PathUtils.getTestTextFilename("Formatter", "SymbolResolverTests.txt");
 		HashSet<Integer> ignored = new HashSet<Integer>();
-		return new Info(SymbolResolverTestsReader.readFile(filename, ignored).toArray(SymbolResolverTestCase[]::new), ignored);
+		return new Info(SymbolResolverTestsReader.readFile(filename, ignored).toArray(new SymbolResolverTestCase[0]), ignored);
 	}
 }

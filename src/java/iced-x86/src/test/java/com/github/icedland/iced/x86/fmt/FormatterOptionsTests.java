@@ -25,7 +25,7 @@ final class FormatterOptionsTests {
 		String optionsFilename = PathUtils.getTestTextFilename(dir, filename);
 		HashSet<Integer> ignored = new HashSet<Integer>();
 		Info info = new Info();
-		info.tests = OptionsTestsReader.readFile(optionsFilename, ignored).toArray(OptionsTestCase[]::new);
+		info.tests = OptionsTestsReader.readFile(optionsFilename, ignored).toArray(new OptionsTestCase[0]);
 		info.ignored = ignored;
 		return info;
 	}

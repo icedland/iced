@@ -5,7 +5,14 @@ package com.github.icedland.iced.x86;
 
 public final class StringUtils2 {
 	public static boolean isNullOrWhiteSpace(String s) {
-		return s == null || s.isBlank();
+		if (s == null || s.length() == 0)
+			return true;
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (!Character.isWhitespace(c))
+				return false;
+		}
+		return true;
 	}
 
 	public static String[] split(String s, String regex) {

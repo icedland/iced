@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 final class SymbolResolverTestUtils {
 	public static ArrayList<Arguments> getFormatData(String formatterDir, String formattedStringsFile) {
 		SymbolResolverTestCases.Info info = SymbolResolverTestCases.allTests;
-		String[] formattedStrings = FmtFileUtils.readRawStrings(Paths.get(formatterDir, formattedStringsFile).toString()).toArray(String[]::new);
+		String[] formattedStrings = FmtFileUtils.readRawStrings(Paths.get(formatterDir, formattedStringsFile).toString()).toArray(new String[0]);
 		formattedStrings = Utils.filter(formattedStrings, info.ignored);
 		if (info.tests.length != formattedStrings.length)
 			throw new UnsupportedOperationException();
