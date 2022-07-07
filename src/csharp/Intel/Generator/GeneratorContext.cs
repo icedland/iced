@@ -60,6 +60,7 @@ namespace Generator {
 		public string RustJSDir => langDirs[(int)TargetLanguage.RustJS];
 		public string PythonDir => langDirs[(int)TargetLanguage.Python];
 		public string LuaDir => langDirs[(int)TargetLanguage.Lua];
+		public string JavaDir => langDirs[(int)TargetLanguage.Java];
 		public string GeneratorDir { get; }
 		readonly string[] langDirs;
 
@@ -75,6 +76,7 @@ namespace Generator {
 					TargetLanguage.RustJS => GetAndVerifyPath(baseDir, "rust", "iced-x86-js", "src"),
 					TargetLanguage.Python => GetAndVerifyPath(baseDir, "rust", "iced-x86-py"),
 					TargetLanguage.Lua => GetAndVerifyPath(baseDir, "rust", "iced-x86-lua"),
+					TargetLanguage.Java => GetAndVerifyPath(baseDir, "java", "iced-x86"),
 					_ => throw new InvalidOperationException(),
 				};
 				langDirs[i] = path;
@@ -102,6 +104,7 @@ namespace Generator {
 		public string GetLuaTypesFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "lua", "types"), Path.Combine(names));
 		public string GetLuaRustFilename(params string[] names) => Path.Combine(Path.Combine(LuaDir, "src"), Path.Combine(names));
 		public string GetLuaRustDir() => Path.Combine(LuaDir, "src");
+		public string GetJavaFilename(params string[] names) => Path.Combine(JavaDir, Path.Combine(names));
 		public string GetGeneratorFilename(params string[] names) => Path.Combine(GeneratorDir, Path.Combine(names));
 	}
 

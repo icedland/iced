@@ -6,9 +6,9 @@ using Iced.Intel;
 
 namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class FastOptionsTests {
-		protected void FormatBase(int index, OptionsInstructionInfo info, string formattedString, FastFormatter formatter) {
-			info.Initialize(formatter.Options);
-			FormatterTestUtils.SimpleFormatTest(info.Bitness, info.HexBytes, info.IP, info.Code, info.DecoderOptions, formattedString, formatter, decoder => info.Initialize(decoder));
+		protected void FormatBase(int index, OptionsTestCase tc, string formattedString, FastFormatter formatter) {
+			tc.Initialize(formatter.Options);
+			FormatterTestUtils.SimpleFormatTest(tc.Bitness, tc.HexBytes, tc.IP, tc.Code, tc.DecoderOptions, formattedString, formatter, decoder => tc.Initialize(decoder));
 		}
 	}
 }

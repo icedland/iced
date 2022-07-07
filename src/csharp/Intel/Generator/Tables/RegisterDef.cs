@@ -72,5 +72,13 @@ namespace Generator.Tables {
 		public Register GetRegister() => (Register)Register.Value;
 		public RegisterKind GetRegisterKind() => (RegisterKind)RegisterKind.Value;
 		public RegisterClass GetRegisterClass() => (RegisterClass)RegisterClass.Value;
+
+		public string GetAsmRegisterName() {
+			var registerName = Name;
+			// st(0) -> st0 etc
+			if (GetRegisterKind() == Tables.RegisterKind.ST)
+				registerName = Register.RawName;
+			return registerName.ToLowerInvariant();
+		}
 	}
 }

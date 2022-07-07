@@ -8,7 +8,6 @@ namespace Generator.IO {
 	sealed class FileWriter : IDisposable {
 		readonly TextWriter writer;
 		readonly TargetLanguage targetLanguage;
-		readonly string numberPrefix;
 		readonly string numberByteFormat;
 		readonly string singleLineCommentPrefix;
 		readonly (string begin, string middle, string end) multiLineComment;
@@ -25,23 +24,26 @@ namespace Generator.IO {
 			case TargetLanguage.CSharp:
 			case TargetLanguage.Rust:
 			case TargetLanguage.RustJS:
-				numberPrefix = "0x";
-				numberByteFormat = "X2";
+				numberByteFormat = "0x{0:X2}";
+				singleLineCommentPrefix = "// ";
+				multiLineComment = ("", "// ", "");
+				break;
+
+			case TargetLanguage.Java:
+				numberByteFormat = "(byte)0x{0:X2}";
 				singleLineCommentPrefix = "// ";
 				multiLineComment = ("", "// ", "");
 				break;
 
 			case TargetLanguage.Other:
 			case TargetLanguage.Python:
-				numberPrefix = "0x";
-				numberByteFormat = "X2";
+				numberByteFormat = "0x{0:X2}";
 				singleLineCommentPrefix = "# ";
 				multiLineComment = ("", "# ", "");
 				break;
 
 			case TargetLanguage.Lua:
-				numberPrefix = "0x";
-				numberByteFormat = "X2";
+				numberByteFormat = "0x{0:X2}";
 				singleLineCommentPrefix = "-- ";
 				multiLineComment = ("", "-- ", "");
 				break;
@@ -162,28 +164,14 @@ namespace Generator.IO {
 			WriteLine();
 		}
 
-		public void WriteByte(byte value) => WriteNumberComma(value.ToString(numberByteFormat));
+		public void WriteByte(byte value) => WriteNumberComma(string.Format(numberByteFormat, value));
 
 		void WriteNumberComma(string number) {
 			if (needSpace)
 				Write(" ");
 			needSpace = true;
-			Write(numberPrefix);
 			Write(number);
 			Write(",");
-		}
-
-		public void WriteCompressedUInt32(uint value) {
-			for (;;) {
-				uint v = value;
-				if (v < 0x80)
-					WriteByte((byte)value);
-				else
-					WriteByte((byte)(value | 0x80));
-				value >>= 7;
-				if (value == 0)
-					break;
-			}
 		}
 
 		public void WriteCommentLine(string s) {

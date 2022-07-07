@@ -9,7 +9,7 @@ namespace Iced.UnitTests.Intel.FormatterTests.Fast {
 	public sealed class SymbolResolverTests : FastSymbolResolverTests {
 		[Theory]
 		[MemberData(nameof(Format_Data))]
-		void Format(int index, SymbolResolverTestCase info, string formattedString) => FormatBase(index, info, formattedString, FormatterFactory.Create_Resolver(new TestSymbolResolver(info)));
+		void Format(int index, SymbolResolverTestCase tc, string formattedString) => FormatBase(index, tc, formattedString, FormatterFactory.Create_Resolver(new TestSymbolResolver(tc)));
 		public static IEnumerable<object[]> Format_Data => SymbolResolverTestUtils.GetFormatData("Fast", "SymbolResolverTests");
 	}
 }

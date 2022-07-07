@@ -292,7 +292,7 @@ namespace Iced.Intel {
 					WriteImmediate();
 			}
 			else {
-				Debug.Assert(handler is DeclareDataHandler);
+				Debug.Assert(handler is DeclareDataHandler || handler is ZeroBytesHandler);
 				handler.Encode(this, instruction);
 			}
 
@@ -577,7 +577,7 @@ namespace Iced.Intel {
 					DisplHi = (uint)(addr >> 32);
 					break;
 				default:
-					ErrorMessage = $"Operand {operand}: {nameof(Instruction)}.{nameof(Instruction.MemoryDisplSize)} must be initialized to 2 (16-bit) or 4 (32-bit)";
+					ErrorMessage = $"Operand {operand}: {nameof(Instruction)}.{nameof(Instruction.MemoryDisplSize)} must be initialized to 2 (16-bit), 4 (32-bit) or 8 (64-bit)";
 					break;
 				}
 			}

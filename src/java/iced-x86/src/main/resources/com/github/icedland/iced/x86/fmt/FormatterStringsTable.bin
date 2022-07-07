@@ -1,0 +1,112 @@
+undocmovnoppushaddoradcsbbandsubxorcmppoptestmovqpsrldpsradpslldshlmovapsmovapdpsrlwpsrawpsllwpsrlqpsllqpextrwimuljmprolrorrclrcrshrsarmovupsmovupdmovsdmovss	vpermilps	vpermilpdsalretcallvpbroadcastdvpbroadcastqpcmpgtdmovd	vmovdqa32	vmovdqa64pcmpeqdlfencemfencesfencepinsrwpmovmskbpsubdpadddvbroadcastssvpbroadcastbvpbroadcastwxchgaddpsaddpdmulpsmulpdcvtps2pdcvtpd2pssubpssubpd	punpcklbw	punpcklwd	punpckldqpacksswbpcmpgtbpcmpgtwpackuswb	punpckhbw	punpckhwd	punpckhdqpackssdwpshufdpcmpeqbpcmpeqwcmppscmppdpaddqpmullwpsubusbpsubuswpminubpaddusbpadduswpmaxubpavgbpavgwpmulhuwpmulhwcvtdq2pdpsubsbpsubswpminswpaddsbpaddswpmaxswpmuludqpmaddwdpsadbwpsubbpsubwpsubqpaddbpaddwpshufb	pmaddubswpmulhrswpabsbpabswpabsdpminsdpminudpmaxsdpmaxudpmulldpalignrfstploopneloope(bad).bytedb.worddw.intdd.quaddqdaadasaaaaasincdecpushapushadpopapopadboundarplmovsxdmovslqinsinsbinswinsdoutsoutsboutswoutsdjojnojbjcjnaejaejnbjncjejzjnejnzjbejnajajnbejsjnsjpjpejnpjpojljngejgejnljlejngjgjnleleapausecbtwcbwcwdecwtlcdqecltqcwdcwtdcdqcltdcqocqtolcallfwaitwaitpushfpushfdpushfqpopfpopfdpopfqsahflahfmovabsmovsmovsbmovswmovsqcmpscmpsbcmpswcmpsqstosstosbstoswstosdstosqlodslodsblodswlodsdlodsqscasscasbscaswscasdscasqretwretdretlretndlesldsxabortxbeginenterleavelretretfretfwretfdretfqint3intintoiretiretdiretqaamaadsalcxlatxlatbfaddfmulfcomfcompfsubfsubrfdivfdivrfldfstfldenvfldcwfnstenvfstenvfnstcwfstcwfxchfnopfstpncefchsfabsftstfxamfld1fldl2tfldl2efldpifldlg2fldln2fldzf2xm1fyl2xfptanfpatanfxtractfprem1fdecstpfincstpfpremfyl2xp1fsqrtfsincosfrndintfscalefsinfcosfiaddfimulficomficompfisubfisubrfidivfidivrfcmovbfcmovefcmovbefcmovufucomppfildfisttpfistfistpfcmovnbfcmovnefcmovnbefcmovnufnenifenifndisifdisifnclexfclexfninitfinitfnsetpmfsetpmfrstpmfucomifcomifisttpllfrstorfnsavefsavefnstswfstswffreefucomfucompfaddpfmulpfcomppfsubpfsubrpfdivpfdivrpfbldfildllfbstpfistpllffreepfstdwfstsgfucomipfcomiploopnzloopnedloopnzdloopzloopedloopzdlooploopdjcxzjecxzjrcxzinoutljmpint1hltcmcnotnegmuldividivclcstcclisticldstdcallfjmpfsldtstrlldtltrverrverwjmpesgdtsidtlgdtlidtsmswrstorssplmswinvlpgenclvvmcallvmlaunchvmresumevmxoffpconfigmonitormwaitclacstacenclsxgetbvxsetbvvmfuncxendxtestencluvmrunvmmcallvmloadvmsavestgiclgiskinitinvlpgasetssbsysaveprevssprdpkruwrpkruswapgsrdtscpmonitorxmcommitmwaitxclzerordprularlslstoreall
+loadall286syscallcltsloadall
+loadall386sysretsysretqinvdwbinvdwbnoinvdcl1invmbud2prefetchprefetch_exclusive	prefetchwprefetchwt1femmsumovmovhlpsmovlpsmovlpdmovsldupmovddupunpcklpsunpcklpdunpckhpsunpckhpdmovlhpsmovhpsmovhpdmovshdupprefetchnta
+prefetcht0
+prefetcht1
+prefetcht2bndldxbndmovbndclbndcubndstxbndmkbndcncldemoterdsspdrdsspqendbr64endbr32cvtpi2pscvtpi2pdcvtsi2sscvtsi2sdmovntpsmovntpdmovntssmovntsd	cvttps2pi	cvttpd2pi	cvttss2si	cvttsd2sicvtps2picvtpd2picvtss2sicvtsd2siucomissucomisdcomisscomisdwrmsrrdtscrdmsrrdpmcsysentersysexitsysexitqgetseccmovocmovnocmovbcmovccmovnaecmovaecmovnbcmovnccmovecmovzcmovnecmovnzcmovbecmovnacmovacmovnbecmovscmovnscmovpcmovpecmovnpcmovpocmovlcmovngecmovgecmovnlcmovlecmovngcmovgcmovnlekandwkandqkandbkanddkandnwkandnqkandnbkandndknotwknotqknotbknotdkorwkorqkorbkordkxnorwkxnorqkxnorbkxnordkxorwkxorqkxorbkxordkaddwkaddqkaddbkadddkunpckwdkunpckdqkunpckbwmovmskpsmovmskpdsqrtpssqrtpdsqrtsssqrtsdrsqrtpsrsqrtssrcppsrcpssandpsandpdandnpsandnpdorpsorpdxorpsxorpdaddssaddsdmulssmulsdcvtss2sdcvtsd2sscvtdq2ps	vcvtqq2pscvtps2dq	cvttps2dqsubsssubsdminpsminpdminssminsddivpsdivpddivssdivsdmaxpsmaxpdmaxssmaxsd
+punpcklqdq
+punpckhqdqmovdqamovdqu	vmovdqu32	vmovdqu64vmovdqu8	vmovdqu16pshufwpshufhwpshuflwvprordvprorqvproldvprolqvpsraqpsrldqpslldqemms
+vzerouppervzeroallvmreadvcvttps2udqvcvttpd2udqextrqvcvttps2uqqvcvttpd2uqqvcvttss2usiinsertqvcvttsd2usivmwrite
+vcvtps2udq
+vcvtpd2udq
+vcvtps2uqq
+vcvtpd2uqq
+vcvtss2usi
+vcvtsd2usi
+vcvttps2qq
+vcvttpd2qq
+vcvtudq2pd
+vcvtuqq2pd
+vcvtudq2ps
+vcvtuqq2ps	vcvtps2qq	vcvtpd2qq
+vcvtusi2ss
+vcvtusi2sdhaddpdhaddpshsubpdhsubpssetosetnosetbsetcsetnaesetaesetnbsetncsetesetzsetnesetnzsetbesetnasetasetnbesetssetnssetpsetpesetnpsetposetlsetngesetgesetnlsetlesetngsetgsetnlekmovwkmovqkmovbkmovdkortestwkortestqkortestbkortestdktestwktestqktestbktestdcpuidbtshldmontmulxsha1xsha256xbtsxstore	xcryptecb	xcryptcbc	xcryptctr	xcryptcfb	xcryptofbibts
+cmpxchg486rsmbtsshrdfxsavefxsave64rdfsbasefxrstor	fxrstor64rdgsbaseldmxcsrwrfsbasestmxcsrwrgsbasexsavexsave64ptwritexrstorxrstor64incsspdincsspqxsaveopt
+xsaveopt64clwbtpauseclrssbsyumonitorumwaitclflush
+clflushoptpcommitcmpxchglssbtrlfslgsmovzbwmovzxmovzblmovzbqmovzxwmovzwlmovzwqpopcntud1btcbsftzcntbsrlzcntmovsbwmovsxmovsblmovsbqmovsxwmovswlmovswqxaddcmpsscmpsdmovntishufpsshufpd	cmpxchg8b
+cmpxchg16bxrstors	xrstors64xsavecxsavec64xsavesxsaves64vmptrldvmclearvmxonrdrandvmptrstrdseedrdpidbswapaddsubpdaddsubpsmovq2dqmovdq2qpandvpanddvpandqpandnvpandndvpandnq	cvttpd2dq	vcvtqq2pdcvtpd2dqmovntqmovntdqporvpordvporqpxorvpxordvpxorqlddqumaskmovq
+maskmovdquud0phaddwphadddphaddswphsubwphsubdphsubswpsignbpsignwpsigndvtestpsvtestpdpblendvbvpsrlvw	vpmovuswbvpsravw	vpmovusdbvpsllvw	vpmovusqb	vcvtph2ps	vpmovusdwblendvpsvprorvdvprorvq	vpmovusqwblendvpdvprolvdvprolvq	vpmovusqdvpermpsvpermpdptestvbroadcastsdvbroadcastf32x2vbroadcastf128vbroadcastf32x4vbroadcastf64x2vbroadcastf32x8vbroadcastf64x4vpabsqpmovsxbwvpmovswbpmovsxbdvpmovsdbpmovsxbqvpmovsqbpmovsxwdvpmovsdwpmovsxwqvpmovsqwpmovsxdqvpmovsqdvptestmbvptestmw	vptestnmb	vptestnmwvptestmdvptestmq	vptestnmd	vptestnmqpmuldqvpmovm2bvpmovm2wpcmpeqqvpmovb2mvpmovw2mmovntdqavpbroadcastmb2qpackusdw
+vmaskmovps	vscalefps	vscalefpd
+vmaskmovpd	vscalefss	vscalefsdpmovzxbwvpmovwbpmovzxbdvpmovdbpmovzxbqvpmovqbpmovzxwdvpmovdwpmovzxwqvpmovqwpmovzxdqvpmovqdvpermdvpermqpcmpgtqpminsbvpmovm2dvpmovm2qvpminsqvpmovd2mvpmovq2mpminuwvpbroadcastmw2dvpminuqpmaxsbvpmaxsqpmaxuwvpmaxuqvpmullq
+phminposuw	vgetexpps	vgetexppd	vgetexpss	vgetexpsdvplzcntdvplzcntqvpsrlvdvpsrlvqvpsravdvpsravqvpsllvdvpsllvqvrcp14psvrcp14pdvrcp14ssvrcp14sd
+vrsqrt14ps
+vrsqrt14pd
+vrsqrt14ss
+vrsqrt14sdvpdpbusd	vpdpbusdsvpdpwssd	vdpbf16ps	vp4dpwssd	vpdpwssds
+vp4dpwssdsvpopcntbvpopcntwvpopcntdvpopcntqvbroadcasti32x2vbroadcasti128vbroadcasti32x4vbroadcasti64x2vbroadcasti32x8vbroadcasti64x4	vpexpandb	vpexpandwvpcompressbvpcompressw	vpblendmd	vpblendmq	vblendmps	vblendmpd	vpblendmb	vpblendmwvp2intersectdvp2intersectqvpshldvwvpshldvdvpshldvqvpshrdvwvcvtneps2bf16vcvtne2ps2bf16vpshrdvdvpshrdvqvpermi2bvpermi2wvpermi2dvpermi2q	vpermi2ps	vpermi2pdvpermt2bvpermt2wvpermt2dvpermt2q	vpermt2ps	vpermt2pdinveptinvvpidinvpcidvpmultishiftqb	vexpandps	vexpandpd	vpexpandd	vpexpandqvcompresspsvcompresspdvpcompressdvpcompressq
+vpmaskmovd
+vpmaskmovqvpermbvpermwvpshufbitqmb
+vpgatherdd
+vpgatherdq
+vpgatherqd
+vpgatherqq
+vgatherdps
+vgatherdpd
+vgatherqps
+vgatherqpdvfmaddsub132psvfmaddsub132pdvfmsubadd132psvfmsubadd132pdvfmadd132psvfmadd132pdvfmadd132ssvfmadd132sdvfmsub132psvfmsub132pd	v4fmaddpsvfmsub132ssvfmsub132sd	v4fmaddssvfnmadd132psvfnmadd132pdvfnmadd132ssvfnmadd132sdvfnmsub132psvfnmsub132pdvfnmsub132ssvfnmsub132sdvpscatterddvpscatterdqvpscatterqdvpscatterqqvscatterdpsvscatterdpdvscatterqpsvscatterqpdvfmaddsub213psvfmaddsub213pdvfmsubadd213psvfmsubadd213pdvfmadd213psvfmadd213pdvfmadd213ssvfmadd213sdvfmsub213psvfmsub213pd
+v4fnmaddpsvfmsub213ssvfmsub213sd
+v4fnmaddssvfnmadd213psvfnmadd213pdvfnmadd213ssvfnmadd213sdvfnmsub213psvfnmsub213pdvfnmsub213ssvfnmsub213sdvpmadd52luqvpmadd52huqvfmaddsub231psvfmaddsub231pdvfmsubadd231psvfmsubadd231pdvfmadd231psvfmadd231pdvfmadd231ssvfmadd231sdvfmsub231psvfmsub231pdvfmsub231ssvfmsub231sdvfnmadd231psvfnmadd231pdvfnmadd231ssvfnmadd231sdvfnmsub231psvfnmsub231pdvfnmsub231ssvfnmsub231sdvpconflictdvpconflictqvgatherpf0dpsvgatherpf0dpdvgatherpf1dpsvgatherpf1dpdvscatterpf0dpsvscatterpf0dpdvscatterpf1dpsvscatterpf1dpdvgatherpf0qpsvgatherpf0qpdvgatherpf1qpsvgatherpf1qpdvscatterpf0qpsvscatterpf0qpdvscatterpf1qpsvscatterpf1qpd	sha1nextevexp2psvexp2pdsha1msg1sha1msg2vrcp28psvrcp28pdsha256rnds2vrcp28ssvrcp28sd
+sha256msg1
+vrsqrt28ps
+vrsqrt28pd
+sha256msg2
+vrsqrt28ss
+vrsqrt28sd	gf2p8mulbaesimcaesenc
+aesenclastaesdec
+aesdeclastmovbecrc32andnblsrblsmskblsibzhiwrussdwrussqpextpdepwrssdwrssqadcxadoxmulxbextrshlxsarxshrx	movdir64benqcmdsenqcmdmovdirivpblenddvaligndvalignq
+vperm2f128roundpsvrndscalepsroundpdvrndscalepdroundssvrndscalessroundsdvrndscalesdblendpsblendpdpblendwpextrbpextrdpextrq	extractpsvinsertf128vinsertf32x4vinsertf64x2vextractf128vextractf32x4vextractf64x2vinsertf32x8vinsertf64x4vextractf32x8vextractf64x4	vcvtps2phvpcmpudvpcmpuqvpcmpdvpcmpqpinsrbinsertpspinsrdpinsrq
+vshuff32x4
+vshuff64x2
+vpternlogd
+vpternlogq
+vgetmantps
+vgetmantpd
+vgetmantss
+vgetmantsdkshiftrbkshiftrwkshiftrdkshiftrqkshiftlbkshiftlwkshiftldkshiftlqvinserti128vinserti32x4vinserti64x2vextracti128vextracti32x4vextracti64x2vinserti32x8vinserti64x4vextracti32x8vextracti64x4vpcmpubvpcmpuwvpcmpbvpcmpwdppsdppdmpsadbw	vdbpsadbw
+vshufi32x4
+vshufi64x2	pclmulqdq
+vperm2i128
+vpermil2ps
+vpermil2pdvrangepsvrangepdvrangessvrangesdvfixupimmpsvfixupimmpdvfixupimmssvfixupimmsd	vreduceps	vreducepd	vreducess	vreducesdvfmaddsubpsvfmaddsubpdvfmsubaddpsvfmsubaddpd	pcmpestrmpcmpestrm64	pcmpestripcmpestri64	pcmpistrm	pcmpistri
+vfpclassps
+vfpclasspd
+vfpclassss
+vfpclasssdvfmaddpsvfmaddpdvfmaddssvfmaddsdvfmsubpsvfmsubpdvfmsubssvfmsubsdvpshldwvpshlddvpshldqvpshrdwvpshrddvpshrdq	vfnmaddps	vfnmaddpd	vfnmaddss	vfnmaddsd	vfnmsubps	vfnmsubpd	vfnmsubss	vfnmsubsd	sha1rnds4gf2p8affineqbgf2p8affineinvqbaeskeygenassistrorx	vpmacssww	vpmacsswd
+vpmacssdql	vpmacssdd
+vpmacssdqhvpmacswwvpmacswd	vpmacsdqlvpmacsdd	vpmacsdqhvpcmovvpperm
+vpmadcsswd	vpmadcswdvprotbvprotwvprotdvprotqvpcombvpcomwvpcomdvpcomqvpcomubvpcomuwvpcomudvpcomuqblcfillblsfillblcstzmskblcicblsict1mskcblcmskblcillwpcbslwpcbvfrczpsvfrczpdvfrczssvfrczsdvpshlbvpshlwvpshldvpshlqvpshabvpshawvpshadvpshaqvphaddbwvphaddbdvphaddbqvphaddwdvphaddwqvphadddq	vphaddubw	vphaddubd	vphaddubq	vphadduwd	vphadduwq	vphaddudqvphsubbwvphsubwdvphsubdqlwpinslwpvalpi2fwpi2fdpf2iwpf2idpfrcpvpfrsqrtvpfnaccpfpnaccpfcmpgepfminpfrcppfrsqrtpfsubpfaddpfcmpgtpfmaxpfrcpit1pfrsqit1pfsubrpfaccpfcmpeqpfmulpfrcpit2pmulhrwpmulhrwapswapdpavgusb	rmpadjust	rmpupdatepsmash	pvalidate	serialize	xsusldtrk	xresldtrkinvlpgbtlbsyncprefetch_reservedvmgexitgetsecq	ldtilecfgtilerelease	sttilecfgtilezerotileloaddt1
+tilestored	tileloadd	tdpbf16pstdpbuudtdpbusdtdpbsudtdpbssdfnstdwfnstsgrdshrwrshrsmintdmintrdmsvdcrsdcsvldtrsldtsvtsrstssmintold	bb0_reset	bb1_reset	cpu_writecpu_readaltinstpavebpaddsiwpmagwpdistibpsubsiwpmvzbpmulhrwcpmvnzbpmvlzbpmvgezbpmulhriwpmachriwftstpfrint2frichopfrineartdcallseamretseamopsseamcallaesencwide128klaesdecwide128klaesencwide256klaesdecwide256kl	loadiwkeyaesenc128klaesdec128klaesenc256klaesdec256klencodekey128encodekey256uirettestuicluistuisenduipihresetccs_hashccs_encryptlkgseretueretsvaddphvaddshvcmpphvcmpshvcomish	vcvtdq2ph	vcvtpd2ph	vcvtph2dq	vcvtph2pd
+vcvtph2psx	vcvtph2qq
+vcvtph2udq
+vcvtph2uqq	vcvtph2uwvcvtph2w
+vcvtps2phx	vcvtqq2ph	vcvtsd2sh	vcvtsh2sd	vcvtsh2si	vcvtsh2ss
+vcvtsh2usi	vcvtsi2sh	vcvtss2sh
+vcvttph2dq
+vcvttph2qqvcvttph2udqvcvttph2uqq
+vcvttph2uw	vcvttph2w
+vcvttsh2sivcvttsh2usi
+vcvtudq2ph
+vcvtuqq2ph
+vcvtusi2sh	vcvtuw2phvcvtw2phvdivphvdivsh
+vfcmaddcph	vfmaddcph
+vfcmaddcsh	vfmaddcsh	vfcmulcphvfmulcph	vfcmulcshvfmulcshvfmaddsub132phvfmaddsub213phvfmaddsub231phvfmsubadd132phvfmsubadd213phvfmsubadd231phvfmadd132phvfmadd213phvfmadd231phvfnmadd132phvfnmadd213phvfnmadd231phvfmadd132shvfmadd213shvfmadd231shvfnmadd132shvfnmadd213shvfnmadd231shvfmsub132phvfmsub213phvfmsub231phvfnmsub132phvfnmsub213phvfnmsub231phvfmsub132shvfmsub213shvfmsub231shvfnmsub132shvfnmsub213shvfnmsub231sh
+vfpclassph
+vfpclasssh	vgetexpph	vgetexpsh
+vgetmantph
+vgetmantshvmaxphvmaxshvminphvminshvmovshvmovwvmulphvmulshvrcpphvrcpsh	vreduceph	vreduceshvrndscalephvrndscaleshvrsqrtphvrsqrtsh	vscalefph	vscalefshvsqrtphvsqrtshvsubphvsubshvucomishrdudbgwrudbgjkzdjknzd
+vprefetch0
+vprefetch1
+vprefetch2vprefetchentavprefetche0vprefetche1vprefetche2kandkandnkandnrknotkorkxnorkxor
+kmerge2l1h
+kmerge2l1lkmovkconcathkconcatlkortestdelayspfltclevict1clevict0tzcntikextract	vmovnrapdvmovnrngoapd	vmovnrapsvmovnrngoapsvaddnpsvaddnpd
+vgmaxabspsvgminpsvgminpdvgmaxpsvgmaxpdvfixupnanpsvfixupnanpdvpadcd
+vpaddsetcdvpsbbd
+vpsubsetbdvpsubrdvsubrpsvsubrpdvpsbbrdvpsubrsetbdvpcmpltdvscalepsvpmulhudvpmulhdvfmadd233ps
+vpmadd233d
+vpmadd231dvgatherpf0hintdpsvgatherpf0hintdpdvscatterpf0hintdpsvscatterpf0hintdpd	vexp223psvlog2psvrcp23ps
+vrsqrt23ps
+vaddsetsps
+vpaddsetsdvloadunpackldvloadunpacklqvpackstoreldvpackstorelqvloadunpacklpsvloadunpacklpdvpackstorelpsvpackstorelpdvloadunpackhdvloadunpackhqvpackstorehdvpackstorehqvloadunpackhpsvloadunpackhpdvpackstorehpsvpackstorehpd
+vpermf32x4vrndfxpntpsvrndfxpntpdvcvtfxpntudq2psvcvtfxpntps2udqvcvtfxpntpd2udqvcvtfxpntdq2psvcvtfxpntps2dqvcvtfxpntpd2dqxsha512
+xstore_altxsha512_alt
+zero_bytes

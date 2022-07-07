@@ -233,6 +233,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
+	#[allow(clippy::unwrap_used)]
 	fn read_handler_reference(&mut self) -> (OpCodeHandlerDecodeFn, &'static OpCodeHandler) {
 		let index = self.reader.read_u8();
 		if let &HandlerInfo::Handler(handler) = self.id_to_handler.get(index).unwrap() {
@@ -244,6 +245,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
+	#[allow(clippy::unwrap_used)]
 	fn read_array_reference(&mut self, kind: u32) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(read_kind, kind);
@@ -266,6 +268,7 @@ impl<'a> TableDeserializer<'a> {
 
 	#[must_use]
 	#[allow(clippy::get_unwrap)]
+	#[allow(clippy::unwrap_used)]
 	fn table(&mut self, index: usize) -> Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)> {
 		if let &mut HandlerInfo::Handlers(ref mut tmp) = self.id_to_handler.get_mut(index).unwrap() {
 			let handlers = mem::take(tmp);

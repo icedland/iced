@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -89,11 +90,12 @@ namespace Generator.Tables.Rust {
 		}
 
 		static void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string hashName) {
-			if (constants.Count == 0)
+			var consts = constants.OrderBy(a => a.Value).ToArray();
+			if (consts.Length == 0)
 				writer.WriteLine($"let {hashName}: HashSet<&'static str> = HashSet::new();");
 			else
-				writer.WriteLine($"let mut {hashName}: HashSet<&'static str> = HashSet::with_capacity({constants.Count});");
-			foreach (var constant in constants)
+				writer.WriteLine($"let mut {hashName}: HashSet<&'static str> = HashSet::with_capacity({consts.Length});");
+			foreach (var constant in consts)
 				writer.WriteLine($"let _ = {hashName}.insert(\"{constant.RawName}\");");
 		}
 	}

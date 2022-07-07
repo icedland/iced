@@ -1500,7 +1500,7 @@ impl Instruction {
 		self.instr.stack_pointer_increment()
 	}
 
-	/// Gets the FPU status word's ``TOP`` increment and whether it's a conditional or unconditional push/pop and whether ``TOP`` is written.
+	/// Gets the FPU status word's ``TOP`` increment value and whether it's a conditional or unconditional push/pop and whether ``TOP`` is written.
 	///
 	/// Returns:
 	///     :class:`FpuStackIncrementInfo`: FPU stack info

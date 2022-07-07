@@ -16,7 +16,6 @@ namespace Generator.Encoder.Rust {
 		readonly IdentifierConverter idConverter;
 		readonly RustDocCommentWriter docWriter;
 		readonly InstrCreateGenImpl gen;
-		readonly GenCreateNameArgs genNames;
 		readonly StringBuilder sb;
 
 		public RustInstrCreateGen(GeneratorContext generatorContext)
@@ -25,7 +24,6 @@ namespace Generator.Encoder.Rust {
 			idConverter = RustIdentifierConverter.Create();
 			docWriter = new RustDocCommentWriter(idConverter);
 			gen = new InstrCreateGenImpl(genTypes, idConverter, docWriter);
-			genNames = GenCreateNameArgs.RustNames;
 			sb = new StringBuilder();
 		}
 

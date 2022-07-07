@@ -570,7 +570,7 @@ namespace Iced.Intel {
 		public NumberBase NumberBase {
 			get => numberBase;
 			set {
-				if ((uint)value > (uint)NumberBase.Binary)
+				if ((uint)value >= (uint)IcedConstants.NumberBaseEnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				numberBase = value;
 			}
@@ -692,7 +692,7 @@ namespace Iced.Intel {
 		public MemorySizeOptions MemorySizeOptions {
 			get => memorySizeOptions;
 			set {
-				if ((uint)value > (uint)MemorySizeOptions.Never)
+				if ((uint)value >= (uint)IcedConstants.MemorySizeOptionsEnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				memorySizeOptions = value;
 			}
@@ -954,7 +954,7 @@ namespace Iced.Intel {
 		public CC_b CC_b {
 			get => cc_b;
 			set {
-				if (value >= (CC_b)3)
+				if ((uint)value >= IcedConstants.CC_b_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_b = value;
 			}
@@ -969,7 +969,7 @@ namespace Iced.Intel {
 		public CC_ae CC_ae {
 			get => cc_ae;
 			set {
-				if (value >= (CC_ae)3)
+				if ((uint)value >= (uint)IcedConstants.CC_ae_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ae = value;
 			}
@@ -984,7 +984,7 @@ namespace Iced.Intel {
 		public CC_e CC_e {
 			get => cc_e;
 			set {
-				if (value >= (CC_e)2)
+				if ((uint)value >= (uint)IcedConstants.CC_e_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_e = value;
 			}
@@ -999,7 +999,7 @@ namespace Iced.Intel {
 		public CC_ne CC_ne {
 			get => cc_ne;
 			set {
-				if (value >= (CC_ne)2)
+				if ((uint)value >= (uint)IcedConstants.CC_ne_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ne = value;
 			}
@@ -1014,7 +1014,7 @@ namespace Iced.Intel {
 		public CC_be CC_be {
 			get => cc_be;
 			set {
-				if (value >= (CC_be)2)
+				if ((uint)value >= (uint)IcedConstants.CC_be_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_be = value;
 			}
@@ -1029,7 +1029,7 @@ namespace Iced.Intel {
 		public CC_a CC_a {
 			get => cc_a;
 			set {
-				if (value >= (CC_a)2)
+				if ((uint)value >= (uint)IcedConstants.CC_a_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_a = value;
 			}
@@ -1044,7 +1044,7 @@ namespace Iced.Intel {
 		public CC_p CC_p {
 			get => cc_p;
 			set {
-				if (value >= (CC_p)2)
+				if ((uint)value >= (uint)IcedConstants.CC_p_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_p = value;
 			}
@@ -1059,7 +1059,7 @@ namespace Iced.Intel {
 		public CC_np CC_np {
 			get => cc_np;
 			set {
-				if (value >= (CC_np)2)
+				if ((uint)value >= (uint)IcedConstants.CC_np_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_np = value;
 			}
@@ -1074,7 +1074,7 @@ namespace Iced.Intel {
 		public CC_l CC_l {
 			get => cc_l;
 			set {
-				if (value >= (CC_l)2)
+				if ((uint)value >= (uint)IcedConstants.CC_l_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_l = value;
 			}
@@ -1089,7 +1089,7 @@ namespace Iced.Intel {
 		public CC_ge CC_ge {
 			get => cc_ge;
 			set {
-				if (value >= (CC_ge)2)
+				if ((uint)value >= (uint)IcedConstants.CC_ge_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_ge = value;
 			}
@@ -1104,7 +1104,7 @@ namespace Iced.Intel {
 		public CC_le CC_le {
 			get => cc_le;
 			set {
-				if (value >= (CC_le)2)
+				if ((uint)value >= (uint)IcedConstants.CC_le_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_le = value;
 			}
@@ -1119,7 +1119,7 @@ namespace Iced.Intel {
 		public CC_g CC_g {
 			get => cc_g;
 			set {
-				if (value >= (CC_g)2)
+				if ((uint)value >= (uint)IcedConstants.CC_g_EnumCount)
 					ThrowHelper.ThrowArgumentOutOfRangeException_value();
 				cc_g = value;
 			}

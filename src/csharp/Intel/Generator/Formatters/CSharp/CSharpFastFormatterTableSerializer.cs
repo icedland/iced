@@ -17,7 +17,7 @@ namespace Generator.Formatters.CSharp {
 		public override string GetFilename(GenTypes genTypes) =>
 			CSharpConstants.GetFilename(genTypes, @namespace, "FmtData.g.cs");
 
-		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
+		public void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
 			writer.WriteLineNoIndent($"#if {define}");
 			writer.WriteLine($"namespace {@namespace} {{");
@@ -32,7 +32,7 @@ namespace Generator.Formatters.CSharp {
 					using (writer.Indent()) {
 						writer.WriteLine("new byte[] {");
 						using (writer.Indent())
-							SerializeTable(genTypes, writer, stringsTable);
+							SerializeTable(genTypes, new TextFileByteTableWriter(writer), stringsTable);
 						writer.WriteLine("};");
 					}
 				}

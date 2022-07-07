@@ -116,9 +116,9 @@ namespace Generator.InstructionInfo.CSharp {
 					writer.WriteLine("static partial class CpuidFeatureInternalData {");
 					using (writer.Indent()) {
 						writer.WriteLineNoIndent($"#if {CSharpConstants.HasSpanDefine}");
-						writer.WriteLine("static System.ReadOnlySpan<byte> GetGetCpuidFeaturesData() =>");
+						writer.WriteLine("internal static System.ReadOnlySpan<byte> GetCpuidFeaturesData() =>");
 						writer.WriteLineNoIndent("#else");
-						writer.WriteLine("static byte[] GetGetCpuidFeaturesData() =>");
+						writer.WriteLine("internal static byte[] GetCpuidFeaturesData() =>");
 						writer.WriteLineNoIndent("#endif");
 						using (writer.Indent()) {
 							writer.WriteLine("new byte[] {");
@@ -390,7 +390,7 @@ namespace Generator.InstructionInfo.CSharp {
 		string GetOpAccessString(OpAccess access) => GetEnumName(opAccessType[access.ToString()]);
 		string GetCodeSizeString(CodeSize codeSize) => GetEnumName(codeSizeType[codeSize.ToString()]);
 
-		string GetEnumName(EnumValue value) => value.DeclaringType.Name(idConverter) + "." + value.Name(idConverter);
+		string GetEnumName(EnumValue value) => idConverter.ToDeclTypeAndValue(value);
 
 		void GenerateTable((EncodingKind encoding, InstructionDef[] defs)[] tdefs, string id, string filename) {
 			new FileUpdater(TargetLanguage.CSharp, id, filename).Generate(writer => {

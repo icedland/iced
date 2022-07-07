@@ -94,7 +94,7 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegister16 reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -103,7 +103,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (base) to a displacement and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -112,7 +112,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (base) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -121,10 +121,10 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegister16 left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -155,14 +155,6 @@ namespace Iced.Intel {
 		public static bool operator !=(AssemblerRegister16 left, AssemblerRegister16 right) => !left.Equals(right);
 	}
 
-	public readonly partial struct AssemblerMemoryOperandFactory {
-		/// <summary>
-		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
-		/// </summary>
-		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister16 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
-	}
-
 	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
@@ -191,6 +183,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegister32(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsGPR32())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR32 register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}
@@ -245,22 +239,22 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Round to nearest (even)
 		/// </summary>
-		public AssemblerRegister32 rn_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		public AssemblerRegister32 rn_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
 		/// Round down (toward -inf)
 		/// </summary>
-		public AssemblerRegister32 rd_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+		public AssemblerRegister32 rd_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
 		/// Round up (toward +inf)
 		/// </summary>
-		public AssemblerRegister32 ru_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+		public AssemblerRegister32 ru_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
 		/// Round toward zero (truncate)
 		/// </summary>
-		public AssemblerRegister32 rz_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+		public AssemblerRegister32 rz_sae => new AssemblerRegister32(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegister32"/> to a <see cref="Register"/>.
@@ -270,7 +264,7 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegister32 reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -279,7 +273,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -288,7 +282,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -297,7 +291,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -306,7 +300,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (base) to a displacement and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -315,7 +309,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (base) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -324,10 +318,10 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegister32 left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -358,14 +352,6 @@ namespace Iced.Intel {
 		public static bool operator !=(AssemblerRegister32 left, AssemblerRegister32 right) => !left.Equals(right);
 	}
 
-	public readonly partial struct AssemblerMemoryOperandFactory {
-		/// <summary>
-		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
-		/// </summary>
-		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister32 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
-	}
-
 	/// <summary>
 	/// An assembler register used with <see cref="Assembler"/>.
 	/// </summary>
@@ -394,6 +380,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegister64(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsGPR64())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a GPR64 register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}
@@ -448,22 +436,22 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Round to nearest (even)
 		/// </summary>
-		public AssemblerRegister64 rn_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		public AssemblerRegister64 rn_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
 		/// Round down (toward -inf)
 		/// </summary>
-		public AssemblerRegister64 rd_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+		public AssemblerRegister64 rd_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
 		/// Round up (toward +inf)
 		/// </summary>
-		public AssemblerRegister64 ru_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+		public AssemblerRegister64 ru_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
 		/// Round toward zero (truncate)
 		/// </summary>
-		public AssemblerRegister64 rz_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+		public AssemblerRegister64 rz_sae => new AssemblerRegister64(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegister64"/> to a <see cref="Register"/>.
@@ -473,7 +461,7 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegister64 reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -482,7 +470,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -491,7 +479,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -500,7 +488,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) to another register (index) and return a memory operand.
+		/// Adds a register (base) to another register (index) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register.</param>
 		/// <param name="right">The index register</param>
@@ -509,7 +497,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, right, 1, 0, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (base) to a displacement and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -518,7 +506,7 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (base) and returns a memory operand.
 		/// </summary>
 		/// <param name="left">The base register</param>
 		/// <param name="displacement">The displacement</param>
@@ -527,10 +515,10 @@ namespace Iced.Intel {
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegister64 left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -559,14 +547,6 @@ namespace Iced.Intel {
 		/// <param name="right">Register</param>
 		/// <returns></returns>
 		public static bool operator !=(AssemblerRegister64 left, AssemblerRegister64 right) => !left.Equals(right);
-	}
-
-	public readonly partial struct AssemblerMemoryOperandFactory {
-		/// <summary>
-		/// Specify a base register used with this memory operand (Base + Index * Scale + Displacement)
-		/// </summary>
-		/// <param name="register">Size of this memory operand.</param>
-		public AssemblerMemoryOperand this[AssemblerRegister64 register] => new AssemblerMemoryOperand(Size, Segment, register, Register.None, 1, 0, Flags);
 	}
 
 	/// <summary>
@@ -921,6 +901,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegisterXMM(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsXMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a XMM register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}
@@ -975,22 +957,22 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Round to nearest (even)
 		/// </summary>
-		public AssemblerRegisterXMM rn_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		public AssemblerRegisterXMM rn_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
 		/// Round down (toward -inf)
 		/// </summary>
-		public AssemblerRegisterXMM rd_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+		public AssemblerRegisterXMM rd_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
 		/// Round up (toward +inf)
 		/// </summary>
-		public AssemblerRegisterXMM ru_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+		public AssemblerRegisterXMM ru_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
 		/// Round toward zero (truncate)
 		/// </summary>
-		public AssemblerRegisterXMM rz_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+		public AssemblerRegisterXMM rz_sae => new AssemblerRegisterXMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegisterXMM"/> to a <see cref="Register"/>.
@@ -1000,28 +982,28 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegisterXMM reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (index) to a displacement and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegisterXMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (index) and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator -(AssemblerRegisterXMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegisterXMM left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -1080,6 +1062,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegisterYMM(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsYMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a YMM register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}
@@ -1134,22 +1118,22 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Round to nearest (even)
 		/// </summary>
-		public AssemblerRegisterYMM rn_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		public AssemblerRegisterYMM rn_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
 		/// Round down (toward -inf)
 		/// </summary>
-		public AssemblerRegisterYMM rd_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+		public AssemblerRegisterYMM rd_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
 		/// Round up (toward +inf)
 		/// </summary>
-		public AssemblerRegisterYMM ru_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+		public AssemblerRegisterYMM ru_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
 		/// Round toward zero (truncate)
 		/// </summary>
-		public AssemblerRegisterYMM rz_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+		public AssemblerRegisterYMM rz_sae => new AssemblerRegisterYMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegisterYMM"/> to a <see cref="Register"/>.
@@ -1159,28 +1143,28 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegisterYMM reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (index) to a displacement and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegisterYMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (index) and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator -(AssemblerRegisterYMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegisterYMM left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -1239,6 +1223,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegisterZMM(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsZMM())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a ZMM register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}
@@ -1293,22 +1279,22 @@ namespace Iced.Intel {
 		/// <summary>
 		/// Round to nearest (even)
 		/// </summary>
-		public AssemblerRegisterZMM rn_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundToNearest);
+		public AssemblerRegisterZMM rn_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundToNearest);
 
 		/// <summary>
 		/// Round down (toward -inf)
 		/// </summary>
-		public AssemblerRegisterZMM rd_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundDown);
+		public AssemblerRegisterZMM rd_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundDown);
 
 		/// <summary>
 		/// Round up (toward +inf)
 		/// </summary>
-		public AssemblerRegisterZMM ru_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundUp);
+		public AssemblerRegisterZMM ru_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundUp);
 
 		/// <summary>
 		/// Round toward zero (truncate)
 		/// </summary>
-		public AssemblerRegisterZMM rz_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundControlMask) | AssemblerOperandFlags.RoundTowardZero);
+		public AssemblerRegisterZMM rz_sae => new AssemblerRegisterZMM(Value, (Flags & ~AssemblerOperandFlags.RoundingControlMask) | AssemblerOperandFlags.RoundTowardZero);
 
 		/// <summary>
 		/// Converts a <see cref="AssemblerRegisterZMM"/> to a <see cref="Register"/>.
@@ -1318,28 +1304,28 @@ namespace Iced.Intel {
 		public static implicit operator Register(AssemblerRegisterZMM reg) => reg.Value;
 
 		/// <summary>
-		/// Adds a register (base) with a displacement and return a memory operand.
+		/// Adds a register (index) to a displacement and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator +(AssemblerRegisterZMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Subtracts a register (base) with a displacement and return a memory operand.
+		/// Subtracts a displacement from a register (index) and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
+		/// <param name="left">The index register</param>
 		/// <param name="displacement">The displacement</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator -(AssemblerRegisterZMM left, long displacement) =>
-			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, left, Register.None, 1, -displacement, AssemblerOperandFlags.None);
+			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, 1, -displacement, AssemblerOperandFlags.None);
 
 		/// <summary>
-		/// Multiplies an index register by a scale and return a memory operand.
+		/// Multiplies an index register by a scale and returns a memory operand.
 		/// </summary>
-		/// <param name="left">The base register</param>
-		/// <param name="scale">The scale</param>
+		/// <param name="left">The index register</param>
+		/// <param name="scale">The scale (1, 2, 4 or 8)</param>
 		/// <returns></returns>
 		public static AssemblerMemoryOperand operator *(AssemblerRegisterZMM left, int scale) =>
 			new AssemblerMemoryOperand(MemoryOperandSize.None, Register.None, Register.None, left, scale, 0, AssemblerOperandFlags.None);
@@ -1452,6 +1438,8 @@ namespace Iced.Intel {
 		/// <param name="value">A register</param>
 		/// <param name="flags">The mask</param>
 		public AssemblerRegisterK(Register value, AssemblerOperandFlags flags) {
+			if (!value.IsK())
+				throw new ArgumentOutOfRangeException($"Invalid register {value}. Must be a K register", nameof(value));
 			Value = value;
 			Flags = flags;
 		}

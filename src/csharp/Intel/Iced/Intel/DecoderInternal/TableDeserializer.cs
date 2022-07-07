@@ -48,7 +48,7 @@ namespace Iced.Intel.DecoderInternal {
 		}
 
 		public void Deserialize() {
-			for (uint currentIndex = 0; reader.CanRead; currentIndex++) {
+			for (; reader.CanRead;) {
 				switch ((SerializedDataKind)reader.ReadByte()) {
 				case SerializedDataKind.HandlerReference:
 					idToHandler.Add(new HandlerInfo(ReadHandler()));

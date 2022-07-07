@@ -107,11 +107,11 @@ namespace Generator.Misc.Python {
 					if (reqEnumFields.TryGetValue(enumType, out var fields)) {
 						writer.WriteLine($"class {pythonName}({baseClass}):");
 						using (writer.Indent()) {
-							bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
+							bool uppercaseRawName = Enums.EnumUtils.UppercaseTypeFields(enumType.TypeId.Id1);
 							foreach (var value in enumType.Values) {
 								if (fields.Contains(value)) {
 									fields.Remove(value);
-									var (valueName, numStr) = PythonUtils.GetEnumNameValue(idConverter, value, uppercaseRawName);
+									var (valueName, numStr) = Enums.EnumUtils.GetEnumNameValue(idConverter, value, uppercaseRawName);
 									writer.WriteLine($"{valueName} = {numStr}");
 								}
 								if (fields.Count == 0)

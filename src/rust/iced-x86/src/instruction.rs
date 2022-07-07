@@ -1146,10 +1146,14 @@ impl Instruction {
 	#[doc(hidden)]
 	pub fn try_set_immediate_u64(&mut self, operand: u32, new_value: u64) -> Result<(), IcedError> {
 		match self.try_op_kind(operand)? {
-			OpKind::Immediate8 | OpKind::Immediate8to16 | OpKind::Immediate8to32 | OpKind::Immediate8to64 => self.immediate = new_value as u8 as u32,
-			OpKind::Immediate8_2nd => self.mem_displ = new_value as u8 as u64,
-			OpKind::Immediate16 => self.immediate = new_value as u16 as u32,
-			OpKind::Immediate32to64 | OpKind::Immediate32 => self.immediate = new_value as u32,
+			OpKind::Immediate8 => self.set_immediate8(new_value as u8),
+			OpKind::Immediate8to16 => self.set_immediate8to16(new_value as i16),
+			OpKind::Immediate8to32 => self.set_immediate8to32(new_value as i32),
+			OpKind::Immediate8to64 => self.set_immediate8to64(new_value as i64),
+			OpKind::Immediate8_2nd => self.set_immediate8_2nd(new_value as u8),
+			OpKind::Immediate16 => self.set_immediate16(new_value as u16),
+			OpKind::Immediate32to64 => self.set_immediate32to64(new_value as i64),
+			OpKind::Immediate32 => self.set_immediate32(new_value as u32),
 			OpKind::Immediate64 => self.set_immediate64(new_value),
 			_ => return Err(IcedError::new("Not an immediate operand")),
 		}
@@ -2912,7 +2916,7 @@ impl Instruction {
 		}
 	}
 
-	/// Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop
+	/// Gets the FPU status word's `TOP` increment value and whether it's a conditional or unconditional push/pop
 	/// and whether `TOP` is written.
 	///
 	/// # Examples

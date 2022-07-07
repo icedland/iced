@@ -11,5 +11,6 @@ namespace Generator {
 		RustJS,
 		Python,
 		Lua,
+		Java,
 	}
 }

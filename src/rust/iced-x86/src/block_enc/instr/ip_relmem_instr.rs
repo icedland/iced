@@ -68,7 +68,7 @@ impl IpRelMemOpInstr {
 			return true;
 		}
 
-		// If it's in the lower 4GB we can use EIP relative addressing
+		// If it's in the low 4GB we can use EIP relative addressing
 		if target_address <= u32::MAX as u64 {
 			base.size = self.eip_instruction_size as u32;
 			self.instr_kind = InstrKind::Eip;

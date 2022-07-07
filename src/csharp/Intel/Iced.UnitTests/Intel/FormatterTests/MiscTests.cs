@@ -305,18 +305,18 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 
 		[Fact]
 		void Throws_if_invalid_CC_value() {
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_b = (CC_b)3);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ae = (CC_ae)3);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_e = (CC_e)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ne = (CC_ne)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_be = (CC_be)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_a = (CC_a)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_p = (CC_p)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_np = (CC_np)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_l = (CC_l)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ge = (CC_ge)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_le = (CC_le)2);
-			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_g = (CC_g)2);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_b = (CC_b)IcedConstants.CC_b_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ae = (CC_ae)IcedConstants.CC_ae_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_e = (CC_e)IcedConstants.CC_e_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ne = (CC_ne)IcedConstants.CC_ne_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_be = (CC_be)IcedConstants.CC_be_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_a = (CC_a)IcedConstants.CC_a_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_p = (CC_p)IcedConstants.CC_p_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_np = (CC_np)IcedConstants.CC_np_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_l = (CC_l)IcedConstants.CC_l_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_ge = (CC_ge)IcedConstants.CC_ge_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_le = (CC_le)IcedConstants.CC_le_EnumCount);
+			Assert.Throws<ArgumentOutOfRangeException>(() => new FormatterOptions().CC_g = (CC_g)IcedConstants.CC_g_EnumCount);
 		}
 	}
 }

@@ -19,6 +19,7 @@ iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disas
 
 - Rust: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86/README.md)
 - .NET: [README](https://github.com/icedland/iced/blob/master/src/csharp/Intel/README.md)
+- Java: [README](https://github.com/icedland/iced/blob/master/src/java/iced-x86/README.md)
 - Python: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-py/README.md)
 - JavaScript + WebAssembly: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-js/README.md)
 - Lua: [README](https://github.com/icedland/iced/blob/master/src/rust/iced-x86-lua/README.md)

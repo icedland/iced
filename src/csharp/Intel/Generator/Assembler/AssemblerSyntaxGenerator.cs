@@ -84,6 +84,7 @@ namespace Generator.Assembler {
 			this.genTypes = genTypes;
 			defs = genTypes.GetObject<InstructionDefs>(TypeIds.InstructionDefs).Defs;
 			regDefs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs).Defs;
+			regGroups = GetRegisterGroups(genTypes);
 			memDefs = genTypes.GetObject<MemorySizeDefs>(TypeIds.MemorySizeDefs).Defs;
 			groups = new Dictionary<GroupKey, OpCodeInfoGroup>();
 			groupsWithPseudo = new Dictionary<GroupKey, OpCodeInfoGroup>();
@@ -107,7 +108,6 @@ namespace Generator.Assembler {
 			ambiguousBcst = ambigDict.Where(a => a.Value.Count >= 2).SelectMany(a => a.Value).Select(a => a.Code).ToHashSet();
 			decoderOptions = genTypes[TypeIds.DecoderOptions];
 			testInstrFlags = genTypes[TypeIds.TestInstrFlags];
-			regGroups = GetRegisterGroups();
 			regClasses = GetRegisterClassInfos();
 			memSizeFnInfos = GetMemorySizeFunctions();
 			toFnInfo = memSizeFnInfos.ToDictionary(x => x.Kind, x => x);
@@ -203,14 +203,6 @@ namespace Generator.Assembler {
 				};
 		}
 
-		protected static string GetAsmRegisterName(RegisterDef regDef) {
-			var registerName = regDef.Name;
-			// st(0) -> st0 etc
-			if (regDef.GetRegisterKind() == RegisterKind.ST)
-				registerName = regDef.Register.RawName;
-			return registerName.ToLowerInvariant();
-		}
-
 		protected RegisterDef GetRegisterDef(Register register) => regDefs[(int)register];
 
 		protected abstract void GenerateRegisters((RegisterKind kind, RegisterDef[] regs)[] regGroups);
@@ -253,19 +245,17 @@ namespace Generator.Assembler {
 			return infos;
 		}
 
-		(RegisterKind kind, RegisterDef[] regs)[] GetRegisterGroups() {
-			static bool IgnoreRegister(RegisterKind kind) =>
+		static (RegisterKind kind, RegisterDef[] regs)[] GetRegisterGroups(GenTypes genTypes) {
+			static bool IsValidReg(RegisterKind kind) =>
 				kind switch {
-					RegisterKind.None or RegisterKind.IP => true,
-					_ => false,
+					RegisterKind.None or RegisterKind.IP => false,
+					_ => true,
 				};
 
-			var regGroups = regDefs.
-				Where(a => !IgnoreRegister(a.GetRegisterKind())).
-				GroupBy(a => a.GetRegisterKind()).Select(a => (kind: a.Key, regs: a.ToArray())).ToList();
-			regGroups.Sort((a, b) => a.CompareTo(b));
+			var defs = genTypes.GetObject<RegisterDefs>(TypeIds.RegisterDefs);
+			var regGroups = defs.GetRegisterGroups(IsValidReg);
 			// Ignore: None, IP
-			if (regGroups.Count != genTypes[TypeIds.RegisterKind].Values.Length - 2)
+			if (regGroups.Length != genTypes[TypeIds.RegisterKind].Values.Length - 2)
 				throw new InvalidOperationException();
 
 			return regGroups.ToArray();
@@ -1378,6 +1368,7 @@ namespace Generator.Assembler {
 			};
 		}
 
+		protected virtual bool SupportsUnsigned => true;
 		OpCodeInfoGroup AddOpCodeToGroup(string name, string mnemonicName, Signature signature, InstructionDef def, OpCodeArgFlags opCodeArgFlags,
 			PseudoOpsKind? pseudoOpsKind, int numberLeadingArgsToDiscard, List<int> argSizes, bool isOtherImmediate) {
 			var key = new GroupKey(name, signature);
@@ -1402,7 +1393,7 @@ namespace Generator.Assembler {
 			group.UpdateMaxArgSizes(argSizes);
 
 			// Duplicate immediate signatures with opposite unsigned/signed version
-			if (!isOtherImmediate && (opCodeArgFlags & OpCodeArgFlags.UnsignedUIntNotSupported) == 0) {
+			if (!isOtherImmediate && (opCodeArgFlags & OpCodeArgFlags.UnsignedUIntNotSupported) == 0 && SupportsUnsigned) {
 				var signatureWithOtherImmediate = new Signature();
 				for (int i = 0; i < signature.ArgCount; i++) {
 					var argKind = signature.GetArgKind(i);
@@ -2398,8 +2389,11 @@ namespace Generator.Assembler {
 			case OperandEncoding.NearBranch:
 			case OperandEncoding.Xbegin:
 			case OperandEncoding.AbsNearBranch:
-				if (argKind == ArgKind.LabelU64)
-					return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				if (argKind == ArgKind.LabelU64) {
+					if (SupportsUnsigned)
+						return new TestArgValue(UnsignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+					return new TestArgValue(SignedImmToTestArgValue(12752, 64, 64, argSizeBits));
+				}
 				return new TestArgValue(LabelToTestArgValue());
 
 			case OperandEncoding.Immediate:

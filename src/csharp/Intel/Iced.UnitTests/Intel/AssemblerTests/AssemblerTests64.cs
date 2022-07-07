@@ -4,7 +4,6 @@
 #if ENCODER && BLOCK_ENCODER && CODE_ASSEMBLER
 using System;
 using Iced.Intel;
-using Iced.UnitTests.Intel.EncoderTests;
 using Xunit;
 using static Iced.Intel.AssemblerRegisters;
 
@@ -186,7 +185,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			}
 			{
 				var assembler = new Assembler(Bitness);
-				var label = assembler.CreateLabel(("BadLabel"));
+				var label = assembler.CreateLabel("BadLabel");
 				assembler.Label(ref label);
 				var writer = new CodeWriterImpl();
 				var ex = Assert.Throws<InvalidOperationException>(() => assembler.Assemble(writer, 0));
@@ -404,7 +403,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			a.evex.vaddpd(xmm1, xmm2, xmm3);
 			a.vaddpd(xmm1, xmm2, xmm3);
 			Assert.False(a.PreferVex);
-			
+
 			var writer = new CodeWriterImpl();
 			a.Assemble(writer, 0);
 			var bytes = writer.ToArray();

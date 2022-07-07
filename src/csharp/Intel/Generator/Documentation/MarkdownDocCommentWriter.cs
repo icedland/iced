@@ -119,6 +119,12 @@ namespace Generator.Documentation {
 					RawWriteWithComment(writer);
 					RawWriteWithComment(writer);
 					break;
+				case TokenKind.HorizontalLine:
+					sb.Append(string.Empty);
+					RawWriteWithComment(writer);
+					sb.Append("---");
+					RawWriteWithComment(writer);
+					break;
 				case TokenKind.String:
 					sb.Append(Escape(info.value));
 					if (!string.IsNullOrEmpty(info.value2))

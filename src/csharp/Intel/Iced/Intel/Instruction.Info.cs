@@ -170,7 +170,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Gets the FPU status word's <c>TOP</c> increment and whether it's a conditional or unconditional push/pop
+		/// Gets the FPU status word's <c>TOP</c> increment value and whether it's a conditional or unconditional push/pop
 		/// and whether <c>TOP</c> is written.
 		/// </summary>
 		/// <returns></returns>
@@ -268,12 +268,8 @@ namespace Iced.Intel {
 		/// Gets the CPU or CPUID feature flags
 		/// </summary>
 		public readonly CpuidFeature[] CpuidFeatures {
-			get {
-				var code = Code;
-				uint flags2 = InstructionInfoInternal.InstrInfoTable.Data[(int)code * 2 + 1];
-				var cpuidFeature = (InstructionInfoInternal.CpuidFeatureInternal)(flags2 >> (int)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalShift & (uint)InstructionInfoInternal.InfoFlags2.CpuidFeatureInternalMask);
-				return InstructionInfoInternal.CpuidFeatureInternalData.ToCpuidFeatures[(int)cpuidFeature];
-			}
+			[MethodImpl(MethodImplOptions.AggressiveInlining)]
+			get => Code.CpuidFeatures();
 		}
 
 		/// <summary>

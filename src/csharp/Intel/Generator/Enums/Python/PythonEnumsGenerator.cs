@@ -170,7 +170,7 @@ namespace Generator.Enums.Python {
 
 		void WriteEnumCore(FileWriter writer, EnumType enumType, PythonDocCommentWriter docWriter) {
 			bool mustHaveDocs = enumType.TypeId != TypeIds.Register && enumType.TypeId != TypeIds.Mnemonic;
-			bool uppercaseRawName = PythonUtils.UppercaseEnum(enumType.TypeId.Id1);
+			bool uppercaseRawName = Enums.EnumUtils.UppercaseTypeFields(enumType.TypeId.Id1);
 			var enumTypeName = enumType.Name(pythonIdConverter);
 			var firstVersion = new Version(1, 13, 0);
 			// *****************************************************************************
@@ -190,7 +190,7 @@ namespace Generator.Enums.Python {
 					docs = "<no docs>";
 				}
 
-				var (valueName, numStr) = PythonUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
+				var (valueName, numStr) = Enums.EnumUtils.GetEnumNameValue(pythonIdConverter, value, uppercaseRawName);
 				writer.WriteLine($"{valueName}: {enumTypeName} = {numStr} # type: ignore");
 				if (value.DeprecatedInfo.IsDeprecated) {
 					string? extra;

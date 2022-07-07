@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Generator.Enums.Python;
 using Generator.IO;
 
 namespace Generator.Documentation.Python {
@@ -145,6 +144,8 @@ namespace Generator.Documentation.Python {
 					RawWriteWithComment(writer);
 					RawWriteWithComment(writer);
 					break;
+				case TokenKind.HorizontalLine:
+					break;
 				case TokenKind.String:
 					hasColonText |= info.value.Contains(':', StringComparison.Ordinal);
 					sb.Append(Escape(info.value));
@@ -181,12 +182,10 @@ namespace Generator.Documentation.Python {
 				case TokenKind.FieldReference:
 					sb.Append(":class:`");
 					WriteTypeName(typeName, info.value);
-					if (info.kind == TokenKind.EnumFieldReference) {
-						if (PythonUtils.UppercaseEnum(info.value))
-							m = info.value2.ToUpperInvariant();
-						else
-							m = idConverter.EnumField(info.value2);
-					}
+					if (Enums.EnumUtils.UppercaseTypeFields(info.value))
+						m = info.value2.ToUpperInvariant();
+					else if (info.kind == TokenKind.EnumFieldReference)
+						m = idConverter.EnumField(info.value2);
 					else
 						m = idConverter.Field(info.value2);
 					sb.Append(m);

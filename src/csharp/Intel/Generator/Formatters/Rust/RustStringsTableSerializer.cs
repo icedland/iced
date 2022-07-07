@@ -43,7 +43,7 @@ namespace Generator.Formatters.Rust {
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"pub(super) static STRINGS_TBL_DATA: [u8; {StringsTableSerializerUtils.GetByteCount(sortedInfos) + extraPadding}] = [");
 			using (writer.Indent())
-				StringsTableSerializerUtils.SerializeTable(writer, sortedInfos, extraPadding, "Padding so it's possible to read FastStringMnemonic::SIZE bytes from the last value");
+				StringsTableSerializerUtils.SerializeTable(new TextFileByteTableWriter(writer), sortedInfos, extraPadding, "Padding so it's possible to read FastStringMnemonic::SIZE bytes from the last value");
 			writer.WriteLine("];");
 		}
 	}

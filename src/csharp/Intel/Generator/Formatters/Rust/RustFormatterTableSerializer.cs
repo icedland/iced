@@ -13,12 +13,12 @@ namespace Generator.Formatters.Rust {
 
 		public override string GetFilename(GenTypes genTypes) => filename;
 
-		public override void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
+		public void Serialize(GenTypes genTypes, FileWriter writer, StringsTable stringsTable) {
 			writer.WriteFileHeader();
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"pub(super) static FORMATTER_TBL_DATA: &[u8] = &[");
 			using (writer.Indent())
-				SerializeTable(writer, stringsTable);
+				SerializeTable(new TextFileByteTableWriter(writer), stringsTable);
 			writer.WriteLine("];");
 		}
 	}

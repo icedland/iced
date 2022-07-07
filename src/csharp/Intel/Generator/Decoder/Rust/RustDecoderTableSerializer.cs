@@ -15,7 +15,7 @@ namespace Generator.Decoder.Rust {
 			writer.WriteLine(RustConstants.AttributeNoRustFmt);
 			writer.WriteLine($"pub(super) static TBL_DATA: &[u8] = &[");
 			using (writer.Indent())
-				SerializeCore(writer);
+				SerializeCore(new TextFileByteTableWriter(writer));
 			writer.WriteLine("];");
 
 			writer.WriteLine($"pub(super) const MAX_ID_NAMES: usize = {info.TablesToSerialize.Length};");

@@ -10,10 +10,10 @@ namespace Iced.UnitTests.Intel.FormatterTests {
 	public abstract class OpIndexTests {
 		protected void TestBase(Formatter formatter) {
 			var instrToFormatter = new int[IcedConstants.MaxOpCount];
-			foreach (var info in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
-				var decoder = Decoder.Create(info.Bitness, new ByteArrayCodeReader(info.HexBytes), info.Options);
+			foreach (var tc in DecoderTests.DecoderTestUtils.GetDecoderTests(includeOtherTests: true, includeInvalid: false)) {
+				var decoder = Decoder.Create(tc.Bitness, new ByteArrayCodeReader(tc.HexBytes), tc.Options);
 				decoder.Decode(out var instruction);
-				Assert.Equal(info.Code, instruction.Code);
+				Assert.Equal(tc.Code, instruction.Code);
 
 				for (int i = 0; i < instrToFormatter.Length; i++)
 					instrToFormatter[i] = -1;

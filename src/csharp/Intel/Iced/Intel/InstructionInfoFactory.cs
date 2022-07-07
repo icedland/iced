@@ -32,9 +32,6 @@ namespace Iced.Intel {
 
 	/// <summary>
 	/// Creates <see cref="InstructionInfo"/>s.
-	/// <br/>
-	/// If you don't need memory and register usage, it's faster to call <see cref="Instruction"/> and <see cref="Code"/>
-	/// methods/properties, eg. <see cref="Instruction.FlowControl"/>, etc instead of getting that info from this class.
 	/// </summary>
 	public sealed class InstructionInfoFactory {
 		const int defaultRegisterArrayCount = 2;
@@ -1883,7 +1880,7 @@ namespace Iced.Intel {
 					if ((flags & Flags.NoRegisterUsage) == 0)
 						AddRegister(flags, baseReg + 7 - i, OpAccess.Write);
 					if ((flags & Flags.NoMemoryUsage) == 0)
-						AddMemory(Register.SS, xsp, Register.None, 1, opSize * (uint)i & xspMask, memSize, OpAccess.Read, addressSize, 0);
+						AddMemory(Register.SS, xsp, Register.None, 1, (opSize * (uint)i) & xspMask, memSize, OpAccess.Read, addressSize, 0);
 				}
 			}
 		}

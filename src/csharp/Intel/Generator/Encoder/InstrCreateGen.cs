@@ -43,6 +43,9 @@ namespace Generator.Encoder {
 		public MethodArgType Type { get; }
 		public string Name { get; }
 		public object? DefaultValue { get; }
+		public MethodArg(string doc, MethodArgType type, string name)
+			: this(doc, type, name, null) {
+		}
 		public MethodArg(string doc, MethodArgType type, string name, object? defaultValue = null) {
 			Doc = doc;
 			Type = type;
@@ -54,7 +57,14 @@ namespace Generator.Encoder {
 	sealed class CreateMethod {
 		public readonly List<string> Docs;
 		public readonly List<MethodArg> Args = new();
+		public readonly List<object?> DefaultArgs = new();
 		public CreateMethod(params string[] docs) => Docs = docs.ToList();
+		public CreateMethod Copy() {
+			var method = new CreateMethod(Docs.ToArray());
+			method.Args.AddRange(Args);
+			method.DefaultArgs.AddRange(DefaultArgs);
+			return method;
+		}
 	}
 
 	abstract class InstrCreateGen {
@@ -116,19 +126,42 @@ namespace Generator.Encoder {
 			writeItemSep = true;
 		}
 
+		protected virtual bool SupportsUnsignedIntegers => true;
 		protected void GenCreateMethods(FileWriter writer, int id) {
 			var groups = new InstructionGroups(genTypes, true).GetGroups();
 			const bool useReg = false; // r/m was split into two groups, r and m so this can be anything
-			foreach (var info in GetCreateMethods(groups, useReg)) {
-				WriteItemSeparator(writer);
-				GenCreate(writer, info.method, info.group, id);
+			foreach (var info in GetCreateMethods(groups, useReg, SupportsUnsignedIntegers)) {
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(info.method)) {
+					WriteItemSeparator(writer);
+					GenCreate(writer, method, info.group, id);
+				}
 			}
 		}
 
-		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups, bool useReg) {
+		protected virtual bool SupportsDefaultArguments => true;
+		IEnumerable<CreateMethod> CreateMethodsWithoutDefaultArgsIfNeeded(CreateMethod method) {
+			if (SupportsDefaultArguments || method.Args.Count == 0 || method.Args[^1].DefaultValue is null)
+				yield return method;
+			else {
+				var methods = new List<CreateMethod>();
+				methods.Add(method.Copy());
+				while (method.Args.Count > 0 && method.Args[^1].DefaultValue is not null) {
+					method.DefaultArgs.Insert(0, method.Args[^1].DefaultValue);
+					method.Args.RemoveAt(method.Args.Count - 1);
+					methods.Add(method.Copy());
+				}
+				methods.Reverse();
+				if (methods.Count == 0)
+					throw new InvalidOperationException();
+				foreach (var m in methods)
+					yield return m;
+			}
+		}
+
+		static IEnumerable<(CreateMethod method, InstructionGroup group)> GetCreateMethods(InstructionGroup[] groups, bool useReg, bool supportsUnsignedIntegers) {
 			foreach (var group in groups) {
 				yield return (GetMethod(group, unsigned: false, useReg), group);
-				if (GetOpKindCount(group, useReg).immCount > 0)
+				if (supportsUnsignedIntegers && GetOpKindCount(group, useReg).immCount > 0)
 					yield return (GetMethod(group, unsigned: true, useReg), group);
 			}
 		}
@@ -209,29 +242,36 @@ namespace Generator.Encoder {
 		}
 
 		void GenCreateBranch(FileWriter writer) {
-			WriteItemSeparator(writer);
-			var method = new CreateMethod("Creates a new near/short branch instruction");
-			AddCodeArg(method);
-			AddTargetArg(method);
-			GenCreateBranch(writer, method);
+			var origMethod = new CreateMethod("Creates a new near/short branch instruction");
+			AddCodeArg(origMethod);
+			AddTargetArg(origMethod);
+			foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+				WriteItemSeparator(writer);
+				GenCreateBranch(writer, method);
+			}
 		}
 
 		void GenCreateFarBranch(FileWriter writer) {
-			WriteItemSeparator(writer);
-			var method = new CreateMethod("Creates a new far branch instruction");
-			AddCodeArg(method);
-			method.Args.Add(new MethodArg("Selector/segment value", MethodArgType.UInt16, "selector"));
-			method.Args.Add(new MethodArg("Offset", MethodArgType.UInt32, "offset"));
-			GenCreateFarBranch(writer, method);
+			var origMethod = new CreateMethod("Creates a new far branch instruction");
+			AddCodeArg(origMethod);
+			origMethod.Args.Add(new MethodArg("Selector/segment value", MethodArgType.UInt16, "selector"));
+			origMethod.Args.Add(new MethodArg("Offset", MethodArgType.UInt32, "offset"));
+			foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+				WriteItemSeparator(writer);
+				GenCreateFarBranch(writer, method);
+			}
 		}
 
 		void GenCreateXbegin(FileWriter writer) {
-			WriteItemSeparator(writer);
-			var method = new CreateMethod("Creates a new #(c:XBEGIN)# instruction");
-			AddBitnessArg(method);
-			AddTargetArg(method);
-			if (TryGetCode(nameof(Code.Xbegin_rel16), out _) && TryGetCode(nameof(Code.Xbegin_rel32), out _))
-				GenCreateXbegin(writer, method);
+			if (TryGetCode(nameof(Code.Xbegin_rel16), out _) && TryGetCode(nameof(Code.Xbegin_rel32), out _)) {
+				var origMethod = new CreateMethod("Creates a new #(c:XBEGIN)# instruction");
+				AddBitnessArg(origMethod);
+				AddTargetArg(origMethod);
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+					WriteItemSeparator(writer);
+					GenCreateXbegin(writer, method);
+				}
+			}
 		}
 
 		void GenCreateStringInstructions(FileWriter writer) {
@@ -266,20 +306,24 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
-					AddAddressSizeArg(method);
-					AddSegmentPrefixArg(method);
-					AddRepPrefixArg(method);
-					GenCreateString_Reg_SegRSI(writer, method, StringMethodKind.Full, name, code, register);
+					AddAddressSizeArg(origMethod);
+					AddSegmentPrefixArg(origMethod);
+					AddRepPrefixArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_Reg_SegRSI(writer, method, StringMethodKind.Full, name, code, register);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_Reg_SegRSI(writer, method, StringMethodKind.Rep, name, code, register);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_Reg_SegRSI(writer, method, StringMethodKind.Rep, name, code, register);
+					}
 				}
 			}
 		}
@@ -297,26 +341,32 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
-					AddAddressSizeArg(method);
-					AddRepPrefixArg(method);
-					GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Full, name, code, register);
+					AddAddressSizeArg(origMethod);
+					AddRepPrefixArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Full, name, code, register);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
 					var name = "Repe" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Repe, name, code, register);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Repe, name, code, register);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
 					var name = "Repne" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Repne, name, code, register);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_Reg_ESRDI(writer, method, StringMethodKind.Repne, name, code, register);
+					}
 				}
 			}
 		}
@@ -337,19 +387,23 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
-					AddAddressSizeArg(method);
-					AddRepPrefixArg(method);
-					GenCreateString_ESRDI_Reg(writer, method, StringMethodKind.Full, name, code, register);
+					AddAddressSizeArg(origMethod);
+					AddRepPrefixArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_ESRDI_Reg(writer, method, StringMethodKind.Full, name, code, register);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_ESRDI_Reg(writer, method, StringMethodKind.Rep, name, code, register);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_ESRDI_Reg(writer, method, StringMethodKind.Rep, name, code, register);
+					}
 				}
 			}
 		}
@@ -367,27 +421,33 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
-					AddAddressSizeArg(method);
-					AddSegmentPrefixArg(method);
-					AddRepPrefixArg(method);
-					GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Full, name, code);
+					AddAddressSizeArg(origMethod);
+					AddSegmentPrefixArg(origMethod);
+					AddRepPrefixArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Full, name, code);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REPE {mnemonicUpper})# instruction");
 					var name = "Repe" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Repe, name, code);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Repe, name, code);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REPNE {mnemonicUpper})# instruction");
 					var name = "Repne" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Repne, name, code);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_SegRSI_ESRDI(writer, method, StringMethodKind.Repne, name, code);
+					}
 				}
 			}
 		}
@@ -405,20 +465,24 @@ namespace Generator.Encoder {
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 					var name = baseName;
-					AddAddressSizeArg(method);
-					AddSegmentPrefixArg(method);
-					AddRepPrefixArg(method);
-					GenCreateString_ESRDI_SegRSI(writer, method, StringMethodKind.Full, name, code);
+					AddAddressSizeArg(origMethod);
+					AddSegmentPrefixArg(origMethod);
+					AddRepPrefixArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_ESRDI_SegRSI(writer, method, StringMethodKind.Full, name, code);
+					}
 				}
 				{
-					WriteItemSeparator(writer);
-					var method = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
+					var origMethod = new CreateMethod($"Creates a #(c:REP {mnemonicUpper})# instruction");
 					var name = "Rep" + baseName;
-					AddAddressSizeArg(method);
-					GenCreateString_ESRDI_SegRSI(writer, method, StringMethodKind.Rep, name, code);
+					AddAddressSizeArg(origMethod);
+					foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+						WriteItemSeparator(writer);
+						GenCreateString_ESRDI_SegRSI(writer, method, StringMethodKind.Rep, name, code);
+					}
 				}
 			}
 		}
@@ -434,14 +498,16 @@ namespace Generator.Encoder {
 				var mnemonicUpper = mnemonic.ToUpperInvariant();
 				var baseName = mnemonicUpper[0..1] + mnemonicUpper[1..].ToLowerInvariant();
 
-				WriteItemSeparator(writer);
-				var method = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
+				var origMethod = new CreateMethod($"Creates a #(c:{mnemonicUpper})# instruction");
 				var name = baseName;
-				AddAddressSizeArg(method);
-				method.Args.Add(new MethodArg("Register", MethodArgType.Register, "register1"));
-				method.Args.Add(new MethodArg("Register", MethodArgType.Register, "register2"));
-				AddSegmentPrefixArg(method);
-				GenCreateMaskmov(writer, method, name, code);
+				AddAddressSizeArg(origMethod);
+				origMethod.Args.Add(new MethodArg("Register", MethodArgType.Register, "register1"));
+				origMethod.Args.Add(new MethodArg("Register", MethodArgType.Register, "register2"));
+				AddSegmentPrefixArg(origMethod);
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod)) {
+					WriteItemSeparator(writer);
+					GenCreateMaskmov(writer, method, name, code);
+				}
 			}
 		}
 
@@ -496,198 +562,230 @@ namespace Generator.Encoder {
 
 		void GenCreateDeclareByte(FileWriter writer) {
 			for (int args = 1; args <= 16; args++) {
-				var method = new CreateMethod(DeclareConsts.dbDoc);
+				var origMethod = new CreateMethod(DeclareConsts.dbDoc);
 				for (int i = 0; i < args; i++)
-					method.Args.Add(new MethodArg($"Byte {i}", MethodArgType.UInt8, $"b{i}"));
-				GenCreateDeclareData(writer, method, DeclareDataKind.Byte);
+					origMethod.Args.Add(new MethodArg($"Byte {i}", MethodArgType.UInt8, $"b{i}"));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareData(writer, method, DeclareDataKind.Byte);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dbDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.BytePtr);
+				var origMethod = new CreateMethod(DeclareConsts.dbDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.BytePtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dbDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.ByteSlice);
+				var origMethod = new CreateMethod(DeclareConsts.dbDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.ByteSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dbDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dbDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Byte, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dbDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Byte, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dbDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Byte, ArrayType.ByteArray);
 			}
 		}
 
 		void GenCreateDeclareWord(FileWriter writer) {
 			for (int args = 1; args <= 8; args++) {
-				var method = new CreateMethod(DeclareConsts.dwDoc);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
 				for (int i = 0; i < args; i++)
-					method.Args.Add(new MethodArg($"Word {i}", MethodArgType.UInt16, $"w{i}"));
-				GenCreateDeclareData(writer, method, DeclareDataKind.Word);
+					origMethod.Args.Add(new MethodArg($"Word {i}", MethodArgType.UInt16, $"w{i}"));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareData(writer, method, DeclareDataKind.Word);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.BytePtr);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.BytePtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.ByteSlice);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.ByteSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Word, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Word, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordPtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordPtr);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordPtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordPtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordSlice);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordArray);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Word, ArrayType.WordArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dwDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Word, ArrayType.WordArray);
+				var origMethod = new CreateMethod(DeclareConsts.dwDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.WordArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Word, ArrayType.WordArray);
 			}
 		}
 
 		void GenCreateDeclareDword(FileWriter writer) {
 			for (int args = 1; args <= 4; args++) {
-				var method = new CreateMethod(DeclareConsts.ddDoc);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
 				for (int i = 0; i < args; i++)
-					method.Args.Add(new MethodArg($"Dword {i}", MethodArgType.UInt32, $"d{i}"));
-				GenCreateDeclareData(writer, method, DeclareDataKind.Dword);
+					origMethod.Args.Add(new MethodArg($"Dword {i}", MethodArgType.UInt32, $"d{i}"));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareData(writer, method, DeclareDataKind.Dword);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.BytePtr);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.BytePtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.ByteSlice);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.ByteSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Dword, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Dword, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordPtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordPtr);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordPtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordPtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordSlice);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordArray);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Dword, ArrayType.DwordArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.ddDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Dword, ArrayType.DwordArray);
+				var origMethod = new CreateMethod(DeclareConsts.ddDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.DwordArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Dword, ArrayType.DwordArray);
 			}
 		}
 
 		void GenCreateDeclareQword(FileWriter writer) {
 			for (int args = 1; args <= 2; args++) {
-				var method = new CreateMethod(DeclareConsts.dqDoc);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
 				for (int i = 0; i < args; i++)
-					method.Args.Add(new MethodArg($"Qword {i}", MethodArgType.UInt64, $"q{i}"));
-				GenCreateDeclareData(writer, method, DeclareDataKind.Qword);
+					origMethod.Args.Add(new MethodArg($"Qword {i}", MethodArgType.UInt64, $"q{i}"));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareData(writer, method, DeclareDataKind.Qword);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.BytePtr);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.BytePtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.BytePtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.ByteSlice);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.ByteSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.ByteArray);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.ByteArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthBytesDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.ByteArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordPtr, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordPtr);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordPtr, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordPtr);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordSlice, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordSlice);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordSlice, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordSlice);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordArray, DeclareConsts.dataArgName));
-				GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordArray);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordArray, DeclareConsts.dataArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArray(writer, method, DeclareDataKind.Qword, ArrayType.QwordArray);
 			}
 			{
-				var method = new CreateMethod(DeclareConsts.dqDoc);
-				method.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordArray, DeclareConsts.dataArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
-				method.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
-				GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.QwordArray);
+				var origMethod = new CreateMethod(DeclareConsts.dqDoc);
+				origMethod.Args.Add(new MethodArg(DeclareConsts.dataArgDoc, MethodArgType.QwordArray, DeclareConsts.dataArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.indexArgDoc, MethodArgType.ArrayIndex, DeclareConsts.indexArgName));
+				origMethod.Args.Add(new MethodArg(DeclareConsts.lengthElemsDoc, MethodArgType.ArrayLength, DeclareConsts.lengthArgName));
+				foreach (var method in CreateMethodsWithoutDefaultArgsIfNeeded(origMethod))
+					GenCreateDeclareDataArrayLength(writer, method, DeclareDataKind.Qword, ArrayType.QwordArray);
 			}
 		}
 

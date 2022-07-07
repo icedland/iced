@@ -238,7 +238,7 @@ namespace Iced.Intel {
 
 			if (opCount > 0) {
 				output.Append(' ');
-				
+
 #if MVEX
 				int mvexRmOperand;
 				if (IcedConstants.IsMvex(instruction.Code)) {

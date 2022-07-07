@@ -130,7 +130,7 @@ namespace Generator.Decoder {
 			infos = new Dictionary<string, Info>(StringComparer.Ordinal);
 		}
 
-		protected void SerializeCore(FileWriter writer) {
+		protected void SerializeCore(ByteTableWriter writer) {
 			var tables = info.TablesToSerialize;
 			if (tables.Length == 0)
 				throw new InvalidOperationException();
@@ -148,7 +148,7 @@ namespace Generator.Decoder {
 			}
 		}
 
-		void SerializeHandlers(FileWriter writer, object?[] handlers, bool writeKind = false) {
+		void SerializeHandlers(ByteTableWriter writer, object?[] handlers, bool writeKind = false) {
 			if (DecoderTableUtils.IsHandler(handlers)) {
 				if (writeKind)
 					Write(writer, genTypes[TypeIds.SerializedDataKind][nameof(SerializedDataKind.HandlerReference)]);
@@ -175,19 +175,19 @@ namespace Generator.Decoder {
 			}
 		}
 
-		void Write(FileWriter writer, EnumValue enumValue) {
+		void Write(ByteTableWriter writer, EnumValue enumValue) {
 			if ((uint)enumValue.Value > byte.MaxValue)
 				throw new InvalidOperationException();
 			writer.WriteByte((byte)enumValue.Value);
 			writer.WriteCommentLine(enumValue.ToStringValue(idConverter));
 		}
 
-		static void Write(FileWriter writer, uint value) {
+		static void Write(ByteTableWriter writer, uint value) {
 			writer.WriteCompressedUInt32(value);
 			writer.WriteCommentLine("0x" + value.ToString("X"));
 		}
 
-		int SerializeHandler(FileWriter writer, object?[] handlers, int index) {
+		int SerializeHandler(ByteTableWriter writer, object?[] handlers, int index) {
 			int invalidCount = CountInvalid(handlers, index);
 			if (invalidCount == 2) {
 				SerializeData(writer, new object[] { info.Invalid2Value });
@@ -391,7 +391,7 @@ namespace Generator.Decoder {
 			};
 		}
 
-		void SerializeHandler(FileWriter writer, object?[] handler) {
+		void SerializeHandler(ByteTableWriter writer, object?[] handler) {
 			int codeIndex = -1, codeLen = -1;
 			if (handler[0] is IEnumValue enumValue && enumValueInfo.TryGetValue(enumValue, out var info))
 				(codeIndex, codeLen) = info;
@@ -429,7 +429,7 @@ namespace Generator.Decoder {
 			}
 		}
 
-		void SerializeData(FileWriter writer, object? data) {
+		void SerializeData(ByteTableWriter writer, object? data) {
 			if (data is null)
 				data = info.NullValue;
 			switch (data) {

@@ -2,6 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 using System.Collections.Generic;
+using System.Linq;
 using Generator.Enums;
 using Generator.IO;
 
@@ -54,9 +55,10 @@ namespace Generator.Tables.CSharp {
 		}
 
 		static void WriteHash(FileWriter writer, HashSet<EnumValue> constants, string fieldName, bool publicField = true) {
-			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly HashSet<string> {fieldName} = new HashSet<string>({constants.Count}, StringComparer.Ordinal) {{");
+			var consts = constants.OrderBy(a => a.Value).ToArray();
+			writer.WriteLine($"{(publicField ? "internal " : string.Empty)}static readonly HashSet<string> {fieldName} = new HashSet<string>({consts.Length}, StringComparer.Ordinal) {{");
 			using (writer.Indent()) {
-				foreach (var constant in constants)
+				foreach (var constant in consts)
 					writer.WriteLine($"{{ \"{constant.RawName}\" }},");
 			}
 			writer.WriteLine("};");

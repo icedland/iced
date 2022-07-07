@@ -11,6 +11,7 @@ namespace Generator.Documentation {
 	abstract class DocCommentWriter {
 		protected enum TokenKind {
 			NewParagraph,
+			HorizontalLine,
 			String,
 			Code,
 			PrimitiveType,
@@ -34,6 +35,7 @@ namespace Generator.Documentation {
 				const char fieldReferenceChar = 'f';
 				const char propertyChar = 'P';
 				const char methodChar = 'M';
+				const char horizontalLineChar = 'h';
 				// char (eg. 'c') + ':'
 				const int kindLen = 1 + 1;
 
@@ -95,6 +97,11 @@ namespace Generator.Documentation {
 				case methodChar:
 					(typeName, memberName) = SplitMember(data, defaultTypeName);
 					yield return (TokenKind.Method, typeName, memberName);
+					break;
+
+				case horizontalLineChar:
+					(typeName, memberName) = SplitMember(data, defaultTypeName);
+					yield return (TokenKind.HorizontalLine, typeName, memberName);
 					break;
 
 				default:
