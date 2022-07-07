@@ -230,7 +230,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.7'
       - name: Install Python tools
@@ -422,7 +422,7 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.7'
       - name: Install Python tools
@@ -437,7 +437,7 @@ jobs:
           ./build/build-python --no-set-rustflags --python python --quick-check
           git clean -xdf
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.7'
       - name: Build and test the wheel
@@ -446,7 +446,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.7'
           bash build/ci-py-build-wheels.sh --build
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.8'
       - name: Build and test the wheel
@@ -455,7 +455,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.8'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
       - name: Build and test the wheel
@@ -464,7 +464,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.9'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       - name: Build and test the wheel
@@ -473,7 +473,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.10'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: 'pypy-3.8'
       - name: Build and test the wheel
@@ -519,7 +519,7 @@ jobs:
           rustup default stable-i686-pc-windows-msvc
           rustup show
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.7'
           architecture: x86
@@ -529,7 +529,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.7'
           bash build/ci-py-build-wheels.sh --build
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.8'
           architecture: x86
@@ -539,7 +539,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.8'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           architecture: x86
@@ -549,7 +549,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.9'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           architecture: x86
@@ -600,7 +600,7 @@ jobs:
         with:
           distribution: ${{env.JAVA_DISTRIBUTION}}
           java-version: ${{env.JAVA_VERSION}}
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       - uses: actions/setup-node@v3
