@@ -693,7 +693,9 @@ jobs:
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
       - name: Publish to Apache Maven Central
-        run: mvn deploy
+        run: |
+          cd src/java/iced-x86
+          mvn deploy
         #TODO: remove this once this works
         continue-on-error: true
         env:

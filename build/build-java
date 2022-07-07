@@ -22,7 +22,12 @@ new_func() {
 build_test() {
 	new_func "Build, test"
 
+	curr_dir=$(pwd)
+	cd "$root_dir/src/java/iced-x86"
+
 	mvn clean package
+
+	cd "$curr_dir"
 }
 
 while [ "$#" -gt 0 ]; do
@@ -41,7 +46,7 @@ echo "=================================================="
 echo
 
 echo "java version"
-java -showversion
+java -showversion || true
 echo "maven version"
 mvn --version
 
