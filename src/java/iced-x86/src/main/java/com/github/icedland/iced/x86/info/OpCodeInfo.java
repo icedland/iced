@@ -1172,42 +1172,42 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * Gets operand #0's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets operand #0's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 */
 	public int getOp0Kind() {
 		return op0Kind;
 	}
 
 	/**
-	 * Gets operand #1's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets operand #1's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 */
 	public int getOp1Kind() {
 		return op1Kind;
 	}
 
 	/**
-	 * Gets operand #2's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets operand #2's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 */
 	public int getOp2Kind() {
 		return op2Kind;
 	}
 
 	/**
-	 * Gets operand #3's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets operand #3's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 */
 	public int getOp3Kind() {
 		return op3Kind;
 	}
 
 	/**
-	 * Gets operand #4's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets operand #4's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 */
 	public int getOp4Kind() {
 		return op4Kind;
 	}
 
 	/**
-	 * Gets an operand's opkind (an {@link com.github.icedland.iced.x86.OpCodeOperandKind} enum variant)
+	 * Gets an operand's opkind (an {@link com.github.icedland.iced.x86.info.OpCodeOperandKind} enum variant)
 	 *
 	 * @param operand Operand number, 0-4
 	 */
