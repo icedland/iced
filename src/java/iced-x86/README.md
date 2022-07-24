@@ -53,9 +53,9 @@ final class Main {
 00007FFAC46ACDE0 33FF                 xor       edi,edi
     */
     public static void main(String[] args) {
-        var codeBytes = exampleCode;
-        var codeReader = new ByteArrayCodeReader(codeBytes);
-        var decoder = new Decoder(exampleCodeBitness, codeReader);
+        byte[] codeBytes = exampleCode;
+        ByteArrayCodeReader codeReader = new ByteArrayCodeReader(codeBytes);
+        Decoder decoder = new Decoder(exampleCodeBitness, codeReader);
         decoder.setIP(exampleCodeRIP);
         long endRip = decoder.getIP() + codeBytes.length;
 
@@ -64,10 +64,10 @@ final class Main {
             instructions.add(decoder.decode());
 
         // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
-        var formatter = new NasmFormatter();
+        NasmFormatter formatter = new NasmFormatter();
         formatter.getOptions().setDigitSeparator("`");
         formatter.getOptions().setFirstOperandCharIndex(10);
-        var output = new StringOutput();
+        StringOutput output = new StringOutput();
         for (Instruction instr : instructions) {
             // Don't use instr.toString(), it allocates more, uses masm syntax and default options
             formatter.format(instr, output);
@@ -148,7 +148,7 @@ final class Main {
         c.push(r15);
         c.add(rax, r15);
 
-        // If the memory operand can only have one size, __[] can be used. The assembler ignores
+        // If the memory operand can only have one size, mem_ptr() can be used. The assembler ignores
         // the memory size unless it's an ambiguous instruction, eg. 'add [mem],123'
         c.mov(rax, mem_ptr(rax));
         c.mov(rax, qword_ptr(rax));
@@ -830,7 +830,7 @@ final class Main {
             if (instr.getRflagsModified() != RflagsBits.NONE)
                 System.out.println(String.format("    RFLAGS Modified: %s", toRflagsBits(instr.getRflagsModified())));
             for (int i = 0; i < instr.getOpCount(); i++) {
-                var opKind = instr.getOpKind(i);
+                int opKind = instr.getOpKind(i);
                 if (opKind == OpKind.MEMORY) {
                     int size = MemorySize.getSize(instr.getMemorySize());
                     if (size != 0)
@@ -1071,7 +1071,7 @@ final class Main {
 731E0A19 altinst
     */
     public static void main(String[] args) {
-        var codeBytes = new byte[] {
+        byte[] codeBytes = new byte[] {
             // bndmov bnd1,[eax]
             0x66, 0x0F, 0x1A, 0x08,
             // mov tr3,esi
