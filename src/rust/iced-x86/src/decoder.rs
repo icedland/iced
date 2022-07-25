@@ -3,21 +3,21 @@
 
 macro_rules! mk_read_xx {
 	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
-		const SIZE: usize = mem::size_of::<$mem_ty>();
-		const_assert!(SIZE >= 1);
-		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
-		let data_ptr = $slf.data_ptr;
-		#[allow(trivial_numeric_casts)]
+		#[allow(trivial_numeric_casts, trivial_casts)]
 		{
+			const SIZE: usize = mem::size_of::<$mem_ty>();
+			const_assert!(SIZE >= 1);
+			const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
+			let data_ptr = $slf.data_ptr as *const u8;
 			// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
-			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
+			if unsafe { data_ptr.add(SIZE) } <= $slf.max_data_ptr {
 				// SAFETY:
 				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
 				// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
 				let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
 				// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
 				// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
-				$slf.data_ptr = data_ptr + SIZE;
+				$slf.data_ptr = unsafe { data_ptr.add(SIZE) };
 				result
 			} else {
 				$err_expr
@@ -557,6 +557,8 @@ impl State {
 	}
 }
 
+unsafe impl<'a> Send for Decoder<'a> {}
+unsafe impl<'a> Sync for Decoder<'a> {}
 /// Decodes 16/32/64-bit x86 instructions
 #[allow(missing_debug_implementations)]
 #[allow(dead_code)]
@@ -571,21 +573,21 @@ where
 	// This can be 1 byte past the last byte of `data`.
 	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	data_ptr: usize,
+	data_ptr: *const u8,
 	// This is `data.as_ptr() + data.len()` (1 byte past the last valid byte).
 	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
 	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	data_ptr_end: usize,
+	data_ptr_end: *const u8,
 	// Set to cmp::min(self.data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end)
 	// and is guaranteed to not overflow
 	// Initialized in decode() to at most 15 bytes after data_ptr so read_uXX() fails quickly after at most 15 read bytes
 	// (1MB prefixes won't cause it to read 1MB prefixes, it will stop after at most 15).
 	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	max_data_ptr: usize,
+	max_data_ptr: *const u8,
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
-	instr_start_data_ptr: usize,
+	instr_start_data_ptr: *const u8,
 
 	handlers_map0: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
 	// MAP0 is only used by MVEX. Don't allocate an extra array element if mvex feature is disabled (common case)
@@ -968,13 +970,13 @@ impl<'a> Decoder<'a> {
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
-		let data_ptr_end = data.as_ptr() as usize + data.len();
-		if data_ptr_end < data.as_ptr() as usize || {
+		let data_ptr_end = unsafe { data.as_ptr().add(data.len()) };
+		if data_ptr_end < data.as_ptr() || {
 			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow.
 			// Both of them can equal data_ptr_end (1 byte past the last valid byte).
 			// When reading a u8/u16/u32..., we calculate data_ptr.add({1,2,4,...MAX_READ_SIZE}) so it must not overflow.
 			// In decode(), we calculate data_ptr.add(MAX_INSTRUCTION_LENGTH) so it must not overflow.
-			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data.as_ptr() as usize
+			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data.as_ptr()
 		} {
 			return Err(IcedError::new("Invalid slice"));
 		}
@@ -1063,10 +1065,10 @@ impl<'a> Decoder<'a> {
 
 		Ok(Decoder {
 			ip,
-			data_ptr: data.as_ptr() as usize,
+			data_ptr: data.as_ptr(),
 			data_ptr_end,
-			max_data_ptr: data.as_ptr() as usize,
-			instr_start_data_ptr: data.as_ptr() as usize,
+			max_data_ptr: data.as_ptr(),
+			instr_start_data_ptr: data.as_ptr(),
 			handlers_map0: get_handlers(&tables.handlers_map0),
 			handlers_vex_map0,
 			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
@@ -1145,7 +1147,8 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline]
 	pub fn position(&self) -> usize {
-		self.data_ptr - self.data.as_ptr() as usize
+		debug_assert!(self.data_ptr >= self.data.as_ptr());
+		unsafe { self.data_ptr.offset_from(self.data.as_ptr()) as usize }
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
@@ -1196,7 +1199,7 @@ impl<'a> Decoder<'a> {
 		} else {
 			// - We verified the new offset above.
 			// - Referencing 1 byte past the last valid byte is safe as long as we don't dereference it.
-			self.data_ptr = self.data.as_ptr() as usize + new_pos;
+			self.data_ptr = unsafe { self.data.as_ptr().add(new_pos) };
 			Ok(())
 		}
 	}
@@ -1246,7 +1249,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[must_use]
 	#[inline]
-	pub const fn can_decode(&self) -> bool {
+	pub fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
 
@@ -1458,7 +1461,7 @@ impl<'a> Decoder<'a> {
 		self.instr_start_data_ptr = data_ptr;
 		// The ctor has verified that the two expressions used in min() don't overflow and are >= data_ptr.
 		// The calculated usize is a valid pointer in `self.data` slice or at most 1 byte past the last valid byte.
-		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
+		self.max_data_ptr = cmp::min(unsafe { data_ptr.add(IcedConstants::MAX_INSTRUCTION_LENGTH) }, self.data_ptr_end);
 
 		let b = self.read_u8();
 		let mut handler = self.handlers_map0[b];
@@ -1514,7 +1517,7 @@ impl<'a> Decoder<'a> {
 
 				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
 					debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
-					let max_len = self.data_ptr_end - data_ptr;
+					let max_len = unsafe { self.data_ptr_end.offset_from(data_ptr) } as usize;
 					// If max-instr-len bytes is available, it's never no-more-bytes, and always invalid-instr
 					if max_len >= IcedConstants::MAX_INSTRUCTION_LENGTH {
 						flags &= !StateFlags::NO_MORE_BYTES;
@@ -1558,16 +1561,18 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	fn current_ip32(&self) -> u32 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr - self.instr_start_data_ptr <= IcedConstants::MAX_INSTRUCTION_LENGTH);
-		((self.data_ptr - self.instr_start_data_ptr) as u32).wrapping_add(self.ip as u32)
+		let offset = unsafe { self.data_ptr.offset_from(self.instr_start_data_ptr) } as usize;
+		debug_assert!(offset <= IcedConstants::MAX_INSTRUCTION_LENGTH);
+		(offset as u32).wrapping_add(self.ip as u32)
 	}
 
 	#[must_use]
 	#[inline]
 	fn current_ip64(&self) -> u64 {
 		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr - self.instr_start_data_ptr <= IcedConstants::MAX_INSTRUCTION_LENGTH);
-		((self.data_ptr - self.instr_start_data_ptr) as u64).wrapping_add(self.ip)
+		let offset = unsafe { self.data_ptr.offset_from(self.instr_start_data_ptr) } as usize;
+		debug_assert!(offset <= IcedConstants::MAX_INSTRUCTION_LENGTH);
+		(offset as u64).wrapping_add(self.ip)
 	}
 
 	#[inline]
