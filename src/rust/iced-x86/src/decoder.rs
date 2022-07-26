@@ -1246,7 +1246,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[must_use]
 	#[inline]
-	pub const fn can_decode(&self) -> bool {
+	pub fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
 
