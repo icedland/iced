@@ -1246,6 +1246,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[must_use]
 	#[inline]
+	#[allow(clippy::missing_const_for_fn)]
 	pub fn can_decode(&self) -> bool {
 		self.data_ptr != self.data_ptr_end
 	}
