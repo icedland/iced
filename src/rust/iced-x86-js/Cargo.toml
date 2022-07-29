@@ -9,7 +9,7 @@ repository = "https://github.com/icedland/iced"
 readme = "README.md"
 keywords = ["disassembler", "javascript", "assembler", "x86", "amd64"]
 categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
-edition = "2018"
+edition = "2021"
 publish = false
 
 [lib]
