@@ -4,8 +4,8 @@
 macro_rules! mk_read_xx {
 	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
 		const SIZE: usize = mem::size_of::<$mem_ty>();
-		const_assert!(SIZE >= 1);
-		const_assert!(SIZE <= Decoder::MAX_READ_SIZE);
+		const _: () = assert!(SIZE >= 1);
+		const _: () = assert!(SIZE <= Decoder::MAX_READ_SIZE);
 		let data_ptr = $slf.data_ptr;
 		#[allow(trivial_numeric_casts)]
 		{
@@ -103,7 +103,6 @@ use crate::*;
 use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr};
-use static_assertions::{const_assert, const_assert_eq};
 
 #[rustfmt::skip]
 #[cfg(any(feature = "__internal_flip", not(feature = "no_evex"), not(feature = "no_vex"), not(feature = "no_xop"), feature = "mvex"))]
@@ -1510,7 +1509,7 @@ impl<'a> Decoder<'a> {
 				|| (((flags & (StateFlags::LOCK | StateFlags::ALLOW_LOCK)) & self.invalid_check_mask) == StateFlags::LOCK)
 			{
 				*instruction = Instruction::default();
-				const_assert_eq!(Code::INVALID as u32, 0);
+				const _: () = assert!(Code::INVALID as u32 == 0);
 				//instruction.set_code(Code::INVALID);
 
 				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
@@ -1649,7 +1648,7 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_vex"))]
 	fn vex2(&mut self, instruction: &mut Instruction) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
 		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1667,16 +1666,16 @@ impl<'a> Decoder<'a> {
 
 		let mut b = self.state.modrm;
 
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const assert!() above
 		self.state.vector_length = unsafe { mem::transmute((b >> 2) & 1) };
 
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-		// SAFETY: 0<=(b&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
+		// SAFETY: 0<=(b&3)<=3 and those are valid enum variants, see const assert!() above
 		self.state.mandatory_prefix = unsafe { mem::transmute(b & 3) };
 
 		b = !b;
@@ -1697,7 +1696,7 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_vex"))]
 	fn vex3(&mut self, instruction: &mut Instruction) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
 		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1710,19 +1709,19 @@ impl<'a> Decoder<'a> {
 
 		let b2 = self.read_u16() as u32;
 
-		const_assert_eq!(StateFlags::W, 0x80);
+		const _: () = assert!(StateFlags::W == 0x80);
 		self.state.flags |= b2 & 0x80;
 
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const assert!() above
 		self.state.vector_length = unsafe { mem::transmute((b2 >> 2) & 1) };
 
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
+		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const assert!() above
 		self.state.mandatory_prefix = unsafe { mem::transmute(b2 & 3) };
 
 		let b = (!b2 >> 3) & 0x0F;
@@ -1753,7 +1752,7 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(not(feature = "no_xop"))]
 	fn xop(&mut self, instruction: &mut Instruction) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
 		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1766,19 +1765,19 @@ impl<'a> Decoder<'a> {
 
 		let b2 = self.read_u16() as u32;
 
-		const_assert_eq!(StateFlags::W, 0x80);
+		const _: () = assert!(StateFlags::W == 0x80);
 		self.state.flags |= b2 & 0x80;
 
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		// SAFETY: 0<=(n&1)<=1 and those are valid enum variants, see const assert!() above
 		self.state.vector_length = unsafe { mem::transmute((b2 >> 2) & 1) };
 
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
+		// SAFETY: 0<=(b2&3)<=3 and those are valid enum variants, see const assert!() above
 		self.state.mandatory_prefix = unsafe { mem::transmute(b2 & 3) };
 
 		let b = (!b2 >> 3) & 0x0F;
@@ -1804,7 +1803,7 @@ impl<'a> Decoder<'a> {
 
 	#[cfg(any(not(feature = "no_evex"), feature = "mvex"))]
 	fn evex_mvex(&mut self, instruction: &mut Instruction) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
 		if (((self.state.flags & StateFlags::HAS_REX) | (self.state.mandatory_prefix as u32)) & self.invalid_check_mask) != 0 {
 			self.set_invalid_instruction();
 		}
@@ -1823,14 +1822,14 @@ impl<'a> Decoder<'a> {
 						self.state.flags |= (EncodingKind::EVEX as u32) << StateFlags::ENCODING_SHIFT;
 					}
 
-					const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-					const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-					const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-					const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+					const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+					const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+					const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
+					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const assert!() above
 					self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
 
-					const_assert_eq!(StateFlags::W, 0x80);
+					const _: () = assert!(StateFlags::W == 0x80);
 					self.state.flags |= d & 0x80;
 
 					let p2 = d >> 8;
@@ -1846,14 +1845,14 @@ impl<'a> Decoder<'a> {
 						instruction.set_zeroing_masking(true);
 					}
 
-					const_assert_eq!(StateFlags::B, 0x10);
+					const _: () = assert!(StateFlags::B == 0x10);
 					self.state.flags |= p2 & 0x10;
 
-					const_assert_eq!(VectorLength::L128 as u32, 0);
-					const_assert_eq!(VectorLength::L256 as u32, 1);
-					const_assert_eq!(VectorLength::L512 as u32, 2);
-					const_assert_eq!(VectorLength::Unknown as u32, 3);
-					// SAFETY: 0<=(n&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					const _: () = assert!(VectorLength::L128 as u32 == 0);
+					const _: () = assert!(VectorLength::L256 as u32 == 1);
+					const _: () = assert!(VectorLength::L512 as u32 == 2);
+					const _: () = assert!(VectorLength::Unknown as u32 == 3);
+					// SAFETY: 0<=(n&3)<=3 and those are valid enum variants, see const assert!() above
 					self.state.vector_length = unsafe { mem::transmute((p2 >> 5) & 3) };
 
 					let p1 = (!d >> 3) & 0x0F;
@@ -1873,7 +1872,7 @@ impl<'a> Decoder<'a> {
 					} else {
 						self.state.vvvv_invalid_check = p1;
 						self.state.vvvv = p1 & 0x07;
-						const_assert_eq!(StateFlags::IS_INVALID, 0x40);
+						const _: () = assert!(StateFlags::IS_INVALID == 0x40);
 						self.state.flags |= (!p2 & 8) << 3;
 					}
 
@@ -1887,7 +1886,7 @@ impl<'a> Decoder<'a> {
 						self.state.rm = m & 7;
 						self.state.mem_index = (self.state.mod_ << 3) | self.state.rm;
 						// Invalid if LL=3 and no rc
-						const_assert!(StateFlags::B > 3);
+						const _: () = assert!(StateFlags::B > 3);
 						debug_assert!(self.state.vector_length as u32 <= 3);
 						if (((self.state.flags & StateFlags::B) | (self.state.vector_length as u32)) & self.invalid_check_mask) == 3 {
 							self.set_invalid_instruction();
@@ -1913,14 +1912,14 @@ impl<'a> Decoder<'a> {
 						self.state.flags |= (EncodingKind::MVEX as u32) << StateFlags::ENCODING_SHIFT;
 					}
 
-					const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-					const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-					const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-					const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
-					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const_assert_eq!() above
+					const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+					const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+					const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+					const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
+					// SAFETY: 0<=(d&3)<=3 and those are valid enum variants, see const assert!() above
 					self.state.mandatory_prefix = unsafe { mem::transmute(d & 3) };
 
-					const_assert_eq!(StateFlags::W, 0x80);
+					const _: () = assert!(StateFlags::W == 0x80);
 					self.state.flags |= d & 0x80;
 
 					let p2 = d >> 8;
@@ -1928,9 +1927,9 @@ impl<'a> Decoder<'a> {
 					self.state.aaa = aaa;
 					instruction_internal::internal_set_op_mask(instruction, aaa);
 
-					const_assert_eq!(StateFlags::MVEX_SSS_SHIFT, 16);
-					const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
-					const_assert_eq!(StateFlags::MVEX_EH, 1 << (StateFlags::MVEX_SSS_SHIFT + 3));
+					const _: () = assert!(StateFlags::MVEX_SSS_SHIFT == 16);
+					const _: () = assert!(StateFlags::MVEX_SSS_MASK == 7);
+					const _: () = assert!(StateFlags::MVEX_EH == 1 << (StateFlags::MVEX_SSS_SHIFT + 3));
 					self.state.flags |= (p2 & 0xF0) << (StateFlags::MVEX_SSS_SHIFT - 4);
 
 					let p1 = (!d >> 3) & 0x0F;
@@ -1969,11 +1968,11 @@ impl<'a> Decoder<'a> {
 	#[inline(always)]
 	fn read_op_seg_reg(&mut self) -> u32 {
 		let reg = self.state.reg;
-		const_assert_eq!(Register::ES as u32 + 1, Register::CS as u32);
-		const_assert_eq!(Register::ES as u32 + 2, Register::SS as u32);
-		const_assert_eq!(Register::ES as u32 + 3, Register::DS as u32);
-		const_assert_eq!(Register::ES as u32 + 4, Register::FS as u32);
-		const_assert_eq!(Register::ES as u32 + 5, Register::GS as u32);
+		const _: () = assert!(Register::ES as u32 + 1 == Register::CS as u32);
+		const _: () = assert!(Register::ES as u32 + 2 == Register::SS as u32);
+		const _: () = assert!(Register::ES as u32 + 3 == Register::DS as u32);
+		const _: () = assert!(Register::ES as u32 + 4 == Register::FS as u32);
+		const _: () = assert!(Register::ES as u32 + 5 == Register::GS as u32);
 		if reg < 6 {
 			Register::ES as u32 + reg
 		} else {
@@ -2124,10 +2123,10 @@ impl<'a> Decoder<'a> {
 			this.displ_index = this.data_ptr.wrapping_add(1) as u8;
 			let w = read_u16_break!(this) as u32;
 
-			const_assert_eq!(InstrScale::Scale1 as u32, 0);
-			const_assert_eq!(InstrScale::Scale2 as u32, 1);
-			const_assert_eq!(InstrScale::Scale4 as u32, 2);
-			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+			const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+			const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+			const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((w >> 6) & 3) as InstrScaleUnderlyingType) });
 			let index = ((w >> 3) & 7) + this.state.extra_index_register_base;
@@ -2204,10 +2203,10 @@ impl<'a> Decoder<'a> {
 			this.displ_index = this.data_ptr as u8;
 			let displ = read_u32_break!(this) as i32 as u64;
 
-			const_assert_eq!(InstrScale::Scale1 as u32, 0);
-			const_assert_eq!(InstrScale::Scale2 as u32, 1);
-			const_assert_eq!(InstrScale::Scale4 as u32, 2);
-			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+			const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+			const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+			const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 			let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
@@ -2264,10 +2263,10 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_0_4(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
 			let sib = read_u8_break!(this) as u32;
-			const_assert_eq!(InstrScale::Scale1 as u32, 0);
-			const_assert_eq!(InstrScale::Scale2 as u32, 1);
-			const_assert_eq!(InstrScale::Scale4 as u32, 2);
-			const_assert_eq!(InstrScale::Scale8 as u32, 3);
+			const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+			const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+			const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+			const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 			// SAFETY: 0-3 are valid variants
 			instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 			let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
@@ -2502,10 +2501,10 @@ fn decoder_read_op_mem_vsib_1_4(
 		write_index_reg!(instruction, index + this.state.extra_index_register_base_vsib + index_reg as u32);
 	}
 
-	const_assert_eq!(InstrScale::Scale1 as u32, 0);
-	const_assert_eq!(InstrScale::Scale2 as u32, 1);
-	const_assert_eq!(InstrScale::Scale4 as u32, 2);
-	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+	const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+	const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+	const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 	// SAFETY: 0-3 are valid variants
 	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute(((sib >> 6) & 3) as InstrScaleUnderlyingType) });
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
@@ -2573,10 +2572,10 @@ fn decoder_read_op_mem_vsib_2_4(
 		write_index_reg!(instruction, index + this.state.extra_index_register_base_vsib + index_reg as u32);
 	}
 
-	const_assert_eq!(InstrScale::Scale1 as u32, 0);
-	const_assert_eq!(InstrScale::Scale2 as u32, 1);
-	const_assert_eq!(InstrScale::Scale4 as u32, 2);
-	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+	const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+	const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+	const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 	// SAFETY: 0-3 are valid variants
 	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 
@@ -2618,10 +2617,10 @@ fn decoder_read_op_mem_vsib_0_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
 	let sib = this.read_u8() as u32;
-	const_assert_eq!(InstrScale::Scale1 as u32, 0);
-	const_assert_eq!(InstrScale::Scale2 as u32, 1);
-	const_assert_eq!(InstrScale::Scale4 as u32, 2);
-	const_assert_eq!(InstrScale::Scale8 as u32, 3);
+	const _: () = assert!(InstrScale::Scale1 as u32 == 0);
+	const _: () = assert!(InstrScale::Scale2 as u32 == 1);
+	const _: () = assert!(InstrScale::Scale4 as u32 == 2);
+	const _: () = assert!(InstrScale::Scale8 as u32 == 3);
 	// SAFETY: 0-3 are valid variants
 	instruction_internal::internal_set_memory_index_scale(instruction, unsafe { mem::transmute((sib >> 6) as InstrScaleUnderlyingType) });
 	let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;

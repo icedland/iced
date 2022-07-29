@@ -8,7 +8,6 @@ use crate::instruction_internal;
 use crate::mvex::get_mvex_info;
 use crate::mvex::mvex_tt_lut::MVEX_TUPLE_TYPE_LUT;
 use crate::*;
-use static_assertions::const_assert_eq;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
@@ -28,14 +27,14 @@ macro_rules! write_mem_conv {
 		if (($mvex.invalid_conv_fns as u32) & (1 << $sss) & $decoder.invalid_check_mask) != 0 {
 			$decoder.set_invalid_instruction();
 		}
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 1, MvexRegMemConv::MemConvBroadcast1 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 2, MvexRegMemConv::MemConvBroadcast4 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 3, MvexRegMemConv::MemConvFloat16 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 4, MvexRegMemConv::MemConvUint8 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 5, MvexRegMemConv::MemConvSint8 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 6, MvexRegMemConv::MemConvUint16 as u32);
-		const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 7, MvexRegMemConv::MemConvSint16 as u32);
-		const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 1 == MvexRegMemConv::MemConvBroadcast1 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 2 == MvexRegMemConv::MemConvBroadcast4 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 3 == MvexRegMemConv::MemConvFloat16 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 4 == MvexRegMemConv::MemConvUint8 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 5 == MvexRegMemConv::MemConvSint8 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 6 == MvexRegMemConv::MemConvUint16 as u32);
+		const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 7 == MvexRegMemConv::MemConvSint16 as u32);
+		const _: () = assert!(StateFlags::MVEX_SSS_MASK == 7);
 		debug_assert!($sss <= 7);
 		instruction_internal::internal_set_mvex_reg_mem_conv($instruction, MvexRegMemConv::MemConvNone as u32 + $sss);
 	};
@@ -49,11 +48,11 @@ macro_rules! write_reg_conv_and_er_sae {
 					$instruction.set_suppress_all_exceptions(true);
 				}
 				if $mvex.can_use_rounding_control() {
-					const_assert_eq!(RoundingControl::None as u32, 0);
-					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+					const _: () = assert!(RoundingControl::None as u32 == 0);
+					const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+					const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+					const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+					const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 					instruction_internal::internal_set_rounding_control($instruction, ($sss & 3) + RoundingControl::RoundToNearest as u32);
 				}
 			} else if $mvex.no_sae_rc() && ($sss & $decoder.invalid_check_mask) != 0 {
@@ -63,14 +62,14 @@ macro_rules! write_reg_conv_and_er_sae {
 			if (($mvex.invalid_swizzle_fns as u32) & (1 << $sss) & $decoder.invalid_check_mask) != 0 {
 				$decoder.set_invalid_instruction();
 			}
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 1, MvexRegMemConv::RegSwizzleCdab as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 2, MvexRegMemConv::RegSwizzleBadc as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 3, MvexRegMemConv::RegSwizzleDacb as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 4, MvexRegMemConv::RegSwizzleAaaa as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 5, MvexRegMemConv::RegSwizzleBbbb as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 6, MvexRegMemConv::RegSwizzleCccc as u32);
-			const_assert_eq!(MvexRegMemConv::RegSwizzleNone as u32 + 7, MvexRegMemConv::RegSwizzleDddd as u32);
-			const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 1 == MvexRegMemConv::RegSwizzleCdab as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 2 == MvexRegMemConv::RegSwizzleBadc as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 3 == MvexRegMemConv::RegSwizzleDacb as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 4 == MvexRegMemConv::RegSwizzleAaaa as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 5 == MvexRegMemConv::RegSwizzleBbbb as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 6 == MvexRegMemConv::RegSwizzleCccc as u32);
+			const _: () = assert!(MvexRegMemConv::RegSwizzleNone as u32 + 7 == MvexRegMemConv::RegSwizzleDddd as u32);
+			const _: () = assert!(StateFlags::MVEX_SSS_MASK == 7);
 			debug_assert!($sss <= 7);
 			instruction_internal::internal_set_mvex_reg_mem_conv($instruction, MvexRegMemConv::RegSwizzleNone as u32 + $sss);
 		}
@@ -80,7 +79,7 @@ macro_rules! write_reg_conv_and_er_sae {
 // Only called by the MVEX opcode handlers and they only pass in 0<=sss<=7
 #[inline(always)]
 fn get_tuple_type(lut: MvexTupleTypeLutKind, sss: u32) -> TupleType {
-	const_assert_eq!(StateFlags::MVEX_SSS_MASK, 7);
+	const _: () = assert!(StateFlags::MVEX_SSS_MASK == 7);
 	debug_assert!(sss <= 7);
 	debug_assert_eq!(MVEX_TUPLE_TYPE_LUT.len(), IcedConstants::MVEX_TUPLE_TYPE_LUT_KIND_ENUM_COUNT * (StateFlags::MVEX_SSS_MASK as usize + 1));
 	// SAFETY: valid index, see above

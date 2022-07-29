@@ -3,7 +3,7 @@
 
 macro_rules! write_op0_reg {
 	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op0_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
@@ -12,7 +12,7 @@ macro_rules! write_op0_reg {
 
 macro_rules! write_op1_reg {
 	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op1_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
@@ -21,7 +21,7 @@ macro_rules! write_op1_reg {
 
 macro_rules! write_op2_reg {
 	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op2_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
@@ -31,7 +31,7 @@ macro_rules! write_op2_reg {
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 macro_rules! write_op3_reg {
 	($instruction:ident, $expr:expr) => {
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
 		$instruction.set_op3_register(unsafe { mem::transmute($expr as RegisterUnderlyingType) });
@@ -313,10 +313,10 @@ impl OpCodeHandler_MandatoryPrefix2 {
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
 		debug_assert!(!is_null_instance_handler(handler.1));
 		debug_assert!(!is_null_instance_handler(handler_66.1));
 		debug_assert!(!is_null_instance_handler(handler_f3.1));

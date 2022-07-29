@@ -271,7 +271,7 @@ namespace Generator.Encoder.Rust {
 				ctx.Writer.WriteLine();
 				switch (arg.Type) {
 				case MethodArgType.Register:
-					ctx.Writer.WriteLine($"const_assert_eq!({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)])} as u32, 0);");
+					ctx.Writer.WriteLine($"const _: () = assert!({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)])} as u32 == 0);");
 					ctx.Writer.WriteLine($"//instruction.set_op{op}_kind({idConverter.ToDeclTypeAndValue(genTypes[TypeIds.OpKind][nameof(OpKind.Register)])});");
 					ctx.Writer.WriteLine($"instruction.set_op{op}_register({idConverter.Argument(arg.Name)});");
 					break;

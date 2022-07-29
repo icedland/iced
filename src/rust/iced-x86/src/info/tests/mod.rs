@@ -28,7 +28,6 @@ use core::cmp::Ordering;
 use core::fmt::Write;
 use core::mem;
 use lazy_static::lazy_static;
-use static_assertions::const_assert_eq;
 use std::collections::{HashMap, HashSet};
 use std::panic;
 
@@ -171,7 +170,7 @@ fn test_info_core(tc: &InstrInfoTestCase, factory: &mut InstructionInfoFactory) 
 	assert_eq!(info.used_memory().iter().collect::<HashSet<_>>(), tc.used_memory.iter().collect::<HashSet<_>>());
 	assert_eq!(get_used_registers(info.used_registers().iter()), get_used_registers(tc.used_registers.iter()));
 
-	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+	const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 	assert!(instr.op_count() <= IcedConstants::MAX_OP_COUNT as u32);
 	for i in 0..instr.op_count() {
 		match i {
@@ -722,23 +721,23 @@ fn verify_string_instr() {
 
 #[test]
 fn verify_condition_code_values_are_in_correct_order() {
-	const_assert_eq!(ConditionCode::None as u32, 0);
-	const_assert_eq!(ConditionCode::o as u32, 1);
-	const_assert_eq!(ConditionCode::no as u32, 2);
-	const_assert_eq!(ConditionCode::b as u32, 3);
-	const_assert_eq!(ConditionCode::ae as u32, 4);
-	const_assert_eq!(ConditionCode::e as u32, 5);
-	const_assert_eq!(ConditionCode::ne as u32, 6);
-	const_assert_eq!(ConditionCode::be as u32, 7);
-	const_assert_eq!(ConditionCode::a as u32, 8);
-	const_assert_eq!(ConditionCode::s as u32, 9);
-	const_assert_eq!(ConditionCode::ns as u32, 10);
-	const_assert_eq!(ConditionCode::p as u32, 11);
-	const_assert_eq!(ConditionCode::np as u32, 12);
-	const_assert_eq!(ConditionCode::l as u32, 13);
-	const_assert_eq!(ConditionCode::ge as u32, 14);
-	const_assert_eq!(ConditionCode::le as u32, 15);
-	const_assert_eq!(ConditionCode::g as u32, 16);
+	const _: () = assert!(ConditionCode::None as u32 == 0);
+	const _: () = assert!(ConditionCode::o as u32 == 1);
+	const _: () = assert!(ConditionCode::no as u32 == 2);
+	const _: () = assert!(ConditionCode::b as u32 == 3);
+	const _: () = assert!(ConditionCode::ae as u32 == 4);
+	const _: () = assert!(ConditionCode::e as u32 == 5);
+	const _: () = assert!(ConditionCode::ne as u32 == 6);
+	const _: () = assert!(ConditionCode::be as u32 == 7);
+	const _: () = assert!(ConditionCode::a as u32 == 8);
+	const _: () = assert!(ConditionCode::s as u32 == 9);
+	const _: () = assert!(ConditionCode::ns as u32 == 10);
+	const _: () = assert!(ConditionCode::p as u32 == 11);
+	const _: () = assert!(ConditionCode::np as u32 == 12);
+	const _: () = assert!(ConditionCode::l as u32 == 13);
+	const _: () = assert!(ConditionCode::ge as u32 == 14);
+	const _: () = assert!(ConditionCode::le as u32 == 15);
+	const _: () = assert!(ConditionCode::g as u32 == 16);
 }
 
 #[test]
@@ -764,5 +763,5 @@ fn make_sure_all_code_values_are_tested() {
 
 #[test]
 fn verify_used_memory_size() {
-	const_assert_eq!(mem::size_of::<UsedMemory>(), 16);
+	const _: () = assert!(mem::size_of::<UsedMemory>() == 16);
 }

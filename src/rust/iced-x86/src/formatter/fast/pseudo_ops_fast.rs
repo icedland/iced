@@ -8,14 +8,13 @@ use crate::formatter::fast::FastStringMnemonic;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
-use static_assertions::const_assert;
 
 // Copied from fast.rs since it doesn't seem to be possible to use it from this module even with #[macro_use]
 macro_rules! mk_const_fast_str {
 	($fast_ty:tt, $str:literal) => {{
 		const STR: &str = $str;
-		const_assert!(STR.len() == 1 + <$fast_ty>::SIZE);
-		const_assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
+		const _: () = assert!(STR.len() == 1 + <$fast_ty>::SIZE);
+		const _: () = assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
 		$fast_ty { len_data: STR.as_ptr() }
 	}};
 }

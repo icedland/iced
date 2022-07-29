@@ -6,7 +6,6 @@ use crate::info::enums::*;
 use crate::info::*;
 use crate::instruction_internal;
 use core::mem;
-use static_assertions::const_assert_eq;
 
 static XSP_TABLE: [(Register, CodeSize, u64); 4] = [
 	(Register::RSP, CodeSize::Code64, u64::MAX),
@@ -14,11 +13,11 @@ static XSP_TABLE: [(Register, CodeSize, u64); 4] = [
 	(Register::ESP, CodeSize::Code32, u32::MAX as u64),
 	(Register::RSP, CodeSize::Code64, u64::MAX),
 ];
-const_assert_eq!(CodeSize::Unknown as u32, 0);
-const_assert_eq!(CodeSize::Code16 as u32, 1);
-const_assert_eq!(CodeSize::Code32 as u32, 2);
-const_assert_eq!(CodeSize::Code64 as u32, 3);
-const_assert_eq!(IcedConstants::CODE_SIZE_ENUM_COUNT, 4);
+const _: () = assert!(CodeSize::Unknown as u32 == 0);
+const _: () = assert!(CodeSize::Code16 as u32 == 1);
+const _: () = assert!(CodeSize::Code32 as u32 == 2);
+const _: () = assert!(CodeSize::Code64 as u32 == 3);
+const _: () = assert!(IcedConstants::CODE_SIZE_ENUM_COUNT == 4);
 
 /// Instruction info options used by [`InstructionInfoFactory`]
 ///
@@ -165,8 +164,8 @@ impl InstructionInfoFactory {
 		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe since we only generate valid enum variants
 
 		let code_size = instruction.code_size();
-		const_assert_eq!(InstructionInfoOptions::NO_MEMORY_USAGE, Flags::NO_MEMORY_USAGE);
-		const_assert_eq!(InstructionInfoOptions::NO_REGISTER_USAGE, Flags::NO_REGISTER_USAGE);
+		const _: () = assert!(InstructionInfoOptions::NO_MEMORY_USAGE == Flags::NO_MEMORY_USAGE);
+		const _: () = assert!(InstructionInfoOptions::NO_REGISTER_USAGE == Flags::NO_REGISTER_USAGE);
 		let mut flags = options & (Flags::NO_MEMORY_USAGE | Flags::NO_REGISTER_USAGE);
 		if code_size == CodeSize::Code64 || code_size == CodeSize::Unknown {
 			flags |= Flags::IS_64BIT;
@@ -261,18 +260,18 @@ impl InstructionInfoFactory {
 		let op2_info: OpInfo2 = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as u8) };
 		info.op_accesses[2] = OP_ACCESS_2[op2_info as usize];
 		info.op_accesses[3] = if (flags1 & ((InfoFlags1::OP_INFO3_MASK) << InfoFlags1::OP_INFO3_SHIFT)) != 0 {
-			const_assert_eq!(InstrInfoConstants::OP_INFO3_COUNT, 2);
+			const _: () = assert!(InstrInfoConstants::OP_INFO3_COUNT == 2);
 			OpAccess::Read
 		} else {
 			OpAccess::None
 		};
 		info.op_accesses[4] = if (flags1 & ((InfoFlags1::OP_INFO4_MASK) << InfoFlags1::OP_INFO4_SHIFT)) != 0 {
-			const_assert_eq!(InstrInfoConstants::OP_INFO4_COUNT, 2);
+			const _: () = assert!(InstrInfoConstants::OP_INFO4_COUNT == 2);
 			OpAccess::Read
 		} else {
 			OpAccess::None
 		};
-		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 
 		for i in 0..(instruction.op_count() as usize) {
 			// SAFETY: valid index since i < instruction.op_count() (<= MAX_OP_COUNT) and op_accesses.len() (== MAX_OP_COUNT)
@@ -319,8 +318,8 @@ impl InstructionInfoFactory {
 				}
 
 				OpKind::Memory => {
-					const_assert_eq!(InfoFlags1::IGNORES_SEGMENT, 1 << 31);
-					const_assert_eq!(Register::None as u32, 0);
+					const _: () = assert!(InfoFlags1::IGNORES_SEGMENT == 1 << 31);
+					const _: () = assert!(Register::None as u32 == 0);
 					let segment_register =
 						unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as RegisterUnderlyingType) };
 					let base_register = instruction.memory_base();
@@ -2753,10 +2752,10 @@ impl InstructionInfoFactory {
 			if info.used_memory_locations.len() == 1 {
 				if let Some(loc) = info.used_memory_locations.get_mut(0) {
 					static MASK: [u64; 4] = [u64::MAX, u16::MAX as u64, u32::MAX as u64, u64::MAX];
-					const_assert_eq!(CodeSize::Unknown as u32, 0);
-					const_assert_eq!(CodeSize::Code16 as u32, 1);
-					const_assert_eq!(CodeSize::Code32 as u32, 2);
-					const_assert_eq!(CodeSize::Code64 as u32, 3);
+					const _: () = assert!(CodeSize::Unknown as u32 == 0);
+					const _: () = assert!(CodeSize::Code16 as u32 == 1);
+					const _: () = assert!(CodeSize::Code32 as u32 == 2);
+					const _: () = assert!(CodeSize::Code64 as u32 == 3);
 					loc.displacement = loc.displacement.wrapping_add(displ as u64) & MASK[loc.address_size as usize];
 				} else {
 					debug_assert!(false);
@@ -2832,11 +2831,11 @@ impl InstructionInfoFactory {
 
 		let mut write_reg = reg;
 		if (flags & (Flags::IS_64BIT | Flags::ZERO_EXT_VEC_REGS)) != 0 {
-			const_assert_eq!(OpAccess::Write as u32 + 1, OpAccess::CondWrite as u32);
-			const_assert_eq!(OpAccess::Write as u32 + 2, OpAccess::ReadWrite as u32);
-			const_assert_eq!(OpAccess::Write as u32 + 3, OpAccess::ReadCondWrite as u32);
+			const _: () = assert!(OpAccess::Write as u32 + 1 == OpAccess::CondWrite as u32);
+			const _: () = assert!(OpAccess::Write as u32 + 2 == OpAccess::ReadWrite as u32);
+			const _: () = assert!(OpAccess::Write as u32 + 3 == OpAccess::ReadCondWrite as u32);
 			if (access as u32).wrapping_sub(OpAccess::Write as u32) <= 3 {
-				const_assert_eq!(IcedConstants::VMM_FIRST as u32, Register::ZMM0 as u32);
+				const _: () = assert!(IcedConstants::VMM_FIRST as u32 == Register::ZMM0 as u32);
 				let mut index = (reg as u32).wrapping_sub(Register::EAX as u32);
 				if (flags & Flags::IS_64BIT) != 0 && index <= (Register::R15D as u32 - Register::EAX as u32) {
 					write_reg = unsafe { mem::transmute((Register::RAX as u32).wrapping_add(index) as RegisterUnderlyingType) };

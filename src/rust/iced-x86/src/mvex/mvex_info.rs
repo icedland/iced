@@ -3,7 +3,6 @@
 
 use crate::{MvexConvFn, MvexEHBit, MvexInfoFlags1, MvexInfoFlags2, MvexTupleTypeLutKind};
 use core::mem;
-use static_assertions::const_assert_eq;
 
 #[allow(dead_code)]
 pub(crate) struct MvexInfo {
@@ -17,7 +16,7 @@ pub(crate) struct MvexInfo {
 	pub(crate) pad: u8,
 }
 
-const_assert_eq!(mem::size_of::<MvexInfo>(), 8);
+const _: () = assert!(mem::size_of::<MvexInfo>() == 8);
 
 impl MvexInfo {
 	#[must_use]

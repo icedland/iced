@@ -11,8 +11,6 @@ use crate::iced_constants::IcedConstants;
 #[cfg(feature = "encoder")]
 use crate::iced_error::IcedError;
 use crate::*;
-#[cfg(any(feature = "encoder", feature = "fast_fmt", feature = "instr_info"))]
-use static_assertions::const_assert_eq;
 
 #[cfg(feature = "decoder")]
 #[inline]
@@ -68,7 +66,7 @@ pub(crate) fn internal_set_has_repne_prefix(this: &mut Instruction) {
 #[must_use]
 #[inline]
 pub(crate) const fn internal_op0_is_not_reg_or_op1_is_not_reg(this: &Instruction) -> bool {
-	const_assert_eq!(Register::None as u32, 0);
+	const _: () = assert!(Register::None as u32 == 0);
 	((this.op_kinds[0] as RegisterUnderlyingType) | (this.op_kinds[1] as RegisterUnderlyingType)) != 0
 }
 
@@ -148,7 +146,7 @@ pub(crate) const fn internal_segment_prefix_raw(this: &Instruction) -> u32 {
 #[cfg(feature = "fast_fmt")]
 #[inline]
 pub(crate) fn internal_op_register(this: &Instruction, operand: u32) -> Register {
-	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+	const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 	if let Some(&reg) = this.regs.get(operand as usize) {
 		reg
 	} else {
@@ -728,7 +726,7 @@ pub(crate) fn with_string_reg_segrsi(
 		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
 	}
 
-	const_assert_eq!(OpKind::Register as u32, 0);
+	const _: () = assert!(OpKind::Register as u32 == 0);
 	//instruction.set_op0_kind(OpKind::Register);
 	instruction.set_op0_register(register);
 
@@ -756,7 +754,7 @@ pub(crate) fn with_string_reg_esrdi(code: Code, address_size: u32, register: Reg
 		RepPrefixKind::Repne => internal_set_has_repne_prefix(&mut instruction),
 	}
 
-	const_assert_eq!(OpKind::Register as u32, 0);
+	const _: () = assert!(OpKind::Register as u32 == 0);
 	//instruction.set_op0_kind(OpKind::Register);
 	instruction.set_op0_register(register);
 
@@ -789,7 +787,7 @@ pub(crate) fn with_string_esrdi_reg(code: Code, address_size: u32, register: Reg
 		_ => return Err(IcedError::new("Invalid address size")),
 	}
 
-	const_assert_eq!(OpKind::Register as u32, 0);
+	const _: () = assert!(OpKind::Register as u32 == 0);
 	//instruction.set_op1_kind(OpKind::Register);
 	instruction.set_op1_register(register);
 
@@ -881,11 +879,11 @@ pub(crate) fn with_maskmov(
 		_ => return Err(IcedError::new("Invalid address size")),
 	}
 
-	const_assert_eq!(OpKind::Register as u32, 0);
+	const _: () = assert!(OpKind::Register as u32 == 0);
 	//instruction.set_op1_kind(OpKind::Register);
 	instruction.set_op1_register(register1);
 
-	const_assert_eq!(OpKind::Register as u32, 0);
+	const _: () = assert!(OpKind::Register as u32 == 0);
 	//instruction.set_op2_kind(OpKind::Register);
 	instruction.set_op2_register(register2);
 

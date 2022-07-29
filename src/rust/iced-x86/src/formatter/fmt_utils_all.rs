@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use crate::{Code, CodeSize, Instruction, Register};
-use static_assertions::const_assert_eq;
 
 #[must_use]
 pub(super) const fn is_rep_repe_repne_instruction(code: Code) -> bool {
@@ -167,9 +166,9 @@ pub(super) const fn is_repe_or_repne_instruction(code: Code) -> bool {
 #[must_use]
 #[inline]
 pub(super) const fn is_notrack_prefix_branch(code: Code) -> bool {
-	const_assert_eq!(Code::Jmp_rm16 as u32 + 1, Code::Jmp_rm32 as u32);
-	const_assert_eq!(Code::Jmp_rm16 as u32 + 2, Code::Jmp_rm64 as u32);
-	const_assert_eq!(Code::Call_rm16 as u32 + 1, Code::Call_rm32 as u32);
-	const_assert_eq!(Code::Call_rm16 as u32 + 2, Code::Call_rm64 as u32);
+	const _: () = assert!(Code::Jmp_rm16 as u32 + 1 == Code::Jmp_rm32 as u32);
+	const _: () = assert!(Code::Jmp_rm16 as u32 + 2 == Code::Jmp_rm64 as u32);
+	const _: () = assert!(Code::Call_rm16 as u32 + 1 == Code::Call_rm32 as u32);
+	const _: () = assert!(Code::Call_rm16 as u32 + 2 == Code::Call_rm64 as u32);
 	(code as u32).wrapping_sub(Code::Jmp_rm16 as u32) <= 2 || (code as u32).wrapping_sub(Code::Call_rm16 as u32) <= 2
 }

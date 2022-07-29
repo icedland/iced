@@ -4,7 +4,6 @@
 use crate::formatter::fast::MAX_FMT_INSTR_LEN;
 use crate::iced_constants::IcedConstants;
 use crate::{Decoder, DecoderOptions, FastFormatter, Instruction, SymbolResolver, SymbolResult};
-use static_assertions::const_assert;
 
 macro_rules! mk_tests {
 	($mod_name:ident, $create_options:path) => {
@@ -40,7 +39,7 @@ impl SymbolResolver for LongSymbolResolver {
 #[test]
 fn test_long_symbols() {
 	const MAX_SYMBOL_LEN: usize = 1024;
-	const_assert!(MAX_SYMBOL_LEN > MAX_FMT_INSTR_LEN);
+	const _: () = assert!(MAX_SYMBOL_LEN > MAX_FMT_INSTR_LEN);
 
 	#[rustfmt::skip]
 	let test_cases: [(u32, &'static [u8]); IcedConstants::MAX_OP_COUNT] = [

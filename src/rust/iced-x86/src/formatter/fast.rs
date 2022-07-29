@@ -30,7 +30,6 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::marker::PhantomData;
 use core::{mem, ptr, slice};
-use static_assertions::{const_assert, const_assert_eq};
 
 // full fmt'd str = "prefixes mnemonic op0<decorators1>, op1, op2, op3, op4<decorators2>"
 // prefixes = "es xacquire xrelease lock notrack repe repne "
@@ -62,8 +61,8 @@ const MAX_FMT_INSTR_LEN: usize = {
 	+ (IcedConstants::MAX_OP_COUNT * (2/*", "*/ + MAX_OPERAND_LEN)) - 1/*','*/
 	+ MAX_DECORATOR2_LEN
 };
-const_assert_eq!(
-	MAX_FMT_INSTR_LEN,
+const _: () = assert!(
+	MAX_FMT_INSTR_LEN ==
 	// Max mnemonic len
 	crate::formatter::strings_data::MAX_STRING_LEN
 		+ "es xacquire xrelease lock notrack repe repne  \
@@ -75,7 +74,7 @@ const_assert_eq!(
 			.len()
 );
 // Make sure it doesn't grow too much without us knowing about it (eg. if more operands are added)
-const_assert!(MAX_FMT_INSTR_LEN < 350);
+const _: () = assert!(MAX_FMT_INSTR_LEN < 350);
 
 // Creates a fast string type. It contains one ptr to the len (u8) + valid utf8 string.
 // The utf8 string has enough bytes following it (eg. padding or the next fast str instance)
@@ -136,8 +135,8 @@ macro_rules! mk_const_fast_str {
 	//		  of $fast_ty::SIZE bytes padded with any bytes if needed
 	($fast_ty:tt, $str:literal) => {{
 		const STR: &str = $str;
-		const_assert!(STR.len() == 1 + <$fast_ty>::SIZE);
-		const_assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
+		const _: () = assert!(STR.len() == 1 + <$fast_ty>::SIZE);
+		const _: () = assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
 		$fast_ty { len_data: STR.as_ptr() }
 	}};
 }
@@ -219,7 +218,7 @@ macro_rules! write_fast_hex2_rw_4bytes {
 			let src_ptr = HEX_GROUP2_UPPER.as_ptr().add(($value as usize) * REAL_LEN) as *const u32;
 			ptr::write_unaligned($dst_next_p as *mut u32, ptr::read_unaligned(src_ptr) | $lower_or_value);
 		}
-		const_assert!(REAL_LEN <= DATA_LEN);
+		const _: () = assert!(REAL_LEN <= DATA_LEN);
 		// SAFETY:
 		// - REAL_LEN <= DATA_LEN so the new ptr is valid since there's at least DATA_LEN bytes available in $dst
 		$dst_next_p = unsafe { $dst_next_p.add(REAL_LEN) };
@@ -257,7 +256,7 @@ macro_rules! write_fast_ascii_char_lit {
 	// $dst_next_p = next ptr to write in $dst
 	// $ch = char to write (must be ASCII)
 	($dst:ident, $dst_next_p:ident, $ch:tt, $check_limit:literal) => {{
-		const_assert!($ch as u32 <= 0x7F);
+		const _: () = assert!($ch as u32 <= 0x7F);
 		write_fast_ascii_char!($dst, $dst_next_p, $ch, $check_limit);
 	}};
 }
@@ -516,11 +515,11 @@ static SCALE_NUMBERS: [FastString4; 4] = [
 	mk_const_fast_str!(FastString4, "\x02*4  "),
 	mk_const_fast_str!(FastString4, "\x02*8  "),
 ];
-const_assert_eq!(RoundingControl::None as u32, 0);
-const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+const _: () = assert!(RoundingControl::None as u32 == 0);
+const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 static RC_SAE_STRINGS: [FastString8; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
 	mk_const_fast_str!(FastString8, "\x00        "),
 	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
@@ -867,7 +866,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		}
 
 		let prefix_seg = instruction_internal::internal_segment_prefix_raw(instruction);
-		const_assert_eq!(Register::None as u32, 0);
+		const _: () = assert!(Register::None as u32 == 0);
 		if prefix_seg < 6 || instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction) != 0 {
 			const DS_REG: u32 = Register::DS as u32 - Register::ES as u32;
 			let has_notrack_prefix = prefix_seg == DS_REG && is_notrack_prefix_branch(code);

@@ -7,7 +7,6 @@ use crate::test_utils::from_str_conv::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
-use static_assertions::const_assert_eq;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
@@ -77,7 +76,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<MemorySizeInfoTestCase, String> {
-		const_assert_eq!(MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE, 6);
+		const _: () = assert!(MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE == 6);
 		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE, ',').collect();
 		if elems.len() != MiscInstrInfoTestConstants::MEMORY_SIZE_ELEMS_PER_LINE {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));

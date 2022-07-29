@@ -11,7 +11,6 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use lazy_static::lazy_static;
-use static_assertions::const_assert_eq;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
@@ -217,7 +216,7 @@ impl Iterator for IntoIter {
 
 impl IntoIter {
 	fn read_next_test_case(&self, line: String, line_number: u32) -> Result<Option<InstrInfoTestCase>, String> {
-		const_assert_eq!(MiscInstrInfoTestConstants::INSTR_INFO_ELEMS_PER_LINE, 5);
+		const _: () = assert!(MiscInstrInfoTestConstants::INSTR_INFO_ELEMS_PER_LINE == 5);
 		let elems: Vec<_> = line.splitn(MiscInstrInfoTestConstants::INSTR_INFO_ELEMS_PER_LINE, ',').collect();
 		if elems.len() != MiscInstrInfoTestConstants::INSTR_INFO_ELEMS_PER_LINE {
 			return Err(format!("Invalid number of commas: {}", elems.len() - 1));

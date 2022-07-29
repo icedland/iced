@@ -8,7 +8,6 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::convert::TryInto;
 use lazy_static::lazy_static;
-use static_assertions::const_assert_eq;
 
 lazy_static! {
 	pub(super) static ref REGS_TBL: Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> = create();
@@ -17,7 +16,7 @@ lazy_static! {
 fn create() -> Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> {
 	// If this fails, the generator was updated and now FastStringRegister must be changed
 	// to the correct type in fast.rs
-	const_assert_eq!(FastStringRegister::SIZE, VALID_STRING_LENGTH);
+	const _: () = assert!(FastStringRegister::SIZE == VALID_STRING_LENGTH);
 
 	let mut result = Vec::with_capacity(IcedConstants::REGISTER_ENUM_COUNT);
 	let mut data = &REGS_DATA[..];

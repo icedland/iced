@@ -24,6 +24,7 @@
 #![warn(unused_qualifications)]
 #![warn(unused_results)]
 #![warn(rustdoc::invalid_html_tags)]
+#![allow(clippy::assertions_on_constants)]
 #![allow(clippy::bool_assert_comparison)]
 #![allow(clippy::branches_sharing_code)]
 #![allow(clippy::cast_lossless)]

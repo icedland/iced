@@ -9,7 +9,6 @@ use crate::decoder::handlers::*;
 use crate::decoder::*;
 use crate::iced_constants::IcedConstants;
 use crate::instruction_internal;
-use static_assertions::const_assert_ne;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
@@ -502,10 +501,10 @@ impl OpCodeHandler_MandatoryPrefix {
 		has_modrm: bool, handler: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_66: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler_f3: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler_f2: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
 		debug_assert!(!is_null_instance_handler(handler.1));
 		debug_assert!(!is_null_instance_handler(handler_66.1));
 		debug_assert!(!is_null_instance_handler(handler_f3.1));
@@ -617,10 +616,10 @@ impl OpCodeHandler_MandatoryPrefix4 {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		const_assert_eq!(DecoderMandatoryPrefix::PNP as u32, 0);
-		const_assert_eq!(DecoderMandatoryPrefix::P66 as u32, 1);
-		const_assert_eq!(DecoderMandatoryPrefix::PF3 as u32, 2);
-		const_assert_eq!(DecoderMandatoryPrefix::PF2 as u32, 3);
+		const _: () = assert!(DecoderMandatoryPrefix::PNP as u32 == 0);
+		const _: () = assert!(DecoderMandatoryPrefix::P66 as u32 == 1);
+		const _: () = assert!(DecoderMandatoryPrefix::PF3 as u32 == 2);
+		const _: () = assert!(DecoderMandatoryPrefix::PF2 as u32 == 3);
 		let (decode, handler) = match decoder.state.mandatory_prefix {
 			DecoderMandatoryPrefix::PNP => this.handler_np,
 			DecoderMandatoryPrefix::P66 => this.handler_66,
@@ -712,8 +711,8 @@ pub(in crate::decoder) struct OpCodeHandler_Ev_Iz {
 impl OpCodeHandler_Ev_Iz {
 	#[inline]
 	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(
@@ -767,8 +766,8 @@ pub(in crate::decoder) struct OpCodeHandler_Ev_Ib {
 impl OpCodeHandler_Ev_Ib {
 	#[inline]
 	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(
@@ -814,8 +813,8 @@ pub(in crate::decoder) struct OpCodeHandler_Ev_Ib2 {
 impl OpCodeHandler_Ev_Ib2 {
 	#[inline]
 	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(
@@ -930,8 +929,8 @@ pub(in crate::decoder) struct OpCodeHandler_Ev {
 impl OpCodeHandler_Ev {
 	#[inline]
 	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(
@@ -1076,7 +1075,7 @@ impl OpCodeHandler_Ev_REXW {
 		} else {
 			instruction.set_code(this.code32);
 		}
-		const_assert_ne!(StateFlags::HAS66, 4);
+		const _: () = assert!(StateFlags::HAS66 != 4);
 		if (((this.flags & 4) | (decoder.state.flags & StateFlags::HAS66)) & decoder.invalid_check_mask) == (4 | StateFlags::HAS66) {
 			decoder.set_invalid_instruction();
 		}
@@ -1988,8 +1987,8 @@ impl OpCodeHandler_Ev_Gv_flags {
 	pub(in crate::decoder) fn new(code16: Code, code32: Code, code64: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert!((flags & (HandlerFlags::XACQUIRE | HandlerFlags::XRELEASE)) != 0);
 
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(
@@ -2493,9 +2492,9 @@ pub(in crate::decoder) struct OpCodeHandler_SimpleReg {
 impl OpCodeHandler_SimpleReg {
 	#[inline]
 	pub(in crate::decoder) fn new(code: Code, index: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(OpSize::Size16 as u32, 0);
-		const_assert_eq!(OpSize::Size32 as u32, 1);
-		const_assert_eq!(OpSize::Size64 as u32, 2);
+		const _: () = assert!(OpSize::Size16 as u32 == 0);
+		const _: () = assert!(OpSize::Size32 as u32 == 1);
+		const _: () = assert!(OpSize::Size64 as u32 == 2);
 		debug_assert!(code as u32 + 2 < IcedConstants::CODE_ENUM_COUNT as u32);
 
 		(OpCodeHandler_SimpleReg::decode, Self { has_modrm: false, code, index })
@@ -2504,15 +2503,15 @@ impl OpCodeHandler_SimpleReg {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		const_assert_eq!(OpSize::Size16 as u32, 0);
-		const_assert_eq!(OpSize::Size32 as u32, 1);
-		const_assert_eq!(OpSize::Size64 as u32, 2);
+		const _: () = assert!(OpSize::Size16 as u32 == 0);
+		const _: () = assert!(OpSize::Size32 as u32 == 1);
+		const _: () = assert!(OpSize::Size64 as u32 == 2);
 		let size_index = decoder.state.operand_size as u32;
 
 		// SAFETY: this.code + {0,1,2} is a valid Code value, see ctor
 		instruction.set_code(unsafe { mem::transmute((size_index + this.code as u32) as CodeUnderlyingType) });
-		const_assert!(Register::AX as u32 + 16 == Register::EAX as u32);
-		const_assert!(Register::AX as u32 + 32 == Register::RAX as u32);
+		const _: () = assert!(Register::AX as u32 + 16 == Register::EAX as u32);
+		const _: () = assert!(Register::AX as u32 + 32 == Register::RAX as u32);
 		write_op0_reg!(instruction, size_index * 16 + this.index + decoder.state.extra_base_register_base + Register::AX as u32);
 	}
 }
@@ -2589,16 +2588,16 @@ impl OpCodeHandler_Xchg_Reg_rAX {
 			decoder.clear_mandatory_prefix_f3(instruction);
 			instruction.set_code(Code::Pause);
 		} else {
-			const_assert_eq!(OpSize::Size16 as u32, 0);
-			const_assert_eq!(OpSize::Size32 as u32, 1);
-			const_assert_eq!(OpSize::Size64 as u32, 2);
+			const _: () = assert!(OpSize::Size16 as u32 == 0);
+			const _: () = assert!(OpSize::Size32 as u32 == 1);
+			const _: () = assert!(OpSize::Size64 as u32 == 2);
 			let size_index = decoder.state.operand_size as u32;
 			let code_index = this.index + decoder.state.extra_base_register_base;
 
 			instruction.set_code(unsafe { *XCHG_REG_RAX_CODES.get_unchecked((size_index * 16 + code_index) as usize) });
 			if code_index != 0 {
-				const_assert!(Register::AX as u32 + 16 == Register::EAX as u32);
-				const_assert!(Register::AX as u32 + 32 == Register::RAX as u32);
+				const _: () = assert!(Register::AX as u32 + 16 == Register::EAX as u32);
+				const _: () = assert!(Register::AX as u32 + 32 == Register::RAX as u32);
 				let reg = size_index * 16 + code_index + Register::AX as u32;
 				write_op0_reg!(instruction, reg);
 				write_op1_reg!(instruction, size_index * 16 + Register::AX as u32);
@@ -4017,8 +4016,8 @@ pub(in crate::decoder) struct OpCodeHandler_Eb_Ib {
 impl OpCodeHandler_Eb_Ib {
 	#[inline]
 	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(OpCodeHandler_Eb_Ib::decode, Self { has_modrm: true, code, state_flags_or_value })
@@ -4122,8 +4121,8 @@ pub(in crate::decoder) struct OpCodeHandler_Eb {
 impl OpCodeHandler_Eb {
 	#[inline]
 	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(OpCodeHandler_Eb::decode, Self { has_modrm: true, code, state_flags_or_value })
@@ -4159,8 +4158,8 @@ pub(in crate::decoder) struct OpCodeHandler_Eb_Gb {
 impl OpCodeHandler_Eb_Gb {
 	#[inline]
 	pub(in crate::decoder) fn new(code: Code, flags: u32) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags & HandlerFlags::LOCK) << (13 - 3);
 
 		(OpCodeHandler_Eb_Gb::decode, Self { has_modrm: true, code, state_flags_or_value })
@@ -4280,8 +4279,8 @@ impl OpCodeHandler_M_REXW {
 	pub(in crate::decoder) fn new(code32: Code, code64: Code, flags32: u32, flags64: u32) -> (OpCodeHandlerDecodeFn, Self) {
 		debug_assert_eq!(flags32 & HandlerFlags::LOCK, flags64 & HandlerFlags::LOCK);
 
-		const_assert_eq!(HandlerFlags::LOCK, 1 << 3);
-		const_assert_eq!(StateFlags::ALLOW_LOCK, 1 << 13);
+		const _: () = assert!(HandlerFlags::LOCK == 1 << 3);
+		const _: () = assert!(StateFlags::ALLOW_LOCK == 1 << 13);
 		let state_flags_or_value = (flags32 & HandlerFlags::LOCK) << (13 - 3);
 
 		(OpCodeHandler_M_REXW::decode, Self { has_modrm: true, flags32, flags64, code32, code64, state_flags_or_value })
@@ -4332,8 +4331,8 @@ impl OpCodeHandler_MemBx {
 		//instruction.set_memory_displacement64(0);
 		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
 		//instruction_internal::internal_set_memory_displ_size(instruction, 0);
-		const_assert_eq!(Register::BX as u32 + 16, Register::EBX as u32);
-		const_assert_eq!(Register::BX as u32 + 32, Register::RBX as u32);
+		const _: () = assert!(Register::BX as u32 + 16 == Register::EBX as u32);
+		const _: () = assert!(Register::BX as u32 + 32 == Register::RBX as u32);
 		instruction.set_memory_base((decoder.state.address_size as u32) * 16 + Register::BX);
 	}
 }
