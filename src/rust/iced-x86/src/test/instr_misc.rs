@@ -4,13 +4,12 @@
 use crate::iced_constants::IcedConstants;
 use crate::*;
 use core::mem;
-use static_assertions::const_assert_eq;
 use std::panic;
 
 #[test]
 fn invalid_code_value_is_zero() {
 	// A 'default' Instruction should be an invalid instruction
-	const_assert_eq!(Code::INVALID as u32, 0);
+	const _: () = assert!(Code::INVALID as u32 == 0);
 	let instr1 = Instruction::default();
 	assert_eq!(instr1.code(), Code::INVALID);
 	let instr2 = Instruction::new();
@@ -285,7 +284,7 @@ fn write_all_properties() {
 		assert_eq!(instr.code(), code);
 	}
 
-	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+	const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 	for op_kind in OpKind::values() {
 		instr.set_op0_kind(op_kind);
 		assert_eq!(instr.op0_kind(), op_kind);
@@ -697,5 +696,5 @@ fn verify_get_set_immediate() {
 
 #[test]
 fn verify_instruction_size() {
-	const_assert_eq!(mem::size_of::<Instruction>(), INSTRUCTION_TOTAL_SIZE);
+	const _: () = assert!(mem::size_of::<Instruction>() == INSTRUCTION_TOTAL_SIZE);
 }

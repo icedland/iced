@@ -28,10 +28,10 @@ impl OpCodeHandler_VectorLength_EVEX {
 		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		const_assert_eq!(VectorLength::L512 as u32, 2);
-		const_assert_eq!(VectorLength::Unknown as u32, 3);
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		const _: () = assert!(VectorLength::L512 as u32 == 2);
+		const _: () = assert!(VectorLength::Unknown as u32 == 3);
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
 		debug_assert!(!is_null_instance_handler(handler512.1));
@@ -64,10 +64,10 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 		handler512: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		const_assert_eq!(VectorLength::L512 as u32, 2);
-		const_assert_eq!(VectorLength::Unknown as u32, 3);
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		const _: () = assert!(VectorLength::L512 as u32 == 2);
+		const _: () = assert!(VectorLength::Unknown as u32 == 3);
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
 		debug_assert!(!is_null_instance_handler(handler512.1));
@@ -82,7 +82,7 @@ impl OpCodeHandler_VectorLength_EVEX_er {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::EVEX as u32);
 		let mut index = decoder.state.vector_length;
-		const_assert!(StateFlags::B > 3);
+		const _: () = assert!(StateFlags::B > 3);
 		debug_assert!(decoder.state.mod_ <= 3);
 		if ((decoder.state.flags & StateFlags::B) | decoder.state.mod_) == (StateFlags::B | 3) {
 			index = VectorLength::L512;
@@ -136,11 +136,11 @@ impl OpCodeHandler_EVEX_V_H_Ev_er {
 		if decoder.state.mod_ == 3 {
 			write_op2_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				const_assert_eq!(RoundingControl::None as u32, 0);
-				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+				const _: () = assert!(RoundingControl::None as u32 == 0);
+				const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+				const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+				const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+				const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 				instruction_internal::internal_set_rounding_control(
 					instruction,
 					(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
@@ -299,11 +299,11 @@ impl OpCodeHandler_EVEX_VkHW_er {
 				if this.only_sae {
 					instruction.set_suppress_all_exceptions(true);
 				} else {
-					const_assert_eq!(RoundingControl::None as u32, 0);
-					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+					const _: () = assert!(RoundingControl::None as u32 == 0);
+					const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+					const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+					const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+					const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 					instruction_internal::internal_set_rounding_control(
 						instruction,
 						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
@@ -355,11 +355,11 @@ impl OpCodeHandler_EVEX_VkHW_er_ur {
 				decoder.set_invalid_instruction();
 			}
 			if (decoder.state.flags & StateFlags::B) != 0 {
-				const_assert_eq!(RoundingControl::None as u32, 0);
-				const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-				const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-				const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-				const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+				const _: () = assert!(RoundingControl::None as u32 == 0);
+				const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+				const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+				const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+				const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 				instruction_internal::internal_set_rounding_control(
 					instruction,
 					(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
@@ -435,11 +435,11 @@ impl OpCodeHandler_EVEX_VkW_er {
 				if this.only_sae {
 					instruction.set_suppress_all_exceptions(true);
 				} else {
-					const_assert_eq!(RoundingControl::None as u32, 0);
-					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+					const _: () = assert!(RoundingControl::None as u32 == 0);
+					const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+					const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+					const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+					const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 					instruction_internal::internal_set_rounding_control(
 						instruction,
 						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,
@@ -1724,11 +1724,11 @@ impl OpCodeHandler_EVEX_Gv_W_er {
 				if this.only_sae {
 					instruction.set_suppress_all_exceptions(true);
 				} else {
-					const_assert_eq!(RoundingControl::None as u32, 0);
-					const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-					const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-					const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-					const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+					const _: () = assert!(RoundingControl::None as u32 == 0);
+					const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+					const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+					const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+					const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 					instruction_internal::internal_set_rounding_control(
 						instruction,
 						(decoder.state.vector_length as u32) + RoundingControl::RoundToNearest as u32,

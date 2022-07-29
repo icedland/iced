@@ -29,7 +29,6 @@ use self::private::{With1, With2, With3, With4, With5};
 use crate::instruction_internal;
 use crate::{Code, IcedError, Instruction, MemoryOperand, OpKind, Register, RepPrefixKind};
 use core::{u16, u32, u64};
-use static_assertions::const_assert_eq;
 
 impl Instruction {
 	fn init_memory_operand(instruction: &mut Instruction, memory: &MemoryOperand) {
@@ -244,7 +243,7 @@ impl With1<Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -303,11 +302,11 @@ impl With2<Register, Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -323,7 +322,7 @@ impl With2<Register, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -341,7 +340,7 @@ impl With2<Register, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -359,7 +358,7 @@ impl With2<Register, i64> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -377,7 +376,7 @@ impl With2<Register, u64> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -395,7 +394,7 @@ impl With2<Register, MemoryOperand> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -416,7 +415,7 @@ impl With2<i32, Register> for Instruction {
 
 		instruction_internal::initialize_signed_immediate(&mut instruction, 0, immediate as i64)?;
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register);
 
@@ -434,7 +433,7 @@ impl With2<u32, Register> for Instruction {
 
 		instruction_internal::initialize_unsigned_immediate(&mut instruction, 0, immediate as u64)?;
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register);
 
@@ -485,7 +484,7 @@ impl With2<MemoryOperand, Register> for Instruction {
 		instruction.set_op0_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register);
 
@@ -535,15 +534,15 @@ impl With3<Register, Register, Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -559,11 +558,11 @@ impl With3<Register, Register, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -581,11 +580,11 @@ impl With3<Register, Register, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -603,11 +602,11 @@ impl With3<Register, Register, MemoryOperand> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -626,7 +625,7 @@ impl With3<Register, i32, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -646,7 +645,7 @@ impl With3<Register, u32, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -666,14 +665,14 @@ impl With3<Register, MemoryOperand, Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
 		instruction.set_op1_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register2);
 
@@ -689,7 +688,7 @@ impl With3<Register, MemoryOperand, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -710,7 +709,7 @@ impl With3<Register, MemoryOperand, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register);
 
@@ -734,11 +733,11 @@ impl With3<MemoryOperand, Register, Register> for Instruction {
 		instruction.set_op0_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register2);
 
@@ -757,7 +756,7 @@ impl With3<MemoryOperand, Register, i32> for Instruction {
 		instruction.set_op0_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register);
 
@@ -778,7 +777,7 @@ impl With3<MemoryOperand, Register, u32> for Instruction {
 		instruction.set_op0_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register);
 
@@ -796,19 +795,19 @@ impl With4<Register, Register, Register, Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register4);
 
@@ -824,15 +823,15 @@ impl With4<Register, Register, Register, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -850,15 +849,15 @@ impl With4<Register, Register, Register, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -876,15 +875,15 @@ impl With4<Register, Register, Register, MemoryOperand> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -903,11 +902,11 @@ impl With4<Register, Register, i32, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -927,11 +926,11 @@ impl With4<Register, Register, u32, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -951,18 +950,18 @@ impl With4<Register, Register, MemoryOperand, Register> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
 		instruction.set_op2_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register3);
 
@@ -978,11 +977,11 @@ impl With4<Register, Register, MemoryOperand, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -1003,11 +1002,11 @@ impl With4<Register, Register, MemoryOperand, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
@@ -1028,19 +1027,19 @@ impl With5<Register, Register, Register, Register, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register4);
 
@@ -1058,19 +1057,19 @@ impl With5<Register, Register, Register, Register, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register4);
 
@@ -1088,15 +1087,15 @@ impl With5<Register, Register, Register, MemoryOperand, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -1117,15 +1116,15 @@ impl With5<Register, Register, Register, MemoryOperand, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op2_kind(OpKind::Register);
 		instruction.set_op2_register(register3);
 
@@ -1146,18 +1145,18 @@ impl With5<Register, Register, MemoryOperand, Register, i32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
 		instruction.set_op2_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register3);
 
@@ -1175,18 +1174,18 @@ impl With5<Register, Register, MemoryOperand, Register, u32> for Instruction {
 		let mut instruction = Self::default();
 		instruction.set_code(code);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(register1);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op1_kind(OpKind::Register);
 		instruction.set_op1_register(register2);
 
 		instruction.set_op2_kind(OpKind::Memory);
 		Instruction::init_memory_operand(&mut instruction, &memory);
 
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op3_kind(OpKind::Register);
 		instruction.set_op3_register(register3);
 

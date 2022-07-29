@@ -9,7 +9,6 @@ use alloc::string::String;
 use alloc::vec::Vec;
 use core::iter::IntoIterator;
 use lazy_static::lazy_static;
-use static_assertions::const_assert_eq;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
@@ -434,7 +433,7 @@ impl IntoIter {
 						if op_parts.len() >= 5 {
 							tc.op_kinds[4] = to_op_code_operand_kind(op_parts[4])?;
 						}
-						const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+						const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 						if op_parts.len() >= 6 {
 							return Err(format!("Invalid number of operands: '{}'", value));
 						}

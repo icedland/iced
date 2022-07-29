@@ -3,7 +3,7 @@
 # that this crate gets uploaded to crates.io.
 name = "loona"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 publish = false
 
 [features]

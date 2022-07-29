@@ -26,7 +26,6 @@ use alloc::rc::Rc;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::fmt::Write;
-use static_assertions::const_assert_eq;
 use std::panic;
 
 #[test]
@@ -341,7 +340,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	}
 
 	// If it fails, add more tests above (16-bit, 32-bit, and 64-bit test cases)
-	const_assert_eq!(IcedConstants::ENCODING_KIND_ENUM_COUNT, 6);
+	const _: () = assert!(IcedConstants::ENCODING_KIND_ENUM_COUNT == 6);
 
 	for &(bitness, hex_bytes, rip, instruction) in &tests {
 		let expected_bytes = to_vec_u8(hex_bytes).unwrap();
@@ -968,7 +967,7 @@ fn test_op_code_info(tc: &OpCodeInfoTestCase) {
 		assert_eq!(op_kind, info.op_kind(i as u32));
 		assert_eq!(op_kind, info.try_op_kind(i as u32).unwrap());
 	}
-	const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+	const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 	for i in tc.op_count..IcedConstants::MAX_OP_COUNT as u32 {
 		assert_eq!(info.op_kind(i), OpCodeOperandKind::None);
 		assert_eq!(info.try_op_kind(i).unwrap(), OpCodeOperandKind::None);

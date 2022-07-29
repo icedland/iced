@@ -11,11 +11,10 @@ use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::convert::TryInto;
 use lazy_static::lazy_static;
-use static_assertions::{const_assert, const_assert_eq};
 
 // If this fails, change FastString20 to eg. FastString24 (multiple of 4 or 8 depending on what's best for PERF),
 // see fast.rs where FastString20 is created.
-const_assert!(MAX_STRING_LEN <= FastStringMnemonic::SIZE);
+const _: () = assert!(MAX_STRING_LEN <= FastStringMnemonic::SIZE);
 
 lazy_static! {
 	pub(super) static ref FMT_DATA: FmtTableData = read();
@@ -24,7 +23,7 @@ lazy_static! {
 fn get_strings_table() -> Vec<FastStringMnemonic> {
 	// If this fails, the generator was updated and now FastStringRegister must be changed
 	// to the correct type in fast.rs
-	const_assert_eq!(FastStringMnemonic::SIZE, VALID_STRING_LENGTH);
+	const _: () = assert!(FastStringMnemonic::SIZE == VALID_STRING_LENGTH);
 
 	let mut reader = DataReader::new(&STRINGS_TBL_DATA);
 	let mut strings = Vec::with_capacity(STRINGS_COUNT);

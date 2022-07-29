@@ -3,7 +3,6 @@
 
 use crate::formatter::iced_constants::IcedConstants;
 use crate::formatter::iced_error::IcedError;
-use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 

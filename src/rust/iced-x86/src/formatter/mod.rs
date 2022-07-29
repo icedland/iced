@@ -76,7 +76,6 @@ const REGISTER_ST: Register = Register::DontUse0;
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn r_to_r16(reg: Register) -> Register {
-	use core::convert::TryFrom;
 	if Register::EAX <= reg && reg <= Register::R15 {
 		Register::try_from((((reg as u32 - Register::AX as u32) & 0xF) + Register::AX as u32) as usize).unwrap_or(reg)
 	} else {
@@ -86,7 +85,6 @@ fn r_to_r16(reg: Register) -> Register {
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 fn r64_to_r32(reg: Register) -> Register {
-	use core::convert::TryFrom;
 	if Register::RAX <= reg && reg <= Register::R15 {
 		Register::try_from((reg as u32 - Register::RAX as u32 + Register::EAX as u32) as usize).unwrap_or(reg)
 	} else {

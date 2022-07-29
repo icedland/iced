@@ -21,7 +21,6 @@ use crate::test_utils::*;
 use crate::*;
 use alloc::string::String;
 use core::fmt::Write;
-use static_assertions::const_assert_eq;
 
 #[rustfmt::skip]
 pub(crate) static NON_DECODED_CODE_VALUES: [Code; 17] = [
@@ -277,7 +276,7 @@ fn decode_test(bitness: u32, tc: &DecoderTestCase) {
 						if tc.op_kinds[4] == OpKind::Register {
 							assert_eq!(instr.op4_register(), tc.op_registers[4]);
 						}
-						const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+						const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 						assert_eq!(tc.op_count, 5);
 					}
 				}

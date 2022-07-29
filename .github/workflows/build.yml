@@ -181,7 +181,7 @@ jobs:
       - name: Use older rustc version
         shell: bash
         run: |
-          rustup default 1.54.0
+          rustup default 1.57.0
           rustup component add rustfmt
           rustup component add clippy
           rustup target add wasm32-unknown-unknown

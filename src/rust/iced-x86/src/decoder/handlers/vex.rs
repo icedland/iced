@@ -27,10 +27,10 @@ impl OpCodeHandler_VectorLength_VEX {
 	pub(in crate::decoder) fn new(
 		has_modrm: bool, handler128: (OpCodeHandlerDecodeFn, &'static OpCodeHandler), handler256: (OpCodeHandlerDecodeFn, &'static OpCodeHandler),
 	) -> (OpCodeHandlerDecodeFn, Self) {
-		const_assert_eq!(VectorLength::L128 as u32, 0);
-		const_assert_eq!(VectorLength::L256 as u32, 1);
-		const_assert_eq!(VectorLength::L512 as u32, 2);
-		const_assert_eq!(VectorLength::Unknown as u32, 3);
+		const _: () = assert!(VectorLength::L128 as u32 == 0);
+		const _: () = assert!(VectorLength::L256 as u32 == 1);
+		const _: () = assert!(VectorLength::L512 as u32 == 2);
+		const _: () = assert!(VectorLength::Unknown as u32 == 3);
 		debug_assert!(!is_null_instance_handler(handler128.1));
 		debug_assert!(!is_null_instance_handler(handler256.1));
 		let handlers = [handler128, handler256, get_invalid_handler(), get_invalid_handler()];

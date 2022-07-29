@@ -235,11 +235,11 @@ impl LegacyHandler {
 			encoder.write_byte_internal(b);
 		}
 
-		const_assert_eq!(EncoderFlags::B, 0x01);
-		const_assert_eq!(EncoderFlags::X, 0x02);
-		const_assert_eq!(EncoderFlags::R, 0x04);
-		const_assert_eq!(EncoderFlags::W, 0x08);
-		const_assert_eq!(EncoderFlags::REX, 0x40);
+		const _: () = assert!(EncoderFlags::B == 0x01);
+		const _: () = assert!(EncoderFlags::X == 0x02);
+		const _: () = assert!(EncoderFlags::R == 0x04);
+		const _: () = assert!(EncoderFlags::W == 0x08);
+		const _: () = assert!(EncoderFlags::REX == 0x40);
 		b = encoder.encoder_flags;
 		b &= 0x4F;
 		if b != 0 {
@@ -359,10 +359,10 @@ impl VexHandler {
 		encoder.write_prefixes(instruction, true);
 		let encoder_flags = encoder.encoder_flags;
 
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const _: () = assert!(MandatoryPrefixByte::None as u32 == 0);
+		const _: () = assert!(MandatoryPrefixByte::P66 as u32 == 1);
+		const _: () = assert!(MandatoryPrefixByte::PF3 as u32 == 2);
+		const _: () = assert!(MandatoryPrefixByte::PF2 as u32 == 3);
 		let mut b = this.last_byte;
 		b |= (!encoder_flags >> (EncoderFlags::VVVVV_SHIFT - 3)) & 0x78;
 
@@ -372,20 +372,20 @@ impl VexHandler {
 			!= 0
 		{
 			encoder.write_byte_internal(0xC4);
-			const_assert_eq!(VexOpCodeTable::MAP0F as u32, 1);
-			const_assert_eq!(VexOpCodeTable::MAP0F38 as u32, 2);
-			const_assert_eq!(VexOpCodeTable::MAP0F3A as u32, 3);
+			const _: () = assert!(VexOpCodeTable::MAP0F as u32 == 1);
+			const _: () = assert!(VexOpCodeTable::MAP0F38 as u32 == 2);
+			const _: () = assert!(VexOpCodeTable::MAP0F3A as u32 == 3);
 			let mut b2 = this.table;
-			const_assert_eq!(EncoderFlags::B, 1);
-			const_assert_eq!(EncoderFlags::X, 2);
-			const_assert_eq!(EncoderFlags::R, 4);
+			const _: () = assert!(EncoderFlags::B == 1);
+			const _: () = assert!(EncoderFlags::X == 2);
+			const _: () = assert!(EncoderFlags::R == 4);
 			b2 |= (!encoder_flags & 7) << 5;
 			encoder.write_byte_internal(b2);
 			b |= this.mask_w_l & encoder.internal_vex_wig_lig;
 			encoder.write_byte_internal(b);
 		} else {
 			encoder.write_byte_internal(0xC5);
-			const_assert_eq!(EncoderFlags::R, 4);
+			const _: () = assert!(EncoderFlags::R == 4);
 			b |= (!encoder_flags & 4) << 5;
 			b |= this.mask_l & encoder.internal_vex_lig;
 			encoder.write_byte_internal(b);
@@ -404,9 +404,9 @@ pub(super) struct XopHandler {
 #[cfg(not(feature = "no_xop"))]
 impl XopHandler {
 	pub(super) fn new(enc_flags1: u32, enc_flags2: u32, enc_flags3: u32) -> Self {
-		const_assert_eq!(XopOpCodeTable::MAP8 as u32, 0);
-		const_assert_eq!(XopOpCodeTable::MAP9 as u32, 1);
-		const_assert_eq!(XopOpCodeTable::MAP10 as u32, 2);
+		const _: () = assert!(XopOpCodeTable::MAP8 as u32 == 0);
+		const _: () = assert!(XopOpCodeTable::MAP9 as u32 == 1);
+		const _: () = assert!(XopOpCodeTable::MAP10 as u32 == 2);
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
@@ -474,15 +474,15 @@ impl XopHandler {
 		encoder.write_byte_internal(0x8F);
 
 		let encoder_flags = encoder.encoder_flags;
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const _: () = assert!(MandatoryPrefixByte::None as u32 == 0);
+		const _: () = assert!(MandatoryPrefixByte::P66 as u32 == 1);
+		const _: () = assert!(MandatoryPrefixByte::PF3 as u32 == 2);
+		const _: () = assert!(MandatoryPrefixByte::PF2 as u32 == 3);
 
 		let mut b = this.table;
-		const_assert_eq!(EncoderFlags::B, 1);
-		const_assert_eq!(EncoderFlags::X, 2);
-		const_assert_eq!(EncoderFlags::R, 4);
+		const _: () = assert!(EncoderFlags::B == 1);
+		const _: () = assert!(EncoderFlags::X == 2);
+		const _: () = assert!(EncoderFlags::R == 4);
 		b |= (!encoder_flags & 7) << 5;
 		encoder.write_byte_internal(b);
 		b = this.last_byte;
@@ -510,10 +510,10 @@ impl EvexHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const _: () = assert!(MandatoryPrefixByte::None as u32 == 0);
+		const _: () = assert!(MandatoryPrefixByte::P66 as u32 == 1);
+		const _: () = assert!(MandatoryPrefixByte::PF3 as u32 == 2);
+		const _: () = assert!(MandatoryPrefixByte::PF2 as u32 == 3);
 		let mut p1_bits = 4 | ((enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK);
 		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
@@ -605,17 +605,17 @@ impl EvexHandler {
 
 		encoder.write_byte_internal(0x62);
 
-		const_assert_eq!(EvexOpCodeTable::MAP0F as u32, 1);
-		const_assert_eq!(EvexOpCodeTable::MAP0F38 as u32, 2);
-		const_assert_eq!(EvexOpCodeTable::MAP0F3A as u32, 3);
-		const_assert_eq!(EvexOpCodeTable::MAP5 as u32, 5);
-		const_assert_eq!(EvexOpCodeTable::MAP6 as u32, 6);
+		const _: () = assert!(EvexOpCodeTable::MAP0F as u32 == 1);
+		const _: () = assert!(EvexOpCodeTable::MAP0F38 as u32 == 2);
+		const _: () = assert!(EvexOpCodeTable::MAP0F3A as u32 == 3);
+		const _: () = assert!(EvexOpCodeTable::MAP5 as u32 == 5);
+		const _: () = assert!(EvexOpCodeTable::MAP6 as u32 == 6);
 		let mut b = this.table;
-		const_assert_eq!(EncoderFlags::B, 1);
-		const_assert_eq!(EncoderFlags::X, 2);
-		const_assert_eq!(EncoderFlags::R, 4);
+		const _: () = assert!(EncoderFlags::B == 1);
+		const _: () = assert!(EncoderFlags::X == 2);
+		const _: () = assert!(EncoderFlags::R == 4);
 		b |= (encoder_flags & 7) << 5;
-		const_assert_eq!(EncoderFlags::R2, 0x0000_0200);
+		const _: () = assert!(EncoderFlags::R2 == 0x0000_0200);
 		b |= (encoder_flags >> (9 - 4)) & 0x10;
 		b ^= !0xF;
 		encoder.write_byte_internal(b);
@@ -648,10 +648,10 @@ impl EvexHandler {
 				encoder.set_error_message_str("The instruction doesn't support rounding control");
 			}
 			b |= 0x10;
-			const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-			const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-			const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-			const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+			const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+			const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+			const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+			const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 			b |= (rc as u32 - RoundingControl::RoundToNearest as u32) << 5;
 		} else if (this.base.enc_flags3 & EncFlags3::SUPPRESS_ALL_EXCEPTIONS) == 0 || !instruction.suppress_all_exceptions() {
 			b |= this.ll_bits;
@@ -689,10 +689,10 @@ impl MvexHandler {
 		let group_index = if (enc_flags2 & EncFlags2::HAS_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
 		let rm_group_index =
 			if (enc_flags3 & EncFlags3::HAS_RM_GROUP_INDEX) == 0 { -1 } else { ((enc_flags2 >> EncFlags2::GROUP_INDEX_SHIFT) & 7) as i32 };
-		const_assert_eq!(MandatoryPrefixByte::None as u32, 0);
-		const_assert_eq!(MandatoryPrefixByte::P66 as u32, 1);
-		const_assert_eq!(MandatoryPrefixByte::PF3 as u32, 2);
-		const_assert_eq!(MandatoryPrefixByte::PF2 as u32, 3);
+		const _: () = assert!(MandatoryPrefixByte::None as u32 == 0);
+		const _: () = assert!(MandatoryPrefixByte::P66 as u32 == 1);
+		const _: () = assert!(MandatoryPrefixByte::PF3 as u32 == 2);
+		const _: () = assert!(MandatoryPrefixByte::PF2 as u32 == 3);
 		let mut p1_bits = (enc_flags2 >> EncFlags2::MANDATORY_PREFIX_SHIFT) & EncFlags2::MANDATORY_PREFIX_MASK;
 		// SAFETY: generated data is valid
 		let wbit: WBit = unsafe { mem::transmute(((enc_flags2 >> EncFlags2::WBIT_SHIFT) & EncFlags2::WBIT_MASK) as u8) };
@@ -770,15 +770,15 @@ impl MvexHandler {
 
 		encoder.write_byte_internal(0x62);
 
-		const_assert_eq!(MvexOpCodeTable::MAP0F as u32, 1);
-		const_assert_eq!(MvexOpCodeTable::MAP0F38 as u32, 2);
-		const_assert_eq!(MvexOpCodeTable::MAP0F3A as u32, 3);
+		const _: () = assert!(MvexOpCodeTable::MAP0F as u32 == 1);
+		const _: () = assert!(MvexOpCodeTable::MAP0F38 as u32 == 2);
+		const _: () = assert!(MvexOpCodeTable::MAP0F3A as u32 == 3);
 		let mut b = this.table;
-		const_assert_eq!(EncoderFlags::B, 1);
-		const_assert_eq!(EncoderFlags::X, 2);
-		const_assert_eq!(EncoderFlags::R, 4);
+		const _: () = assert!(EncoderFlags::B == 1);
+		const _: () = assert!(EncoderFlags::X == 2);
+		const _: () = assert!(EncoderFlags::R == 4);
 		b |= (encoder_flags & 7) << 5;
-		const_assert_eq!(EncoderFlags::R2, 0x0000_0200);
+		const _: () = assert!(EncoderFlags::R2 == 0x0000_0200);
 		b |= (encoder_flags >> (9 - 4)) & 0x10;
 		b ^= !0xF;
 		encoder.write_byte_internal(b);
@@ -803,13 +803,13 @@ impl MvexHandler {
 		let conv = instruction.mvex_reg_mem_conv();
 		// Memory ops can only be op0-op2, never op3 (imm8)
 		if instruction.op0_kind() == OpKind::Memory || instruction.op1_kind() == OpKind::Memory || instruction.op2_kind() == OpKind::Memory {
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 1, MvexRegMemConv::MemConvBroadcast1 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 2, MvexRegMemConv::MemConvBroadcast4 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 3, MvexRegMemConv::MemConvFloat16 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 4, MvexRegMemConv::MemConvUint8 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 5, MvexRegMemConv::MemConvSint8 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 6, MvexRegMemConv::MemConvUint16 as u32);
-			const_assert_eq!(MvexRegMemConv::MemConvNone as u32 + 7, MvexRegMemConv::MemConvSint16 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 1 == MvexRegMemConv::MemConvBroadcast1 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 2 == MvexRegMemConv::MemConvBroadcast4 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 3 == MvexRegMemConv::MemConvFloat16 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 4 == MvexRegMemConv::MemConvUint8 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 5 == MvexRegMemConv::MemConvSint8 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 6 == MvexRegMemConv::MemConvUint16 as u32);
+			const _: () = assert!(MvexRegMemConv::MemConvNone as u32 + 7 == MvexRegMemConv::MemConvSint16 as u32);
 			if conv >= MvexRegMemConv::MemConvNone && conv <= MvexRegMemConv::MemConvSint16 {
 				b |= (conv as u32 - MvexRegMemConv::MemConvNone as u32) << 4;
 			} else if conv == MvexRegMemConv::None {
@@ -843,10 +843,10 @@ impl MvexHandler {
 					if (this.base.enc_flags3 & EncFlags3::ROUNDING_CONTROL) == 0 {
 						encoder.set_error_message_str("The instruction doesn't support rounding control");
 					} else {
-						const_assert_eq!(RoundingControl::RoundToNearest as u32, 1);
-						const_assert_eq!(RoundingControl::RoundDown as u32, 2);
-						const_assert_eq!(RoundingControl::RoundUp as u32, 3);
-						const_assert_eq!(RoundingControl::RoundTowardZero as u32, 4);
+						const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
+						const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
+						const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
+						const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 						b |= (rc as u32 - RoundingControl::RoundToNearest as u32) << 4;
 					}
 				}

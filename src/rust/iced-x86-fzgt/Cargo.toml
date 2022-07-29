@@ -3,7 +3,7 @@ name = "iced-x86-fzgt"
 version = "0.1.0"
 license = "MIT"
 description = "Test FuzzerGen output"
-edition = "2018"
+edition = "2021"
 publish = false
 
 [dependencies.iced-x86]

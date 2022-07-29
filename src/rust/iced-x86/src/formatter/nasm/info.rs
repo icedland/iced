@@ -13,7 +13,6 @@ use crate::*;
 use alloc::string::String;
 use alloc::vec::Vec;
 use core::mem;
-use static_assertions::const_assert_eq;
 
 #[derive(Debug)]
 pub(super) struct InstrOpInfo<'a> {
@@ -140,7 +139,7 @@ impl<'a> InstrOpInfo<'a> {
 	fn new(mnemonic: &'a FormatterString, instruction: &Instruction, flags: u32) -> Self {
 		let mut res = InstrOpInfo::default(mnemonic);
 
-		const_assert_eq!(IcedConstants::MAX_OP_COUNT, 5);
+		const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
 		res.mnemonic = mnemonic;
 		res.flags = flags | ((instruction.memory_size() as u32) << InstrOpInfoFlags::MEMORY_SIZE_SHIFT);
 		res.op_kinds[0] = InstrOpInfo::to_instr_op_kind(instruction.op0_kind());
@@ -227,10 +226,10 @@ pub(super) trait InstrInfo {
 
 fn get_bitness(code_size: CodeSize) -> u32 {
 	static CODESIZE_TO_BITNESS: [u32; 4] = [0, 16, 32, 64];
-	const_assert_eq!(CodeSize::Unknown as u32, 0);
-	const_assert_eq!(CodeSize::Code16 as u32, 1);
-	const_assert_eq!(CodeSize::Code32 as u32, 2);
-	const_assert_eq!(CodeSize::Code64 as u32, 3);
+	const _: () = assert!(CodeSize::Unknown as u32 == 0);
+	const _: () = assert!(CodeSize::Code16 as u32 == 1);
+	const _: () = assert!(CodeSize::Code32 as u32 == 2);
+	const _: () = assert!(CodeSize::Code64 as u32 == 3);
 	CODESIZE_TO_BITNESS[code_size as usize]
 }
 
@@ -516,7 +515,7 @@ impl InstrInfo for SimpleInstrInfo_nop {
 		} else {
 			let mut info = InstrOpInfo::default(&self.str_xchg);
 			info.op_count = 2;
-			const_assert_eq!(InstrOpKind::Register as u32, 0);
+			const _: () = assert!(InstrOpKind::Register as u32 == 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
 			//info.op_kinds[1] = InstrOpKind::Register;
 			info.op_registers[0] = self.register;
@@ -548,7 +547,7 @@ impl InstrInfo for SimpleInstrInfo_STIG1 {
 		debug_assert!(instruction.op0_kind() == OpKind::Register && instruction.op0_register() == Register::ST0);
 		if !self.pseudo_op || !(options.use_pseudo_ops() && instruction.op1_register() == Register::ST1) {
 			info.op_count = 1;
-			const_assert_eq!(InstrOpKind::Register as u32, 0);
+			const _: () = assert!(InstrOpKind::Register as u32 == 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
 			info.op_registers[0] = instruction.op1_register();
 			info.op_indexes[0] = 1;
@@ -582,7 +581,7 @@ impl InstrInfo for SimpleInstrInfo_STIG2 {
 		debug_assert!(instruction.op1_kind() == OpKind::Register && instruction.op1_register() == Register::ST0);
 		if !self.pseudo_op || !(options.use_pseudo_ops() && instruction.op0_register() == Register::ST1) {
 			info.op_count = 1;
-			const_assert_eq!(InstrOpKind::Register as u32, 0);
+			const _: () = assert!(InstrOpKind::Register as u32 == 0);
 			//info.op_kinds[0] = InstrOpKind::Register;
 			info.op_registers[0] = instruction.op0_register();
 		}
@@ -686,7 +685,7 @@ impl InstrInfo for SimpleInstrInfo_pblendvb {
 		info.op_kinds[1] = InstrOpInfo::to_instr_op_kind(instruction.op1_kind());
 		info.op_indexes[1] = 1;
 		info.op_registers[1] = instruction.op1_register();
-		const_assert_eq!(InstrOpKind::Register as u32, 0);
+		const _: () = assert!(InstrOpKind::Register as u32 == 0);
 		//info.op_kinds[2] = InstrOpKind::Register;
 		info.op_registers[2] = Register::XMM0;
 		info.set_memory_size(self.mem_size);
@@ -729,10 +728,10 @@ pub(super) struct SimpleInstrInfo_OpSize {
 
 impl SimpleInstrInfo_OpSize {
 	pub(super) fn new(code_size: CodeSize, mnemonic: String, mnemonic16: String, mnemonic32: String, mnemonic64: String) -> Self {
-		const_assert_eq!(CodeSize::Unknown as u32, 0);
-		const_assert_eq!(CodeSize::Code16 as u32, 1);
-		const_assert_eq!(CodeSize::Code32 as u32, 2);
-		const_assert_eq!(CodeSize::Code64 as u32, 3);
+		const _: () = assert!(CodeSize::Unknown as u32 == 0);
+		const _: () = assert!(CodeSize::Code16 as u32 == 1);
+		const _: () = assert!(CodeSize::Code32 as u32 == 2);
+		const _: () = assert!(CodeSize::Code64 as u32 == 3);
 		Self {
 			mnemonics: [
 				FormatterString::new(mnemonic),
@@ -763,10 +762,10 @@ pub(super) struct SimpleInstrInfo_OpSize2_bnd {
 
 impl SimpleInstrInfo_OpSize2_bnd {
 	pub(super) fn new(mnemonic: String, mnemonic16: String, mnemonic32: String, mnemonic64: String) -> Self {
-		const_assert_eq!(CodeSize::Unknown as u32, 0);
-		const_assert_eq!(CodeSize::Code16 as u32, 1);
-		const_assert_eq!(CodeSize::Code32 as u32, 2);
-		const_assert_eq!(CodeSize::Code64 as u32, 3);
+		const _: () = assert!(CodeSize::Unknown as u32 == 0);
+		const _: () = assert!(CodeSize::Code16 as u32 == 1);
+		const _: () = assert!(CodeSize::Code32 as u32 == 2);
+		const _: () = assert!(CodeSize::Code64 as u32 == 3);
 		Self {
 			mnemonics: [
 				FormatterString::new(mnemonic),

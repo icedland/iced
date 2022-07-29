@@ -3,7 +3,6 @@
 
 use crate::block_enc::iced_constants::IcedConstants;
 use crate::block_enc::iced_error::IcedError;
-use core::convert::TryFrom;
 use core::fmt;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 

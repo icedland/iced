@@ -284,11 +284,11 @@ impl OpCodeHandler_D3NOW {
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		const_assert_eq!(OpKind::Register as u32, 0);
+		const _: () = assert!(OpKind::Register as u32 == 0);
 		//instruction.set_op0_kind(OpKind::Register);
 		instruction.set_op0_register(unsafe { mem::transmute((decoder.state.reg + Register::MM0 as u32) as RegisterUnderlyingType) });
 		if decoder.state.mod_ == 3 {
-			const_assert_eq!(OpKind::Register as u32, 0);
+			const _: () = assert!(OpKind::Register as u32 == 0);
 			//instruction.set_op1_kind(OpKind::Register);
 			instruction.set_op1_register(unsafe { mem::transmute((decoder.state.rm + Register::MM0 as u32) as RegisterUnderlyingType) });
 		} else {
