@@ -24,6 +24,7 @@
 #![warn(unused_must_use)]
 #![warn(unused_qualifications)]
 #![warn(unused_results)]
+#![allow(clippy::assertions_on_constants)]
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::collapsible_else_if)]
 #![allow(clippy::collapsible_if)]
