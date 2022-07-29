@@ -100,7 +100,6 @@ use crate::iced_error::IcedError;
 use crate::instruction_internal;
 use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
-use core::convert::TryFrom;
 use core::iter::FusedIterator;
 use core::{cmp, fmt, mem, ptr};
 

@@ -7,7 +7,6 @@ use crate::iced_error::IcedError;
 use crate::info::enums::*;
 use crate::mnemonics;
 use crate::*;
-use core::convert::TryFrom;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
 use core::{fmt, mem};
 
