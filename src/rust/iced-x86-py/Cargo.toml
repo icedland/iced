@@ -9,7 +9,6 @@ name = "_iced_x86_py"
 crate-type = ["cdylib"]
 
 [dependencies]
-static_assertions = "1.1.0"
 bincode = "1.3.3"
 
 [dependencies.pyo3]

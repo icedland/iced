@@ -7,7 +7,6 @@
 use crate::lua_api::*;
 use crate::prelude::ToLua;
 use libc::{c_char, c_int, c_void, size_t};
-use static_assertions::const_assert;
 use std::convert::TryFrom;
 use std::error::Error;
 use std::marker::PhantomData;
@@ -399,7 +398,7 @@ impl<'lua> Lua<'lua> {
 			if is_num != 0 {
 				#[allow(dead_code)]
 				type ExpectedType = f64;
-				const_assert!(mem::size_of::<ExpectedType>() <= mem::size_of::<f64>());
+				const _: () = assert!(mem::size_of::<ExpectedType>() <= mem::size_of::<f64>());
 				#[allow(clippy::useless_conversion)]
 				Ok(value.into())
 			} else {
@@ -488,12 +487,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn try_get_usize(&self, idx: c_int) -> Result<usize, ConvErr> {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 4);
+			const _: () = assert!(mem::size_of::<usize>() == 4);
 			self.try_get_u32(idx).map(|v| v as usize)
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 8);
+			const _: () = assert!(mem::size_of::<usize>() == 8);
 			self.try_get_u64(idx).map(|v| v as usize)
 		}
 	}
@@ -502,12 +501,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn get_usize(&self, idx: c_int) -> usize {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 4);
+			const _: () = assert!(mem::size_of::<usize>() == 4);
 			self.get_u32(idx) as usize
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 8);
+			const _: () = assert!(mem::size_of::<usize>() == 8);
 			self.get_u64(idx) as usize
 		}
 	}
@@ -516,12 +515,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn get_usize_default(&self, idx: c_int, default: usize) -> usize {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 4);
+			const _: () = assert!(mem::size_of::<usize>() == 4);
 			self.get_u32_default(idx, default as u32) as usize
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 8);
+			const _: () = assert!(mem::size_of::<usize>() == 8);
 			self.get_u64_default(idx, default as u64) as usize
 		}
 	}
@@ -530,12 +529,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn try_get_isize(&self, idx: c_int) -> Result<isize, ConvErr> {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 4);
+			const _: () = assert!(mem::size_of::<isize>() == 4);
 			self.try_get_i32(idx).map(|v| v as isize)
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 8);
+			const _: () = assert!(mem::size_of::<isize>() == 8);
 			self.try_get_i64(idx).map(|v| v as isize)
 		}
 	}
@@ -544,12 +543,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn get_isize(&self, idx: c_int) -> isize {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 4);
+			const _: () = assert!(mem::size_of::<isize>() == 4);
 			self.get_i32(idx) as isize
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 8);
+			const _: () = assert!(mem::size_of::<isize>() == 8);
 			self.get_i64(idx) as isize
 		}
 	}
@@ -558,12 +557,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn get_isize_default(&self, idx: c_int, default: isize) -> isize {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 4);
+			const _: () = assert!(mem::size_of::<isize>() == 4);
 			self.get_i32_default(idx, default as i32) as isize
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 8);
+			const _: () = assert!(mem::size_of::<isize>() == 8);
 			self.get_i64_default(idx, default as i64) as isize
 		}
 	}
@@ -784,12 +783,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn push_isize(&self, value: isize) {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 4);
+			const _: () = assert!(mem::size_of::<isize>() == 4);
 			self.push_i32(value as i32)
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<isize>() == 8);
+			const _: () = assert!(mem::size_of::<isize>() == 8);
 			self.push_i64(value as i64)
 		}
 	}
@@ -830,12 +829,12 @@ impl<'lua> Lua<'lua> {
 	pub unsafe fn push_usize(&self, value: usize) {
 		#[cfg(target_pointer_width = "32")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 4);
+			const _: () = assert!(mem::size_of::<usize>() == 4);
 			self.push_u32(value as u32)
 		}
 		#[cfg(target_pointer_width = "64")]
 		unsafe {
-			const_assert!(mem::size_of::<usize>() == 8);
+			const _: () = assert!(mem::size_of::<usize>() == 8);
 			self.push_u64(value as u64)
 		}
 	}

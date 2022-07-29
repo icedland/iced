@@ -11,7 +11,6 @@ use pyo3::gc::PyVisit;
 use pyo3::prelude::*;
 use pyo3::types::{PyByteArray, PyBytes};
 use pyo3::PyTraverseError;
-use static_assertions::const_assert_eq;
 
 enum DecoderDataRef {
 	None,
@@ -113,7 +112,7 @@ impl Decoder {
 	#[args(options = 0, ip = 0)]
 	fn new(bitness: u32, data: &PyAny, options: u32, ip: u64) -> PyResult<Self> {
 		// #[args] line assumption
-		const_assert_eq!(iced_x86::DecoderOptions::NONE, 0);
+		const _: () = assert!(iced_x86::DecoderOptions::NONE == 0);
 
 		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
 			let slice_data = bytes.as_bytes();

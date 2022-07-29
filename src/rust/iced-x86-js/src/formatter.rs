@@ -13,7 +13,6 @@ use crate::memory_size_options::{iced_to_memory_size_options, memory_size_option
 use crate::op_access::{iced_to_op_access, OpAccess};
 #[cfg(feature = "instr_api")]
 use crate::register::{register_to_iced, Register};
-use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 // GENERATOR-BEGIN: FormatterSyntax
@@ -126,7 +125,7 @@ impl Formatter {
 	#[wasm_bindgen(js_name = "formatMnemonicOptions")]
 	pub fn format_mnemonic_options(&mut self, instruction: &Instruction, options: u32 /*flags: FormatMnemonicOptions*/) -> String {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
-		const_assert_eq!(FormatMnemonicOptions::None as u32, 0);
+		const _: () = assert!(FormatMnemonicOptions::None as u32 == 0);
 		let mut output = String::new();
 		self.formatter.format_mnemonic_options(&instruction.0, &mut output, options);
 		output

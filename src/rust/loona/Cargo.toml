@@ -19,6 +19,5 @@ extra_checks = []
 
 [dependencies]
 libc = "0.2"
-static_assertions = "1.1.0"
 
 [workspace]

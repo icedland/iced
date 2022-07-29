@@ -6,7 +6,6 @@ use crate::instruction::Instruction;
 use crate::memory_size::{iced_to_memory_size, MemorySize};
 use crate::op_access::{iced_to_op_access, OpAccess};
 use crate::register::{iced_to_register, Register};
-use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 /// A register used by an instruction
@@ -334,9 +333,9 @@ impl InstructionInfoFactory {
 	/// [`InstructionInfoOptions`]: struct.InstructionInfoOptions.html
 	#[wasm_bindgen(js_name = "infoOptions")]
 	pub fn info_options(&mut self, instruction: &Instruction, options: u32 /*flags: InstructionInfoOptions*/) -> InstructionInfo {
-		const_assert_eq!(InstructionInfoOptions::None as u32, iced_x86_rust::InstructionInfoOptions::NONE);
-		const_assert_eq!(InstructionInfoOptions::NoMemoryUsage as u32, iced_x86_rust::InstructionInfoOptions::NO_MEMORY_USAGE);
-		const_assert_eq!(InstructionInfoOptions::NoRegisterUsage as u32, iced_x86_rust::InstructionInfoOptions::NO_REGISTER_USAGE);
+		const _: () = assert!(InstructionInfoOptions::None as u32 == iced_x86_rust::InstructionInfoOptions::NONE);
+		const _: () = assert!(InstructionInfoOptions::NoMemoryUsage as u32 == iced_x86_rust::InstructionInfoOptions::NO_MEMORY_USAGE);
+		const _: () = assert!(InstructionInfoOptions::NoRegisterUsage as u32 == iced_x86_rust::InstructionInfoOptions::NO_REGISTER_USAGE);
 		InstructionInfo((*self.0.info_options(&instruction.0, options)).clone())
 	}
 }

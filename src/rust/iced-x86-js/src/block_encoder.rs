@@ -4,7 +4,6 @@
 use crate::block_encoder_options::BlockEncoderOptions;
 use crate::instruction::Instruction;
 use iced_x86_rust::InstructionBlock;
-use static_assertions::const_assert_eq;
 use wasm_bindgen::prelude::*;
 
 /// Encodes instructions. It can be used to move instructions from one location to another location.
@@ -32,7 +31,7 @@ impl BlockEncoder {
 	#[wasm_bindgen(constructor)]
 	pub fn new(bitness: u32, options: u32 /*flags: BlockEncoderOptions*/) -> Result<BlockEncoder, JsValue> {
 		// It's not part of the method sig so make sure it's still compiled by referencing it here
-		const_assert_eq!(BlockEncoderOptions::None as u32, 0);
+		const _: () = assert!(BlockEncoderOptions::None as u32 == 0);
 		if bitness != 16 && bitness != 32 && bitness != 64 {
 			Err(js_sys::Error::new("Invalid bitness").into())
 		} else {

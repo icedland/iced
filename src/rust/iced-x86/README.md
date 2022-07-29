@@ -17,7 +17,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - 👍 Supports `#![no_std]` and `WebAssembly`
 - 👍 Supports `rustc` `1.57.0` or later
-- 👍 Few dependencies (`static_assertions` and `lazy_static`)
+- 👍 Few dependencies (`lazy_static`)
 - 👍 License: MIT
 
 ## Usage

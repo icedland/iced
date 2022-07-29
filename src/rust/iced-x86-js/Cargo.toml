@@ -38,7 +38,6 @@ no_d3now = ["iced-x86-rust/no_d3now"]
 mvex = ["iced-x86-rust/mvex"]
 
 [dependencies]
-static_assertions = "1.1.0"
 wasm-bindgen = { version = "0.2.79", features = ["strict-macro"] }
 js-sys = "0.3.56"
 

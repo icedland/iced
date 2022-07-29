@@ -9,7 +9,6 @@
 #![allow(clippy::unreadable_literal)]
 
 use libc::{c_char, c_double, c_int, c_uchar, c_uint, c_ushort, c_void, ptrdiff_t, size_t};
-use static_assertions::const_assert;
 use std::{mem, ptr};
 
 // Needed to make the API method sigs identical without #[cfg]s
@@ -193,7 +192,7 @@ extern "C" {
 	pub fn lua_warning(L: lua_State, msg: *const c_char, tocont: c_int);
 }
 
-const_assert!(mem::size_of::<Option<lua_KFunction>>() == mem::size_of::<lua_KFunction>());
+const _: () = assert!(mem::size_of::<Option<lua_KFunction>>() == mem::size_of::<lua_KFunction>());
 
 #[inline]
 pub unsafe fn lua_call(L: lua_State, n: c_int, r: c_int) {
