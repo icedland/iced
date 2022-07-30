@@ -75,7 +75,7 @@ macro_rules! lua_methods {
 					let _lua_index: $crate::libc::c_int = _lua_index + 1;
 				)*
 
-				const _: [(); 0 - !($ret_vals >= 0) as usize] = []; //TODO: Rust 1.57: use const _: () = assert!($ret_vals >= 0);
+				const _: () = assert!($ret_vals >= 0);
 				if $ret_vals > $crate::lua_api::LUA_MINSTACK {
 					if !$lua.check_stack($ret_vals as $crate::libc::c_int) {
 						$lua.throw_error_msg("Couldn't grow the stack");
