@@ -1242,6 +1242,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn push_bytes(&self, s: &[u8]) {
 		unsafe {
 			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
@@ -1249,6 +1250,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn push_string(&self, s: &str) {
 		unsafe {
 			let _ = lua_pushlstring(self.state, s.as_ptr().cast(), s.len());
@@ -1294,6 +1296,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn get_table(&self, idx: c_int) {
 		unsafe {
 			let _ = lua_gettable(self.state, idx);
@@ -1301,6 +1304,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn get_field(&self, idx: c_int, k: LuaCStr<'_>) {
 		unsafe {
 			let _ = lua_getfield(self.state, idx, k.0.as_ptr().cast());
@@ -1308,6 +1312,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn raw_get(&self, idx: c_int) {
 		unsafe {
 			let _ = lua_rawget(self.state, idx);
@@ -1315,6 +1320,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn raw_get_i(&self, idx: c_int, n: lua_GetIType) {
 		unsafe {
 			let _ = lua_rawgeti(self.state, idx, n);
@@ -1323,6 +1329,7 @@ impl<'lua> Lua<'lua> {
 
 	#[inline]
 	#[cfg(any(feature = "lua5_2", feature = "lua5_3", feature = "lua5_4"))]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn raw_get_p(&self, idx: c_int, p: *const c_void) {
 		unsafe {
 			let _ = lua_rawgetp(self.state, idx, p);
@@ -1362,6 +1369,7 @@ impl<'lua> Lua<'lua> {
 
 	#[inline]
 	#[cfg(any(feature = "lua5_2", feature = "lua5_3", feature = "lua5_4"))]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn get_user_value(&self, idx: c_int) {
 		unsafe {
 			let _ = lua_getuservalue(self.state, idx);
@@ -1766,6 +1774,7 @@ impl<'lua> Lua<'lua> {
 	}
 
 	#[inline]
+	#[allow(clippy::let_unit_value)]
 	pub unsafe fn get_global(&self, s: LuaCStr<'_>) {
 		unsafe {
 			let _ = lua_getglobal(self.state, s.0.as_ptr().cast());
