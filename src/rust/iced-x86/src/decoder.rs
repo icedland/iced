@@ -3,7 +3,7 @@
 
 macro_rules! mk_read_xx {
 	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
-		use ::std::convert::TryInto;
+		use ::core::convert::TryInto;
 		const SIZE: usize = mem::size_of::<$mem_ty>();
 		const _: () = assert!(SIZE >= 1);
 		const _: () = assert!(SIZE <= Decoder::MAX_READ_SIZE);
