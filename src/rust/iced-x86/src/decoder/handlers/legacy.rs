@@ -3640,7 +3640,7 @@ impl OpCodeHandler_Reg_Ob {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		instruction.set_op0_register(this.reg);
-		decoder.displ_index = decoder.data_ptr as u8;
+		decoder.displ_index = decoder.position() as u8;
 		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
 		//instruction.set_memory_base(Register::None);
 		//instruction.set_memory_index(Register::None);
@@ -3678,7 +3678,7 @@ impl OpCodeHandler_Ob_Reg {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 		instruction.set_code(this.code);
 		instruction.set_op1_register(this.reg);
-		decoder.displ_index = decoder.data_ptr as u8;
+		decoder.displ_index = decoder.position() as u8;
 		//instruction_internal::internal_set_memory_index_scale(instruction, 0);
 		//instruction.set_memory_base(Register::None);
 		//instruction.set_memory_index(Register::None);
@@ -3713,7 +3713,7 @@ impl OpCodeHandler_Reg_Ov {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		decoder.displ_index = decoder.data_ptr as u8;
+		decoder.displ_index = decoder.position() as u8;
 		instruction.set_code(this.code[decoder.state.operand_size as usize]);
 		if decoder.state.operand_size == OpSize::Size32 {
 			instruction.set_op0_register(Register::EAX);
@@ -3756,7 +3756,7 @@ impl OpCodeHandler_Ov_Reg {
 	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
-		decoder.displ_index = decoder.data_ptr as u8;
+		decoder.displ_index = decoder.position() as u8;
 		instruction.set_code(this.code[decoder.state.operand_size as usize]);
 		if decoder.state.operand_size == OpSize::Size32 {
 			instruction.set_op1_register(Register::EAX);

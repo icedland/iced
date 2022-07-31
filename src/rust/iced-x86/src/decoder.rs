@@ -3,22 +3,23 @@
 
 macro_rules! mk_read_xx {
 	($slf:ident, $mem_ty:ty, $from_le:path, $ret_ty:ty, $err_expr:expr) => {
+		use ::std::convert::TryInto;
 		const SIZE: usize = mem::size_of::<$mem_ty>();
 		const _: () = assert!(SIZE >= 1);
 		const _: () = assert!(SIZE <= Decoder::MAX_READ_SIZE);
-		let data_ptr = $slf.data_ptr;
 		#[allow(trivial_numeric_casts)]
 		{
-			// This doesn't overflow data_ptr (verified in ctor since SIZE <= MAX_READ_SIZE)
-			if data_ptr + SIZE - 1 < $slf.max_data_ptr {
-				// SAFETY:
-				// - cast: It's OK to cast to an unaligned `*const uXX` since we call read_unaligned()
-				// - ptr::read_unaligned: ptr is readable and data (u8 slice) is initialized
-				let result = $from_le(unsafe { ptr::read_unaligned(data_ptr as *const $mem_ty) }) as $ret_ty;
-				// - data_ptr + SIZE doesn't overflow (verified in ctor since SIZE <= MAX_READ_SIZE)
-				// - data_ptr + SIZE <= self.max_data_ptr (see `if` check above)
-				$slf.data_ptr = data_ptr + SIZE;
-				result
+			// `?`ing here generates more optimal code than nested `if let ...` statements,
+			// so an inline function needs to be introduced to use this
+			// Using a let chain would require increasing MSRV to 1.64
+			fn __chain(data: &[u8], pos: usize, max_pos: usize) -> Option<$ret_ty> {
+				debug_assert!(max_pos >= pos);
+				let v = $from_le(data.get(pos..max_pos)?.get(..SIZE)?.try_into().ok()?);
+				Some(v as $ret_ty)
+			}
+			if let Some(v) = __chain($slf.data, $slf.pos, $slf.max_pos) {
+				$slf.pos += SIZE;
+				v
 			} else {
 				$err_expr
 			}
@@ -35,18 +36,18 @@ macro_rules! mk_read_xx_fn_body {
 }
 macro_rules! read_u8_break {
 	($slf:ident) => {{
-		mk_read_xx! {$slf, u8, u8::from_le, usize, break}
+		mk_read_xx! {$slf, u8, u8::from_le_bytes, usize, break}
 	}};
 }
 #[cfg(not(feature = "__internal_flip"))]
 macro_rules! read_u16_break {
 	($slf:ident) => {{
-		mk_read_xx! {$slf, u16, u16::from_le, usize, break}
+		mk_read_xx! {$slf, u16, u16::from_le_bytes, usize, break}
 	}};
 }
 macro_rules! read_u32_break {
 	($slf:ident) => {{
-		mk_read_xx! {$slf, u32, u32::from_le, usize, break}
+		mk_read_xx! {$slf, u32, u32::from_le_bytes, usize, break}
 	}};
 }
 #[cfg(not(feature = "__internal_flip"))]
@@ -564,27 +565,12 @@ where
 {
 	// Current RIP value
 	ip: u64,
-
-	// Next bytes to read if there's enough bytes left to read.
-	// This can be 1 byte past the last byte of `data`.
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
-	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	data_ptr: usize,
-	// This is `data.as_ptr() + data.len()` (1 byte past the last valid byte).
-	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
-	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	data_ptr_end: usize,
-	// Set to cmp::min(self.data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end)
-	// and is guaranteed to not overflow
-	// Initialized in decode() to at most 15 bytes after data_ptr so read_uXX() fails quickly after at most 15 read bytes
-	// (1MB prefixes won't cause it to read 1MB prefixes, it will stop after at most 15).
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
-	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
-	max_data_ptr: usize,
-	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
-	instr_start_data_ptr: usize,
-
+	// Current position within `Self::Data`
+	pos: usize,
+	// Position within `Self::data` of the start of the current instruction
+	instr_start_pos: usize,
+	// Either `Self::pos + IcedConstants::MAX_INSTRUCTION_LENGTH` or `Self::data.len()`
+	max_pos: usize,
 	handlers_map0: &'static [(OpCodeHandlerDecodeFn, &'static OpCodeHandler); 0x100],
 	// MAP0 is only used by MVEX. Don't allocate an extra array element if mvex feature is disabled (common case)
 	#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
@@ -660,6 +646,8 @@ macro_rules! write_index_reg {
 }
 
 impl<'a> Decoder<'a> {
+	// Used for compile-time assertions only
+	#[allow(dead_code)]
 	const MAX_READ_SIZE: usize = 8;
 
 	/// Creates a decoder
@@ -966,16 +954,6 @@ impl<'a> Decoder<'a> {
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
-		let data_ptr_end = data.as_ptr() as usize + data.len();
-		if data_ptr_end < data.as_ptr() as usize || {
-			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow.
-			// Both of them can equal data_ptr_end (1 byte past the last valid byte).
-			// When reading a u8/u16/u32..., we calculate data_ptr.add({1,2,4,...MAX_READ_SIZE}) so it must not overflow.
-			// In decode(), we calculate data_ptr.add(MAX_INSTRUCTION_LENGTH) so it must not overflow.
-			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data.as_ptr() as usize
-		} {
-			return Err(IcedError::new("Invalid slice"));
-		}
 
 		let tables = &*TABLES;
 
@@ -1061,10 +1039,9 @@ impl<'a> Decoder<'a> {
 
 		Ok(Decoder {
 			ip,
-			data_ptr: data.as_ptr() as usize,
-			data_ptr_end,
-			max_data_ptr: data.as_ptr() as usize,
-			instr_start_data_ptr: data.as_ptr() as usize,
+			pos: 0,
+			instr_start_pos: 0,
+			max_pos: 0,
 			handlers_map0: get_handlers(&tables.handlers_map0),
 			handlers_vex_map0,
 			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
@@ -1143,7 +1120,7 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline]
 	pub fn position(&self) -> usize {
-		self.data_ptr - self.data.as_ptr() as usize
+		self.pos
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
@@ -1193,8 +1170,8 @@ impl<'a> Decoder<'a> {
 			Err(IcedError::new("Invalid position"))
 		} else {
 			// - We verified the new offset above.
-			// - Referencing 1 byte past the last valid byte is safe as long as we don't dereference it.
-			self.data_ptr = self.data.as_ptr() as usize + new_pos;
+			// - Okay for position to be off-by-one as this is checked when reading
+			self.pos = new_pos;
 			Ok(())
 		}
 	}
@@ -1246,7 +1223,7 @@ impl<'a> Decoder<'a> {
 	#[inline]
 	#[allow(clippy::missing_const_for_fn)]
 	pub fn can_decode(&self) -> bool {
-		self.data_ptr != self.data_ptr_end
+		self.position() != self.data.len()
 	}
 
 	/// Returns an iterator that borrows this instance to decode instructions until there's
@@ -1289,25 +1266,25 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline(always)]
 	fn read_u8(&mut self) -> usize {
-		mk_read_xx_fn_body! {self, u8, u8::from_le, usize}
+		mk_read_xx_fn_body! {self, u8, u8::from_le_bytes, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u16(&mut self) -> usize {
-		mk_read_xx_fn_body! {self, u16, u16::from_le, usize}
+		mk_read_xx_fn_body! {self, u16, u16::from_le_bytes, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u32(&mut self) -> usize {
-		mk_read_xx_fn_body! {self, u32, u32::from_le, usize}
+		mk_read_xx_fn_body! {self, u32, u32::from_le_bytes, usize}
 	}
 
 	#[must_use]
 	#[inline(always)]
 	fn read_u64(&mut self) -> u64 {
-		mk_read_xx_fn_body! {self, u64, u64::from_le, u64}
+		mk_read_xx_fn_body! {self, u64, u64::from_le_bytes, u64}
 	}
 
 	/// Gets the last decoder error. Unless you need to know the reason it failed,
@@ -1453,14 +1430,13 @@ impl<'a> Decoder<'a> {
 		self.state.segment_prio = self.segment_prio;
 		self.state.dummy = self.dummy;
 
-		let data_ptr = self.data_ptr;
-		self.instr_start_data_ptr = data_ptr;
-		// The ctor has verified that the two expressions used in min() don't overflow and are >= data_ptr.
-		// The calculated usize is a valid pointer in `self.data` slice or at most 1 byte past the last valid byte.
-		self.max_data_ptr = cmp::min(data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end);
+		let pos = self.position();
+		self.instr_start_pos = pos;
+		self.max_pos = cmp::min(pos + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data.len());
 
 		let b = self.read_u8();
 		let mut handler = self.handlers_map0[b];
+
 		if ((b as u32) & self.rex_mask) == 0x40 {
 			debug_assert!(self.is64b_mode);
 			handler = self.handlers_map0[self.read_u8()];
@@ -1476,8 +1452,8 @@ impl<'a> Decoder<'a> {
 		}
 		self.decode_table2(handler, instruction);
 
-		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
-		let instr_len = self.data_ptr as u32 - data_ptr as u32;
+		debug_assert_eq!(pos, self.instr_start_pos);
+		let instr_len = self.position() as u32 - pos as u32;
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
 		instruction_internal::internal_set_len(instruction, instr_len);
 		let orig_ip = self.ip;
@@ -1512,19 +1488,19 @@ impl<'a> Decoder<'a> {
 				//instruction.set_code(Code::INVALID);
 
 				if (flags & StateFlags::NO_MORE_BYTES) != 0 {
-					debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
-					let max_len = self.data_ptr_end - data_ptr;
+					debug_assert_eq!(pos, self.instr_start_pos);
+					let max_len = self.data.len() - pos;
 					// If max-instr-len bytes is available, it's never no-more-bytes, and always invalid-instr
 					if max_len >= IcedConstants::MAX_INSTRUCTION_LENGTH {
 						flags &= !StateFlags::NO_MORE_BYTES;
 					}
-					// max_data_ptr is in self.data slice or at most 1 byte past the last valid byte
-					self.data_ptr = self.max_data_ptr;
+					// max_pos is in self.data slice or at most 1 byte past the last valid byte
+					self.set_position(self.max_pos).unwrap();
 				}
 
 				self.state.flags = flags | StateFlags::IS_INVALID;
 
-				let instr_len = self.data_ptr as u32 - data_ptr as u32;
+				let instr_len = self.position() as u32 - pos as u32;
 				instruction_internal::internal_set_len(instruction, instr_len);
 				let ip = orig_ip.wrapping_add(instr_len as u64);
 				self.ip = ip;
@@ -1556,17 +1532,17 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline]
 	fn current_ip32(&self) -> u32 {
-		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr - self.instr_start_data_ptr <= IcedConstants::MAX_INSTRUCTION_LENGTH);
-		((self.data_ptr - self.instr_start_data_ptr) as u32).wrapping_add(self.ip as u32)
+		debug_assert!(self.instr_start_pos <= self.position());
+		debug_assert!(self.position() - self.instr_start_pos <= IcedConstants::MAX_INSTRUCTION_LENGTH);
+		((self.position() - self.instr_start_pos) as u32).wrapping_add(self.ip as u32)
 	}
 
 	#[must_use]
 	#[inline]
 	fn current_ip64(&self) -> u64 {
-		debug_assert!(self.instr_start_data_ptr <= self.data_ptr);
-		debug_assert!(self.data_ptr - self.instr_start_data_ptr <= IcedConstants::MAX_INSTRUCTION_LENGTH);
-		((self.data_ptr - self.instr_start_data_ptr) as u64).wrapping_add(self.ip)
+		debug_assert!(self.instr_start_pos <= self.position());
+		debug_assert!(self.position() - self.instr_start_pos <= IcedConstants::MAX_INSTRUCTION_LENGTH);
+		((self.position() - self.instr_start_pos) as u64).wrapping_add(self.ip)
 	}
 
 	#[inline]
@@ -2053,7 +2029,7 @@ impl<'a> Decoder<'a> {
 			0 => {
 				if self.state.rm == 6 {
 					instruction_internal::internal_set_memory_displ_size(instruction, 2);
-					self.displ_index = self.data_ptr as u8;
+					self.displ_index = self.position() as u8;
 					instruction.set_memory_displacement64(self.read_u16() as u64);
 					base_reg = Register::None;
 					debug_assert_eq!(index_reg, Register::None);
@@ -2061,14 +2037,14 @@ impl<'a> Decoder<'a> {
 			}
 			1 => {
 				instruction_internal::internal_set_memory_displ_size(instruction, 1);
-				self.displ_index = self.data_ptr as u8;
+				self.displ_index = self.position() as u8;
 				let b = self.read_u8();
 				instruction.set_memory_displacement64(self.disp8n(tuple_type).wrapping_mul(b as i8 as u32) as u16 as u64);
 			}
 			_ => {
 				debug_assert_eq!(self.state.mod_, 2);
 				instruction_internal::internal_set_memory_displ_size(instruction, 2);
-				self.displ_index = self.data_ptr as u8;
+				self.displ_index = self.position() as u8;
 				instruction.set_memory_displacement64(self.read_u16() as u64);
 			}
 		}
@@ -2097,7 +2073,7 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_1(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
 			instruction_internal::internal_set_memory_displ_size(instruction, 1);
-			this.displ_index = this.data_ptr as u8;
+			this.displ_index = this.position() as u8;
 			let displ = read_u8_break!(this) as i8 as u64;
 			if this.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ);
@@ -2119,7 +2095,7 @@ impl<'a> Decoder<'a> {
 		loop {
 			instruction_internal::internal_set_memory_displ_size(instruction, 1);
 
-			this.displ_index = this.data_ptr.wrapping_add(1) as u8;
+			this.displ_index = this.position().wrapping_add(1) as u8;
 			let w = read_u16_break!(this) as u32;
 
 			const _: () = assert!(InstrScale::Scale1 as u32 == 0);
@@ -2170,7 +2146,7 @@ impl<'a> Decoder<'a> {
 	#[allow(clippy::never_loop)]
 	fn read_op_mem_0_5(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			this.displ_index = this.data_ptr as u8;
+			this.displ_index = this.position() as u8;
 			let displ = read_u32_break!(this) as i32 as u64;
 			if this.state.address_size == OpSize::Size64 {
 				debug_assert!(this.is64b_mode);
@@ -2199,7 +2175,7 @@ impl<'a> Decoder<'a> {
 	fn read_op_mem_2_4(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
 			let sib = read_u8_break!(this) as u32;
-			this.displ_index = this.data_ptr as u8;
+			this.displ_index = this.position() as u8;
 			let displ = read_u32_break!(this) as i32 as u64;
 
 			const _: () = assert!(InstrScale::Scale1 as u32 == 0);
@@ -2239,7 +2215,7 @@ impl<'a> Decoder<'a> {
 	#[allow(clippy::never_loop)]
 	fn read_op_mem_2(instruction: &mut Instruction, this: &mut Decoder<'_>) -> bool {
 		loop {
-			this.displ_index = this.data_ptr as u8;
+			this.displ_index = this.position() as u8;
 			let displ = read_u32_break!(this) as i32 as u64;
 			if this.state.address_size == OpSize::Size64 {
 				instruction.set_memory_displacement64(displ);
@@ -2276,7 +2252,7 @@ impl<'a> Decoder<'a> {
 
 			let base = sib & 7;
 			if base == 5 {
-				this.displ_index = this.data_ptr as u8;
+				this.displ_index = this.position() as u8;
 				let displ = read_u32_break!(this) as i32 as u64;
 				if this.state.address_size == OpSize::Size64 {
 					instruction.set_memory_displacement64(displ);
@@ -2343,7 +2319,7 @@ impl<'a> Decoder<'a> {
 
 		let displ_size = instruction.memory_displ_size();
 		if displ_size != 0 {
-			constant_offsets.displacement_offset = self.displ_index.wrapping_sub(self.instr_start_data_ptr as u8);
+			constant_offsets.displacement_offset = self.displ_index.wrapping_sub(self.instr_start_pos as u8);
 			if displ_size == 8 && (self.state.flags & StateFlags::ADDR64) == 0 {
 				constant_offsets.displacement_size = 4;
 			} else {
@@ -2470,7 +2446,7 @@ fn decoder_read_op_mem_vsib_1(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
 	instruction_internal::internal_set_memory_displ_size(instruction, 1);
-	this.displ_index = this.data_ptr as u8;
+	this.displ_index = this.position() as u8;
 	let b = this.read_u8();
 	if this.state.address_size == OpSize::Size64 {
 		write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + Register::RAX as u32);
@@ -2489,7 +2465,7 @@ fn decoder_read_op_mem_vsib_1_4(
 ) -> bool {
 	instruction_internal::internal_set_memory_displ_size(instruction, 1);
 
-	this.displ_index = this.data_ptr.wrapping_add(1) as u8;
+	this.displ_index = this.position().wrapping_add(1) as u8;
 	let sib = this.read_u16() as u32;
 	let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
 	if !is_vsib {
@@ -2534,7 +2510,7 @@ fn decoder_read_op_mem_vsib_0(
 fn decoder_read_op_mem_vsib_0_5(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, _index_reg: Register, _tuple_type: TupleType, _is_vsib: bool,
 ) -> bool {
-	this.displ_index = this.data_ptr as u8;
+	this.displ_index = this.position() as u8;
 	let d = this.read_u32();
 	if this.state.address_size == OpSize::Size64 {
 		debug_assert!(this.is64b_mode);
@@ -2560,7 +2536,7 @@ fn decoder_read_op_mem_vsib_2_4(
 	this: &mut Decoder<'_>, instruction: &mut Instruction, index_reg: Register, _tuple_type: TupleType, is_vsib: bool,
 ) -> bool {
 	let sib = this.read_u8() as u32;
-	this.displ_index = this.data_ptr as u8;
+	this.displ_index = this.position() as u8;
 
 	let index = ((sib >> 3) & 7) + this.state.extra_index_register_base;
 	if !is_vsib {
@@ -2598,7 +2574,7 @@ fn decoder_read_op_mem_vsib_2(
 ) -> bool {
 	let base_reg = if this.state.address_size == OpSize::Size64 { Register::RAX } else { Register::EAX };
 	write_base_reg!(instruction, this.state.extra_base_register_base + this.state.rm + base_reg as u32);
-	this.displ_index = this.data_ptr as u8;
+	this.displ_index = this.position() as u8;
 	let d = this.read_u32();
 	if this.state.address_size == OpSize::Size64 {
 		instruction.set_memory_displacement64(d as i32 as u64);
@@ -2633,7 +2609,7 @@ fn decoder_read_op_mem_vsib_0_4(
 
 	let base = sib & 7;
 	if base == 5 {
-		this.displ_index = this.data_ptr as u8;
+		this.displ_index = this.position() as u8;
 		let d = this.read_u32();
 		if this.state.address_size == OpSize::Size64 {
 			instruction.set_memory_displacement64(d as i32 as u64);
