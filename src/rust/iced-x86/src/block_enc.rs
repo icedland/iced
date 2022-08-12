@@ -219,7 +219,7 @@ impl BlockEncoder {
 				}
 			}
 		}
-		let mut prev_ip = this.benc.to_instr_index.get(0).map(|(ip, _)| *ip).unwrap_or_default();
+		let mut prev_ip = this.benc.to_instr_index.first().map(|(ip, _)| *ip).unwrap_or_default();
 		for (ip, _) in this.benc.to_instr_index.iter().skip(1) {
 			if *ip == prev_ip {
 				return Err(IcedError::with_string(format!("Multiple instructions with the same IP: 0x{:X}", ip)));

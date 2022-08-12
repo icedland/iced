@@ -4075,7 +4075,7 @@ const _: () = {
 						formatter.write_str("struct Instruction")
 					}
 					#[allow(clippy::missing_inline_in_public_items)]
-					#[allow(clippy::eval_order_dependence)]
+					#[allow(clippy::mixed_read_write_in_expression)]
 					fn visit_seq<A>(self, mut seq: A) -> Result<Self::Value, A::Error>
 					where
 						A: de::SeqAccess<'de>,
@@ -4109,7 +4109,7 @@ const _: () = {
 						Ok(instruction)
 					}
 					#[allow(clippy::missing_inline_in_public_items)]
-					#[allow(clippy::eval_order_dependence)]
+					#[allow(clippy::mixed_read_write_in_expression)]
 					fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
 					where
 						A: de::MapAccess<'de>,
@@ -4261,7 +4261,7 @@ const _: () = {
 						formatter.write_str("struct Instruction")
 					}
 					#[allow(clippy::missing_inline_in_public_items)]
-					#[allow(clippy::eval_order_dependence)]
+					#[allow(clippy::mixed_read_write_in_expression)]
 					fn visit_seq<A>(self, mut seq: A) -> Result<Self::Value, A::Error>
 					where
 						A: de::SeqAccess<'de>,
@@ -4320,7 +4320,7 @@ const _: () = {
 						Ok(instruction)
 					}
 					#[allow(clippy::missing_inline_in_public_items)]
-					#[allow(clippy::eval_order_dependence)]
+					#[allow(clippy::mixed_read_write_in_expression)]
 					fn visit_map<A>(self, mut map: A) -> Result<Self::Value, A::Error>
 					where
 						A: de::MapAccess<'de>,

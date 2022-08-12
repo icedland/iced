@@ -552,16 +552,16 @@ impl OpCodeHandler_MandatoryPrefix3 {
 		debug_assert!(!is_null_instance_handler(handlerf2_reg.1));
 		debug_assert!(!is_null_instance_handler(handlerf2_mem.1));
 		let handlers_reg = [
-			(handler_reg.0, &*handler_reg.1, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
-			(handler66_reg.0, &*handler66_reg.1, (flags & LegacyHandlerFlags::HANDLER_66_REG) == 0),
-			(handlerf3_reg.0, &*handlerf3_reg.1, (flags & LegacyHandlerFlags::HANDLER_F3_REG) == 0),
-			(handlerf2_reg.0, &*handlerf2_reg.1, (flags & LegacyHandlerFlags::HANDLER_F2_REG) == 0),
+			(handler_reg.0, handler_reg.1, (flags & LegacyHandlerFlags::HANDLER_REG) == 0),
+			(handler66_reg.0, handler66_reg.1, (flags & LegacyHandlerFlags::HANDLER_66_REG) == 0),
+			(handlerf3_reg.0, handlerf3_reg.1, (flags & LegacyHandlerFlags::HANDLER_F3_REG) == 0),
+			(handlerf2_reg.0, handlerf2_reg.1, (flags & LegacyHandlerFlags::HANDLER_F2_REG) == 0),
 		];
 		let handlers_mem = [
-			(handler_mem.0, &*handler_mem.1, (flags & LegacyHandlerFlags::HANDLER_MEM) == 0),
-			(handler66_mem.0, &*handler66_mem.1, (flags & LegacyHandlerFlags::HANDLER_66_MEM) == 0),
-			(handlerf3_mem.0, &*handlerf3_mem.1, (flags & LegacyHandlerFlags::HANDLER_F3_MEM) == 0),
-			(handlerf2_mem.0, &*handlerf2_mem.1, (flags & LegacyHandlerFlags::HANDLER_F2_MEM) == 0),
+			(handler_mem.0, handler_mem.1, (flags & LegacyHandlerFlags::HANDLER_MEM) == 0),
+			(handler66_mem.0, handler66_mem.1, (flags & LegacyHandlerFlags::HANDLER_66_MEM) == 0),
+			(handlerf3_mem.0, handlerf3_mem.1, (flags & LegacyHandlerFlags::HANDLER_F3_MEM) == 0),
+			(handlerf2_mem.0, handlerf2_mem.1, (flags & LegacyHandlerFlags::HANDLER_F2_MEM) == 0),
 		];
 		debug_assert!(handlers_reg[0].1.has_modrm);
 		debug_assert!(handlers_reg[1].1.has_modrm);
