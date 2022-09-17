@@ -52,7 +52,7 @@ wasm-opt = ["-O4"]
 Prerequisites:
 
 - Same as building it, see above👆
-- `Node.js` >= 14
+- `Node.js` == latest
 
 This tests the JS API. The tests in `../iced-x86` test everything else.
 
