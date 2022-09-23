@@ -4011,6 +4011,7 @@ const _: () = {
 			if is_human_readable(deserializer.is_human_readable()) {
 				#[allow(non_camel_case_types)]
 				#[derive(Copy, Clone)]
+				#[allow(dead_code)]
 				enum StructField {
 					next_rip,
 					mem_displ,
@@ -4185,6 +4186,7 @@ const _: () = {
 			} else {
 				#[allow(non_camel_case_types)]
 				#[derive(Copy, Clone)]
+				#[allow(dead_code)]
 				enum StructField {
 					next_rip,
 					mem_displ,

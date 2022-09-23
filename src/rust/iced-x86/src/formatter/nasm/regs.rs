@@ -15,7 +15,7 @@ use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(super) static ref ALL_REGISTERS: Box<[FormatterString; IcedConstants::REGISTER_ENUM_COUNT]> = {
-		let mut v: Vec<_> = (&*REGS_TBL).to_vec();
+		let mut v: Vec<_> = (*REGS_TBL).to_vec();
 		debug_assert_eq!(v.len(), IcedConstants::REGISTER_ENUM_COUNT);
 		let mut s = String::with_capacity(MAX_STRING_LENGTH);
 		for i in 0..8usize {

@@ -62,11 +62,6 @@ impl<'a> SectionFileReader<'a> {
 	}
 
 	fn get_section(&self, section_name: &str) -> Option<&(&'a str, u32)> {
-		for info in self.infos {
-			if info.0 == section_name {
-				return Some(info);
-			}
-		}
-		None
+		self.infos.iter().find(|&info| info.0 == section_name)
 	}
 }

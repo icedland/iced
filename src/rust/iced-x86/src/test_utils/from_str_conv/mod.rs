@@ -224,7 +224,7 @@ pub(crate) fn is_ignored_code(value: &str) -> bool {
 
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info", feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn code_names() -> Vec<&'static str> {
-	let mut v: Vec<_> = (&*TO_CODE_HASH).iter().collect();
+	let mut v: Vec<_> = (*TO_CODE_HASH).iter().collect();
 	v.sort_unstable_by_key(|kv| *kv.1 as u32);
 	v.into_iter().map(|kv| *kv.0).collect()
 }
