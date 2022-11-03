@@ -129,11 +129,11 @@ impl NasmFormatter {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_nasm(),
-				all_registers: &*ALL_REGISTERS,
-				instr_infos: &*ALL_INFOS,
-				all_memory_sizes: &*MEM_SIZE_TBL,
-				str_: &*FORMATTER_CONSTANTS,
-				vec_: &*ARRAY_CONSTS,
+				all_registers: &ALL_REGISTERS,
+				instr_infos: &ALL_INFOS,
+				all_memory_sizes: &MEM_SIZE_TBL,
+				str_: &FORMATTER_CONSTANTS,
+				vec_: &ARRAY_CONSTS,
 			},
 			number_formatter: NumberFormatter::new(),
 			symbol_resolver,

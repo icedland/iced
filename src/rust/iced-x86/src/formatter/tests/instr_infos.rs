@@ -43,16 +43,16 @@ lazy_static! {
 pub(super) fn get_infos(bitness: u32, is_misc: bool) -> &'static (Vec<InstructionInfo>, HashSet<u32>) {
 	if is_misc {
 		match bitness {
-			16 => &*INFOS_MISC_16,
-			32 => &*INFOS_MISC_32,
-			64 => &*INFOS_MISC_64,
+			16 => &INFOS_MISC_16,
+			32 => &INFOS_MISC_32,
+			64 => &INFOS_MISC_64,
 			_ => unreachable!(),
 		}
 	} else {
 		match bitness {
-			16 => &*INFOS_16,
-			32 => &*INFOS_32,
-			64 => &*INFOS_64,
+			16 => &INFOS_16,
+			32 => &INFOS_32,
+			64 => &INFOS_64,
 			_ => unreachable!(),
 		}
 	}

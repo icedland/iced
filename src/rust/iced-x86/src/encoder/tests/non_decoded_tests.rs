@@ -22,9 +22,9 @@ pub(crate) fn get_tests() -> Vec<(u32, &'static str, Instruction)> {
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub(crate) fn get_infos(bitness: u32) -> &'static Vec<(&'static str, Instruction)> {
 	match bitness {
-		16 => &*INFOS16,
-		32 => &*INFOS32,
-		64 => &*INFOS64,
+		16 => &INFOS16,
+		32 => &INFOS32,
+		64 => &INFOS64,
 		_ => unreachable!(),
 	}
 }

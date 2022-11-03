@@ -503,11 +503,7 @@ impl OpCodeInfo {
 	#[must_use]
 	#[inline]
 	pub const fn w(&self) -> u32 {
-		if (self.flags & Flags::W) != 0 {
-			1
-		} else {
-			0
-		}
+		((self.flags & Flags::W) != 0) as u32
 	}
 
 	/// (VEX/XOP/EVEX) `true` if the `L` / `L'L` fields are ignored.

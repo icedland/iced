@@ -13,7 +13,7 @@ use lazy_static::lazy_static;
 
 lazy_static! {
 	pub(super) static ref ALL_REGISTERS: Box<[FormatterString; IcedConstants::REGISTER_ENUM_COUNT]> = {
-		let regs_tbl: &[FormatterString; IcedConstants::REGISTER_ENUM_COUNT] = &*REGS_TBL;
+		let regs_tbl: &[FormatterString; IcedConstants::REGISTER_ENUM_COUNT] = &REGS_TBL;
 		let mut v = Vec::with_capacity(IcedConstants::REGISTER_ENUM_COUNT);
 		let mut s = String::with_capacity(MAX_STRING_LENGTH + 1);
 		for reg in regs_tbl.iter() {

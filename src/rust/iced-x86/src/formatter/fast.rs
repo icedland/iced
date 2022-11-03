@@ -772,10 +772,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			Ok(Self {
 				d: SelfData {
 					options: FastFormatterOptions::new(),
-					all_registers: &*REGS_TBL,
+					all_registers: &REGS_TBL,
 					code_mnemonics: &FMT_DATA.mnemonics,
 					code_flags: &FMT_DATA.flags,
-					all_memory_sizes: &*MEM_SIZE_TBL,
+					all_memory_sizes: &MEM_SIZE_TBL,
 				},
 				symbol_resolver,
 				_required_by_rustc: PhantomData,

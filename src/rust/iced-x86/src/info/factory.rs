@@ -2686,7 +2686,7 @@ impl InstructionInfoFactory {
 		if (flags & Flags::NO_REGISTER_USAGE) == 0 {
 			const N: usize = 1;
 			let op_count = instruction.op_count();
-			let imm_count = if instruction.op_kind(op_count - 1) == OpKind::Immediate8 { 1 } else { 0 };
+			let imm_count = (instruction.op_kind(op_count - 1) == OpKind::Immediate8) as u32;
 			let op_index = instruction.op_count() - N as u32 - imm_count;
 			if instruction.op_kind(op_index) == OpKind::Register {
 				debug_assert!(info.used_registers.len() >= N);

@@ -32,27 +32,27 @@ fn read_decoder_mem_test_cases(bitness: u32) -> Vec<DecoderMemoryTestCase> {
 
 pub(crate) fn get_test_cases(bitness: u32) -> &'static Vec<DecoderTestCase> {
 	match bitness {
-		16 => &*TEST_CASES_16,
-		32 => &*TEST_CASES_32,
-		64 => &*TEST_CASES_64,
+		16 => &TEST_CASES_16,
+		32 => &TEST_CASES_32,
+		64 => &TEST_CASES_64,
 		_ => unreachable!(),
 	}
 }
 
 pub(crate) fn get_misc_test_cases(bitness: u32) -> &'static Vec<DecoderTestCase> {
 	match bitness {
-		16 => &*MISC_TEST_CASES_16,
-		32 => &*MISC_TEST_CASES_32,
-		64 => &*MISC_TEST_CASES_64,
+		16 => &MISC_TEST_CASES_16,
+		32 => &MISC_TEST_CASES_32,
+		64 => &MISC_TEST_CASES_64,
 		_ => unreachable!(),
 	}
 }
 
 pub(crate) fn get_mem_test_cases(bitness: u32) -> &'static Vec<DecoderMemoryTestCase> {
 	match bitness {
-		16 => &*TEST_CASES_MEM_16,
-		32 => &*TEST_CASES_MEM_32,
-		64 => &*TEST_CASES_MEM_64,
+		16 => &TEST_CASES_MEM_16,
+		32 => &TEST_CASES_MEM_32,
+		64 => &TEST_CASES_MEM_64,
 		_ => unreachable!(),
 	}
 }

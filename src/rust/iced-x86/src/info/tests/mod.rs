@@ -49,9 +49,9 @@ fn read_instr_info_test_cases(bitness: u32) -> Vec<InstrInfoTestCase> {
 
 fn get_instr_info_test_cases(bitness: u32) -> &'static Vec<InstrInfoTestCase> {
 	match bitness {
-		16 => &*INSTR_INFO_16,
-		32 => &*INSTR_INFO_32,
-		64 => &*INSTR_INFO_64,
+		16 => &INSTR_INFO_16,
+		32 => &INSTR_INFO_32,
+		64 => &INSTR_INFO_64,
 		_ => unreachable!(),
 	}
 }
@@ -317,11 +317,11 @@ fn get_used_registers<'a, T: Iterator<Item = &'a UsedRegister>>(iter: T) -> Vec<
 	h.extend(get_registers(cond_write).into_iter().map(|reg| UsedRegister { register: reg, access: OpAccess::CondWrite }));
 	let mut vec: Vec<_> = h.into_iter().collect();
 	vec.sort_by(|x, y| {
-		let c = (*x).register.cmp(&(*y).register);
+		let c = x.register.cmp(&y.register);
 		if c != Ordering::Equal {
 			c
 		} else {
-			(*x).access.cmp(&(*y).access)
+			x.access.cmp(&y.access)
 		}
 	});
 	vec
@@ -619,13 +619,13 @@ fn verify_negate_condition_code() {
 	let data = &*MISC_TESTS_DATA;
 
 	let mut to_negated_code_value: HashMap<Code, Code> = HashMap::new();
-	to_negated_code_value.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).1)));
-	to_negated_code_value.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).1)));
+	to_negated_code_value.extend(data.jcc_short_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.jcc_near_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.setcc_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.cmovcc_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.loopcc_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.jkcc_short_infos.iter().map(|a| (a.0, a.1)));
+	to_negated_code_value.extend(data.jkcc_near_infos.iter().map(|a| (a.0, a.1)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -644,9 +644,9 @@ fn verify_to_short_branch() {
 	let data = &*MISC_TESTS_DATA;
 
 	let mut as_short_branch: HashMap<Code, Code> = HashMap::new();
-	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
-	as_short_branch.extend(data.jmp_infos.iter().map(|a| ((*a).1, (*a).0)));
-	as_short_branch.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).2)));
+	as_short_branch.extend(data.jcc_near_infos.iter().map(|a| (a.0, a.2)));
+	as_short_branch.extend(data.jmp_infos.iter().map(|a| (a.1, a.0)));
+	as_short_branch.extend(data.jkcc_near_infos.iter().map(|a| (a.0, a.2)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -665,9 +665,9 @@ fn verify_to_near_branch() {
 	let data = &*MISC_TESTS_DATA;
 
 	let mut as_near_branch: HashMap<Code, Code> = HashMap::new();
-	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
-	as_near_branch.extend(data.jmp_infos.iter().map(|a| ((*a).0, (*a).1)));
-	as_near_branch.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).2)));
+	as_near_branch.extend(data.jcc_short_infos.iter().map(|a| (a.0, a.2)));
+	as_near_branch.extend(data.jmp_infos.iter().map(|a| (a.0, a.1)));
+	as_near_branch.extend(data.jkcc_short_infos.iter().map(|a| (a.0, a.2)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();
@@ -686,13 +686,13 @@ fn verify_condition_code() {
 	let data = &*MISC_TESTS_DATA;
 
 	let mut to_condition_code: HashMap<Code, ConditionCode> = HashMap::new();
-	to_condition_code.extend(data.jcc_short_infos.iter().map(|a| ((*a).0, (*a).3)));
-	to_condition_code.extend(data.jcc_near_infos.iter().map(|a| ((*a).0, (*a).3)));
-	to_condition_code.extend(data.setcc_infos.iter().map(|a| ((*a).0, (*a).2)));
-	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| ((*a).0, (*a).2)));
-	to_condition_code.extend(data.loopcc_infos.iter().map(|a| ((*a).0, (*a).2)));
-	to_condition_code.extend(data.jkcc_short_infos.iter().map(|a| ((*a).0, (*a).3)));
-	to_condition_code.extend(data.jkcc_near_infos.iter().map(|a| ((*a).0, (*a).3)));
+	to_condition_code.extend(data.jcc_short_infos.iter().map(|a| (a.0, a.3)));
+	to_condition_code.extend(data.jcc_near_infos.iter().map(|a| (a.0, a.3)));
+	to_condition_code.extend(data.setcc_infos.iter().map(|a| (a.0, a.2)));
+	to_condition_code.extend(data.cmovcc_infos.iter().map(|a| (a.0, a.2)));
+	to_condition_code.extend(data.loopcc_infos.iter().map(|a| (a.0, a.2)));
+	to_condition_code.extend(data.jkcc_short_infos.iter().map(|a| (a.0, a.3)));
+	to_condition_code.extend(data.jkcc_near_infos.iter().map(|a| (a.0, a.3)));
 
 	for code in Code::values() {
 		let mut instr = Instruction::default();

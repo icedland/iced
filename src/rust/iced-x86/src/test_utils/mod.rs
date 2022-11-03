@@ -18,7 +18,7 @@ fn get_unit_tests_base_dir() -> PathBuf {
 	for _ in 0..5 {
 		let _ = path.pop();
 	}
-	path.extend(&["UnitTests", "Intel"]);
+	path.extend(["UnitTests", "Intel"]);
 	path
 }
 

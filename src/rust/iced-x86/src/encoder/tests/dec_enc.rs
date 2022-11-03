@@ -1416,7 +1416,7 @@ fn verify_vsib_with_invalid_index_mask_dest_register_vex() {
 				for i in 0..16 {
 					let reg_num: u32 = if info.bitness() == 64 { i } else { i & 7 };
 					// Use a small number (0-7) in case it's vex2 and 'other' is vidx (uses VEX.X bit)
-					let other = if reg_num == 0 { 1 } else { 0 };
+					let other = (reg_num == 0) as u32;
 					let new_reg;
 					let new_vvvv;
 					let new_vidx;

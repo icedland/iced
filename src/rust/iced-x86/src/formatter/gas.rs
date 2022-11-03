@@ -132,12 +132,12 @@ impl GasFormatter {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_gas(),
-				all_registers: &*ALL_REGISTERS,
-				all_registers_naked: &*REGS_TBL,
-				instr_infos: &*ALL_INFOS,
-				all_memory_sizes: &*MEM_SIZE_TBL,
-				str_: &*FORMATTER_CONSTANTS,
-				vec_: &*ARRAY_CONSTS,
+				all_registers: &ALL_REGISTERS,
+				all_registers_naked: &REGS_TBL,
+				instr_infos: &ALL_INFOS,
+				all_memory_sizes: &MEM_SIZE_TBL,
+				str_: &FORMATTER_CONSTANTS,
+				vec_: &ARRAY_CONSTS,
 			},
 			number_formatter: NumberFormatter::new(),
 			symbol_resolver,
@@ -433,11 +433,7 @@ impl GasFormatter {
 			if IcedConstants::is_mvex(instruction.code()) {
 				let op_count = instruction.op_count();
 				debug_assert_ne!(op_count, 0);
-				if instruction.op_kind(op_count.wrapping_sub(1)) == OpKind::Immediate8 && op_info.op_count as u32 == op_count {
-					1
-				} else {
-					0
-				}
+				(instruction.op_kind(op_count.wrapping_sub(1)) == OpKind::Immediate8 && op_info.op_count as u32 == op_count) as u32
 			} else {
 				u32::MAX
 			}

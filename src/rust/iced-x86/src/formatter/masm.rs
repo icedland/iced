@@ -127,11 +127,11 @@ impl MasmFormatter {
 		Self {
 			d: SelfData {
 				options: FormatterOptions::with_masm(),
-				all_registers: &*REGS_TBL,
-				instr_infos: &*ALL_INFOS,
-				all_memory_sizes: &*MEM_SIZE_TBL,
-				str_: &*FORMATTER_CONSTANTS,
-				vec_: &*ARRAY_CONSTS,
+				all_registers: &REGS_TBL,
+				instr_infos: &ALL_INFOS,
+				all_memory_sizes: &MEM_SIZE_TBL,
+				str_: &FORMATTER_CONSTANTS,
+				vec_: &ARRAY_CONSTS,
 			},
 			number_formatter: NumberFormatter::new(),
 			symbol_resolver,

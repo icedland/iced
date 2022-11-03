@@ -101,23 +101,23 @@ fn read_code_values(name: &str) -> HashSet<Code> {
 }
 
 pub(crate) fn not_decoded() -> &'static HashSet<Code> {
-	&*NOT_DECODED
+	&NOT_DECODED
 }
 
 pub(crate) fn not_decoded32_only() -> &'static HashSet<Code> {
-	&*NOT_DECODED32_ONLY
+	&NOT_DECODED32_ONLY
 }
 
 pub(crate) fn not_decoded64_only() -> &'static HashSet<Code> {
-	&*NOT_DECODED64_ONLY
+	&NOT_DECODED64_ONLY
 }
 
 pub(crate) fn code32_only() -> &'static HashSet<Code> {
-	&*CODE32_ONLY
+	&CODE32_ONLY
 }
 
 pub(crate) fn code64_only() -> &'static HashSet<Code> {
-	&*CODE64_ONLY
+	&CODE64_ONLY
 }
 
 #[cfg(feature = "encoder")]
