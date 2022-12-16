@@ -294,13 +294,7 @@ impl AsmMemoryOperand {
 			index: self.index,
 			scale: self.scale as u32,
 			displacement: self.displ,
-			displ_size: if self.is_displacement_only() {
-				bitness / 8
-			} else if self.displ == 0 {
-				0
-			} else {
-				1
-			},
+			displ_size: if self.is_displacement_only() { bitness / 8 } else { (self.displ != 0) as u32 },
 			is_broadcast: self.is_broadcast(),
 		}
 	}

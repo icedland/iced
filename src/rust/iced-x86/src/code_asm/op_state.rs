@@ -122,7 +122,7 @@ impl CodeAsmOpState {
 	#[allow(trivial_numeric_casts)]
 	pub fn size(&self) -> MemoryOperandSize {
 		// SAFETY: we only store valid variants
-		unsafe { mem::transmute(((self.flags1 >> CodeAsmOpStateFlags1::SIZE_SHIFT) & CodeAsmOpStateFlags1::SIZE_MASK) as u8) }
+		unsafe { mem::transmute((self.flags1 >> CodeAsmOpStateFlags1::SIZE_SHIFT) & CodeAsmOpStateFlags1::SIZE_MASK) }
 	}
 
 	#[inline]
