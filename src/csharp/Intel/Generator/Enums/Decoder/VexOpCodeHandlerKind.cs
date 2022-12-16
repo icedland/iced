@@ -82,5 +82,6 @@ namespace Generator.Enums.Decoder {
 		Ev,
 		K_Jb,
 		K_Jz,
+		Ev_Gv_Gv,
 	}
 }

@@ -103,6 +103,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toNegatedCodeValue.Add(info.setcc, info.negated);
 			foreach (var info in MiscTestsData.CmovccInfos)
 				toNegatedCodeValue.Add(info.cmovcc, info.negated);
+			foreach (var info in MiscTestsData.CmpccxaddInfos)
+				toNegatedCodeValue.Add(info.cmpccxadd, info.negated);
 			foreach (var info in MiscTestsData.LoopccInfos)
 				toNegatedCodeValue.Add(info.loopcc, info.negated);
 			foreach (var info in MiscTestsData.JkccShortInfos)
@@ -183,6 +185,8 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				toConditionCode.Add(info.setcc, info.cc);
 			foreach (var info in MiscTestsData.CmovccInfos)
 				toConditionCode.Add(info.cmovcc, info.cc);
+			foreach (var info in MiscTestsData.CmpccxaddInfos)
+				toConditionCode.Add(info.cmpccxadd, info.cc);
 			foreach (var info in MiscTestsData.LoopccInfos)
 				toConditionCode.Add(info.loopcc, info.cc);
 			foreach (var info in MiscTestsData.JkccShortInfos)

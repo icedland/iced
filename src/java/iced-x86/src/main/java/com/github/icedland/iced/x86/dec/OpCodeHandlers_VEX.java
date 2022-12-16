@@ -1158,6 +1158,38 @@ final class OpCodeHandler_VEX_Gv_Ev_Gv extends OpCodeHandlerModRM {
 	}
 }
 
+final class OpCodeHandler_VEX_Ev_Gv_Gv extends OpCodeHandlerModRM {
+	private final int code32;
+	private final int code64;
+
+	OpCodeHandler_VEX_Ev_Gv_Gv(int code32, int code64) {
+		this.code32 = code32;
+		this.code64 = code64;
+	}
+
+	@Override
+	void decode(Decoder decoder, Instruction instruction) {
+		int gpr;
+		if ((decoder.state_zs_flags & decoder.is64bMode_and_W) != 0) {
+			instruction.setCode(code64);
+			gpr = Register.RAX;
+		}
+		else {
+			instruction.setCode(code32);
+			gpr = Register.EAX;
+		}
+		instruction.setOp1Register((decoder.state_reg + decoder.state_zs_extraRegisterBase) + gpr);
+		instruction.setOp2Register(decoder.state_vvvv + gpr);
+		if (decoder.state_mod == 3) {
+			instruction.setOp0Register((decoder.state_rm + decoder.state_zs_extraBaseRegisterBase) + gpr);
+		}
+		else {
+			instruction.setOp0Kind(OpKind.MEMORY);
+			decoder.readOpMem(instruction);
+		}
+	}
+}
+
 final class OpCodeHandler_VEX_Hv_Ev extends OpCodeHandlerModRM {
 	private final int code32;
 	private final int code64;

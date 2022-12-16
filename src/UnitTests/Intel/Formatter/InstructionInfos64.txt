@@ -13015,3 +13015,98 @@ F3 0FA6 E0, Xsha512_64
 F3 0FA7 F8, Xstore_alt_64
 67 F3 0FA6 D8, Xsha512_alt_32
 F3 0FA6 D8, Xsha512_alt_64
+0F01 C6, Wrmsrns
+F3 0F 01 C6, Wrmsrlist
+F2 0F 01 C6, Rdmsrlist
+F3 0F 01 FD, Rmpquery
+0F18 30, Prefetchit1_m8
+0F18 38, Prefetchit0_m8
+0F38 FC 18, Aadd_m32_r32
+48 0F38 FC 18, Aadd_m64_r64
+66 0F38 FC 18, Aand_m32_r32
+66 48 0F38 FC 18, Aand_m64_r64
+F3 0F38 FC 18, Axor_m32_r32
+F3 48 0F38 FC 18, Axor_m64_r64
+F2 0F38 FC 18, Aor_m32_r32
+F2 48 0F38 FC 18, Aor_m64_r64
+C4E248 50 10, VEX_Vpdpbuud_xmm_xmm_xmmm128
+C4E248 50 D3, VEX_Vpdpbuud_xmm_xmm_xmmm128
+C4E24C 50 10, VEX_Vpdpbuud_ymm_ymm_ymmm256
+C4E24C 50 D3, VEX_Vpdpbuud_ymm_ymm_ymmm256
+C4E24A 50 10, VEX_Vpdpbsud_xmm_xmm_xmmm128
+C4E24A 50 D3, VEX_Vpdpbsud_xmm_xmm_xmmm128
+C4E24E 50 10, VEX_Vpdpbsud_ymm_ymm_ymmm256
+C4E24E 50 D3, VEX_Vpdpbsud_ymm_ymm_ymmm256
+C4E24B 50 10, VEX_Vpdpbssd_xmm_xmm_xmmm128
+C4E24B 50 D3, VEX_Vpdpbssd_xmm_xmm_xmmm128
+C4E24F 50 10, VEX_Vpdpbssd_ymm_ymm_ymmm256
+C4E24F 50 D3, VEX_Vpdpbssd_ymm_ymm_ymmm256
+C4E248 51 10, VEX_Vpdpbuuds_xmm_xmm_xmmm128
+C4E248 51 D3, VEX_Vpdpbuuds_xmm_xmm_xmmm128
+C4E24C 51 10, VEX_Vpdpbuuds_ymm_ymm_ymmm256
+C4E24C 51 D3, VEX_Vpdpbuuds_ymm_ymm_ymmm256
+C4E24A 51 10, VEX_Vpdpbsuds_xmm_xmm_xmmm128
+C4E24A 51 D3, VEX_Vpdpbsuds_xmm_xmm_xmmm128
+C4E24E 51 10, VEX_Vpdpbsuds_ymm_ymm_ymmm256
+C4E24E 51 D3, VEX_Vpdpbsuds_ymm_ymm_ymmm256
+C4E24B 51 10, VEX_Vpdpbssds_xmm_xmm_xmmm128
+C4E24B 51 D3, VEX_Vpdpbssds_xmm_xmm_xmmm128
+C4E24F 51 10, VEX_Vpdpbssds_ymm_ymm_ymmm256
+C4E24F 51 D3, VEX_Vpdpbssds_ymm_ymm_ymmm256
+C4E25B 5C D3, VEX_Tdpfp16ps_tmm_tmm_tmm
+C4E27A 72 10, VEX_Vcvtneps2bf16_xmm_xmmm128
+C4E27A 72 CD, VEX_Vcvtneps2bf16_xmm_xmmm128
+C4E27E 72 10, VEX_Vcvtneps2bf16_xmm_ymmm256
+C4E27E 72 CD, VEX_Vcvtneps2bf16_xmm_ymmm256
+C4E278 B0 10, VEX_Vcvtneoph2ps_xmm_m128
+C4E27C B0 10, VEX_Vcvtneoph2ps_ymm_m256
+C4E279 B0 10, VEX_Vcvtneeph2ps_xmm_m128
+C4E27D B0 10, VEX_Vcvtneeph2ps_ymm_m256
+C4E27A B0 10, VEX_Vcvtneebf162ps_xmm_m128
+C4E27E B0 10, VEX_Vcvtneebf162ps_ymm_m256
+C4E27B B0 10, VEX_Vcvtneobf162ps_xmm_m128
+C4E27F B0 10, VEX_Vcvtneobf162ps_ymm_m256
+C4E279 B1 10, VEX_Vbcstnesh2ps_xmm_m16
+C4E27D B1 10, VEX_Vbcstnesh2ps_ymm_m16
+C4E27A B1 10, VEX_Vbcstnebf162ps_xmm_m16
+C4E27E B1 10, VEX_Vbcstnebf162ps_ymm_m16
+C4E2C9 B4 10, VEX_Vpmadd52luq_xmm_xmm_xmmm128
+C4E2C9 B4 D3, VEX_Vpmadd52luq_xmm_xmm_xmmm128
+C4E2CD B4 10, VEX_Vpmadd52luq_ymm_ymm_ymmm256
+C4E2CD B4 D3, VEX_Vpmadd52luq_ymm_ymm_ymmm256
+C4E2C9 B5 10, VEX_Vpmadd52huq_xmm_xmm_xmmm128
+C4E2C9 B5 D3, VEX_Vpmadd52huq_xmm_xmm_xmmm128
+C4E2CD B5 10, VEX_Vpmadd52huq_ymm_ymm_ymmm256
+C4E2CD B5 D3, VEX_Vpmadd52huq_ymm_ymm_ymmm256
+C4E249 E0 10, VEX_Cmpoxadd_m32_r32_r32
+C4E2C9 E0 10, VEX_Cmpoxadd_m64_r64_r64
+C4E249 E1 10, VEX_Cmpnoxadd_m32_r32_r32
+C4E2C9 E1 10, VEX_Cmpnoxadd_m64_r64_r64
+C4E249 E2 10, VEX_Cmpbxadd_m32_r32_r32
+C4E2C9 E2 10, VEX_Cmpbxadd_m64_r64_r64
+C4E249 E3 10, VEX_Cmpnbxadd_m32_r32_r32
+C4E2C9 E3 10, VEX_Cmpnbxadd_m64_r64_r64
+C4E249 E4 10, VEX_Cmpzxadd_m32_r32_r32
+C4E2C9 E4 10, VEX_Cmpzxadd_m64_r64_r64
+C4E249 E5 10, VEX_Cmpnzxadd_m32_r32_r32
+C4E2C9 E5 10, VEX_Cmpnzxadd_m64_r64_r64
+C4E249 E6 10, VEX_Cmpbexadd_m32_r32_r32
+C4E2C9 E6 10, VEX_Cmpbexadd_m64_r64_r64
+C4E249 E7 10, VEX_Cmpnbexadd_m32_r32_r32
+C4E2C9 E7 10, VEX_Cmpnbexadd_m64_r64_r64
+C4E249 E8 10, VEX_Cmpsxadd_m32_r32_r32
+C4E2C9 E8 10, VEX_Cmpsxadd_m64_r64_r64
+C4E249 E9 10, VEX_Cmpnsxadd_m32_r32_r32
+C4E2C9 E9 10, VEX_Cmpnsxadd_m64_r64_r64
+C4E249 EA 10, VEX_Cmppxadd_m32_r32_r32
+C4E2C9 EA 10, VEX_Cmppxadd_m64_r64_r64
+C4E249 EB 10, VEX_Cmpnpxadd_m32_r32_r32
+C4E2C9 EB 10, VEX_Cmpnpxadd_m64_r64_r64
+C4E249 EC 10, VEX_Cmplxadd_m32_r32_r32
+C4E2C9 EC 10, VEX_Cmplxadd_m64_r64_r64
+C4E249 ED 10, VEX_Cmpnlxadd_m32_r32_r32
+C4E2C9 ED 10, VEX_Cmpnlxadd_m64_r64_r64
+C4E249 EE 10, VEX_Cmplexadd_m32_r32_r32
+C4E2C9 EE 10, VEX_Cmplexadd_m64_r64_r64
+C4E249 EF 10, VEX_Cmpnlexadd_m32_r32_r32
+C4E2C9 EF 10, VEX_Cmpnlexadd_m64_r64_r64

@@ -43929,7 +43929,7 @@ impl Code {
 		matches!(self, Code::VEX_KNC_Jkzd_kr_rel8_64 | Code::VEX_KNC_Jknzd_kr_rel8_64)
 	}
 
-	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else [`ConditionCode::None`] is returned
+	/// Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc` else [`ConditionCode::None`] is returned
 	///
 	/// [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
 	///
@@ -43977,6 +43977,11 @@ impl Code {
 		t = (self as u32).wrapping_sub(Code::Loope_rel8_16_CX as u32);
 		if t <= (Code::Loope_rel8_64_RCX as u32 - Code::Loope_rel8_16_CX as u32) {
 			return ConditionCode::e;
+		}
+
+		t = (self as u32).wrapping_sub(Code::VEX_Cmpoxadd_m32_r32_r32 as u32);
+		if t <= (Code::VEX_Cmpnlexadd_m64_r64_r64 as u32 - Code::VEX_Cmpoxadd_m32_r32_r32 as u32) {
+			return unsafe { mem::transmute(((t / 2) + ConditionCode::o as u32) as ConditionCodeUnderlyingType) };
 		}
 
 		#[cfg(feature = "mvex")]
@@ -44068,7 +44073,7 @@ impl Code {
 
 #[cfg(any(feature = "instr_info", feature = "encoder"))]
 impl Code {
-	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc`
+	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc`
 	/// and returns the original value if it's none of those instructions.
 	///
 	/// # Examples
@@ -44120,6 +44125,14 @@ impl Code {
 		t = (self as u32).wrapping_sub(Code::Loopne_rel8_16_CX as u32);
 		if t <= (Code::Loope_rel8_64_RCX as u32 - Code::Loopne_rel8_16_CX as u32) {
 			return unsafe { mem::transmute((Code::Loopne_rel8_16_CX as u32 + (t + 7) % 14) as CodeUnderlyingType) };
+		}
+
+		t = (self as u32).wrapping_sub(Code::VEX_Cmpoxadd_m32_r32_r32 as u32);
+		if t <= (Code::VEX_Cmpnlexadd_m64_r64_r64 as u32 - Code::VEX_Cmpoxadd_m32_r32_r32 as u32) {
+			if (t & 2) != 0 {
+				return unsafe { mem::transmute(self as CodeUnderlyingType - 2) };
+			}
+			return unsafe { mem::transmute(self as CodeUnderlyingType + 2) };
 		}
 
 		#[cfg(feature = "mvex")]

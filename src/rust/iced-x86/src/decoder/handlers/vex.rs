@@ -1366,6 +1366,43 @@ impl OpCodeHandler_VEX_Gv_Ev_Gv {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub(in crate::decoder) struct OpCodeHandler_VEX_Ev_Gv_Gv {
+	has_modrm: bool,
+	code32: Code,
+	code64: Code,
+}
+
+impl OpCodeHandler_VEX_Ev_Gv_Gv {
+	#[inline]
+	pub(in crate::decoder) fn new(code32: Code, code64: Code) -> (OpCodeHandlerDecodeFn, Self) {
+		(OpCodeHandler_VEX_Ev_Gv_Gv::decode, Self { has_modrm: true, code32, code64 })
+	}
+
+	fn decode(self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
+		let this = unsafe { &*(self_ptr as *const Self) };
+		debug_assert!(decoder.state.encoding() == EncodingKind::VEX as u32 || decoder.state.encoding() == EncodingKind::XOP as u32);
+		let gpr;
+		if (decoder.state.flags & decoder.is64b_mode_and_w) != 0 {
+			instruction.set_code(this.code64);
+			gpr = Register::RAX as u32;
+		} else {
+			instruction.set_code(this.code32);
+			gpr = Register::EAX as u32;
+		}
+		write_op1_reg!(instruction, decoder.state.reg + decoder.state.extra_register_base + gpr);
+		write_op2_reg!(instruction, decoder.state.vvvv + gpr);
+		if decoder.state.mod_ == 3 {
+			write_op0_reg!(instruction, decoder.state.rm + decoder.state.extra_base_register_base + gpr);
+		} else {
+			read_op_mem_stmt!(decoder, instruction, {
+				instruction.set_op0_kind(OpKind::Memory);
+			});
+		}
+	}
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub(in crate::decoder) struct OpCodeHandler_VEX_Hv_Ev {
 	has_modrm: bool,
 	code32: Code,

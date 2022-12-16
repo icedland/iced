@@ -1315,6 +1315,44 @@ namespace Iced.Intel.DecoderInternal {
 		}
 	}
 
+	sealed class OpCodeHandler_VEX_Ev_Gv_Gv : OpCodeHandlerModRM {
+		readonly Code code32;
+		readonly Code code64;
+
+		public OpCodeHandler_VEX_Ev_Gv_Gv(Code code32, Code code64) {
+			this.code32 = code32;
+			this.code64 = code64;
+		}
+
+		public override void Decode(Decoder decoder, ref Instruction instruction) {
+			Debug.Assert(decoder.state.Encoding == EncodingKind.VEX || decoder.state.Encoding == EncodingKind.XOP);
+			Register gpr;
+			if (((uint)decoder.state.zs.flags & decoder.is64bMode_and_W) != 0) {
+				instruction.InternalSetCodeNoCheck(code64);
+				gpr = Register.RAX;
+			}
+			else {
+				instruction.InternalSetCodeNoCheck(code32);
+				gpr = Register.EAX;
+			}
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op1Kind = OpKind.Register;
+			instruction.Op1Register = (int)(decoder.state.reg + decoder.state.zs.extraRegisterBase) + gpr;
+			Static.Assert(OpKind.Register == 0 ? 0 : -1);
+			//instruction.Op2Kind = OpKind.Register;
+			instruction.Op2Register = (int)decoder.state.vvvv + gpr;
+			if (decoder.state.mod == 3) {
+				Static.Assert(OpKind.Register == 0 ? 0 : -1);
+				//instruction.Op0Kind = OpKind.Register;
+				instruction.Op0Register = (int)(decoder.state.rm + decoder.state.zs.extraBaseRegisterBase) + gpr;
+			}
+			else {
+				instruction.Op0Kind = OpKind.Memory;
+				decoder.ReadOpMem(ref instruction);
+			}
+		}
+	}
+
 	sealed class OpCodeHandler_VEX_Hv_Ev : OpCodeHandlerModRM {
 		readonly Code code32;
 		readonly Code code64;

@@ -104,6 +104,11 @@ final class VexOpCodeHandlerReader extends OpCodeHandlerReader {
 			elem = new OpCodeHandler_VEX_Gv_Ev_Gv(code, code + 1);
 			break;
 
+		case VexOpCodeHandlerKind.EV_GV_GV:
+			code = deserializer.readCode();
+			elem = new OpCodeHandler_VEX_Ev_Gv_Gv(code, code + 1);
+			break;
+
 		case VexOpCodeHandlerKind.GV_EV_IB:
 			code = deserializer.readCode();
 			elem = new OpCodeHandler_VEX_Gv_Ev_Ib(code, code + 1);

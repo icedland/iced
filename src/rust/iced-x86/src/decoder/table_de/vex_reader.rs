@@ -120,6 +120,11 @@ pub(super) fn read_handlers(deserializer: &mut TableDeserializer<'_>, result: &m
 			box_opcode_handler(OpCodeHandler_VEX_Gv_Ev_Gv::new(code1, code2))
 		}
 
+		VexOpCodeHandlerKind::Ev_Gv_Gv => {
+			let (code1, code2) = deserializer.read_code2();
+			box_opcode_handler(OpCodeHandler_VEX_Ev_Gv_Gv::new(code1, code2))
+		}
+
 		VexOpCodeHandlerKind::Gv_Ev_Ib => {
 			let (code1, code2) = deserializer.read_code2();
 			box_opcode_handler(OpCodeHandler_VEX_Gv_Ev_Ib::new(code1, code2))

@@ -922,8 +922,19 @@ fn verify_gpr_rrxb_bits() {
 		let mut uses_reg = false;
 		let mut other_rm = false;
 		let mut other_reg = false;
+		let mut mem_only = false;
 		for &op_kind in op_code.op_kinds() {
 			match op_kind {
+				OpCodeOperandKind::mem
+				| OpCodeOperandKind::mem_mpx
+				| OpCodeOperandKind::mem_mib
+				| OpCodeOperandKind::mem_vsib32x
+				| OpCodeOperandKind::mem_vsib64x
+				| OpCodeOperandKind::mem_vsib32y
+				| OpCodeOperandKind::mem_vsib64y
+				| OpCodeOperandKind::mem_vsib32z
+				| OpCodeOperandKind::mem_vsib64z
+				| OpCodeOperandKind::sibmem => mem_only = true,
 				OpCodeOperandKind::r32_or_mem
 				| OpCodeOperandKind::r64_or_mem
 				| OpCodeOperandKind::r32_or_mem_mpx
@@ -947,6 +958,14 @@ fn verify_gpr_rrxb_bits() {
 				| OpCodeOperandKind::zmm_reg
 				| OpCodeOperandKind::tmm_reg => other_reg = true,
 				_ => {}
+			}
+		}
+		if mem_only {
+			if uses_reg {
+				uses_rm = true;
+			}
+			if other_reg {
+				other_rm = true;
 			}
 		}
 		if !uses_rm && !uses_reg && op_code.op_count() > 0 {

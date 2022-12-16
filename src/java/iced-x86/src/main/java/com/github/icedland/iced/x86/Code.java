@@ -297,7 +297,7 @@ public final class Code {
 	}
 
 	/**
-	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's {@code Jcc}, {@code SETcc}, {@code CMOVcc},
+	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's {@code Jcc}, {@code SETcc}, {@code CMOVcc}, {@code CMPccXADD},
 	 * {@code LOOPcc} else {@link ConditionCode#NONE} is returned
 	 *
 	 * @param code Code value (a {@link Code} enum variant)
@@ -323,6 +323,11 @@ public final class Code {
 		t = code - Code.LOOPE_REL8_16_CX;
 		if (Integer.compareUnsigned(t, Code.LOOPE_REL8_64_RCX - Code.LOOPE_REL8_16_CX) <= 0) {
 			return ConditionCode.E;
+		}
+
+		t = code - Code.VEX_CMPOXADD_M32_R32_R32;
+		if (Integer.compareUnsigned(t, Code.VEX_CMPNLEXADD_M64_R64_R64 - Code.VEX_CMPOXADD_M32_R32_R32) <= 0) {
+			return t / 2 + ConditionCode.O;
 		}
 
 		switch (code) {
@@ -410,7 +415,7 @@ public final class Code {
 
 	/**
 	 * Negates the condition code, eg.<!-- --> {@code JE} -&gt; {@code JNE}. Can be used if it's {@code Jcc}, {@code SETcc},
-	 * {@code CMOVcc}, {@code LOOPcc} and returns the original value if it's none of those instructions.
+	 * {@code CMOVcc}, {@code CMPccXADD}, {@code LOOPcc} and returns the original value if it's none of those instructions.
 	 *
 	 * @param code Code value (a {@link Code} enum variant)
 	 */
@@ -432,6 +437,13 @@ public final class Code {
 		t = code - Code.LOOPNE_REL8_16_CX;
 		if (Integer.compareUnsigned(t, Code.LOOPE_REL8_64_RCX - Code.LOOPNE_REL8_16_CX) <= 0) {
 			return Code.LOOPNE_REL8_16_CX + (t + 7) % 14;
+		}
+
+		t = code - Code.VEX_CMPOXADD_M32_R32_R32;
+		if (Integer.compareUnsigned(t, Code.VEX_CMPNLEXADD_M64_R64_R64 - Code.VEX_CMPOXADD_M32_R32_R32) <= 0) {
+			if ((t & 2) != 0)
+				return code - 2;
+			return code + 2;
 		}
 
 		switch (code) {

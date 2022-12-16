@@ -8726,7 +8726,7 @@ INSTRUCTION: a64 0F 01 FC | CLZERO | CLZERO
 END
 
 # Code: Rdpru
-INSTRUCTION: 0F 01 FD | RDPRU | RDPRU
+INSTRUCTION: NP 0F 01 FD | RDPRU | RDPRU
 	implied: r=ecx w=eax;edx
 	rflags: w=c 0=oszap
 	# If CR4.TSD=1, CPL=0 is required
@@ -33091,4 +33091,441 @@ END
 # Code: MVEX_Vcvtfxpntpd2dq_zmm_k1_zmmmt_imm8
 INSTRUCTION: MVEX.512.F2.0F3A.W1 E6 /r ib | VCVTFXPNTPD2DQ zmm1 {k1}, Sf64(zmm2/mt), imm8 | KNC
 	ops: wvmm=reg r=rm r=imm | sae er-imm swizz mem=1110_0000
+END
+
+INSTRUCTION: NP 0F 01 C6 | WRMSRNS | WRMSRNS
+	implied: r=eax;ecx;edx
+	flags: cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
+END
+
+INSTRUCTION: F3 0F 01 C6 | WRMSRLIST | MSRLIST
+	# Reads a u64 from [rsi+index*8] and a u64 from [rdi+index*8] where 0 <= index <= 63 (index = index of set bit in rcx)
+	implied: r=rcx cr=rsi;rdi cw=rcx cr=[ds:rsi=Unknown] cr=[es:rdi=Unknown]
+	# Not a serializing instruction, unlike WRMSR
+	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
+END
+
+INSTRUCTION: F2 0F 01 C6 | RDMSRLIST | MSRLIST
+	# Reads a u64 from [rsi+index*8] and writes a u64 to [rdi+index*8] where 0 <= index <= 63 (index = index of set bit in rcx)
+	implied: r=rcx cr=rsi;rdi cw=rcx cr=[ds:rsi=Unknown] cw=[es:rdi=Unknown]
+	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
+END
+
+INSTRUCTION: F3 0F 01 FD | RMPQUERY | RMPQUERY
+	# Only writes rdx[63:8]
+	implied: r=rax;dl w=eax;rcx;rdx
+	rflags: w=oszap
+	# #VMEXIT(NPF)
+	flags: 64 cpl0 amd-may-vm-exit
+END
+
+INSTRUCTION: 0F 18 /6 | PREFETCHIT1 m8 | PREFETCHITI
+	# If not supported by the CPU or if not RIP relative memory operand, it's treated as a NOP
+	ops: nma=rm | UInt8
+	flags: prefetch
+END
+
+INSTRUCTION: 0F 18 /7 | PREFETCHIT0 m8 | PREFETCHITI
+	# If not supported by the CPU or if not RIP relative memory operand, it's treated as a NOP
+	ops: nma=rm | UInt8
+	flags: prefetch
+END
+
+INSTRUCTION: NP 0F 38 FC !(11):rrr:bbb | AADD m32, r32 | RAO_INT
+	ops: rw=rm r=reg | UInt32
+	flags: tsx-abort
+END
+
+INSTRUCTION: NP o64 0F 38 FC !(11):rrr:bbb | AADD m64, r64 | RAO_INT
+	ops: rw=rm r=reg | UInt64
+	flags: 64 tsx-abort
+END
+
+INSTRUCTION: 66 0F 38 FC !(11):rrr:bbb | AAND m32, r32 | RAO_INT
+	ops: rw=rm r=reg | UInt32
+	flags: tsx-abort
+END
+
+INSTRUCTION: 66 o64 0F 38 FC !(11):rrr:bbb | AAND m64, r64 | RAO_INT
+	ops: rw=rm r=reg | UInt64
+	flags: 64 tsx-abort
+END
+
+INSTRUCTION: F3 0F 38 FC !(11):rrr:bbb | AXOR m32, r32 | RAO_INT
+	ops: rw=rm r=reg | UInt32
+	flags: tsx-abort
+END
+
+INSTRUCTION: F3 o64 0F 38 FC !(11):rrr:bbb | AXOR m64, r64 | RAO_INT
+	ops: rw=rm r=reg | UInt64
+	flags: 64 tsx-abort
+END
+
+INSTRUCTION: F2 0F 38 FC !(11):rrr:bbb | AOR m32, r32 | RAO_INT
+	ops: rw=rm r=reg | UInt32
+	flags: tsx-abort
+END
+
+INSTRUCTION: F2 o64 0F 38 FC !(11):rrr:bbb | AOR m64, r64 | RAO_INT
+	ops: rw=rm r=reg | UInt64
+	flags: 64 tsx-abort
+END
+
+INSTRUCTION: VEX.128.0F38.W0 50 /r | VPDPBUUD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_UInt8
+END
+
+INSTRUCTION: VEX.256.0F38.W0 50 /r | VPDPBUUD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_UInt8
+END
+
+INSTRUCTION: VEX.128.F3.0F38.W0 50 /r | VPDPBSUD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_Int8
+END
+
+INSTRUCTION: VEX.256.F3.0F38.W0 50 /r | VPDPBSUD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_Int8
+END
+
+INSTRUCTION: VEX.128.F2.0F38.W0 50 /r | VPDPBSSD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_Int8
+END
+
+INSTRUCTION: VEX.256.F2.0F38.W0 50 /r | VPDPBSSD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_Int8
+END
+
+INSTRUCTION: VEX.128.0F38.W0 51 /r | VPDPBUUDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_UInt8
+END
+
+INSTRUCTION: VEX.256.0F38.W0 51 /r | VPDPBUUDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_UInt8
+END
+
+INSTRUCTION: VEX.128.F3.0F38.W0 51 /r | VPDPBSUDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_Int8
+END
+
+INSTRUCTION: VEX.256.F3.0F38.W0 51 /r | VPDPBSUDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_Int8
+END
+
+INSTRUCTION: VEX.128.F2.0F38.W0 51 /r | VPDPBSSDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed128_Int8
+END
+
+INSTRUCTION: VEX.256.F2.0F38.W0 51 /r | VPDPBSSDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT8
+	ops: rw=reg r=vvvv r=rm | Packed256_Int8
+END
+
+INSTRUCTION: VEX.128.F2.0F38.W0 5C 11:rrr:bbb | TDPFP16PS tmm1, tmm2, tmm3 | AMX_FP16
+	ops: rw=reg r=rm r=vvvv
+	flags: 64 unique-reg-num tsx-abort
+END
+
+INSTRUCTION: VEX.128.F3.0F38.W0 72 /r | VCVTNEPS2BF16 xmm1, xmm2/m128 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed128_Float32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=x
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+INSTRUCTION: VEX.256.F3.0F38.W0 72 /r | VCVTNEPS2BF16 xmm1, ymm2/m256 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed256_Float32
+	fast: flags=force-size=always
+	gas: flags=force-mem-suffix suffix=y
+	intel: flags=force-size=always
+	masm: flags=force-size=always
+	nasm: flags=force-size=always
+END
+
+INSTRUCTION: VEX.128.0F38.W0 B0 !(11):rrr:bbb | VCVTNEOPH2PS xmm1, m128 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed128_Float16
+END
+
+INSTRUCTION: VEX.256.0F38.W0 B0 !(11):rrr:bbb | VCVTNEOPH2PS ymm1, m256 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed256_Float16
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 B0 !(11):rrr:bbb | VCVTNEEPH2PS xmm1, m128 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed128_Float16
+END
+
+INSTRUCTION: VEX.256.66.0F38.W0 B0 !(11):rrr:bbb | VCVTNEEPH2PS ymm1, m256 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed256_Float16
+END
+
+INSTRUCTION: VEX.128.F3.0F38.W0 B0 !(11):rrr:bbb | VCVTNEEBF162PS xmm1, m128 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed128_BFloat16
+END
+
+INSTRUCTION: VEX.256.F3.0F38.W0 B0 !(11):rrr:bbb | VCVTNEEBF162PS ymm1, m256 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed256_BFloat16
+END
+
+INSTRUCTION: VEX.128.F2.0F38.W0 B0 !(11):rrr:bbb | VCVTNEOBF162PS xmm1, m128 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed128_BFloat16
+END
+
+INSTRUCTION: VEX.256.F2.0F38.W0 B0 !(11):rrr:bbb | VCVTNEOBF162PS ymm1, m256 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Packed256_BFloat16
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 B1 !(11):rrr:bbb | VBCSTNESH2PS xmm1, m16 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Float16
+END
+
+INSTRUCTION: VEX.256.66.0F38.W0 B1 !(11):rrr:bbb | VBCSTNESH2PS ymm1, m16 | AVX_NE_CONVERT
+	ops: w=reg r=rm | Float16
+END
+
+INSTRUCTION: VEX.128.F3.0F38.W0 B1 !(11):rrr:bbb | VBCSTNEBF162PS xmm1, m16 | AVX_NE_CONVERT
+	ops: w=reg r=rm | BFloat16
+END
+
+INSTRUCTION: VEX.256.F3.0F38.W0 B1 !(11):rrr:bbb | VBCSTNEBF162PS ymm1, m16 | AVX_NE_CONVERT
+	ops: w=reg r=rm | BFloat16
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 B4 /r | VPMADD52LUQ xmm1, xmm2, xmm3/m128 | AVX_IFMA
+	ops: rw=reg r=vvvv r=rm | Packed128_UInt52
+END
+
+INSTRUCTION: VEX.256.66.0F38.W1 B4 /r | VPMADD52LUQ ymm1, ymm2, ymm3/m256 | AVX_IFMA
+	ops: rw=reg r=vvvv r=rm | Packed256_UInt52
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 B5 /r | VPMADD52HUQ xmm1, xmm2, xmm3/m128 | AVX_IFMA
+	ops: rw=reg r=vvvv r=rm | Packed128_UInt52
+END
+
+INSTRUCTION: VEX.256.66.0F38.W1 B5 /r | VPMADD52HUQ ymm1, ymm2, ymm3/m256 | AVX_IFMA
+	ops: rw=reg r=vvvv r=rm | Packed256_UInt52
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E0 !(11):rrr:bbb | CMPOXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E0 !(11):rrr:bbb | CMPOXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E1 !(11):rrr:bbb | CMPNOXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E1 !(11):rrr:bbb | CMPNOXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E2 !(11):rrr:bbb | CMPBXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E2 !(11):rrr:bbb | CMPBXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E3 !(11):rrr:bbb | CMPNBXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E3 !(11):rrr:bbb | CMPNBXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E4 !(11):rrr:bbb | CMPZXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E4 !(11):rrr:bbb | CMPZXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E5 !(11):rrr:bbb | CMPNZXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E5 !(11):rrr:bbb | CMPNZXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E6 !(11):rrr:bbb | CMPBEXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E6 !(11):rrr:bbb | CMPBEXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E7 !(11):rrr:bbb | CMPNBEXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E7 !(11):rrr:bbb | CMPNBEXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E8 !(11):rrr:bbb | CMPSXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E8 !(11):rrr:bbb | CMPSXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 E9 !(11):rrr:bbb | CMPNSXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 E9 !(11):rrr:bbb | CMPNSXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 EA !(11):rrr:bbb | CMPPXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 EA !(11):rrr:bbb | CMPPXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 EB !(11):rrr:bbb | CMPNPXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 EB !(11):rrr:bbb | CMPNPXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 EC !(11):rrr:bbb | CMPLXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 EC !(11):rrr:bbb | CMPLXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 ED !(11):rrr:bbb | CMPNLXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 ED !(11):rrr:bbb | CMPNLXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 EE !(11):rrr:bbb | CMPLEXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 EE !(11):rrr:bbb | CMPLEXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 EF !(11):rrr:bbb | CMPNLEXADD m32, r32, r32 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt32
+	rflags: w=oszacp
+	flags: wig32 64
+END
+
+INSTRUCTION: VEX.128.66.0F38.W1 EF !(11):rrr:bbb | CMPNLEXADD m64, r64, r64 | CMPCCXADD
+	# If condition is false, it will overwrite the memory operand with the original value.
+	ops: rw=rm rw=reg r=vvvv | UInt64
+	rflags: w=oszacp
+	flags: 64
 END

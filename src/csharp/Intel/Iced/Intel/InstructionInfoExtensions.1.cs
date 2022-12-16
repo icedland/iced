@@ -236,7 +236,7 @@ namespace Iced.Intel {
 #endif
 
 		/// <summary>
-		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c> else
+		/// Gets the condition code if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>CMPccXADD</c>, <c>LOOPcc</c> else
 		/// <see cref="ConditionCode.None"/> is returned
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -262,6 +262,10 @@ namespace Iced.Intel {
 			t = (uint)(code - Code.Loope_rel8_16_CX);
 			if (t <= (uint)(Code.Loope_rel8_64_RCX - Code.Loope_rel8_16_CX)) {
 				return Intel.ConditionCode.e;
+			}
+
+			if ((t = (uint)(code - Code.VEX_Cmpoxadd_m32_r32_r32)) <= (uint)(Code.VEX_Cmpnlexadd_m64_r64_r64 - Code.VEX_Cmpoxadd_m32_r32_r32)) {
+				return (int)(t / 2) + Intel.ConditionCode.o;
 			}
 
 #if MVEX

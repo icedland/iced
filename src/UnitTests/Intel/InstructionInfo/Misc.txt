@@ -374,6 +374,41 @@ Cmovg_r32_rm32, Cmovle_r32_rm32, g
 Cmovle_r64_rm64, Cmovg_r64_rm64, le
 Cmovg_r64_rm64, Cmovle_r64_rm64, g
 
+[cmpccxadd-info]
+# cmpccxadd, negated, cc
+VEX_Cmpoxadd_m32_r32_r32, VEX_Cmpnoxadd_m32_r32_r32, o
+VEX_Cmpnoxadd_m32_r32_r32, VEX_Cmpoxadd_m32_r32_r32, no
+VEX_Cmpoxadd_m64_r64_r64, VEX_Cmpnoxadd_m64_r64_r64, o
+VEX_Cmpnoxadd_m64_r64_r64, VEX_Cmpoxadd_m64_r64_r64, no
+VEX_Cmpbxadd_m32_r32_r32, VEX_Cmpnbxadd_m32_r32_r32, b
+VEX_Cmpnbxadd_m32_r32_r32, VEX_Cmpbxadd_m32_r32_r32, ae
+VEX_Cmpbxadd_m64_r64_r64, VEX_Cmpnbxadd_m64_r64_r64, b
+VEX_Cmpnbxadd_m64_r64_r64, VEX_Cmpbxadd_m64_r64_r64, ae
+VEX_Cmpzxadd_m32_r32_r32, VEX_Cmpnzxadd_m32_r32_r32, e
+VEX_Cmpnzxadd_m32_r32_r32, VEX_Cmpzxadd_m32_r32_r32, ne
+VEX_Cmpzxadd_m64_r64_r64, VEX_Cmpnzxadd_m64_r64_r64, e
+VEX_Cmpnzxadd_m64_r64_r64, VEX_Cmpzxadd_m64_r64_r64, ne
+VEX_Cmpbexadd_m32_r32_r32, VEX_Cmpnbexadd_m32_r32_r32, be
+VEX_Cmpnbexadd_m32_r32_r32, VEX_Cmpbexadd_m32_r32_r32, a
+VEX_Cmpbexadd_m64_r64_r64, VEX_Cmpnbexadd_m64_r64_r64, be
+VEX_Cmpnbexadd_m64_r64_r64, VEX_Cmpbexadd_m64_r64_r64, a
+VEX_Cmpsxadd_m32_r32_r32, VEX_Cmpnsxadd_m32_r32_r32, s
+VEX_Cmpnsxadd_m32_r32_r32, VEX_Cmpsxadd_m32_r32_r32, ns
+VEX_Cmpsxadd_m64_r64_r64, VEX_Cmpnsxadd_m64_r64_r64, s
+VEX_Cmpnsxadd_m64_r64_r64, VEX_Cmpsxadd_m64_r64_r64, ns
+VEX_Cmppxadd_m32_r32_r32, VEX_Cmpnpxadd_m32_r32_r32, p
+VEX_Cmpnpxadd_m32_r32_r32, VEX_Cmppxadd_m32_r32_r32, np
+VEX_Cmppxadd_m64_r64_r64, VEX_Cmpnpxadd_m64_r64_r64, p
+VEX_Cmpnpxadd_m64_r64_r64, VEX_Cmppxadd_m64_r64_r64, np
+VEX_Cmplxadd_m32_r32_r32, VEX_Cmpnlxadd_m32_r32_r32, l
+VEX_Cmpnlxadd_m32_r32_r32, VEX_Cmplxadd_m32_r32_r32, ge
+VEX_Cmplxadd_m64_r64_r64, VEX_Cmpnlxadd_m64_r64_r64, l
+VEX_Cmpnlxadd_m64_r64_r64, VEX_Cmplxadd_m64_r64_r64, ge
+VEX_Cmplexadd_m32_r32_r32, VEX_Cmpnlexadd_m32_r32_r32, le
+VEX_Cmpnlexadd_m32_r32_r32, VEX_Cmplexadd_m32_r32_r32, g
+VEX_Cmplexadd_m64_r64_r64, VEX_Cmpnlexadd_m64_r64_r64, le
+VEX_Cmpnlexadd_m64_r64_r64, VEX_Cmplexadd_m64_r64_r64, g
+
 [loopcc-info]
 # loopcc, negated, cc
 Loopne_rel8_16_CX, Loope_rel8_16_CX, ne

@@ -8,7 +8,7 @@ namespace Iced.Intel {
 	/// </summary>
 	public static partial class InstructionInfoExtensions {
 		/// <summary>
-		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>LOOPcc</c>
+		/// Negates the condition code, eg. <c>JE</c> -> <c>JNE</c>. Can be used if it's <c>Jcc</c>, <c>SETcc</c>, <c>CMOVcc</c>, <c>CMPccXADD</c>, <c>LOOPcc</c>
 		/// and returns the original value if it's none of those instructions.
 		/// </summary>
 		/// <param name="code">Code value</param>
@@ -35,6 +35,12 @@ namespace Iced.Intel {
 			t = (uint)(code - Code.Loopne_rel8_16_CX);
 			if (t <= (uint)(Code.Loope_rel8_64_RCX - Code.Loopne_rel8_16_CX)) {
 				return Code.Loopne_rel8_16_CX + (int)((t + 7) % 14);
+			}
+
+			if ((t = (uint)(code - Code.VEX_Cmpoxadd_m32_r32_r32)) <= (uint)(Code.VEX_Cmpnlexadd_m64_r64_r64 - Code.VEX_Cmpoxadd_m32_r32_r32)) {
+				if ((t & 2) != 0)
+					return code - 2;
+				return code + 2;
 			}
 
 #if MVEX

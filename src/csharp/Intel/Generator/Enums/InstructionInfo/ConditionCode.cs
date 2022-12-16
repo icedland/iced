@@ -2,7 +2,7 @@
 // Copyright (C) 2018-present iced project and contributors
 
 namespace Generator.Enums.InstructionInfo {
-	[Enum("ConditionCode", Documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#, #(c:LOOPcc)#)", Public = true)]
+	[Enum("ConditionCode", Documentation = "Instruction condition code (used by #(c:Jcc)#, #(c:SETcc)#, #(c:CMOVcc)#, #(c:CMPccXADD)#, #(c:LOOPcc)#)", Public = true)]
 	enum ConditionCode {
 		[Comment("The instruction doesn't have a condition code")]
 		None,

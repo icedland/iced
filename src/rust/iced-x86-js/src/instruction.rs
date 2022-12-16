@@ -2378,7 +2378,7 @@ impl Instruction {
 		self.0.is_loop()
 	}
 
-	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc` and does
+	/// Negates the condition code, eg. `JE` -> `JNE`. Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD` and does
 	/// nothing if the instruction doesn't have a condition code.
 	///
 	/// # Examples
@@ -2466,7 +2466,7 @@ impl Instruction {
 		self.0.as_near_branch()
 	}
 
-	/// Gets the condition code (a [`ConditionCode`] enum value) if it's `Jcc`, `SETcc`, `CMOVcc` else [`ConditionCode.None`] is returned
+	/// Gets the condition code (a [`ConditionCode`] enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD` else [`ConditionCode.None`] is returned
 	///
 	/// [`ConditionCode`]: enum.ConditionCode.html
 	/// [`ConditionCode.None`]: enum.ConditionCode.html#variant.None

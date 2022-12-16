@@ -156,6 +156,8 @@ namespace Generator.Enums {
 		Packed128_Float32,
 		[Comment("128-bit location: 2 x #(t:f64)#")]
 		Packed128_Float64,
+		[Comment("128-bit location: 8 x #(t:bf16)#")]
+		Packed128_BFloat16,
 		[Comment("128-bit location: 4 x (2 x #(t:f16)#)")]
 		Packed128_2xFloat16,
 		[Comment("128-bit location: 4 x (2 x #(t:bf16)#)")]
@@ -190,6 +192,8 @@ namespace Generator.Enums {
 		Packed256_Float64,
 		[Comment("256-bit location: 2 x #(t:f128)#")]
 		Packed256_Float128,
+		[Comment("256-bit location: 16 x #(t:bf16)#")]
+		Packed256_BFloat16,
 		[Comment("256-bit location: 8 x (2 x #(t:f16)#)")]
 		Packed256_2xFloat16,
 		[Comment("256-bit location: 8 x (2 x #(t:bf16)#)")]
