@@ -176,6 +176,8 @@ final class MemorySizes {
 			(short)0x010E,
 			(short)0x010E,
 			(short)0x010E,
+			(short)0x010E,
+			(short)0x014F,
 			(short)0x014F,
 			(short)0x014F,
 			(short)0x014F,

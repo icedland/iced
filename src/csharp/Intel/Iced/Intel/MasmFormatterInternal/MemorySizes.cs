@@ -177,6 +177,8 @@ namespace Iced.Intel.MasmFormatterInternal {
 				0x010E,
 				0x010E,
 				0x010E,
+				0x010E,
+				0x014F,
 				0x014F,
 				0x014F,
 				0x014F,

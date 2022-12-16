@@ -1895,6 +1895,51 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::RCX, OpAccess::ReadCondWrite);
 				}
 			}
+			ImpliedAccess::t_CRmem_CRmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::ES, Register::RDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
+					Self::add_memory(info, Register::DS, Register::RSI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RSI, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDI, OpAccess::CondRead);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::DS, OpAccess::CondRead);
+					}
+					Self::add_register(flags, info, Register::RCX, OpAccess::CondWrite);
+				}
+			}
+			ImpliedAccess::t_CRmem_CWmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::DS, Register::RSI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondRead, CodeSize::Code64, 0);
+					Self::add_memory(info, Register::ES, Register::RDI, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::CondWrite, CodeSize::Code64, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RSI, OpAccess::CondRead);
+					Self::add_register(flags, info, Register::RDI, OpAccess::CondRead);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::ES, OpAccess::CondRead);
+					}
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::DS, OpAccess::CondRead);
+					}
+					Self::add_register(flags, info, Register::RCX, OpAccess::CondWrite);
+				}
+			}
+			ImpliedAccess::t_Rdl_Rrax_Weax_Wrcx_Wrdx => {
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::DL, OpAccess::Read);
+					Self::add_register(flags, info, Register::RAX, OpAccess::Read);
+					Self::add_register(flags, info, Register::EAX, OpAccess::Write);
+					Self::add_register(flags, info, Register::RCX, OpAccess::Write);
+					Self::add_register(flags, info, Register::RDX, OpAccess::Write);
+				}
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}

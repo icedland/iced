@@ -324,4 +324,8 @@ public final class VexOpCodeHandlerKind {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int K_JZ = 77;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int EV_GV_GV = 78;
 }

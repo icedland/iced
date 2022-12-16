@@ -38,7 +38,7 @@ public final class ToMnemonic {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(1838);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(1877);
 		initMap0(map);
 		initMap1(map);
 		initMap2(map);
@@ -1894,5 +1894,44 @@ public final class ToMnemonic {
 		map.put("Xstore_alt", Mnemonic.XSTORE_ALT);
 		map.put("Xsha512_alt", Mnemonic.XSHA512_ALT);
 		map.put("Zero_bytes", Mnemonic.ZERO_BYTES);
+		map.put("Aadd", Mnemonic.AADD);
+		map.put("Aand", Mnemonic.AAND);
+		map.put("Aor", Mnemonic.AOR);
+		map.put("Axor", Mnemonic.AXOR);
+		map.put("Cmpbexadd", Mnemonic.CMPBEXADD);
+		map.put("Cmpbxadd", Mnemonic.CMPBXADD);
+		map.put("Cmplexadd", Mnemonic.CMPLEXADD);
+		map.put("Cmplxadd", Mnemonic.CMPLXADD);
+		map.put("Cmpnbexadd", Mnemonic.CMPNBEXADD);
+		map.put("Cmpnbxadd", Mnemonic.CMPNBXADD);
+		map.put("Cmpnlexadd", Mnemonic.CMPNLEXADD);
+		map.put("Cmpnlxadd", Mnemonic.CMPNLXADD);
+		map.put("Cmpnoxadd", Mnemonic.CMPNOXADD);
+		map.put("Cmpnpxadd", Mnemonic.CMPNPXADD);
+		map.put("Cmpnsxadd", Mnemonic.CMPNSXADD);
+		map.put("Cmpnzxadd", Mnemonic.CMPNZXADD);
+		map.put("Cmpoxadd", Mnemonic.CMPOXADD);
+		map.put("Cmppxadd", Mnemonic.CMPPXADD);
+		map.put("Cmpsxadd", Mnemonic.CMPSXADD);
+		map.put("Cmpzxadd", Mnemonic.CMPZXADD);
+		map.put("Prefetchit0", Mnemonic.PREFETCHIT0);
+		map.put("Prefetchit1", Mnemonic.PREFETCHIT1);
+		map.put("Rdmsrlist", Mnemonic.RDMSRLIST);
+		map.put("Rmpquery", Mnemonic.RMPQUERY);
+		map.put("Tdpfp16ps", Mnemonic.TDPFP16PS);
+		map.put("Vbcstnebf162ps", Mnemonic.VBCSTNEBF162PS);
+		map.put("Vbcstnesh2ps", Mnemonic.VBCSTNESH2PS);
+		map.put("Vcvtneebf162ps", Mnemonic.VCVTNEEBF162PS);
+		map.put("Vcvtneeph2ps", Mnemonic.VCVTNEEPH2PS);
+		map.put("Vcvtneobf162ps", Mnemonic.VCVTNEOBF162PS);
+		map.put("Vcvtneoph2ps", Mnemonic.VCVTNEOPH2PS);
+		map.put("Vpdpbssd", Mnemonic.VPDPBSSD);
+		map.put("Vpdpbssds", Mnemonic.VPDPBSSDS);
+		map.put("Vpdpbsud", Mnemonic.VPDPBSUD);
+		map.put("Vpdpbsuds", Mnemonic.VPDPBSUDS);
+		map.put("Vpdpbuud", Mnemonic.VPDPBUUD);
+		map.put("Vpdpbuuds", Mnemonic.VPDPBUUDS);
+		map.put("Wrmsrlist", Mnemonic.WRMSRLIST);
+		map.put("Wrmsrns", Mnemonic.WRMSRNS);
 	}
 }

@@ -6868,7 +6868,7 @@ namespace Iced.Intel {
 		Clzeroq = 860,
 		/// <summary><c>RDPRU</c><br/>
 		/// <br/>
-		/// <c>0F 01 FD</c><br/>
+		/// <c>NP 0F 01 FD</c><br/>
 		/// <br/>
 		/// <c>RDPRU</c><br/>
 		/// <br/>
@@ -38644,5 +38644,621 @@ namespace Iced.Intel {
 		Xsha512_alt_64 = 4832,
 		/// <summary>A zero-sized instruction. Can be used as a label.</summary>
 		Zero_bytes = 4833,
+		/// <summary><c>WRMSRNS</c><br/>
+		/// <br/>
+		/// <c>NP 0F 01 C6</c><br/>
+		/// <br/>
+		/// <c>WRMSRNS</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Wrmsrns = 4834,
+		/// <summary><c>WRMSRLIST</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 C6</c><br/>
+		/// <br/>
+		/// <c>MSRLIST</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Wrmsrlist = 4835,
+		/// <summary><c>RDMSRLIST</c><br/>
+		/// <br/>
+		/// <c>F2 0F 01 C6</c><br/>
+		/// <br/>
+		/// <c>MSRLIST</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Rdmsrlist = 4836,
+		/// <summary><c>RMPQUERY</c><br/>
+		/// <br/>
+		/// <c>F3 0F 01 FD</c><br/>
+		/// <br/>
+		/// <c>RMPQUERY</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Rmpquery = 4837,
+		/// <summary><c>PREFETCHIT1 m8</c><br/>
+		/// <br/>
+		/// <c>0F 18 /6</c><br/>
+		/// <br/>
+		/// <c>PREFETCHITI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Prefetchit1_m8 = 4838,
+		/// <summary><c>PREFETCHIT0 m8</c><br/>
+		/// <br/>
+		/// <c>0F 18 /7</c><br/>
+		/// <br/>
+		/// <c>PREFETCHITI</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Prefetchit0_m8 = 4839,
+		/// <summary><c>AADD m32, r32</c><br/>
+		/// <br/>
+		/// <c>NP 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aadd_m32_r32 = 4840,
+		/// <summary><c>AADD m64, r64</c><br/>
+		/// <br/>
+		/// <c>NP o64 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Aadd_m64_r64 = 4841,
+		/// <summary><c>AAND m32, r32</c><br/>
+		/// <br/>
+		/// <c>66 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aand_m32_r32 = 4842,
+		/// <summary><c>AAND m64, r64</c><br/>
+		/// <br/>
+		/// <c>66 o64 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Aand_m64_r64 = 4843,
+		/// <summary><c>AXOR m32, r32</c><br/>
+		/// <br/>
+		/// <c>F3 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Axor_m32_r32 = 4844,
+		/// <summary><c>AXOR m64, r64</c><br/>
+		/// <br/>
+		/// <c>F3 o64 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Axor_m64_r64 = 4845,
+		/// <summary><c>AOR m32, r32</c><br/>
+		/// <br/>
+		/// <c>F2 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		Aor_m32_r32 = 4846,
+		/// <summary><c>AOR m64, r64</c><br/>
+		/// <br/>
+		/// <c>F2 o64 0F 38 FC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>RAO-INT</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		Aor_m64_r64 = 4847,
+		/// <summary><c>VPDPBUUD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbuud_xmm_xmm_xmmm128 = 4848,
+		/// <summary><c>VPDPBUUD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbuud_ymm_ymm_ymmm256 = 4849,
+		/// <summary><c>VPDPBSUD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbsud_xmm_xmm_xmmm128 = 4850,
+		/// <summary><c>VPDPBSUD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F3.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbsud_ymm_ymm_ymmm256 = 4851,
+		/// <summary><c>VPDPBSSD xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbssd_xmm_xmm_xmmm128 = 4852,
+		/// <summary><c>VPDPBSSD ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F2.0F38.W0 50 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbssd_ymm_ymm_ymmm256 = 4853,
+		/// <summary><c>VPDPBUUDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbuuds_xmm_xmm_xmmm128 = 4854,
+		/// <summary><c>VPDPBUUDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbuuds_ymm_ymm_ymmm256 = 4855,
+		/// <summary><c>VPDPBSUDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbsuds_xmm_xmm_xmmm128 = 4856,
+		/// <summary><c>VPDPBSUDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F3.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbsuds_ymm_ymm_ymmm256 = 4857,
+		/// <summary><c>VPDPBSSDS xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbssds_xmm_xmm_xmmm128 = 4858,
+		/// <summary><c>VPDPBSSDS ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F2.0F38.W0 51 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-VNNI-INT8</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpdpbssds_ymm_ymm_ymmm256 = 4859,
+		/// <summary><c>TDPFP16PS tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 5C 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-FP16</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tdpfp16ps_tmm_tmm_tmm = 4860,
+		/// <summary><c>VCVTNEPS2BF16 xmm1, xmm2/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneps2bf16_xmm_xmmm128 = 4861,
+		/// <summary><c>VCVTNEPS2BF16 xmm1, ymm2/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F3.0F38.W0 72 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneps2bf16_xmm_ymmm256 = 4862,
+		/// <summary><c>VCVTNEOPH2PS xmm1, m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneoph2ps_xmm_m128 = 4863,
+		/// <summary><c>VCVTNEOPH2PS ymm1, m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneoph2ps_ymm_m256 = 4864,
+		/// <summary><c>VCVTNEEPH2PS xmm1, m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneeph2ps_xmm_m128 = 4865,
+		/// <summary><c>VCVTNEEPH2PS ymm1, m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneeph2ps_ymm_m256 = 4866,
+		/// <summary><c>VCVTNEEBF162PS xmm1, m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneebf162ps_xmm_m128 = 4867,
+		/// <summary><c>VCVTNEEBF162PS ymm1, m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F3.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneebf162ps_ymm_m256 = 4868,
+		/// <summary><c>VCVTNEOBF162PS xmm1, m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F2.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneobf162ps_xmm_m128 = 4869,
+		/// <summary><c>VCVTNEOBF162PS ymm1, m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F2.0F38.W0 B0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vcvtneobf162ps_ymm_m256 = 4870,
+		/// <summary><c>VBCSTNESH2PS xmm1, m16</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 B1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbcstnesh2ps_xmm_m16 = 4871,
+		/// <summary><c>VBCSTNESH2PS ymm1, m16</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W0 B1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbcstnesh2ps_ymm_m16 = 4872,
+		/// <summary><c>VBCSTNEBF162PS xmm1, m16</c><br/>
+		/// <br/>
+		/// <c>VEX.128.F3.0F38.W0 B1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbcstnebf162ps_xmm_m16 = 4873,
+		/// <summary><c>VBCSTNEBF162PS ymm1, m16</c><br/>
+		/// <br/>
+		/// <c>VEX.256.F3.0F38.W0 B1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AVX-NE-CONVERT</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vbcstnebf162ps_ymm_m16 = 4874,
+		/// <summary><c>VPMADD52LUQ xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 B4 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-IFMA</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpmadd52luq_xmm_xmm_xmmm128 = 4875,
+		/// <summary><c>VPMADD52LUQ ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W1 B4 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-IFMA</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpmadd52luq_ymm_ymm_ymmm256 = 4876,
+		/// <summary><c>VPMADD52HUQ xmm1, xmm2, xmm3/m128</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 B5 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-IFMA</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpmadd52huq_xmm_xmm_xmmm128 = 4877,
+		/// <summary><c>VPMADD52HUQ ymm1, ymm2, ymm3/m256</c><br/>
+		/// <br/>
+		/// <c>VEX.256.66.0F38.W1 B5 /r</c><br/>
+		/// <br/>
+		/// <c>AVX-IFMA</c><br/>
+		/// <br/>
+		/// <c>16/32/64-bit</c></summary>
+		VEX_Vpmadd52huq_ymm_ymm_ymmm256 = 4878,
+		/// <summary><c>CMPOXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpoxadd_m32_r32_r32 = 4879,
+		/// <summary><c>CMPOXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E0 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpoxadd_m64_r64_r64 = 4880,
+		/// <summary><c>CMPNOXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnoxadd_m32_r32_r32 = 4881,
+		/// <summary><c>CMPNOXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E1 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnoxadd_m64_r64_r64 = 4882,
+		/// <summary><c>CMPBXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E2 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpbxadd_m32_r32_r32 = 4883,
+		/// <summary><c>CMPBXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E2 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpbxadd_m64_r64_r64 = 4884,
+		/// <summary><c>CMPNBXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E3 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnbxadd_m32_r32_r32 = 4885,
+		/// <summary><c>CMPNBXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E3 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnbxadd_m64_r64_r64 = 4886,
+		/// <summary><c>CMPZXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E4 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpzxadd_m32_r32_r32 = 4887,
+		/// <summary><c>CMPZXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E4 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpzxadd_m64_r64_r64 = 4888,
+		/// <summary><c>CMPNZXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E5 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnzxadd_m32_r32_r32 = 4889,
+		/// <summary><c>CMPNZXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E5 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnzxadd_m64_r64_r64 = 4890,
+		/// <summary><c>CMPBEXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E6 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpbexadd_m32_r32_r32 = 4891,
+		/// <summary><c>CMPBEXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E6 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpbexadd_m64_r64_r64 = 4892,
+		/// <summary><c>CMPNBEXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E7 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnbexadd_m32_r32_r32 = 4893,
+		/// <summary><c>CMPNBEXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E7 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnbexadd_m64_r64_r64 = 4894,
+		/// <summary><c>CMPSXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E8 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpsxadd_m32_r32_r32 = 4895,
+		/// <summary><c>CMPSXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E8 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpsxadd_m64_r64_r64 = 4896,
+		/// <summary><c>CMPNSXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 E9 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnsxadd_m32_r32_r32 = 4897,
+		/// <summary><c>CMPNSXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 E9 !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnsxadd_m64_r64_r64 = 4898,
+		/// <summary><c>CMPPXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 EA !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmppxadd_m32_r32_r32 = 4899,
+		/// <summary><c>CMPPXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 EA !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmppxadd_m64_r64_r64 = 4900,
+		/// <summary><c>CMPNPXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 EB !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnpxadd_m32_r32_r32 = 4901,
+		/// <summary><c>CMPNPXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 EB !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnpxadd_m64_r64_r64 = 4902,
+		/// <summary><c>CMPLXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 EC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmplxadd_m32_r32_r32 = 4903,
+		/// <summary><c>CMPLXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 EC !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmplxadd_m64_r64_r64 = 4904,
+		/// <summary><c>CMPNLXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 ED !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnlxadd_m32_r32_r32 = 4905,
+		/// <summary><c>CMPNLXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 ED !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnlxadd_m64_r64_r64 = 4906,
+		/// <summary><c>CMPLEXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 EE !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmplexadd_m32_r32_r32 = 4907,
+		/// <summary><c>CMPLEXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 EE !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmplexadd_m64_r64_r64 = 4908,
+		/// <summary><c>CMPNLEXADD m32, r32, r32</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 EF !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnlexadd_m32_r32_r32 = 4909,
+		/// <summary><c>CMPNLEXADD m64, r64, r64</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W1 EF !(11):rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>CMPCCXADD</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Cmpnlexadd_m64_r64_r64 = 4910,
 	}
 }

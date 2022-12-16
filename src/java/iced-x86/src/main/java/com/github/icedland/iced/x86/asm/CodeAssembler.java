@@ -584,6 +584,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code AADD} instruction<hr>
+	 * <p>
+	 * {@code AADD m32, r32}<p>
+	 * {@code NP 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void aadd(AsmMemoryOperand dst, AsmRegister32 src) {
+		addInstruction(Instruction.create(Code.AADD_M32_R32, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
+	 * {@code AADD} instruction<hr>
+	 * <p>
+	 * {@code AADD m64, r64}<p>
+	 * {@code NP o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public void aadd(AsmMemoryOperand dst, AsmRegister64 src) {
+		addInstruction(Instruction.create(Code.AADD_M64_R64, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
 	 * {@code AAM} instruction<hr>
 	 * <p>
 	 * {@code AAM imm8}<p>
@@ -593,6 +617,30 @@ public class CodeAssembler {
 	 */
 	public void aam(int imm) {
 		addInstruction(Instruction.create(Code.AAM_IMM8, imm));
+	}
+
+	/**
+	 * {@code AAND} instruction<hr>
+	 * <p>
+	 * {@code AAND m32, r32}<p>
+	 * {@code 66 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void aand(AsmMemoryOperand dst, AsmRegister32 src) {
+		addInstruction(Instruction.create(Code.AAND_M32_R32, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
+	 * {@code AAND} instruction<hr>
+	 * <p>
+	 * {@code AAND m64, r64}<p>
+	 * {@code 66 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public void aand(AsmMemoryOperand dst, AsmRegister64 src) {
+		addInstruction(Instruction.create(Code.AAND_M64_R64, dst.toMemoryOperand(getBitness()), src.get()));
 	}
 
 	/**
@@ -2129,6 +2177,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code AOR} instruction<hr>
+	 * <p>
+	 * {@code AOR m32, r32}<p>
+	 * {@code F2 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void aor(AsmMemoryOperand dst, AsmRegister32 src) {
+		addInstruction(Instruction.create(Code.AOR_M32_R32, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
+	 * {@code AOR} instruction<hr>
+	 * <p>
+	 * {@code AOR m64, r64}<p>
+	 * {@code F2 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public void aor(AsmMemoryOperand dst, AsmRegister64 src) {
+		addInstruction(Instruction.create(Code.AOR_M64_R64, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
 	 * {@code ARPL} instruction<hr>
 	 * <p>
 	 * {@code ARPL r/m16, r16}<p>
@@ -2174,6 +2246,30 @@ public class CodeAssembler {
 	 */
 	public void arpl(AsmMemoryOperand dst, AsmRegister32 src) {
 		addInstruction(Instruction.create(Code.ARPL_R32M16_R32, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
+	 * {@code AXOR} instruction<hr>
+	 * <p>
+	 * {@code AXOR m32, r32}<p>
+	 * {@code F3 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void axor(AsmMemoryOperand dst, AsmRegister32 src) {
+		addInstruction(Instruction.create(Code.AXOR_M32_R32, dst.toMemoryOperand(getBitness()), src.get()));
+	}
+
+	/**
+	 * {@code AXOR} instruction<hr>
+	 * <p>
+	 * {@code AXOR m64, r64}<p>
+	 * {@code F3 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public void axor(AsmMemoryOperand dst, AsmRegister64 src) {
+		addInstruction(Instruction.create(Code.AXOR_M64_R64, dst.toMemoryOperand(getBitness()), src.get()));
 	}
 
 	/**
@@ -6814,6 +6910,54 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code CMPBEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPBEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E6 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpbexadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPBEXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPBEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPBEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E6 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpbexadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPBEXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPBXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPBXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E2 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpbxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPBXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPBXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPBXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E2 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpbxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPBXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code CMPEQPD} instruction<hr>
 	 * <p>
 	 * {@code CMPPD xmm1, xmm2/m128, imm8}<p>
@@ -7006,6 +7150,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code CMPLEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPLEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EE !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmplexadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPLEXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPLEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPLEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EE !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmplexadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPLEXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code CMPLTPD} instruction<hr>
 	 * <p>
 	 * {@code CMPPD xmm1, xmm2/m128, imm8}<p>
@@ -7099,6 +7267,78 @@ public class CodeAssembler {
 	 */
 	public void cmpltss(AsmRegisterXMM dst, AsmMemoryOperand src) {
 		cmpss(dst, src, 1);
+	}
+
+	/**
+	 * {@code CMPLXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPLXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EC !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmplxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPLXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPLXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPLXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EC !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmplxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPLXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNBEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNBEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E7 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnbexadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNBEXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNBEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNBEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E7 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnbexadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNBEXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNBXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNBXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E3 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnbxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNBXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNBXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNBXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E3 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnbxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNBXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
 	}
 
 	/**
@@ -7294,6 +7534,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code CMPNLEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNLEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EF !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnlexadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNLEXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNLEXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNLEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EF !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnlexadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNLEXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code CMPNLTPD} instruction<hr>
 	 * <p>
 	 * {@code CMPPD xmm1, xmm2/m128, imm8}<p>
@@ -7387,6 +7651,126 @@ public class CodeAssembler {
 	 */
 	public void cmpnltss(AsmRegisterXMM dst, AsmMemoryOperand src) {
 		cmpss(dst, src, 5);
+	}
+
+	/**
+	 * {@code CMPNLXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNLXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 ED !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnlxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNLXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNLXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNLXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 ED !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnlxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNLXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNOXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNOXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E1 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnoxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNOXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNOXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNOXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E1 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnoxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNOXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNPXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNPXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EB !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnpxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNPXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNPXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNPXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EB !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnpxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNPXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNSXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNSXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E9 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnsxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNSXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNSXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNSXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E9 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnsxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNSXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNZXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNZXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E5 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnzxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNZXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPNZXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPNZXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E5 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpnzxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPNZXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
 	}
 
 	/**
@@ -7486,6 +7870,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code CMPOXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPOXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E0 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpoxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPOXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPOXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPOXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E0 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpoxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPOXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code CMPPD} instruction<hr>
 	 * <p>
 	 * {@code CMPPD xmm1, xmm2/m128, imm8}<p>
@@ -7531,6 +7939,30 @@ public class CodeAssembler {
 	 */
 	public void cmpps(AsmRegisterXMM dst, AsmMemoryOperand src1, int imm) {
 		addInstruction(Instruction.create(Code.CMPPS_XMM_XMMM128_IMM8, dst.get(), src1.toMemoryOperand(getBitness()), imm));
+	}
+
+	/**
+	 * {@code CMPPXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPPXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EA !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmppxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPPXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPPXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPPXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EA !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmppxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPPXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
 	}
 
 	/**
@@ -7627,6 +8059,30 @@ public class CodeAssembler {
 	 */
 	public void cmpsw() {
 		addInstruction(Instruction.createCmpsw(getBitness()));
+	}
+
+	/**
+	 * {@code CMPSXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPSXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E8 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpsxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPSXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPSXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPSXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E8 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpsxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPSXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
 	}
 
 	/**
@@ -7843,6 +8299,30 @@ public class CodeAssembler {
 	 */
 	public void cmpxchg8b(AsmMemoryOperand dst) {
 		addInstruction(Instruction.create(Code.CMPXCHG8B_M64, dst.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code CMPZXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPZXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E4 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpzxadd(AsmMemoryOperand dst, AsmRegister32 src1, AsmRegister32 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPZXADD_M32_R32_R32, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code CMPZXADD} instruction<hr>
+	 * <p>
+	 * {@code CMPZXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E4 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public void cmpzxadd(AsmMemoryOperand dst, AsmRegister64 src1, AsmRegister64 src2) {
+		addInstruction(Instruction.create(Code.VEX_CMPZXADD_M64_R64_R64, dst.toMemoryOperand(getBitness()), src1.get(), src2.get()));
 	}
 
 	/**
@@ -25295,6 +25775,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code PREFETCHIT0} instruction<hr>
+	 * <p>
+	 * {@code PREFETCHIT0 m8}<p>
+	 * {@code 0F 18 /7}<p>
+	 * {@code PREFETCHITI}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void prefetchit0(AsmMemoryOperand dst) {
+		addInstruction(Instruction.create(Code.PREFETCHIT0_M8, dst.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code PREFETCHIT1} instruction<hr>
+	 * <p>
+	 * {@code PREFETCHIT1 m8}<p>
+	 * {@code 0F 18 /6}<p>
+	 * {@code PREFETCHITI}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void prefetchit1(AsmMemoryOperand dst) {
+		addInstruction(Instruction.create(Code.PREFETCHIT1_M8, dst.toMemoryOperand(getBitness())));
+	}
+
+	/**
 	 * {@code PREFETCHNTA} instruction<hr>
 	 * <p>
 	 * {@code PREFETCHNTA m8}<p>
@@ -28086,6 +28590,18 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code RDMSRLIST} instruction<hr>
+	 * <p>
+	 * {@code RDMSRLIST}<p>
+	 * {@code F2 0F 01 C6}<p>
+	 * {@code MSRLIST}<p>
+	 * {@code 64-bit}
+	 */
+	public void rdmsrlist() {
+		addInstruction(Instruction.create(Code.RDMSRLIST));
+	}
+
+	/**
 	 * {@code RDPID} instruction<hr>
 	 * <p>
 	 * {@code RDPID r32}<p>
@@ -28137,7 +28653,7 @@ public class CodeAssembler {
 	 * {@code RDPRU} instruction<hr>
 	 * <p>
 	 * {@code RDPRU}<p>
-	 * {@code 0F 01 FD}<p>
+	 * {@code NP 0F 01 FD}<p>
 	 * {@code RDPRU}<p>
 	 * {@code 16/32/64-bit}
 	 */
@@ -29063,6 +29579,18 @@ public class CodeAssembler {
 	 */
 	public void rmpadjust() {
 		addInstruction(Instruction.create(Code.RMPADJUST));
+	}
+
+	/**
+	 * {@code RMPQUERY} instruction<hr>
+	 * <p>
+	 * {@code RMPQUERY}<p>
+	 * {@code F3 0F 01 FD}<p>
+	 * {@code RMPQUERY}<p>
+	 * {@code 64-bit}
+	 */
+	public void rmpquery() {
+		addInstruction(Instruction.create(Code.RMPQUERY));
 	}
 
 	/**
@@ -33713,6 +34241,18 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code TDPFP16PS} instruction<hr>
+	 * <p>
+	 * {@code TDPFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.F2.0F38.W0 5C 11:rrr:bbb}<p>
+	 * {@code AMX-FP16}<p>
+	 * {@code 64-bit}
+	 */
+	public void tdpfp16ps(AsmRegisterTMM dst, AsmRegisterTMM src1, AsmRegisterTMM src2) {
+		addInstruction(Instruction.create(Code.VEX_TDPFP16PS_TMM_TMM_TMM, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code TEST} instruction<hr>
 	 * <p>
 	 * {@code TEST r/m8, r8}<p>
@@ -36173,6 +36713,54 @@ public class CodeAssembler {
 	 */
 	public void vandps(AsmRegisterZMM dst, AsmRegisterZMM src1, AsmMemoryOperand src2) {
 		addInstruction(Instruction.create(Code.EVEX_VANDPS_ZMM_K1Z_ZMM_ZMMM512B32, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+	}
+
+	/**
+	 * {@code VBCSTNEBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VBCSTNEBF162PS xmm1, m16}<p>
+	 * {@code VEX.128.F3.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vbcstnebf162ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VBCSTNEBF162PS_XMM_M16, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VBCSTNEBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VBCSTNEBF162PS ymm1, m16}<p>
+	 * {@code VEX.256.F3.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vbcstnebf162ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VBCSTNEBF162PS_YMM_M16, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VBCSTNESH2PS} instruction<hr>
+	 * <p>
+	 * {@code VBCSTNESH2PS xmm1, m16}<p>
+	 * {@code VEX.128.66.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vbcstnesh2ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VBCSTNESH2PS_XMM_M16, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VBCSTNESH2PS} instruction<hr>
+	 * <p>
+	 * {@code VBCSTNESH2PS ymm1, m16}<p>
+	 * {@code VEX.256.66.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vbcstnesh2ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VBCSTNESH2PS_YMM_M16, dst.get(), src.toMemoryOperand(getBitness())));
 	}
 
 	/**
@@ -51841,15 +52429,118 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code VCVTNEEBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEEBF162PS xmm1, m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneebf162ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEEBF162PS_XMM_M128, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEEBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEEBF162PS ymm1, m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneebf162ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEEBF162PS_YMM_M256, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEEPH2PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEEPH2PS xmm1, m128}<p>
+	 * {@code VEX.128.66.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneeph2ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEEPH2PS_XMM_M128, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEEPH2PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEEPH2PS ymm1, m256}<p>
+	 * {@code VEX.256.66.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneeph2ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEEPH2PS_YMM_M256, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEOBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEOBF162PS xmm1, m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneobf162ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEOBF162PS_XMM_M128, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEOBF162PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEOBF162PS ymm1, m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneobf162ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEOBF162PS_YMM_M256, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEOPH2PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEOPH2PS xmm1, m128}<p>
+	 * {@code VEX.128.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneoph2ps(AsmRegisterXMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEOPH2PS_XMM_M128, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VCVTNEOPH2PS} instruction<hr>
+	 * <p>
+	 * {@code VCVTNEOPH2PS ymm1, m256}<p>
+	 * {@code VEX.256.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vcvtneoph2ps(AsmRegisterYMM dst, AsmMemoryOperand src) {
+		addInstruction(Instruction.create(Code.VEX_VCVTNEOPH2PS_YMM_M256, dst.get(), src.toMemoryOperand(getBitness())));
+	}
+
+	/**
 	 * {@code VCVTNEPS2BF16} instruction<hr>
 	 * <p>
 	 * {@code VCVTNEPS2BF16 xmm1 {k1}{z}, xmm2/m128/m32bcst}<p>
 	 * {@code EVEX.128.F3.0F38.W0 72 /r}<p>
 	 * {@code AVX512VL and AVX512_BF16}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VCVTNEPS2BF16 xmm1, xmm2/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vcvtneps2bf16(AsmRegisterXMM dst, AsmRegisterXMM src) {
-		addInstruction(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, dst.get(), src.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VCVTNEPS2BF16_XMM_XMMM128 : Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32;
+		addInstruction(Instruction.create(code, dst.get(), src.get()), dst.flags);
 	}
 
 	/**
@@ -51858,10 +52549,17 @@ public class CodeAssembler {
 	 * {@code VCVTNEPS2BF16 xmm1 {k1}{z}, ymm2/m256/m32bcst}<p>
 	 * {@code EVEX.256.F3.0F38.W0 72 /r}<p>
 	 * {@code AVX512VL and AVX512_BF16}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VCVTNEPS2BF16 xmm1, ymm2/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vcvtneps2bf16(AsmRegisterXMM dst, AsmRegisterYMM src) {
-		addInstruction(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, dst.get(), src.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VCVTNEPS2BF16_XMM_YMMM256 : Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32;
+		addInstruction(Instruction.create(code, dst.get(), src.get()), dst.flags);
 	}
 
 	/**
@@ -51884,9 +52582,19 @@ public class CodeAssembler {
 	 * {@code AVX512VL and AVX512_BF16}<p>
 	 * {@code 16/32/64-bit}<hr>
 	 * <p>
+	 * {@code VCVTNEPS2BF16 xmm1, ymm2/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
 	 * {@code VCVTNEPS2BF16 xmm1 {k1}{z}, xmm2/m128/m32bcst}<p>
 	 * {@code EVEX.128.F3.0F38.W0 72 /r}<p>
 	 * {@code AVX512VL and AVX512_BF16}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VCVTNEPS2BF16 xmm1, xmm2/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vcvtneps2bf16(AsmRegisterXMM dst, AsmMemoryOperand src) {
@@ -51894,9 +52602,9 @@ public class CodeAssembler {
 		if (src.isBroadcast()) {
 			code = Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32;
 		} else if (src.size == MemoryOperandSize.YWORD) {
-			code = Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32;
+			code = getInstructionPreferVex() ? Code.VEX_VCVTNEPS2BF16_XMM_YMMM256 : Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32;
 		} else if (src.size == MemoryOperandSize.XWORD) {
-			code = Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32;
+			code = getInstructionPreferVex() ? Code.VEX_VCVTNEPS2BF16_XMM_XMMM128 : Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32;
 		} else {
 			throw noOpCodeFoundFor(Mnemonic.VCVTNEPS2BF16, dst, src);
 		}
@@ -85285,6 +85993,198 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code VPDPBSSD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssd(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSSD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssd(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSSD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssd(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSSD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssd(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSSDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSSDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSSDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSSDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSSDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbssds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSSDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsud(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsud(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsud(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsud(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsuds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsuds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBSUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsuds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBSUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBSUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbsuds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBSUDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
 	 * {@code VPDPBUSD} instruction<hr>
 	 * <p>
 	 * {@code VPDPBUSD xmm1 {k1}{z}, xmm2, xmm3/m128/m32bcst}<p>
@@ -85490,6 +86390,102 @@ public class CodeAssembler {
 	 */
 	public void vpdpbusds(AsmRegisterZMM dst, AsmRegisterZMM src1, AsmMemoryOperand src2) {
 		addInstruction(Instruction.create(Code.EVEX_VPDPBUSDS_ZMM_K1Z_ZMM_ZMMM512B32, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+	}
+
+	/**
+	 * {@code VPDPBUUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuud(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBUUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuud(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBUUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuud(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUD_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBUUD} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuud(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUD_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBUUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuuds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBUUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuuds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code VPDPBUUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuuds(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUDS_XMM_XMM_XMMM128, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
+	}
+
+	/**
+	 * {@code VPDPBUUDS} instruction<hr>
+	 * <p>
+	 * {@code VPDPBUUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void vpdpbuuds(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
+		addInstruction(Instruction.create(Code.VEX_VPDPBUUDS_YMM_YMM_YMMM256, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())));
 	}
 
 	/**
@@ -89688,10 +90684,17 @@ public class CodeAssembler {
 	 * {@code VPMADD52HUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst}<p>
 	 * {@code EVEX.128.66.0F38.W1 B5 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52HUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52huq(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64, dst.get(), src1.get(), src2.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VPMADD52HUQ_XMM_XMM_XMMM128 : Code.EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.get()), dst.flags);
 	}
 
 	/**
@@ -89700,10 +90703,17 @@ public class CodeAssembler {
 	 * {@code VPMADD52HUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst}<p>
 	 * {@code EVEX.256.66.0F38.W1 B5 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52HUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52huq(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64, dst.get(), src1.get(), src2.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VPMADD52HUQ_YMM_YMM_YMMM256 : Code.EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.get()), dst.flags);
 	}
 
 	/**
@@ -89724,10 +90734,19 @@ public class CodeAssembler {
 	 * {@code VPMADD52HUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst}<p>
 	 * {@code EVEX.128.66.0F38.W1 B5 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52HUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52huq(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+		int code;
+		if (src2.isBroadcast()) {
+			code = Code.EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64;
+		} else code = getInstructionPreferVex() ? Code.VEX_VPMADD52HUQ_XMM_XMM_XMMM128 : Code.EVEX_VPMADD52HUQ_XMM_K1Z_XMM_XMMM128B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
 	}
 
 	/**
@@ -89736,10 +90755,19 @@ public class CodeAssembler {
 	 * {@code VPMADD52HUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst}<p>
 	 * {@code EVEX.256.66.0F38.W1 B5 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52HUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52huq(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+		int code;
+		if (src2.isBroadcast()) {
+			code = Code.EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64;
+		} else code = getInstructionPreferVex() ? Code.VEX_VPMADD52HUQ_YMM_YMM_YMMM256 : Code.EVEX_VPMADD52HUQ_YMM_K1Z_YMM_YMMM256B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
 	}
 
 	/**
@@ -89760,10 +90788,17 @@ public class CodeAssembler {
 	 * {@code VPMADD52LUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst}<p>
 	 * {@code EVEX.128.66.0F38.W1 B4 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52LUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52luq(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmRegisterXMM src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64, dst.get(), src1.get(), src2.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VPMADD52LUQ_XMM_XMM_XMMM128 : Code.EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.get()), dst.flags);
 	}
 
 	/**
@@ -89772,10 +90807,17 @@ public class CodeAssembler {
 	 * {@code VPMADD52LUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst}<p>
 	 * {@code EVEX.256.66.0F38.W1 B4 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52LUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52luq(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmRegisterYMM src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64, dst.get(), src1.get(), src2.get()), dst.flags);
+		int code;
+		code = getInstructionPreferVex() ? Code.VEX_VPMADD52LUQ_YMM_YMM_YMMM256 : Code.EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.get()), dst.flags);
 	}
 
 	/**
@@ -89796,10 +90838,19 @@ public class CodeAssembler {
 	 * {@code VPMADD52LUQ xmm1 {k1}{z}, xmm2, xmm3/m128/m64bcst}<p>
 	 * {@code EVEX.128.66.0F38.W1 B4 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52LUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52luq(AsmRegisterXMM dst, AsmRegisterXMM src1, AsmMemoryOperand src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+		int code;
+		if (src2.isBroadcast()) {
+			code = Code.EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64;
+		} else code = getInstructionPreferVex() ? Code.VEX_VPMADD52LUQ_XMM_XMM_XMMM128 : Code.EVEX_VPMADD52LUQ_XMM_K1Z_XMM_XMMM128B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
 	}
 
 	/**
@@ -89808,10 +90859,19 @@ public class CodeAssembler {
 	 * {@code VPMADD52LUQ ymm1 {k1}{z}, ymm2, ymm3/m256/m64bcst}<p>
 	 * {@code EVEX.256.66.0F38.W1 B4 /r}<p>
 	 * {@code AVX512VL and AVX512_IFMA}<p>
+	 * {@code 16/32/64-bit}<hr>
+	 * <p>
+	 * {@code VPMADD52LUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
 	 * {@code 16/32/64-bit}
 	 */
 	public void vpmadd52luq(AsmRegisterYMM dst, AsmRegisterYMM src1, AsmMemoryOperand src2) {
-		addInstruction(Instruction.create(Code.EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
+		int code;
+		if (src2.isBroadcast()) {
+			code = Code.EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64;
+		} else code = getInstructionPreferVex() ? Code.VEX_VPMADD52LUQ_YMM_YMM_YMMM256 : Code.EVEX_VPMADD52LUQ_YMM_K1Z_YMM_YMMM256B64;
+		addInstruction(Instruction.create(code, dst.get(), src1.get(), src2.toMemoryOperand(getBitness())), dst.flags | src2.flags);
 	}
 
 	/**
@@ -108322,6 +109382,30 @@ public class CodeAssembler {
 	 */
 	public void wrmsr() {
 		addInstruction(Instruction.create(Code.WRMSR));
+	}
+
+	/**
+	 * {@code WRMSRLIST} instruction<hr>
+	 * <p>
+	 * {@code WRMSRLIST}<p>
+	 * {@code F3 0F 01 C6}<p>
+	 * {@code MSRLIST}<p>
+	 * {@code 64-bit}
+	 */
+	public void wrmsrlist() {
+		addInstruction(Instruction.create(Code.WRMSRLIST));
+	}
+
+	/**
+	 * {@code WRMSRNS} instruction<hr>
+	 * <p>
+	 * {@code WRMSRNS}<p>
+	 * {@code NP 0F 01 C6}<p>
+	 * {@code WRMSRNS}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public void wrmsrns() {
+		addInstruction(Instruction.create(Code.WRMSRNS));
 	}
 
 	/**

@@ -30,6 +30,6 @@ public final class FormatterStringsTable {
 	/** DO NOT USE: INTERNAL API */
 	public static final int MAX_STRING_LENGTH = 18;
 	/** DO NOT USE: INTERNAL API */
-	public static final int STRINGS_COUNT = 1691;
+	public static final int STRINGS_COUNT = 1730;
 	// GENERATOR-END: Table
 }

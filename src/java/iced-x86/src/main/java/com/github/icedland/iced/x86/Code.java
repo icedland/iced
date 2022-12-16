@@ -6553,7 +6553,7 @@ public final class Code {
 	public static final int CLZEROQ = 860;
 	/**
 	 * {@code RDPRU}<p>
-	 * {@code 0F 01 FD}<p>
+	 * {@code NP 0F 01 FD}<p>
 	 * {@code RDPRU}<p>
 	 * {@code 16/32/64-bit}
 	 */
@@ -34359,5 +34359,544 @@ public final class Code {
 	 * A zero-sized instruction.<!-- --> Can be used as a label.<!-- -->
 	 */
 	public static final int ZERO_BYTES = 4833;
+	/**
+	 * {@code WRMSRNS}<p>
+	 * {@code NP 0F 01 C6}<p>
+	 * {@code WRMSRNS}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int WRMSRNS = 4834;
+	/**
+	 * {@code WRMSRLIST}<p>
+	 * {@code F3 0F 01 C6}<p>
+	 * {@code MSRLIST}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int WRMSRLIST = 4835;
+	/**
+	 * {@code RDMSRLIST}<p>
+	 * {@code F2 0F 01 C6}<p>
+	 * {@code MSRLIST}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int RDMSRLIST = 4836;
+	/**
+	 * {@code RMPQUERY}<p>
+	 * {@code F3 0F 01 FD}<p>
+	 * {@code RMPQUERY}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int RMPQUERY = 4837;
+	/**
+	 * {@code PREFETCHIT1 m8}<p>
+	 * {@code 0F 18 /6}<p>
+	 * {@code PREFETCHITI}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int PREFETCHIT1_M8 = 4838;
+	/**
+	 * {@code PREFETCHIT0 m8}<p>
+	 * {@code 0F 18 /7}<p>
+	 * {@code PREFETCHITI}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int PREFETCHIT0_M8 = 4839;
+	/**
+	 * {@code AADD m32, r32}<p>
+	 * {@code NP 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int AADD_M32_R32 = 4840;
+	/**
+	 * {@code AADD m64, r64}<p>
+	 * {@code NP o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int AADD_M64_R64 = 4841;
+	/**
+	 * {@code AAND m32, r32}<p>
+	 * {@code 66 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int AAND_M32_R32 = 4842;
+	/**
+	 * {@code AAND m64, r64}<p>
+	 * {@code 66 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int AAND_M64_R64 = 4843;
+	/**
+	 * {@code AXOR m32, r32}<p>
+	 * {@code F3 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int AXOR_M32_R32 = 4844;
+	/**
+	 * {@code AXOR m64, r64}<p>
+	 * {@code F3 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int AXOR_M64_R64 = 4845;
+	/**
+	 * {@code AOR m32, r32}<p>
+	 * {@code F2 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int AOR_M32_R32 = 4846;
+	/**
+	 * {@code AOR m64, r64}<p>
+	 * {@code F2 o64 0F 38 FC !(11):rrr:bbb}<p>
+	 * {@code RAO-INT}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int AOR_M64_R64 = 4847;
+	/**
+	 * {@code VPDPBUUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBUUD_XMM_XMM_XMMM128 = 4848;
+	/**
+	 * {@code VPDPBUUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBUUD_YMM_YMM_YMMM256 = 4849;
+	/**
+	 * {@code VPDPBSUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSUD_XMM_XMM_XMMM128 = 4850;
+	/**
+	 * {@code VPDPBSUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSUD_YMM_YMM_YMMM256 = 4851;
+	/**
+	 * {@code VPDPBSSD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSSD_XMM_XMM_XMMM128 = 4852;
+	/**
+	 * {@code VPDPBSSD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 50 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSSD_YMM_YMM_YMMM256 = 4853;
+	/**
+	 * {@code VPDPBUUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBUUDS_XMM_XMM_XMMM128 = 4854;
+	/**
+	 * {@code VPDPBUUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBUUDS_YMM_YMM_YMMM256 = 4855;
+	/**
+	 * {@code VPDPBSUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSUDS_XMM_XMM_XMMM128 = 4856;
+	/**
+	 * {@code VPDPBSUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSUDS_YMM_YMM_YMMM256 = 4857;
+	/**
+	 * {@code VPDPBSSDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSSDS_XMM_XMM_XMMM128 = 4858;
+	/**
+	 * {@code VPDPBSSDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 51 /r}<p>
+	 * {@code AVX-VNNI-INT8}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPBSSDS_YMM_YMM_YMMM256 = 4859;
+	/**
+	 * {@code TDPFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.F2.0F38.W0 5C 11:rrr:bbb}<p>
+	 * {@code AMX-FP16}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_TDPFP16PS_TMM_TMM_TMM = 4860;
+	/**
+	 * {@code VCVTNEPS2BF16 xmm1, xmm2/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEPS2BF16_XMM_XMMM128 = 4861;
+	/**
+	 * {@code VCVTNEPS2BF16 xmm1, ymm2/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 72 /r}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEPS2BF16_XMM_YMMM256 = 4862;
+	/**
+	 * {@code VCVTNEOPH2PS xmm1, m128}<p>
+	 * {@code VEX.128.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEOPH2PS_XMM_M128 = 4863;
+	/**
+	 * {@code VCVTNEOPH2PS ymm1, m256}<p>
+	 * {@code VEX.256.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEOPH2PS_YMM_M256 = 4864;
+	/**
+	 * {@code VCVTNEEPH2PS xmm1, m128}<p>
+	 * {@code VEX.128.66.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEEPH2PS_XMM_M128 = 4865;
+	/**
+	 * {@code VCVTNEEPH2PS ymm1, m256}<p>
+	 * {@code VEX.256.66.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEEPH2PS_YMM_M256 = 4866;
+	/**
+	 * {@code VCVTNEEBF162PS xmm1, m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEEBF162PS_XMM_M128 = 4867;
+	/**
+	 * {@code VCVTNEEBF162PS ymm1, m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEEBF162PS_YMM_M256 = 4868;
+	/**
+	 * {@code VCVTNEOBF162PS xmm1, m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEOBF162PS_XMM_M128 = 4869;
+	/**
+	 * {@code VCVTNEOBF162PS ymm1, m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 B0 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VCVTNEOBF162PS_YMM_M256 = 4870;
+	/**
+	 * {@code VBCSTNESH2PS xmm1, m16}<p>
+	 * {@code VEX.128.66.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VBCSTNESH2PS_XMM_M16 = 4871;
+	/**
+	 * {@code VBCSTNESH2PS ymm1, m16}<p>
+	 * {@code VEX.256.66.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VBCSTNESH2PS_YMM_M16 = 4872;
+	/**
+	 * {@code VBCSTNEBF162PS xmm1, m16}<p>
+	 * {@code VEX.128.F3.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VBCSTNEBF162PS_XMM_M16 = 4873;
+	/**
+	 * {@code VBCSTNEBF162PS ymm1, m16}<p>
+	 * {@code VEX.256.F3.0F38.W0 B1 !(11):rrr:bbb}<p>
+	 * {@code AVX-NE-CONVERT}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VBCSTNEBF162PS_YMM_M16 = 4874;
+	/**
+	 * {@code VPMADD52LUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPMADD52LUQ_XMM_XMM_XMMM128 = 4875;
+	/**
+	 * {@code VPMADD52LUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B4 /r}<p>
+	 * {@code AVX-IFMA}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPMADD52LUQ_YMM_YMM_YMMM256 = 4876;
+	/**
+	 * {@code VPMADD52HUQ xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPMADD52HUQ_XMM_XMM_XMMM128 = 4877;
+	/**
+	 * {@code VPMADD52HUQ ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W1 B5 /r}<p>
+	 * {@code AVX-IFMA}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPMADD52HUQ_YMM_YMM_YMMM256 = 4878;
+	/**
+	 * {@code CMPOXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E0 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPOXADD_M32_R32_R32 = 4879;
+	/**
+	 * {@code CMPOXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E0 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPOXADD_M64_R64_R64 = 4880;
+	/**
+	 * {@code CMPNOXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E1 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNOXADD_M32_R32_R32 = 4881;
+	/**
+	 * {@code CMPNOXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E1 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNOXADD_M64_R64_R64 = 4882;
+	/**
+	 * {@code CMPBXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E2 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPBXADD_M32_R32_R32 = 4883;
+	/**
+	 * {@code CMPBXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E2 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPBXADD_M64_R64_R64 = 4884;
+	/**
+	 * {@code CMPNBXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E3 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNBXADD_M32_R32_R32 = 4885;
+	/**
+	 * {@code CMPNBXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E3 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNBXADD_M64_R64_R64 = 4886;
+	/**
+	 * {@code CMPZXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E4 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPZXADD_M32_R32_R32 = 4887;
+	/**
+	 * {@code CMPZXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E4 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPZXADD_M64_R64_R64 = 4888;
+	/**
+	 * {@code CMPNZXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E5 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNZXADD_M32_R32_R32 = 4889;
+	/**
+	 * {@code CMPNZXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E5 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNZXADD_M64_R64_R64 = 4890;
+	/**
+	 * {@code CMPBEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E6 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPBEXADD_M32_R32_R32 = 4891;
+	/**
+	 * {@code CMPBEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E6 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPBEXADD_M64_R64_R64 = 4892;
+	/**
+	 * {@code CMPNBEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E7 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNBEXADD_M32_R32_R32 = 4893;
+	/**
+	 * {@code CMPNBEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E7 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNBEXADD_M64_R64_R64 = 4894;
+	/**
+	 * {@code CMPSXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E8 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPSXADD_M32_R32_R32 = 4895;
+	/**
+	 * {@code CMPSXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E8 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPSXADD_M64_R64_R64 = 4896;
+	/**
+	 * {@code CMPNSXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 E9 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNSXADD_M32_R32_R32 = 4897;
+	/**
+	 * {@code CMPNSXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 E9 !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNSXADD_M64_R64_R64 = 4898;
+	/**
+	 * {@code CMPPXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EA !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPPXADD_M32_R32_R32 = 4899;
+	/**
+	 * {@code CMPPXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EA !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPPXADD_M64_R64_R64 = 4900;
+	/**
+	 * {@code CMPNPXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EB !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNPXADD_M32_R32_R32 = 4901;
+	/**
+	 * {@code CMPNPXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EB !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNPXADD_M64_R64_R64 = 4902;
+	/**
+	 * {@code CMPLXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EC !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPLXADD_M32_R32_R32 = 4903;
+	/**
+	 * {@code CMPLXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EC !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPLXADD_M64_R64_R64 = 4904;
+	/**
+	 * {@code CMPNLXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 ED !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNLXADD_M32_R32_R32 = 4905;
+	/**
+	 * {@code CMPNLXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 ED !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNLXADD_M64_R64_R64 = 4906;
+	/**
+	 * {@code CMPLEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EE !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPLEXADD_M32_R32_R32 = 4907;
+	/**
+	 * {@code CMPLEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EE !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPLEXADD_M64_R64_R64 = 4908;
+	/**
+	 * {@code CMPNLEXADD m32, r32, r32}<p>
+	 * {@code VEX.128.66.0F38.W0 EF !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNLEXADD_M32_R32_R32 = 4909;
+	/**
+	 * {@code CMPNLEXADD m64, r64, r64}<p>
+	 * {@code VEX.128.66.0F38.W1 EF !(11):rrr:bbb}<p>
+	 * {@code CMPCCXADD}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_CMPNLEXADD_M64_R64_R64 = 4910;
 	// GENERATOR-END: Variants
 }

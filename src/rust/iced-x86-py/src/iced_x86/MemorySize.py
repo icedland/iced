@@ -321,339 +321,347 @@ PACKED128_FLOAT64: MemorySize = 75 # type: ignore
 """
 : 128-bit location: 2 x ``f64``
 """
-PACKED128_2X_FLOAT16: MemorySize = 76 # type: ignore
+PACKED128_BFLOAT16: MemorySize = 76 # type: ignore
+"""
+: 128-bit location: 8 x ``bfloat16``
+"""
+PACKED128_2X_FLOAT16: MemorySize = 77 # type: ignore
 """
 : 128-bit location: 4 x (2 x ``f16``)
 """
-PACKED128_2X_BFLOAT16: MemorySize = 77 # type: ignore
+PACKED128_2X_BFLOAT16: MemorySize = 78 # type: ignore
 """
 : 128-bit location: 4 x (2 x ``bfloat16``)
 """
-PACKED256_UINT8: MemorySize = 78 # type: ignore
+PACKED256_UINT8: MemorySize = 79 # type: ignore
 """
 : 256-bit location: 32 x ``u8``
 """
-PACKED256_INT8: MemorySize = 79 # type: ignore
+PACKED256_INT8: MemorySize = 80 # type: ignore
 """
 : 256-bit location: 32 x ``i8``
 """
-PACKED256_UINT16: MemorySize = 80 # type: ignore
+PACKED256_UINT16: MemorySize = 81 # type: ignore
 """
 : 256-bit location: 16 x ``u16``
 """
-PACKED256_INT16: MemorySize = 81 # type: ignore
+PACKED256_INT16: MemorySize = 82 # type: ignore
 """
 : 256-bit location: 16 x ``i16``
 """
-PACKED256_UINT32: MemorySize = 82 # type: ignore
+PACKED256_UINT32: MemorySize = 83 # type: ignore
 """
 : 256-bit location: 8 x ``u32``
 """
-PACKED256_INT32: MemorySize = 83 # type: ignore
+PACKED256_INT32: MemorySize = 84 # type: ignore
 """
 : 256-bit location: 8 x ``i32``
 """
-PACKED256_UINT52: MemorySize = 84 # type: ignore
+PACKED256_UINT52: MemorySize = 85 # type: ignore
 """
 : 256-bit location: 4 x ``u52``
 """
-PACKED256_UINT64: MemorySize = 85 # type: ignore
+PACKED256_UINT64: MemorySize = 86 # type: ignore
 """
 : 256-bit location: 4 x ``u64``
 """
-PACKED256_INT64: MemorySize = 86 # type: ignore
+PACKED256_INT64: MemorySize = 87 # type: ignore
 """
 : 256-bit location: 4 x ``i64``
 """
-PACKED256_UINT128: MemorySize = 87 # type: ignore
+PACKED256_UINT128: MemorySize = 88 # type: ignore
 """
 : 256-bit location: 2 x ``u128``
 """
-PACKED256_INT128: MemorySize = 88 # type: ignore
+PACKED256_INT128: MemorySize = 89 # type: ignore
 """
 : 256-bit location: 2 x ``i128``
 """
-PACKED256_FLOAT16: MemorySize = 89 # type: ignore
+PACKED256_FLOAT16: MemorySize = 90 # type: ignore
 """
 : 256-bit location: 16 x ``f16``
 """
-PACKED256_FLOAT32: MemorySize = 90 # type: ignore
+PACKED256_FLOAT32: MemorySize = 91 # type: ignore
 """
 : 256-bit location: 8 x ``f32``
 """
-PACKED256_FLOAT64: MemorySize = 91 # type: ignore
+PACKED256_FLOAT64: MemorySize = 92 # type: ignore
 """
 : 256-bit location: 4 x ``f64``
 """
-PACKED256_FLOAT128: MemorySize = 92 # type: ignore
+PACKED256_FLOAT128: MemorySize = 93 # type: ignore
 """
 : 256-bit location: 2 x ``f128``
 """
-PACKED256_2X_FLOAT16: MemorySize = 93 # type: ignore
+PACKED256_BFLOAT16: MemorySize = 94 # type: ignore
+"""
+: 256-bit location: 16 x ``bfloat16``
+"""
+PACKED256_2X_FLOAT16: MemorySize = 95 # type: ignore
 """
 : 256-bit location: 8 x (2 x ``f16``)
 """
-PACKED256_2X_BFLOAT16: MemorySize = 94 # type: ignore
+PACKED256_2X_BFLOAT16: MemorySize = 96 # type: ignore
 """
 : 256-bit location: 8 x (2 x ``bfloat16``)
 """
-PACKED512_UINT8: MemorySize = 95 # type: ignore
+PACKED512_UINT8: MemorySize = 97 # type: ignore
 """
 : 512-bit location: 64 x ``u8``
 """
-PACKED512_INT8: MemorySize = 96 # type: ignore
+PACKED512_INT8: MemorySize = 98 # type: ignore
 """
 : 512-bit location: 64 x ``i8``
 """
-PACKED512_UINT16: MemorySize = 97 # type: ignore
+PACKED512_UINT16: MemorySize = 99 # type: ignore
 """
 : 512-bit location: 32 x ``u16``
 """
-PACKED512_INT16: MemorySize = 98 # type: ignore
+PACKED512_INT16: MemorySize = 100 # type: ignore
 """
 : 512-bit location: 32 x ``i16``
 """
-PACKED512_UINT32: MemorySize = 99 # type: ignore
+PACKED512_UINT32: MemorySize = 101 # type: ignore
 """
 : 512-bit location: 16 x ``u32``
 """
-PACKED512_INT32: MemorySize = 100 # type: ignore
+PACKED512_INT32: MemorySize = 102 # type: ignore
 """
 : 512-bit location: 16 x ``i32``
 """
-PACKED512_UINT52: MemorySize = 101 # type: ignore
+PACKED512_UINT52: MemorySize = 103 # type: ignore
 """
 : 512-bit location: 8 x ``u52``
 """
-PACKED512_UINT64: MemorySize = 102 # type: ignore
+PACKED512_UINT64: MemorySize = 104 # type: ignore
 """
 : 512-bit location: 8 x ``u64``
 """
-PACKED512_INT64: MemorySize = 103 # type: ignore
+PACKED512_INT64: MemorySize = 105 # type: ignore
 """
 : 512-bit location: 8 x ``i64``
 """
-PACKED512_UINT128: MemorySize = 104 # type: ignore
+PACKED512_UINT128: MemorySize = 106 # type: ignore
 """
 : 256-bit location: 4 x ``u128``
 """
-PACKED512_FLOAT16: MemorySize = 105 # type: ignore
+PACKED512_FLOAT16: MemorySize = 107 # type: ignore
 """
 : 512-bit location: 32 x ``f16``
 """
-PACKED512_FLOAT32: MemorySize = 106 # type: ignore
+PACKED512_FLOAT32: MemorySize = 108 # type: ignore
 """
 : 512-bit location: 16 x ``f32``
 """
-PACKED512_FLOAT64: MemorySize = 107 # type: ignore
+PACKED512_FLOAT64: MemorySize = 109 # type: ignore
 """
 : 512-bit location: 8 x ``f64``
 """
-PACKED512_2X_FLOAT16: MemorySize = 108 # type: ignore
+PACKED512_2X_FLOAT16: MemorySize = 110 # type: ignore
 """
 : 512-bit location: 16 x (2 x ``f16``)
 """
-PACKED512_2X_BFLOAT16: MemorySize = 109 # type: ignore
+PACKED512_2X_BFLOAT16: MemorySize = 111 # type: ignore
 """
 : 512-bit location: 16 x (2 x ``bfloat16``)
 """
-BROADCAST32_FLOAT16: MemorySize = 110 # type: ignore
+BROADCAST32_FLOAT16: MemorySize = 112 # type: ignore
 """
 Broadcast ``f16`` to 32-bits
 """
-BROADCAST64_UINT32: MemorySize = 111 # type: ignore
+BROADCAST64_UINT32: MemorySize = 113 # type: ignore
 """
 Broadcast ``u32`` to 64-bits
 """
-BROADCAST64_INT32: MemorySize = 112 # type: ignore
+BROADCAST64_INT32: MemorySize = 114 # type: ignore
 """
 Broadcast ``i32`` to 64-bits
 """
-BROADCAST64_FLOAT16: MemorySize = 113 # type: ignore
+BROADCAST64_FLOAT16: MemorySize = 115 # type: ignore
 """
 Broadcast ``f16`` to 64-bits
 """
-BROADCAST64_FLOAT32: MemorySize = 114 # type: ignore
+BROADCAST64_FLOAT32: MemorySize = 116 # type: ignore
 """
 Broadcast ``f32`` to 64-bits
 """
-BROADCAST128_INT16: MemorySize = 115 # type: ignore
+BROADCAST128_INT16: MemorySize = 117 # type: ignore
 """
 Broadcast ``i16`` to 128-bits
 """
-BROADCAST128_UINT16: MemorySize = 116 # type: ignore
+BROADCAST128_UINT16: MemorySize = 118 # type: ignore
 """
 Broadcast ``u16`` to 128-bits
 """
-BROADCAST128_UINT32: MemorySize = 117 # type: ignore
+BROADCAST128_UINT32: MemorySize = 119 # type: ignore
 """
 Broadcast ``u32`` to 128-bits
 """
-BROADCAST128_INT32: MemorySize = 118 # type: ignore
+BROADCAST128_INT32: MemorySize = 120 # type: ignore
 """
 Broadcast ``i32`` to 128-bits
 """
-BROADCAST128_UINT52: MemorySize = 119 # type: ignore
+BROADCAST128_UINT52: MemorySize = 121 # type: ignore
 """
 Broadcast ``u52`` to 128-bits
 """
-BROADCAST128_UINT64: MemorySize = 120 # type: ignore
+BROADCAST128_UINT64: MemorySize = 122 # type: ignore
 """
 Broadcast ``u64`` to 128-bits
 """
-BROADCAST128_INT64: MemorySize = 121 # type: ignore
+BROADCAST128_INT64: MemorySize = 123 # type: ignore
 """
 Broadcast ``i64`` to 128-bits
 """
-BROADCAST128_FLOAT16: MemorySize = 122 # type: ignore
+BROADCAST128_FLOAT16: MemorySize = 124 # type: ignore
 """
 Broadcast ``f16`` to 128-bits
 """
-BROADCAST128_FLOAT32: MemorySize = 123 # type: ignore
+BROADCAST128_FLOAT32: MemorySize = 125 # type: ignore
 """
 Broadcast ``f32`` to 128-bits
 """
-BROADCAST128_FLOAT64: MemorySize = 124 # type: ignore
+BROADCAST128_FLOAT64: MemorySize = 126 # type: ignore
 """
 Broadcast ``f64`` to 128-bits
 """
-BROADCAST128_2X_INT16: MemorySize = 125 # type: ignore
+BROADCAST128_2X_INT16: MemorySize = 127 # type: ignore
 """
 Broadcast 2 x ``i16`` to 128-bits
 """
-BROADCAST128_2X_INT32: MemorySize = 126 # type: ignore
+BROADCAST128_2X_INT32: MemorySize = 128 # type: ignore
 """
 Broadcast 2 x ``i32`` to 128-bits
 """
-BROADCAST128_2X_UINT32: MemorySize = 127 # type: ignore
+BROADCAST128_2X_UINT32: MemorySize = 129 # type: ignore
 """
 Broadcast 2 x ``u32`` to 128-bits
 """
-BROADCAST128_2X_FLOAT16: MemorySize = 128 # type: ignore
+BROADCAST128_2X_FLOAT16: MemorySize = 130 # type: ignore
 """
 Broadcast 2 x ``f16`` to 128-bits
 """
-BROADCAST128_2X_BFLOAT16: MemorySize = 129 # type: ignore
+BROADCAST128_2X_BFLOAT16: MemorySize = 131 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 128-bits
 """
-BROADCAST256_INT16: MemorySize = 130 # type: ignore
+BROADCAST256_INT16: MemorySize = 132 # type: ignore
 """
 Broadcast ``i16`` to 256-bits
 """
-BROADCAST256_UINT16: MemorySize = 131 # type: ignore
+BROADCAST256_UINT16: MemorySize = 133 # type: ignore
 """
 Broadcast ``u16`` to 256-bits
 """
-BROADCAST256_UINT32: MemorySize = 132 # type: ignore
+BROADCAST256_UINT32: MemorySize = 134 # type: ignore
 """
 Broadcast ``u32`` to 256-bits
 """
-BROADCAST256_INT32: MemorySize = 133 # type: ignore
+BROADCAST256_INT32: MemorySize = 135 # type: ignore
 """
 Broadcast ``i32`` to 256-bits
 """
-BROADCAST256_UINT52: MemorySize = 134 # type: ignore
+BROADCAST256_UINT52: MemorySize = 136 # type: ignore
 """
 Broadcast ``u52`` to 256-bits
 """
-BROADCAST256_UINT64: MemorySize = 135 # type: ignore
+BROADCAST256_UINT64: MemorySize = 137 # type: ignore
 """
 Broadcast ``u64`` to 256-bits
 """
-BROADCAST256_INT64: MemorySize = 136 # type: ignore
+BROADCAST256_INT64: MemorySize = 138 # type: ignore
 """
 Broadcast ``i64`` to 256-bits
 """
-BROADCAST256_FLOAT16: MemorySize = 137 # type: ignore
+BROADCAST256_FLOAT16: MemorySize = 139 # type: ignore
 """
 Broadcast ``f16`` to 256-bits
 """
-BROADCAST256_FLOAT32: MemorySize = 138 # type: ignore
+BROADCAST256_FLOAT32: MemorySize = 140 # type: ignore
 """
 Broadcast ``f32`` to 256-bits
 """
-BROADCAST256_FLOAT64: MemorySize = 139 # type: ignore
+BROADCAST256_FLOAT64: MemorySize = 141 # type: ignore
 """
 Broadcast ``f64`` to 256-bits
 """
-BROADCAST256_2X_INT16: MemorySize = 140 # type: ignore
+BROADCAST256_2X_INT16: MemorySize = 142 # type: ignore
 """
 Broadcast 2 x ``i16`` to 256-bits
 """
-BROADCAST256_2X_INT32: MemorySize = 141 # type: ignore
+BROADCAST256_2X_INT32: MemorySize = 143 # type: ignore
 """
 Broadcast 2 x ``i32`` to 256-bits
 """
-BROADCAST256_2X_UINT32: MemorySize = 142 # type: ignore
+BROADCAST256_2X_UINT32: MemorySize = 144 # type: ignore
 """
 Broadcast 2 x ``u32`` to 256-bits
 """
-BROADCAST256_2X_FLOAT16: MemorySize = 143 # type: ignore
+BROADCAST256_2X_FLOAT16: MemorySize = 145 # type: ignore
 """
 Broadcast 2 x ``f16`` to 256-bits
 """
-BROADCAST256_2X_BFLOAT16: MemorySize = 144 # type: ignore
+BROADCAST256_2X_BFLOAT16: MemorySize = 146 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 256-bits
 """
-BROADCAST512_INT16: MemorySize = 145 # type: ignore
+BROADCAST512_INT16: MemorySize = 147 # type: ignore
 """
 Broadcast ``i16`` to 512-bits
 """
-BROADCAST512_UINT16: MemorySize = 146 # type: ignore
+BROADCAST512_UINT16: MemorySize = 148 # type: ignore
 """
 Broadcast ``u16`` to 512-bits
 """
-BROADCAST512_UINT32: MemorySize = 147 # type: ignore
+BROADCAST512_UINT32: MemorySize = 149 # type: ignore
 """
 Broadcast ``u32`` to 512-bits
 """
-BROADCAST512_INT32: MemorySize = 148 # type: ignore
+BROADCAST512_INT32: MemorySize = 150 # type: ignore
 """
 Broadcast ``i32`` to 512-bits
 """
-BROADCAST512_UINT52: MemorySize = 149 # type: ignore
+BROADCAST512_UINT52: MemorySize = 151 # type: ignore
 """
 Broadcast ``u52`` to 512-bits
 """
-BROADCAST512_UINT64: MemorySize = 150 # type: ignore
+BROADCAST512_UINT64: MemorySize = 152 # type: ignore
 """
 Broadcast ``u64`` to 512-bits
 """
-BROADCAST512_INT64: MemorySize = 151 # type: ignore
+BROADCAST512_INT64: MemorySize = 153 # type: ignore
 """
 Broadcast ``i64`` to 512-bits
 """
-BROADCAST512_FLOAT16: MemorySize = 152 # type: ignore
+BROADCAST512_FLOAT16: MemorySize = 154 # type: ignore
 """
 Broadcast ``f16`` to 512-bits
 """
-BROADCAST512_FLOAT32: MemorySize = 153 # type: ignore
+BROADCAST512_FLOAT32: MemorySize = 155 # type: ignore
 """
 Broadcast ``f32`` to 512-bits
 """
-BROADCAST512_FLOAT64: MemorySize = 154 # type: ignore
+BROADCAST512_FLOAT64: MemorySize = 156 # type: ignore
 """
 Broadcast ``f64`` to 512-bits
 """
-BROADCAST512_2X_FLOAT16: MemorySize = 155 # type: ignore
+BROADCAST512_2X_FLOAT16: MemorySize = 157 # type: ignore
 """
 Broadcast 2 x ``f16`` to 512-bits
 """
-BROADCAST512_2X_INT16: MemorySize = 156 # type: ignore
+BROADCAST512_2X_INT16: MemorySize = 158 # type: ignore
 """
 Broadcast 2 x ``i16`` to 512-bits
 """
-BROADCAST512_2X_UINT32: MemorySize = 157 # type: ignore
+BROADCAST512_2X_UINT32: MemorySize = 159 # type: ignore
 """
 Broadcast 2 x ``u32`` to 512-bits
 """
-BROADCAST512_2X_INT32: MemorySize = 158 # type: ignore
+BROADCAST512_2X_INT32: MemorySize = 160 # type: ignore
 """
 Broadcast 2 x ``i32`` to 512-bits
 """
-BROADCAST512_2X_BFLOAT16: MemorySize = 159 # type: ignore
+BROADCAST512_2X_BFLOAT16: MemorySize = 161 # type: ignore
 """
 Broadcast 2 x ``bfloat16`` to 512-bits
 """

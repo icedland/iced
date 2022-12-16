@@ -16,6 +16,26 @@ final class CodeAssembler64GenATests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void aadd_m_r32() {
+		testAssembler(c -> c.aadd(mem_ptr(0x0L).base(rcx), ebx), Instruction.create(Code.AADD_M32_R32, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
+	void aadd_m_r64() {
+		testAssembler(c -> c.aadd(mem_ptr(0x0L).base(rcx), rbx), Instruction.create(Code.AADD_M64_R64, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.rbx));
+	}
+
+	@Test
+	void aand_m_r32() {
+		testAssembler(c -> c.aand(mem_ptr(0x0L).base(rcx), ebx), Instruction.create(Code.AAND_M32_R32, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
+	void aand_m_r64() {
+		testAssembler(c -> c.aand(mem_ptr(0x0L).base(rcx), rbx), Instruction.create(Code.AAND_M64_R64, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.rbx));
+	}
+
+	@Test
 	void adc_r8_r8() {
 		testAssembler(c -> c.adc(dl, bl), Instruction.create(Code.ADC_RM8_R8, ICRegisters.dl, ICRegisters.bl));
 	}
@@ -645,6 +665,26 @@ final class CodeAssembler64GenATests extends CodeAssemblerTestsBase {
 	@Test
 	void andps_xmm_m() {
 		testAssembler(c -> c.andps(xmm2, xmmword_ptr(0x0L).base(rcx)), Instruction.create(Code.ANDPS_XMM_XMMM128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void aor_m_r32() {
+		testAssembler(c -> c.aor(mem_ptr(0x0L).base(rcx), ebx), Instruction.create(Code.AOR_M32_R32, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
+	void aor_m_r64() {
+		testAssembler(c -> c.aor(mem_ptr(0x0L).base(rcx), rbx), Instruction.create(Code.AOR_M64_R64, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.rbx));
+	}
+
+	@Test
+	void axor_m_r32() {
+		testAssembler(c -> c.axor(mem_ptr(0x0L).base(rcx), ebx), Instruction.create(Code.AXOR_M32_R32, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
+	void axor_m_r64() {
+		testAssembler(c -> c.axor(mem_ptr(0x0L).base(rcx), rbx), Instruction.create(Code.AXOR_M64_R64, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.rbx));
 	}
 
 	@Test

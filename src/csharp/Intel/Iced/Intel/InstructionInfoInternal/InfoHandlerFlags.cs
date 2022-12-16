@@ -336,6 +336,9 @@ namespace Iced.Intel.InstructionInfoInternal {
 		t_CRmem_CRmem_CWmem_CRsi_CRdi_CRes_CWsi_RCWcx,
 		t_CRmem_CRmem_CWmem_CResi_CRedi_CRes_CWesi_RCWecx,
 		t_CRmem_CRmem_CWmem_CRrsi_CRrdi_CRes_CWrsi_RCWrcx,
+		t_CRmem_CRmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx,
+		t_CRmem_CWmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx,
+		t_Rdl_Rrax_Weax_Wrcx_Wrdx,
 	}
 	// GENERATOR-END: ImpliedAccess
 

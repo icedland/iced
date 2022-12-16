@@ -191,6 +191,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 		UDBG,
 		KNC,
 		PADLOCK_UNDOC,
+		RMPQUERY,
+		RAO_INT,
+		PREFETCHITI,
+		AMX_FP16,
+		CMPCCXADD,
+		AVX_IFMA,
+		AVX_NE_CONVERT,
+		AVX_VNNI_INT8,
+		MSRLIST,
+		WRMSRNS,
 	}
 }
 #endif

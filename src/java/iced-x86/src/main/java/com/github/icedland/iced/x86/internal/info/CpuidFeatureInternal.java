@@ -744,4 +744,44 @@ public final class CpuidFeatureInternal {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int PADLOCK_UNDOC = 182;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int RMPQUERY = 183;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int RAO_INT = 184;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int PREFETCHITI = 185;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AMX_FP16 = 186;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int CMPCCXADD = 187;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_IFMA = 188;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_NE_CONVERT = 189;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_VNNI_INT8 = 190;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int MSRLIST = 191;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int WRMSRNS = 192;
 }

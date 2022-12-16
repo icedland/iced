@@ -38,7 +38,7 @@ public final class ToMemorySize {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(160);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(162);
 		initMap0(map);
 		return map;
 	}
@@ -120,6 +120,7 @@ public final class ToMemorySize {
 		map.put("Packed128_Float16", MemorySize.PACKED128_FLOAT16);
 		map.put("Packed128_Float32", MemorySize.PACKED128_FLOAT32);
 		map.put("Packed128_Float64", MemorySize.PACKED128_FLOAT64);
+		map.put("Packed128_BFloat16", MemorySize.PACKED128_BFLOAT16);
 		map.put("Packed128_2xFloat16", MemorySize.PACKED128_2X_FLOAT16);
 		map.put("Packed128_2xBFloat16", MemorySize.PACKED128_2X_BFLOAT16);
 		map.put("Packed256_UInt8", MemorySize.PACKED256_UINT8);
@@ -137,6 +138,7 @@ public final class ToMemorySize {
 		map.put("Packed256_Float32", MemorySize.PACKED256_FLOAT32);
 		map.put("Packed256_Float64", MemorySize.PACKED256_FLOAT64);
 		map.put("Packed256_Float128", MemorySize.PACKED256_FLOAT128);
+		map.put("Packed256_BFloat16", MemorySize.PACKED256_BFLOAT16);
 		map.put("Packed256_2xFloat16", MemorySize.PACKED256_2X_FLOAT16);
 		map.put("Packed256_2xBFloat16", MemorySize.PACKED256_2X_BFLOAT16);
 		map.put("Packed512_UInt8", MemorySize.PACKED512_UINT8);

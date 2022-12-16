@@ -800,4 +800,16 @@ public final class ImpliedAccess {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int T_CRMEM_CRMEM_CWMEM_CRRSI_CRRDI_CRES_CWRSI_RCWRCX = 196;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int T_CRMEM_CRMEM_RRCX_CRRSI_CRRDI_CRES_CRDS_CWRCX = 197;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int T_CRMEM_CWMEM_RRCX_CRRSI_CRRDI_CRES_CRDS_CWRCX = 198;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int T_RDL_RRAX_WEAX_WRCX_WRDX = 199;
 }

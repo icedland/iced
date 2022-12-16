@@ -36,6 +36,11 @@ final class CodeAssembler16GenWTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void wrmsrns() {
+		testAssembler(c -> c.wrmsrns(), Instruction.create(Code.WRMSRNS));
+	}
+
+	@Test
 	void wrpkru() {
 		testAssembler(c -> c.wrpkru(), Instruction.create(Code.WRPKRU));
 	}

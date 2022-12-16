@@ -665,3 +665,43 @@ PADLOCK_UNDOC: CpuidFeature = 161 # type: ignore
 """
 Undocumented instruction
 """
+RMPQUERY: CpuidFeature = 162 # type: ignore
+"""
+: CPUID.8000001FH:EAX.RMPQUERY[bit 6]
+"""
+RAO_INT: CpuidFeature = 163 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.RAO-INT[bit 3]
+"""
+PREFETCHITI: CpuidFeature = 164 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EDX.PREFETCHITI[bit 14]
+"""
+AMX_FP16: CpuidFeature = 165 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.AMX-FP16[bit 21]
+"""
+CMPCCXADD: CpuidFeature = 166 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.CMPCCXADD[bit 7]
+"""
+AVX_IFMA: CpuidFeature = 167 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.AVX-IFMA[bit 23]
+"""
+AVX_NE_CONVERT: CpuidFeature = 168 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EDX.AVX-NE-CONVERT[bit 5]
+"""
+AVX_VNNI_INT8: CpuidFeature = 169 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT8[bit 4]
+"""
+MSRLIST: CpuidFeature = 170 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.MSRLIST[bit 27]
+"""
+WRMSRNS: CpuidFeature = 171 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.WRMSRNS[bit 19]
+"""

@@ -20,8 +20,18 @@ pub trait CodeAsmAad<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmAadd<T, U> {
+	fn aadd(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmAam<T> {
 	fn aam(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmAand<T, U> {
+	fn aand(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -185,8 +195,18 @@ pub trait CodeAsmAndps<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmAor<T, U> {
+	fn aor(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmArpl<T, U> {
 	fn arpl(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmAxor<T, U> {
+	fn axor(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -615,6 +635,16 @@ pub trait CodeAsmCmp<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmpbexadd<T, U, V> {
+	fn cmpbexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpbxadd<T, U, V> {
+	fn cmpbxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmpeqpd<T, U> {
 	fn cmpeqpd(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -655,6 +685,11 @@ pub trait CodeAsmCmpless<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmplexadd<T, U, V> {
+	fn cmplexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmpltpd<T, U> {
 	fn cmpltpd(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -672,6 +707,21 @@ pub trait CodeAsmCmpltsd<T, U> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpltss<T, U> {
 	fn cmpltss(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmplxadd<T, U, V> {
+	fn cmplxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnbexadd<T, U, V> {
+	fn cmpnbexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnbxadd<T, U, V> {
+	fn cmpnbxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -715,6 +765,11 @@ pub trait CodeAsmCmpnless<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmpnlexadd<T, U, V> {
+	fn cmpnlexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmpnltpd<T, U> {
 	fn cmpnltpd(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -732,6 +787,31 @@ pub trait CodeAsmCmpnltsd<T, U> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpnltss<T, U> {
 	fn cmpnltss(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnlxadd<T, U, V> {
+	fn cmpnlxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnoxadd<T, U, V> {
+	fn cmpnoxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnpxadd<T, U, V> {
+	fn cmpnpxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnsxadd<T, U, V> {
+	fn cmpnsxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnzxadd<T, U, V> {
+	fn cmpnzxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -755,6 +835,11 @@ pub trait CodeAsmCmpordss<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmpoxadd<T, U, V> {
+	fn cmpoxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmppd<T, U, V> {
 	fn cmppd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
@@ -762,6 +847,11 @@ pub trait CodeAsmCmppd<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpps<T, U, V> {
 	fn cmpps(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmppxadd<T, U, V> {
+	fn cmppxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -792,6 +882,11 @@ pub trait CodeAsmCmpss<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpsw {
 	fn cmpsw(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpsxadd<T, U, V> {
+	fn cmpsxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -827,6 +922,11 @@ pub trait CodeAsmCmpxchg16b<T> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpxchg8b<T> {
 	fn cmpxchg8b(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpzxadd<T, U, V> {
+	fn cmpzxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -3600,6 +3700,16 @@ pub trait CodeAsmPrefetch<T> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmPrefetchit0<T> {
+	fn prefetchit0(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmPrefetchit1<T> {
+	fn prefetchit1(&mut self, op0: T) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmPrefetchnta<T> {
 	fn prefetchnta(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -3910,6 +4020,11 @@ pub trait CodeAsmRdmsr {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmRdmsrlist {
+	fn rdmsrlist(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmRdpid<T> {
 	fn rdpid(&mut self, op0: T) -> Result<(), IcedError>;
 }
@@ -4037,6 +4152,11 @@ pub trait CodeAsmRetf1<T> {
 #[rustfmt::skip]
 pub trait CodeAsmRmpadjust {
 	fn rmpadjust(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmRmpquery {
+	fn rmpquery(&mut self) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -4665,6 +4785,11 @@ pub trait CodeAsmTdpbuud<T, U, V> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmTdpfp16ps<T, U, V> {
+	fn tdpfp16ps(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmTest<T, U> {
 	fn test(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -4907,6 +5032,16 @@ pub trait CodeAsmVandpd<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmVandps<T, U, V> {
 	fn vandps(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVbcstnebf162ps<T, U> {
+	fn vbcstnebf162ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVbcstnesh2ps<T, U> {
+	fn vbcstnesh2ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -6052,6 +6187,26 @@ pub trait CodeAsmVcvtdq2ps<T, U> {
 #[rustfmt::skip]
 pub trait CodeAsmVcvtne2ps2bf16<T, U, V> {
 	fn vcvtne2ps2bf16(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVcvtneebf162ps<T, U> {
+	fn vcvtneebf162ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVcvtneeph2ps<T, U> {
+	fn vcvtneeph2ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVcvtneobf162ps<T, U> {
+	fn vcvtneobf162ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVcvtneoph2ps<T, U> {
+	fn vcvtneoph2ps(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -9080,6 +9235,26 @@ pub trait CodeAsmVpconflictq<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmVpdpbssd<T, U, V> {
+	fn vpdpbssd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpbssds<T, U, V> {
+	fn vpdpbssds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpbsud<T, U, V> {
+	fn vpdpbsud(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpbsuds<T, U, V> {
+	fn vpdpbsuds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmVpdpbusd<T, U, V> {
 	fn vpdpbusd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
@@ -9087,6 +9262,16 @@ pub trait CodeAsmVpdpbusd<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmVpdpbusds<T, U, V> {
 	fn vpdpbusds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpbuud<T, U, V> {
+	fn vpdpbuud(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpbuuds<T, U, V> {
+	fn vpdpbuuds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -10862,6 +11047,16 @@ pub trait CodeAsmWrgsbase<T> {
 #[rustfmt::skip]
 pub trait CodeAsmWrmsr {
 	fn wrmsr(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmWrmsrlist {
+	fn wrmsrlist(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmWrmsrns {
+	fn wrmsrns(&mut self) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]

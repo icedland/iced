@@ -38,6 +38,8 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x00,
 				0x08,
 				0x08,
+				0x00,
+				0x00,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -222,6 +224,16 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x9F,// UDBG
 				0xA0,// KNC
 				0xA1,// PADLOCK_UNDOC
+				0xA2,// RMPQUERY
+				0xA3,// RAO_INT
+				0xA4,// PREFETCHITI
+				0xA5,// AMX_FP16
+				0xA6,// CMPCCXADD
+				0xA7,// AVX_IFMA
+				0xA8,// AVX_NE_CONVERT
+				0xA9,// AVX_VNNI_INT8
+				0xAA,// MSRLIST
+				0xAB,// WRMSRNS
 			};
 	}
 }

@@ -38,7 +38,7 @@ public final class ToCpuidFeature {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(162);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(172);
 		initMap0(map);
 		return map;
 	}
@@ -206,5 +206,15 @@ public final class ToCpuidFeature {
 		map.put("UDBG", CpuidFeature.UDBG);
 		map.put("KNC", CpuidFeature.KNC);
 		map.put("PADLOCK_UNDOC", CpuidFeature.PADLOCK_UNDOC);
+		map.put("RMPQUERY", CpuidFeature.RMPQUERY);
+		map.put("RAO_INT", CpuidFeature.RAO_INT);
+		map.put("PREFETCHITI", CpuidFeature.PREFETCHITI);
+		map.put("AMX_FP16", CpuidFeature.AMX_FP16);
+		map.put("CMPCCXADD", CpuidFeature.CMPCCXADD);
+		map.put("AVX_IFMA", CpuidFeature.AVX_IFMA);
+		map.put("AVX_NE_CONVERT", CpuidFeature.AVX_NE_CONVERT);
+		map.put("AVX_VNNI_INT8", CpuidFeature.AVX_VNNI_INT8);
+		map.put("MSRLIST", CpuidFeature.MSRLIST);
+		map.put("WRMSRNS", CpuidFeature.WRMSRNS);
 	}
 }

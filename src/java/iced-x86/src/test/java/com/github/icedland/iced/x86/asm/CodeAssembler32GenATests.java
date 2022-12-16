@@ -26,8 +26,18 @@ final class CodeAssembler32GenATests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void aadd_m_r32() {
+		testAssembler(c -> c.aadd(mem_ptr(0x0L).base(ecx), ebx), Instruction.create(Code.AADD_M32_R32, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
 	void aam_i() {
 		testAssembler(c -> c.aam(-5), Instruction.create(Code.AAM_IMM8, -5));
+	}
+
+	@Test
+	void aand_m_r32() {
+		testAssembler(c -> c.aand(mem_ptr(0x0L).base(ecx), ebx), Instruction.create(Code.AAND_M32_R32, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
 	}
 
 	@Test
@@ -568,6 +578,11 @@ final class CodeAssembler32GenATests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void aor_m_r32() {
+		testAssembler(c -> c.aor(mem_ptr(0x0L).base(ecx), ebx), Instruction.create(Code.AOR_M32_R32, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
 	void arpl_r16_r16() {
 		testAssembler(c -> c.arpl(dx, bx), Instruction.create(Code.ARPL_RM16_R16, ICRegisters.dx, ICRegisters.bx));
 	}
@@ -585,6 +600,11 @@ final class CodeAssembler32GenATests extends CodeAssemblerTestsBase {
 	@Test
 	void arpl_m_r32() {
 		testAssembler(c -> c.arpl(dword_ptr(0x0L).base(ecx), ebx), Instruction.create(Code.ARPL_R32M16_R32, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
+	}
+
+	@Test
+	void axor_m_r32() {
+		testAssembler(c -> c.axor(mem_ptr(0x0L).base(ecx), ebx), Instruction.create(Code.AXOR_M32_R32, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), ICRegisters.ebx));
 	}
 
 	@Test

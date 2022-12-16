@@ -180,6 +180,8 @@ final class MemorySizes {
 			(byte)0x08,
 			(byte)0x08,
 			(byte)0x08,
+			(byte)0x08,
+			(byte)0x0C,
 			(byte)0x0C,
 			(byte)0x0C,
 			(byte)0x0C,

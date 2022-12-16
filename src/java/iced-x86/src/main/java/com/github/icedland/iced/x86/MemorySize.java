@@ -401,340 +401,348 @@ public final class MemorySize {
 	 */
 	public static final int PACKED128_FLOAT64 = 75;
 	/**
+	 * 128-bit location: 8 x {@code bfloat16}
+	 */
+	public static final int PACKED128_BFLOAT16 = 76;
+	/**
 	 * 128-bit location: 4 x (2 x {@code float16})
 	 */
-	public static final int PACKED128_2X_FLOAT16 = 76;
+	public static final int PACKED128_2X_FLOAT16 = 77;
 	/**
 	 * 128-bit location: 4 x (2 x {@code bfloat16})
 	 */
-	public static final int PACKED128_2X_BFLOAT16 = 77;
+	public static final int PACKED128_2X_BFLOAT16 = 78;
 	/**
 	 * 256-bit location: 32 x {@code ubyte}
 	 */
-	public static final int PACKED256_UINT8 = 78;
+	public static final int PACKED256_UINT8 = 79;
 	/**
 	 * 256-bit location: 32 x {@code byte}
 	 */
-	public static final int PACKED256_INT8 = 79;
+	public static final int PACKED256_INT8 = 80;
 	/**
 	 * 256-bit location: 16 x {@code ushort}
 	 */
-	public static final int PACKED256_UINT16 = 80;
+	public static final int PACKED256_UINT16 = 81;
 	/**
 	 * 256-bit location: 16 x {@code short}
 	 */
-	public static final int PACKED256_INT16 = 81;
+	public static final int PACKED256_INT16 = 82;
 	/**
 	 * 256-bit location: 8 x {@code uint}
 	 */
-	public static final int PACKED256_UINT32 = 82;
+	public static final int PACKED256_UINT32 = 83;
 	/**
 	 * 256-bit location: 8 x {@code int}
 	 */
-	public static final int PACKED256_INT32 = 83;
+	public static final int PACKED256_INT32 = 84;
 	/**
 	 * 256-bit location: 4 x {@code uint52}
 	 */
-	public static final int PACKED256_UINT52 = 84;
+	public static final int PACKED256_UINT52 = 85;
 	/**
 	 * 256-bit location: 4 x {@code ulong}
 	 */
-	public static final int PACKED256_UINT64 = 85;
+	public static final int PACKED256_UINT64 = 86;
 	/**
 	 * 256-bit location: 4 x {@code long}
 	 */
-	public static final int PACKED256_INT64 = 86;
+	public static final int PACKED256_INT64 = 87;
 	/**
 	 * 256-bit location: 2 x {@code uint128}
 	 */
-	public static final int PACKED256_UINT128 = 87;
+	public static final int PACKED256_UINT128 = 88;
 	/**
 	 * 256-bit location: 2 x {@code int128}
 	 */
-	public static final int PACKED256_INT128 = 88;
+	public static final int PACKED256_INT128 = 89;
 	/**
 	 * 256-bit location: 16 x {@code float16}
 	 */
-	public static final int PACKED256_FLOAT16 = 89;
+	public static final int PACKED256_FLOAT16 = 90;
 	/**
 	 * 256-bit location: 8 x {@code float}
 	 */
-	public static final int PACKED256_FLOAT32 = 90;
+	public static final int PACKED256_FLOAT32 = 91;
 	/**
 	 * 256-bit location: 4 x {@code double}
 	 */
-	public static final int PACKED256_FLOAT64 = 91;
+	public static final int PACKED256_FLOAT64 = 92;
 	/**
 	 * 256-bit location: 2 x {@code float128}
 	 */
-	public static final int PACKED256_FLOAT128 = 92;
+	public static final int PACKED256_FLOAT128 = 93;
+	/**
+	 * 256-bit location: 16 x {@code bfloat16}
+	 */
+	public static final int PACKED256_BFLOAT16 = 94;
 	/**
 	 * 256-bit location: 8 x (2 x {@code float16})
 	 */
-	public static final int PACKED256_2X_FLOAT16 = 93;
+	public static final int PACKED256_2X_FLOAT16 = 95;
 	/**
 	 * 256-bit location: 8 x (2 x {@code bfloat16})
 	 */
-	public static final int PACKED256_2X_BFLOAT16 = 94;
+	public static final int PACKED256_2X_BFLOAT16 = 96;
 	/**
 	 * 512-bit location: 64 x {@code ubyte}
 	 */
-	public static final int PACKED512_UINT8 = 95;
+	public static final int PACKED512_UINT8 = 97;
 	/**
 	 * 512-bit location: 64 x {@code byte}
 	 */
-	public static final int PACKED512_INT8 = 96;
+	public static final int PACKED512_INT8 = 98;
 	/**
 	 * 512-bit location: 32 x {@code ushort}
 	 */
-	public static final int PACKED512_UINT16 = 97;
+	public static final int PACKED512_UINT16 = 99;
 	/**
 	 * 512-bit location: 32 x {@code short}
 	 */
-	public static final int PACKED512_INT16 = 98;
+	public static final int PACKED512_INT16 = 100;
 	/**
 	 * 512-bit location: 16 x {@code uint}
 	 */
-	public static final int PACKED512_UINT32 = 99;
+	public static final int PACKED512_UINT32 = 101;
 	/**
 	 * 512-bit location: 16 x {@code int}
 	 */
-	public static final int PACKED512_INT32 = 100;
+	public static final int PACKED512_INT32 = 102;
 	/**
 	 * 512-bit location: 8 x {@code uint52}
 	 */
-	public static final int PACKED512_UINT52 = 101;
+	public static final int PACKED512_UINT52 = 103;
 	/**
 	 * 512-bit location: 8 x {@code ulong}
 	 */
-	public static final int PACKED512_UINT64 = 102;
+	public static final int PACKED512_UINT64 = 104;
 	/**
 	 * 512-bit location: 8 x {@code long}
 	 */
-	public static final int PACKED512_INT64 = 103;
+	public static final int PACKED512_INT64 = 105;
 	/**
 	 * 256-bit location: 4 x {@code uint128}
 	 */
-	public static final int PACKED512_UINT128 = 104;
+	public static final int PACKED512_UINT128 = 106;
 	/**
 	 * 512-bit location: 32 x {@code float16}
 	 */
-	public static final int PACKED512_FLOAT16 = 105;
+	public static final int PACKED512_FLOAT16 = 107;
 	/**
 	 * 512-bit location: 16 x {@code float}
 	 */
-	public static final int PACKED512_FLOAT32 = 106;
+	public static final int PACKED512_FLOAT32 = 108;
 	/**
 	 * 512-bit location: 8 x {@code double}
 	 */
-	public static final int PACKED512_FLOAT64 = 107;
+	public static final int PACKED512_FLOAT64 = 109;
 	/**
 	 * 512-bit location: 16 x (2 x {@code float16})
 	 */
-	public static final int PACKED512_2X_FLOAT16 = 108;
+	public static final int PACKED512_2X_FLOAT16 = 110;
 	/**
 	 * 512-bit location: 16 x (2 x {@code bfloat16})
 	 */
-	public static final int PACKED512_2X_BFLOAT16 = 109;
+	public static final int PACKED512_2X_BFLOAT16 = 111;
 	/**
 	 * Broadcast {@code float16} to 32-bits
 	 */
-	public static final int BROADCAST32_FLOAT16 = 110;
+	public static final int BROADCAST32_FLOAT16 = 112;
 	/**
 	 * Broadcast {@code uint} to 64-bits
 	 */
-	public static final int BROADCAST64_UINT32 = 111;
+	public static final int BROADCAST64_UINT32 = 113;
 	/**
 	 * Broadcast {@code int} to 64-bits
 	 */
-	public static final int BROADCAST64_INT32 = 112;
+	public static final int BROADCAST64_INT32 = 114;
 	/**
 	 * Broadcast {@code float16} to 64-bits
 	 */
-	public static final int BROADCAST64_FLOAT16 = 113;
+	public static final int BROADCAST64_FLOAT16 = 115;
 	/**
 	 * Broadcast {@code float} to 64-bits
 	 */
-	public static final int BROADCAST64_FLOAT32 = 114;
+	public static final int BROADCAST64_FLOAT32 = 116;
 	/**
 	 * Broadcast {@code short} to 128-bits
 	 */
-	public static final int BROADCAST128_INT16 = 115;
+	public static final int BROADCAST128_INT16 = 117;
 	/**
 	 * Broadcast {@code ushort} to 128-bits
 	 */
-	public static final int BROADCAST128_UINT16 = 116;
+	public static final int BROADCAST128_UINT16 = 118;
 	/**
 	 * Broadcast {@code uint} to 128-bits
 	 */
-	public static final int BROADCAST128_UINT32 = 117;
+	public static final int BROADCAST128_UINT32 = 119;
 	/**
 	 * Broadcast {@code int} to 128-bits
 	 */
-	public static final int BROADCAST128_INT32 = 118;
+	public static final int BROADCAST128_INT32 = 120;
 	/**
 	 * Broadcast {@code uint52} to 128-bits
 	 */
-	public static final int BROADCAST128_UINT52 = 119;
+	public static final int BROADCAST128_UINT52 = 121;
 	/**
 	 * Broadcast {@code ulong} to 128-bits
 	 */
-	public static final int BROADCAST128_UINT64 = 120;
+	public static final int BROADCAST128_UINT64 = 122;
 	/**
 	 * Broadcast {@code long} to 128-bits
 	 */
-	public static final int BROADCAST128_INT64 = 121;
+	public static final int BROADCAST128_INT64 = 123;
 	/**
 	 * Broadcast {@code float16} to 128-bits
 	 */
-	public static final int BROADCAST128_FLOAT16 = 122;
+	public static final int BROADCAST128_FLOAT16 = 124;
 	/**
 	 * Broadcast {@code float} to 128-bits
 	 */
-	public static final int BROADCAST128_FLOAT32 = 123;
+	public static final int BROADCAST128_FLOAT32 = 125;
 	/**
 	 * Broadcast {@code double} to 128-bits
 	 */
-	public static final int BROADCAST128_FLOAT64 = 124;
+	public static final int BROADCAST128_FLOAT64 = 126;
 	/**
 	 * Broadcast 2 x {@code short} to 128-bits
 	 */
-	public static final int BROADCAST128_2X_INT16 = 125;
+	public static final int BROADCAST128_2X_INT16 = 127;
 	/**
 	 * Broadcast 2 x {@code int} to 128-bits
 	 */
-	public static final int BROADCAST128_2X_INT32 = 126;
+	public static final int BROADCAST128_2X_INT32 = 128;
 	/**
 	 * Broadcast 2 x {@code uint} to 128-bits
 	 */
-	public static final int BROADCAST128_2X_UINT32 = 127;
+	public static final int BROADCAST128_2X_UINT32 = 129;
 	/**
 	 * Broadcast 2 x {@code float16} to 128-bits
 	 */
-	public static final int BROADCAST128_2X_FLOAT16 = 128;
+	public static final int BROADCAST128_2X_FLOAT16 = 130;
 	/**
 	 * Broadcast 2 x {@code bfloat16} to 128-bits
 	 */
-	public static final int BROADCAST128_2X_BFLOAT16 = 129;
+	public static final int BROADCAST128_2X_BFLOAT16 = 131;
 	/**
 	 * Broadcast {@code short} to 256-bits
 	 */
-	public static final int BROADCAST256_INT16 = 130;
+	public static final int BROADCAST256_INT16 = 132;
 	/**
 	 * Broadcast {@code ushort} to 256-bits
 	 */
-	public static final int BROADCAST256_UINT16 = 131;
+	public static final int BROADCAST256_UINT16 = 133;
 	/**
 	 * Broadcast {@code uint} to 256-bits
 	 */
-	public static final int BROADCAST256_UINT32 = 132;
+	public static final int BROADCAST256_UINT32 = 134;
 	/**
 	 * Broadcast {@code int} to 256-bits
 	 */
-	public static final int BROADCAST256_INT32 = 133;
+	public static final int BROADCAST256_INT32 = 135;
 	/**
 	 * Broadcast {@code uint52} to 256-bits
 	 */
-	public static final int BROADCAST256_UINT52 = 134;
+	public static final int BROADCAST256_UINT52 = 136;
 	/**
 	 * Broadcast {@code ulong} to 256-bits
 	 */
-	public static final int BROADCAST256_UINT64 = 135;
+	public static final int BROADCAST256_UINT64 = 137;
 	/**
 	 * Broadcast {@code long} to 256-bits
 	 */
-	public static final int BROADCAST256_INT64 = 136;
+	public static final int BROADCAST256_INT64 = 138;
 	/**
 	 * Broadcast {@code float16} to 256-bits
 	 */
-	public static final int BROADCAST256_FLOAT16 = 137;
+	public static final int BROADCAST256_FLOAT16 = 139;
 	/**
 	 * Broadcast {@code float} to 256-bits
 	 */
-	public static final int BROADCAST256_FLOAT32 = 138;
+	public static final int BROADCAST256_FLOAT32 = 140;
 	/**
 	 * Broadcast {@code double} to 256-bits
 	 */
-	public static final int BROADCAST256_FLOAT64 = 139;
+	public static final int BROADCAST256_FLOAT64 = 141;
 	/**
 	 * Broadcast 2 x {@code short} to 256-bits
 	 */
-	public static final int BROADCAST256_2X_INT16 = 140;
+	public static final int BROADCAST256_2X_INT16 = 142;
 	/**
 	 * Broadcast 2 x {@code int} to 256-bits
 	 */
-	public static final int BROADCAST256_2X_INT32 = 141;
+	public static final int BROADCAST256_2X_INT32 = 143;
 	/**
 	 * Broadcast 2 x {@code uint} to 256-bits
 	 */
-	public static final int BROADCAST256_2X_UINT32 = 142;
+	public static final int BROADCAST256_2X_UINT32 = 144;
 	/**
 	 * Broadcast 2 x {@code float16} to 256-bits
 	 */
-	public static final int BROADCAST256_2X_FLOAT16 = 143;
+	public static final int BROADCAST256_2X_FLOAT16 = 145;
 	/**
 	 * Broadcast 2 x {@code bfloat16} to 256-bits
 	 */
-	public static final int BROADCAST256_2X_BFLOAT16 = 144;
+	public static final int BROADCAST256_2X_BFLOAT16 = 146;
 	/**
 	 * Broadcast {@code short} to 512-bits
 	 */
-	public static final int BROADCAST512_INT16 = 145;
+	public static final int BROADCAST512_INT16 = 147;
 	/**
 	 * Broadcast {@code ushort} to 512-bits
 	 */
-	public static final int BROADCAST512_UINT16 = 146;
+	public static final int BROADCAST512_UINT16 = 148;
 	/**
 	 * Broadcast {@code uint} to 512-bits
 	 */
-	public static final int BROADCAST512_UINT32 = 147;
+	public static final int BROADCAST512_UINT32 = 149;
 	/**
 	 * Broadcast {@code int} to 512-bits
 	 */
-	public static final int BROADCAST512_INT32 = 148;
+	public static final int BROADCAST512_INT32 = 150;
 	/**
 	 * Broadcast {@code uint52} to 512-bits
 	 */
-	public static final int BROADCAST512_UINT52 = 149;
+	public static final int BROADCAST512_UINT52 = 151;
 	/**
 	 * Broadcast {@code ulong} to 512-bits
 	 */
-	public static final int BROADCAST512_UINT64 = 150;
+	public static final int BROADCAST512_UINT64 = 152;
 	/**
 	 * Broadcast {@code long} to 512-bits
 	 */
-	public static final int BROADCAST512_INT64 = 151;
+	public static final int BROADCAST512_INT64 = 153;
 	/**
 	 * Broadcast {@code float16} to 512-bits
 	 */
-	public static final int BROADCAST512_FLOAT16 = 152;
+	public static final int BROADCAST512_FLOAT16 = 154;
 	/**
 	 * Broadcast {@code float} to 512-bits
 	 */
-	public static final int BROADCAST512_FLOAT32 = 153;
+	public static final int BROADCAST512_FLOAT32 = 155;
 	/**
 	 * Broadcast {@code double} to 512-bits
 	 */
-	public static final int BROADCAST512_FLOAT64 = 154;
+	public static final int BROADCAST512_FLOAT64 = 156;
 	/**
 	 * Broadcast 2 x {@code float16} to 512-bits
 	 */
-	public static final int BROADCAST512_2X_FLOAT16 = 155;
+	public static final int BROADCAST512_2X_FLOAT16 = 157;
 	/**
 	 * Broadcast 2 x {@code short} to 512-bits
 	 */
-	public static final int BROADCAST512_2X_INT16 = 156;
+	public static final int BROADCAST512_2X_INT16 = 158;
 	/**
 	 * Broadcast 2 x {@code uint} to 512-bits
 	 */
-	public static final int BROADCAST512_2X_UINT32 = 157;
+	public static final int BROADCAST512_2X_UINT32 = 159;
 	/**
 	 * Broadcast 2 x {@code int} to 512-bits
 	 */
-	public static final int BROADCAST512_2X_INT32 = 158;
+	public static final int BROADCAST512_2X_INT32 = 160;
 	/**
 	 * Broadcast 2 x {@code bfloat16} to 512-bits
 	 */
-	public static final int BROADCAST512_2X_BFLOAT16 = 159;
+	public static final int BROADCAST512_2X_BFLOAT16 = 161;
 	// GENERATOR-END: Variants
 }

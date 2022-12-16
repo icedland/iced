@@ -8,7 +8,7 @@
 # pylint: disable=too-many-lines
 
 """
-Instruction condition code (used by ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc``)
+Instruction condition code (used by ``Jcc``, ``SETcc``, ``CMOVcc``, ``CMPccXADD``, ``LOOPcc``)
 """
 
 import typing
