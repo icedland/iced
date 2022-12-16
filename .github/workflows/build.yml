@@ -60,8 +60,7 @@ jobs:
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/coverage.info
-          # TODO: https://github.com/icedland/iced/issues/368
-          #if-no-files-found: error
+          if-no-files-found: error
 
       - name: Upload coverage report
         if: github.ref == 'refs/heads/master'
