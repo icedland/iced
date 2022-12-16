@@ -5,6 +5,7 @@ name = "loona"
 version = "0.1.0"
 edition = "2021"
 publish = false
+rust-version = "1.57.0"
 
 [features]
 default = []

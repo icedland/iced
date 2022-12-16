@@ -11,6 +11,7 @@ keywords = ["disassembler", "javascript", "assembler", "x86", "amd64"]
 categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
 edition = "2021"
 publish = false
+rust-version = "1.57.0"
 
 [lib]
 # Adding "rlib" increases the wasm file size, so ... don't do it
