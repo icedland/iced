@@ -15,7 +15,9 @@ while [ "$#" -gt 0 ]; do
 	shift
 done
 
-curl https://sh.rustup.rs | sh -s -- -y --profile=minimal
+# Build with minimum supported Rust version since later versions require a later GLIBC
+msrv="1.57.0"
+curl https://sh.rustup.rs | sh -s -- -y --profile=minimal --default-toolchain=$msrv
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Make sure crates.io isn't used, see build/build-python for more info
