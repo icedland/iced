@@ -957,7 +957,7 @@ fn verify_gpr_rrxb_bits() {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let vex_index = get_vex_xop_index(&bytes);
 			let is_vex2 = bytes[vex_index] == 0xC5;
-			let mrmi = vex_index + 3 + (if is_vex2 { 0 } else { 1 });
+			let mrmi = vex_index + 3 + usize::from(!is_vex2);
 			let is_reg_only = mrmi >= bytes.len() || (bytes[mrmi] >> 6) == 3;
 			let b1 = bytes[vex_index + 1];
 
@@ -1151,7 +1151,7 @@ fn verify_k_reg_rrxb_bits() {
 			let mut bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let vex_index = get_vex_xop_index(&bytes);
 			let is_vex2 = bytes[vex_index] == 0xC5;
-			let mrmi = vex_index + 3 + (if is_vex2 { 0 } else { 1 });
+			let mrmi = vex_index + 3 + usize::from(!is_vex2);
 			let is_reg_only = mrmi >= bytes.len() || (bytes[mrmi] >> 6) == 3;
 			let b1 = bytes[vex_index + 1];
 

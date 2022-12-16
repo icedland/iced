@@ -29,7 +29,7 @@ impl Instr for SimpleInstr {
 
 	fn encode<'a>(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
 		ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
-			|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+			|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 			|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 		)
 	}

@@ -94,7 +94,7 @@ impl Instr for XbeginInstr {
 				}
 				self.instruction.set_near_branch64(self.target_instr.address(ctx));
 				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}

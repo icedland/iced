@@ -184,7 +184,7 @@ impl Instr for SimpleBranchInstr {
 			InstrKind::Unchanged | InstrKind::Short => {
 				self.instruction.set_near_branch64(self.target_instr.address(ctx));
 				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}
@@ -204,7 +204,7 @@ impl Instr for SimpleBranchInstr {
 					.block
 					.encoder
 					.encode(&instr, ctx.ip)
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 
 				instr = Instruction::default();
 				instr.set_near_branch64(ctx.ip.wrapping_add(self.near_instruction_size as u64));
@@ -233,13 +233,13 @@ impl Instr for SimpleBranchInstr {
 					.block
 					.encoder
 					.encode(&instr, ctx.ip.wrapping_add(size as u64))
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				size += instr_len;
 
 				instr.set_code(code_near);
 				instr.set_near_branch64(self.target_instr.address(ctx));
 				ctx.block.encoder.encode(&instr, ctx.ip.wrapping_add(size as u64)).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)
 			}
@@ -264,7 +264,7 @@ impl Instr for SimpleBranchInstr {
 					.block
 					.encoder
 					.encode(&instr, ctx.ip)
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 
 				instr = Instruction::default();
 				instr.set_near_branch64(ctx.ip.wrapping_add(self.long_instruction_size as u64));
@@ -290,7 +290,7 @@ impl Instr for SimpleBranchInstr {
 					.block
 					.encoder
 					.encode(&instr, ctx.ip.wrapping_add(size as u64))
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				size += instr_len;
 
 				InstrUtils::encode_branch_to_pointer_data(
@@ -301,7 +301,7 @@ impl Instr for SimpleBranchInstr {
 					base.size.wrapping_sub(size),
 				)
 				.map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)
 			}

@@ -135,7 +135,7 @@ impl Instr for JmpInstr {
 				}
 				self.instruction.set_near_branch64(self.target_instr.address(ctx));
 				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}
@@ -145,7 +145,7 @@ impl Instr for JmpInstr {
 				let pointer_data = self.pointer_data.clone().ok_or_else(|| IcedError::new("Internal error"))?;
 				pointer_data.borrow_mut().data = self.target_instr.address(ctx);
 				InstrUtils::encode_branch_to_pointer_data(ctx.block, false, ctx.ip, pointer_data, base.size).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)
 			}

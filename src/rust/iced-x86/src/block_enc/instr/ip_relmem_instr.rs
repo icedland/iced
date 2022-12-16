@@ -113,7 +113,7 @@ impl Instr for IpRelMemOpInstr {
 							Ok((ctx.block.encoder.get_constant_offsets(), true))
 						}
 					}
-					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					Err(err) => Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 				}
 			}
 

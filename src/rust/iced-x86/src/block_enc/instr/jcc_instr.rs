@@ -195,7 +195,7 @@ impl Instr for JccInstr {
 				}
 				self.instruction.set_near_branch64(self.target_instr.address(ctx));
 				ctx.block.encoder.encode(&self.instruction, ctx.ip).map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ctx.block.encoder.get_constant_offsets(), true)),
 				)
 			}
@@ -229,7 +229,7 @@ impl Instr for JccInstr {
 					.block
 					.encoder
 					.encode(&instr, ctx.ip)
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction)))? as u32;
+					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				InstrUtils::encode_branch_to_pointer_data(
 					ctx.block,
 					false,
@@ -238,7 +238,7 @@ impl Instr for JccInstr {
 					base.size - instr_len,
 				)
 				.map_or_else(
-					|err| Err(IcedError::with_string(InstrUtils::create_error_message(&err, &self.instruction))),
+					|err| Err(IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction))),
 					|_| Ok((ConstantOffsets::default(), false)),
 				)
 			}
