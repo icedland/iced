@@ -73,7 +73,7 @@ for whl in orig-dist/*.whl; do
 done
 rm -rf orig-dist
 
-for PYBIN in /opt/python/cp{37,38,39,310}*/bin/python /tmp/pypy/pypy3.*/bin/pypy; do
+for PYBIN in /opt/python/cp{37,38,39,310,311}*/bin/python /tmp/pypy/pypy3.*/bin/pypy; do
 	if [ -f "$PYBIN" ]; then
 		"$PYBIN" -m pip install -U pytest
 		"$PYBIN" -m pip install iced-x86 --no-index -f dist/ --only-binary iced-x86
