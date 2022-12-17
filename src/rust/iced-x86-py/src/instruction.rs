@@ -1992,7 +1992,7 @@ impl Instruction {
 
 	/// Negates the condition code, eg. ``JE`` -> ``JNE``.
 	///
-	/// Can be used if it's ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc`` and does nothing if the instruction doesn't have a condition code.
+	/// Can be used if it's ``Jcc``, ``SETcc``, ``CMOVcc``, ``CMPccXADD``, ``LOOPcc`` and does nothing if the instruction doesn't have a condition code.
 	///
 	/// Examples:
 	///
@@ -2061,7 +2061,7 @@ impl Instruction {
 		self.instr.as_near_branch()
 	}
 
-	/// :class:`ConditionCode`: Gets the condition code (a :class:`ConditionCode` enum value) if it's ``Jcc``, ``SETcc``, ``CMOVcc``, ``LOOPcc`` else :class:`ConditionCode.NONE` is returned
+	/// :class:`ConditionCode`: Gets the condition code (a :class:`ConditionCode` enum value) if it's ``Jcc``, ``SETcc``, ``CMOVcc``, ``CMPccXADD``, ``LOOPcc`` else :class:`ConditionCode.NONE` is returned
 	///
 	/// Examples:
 	///

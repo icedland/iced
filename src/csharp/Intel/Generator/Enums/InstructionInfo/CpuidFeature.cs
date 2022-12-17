@@ -328,5 +328,25 @@ namespace Generator.Enums.InstructionInfo {
 		KNC,
 		[Comment("Undocumented instruction")]
 		PADLOCK_UNDOC,
+		[Comment("CPUID.8000001FH:EAX.RMPQUERY[bit 6]")]
+		RMPQUERY,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.RAO-INT[bit 3]")]
+		RAO_INT,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.PREFETCHITI[bit 14]")]
+		PREFETCHITI,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.AMX-FP16[bit 21]")]
+		AMX_FP16,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.CMPCCXADD[bit 7]")]
+		CMPCCXADD,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.AVX-IFMA[bit 23]")]
+		AVX_IFMA,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.AVX-NE-CONVERT[bit 5]")]
+		AVX_NE_CONVERT,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT8[bit 4]")]
+		AVX_VNNI_INT8,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.MSRLIST[bit 27]")]
+		MSRLIST,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.WRMSRNS[bit 19]")]
+		WRMSRNS,
 	}
 }

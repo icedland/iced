@@ -2024,13 +2024,57 @@ final class CodeAssembler32GenCTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void vcvtneebf162ps_xmm_m() {
+		testAssembler(c -> c.vcvtneebf162ps(xmm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEEBF162PS_XMM_M128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneebf162ps_ymm_m() {
+		testAssembler(c -> c.vcvtneebf162ps(ymm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEEBF162PS_YMM_M256, ICRegisters.ymm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneeph2ps_xmm_m() {
+		testAssembler(c -> c.vcvtneeph2ps(xmm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEEPH2PS_XMM_M128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneeph2ps_ymm_m() {
+		testAssembler(c -> c.vcvtneeph2ps(ymm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEEPH2PS_YMM_M256, ICRegisters.ymm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneobf162ps_xmm_m() {
+		testAssembler(c -> c.vcvtneobf162ps(xmm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEOBF162PS_XMM_M128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneobf162ps_ymm_m() {
+		testAssembler(c -> c.vcvtneobf162ps(ymm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEOBF162PS_YMM_M256, ICRegisters.ymm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneoph2ps_xmm_m() {
+		testAssembler(c -> c.vcvtneoph2ps(xmm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEOPH2PS_XMM_M128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vcvtneoph2ps_ymm_m() {
+		testAssembler(c -> c.vcvtneoph2ps(ymm2, mem_ptr(0x0L).base(ecx)), Instruction.create(Code.VEX_VCVTNEOPH2PS_YMM_M256, ICRegisters.ymm2, new MemoryOperand(ICRegisters.ecx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
 	void vcvtneps2bf16_xmm_xmm() {
-		testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), xmm3), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, ICRegisters.xmm3), Register.K1));
+		{ /* if (getInstructionPreferVex()) */
+			testAssembler(c -> c.vcvtneps2bf16(xmm2, xmm3), Instruction.create(Code.VEX_VCVTNEPS2BF16_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3), TestInstrFlags.PREFER_VEX);
+		} /* else */ testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), xmm3), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, ICRegisters.xmm3), Register.K1), TestInstrFlags.PREFER_EVEX);
 	}
 
 	@Test
 	void vcvtneps2bf16_xmm_ymm() {
-		testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), ymm3), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, ICRegisters.xmm2, ICRegisters.ymm3), Register.K1));
+		{ /* if (getInstructionPreferVex()) */
+			testAssembler(c -> c.vcvtneps2bf16(xmm2, ymm3), Instruction.create(Code.VEX_VCVTNEPS2BF16_XMM_YMMM256, ICRegisters.xmm2, ICRegisters.ymm3), TestInstrFlags.PREFER_VEX);
+		} /* else */ testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), ymm3), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, ICRegisters.xmm2, ICRegisters.ymm3), Register.K1), TestInstrFlags.PREFER_EVEX);
 	}
 
 	@Test
@@ -2043,13 +2087,19 @@ final class CodeAssembler32GenCTests extends CodeAssemblerTestsBase {
 		{ /* if (src.isBroadcast()) */
 			testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), dword_bcst(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, true, ICRegister.NONE)), Register.K1), TestInstrFlags.PREFER_EVEX | TestInstrFlags.BROADCAST);
 		} /* else */ { /* if (src.size == MemoryOperandSize.YWORD) */
-			testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), ymmword_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1));
+			{ /* if (getInstructionPreferVex()) */
+				testAssembler(c -> c.vcvtneps2bf16(xmm2, ymmword_ptr(0x0L).base(edx)), Instruction.create(Code.VEX_VCVTNEPS2BF16_XMM_YMMM256, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), TestInstrFlags.PREFER_VEX);
+			} /* else */ testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), ymmword_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_YMMM256B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1), TestInstrFlags.PREFER_EVEX);
 		} /* else */ { /* if (src.size == MemoryOperandSize.XWORD) */
-			testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), xmmword_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1));
+			{ /* if (getInstructionPreferVex()) */
+				testAssembler(c -> c.vcvtneps2bf16(xmm2, xmmword_ptr(0x0L).base(edx)), Instruction.create(Code.VEX_VCVTNEPS2BF16_XMM_XMMM128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), TestInstrFlags.PREFER_VEX);
+			} /* else */ testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), xmmword_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1), TestInstrFlags.PREFER_EVEX);
 		}
 		{
 			assertInvalid(() -> {
-				testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), byte_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1));
+				{ /* if (getInstructionPreferVex()) */
+					testAssembler(c -> c.vcvtneps2bf16(xmm2, byte_ptr(0x0L).base(edx)), Instruction.create(Code.VEX_VCVTNEPS2BF16_XMM_XMMM128, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), TestInstrFlags.PREFER_VEX);
+				} /* else */ testAssembler(c -> c.vcvtneps2bf16(xmm2.k1(), byte_ptr(0x0L).base(edx)), applyK(Instruction.create(Code.EVEX_VCVTNEPS2BF16_XMM_K1Z_XMMM128B32, ICRegisters.xmm2, new MemoryOperand(ICRegisters.edx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)), Register.K1), TestInstrFlags.PREFER_EVEX);
 			});
 		}
 	}

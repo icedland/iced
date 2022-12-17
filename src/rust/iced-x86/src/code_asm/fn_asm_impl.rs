@@ -38,6 +38,22 @@ impl CodeAsmAad<u32> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmAadd<AsmMemoryOperand, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn aadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aadd_m32_r32, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAadd<AsmMemoryOperand, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn aadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aadd_m64_r64, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmAam<i32> for CodeAssembler {
 	#[inline]
 	fn aam(&mut self, op0: i32) -> Result<(), IcedError> {
@@ -50,6 +66,22 @@ impl CodeAsmAam<u32> for CodeAssembler {
 	#[inline]
 	fn aam(&mut self, op0: u32) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with1(Code::Aam_imm8, op0)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAand<AsmMemoryOperand, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn aand(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aand_m32_r32, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAand<AsmMemoryOperand, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn aand(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aand_m64_r64, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
 
@@ -1156,6 +1188,22 @@ impl CodeAsmAndps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmAor<AsmMemoryOperand, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn aor(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aor_m32_r32, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAor<AsmMemoryOperand, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn aor(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Aor_m64_r64, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmArpl<AsmRegister16, AsmRegister16> for CodeAssembler {
 	#[inline]
 	fn arpl(&mut self, op0: AsmRegister16, op1: AsmRegister16) -> Result<(), IcedError> {
@@ -1184,6 +1232,22 @@ impl CodeAsmArpl<AsmMemoryOperand, AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn arpl(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with2(Code::Arpl_r32m16_r32, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAxor<AsmMemoryOperand, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn axor(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Axor_m32_r32, op0.to_memory_operand(self.bitness()), op1.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmAxor<AsmMemoryOperand, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn axor(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::Axor_m64_r64, op0.to_memory_operand(self.bitness()), op1.register())?)
 	}
 }
 
@@ -4451,6 +4515,38 @@ impl CodeAsmCmp<AsmMemoryOperand, u32> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmpbexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpbexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpbexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpbexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpbxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpbxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpbxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpbxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmpeqpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn cmpeqpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
@@ -4579,6 +4675,22 @@ impl CodeAsmCmpless<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmplexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmplexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmplexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmplexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmpltpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn cmpltpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
@@ -4639,6 +4751,54 @@ impl CodeAsmCmpltss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmpltss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		<Self as CodeAsmCmpss<AsmRegisterXmm, AsmMemoryOperand, i32>>::cmpss(self, op0, op1, 1)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmplxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmplxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmplxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmplxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnbexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnbexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnbexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnbexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnbxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnbxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnbxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnbxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -4771,6 +4931,22 @@ impl CodeAsmCmpnless<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmpnlexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnlexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnlexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnlexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnlexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnlexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmpnltpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn cmpnltpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
@@ -4831,6 +5007,86 @@ impl CodeAsmCmpnltss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmpnltss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		<Self as CodeAsmCmpss<AsmRegisterXmm, AsmMemoryOperand, i32>>::cmpss(self, op0, op1, 5)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnlxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnlxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnlxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnlxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnlxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnlxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnoxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnoxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnoxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnoxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnpxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnpxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnpxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnpxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnpxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnpxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnsxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnsxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnsxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnsxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnsxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnsxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnzxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnzxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnzxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnzxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnzxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnzxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -4899,6 +5155,22 @@ impl CodeAsmCmpordss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmpoxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpoxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpoxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpoxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmppd<AsmRegisterXmm, AsmRegisterXmm, i32> for CodeAssembler {
 	#[inline]
 	fn cmppd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: i32) -> Result<(), IcedError> {
@@ -4959,6 +5231,22 @@ impl CodeAsmCmpps<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn cmpps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with3(Code::Cmpps_xmm_xmmm128_imm8, op0.register(), op1.to_memory_operand(self.bitness()), op2)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmppxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmppxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmppxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmppxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -5055,6 +5343,22 @@ impl CodeAsmCmpsw for CodeAssembler {
 	#[inline]
 	fn cmpsw(&mut self) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with_cmpsw(self.bitness(), Register::None, RepPrefixKind::None)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpsxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpsxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpsxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpsxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpsxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpsxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -5199,6 +5503,22 @@ impl CodeAsmCmpxchg8b<AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmpxchg8b(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with1(Code::Cmpxchg8b_m64, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpzxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpzxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpzxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpzxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpzxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpzxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -16741,6 +17061,22 @@ impl CodeAsmPrefetch<AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmPrefetchit0<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn prefetchit0(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Prefetchit0_m8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmPrefetchit1<AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn prefetchit1(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with1(Code::Prefetchit1_m8, op0.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmPrefetchnta<AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn prefetchnta(&mut self, op0: AsmMemoryOperand) -> Result<(), IcedError> {
@@ -18821,6 +19157,14 @@ impl CodeAsmRdmsr for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmRdmsrlist for CodeAssembler {
+	#[inline]
+	fn rdmsrlist(&mut self) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with(Code::Rdmsrlist))
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmRdpid<AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn rdpid(&mut self, op0: AsmRegister32) -> Result<(), IcedError> {
@@ -19485,6 +19829,14 @@ impl CodeAsmRmpadjust for CodeAssembler {
 	#[inline]
 	fn rmpadjust(&mut self) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with(Code::Rmpadjust))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmRmpquery for CodeAssembler {
+	#[inline]
+	fn rmpquery(&mut self) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with(Code::Rmpquery))
 	}
 }
 
@@ -23008,6 +23360,14 @@ impl CodeAsmTdpbuud<AsmRegisterTmm, AsmRegisterTmm, AsmRegisterTmm> for CodeAsse
 }
 
 #[rustfmt::skip]
+impl CodeAsmTdpfp16ps<AsmRegisterTmm, AsmRegisterTmm, AsmRegisterTmm> for CodeAssembler {
+	#[inline]
+	fn tdpfp16ps(&mut self, op0: AsmRegisterTmm, op1: AsmRegisterTmm, op2: AsmRegisterTmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Tdpfp16ps_tmm_tmm_tmm, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmTest<AsmRegister8, AsmRegister8> for CodeAssembler {
 	#[inline]
 	fn test(&mut self, op0: AsmRegister8, op1: AsmRegister8) -> Result<(), IcedError> {
@@ -24661,6 +25021,38 @@ impl CodeAsmVandps<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for CodeAss
 	#[inline]
 	fn vandps(&mut self, op0: AsmRegisterZmm, op1: AsmRegisterZmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vandps_zmm_k1z_zmm_zmmm512b32, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVbcstnebf162ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vbcstnebf162ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vbcstnebf162ps_xmm_m16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVbcstnebf162ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vbcstnebf162ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vbcstnebf162ps_ymm_m16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVbcstnesh2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vbcstnesh2ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vbcstnesh2ps_xmm_m16, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVbcstnesh2ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vbcstnesh2ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vbcstnesh2ps_ymm_m16, op0.register(), op1.to_memory_operand(self.bitness()))?)
 	}
 }
 
@@ -35407,10 +35799,75 @@ impl CodeAsmVcvtne2ps2bf16<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for
 }
 
 #[rustfmt::skip]
+impl CodeAsmVcvtneebf162ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneebf162ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneebf162ps_xmm_m128, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneebf162ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneebf162ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneebf162ps_ymm_m256, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneeph2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneeph2ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneeph2ps_xmm_m128, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneeph2ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneeph2ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneeph2ps_ymm_m256, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneobf162ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneobf162ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneobf162ps_xmm_m128, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneobf162ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneobf162ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneobf162ps_ymm_m256, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneoph2ps<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneoph2ps(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneoph2ps_xmm_m128, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVcvtneoph2ps<AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vcvtneoph2ps(&mut self, op0: AsmRegisterYmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with2(Code::VEX_Vcvtneoph2ps_ymm_m256, op0.register(), op1.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmVcvtneps2bf16<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vcvtneps2bf16(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, op0.register(), op1.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtneps2bf16_xmm_xmmm128 } else { Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32 };
+		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
 
@@ -35418,7 +35875,8 @@ impl CodeAsmVcvtneps2bf16<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 impl CodeAsmVcvtneps2bf16<AsmRegisterXmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vcvtneps2bf16(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterYmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, op0.register(), op1.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vcvtneps2bf16_xmm_ymmm256 } else { Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32 };
+		self.add_instr_with_state(Instruction::with2(code, op0.register(), op1.register())?, op0.state())
 	}
 }
 
@@ -35436,9 +35894,9 @@ impl CodeAsmVcvtneps2bf16<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 		let code = if op1.is_broadcast() {
 			Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
 		} else if op1.size() == MemoryOperandSize::Yword {
-			Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtneps2bf16_xmm_ymmm256 } else { Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32 }
 		} else if op1.size() == MemoryOperandSize::Xword {
-			Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			if self.instruction_prefer_vex() { Code::VEX_Vcvtneps2bf16_xmm_xmmm128 } else { Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32 }
 		} else {
 			return Err(IcedError::new("vcvtneps2bf16: invalid operands"));
 		};
@@ -58334,6 +58792,134 @@ impl CodeAsmVpconflictq<AsmRegisterZmm, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmVpdpbssd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbssd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssd_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssd<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbssd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssd_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbssd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssd_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssd<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbssd(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssd_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbssds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssds<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbssds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssds<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbssds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbssds<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbssds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbssds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbsud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsud_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsud<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbsud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsud_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsud<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbsud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsud_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsud<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbsud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsud_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsuds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbsuds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsuds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsuds<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbsuds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsuds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsuds<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbsuds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsuds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbsuds<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbsuds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbsuds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmVpdpbusd<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpdpbusd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
@@ -58454,6 +59040,70 @@ impl CodeAsmVpdpbusds<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Code
 	#[inline]
 	fn vpdpbusds(&mut self, op0: AsmRegisterZmm, op1: AsmRegisterZmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
 		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuud<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbuud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuud_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuud<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbuud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuud_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuud<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbuud(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuud_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuud<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbuud(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuud_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuuds<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbuuds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuuds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuuds<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
+	#[inline]
+	fn vpdpbuuds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuuds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuuds<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbuuds(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuuds_xmm_xmm_xmmm128, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmVpdpbuuds<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
+	#[inline]
+	fn vpdpbuuds(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Vpdpbuuds_ymm_ymm_ymmm256, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?)
 	}
 }
 
@@ -61627,7 +62277,8 @@ impl CodeAsmVpmadcswd<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand, AsmRegis
 impl CodeAsmVpmadd52huq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmadd52huq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, op0.register(), op1.register(), op2.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmadd52huq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64 };
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
 
@@ -61635,7 +62286,8 @@ impl CodeAsmVpmadd52huq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVpmadd52huq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmadd52huq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, op0.register(), op1.register(), op2.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmadd52huq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64 };
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
 
@@ -61649,17 +62301,29 @@ impl CodeAsmVpmadd52huq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for Code
 
 #[rustfmt::skip]
 impl CodeAsmVpmadd52huq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
-	#[inline]
 	fn vpmadd52huq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+		let code = if op2.is_broadcast() {
+			Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
+		} else if self.instruction_prefer_vex() {
+			Code::VEX_Vpmadd52huq_xmm_xmm_xmmm128
+		} else {
+			Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
+		};
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
 
 #[rustfmt::skip]
 impl CodeAsmVpmadd52huq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
-	#[inline]
 	fn vpmadd52huq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+		let code = if op2.is_broadcast() {
+			Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
+		} else if self.instruction_prefer_vex() {
+			Code::VEX_Vpmadd52huq_ymm_ymm_ymmm256
+		} else {
+			Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
+		};
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
 
@@ -61675,7 +62339,8 @@ impl CodeAsmVpmadd52huq<AsmRegisterZmm, AsmRegisterZmm, AsmMemoryOperand> for Co
 impl CodeAsmVpmadd52luq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn vpmadd52luq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmRegisterXmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, op0.register(), op1.register(), op2.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmadd52luq_xmm_xmm_xmmm128 } else { Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64 };
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
 
@@ -61683,7 +62348,8 @@ impl CodeAsmVpmadd52luq<AsmRegisterXmm, AsmRegisterXmm, AsmRegisterXmm> for Code
 impl CodeAsmVpmadd52luq<AsmRegisterYmm, AsmRegisterYmm, AsmRegisterYmm> for CodeAssembler {
 	#[inline]
 	fn vpmadd52luq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmRegisterYmm) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, op0.register(), op1.register(), op2.register())?, op0.state())
+		let code = if self.instruction_prefer_vex() { Code::VEX_Vpmadd52luq_ymm_ymm_ymmm256 } else { Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64 };
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.register())?, op0.state())
 	}
 }
 
@@ -61697,17 +62363,29 @@ impl CodeAsmVpmadd52luq<AsmRegisterZmm, AsmRegisterZmm, AsmRegisterZmm> for Code
 
 #[rustfmt::skip]
 impl CodeAsmVpmadd52luq<AsmRegisterXmm, AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
-	#[inline]
 	fn vpmadd52luq(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+		let code = if op2.is_broadcast() {
+			Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
+		} else if self.instruction_prefer_vex() {
+			Code::VEX_Vpmadd52luq_xmm_xmm_xmmm128
+		} else {
+			Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
+		};
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
 
 #[rustfmt::skip]
 impl CodeAsmVpmadd52luq<AsmRegisterYmm, AsmRegisterYmm, AsmMemoryOperand> for CodeAssembler {
-	#[inline]
 	fn vpmadd52luq(&mut self, op0: AsmRegisterYmm, op1: AsmRegisterYmm, op2: AsmMemoryOperand) -> Result<(), IcedError> {
-		self.add_instr_with_state(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
+		let code = if op2.is_broadcast() {
+			Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
+		} else if self.instruction_prefer_vex() {
+			Code::VEX_Vpmadd52luq_ymm_ymm_ymmm256
+		} else {
+			Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
+		};
+		self.add_instr_with_state(Instruction::with3(code, op0.register(), op1.register(), op2.to_memory_operand(self.bitness()))?, op0.state().merge(op2.state()))
 	}
 }
 
@@ -75208,6 +75886,22 @@ impl CodeAsmWrmsr for CodeAssembler {
 	#[inline]
 	fn wrmsr(&mut self) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with(Code::Wrmsr))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmWrmsrlist for CodeAssembler {
+	#[inline]
+	fn wrmsrlist(&mut self) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with(Code::Wrmsrlist))
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmWrmsrns for CodeAssembler {
+	#[inline]
+	fn wrmsrns(&mut self) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with(Code::Wrmsrns))
 	}
 }
 

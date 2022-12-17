@@ -18791,4 +18791,278 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// Zero_bytes
 	0x01,// Normal_1
 	0x9A, 0x0D,// 1690 = "zero_bytes"
+
+	// Wrmsrns
+	0x01,// Normal_1
+	0x9B, 0x0D,// 1691 = "wrmsrns"
+
+	// Wrmsrlist
+	0x01,// Normal_1
+	0x9C, 0x0D,// 1692 = "wrmsrlist"
+
+	// Rdmsrlist
+	0x01,// Normal_1
+	0x9D, 0x0D,// 1693 = "rdmsrlist"
+
+	// Rmpquery
+	0x01,// Normal_1
+	0x9E, 0x0D,// 1694 = "rmpquery"
+
+	// Prefetchit1_m8
+	0x01,// Normal_1
+	0x9F, 0x0D,// 1695 = "prefetchit1"
+
+	// Prefetchit0_m8
+	0x01,// Normal_1
+	0xA0, 0x0D,// 1696 = "prefetchit0"
+
+	// Aadd_m32_r32
+	0x01,// Normal_1
+	0xA1, 0x0D,// 1697 = "aadd"
+
+	// Aadd_m64_r64
+	0x00,// Previous
+
+	// Aand_m32_r32
+	0x01,// Normal_1
+	0xA2, 0x0D,// 1698 = "aand"
+
+	// Aand_m64_r64
+	0x00,// Previous
+
+	// Axor_m32_r32
+	0x01,// Normal_1
+	0xA3, 0x0D,// 1699 = "axor"
+
+	// Axor_m64_r64
+	0x00,// Previous
+
+	// Aor_m32_r32
+	0x01,// Normal_1
+	0xA4, 0x0D,// 1700 = "aor"
+
+	// Aor_m64_r64
+	0x00,// Previous
+
+	// VEX_Vpdpbuud_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xA5, 0x0D,// 1701 = "vpdpbuud"
+
+	// VEX_Vpdpbuud_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpbsud_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xA6, 0x0D,// 1702 = "vpdpbsud"
+
+	// VEX_Vpdpbsud_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpbssd_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xA7, 0x0D,// 1703 = "vpdpbssd"
+
+	// VEX_Vpdpbssd_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xA8, 0x0D,// 1704 = "vpdpbuuds"
+
+	// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xA9, 0x0D,// 1705 = "vpdpbsuds"
+
+	// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpbssds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xAA, 0x0D,// 1706 = "vpdpbssds"
+
+	// VEX_Vpdpbssds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Tdpfp16ps_tmm_tmm_tmm
+	0x01,// Normal_1
+	0xAB, 0x0D,// 1707 = "tdpfp16ps"
+
+	// VEX_Vcvtneps2bf16_xmm_xmmm128
+	0x02,// Normal_2
+	0xE7, 0x07,// 999 = "vcvtneps2bf16"
+	0x06,// 0x6 = ShowNoMemSize_ForceSize, ShowMinMemSize_ForceSize
+
+	// VEX_Vcvtneps2bf16_xmm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vcvtneoph2ps_xmm_m128
+	0x01,// Normal_1
+	0xAC, 0x0D,// 1708 = "vcvtneoph2ps"
+
+	// VEX_Vcvtneoph2ps_ymm_m256
+	0x00,// Previous
+
+	// VEX_Vcvtneeph2ps_xmm_m128
+	0x01,// Normal_1
+	0xAD, 0x0D,// 1709 = "vcvtneeph2ps"
+
+	// VEX_Vcvtneeph2ps_ymm_m256
+	0x00,// Previous
+
+	// VEX_Vcvtneebf162ps_xmm_m128
+	0x01,// Normal_1
+	0xAE, 0x0D,// 1710 = "vcvtneebf162ps"
+
+	// VEX_Vcvtneebf162ps_ymm_m256
+	0x00,// Previous
+
+	// VEX_Vcvtneobf162ps_xmm_m128
+	0x01,// Normal_1
+	0xAF, 0x0D,// 1711 = "vcvtneobf162ps"
+
+	// VEX_Vcvtneobf162ps_ymm_m256
+	0x00,// Previous
+
+	// VEX_Vbcstnesh2ps_xmm_m16
+	0x01,// Normal_1
+	0xB0, 0x0D,// 1712 = "vbcstnesh2ps"
+
+	// VEX_Vbcstnesh2ps_ymm_m16
+	0x00,// Previous
+
+	// VEX_Vbcstnebf162ps_xmm_m16
+	0x01,// Normal_1
+	0xB1, 0x0D,// 1713 = "vbcstnebf162ps"
+
+	// VEX_Vbcstnebf162ps_ymm_m16
+	0x00,// Previous
+
+	// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xC4, 0x08,// 1092 = "vpmadd52luq"
+
+	// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xC5, 0x08,// 1093 = "vpmadd52huq"
+
+	// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Cmpoxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB2, 0x0D,// 1714 = "cmpoxadd"
+
+	// VEX_Cmpoxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnoxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB3, 0x0D,// 1715 = "cmpnoxadd"
+
+	// VEX_Cmpnoxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpbxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB4, 0x0D,// 1716 = "cmpbxadd"
+
+	// VEX_Cmpbxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnbxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB5, 0x0D,// 1717 = "cmpnbxadd"
+
+	// VEX_Cmpnbxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpzxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB6, 0x0D,// 1718 = "cmpzxadd"
+
+	// VEX_Cmpzxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnzxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB7, 0x0D,// 1719 = "cmpnzxadd"
+
+	// VEX_Cmpnzxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpbexadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB8, 0x0D,// 1720 = "cmpbexadd"
+
+	// VEX_Cmpbexadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnbexadd_m32_r32_r32
+	0x01,// Normal_1
+	0xB9, 0x0D,// 1721 = "cmpnbexadd"
+
+	// VEX_Cmpnbexadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpsxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBA, 0x0D,// 1722 = "cmpsxadd"
+
+	// VEX_Cmpsxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnsxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBB, 0x0D,// 1723 = "cmpnsxadd"
+
+	// VEX_Cmpnsxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmppxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBC, 0x0D,// 1724 = "cmppxadd"
+
+	// VEX_Cmppxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnpxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBD, 0x0D,// 1725 = "cmpnpxadd"
+
+	// VEX_Cmpnpxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmplxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBE, 0x0D,// 1726 = "cmplxadd"
+
+	// VEX_Cmplxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnlxadd_m32_r32_r32
+	0x01,// Normal_1
+	0xBF, 0x0D,// 1727 = "cmpnlxadd"
+
+	// VEX_Cmpnlxadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmplexadd_m32_r32_r32
+	0x01,// Normal_1
+	0xC0, 0x0D,// 1728 = "cmplexadd"
+
+	// VEX_Cmplexadd_m64_r64_r64
+	0x00,// Previous
+
+	// VEX_Cmpnlexadd_m32_r32_r32
+	0x01,// Normal_1
+	0xC1, 0x0D,// 1729 = "cmpnlexadd"
+
+	// VEX_Cmpnlexadd_m64_r64_r64
+	0x00,// Previous
 ];

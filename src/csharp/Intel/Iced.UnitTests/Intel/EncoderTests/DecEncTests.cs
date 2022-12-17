@@ -990,8 +990,21 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 				bool uses_reg = false;
 				bool other_rm = false;
 				bool other_reg = false;
+				bool mem_only = false;
 				for (int i = 0; i < opCode.OpCount; i++) {
 					switch (opCode.GetOpKind(i)) {
+					case OpCodeOperandKind.mem:
+					case OpCodeOperandKind.mem_mpx:
+					case OpCodeOperandKind.mem_mib:
+					case OpCodeOperandKind.mem_vsib32x:
+					case OpCodeOperandKind.mem_vsib64x:
+					case OpCodeOperandKind.mem_vsib32y:
+					case OpCodeOperandKind.mem_vsib64y:
+					case OpCodeOperandKind.mem_vsib32z:
+					case OpCodeOperandKind.mem_vsib64z:
+					case OpCodeOperandKind.sibmem:
+						mem_only = true;
+						break;
 					case OpCodeOperandKind.r32_or_mem:
 					case OpCodeOperandKind.r64_or_mem:
 					case OpCodeOperandKind.r32_or_mem_mpx:
@@ -1024,6 +1037,12 @@ namespace Iced.UnitTests.Intel.EncoderTests {
 						other_reg = true;
 						break;
 					}
+				}
+				if (mem_only) {
+					if (uses_reg)
+						uses_rm = true;
+					if (other_reg)
+						other_rm = true;
 				}
 				if (!uses_rm && !uses_reg && opCode.OpCount > 0)
 					continue;

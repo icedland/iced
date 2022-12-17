@@ -539,6 +539,26 @@ final class CodeAssembler16GenBTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void vbcstnebf162ps_xmm_m() {
+		testAssembler(c -> c.vbcstnebf162ps(xmm2, mem_ptr(0x0L).base(si)), Instruction.create(Code.VEX_VBCSTNEBF162PS_XMM_M16, ICRegisters.xmm2, new MemoryOperand(ICRegisters.si, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vbcstnebf162ps_ymm_m() {
+		testAssembler(c -> c.vbcstnebf162ps(ymm2, mem_ptr(0x0L).base(si)), Instruction.create(Code.VEX_VBCSTNEBF162PS_YMM_M16, ICRegisters.ymm2, new MemoryOperand(ICRegisters.si, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vbcstnesh2ps_xmm_m() {
+		testAssembler(c -> c.vbcstnesh2ps(xmm2, mem_ptr(0x0L).base(si)), Instruction.create(Code.VEX_VBCSTNESH2PS_XMM_M16, ICRegisters.xmm2, new MemoryOperand(ICRegisters.si, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vbcstnesh2ps_ymm_m() {
+		testAssembler(c -> c.vbcstnesh2ps(ymm2, mem_ptr(0x0L).base(si)), Instruction.create(Code.VEX_VBCSTNESH2PS_YMM_M16, ICRegisters.ymm2, new MemoryOperand(ICRegisters.si, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
 	void vblendmpd_xmm_xmm_xmm() {
 		testAssembler(c -> c.vblendmpd(xmm2.k1(), xmm3, xmm4), applyK(Instruction.create(Code.EVEX_VBLENDMPD_XMM_K1Z_XMM_XMMM128B64, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4), Register.K1));
 	}

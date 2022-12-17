@@ -830,10 +830,11 @@ pub(crate) enum VexOpCodeHandlerKind {
 	Ev,
 	K_Jb,
 	K_Jz,
+	Ev_Gv_Gv,
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 #[rustfmt::skip]
-static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 78] = [
+static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 79] = [
 	"Invalid",
 	"Invalid2",
 	"Dup",
@@ -912,6 +913,7 @@ static GEN_DEBUG_VEX_OP_CODE_HANDLER_KIND: [&str; 78] = [
 	"Ev",
 	"K_Jb",
 	"K_Jz",
+	"Ev_Gv_Gv",
 ];
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl fmt::Debug for VexOpCodeHandlerKind {

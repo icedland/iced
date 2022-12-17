@@ -1707,6 +1707,47 @@ public final class InstructionInfoFactory {
 				addRegister(flags, Register.RCX, OpAccess.READ_COND_WRITE);
 			}
 			break;
+		case ImpliedAccess.T_CRMEM_CRMEM_RRCX_CRRSI_CRRDI_CRES_CRDS_CWRCX:
+			if ((flags & Flags.NO_MEMORY_USAGE) == 0) {
+				addMemory(Register.ES, Register.RDI, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.COND_READ, CodeSize.CODE64, 0);
+				addMemory(Register.DS, Register.RSI, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.COND_READ, CodeSize.CODE64, 0);
+			}
+			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
+				addRegister(flags, Register.RCX, OpAccess.READ);
+				addRegister(flags, Register.RSI, OpAccess.COND_READ);
+				addRegister(flags, Register.RDI, OpAccess.COND_READ);
+				if ((flags & Flags.IS_64_BIT) == 0)
+					addRegister(flags, Register.ES, OpAccess.COND_READ);
+				if ((flags & Flags.IS_64_BIT) == 0)
+					addRegister(flags, Register.DS, OpAccess.COND_READ);
+				addRegister(flags, Register.RCX, OpAccess.COND_WRITE);
+			}
+			break;
+		case ImpliedAccess.T_CRMEM_CWMEM_RRCX_CRRSI_CRRDI_CRES_CRDS_CWRCX:
+			if ((flags & Flags.NO_MEMORY_USAGE) == 0) {
+				addMemory(Register.DS, Register.RSI, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.COND_READ, CodeSize.CODE64, 0);
+				addMemory(Register.ES, Register.RDI, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.COND_WRITE, CodeSize.CODE64, 0);
+			}
+			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
+				addRegister(flags, Register.RCX, OpAccess.READ);
+				addRegister(flags, Register.RSI, OpAccess.COND_READ);
+				addRegister(flags, Register.RDI, OpAccess.COND_READ);
+				if ((flags & Flags.IS_64_BIT) == 0)
+					addRegister(flags, Register.ES, OpAccess.COND_READ);
+				if ((flags & Flags.IS_64_BIT) == 0)
+					addRegister(flags, Register.DS, OpAccess.COND_READ);
+				addRegister(flags, Register.RCX, OpAccess.COND_WRITE);
+			}
+			break;
+		case ImpliedAccess.T_RDL_RRAX_WEAX_WRCX_WRDX:
+			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
+				addRegister(flags, Register.DL, OpAccess.READ);
+				addRegister(flags, Register.RAX, OpAccess.READ);
+				addRegister(flags, Register.EAX, OpAccess.WRITE);
+				addRegister(flags, Register.RCX, OpAccess.WRITE);
+				addRegister(flags, Register.RDX, OpAccess.WRITE);
+			}
+			break;
 		// GENERATOR-END: ImpliedAccessHandler
 
 		default:

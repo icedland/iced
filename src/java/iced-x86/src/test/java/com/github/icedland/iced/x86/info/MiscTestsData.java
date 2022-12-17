@@ -40,6 +40,7 @@ final class MiscTestsData {
 	public static final JkccNearInfo[] jkccNearInfos;
 	public static final SetccInfo[] setccInfos;
 	public static final CmovccInfo[] cmovccInfos;
+	public static final CmpccxaddInfo[] cmpccxaddInfos;
 	public static final LoopccInfo[] loopccInfos;
 
 	static class JmpInfo {
@@ -125,6 +126,17 @@ final class MiscTestsData {
 			this.cc = cc;
 		}
 	}
+	static class CmpccxaddInfo {
+		int cmpccxadd;
+		int negated;
+		int cc;
+
+		CmpccxaddInfo(int cmpccxadd, int negated, int cc) {
+			this.cmpccxadd = cmpccxadd;
+			this.negated = negated;
+			this.cc = cc;
+		}
+	}
 	static class LoopccInfo {
 		int loopcc;
 		int negated;
@@ -164,6 +176,7 @@ final class MiscTestsData {
 		ArrayList<JkccNearInfo> tmp_jkccNearInfos = new ArrayList<JkccNearInfo>();
 		ArrayList<SetccInfo> tmp_setccInfos = new ArrayList<SetccInfo>();
 		ArrayList<CmovccInfo> tmp_cmovccInfos = new ArrayList<CmovccInfo>();
+		ArrayList<CmpccxaddInfo> tmp_cmpccxaddInfos = new ArrayList<CmpccxaddInfo>();
 		ArrayList<LoopccInfo> tmp_loopccInfos = new ArrayList<LoopccInfo>();
 
 		SectionInfo[] sectionInfos = new SectionInfo[] {
@@ -193,6 +206,7 @@ final class MiscTestsData {
 			new SectionInfo(MiscSectionNames.JKCC_NEAR_INFO, (_ig, line) -> addJkccNearInfo(tmp_jkccNearInfos, line)),
 			new SectionInfo(MiscSectionNames.SETCC_INFO, (_ig, line) -> addSetccInfo(tmp_setccInfos, line)),
 			new SectionInfo(MiscSectionNames.CMOVCC_INFO, (_ig, line) -> addCmovccInfo(tmp_cmovccInfos, line)),
+			new SectionInfo(MiscSectionNames.CMPCCXADD_INFO, (_ig, line) -> addCmpccxaddInfo(tmp_cmpccxaddInfos, line)),
 			new SectionInfo(MiscSectionNames.LOOPCC_INFO, (_ig, line) -> addLoopccInfo(tmp_loopccInfos, line)),
 		};
 		String filename = PathUtils.getTestTextFilename("InstructionInfo", "Misc.txt");
@@ -224,6 +238,7 @@ final class MiscTestsData {
 		jkccNearInfos = tmp_jkccNearInfos.toArray(new JkccNearInfo[0]);
 		setccInfos = tmp_setccInfos.toArray(new SetccInfo[0]);
 		cmovccInfos = tmp_cmovccInfos.toArray(new CmovccInfo[0]);
+		cmpccxaddInfos = tmp_cmpccxaddInfos.toArray(new CmpccxaddInfo[0]);
 		loopccInfos = tmp_loopccInfos.toArray(new LoopccInfo[0]);
 	}
 
@@ -321,6 +336,18 @@ final class MiscTestsData {
 		if (CodeUtils.isIgnored(code1) || CodeUtils.isIgnored(code2))
 			return;
 		infos.add(new CmovccInfo(ToCode.get(code1), ToCode.get(code2), ToConditionCode.get(elems[2].trim())));
+	}
+
+	private static void addCmpccxaddInfo(ArrayList<CmpccxaddInfo> infos, String line) {
+		final int ELEMS = 3;
+		String[] elems = line.split(",");
+		if (elems.length != ELEMS)
+			throw new UnsupportedOperationException(String.format("Expected %d elements, found %d", ELEMS, elems.length));
+		String code1 = elems[0].trim();
+		String code2 = elems[1].trim();
+		if (CodeUtils.isIgnored(code1) || CodeUtils.isIgnored(code2))
+			return;
+		infos.add(new CmpccxaddInfo(ToCode.get(code1), ToCode.get(code2), ToConditionCode.get(elems[2].trim())));
 	}
 
 	private static void addLoopccInfo(ArrayList<LoopccInfo> infos, String line) {

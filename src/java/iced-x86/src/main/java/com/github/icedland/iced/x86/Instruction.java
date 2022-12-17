@@ -2602,7 +2602,7 @@ public final class Instruction {
 
 	/**
 	 * Negates the condition code, eg.<!-- --> {@code JE} -&gt; {@code JNE}. Can be used if it's {@code Jcc}, {@code SETcc},
-	 * {@code CMOVcc}, {@code LOOPcc}
+	 * {@code CMOVcc}, {@code CMPccXADD}, {@code LOOPcc}
 	 * and does nothing if the instruction doesn't have a condition code.
 	 */
 	public void negateConditionCode() {
@@ -2624,7 +2624,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's {@code Jcc}, {@code SETcc}, {@code CMOVcc},
+	 * Gets the condition code (a {@link ConditionCode} enum variant) if it's {@code Jcc}, {@code SETcc}, {@code CMOVcc}, {@code CMPccXADD},
 	 * {@code LOOPcc} else {@link ConditionCode#NONE} is returned
 	 */
 	public int getConditionCode() {

@@ -55,7 +55,7 @@ public final class IcedConstants {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int MAX_CPUID_FEATURE_INTERNAL_VALUES = 183;
+	public static final int MAX_CPUID_FEATURE_INTERNAL_VALUES = 193;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
@@ -119,7 +119,7 @@ public final class IcedConstants {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int CODE_ENUM_COUNT = 4834;
+	public static final int CODE_ENUM_COUNT = 4911;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
@@ -131,7 +131,7 @@ public final class IcedConstants {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int CPUID_FEATURE_ENUM_COUNT = 162;
+	public static final int CPUID_FEATURE_ENUM_COUNT = 172;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
@@ -163,7 +163,7 @@ public final class IcedConstants {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int MEMORY_SIZE_ENUM_COUNT = 160;
+	public static final int MEMORY_SIZE_ENUM_COUNT = 162;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
@@ -171,7 +171,7 @@ public final class IcedConstants {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int MNEMONIC_ENUM_COUNT = 1838;
+	public static final int MNEMONIC_ENUM_COUNT = 1877;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */

@@ -1003,8 +1003,21 @@ final class DecEncTests {
 			boolean uses_reg = false;
 			boolean other_rm = false;
 			boolean other_reg = false;
+			boolean mem_only = false;
 			for (int i = 0; i < opCode.getOpCount(); i++) {
 				switch (opCode.getOpKind(i)) {
+				case OpCodeOperandKind.MEM:
+				case OpCodeOperandKind.MEM_MPX:
+				case OpCodeOperandKind.MEM_MIB:
+				case OpCodeOperandKind.MEM_VSIB32X:
+				case OpCodeOperandKind.MEM_VSIB64X:
+				case OpCodeOperandKind.MEM_VSIB32Y:
+				case OpCodeOperandKind.MEM_VSIB64Y:
+				case OpCodeOperandKind.MEM_VSIB32Z:
+				case OpCodeOperandKind.MEM_VSIB64Z:
+				case OpCodeOperandKind.SIBMEM:
+					mem_only = true;
+					break;
 				case OpCodeOperandKind.R32_OR_MEM:
 				case OpCodeOperandKind.R64_OR_MEM:
 				case OpCodeOperandKind.R32_OR_MEM_MPX:
@@ -1037,6 +1050,12 @@ final class DecEncTests {
 					other_reg = true;
 					break;
 				}
+			}
+			if (mem_only) {
+				if (uses_reg)
+					uses_rm = true;
+				if (other_reg)
+					other_rm = true;
 			}
 			if (!uses_rm && !uses_reg && opCode.getOpCount() > 0)
 				continue;

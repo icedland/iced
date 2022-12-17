@@ -259,6 +259,11 @@ final class CodeAssembler64GenRTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void rdmsrlist() {
+		testAssembler(c -> c.rdmsrlist(), Instruction.create(Code.RDMSRLIST));
+	}
+
+	@Test
 	void rdpid_r64() {
 		testAssembler(c -> c.rdpid(rdx), Instruction.create(Code.RDPID_R64, ICRegisters.rdx));
 	}
@@ -634,6 +639,11 @@ final class CodeAssembler64GenRTests extends CodeAssemblerTestsBase {
 	@Test
 	void rmpadjust() {
 		testAssembler(c -> c.rmpadjust(), Instruction.create(Code.RMPADJUST));
+	}
+
+	@Test
+	void rmpquery() {
+		testAssembler(c -> c.rmpquery(), Instruction.create(Code.RMPQUERY));
 	}
 
 	@Test

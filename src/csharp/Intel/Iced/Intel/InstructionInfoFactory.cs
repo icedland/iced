@@ -1729,6 +1729,47 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RCX, OpAccess.ReadCondWrite);
 				}
 				break;
+			case ImpliedAccess.t_CRmem_CRmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.DS, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RSI, OpAccess.CondRead);
+					AddRegister(flags, Register.RDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.DS, OpAccess.CondRead);
+					AddRegister(flags, Register.RCX, OpAccess.CondWrite);
+				}
+				break;
+			case ImpliedAccess.t_CRmem_CWmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.DS, Register.RSI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondRead, CodeSize.Code64, 0);
+					AddMemory(Register.ES, Register.RDI, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.CondWrite, CodeSize.Code64, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RSI, OpAccess.CondRead);
+					AddRegister(flags, Register.RDI, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.ES, OpAccess.CondRead);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.DS, OpAccess.CondRead);
+					AddRegister(flags, Register.RCX, OpAccess.CondWrite);
+				}
+				break;
+			case ImpliedAccess.t_Rdl_Rrax_Weax_Wrcx_Wrdx:
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.DL, OpAccess.Read);
+					AddRegister(flags, Register.RAX, OpAccess.Read);
+					AddRegister(flags, Register.EAX, OpAccess.Write);
+					AddRegister(flags, Register.RCX, OpAccess.Write);
+					AddRegister(flags, Register.RDX, OpAccess.Write);
+				}
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:

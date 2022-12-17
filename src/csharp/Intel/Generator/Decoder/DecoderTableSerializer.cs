@@ -360,6 +360,7 @@ namespace Generator.Decoder {
 
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ev_VX)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Gv)], (1, 2) },
+				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Ev_Gv_Gv)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Ib)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Ev_Id)], (1, 2) },
 				{ vexOpCodeHandlerKind[nameof(VexOpCodeHandlerKind.Gv_Gv_Ev)], (1, 2) },

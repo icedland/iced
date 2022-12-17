@@ -1545,7 +1545,7 @@ function Instruction:is_loop() end
 
 ---Negates the condition code, eg. `JE` -> `JNE`.
 ---
----Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` and does nothing if the instruction doesn't have a condition code.
+---Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc` and does nothing if the instruction doesn't have a condition code.
 ---
 ---# Examples
 ---
@@ -1609,7 +1609,7 @@ function Instruction:as_short_branch() end
 ---```
 function Instruction:as_near_branch() end
 
----Gets the condition code (a `ConditionCode` enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else `ConditionCode.None` is returned
+---Gets the condition code (a `ConditionCode` enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc` else `ConditionCode.None` is returned
 ---
 ---@return integer #A `ConditionCode` enum value
 ---

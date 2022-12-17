@@ -13015,3 +13015,98 @@ a32 rep xstore_alt
 rep xstore_alt
 a32 rep xsha512_alt
 rep xsha512_alt
+wrmsrns
+wrmsrlist
+rdmsrlist
+rmpquery
+prefetchit1 byte [rax]
+prefetchit0 byte [rax]
+aadd dword [rax], ebx
+aadd qword [rax], rbx
+aand dword [rax], ebx
+aand qword [rax], rbx
+axor dword [rax], ebx
+axor qword [rax], rbx
+aor dword [rax], ebx
+aor qword [rax], rbx
+vpdpbuud xmm2, xmm6, oword [rax]
+vpdpbuud xmm2, xmm6, xmm3
+vpdpbuud ymm2, ymm6, yword [rax]
+vpdpbuud ymm2, ymm6, ymm3
+vpdpbsud xmm2, xmm6, oword [rax]
+vpdpbsud xmm2, xmm6, xmm3
+vpdpbsud ymm2, ymm6, yword [rax]
+vpdpbsud ymm2, ymm6, ymm3
+vpdpbssd xmm2, xmm6, oword [rax]
+vpdpbssd xmm2, xmm6, xmm3
+vpdpbssd ymm2, ymm6, yword [rax]
+vpdpbssd ymm2, ymm6, ymm3
+vpdpbuuds xmm2, xmm6, oword [rax]
+vpdpbuuds xmm2, xmm6, xmm3
+vpdpbuuds ymm2, ymm6, yword [rax]
+vpdpbuuds ymm2, ymm6, ymm3
+vpdpbsuds xmm2, xmm6, oword [rax]
+vpdpbsuds xmm2, xmm6, xmm3
+vpdpbsuds ymm2, ymm6, yword [rax]
+vpdpbsuds ymm2, ymm6, ymm3
+vpdpbssds xmm2, xmm6, oword [rax]
+vpdpbssds xmm2, xmm6, xmm3
+vpdpbssds ymm2, ymm6, yword [rax]
+vpdpbssds ymm2, ymm6, ymm3
+tdpfp16ps tmm2, tmm3, tmm4
+vcvtneps2bf16 xmm2, oword [rax]
+vcvtneps2bf16 xmm1, xmm5
+vcvtneps2bf16 xmm2, yword [rax]
+vcvtneps2bf16 xmm1, ymm5
+vcvtneoph2ps xmm2, oword [rax]
+vcvtneoph2ps ymm2, yword [rax]
+vcvtneeph2ps xmm2, oword [rax]
+vcvtneeph2ps ymm2, yword [rax]
+vcvtneebf162ps xmm2, oword [rax]
+vcvtneebf162ps ymm2, yword [rax]
+vcvtneobf162ps xmm2, oword [rax]
+vcvtneobf162ps ymm2, yword [rax]
+vbcstnesh2ps xmm2, word [rax]
+vbcstnesh2ps ymm2, word [rax]
+vbcstnebf162ps xmm2, word [rax]
+vbcstnebf162ps ymm2, word [rax]
+vpmadd52luq xmm2, xmm6, oword [rax]
+vpmadd52luq xmm2, xmm6, xmm3
+vpmadd52luq ymm2, ymm6, yword [rax]
+vpmadd52luq ymm2, ymm6, ymm3
+vpmadd52huq xmm2, xmm6, oword [rax]
+vpmadd52huq xmm2, xmm6, xmm3
+vpmadd52huq ymm2, ymm6, yword [rax]
+vpmadd52huq ymm2, ymm6, ymm3
+cmpoxadd dword [rax], edx, esi
+cmpoxadd qword [rax], rdx, rsi
+cmpnoxadd dword [rax], edx, esi
+cmpnoxadd qword [rax], rdx, rsi
+cmpbxadd dword [rax], edx, esi
+cmpbxadd qword [rax], rdx, rsi
+cmpnbxadd dword [rax], edx, esi
+cmpnbxadd qword [rax], rdx, rsi
+cmpzxadd dword [rax], edx, esi
+cmpzxadd qword [rax], rdx, rsi
+cmpnzxadd dword [rax], edx, esi
+cmpnzxadd qword [rax], rdx, rsi
+cmpbexadd dword [rax], edx, esi
+cmpbexadd qword [rax], rdx, rsi
+cmpnbexadd dword [rax], edx, esi
+cmpnbexadd qword [rax], rdx, rsi
+cmpsxadd dword [rax], edx, esi
+cmpsxadd qword [rax], rdx, rsi
+cmpnsxadd dword [rax], edx, esi
+cmpnsxadd qword [rax], rdx, rsi
+cmppxadd dword [rax], edx, esi
+cmppxadd qword [rax], rdx, rsi
+cmpnpxadd dword [rax], edx, esi
+cmpnpxadd qword [rax], rdx, rsi
+cmplxadd dword [rax], edx, esi
+cmplxadd qword [rax], rdx, rsi
+cmpnlxadd dword [rax], edx, esi
+cmpnlxadd qword [rax], rdx, rsi
+cmplexadd dword [rax], edx, esi
+cmplexadd qword [rax], rdx, rsi
+cmpnlexadd dword [rax], edx, esi
+cmpnlexadd qword [rax], rdx, rsi

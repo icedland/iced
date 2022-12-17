@@ -160,173 +160,177 @@ namespace Iced.Intel {
 		Packed128_Float32 = 74,
 		/// <summary>128-bit location: 2 x <see cref="double"/></summary>
 		Packed128_Float64 = 75,
+		/// <summary>128-bit location: 8 x <c>bfloat16</c></summary>
+		Packed128_BFloat16 = 76,
 		/// <summary>128-bit location: 4 x (2 x <c>float16</c>)</summary>
-		Packed128_2xFloat16 = 76,
+		Packed128_2xFloat16 = 77,
 		/// <summary>128-bit location: 4 x (2 x <c>bfloat16</c>)</summary>
-		Packed128_2xBFloat16 = 77,
+		Packed128_2xBFloat16 = 78,
 		/// <summary>256-bit location: 32 x <see cref="byte"/></summary>
-		Packed256_UInt8 = 78,
+		Packed256_UInt8 = 79,
 		/// <summary>256-bit location: 32 x <see cref="sbyte"/></summary>
-		Packed256_Int8 = 79,
+		Packed256_Int8 = 80,
 		/// <summary>256-bit location: 16 x <see cref="ushort"/></summary>
-		Packed256_UInt16 = 80,
+		Packed256_UInt16 = 81,
 		/// <summary>256-bit location: 16 x <see cref="short"/></summary>
-		Packed256_Int16 = 81,
+		Packed256_Int16 = 82,
 		/// <summary>256-bit location: 8 x <see cref="uint"/></summary>
-		Packed256_UInt32 = 82,
+		Packed256_UInt32 = 83,
 		/// <summary>256-bit location: 8 x <see cref="int"/></summary>
-		Packed256_Int32 = 83,
+		Packed256_Int32 = 84,
 		/// <summary>256-bit location: 4 x <c>uint52</c></summary>
-		Packed256_UInt52 = 84,
+		Packed256_UInt52 = 85,
 		/// <summary>256-bit location: 4 x <see cref="ulong"/></summary>
-		Packed256_UInt64 = 85,
+		Packed256_UInt64 = 86,
 		/// <summary>256-bit location: 4 x <see cref="long"/></summary>
-		Packed256_Int64 = 86,
+		Packed256_Int64 = 87,
 		/// <summary>256-bit location: 2 x <c>uint128</c></summary>
-		Packed256_UInt128 = 87,
+		Packed256_UInt128 = 88,
 		/// <summary>256-bit location: 2 x <c>int128</c></summary>
-		Packed256_Int128 = 88,
+		Packed256_Int128 = 89,
 		/// <summary>256-bit location: 16 x <c>float16</c></summary>
-		Packed256_Float16 = 89,
+		Packed256_Float16 = 90,
 		/// <summary>256-bit location: 8 x <see cref="float"/></summary>
-		Packed256_Float32 = 90,
+		Packed256_Float32 = 91,
 		/// <summary>256-bit location: 4 x <see cref="double"/></summary>
-		Packed256_Float64 = 91,
+		Packed256_Float64 = 92,
 		/// <summary>256-bit location: 2 x <c>float128</c></summary>
-		Packed256_Float128 = 92,
+		Packed256_Float128 = 93,
+		/// <summary>256-bit location: 16 x <c>bfloat16</c></summary>
+		Packed256_BFloat16 = 94,
 		/// <summary>256-bit location: 8 x (2 x <c>float16</c>)</summary>
-		Packed256_2xFloat16 = 93,
+		Packed256_2xFloat16 = 95,
 		/// <summary>256-bit location: 8 x (2 x <c>bfloat16</c>)</summary>
-		Packed256_2xBFloat16 = 94,
+		Packed256_2xBFloat16 = 96,
 		/// <summary>512-bit location: 64 x <see cref="byte"/></summary>
-		Packed512_UInt8 = 95,
+		Packed512_UInt8 = 97,
 		/// <summary>512-bit location: 64 x <see cref="sbyte"/></summary>
-		Packed512_Int8 = 96,
+		Packed512_Int8 = 98,
 		/// <summary>512-bit location: 32 x <see cref="ushort"/></summary>
-		Packed512_UInt16 = 97,
+		Packed512_UInt16 = 99,
 		/// <summary>512-bit location: 32 x <see cref="short"/></summary>
-		Packed512_Int16 = 98,
+		Packed512_Int16 = 100,
 		/// <summary>512-bit location: 16 x <see cref="uint"/></summary>
-		Packed512_UInt32 = 99,
+		Packed512_UInt32 = 101,
 		/// <summary>512-bit location: 16 x <see cref="int"/></summary>
-		Packed512_Int32 = 100,
+		Packed512_Int32 = 102,
 		/// <summary>512-bit location: 8 x <c>uint52</c></summary>
-		Packed512_UInt52 = 101,
+		Packed512_UInt52 = 103,
 		/// <summary>512-bit location: 8 x <see cref="ulong"/></summary>
-		Packed512_UInt64 = 102,
+		Packed512_UInt64 = 104,
 		/// <summary>512-bit location: 8 x <see cref="long"/></summary>
-		Packed512_Int64 = 103,
+		Packed512_Int64 = 105,
 		/// <summary>256-bit location: 4 x <c>uint128</c></summary>
-		Packed512_UInt128 = 104,
+		Packed512_UInt128 = 106,
 		/// <summary>512-bit location: 32 x <c>float16</c></summary>
-		Packed512_Float16 = 105,
+		Packed512_Float16 = 107,
 		/// <summary>512-bit location: 16 x <see cref="float"/></summary>
-		Packed512_Float32 = 106,
+		Packed512_Float32 = 108,
 		/// <summary>512-bit location: 8 x <see cref="double"/></summary>
-		Packed512_Float64 = 107,
+		Packed512_Float64 = 109,
 		/// <summary>512-bit location: 16 x (2 x <c>float16</c>)</summary>
-		Packed512_2xFloat16 = 108,
+		Packed512_2xFloat16 = 110,
 		/// <summary>512-bit location: 16 x (2 x <c>bfloat16</c>)</summary>
-		Packed512_2xBFloat16 = 109,
+		Packed512_2xBFloat16 = 111,
 		/// <summary>Broadcast <c>float16</c> to 32-bits</summary>
-		Broadcast32_Float16 = 110,
+		Broadcast32_Float16 = 112,
 		/// <summary>Broadcast <see cref="uint"/> to 64-bits</summary>
-		Broadcast64_UInt32 = 111,
+		Broadcast64_UInt32 = 113,
 		/// <summary>Broadcast <see cref="int"/> to 64-bits</summary>
-		Broadcast64_Int32 = 112,
+		Broadcast64_Int32 = 114,
 		/// <summary>Broadcast <c>float16</c> to 64-bits</summary>
-		Broadcast64_Float16 = 113,
+		Broadcast64_Float16 = 115,
 		/// <summary>Broadcast <see cref="float"/> to 64-bits</summary>
-		Broadcast64_Float32 = 114,
+		Broadcast64_Float32 = 116,
 		/// <summary>Broadcast <see cref="short"/> to 128-bits</summary>
-		Broadcast128_Int16 = 115,
+		Broadcast128_Int16 = 117,
 		/// <summary>Broadcast <see cref="ushort"/> to 128-bits</summary>
-		Broadcast128_UInt16 = 116,
+		Broadcast128_UInt16 = 118,
 		/// <summary>Broadcast <see cref="uint"/> to 128-bits</summary>
-		Broadcast128_UInt32 = 117,
+		Broadcast128_UInt32 = 119,
 		/// <summary>Broadcast <see cref="int"/> to 128-bits</summary>
-		Broadcast128_Int32 = 118,
+		Broadcast128_Int32 = 120,
 		/// <summary>Broadcast <c>uint52</c> to 128-bits</summary>
-		Broadcast128_UInt52 = 119,
+		Broadcast128_UInt52 = 121,
 		/// <summary>Broadcast <see cref="ulong"/> to 128-bits</summary>
-		Broadcast128_UInt64 = 120,
+		Broadcast128_UInt64 = 122,
 		/// <summary>Broadcast <see cref="long"/> to 128-bits</summary>
-		Broadcast128_Int64 = 121,
+		Broadcast128_Int64 = 123,
 		/// <summary>Broadcast <c>float16</c> to 128-bits</summary>
-		Broadcast128_Float16 = 122,
+		Broadcast128_Float16 = 124,
 		/// <summary>Broadcast <see cref="float"/> to 128-bits</summary>
-		Broadcast128_Float32 = 123,
+		Broadcast128_Float32 = 125,
 		/// <summary>Broadcast <see cref="double"/> to 128-bits</summary>
-		Broadcast128_Float64 = 124,
+		Broadcast128_Float64 = 126,
 		/// <summary>Broadcast 2 x <see cref="short"/> to 128-bits</summary>
-		Broadcast128_2xInt16 = 125,
+		Broadcast128_2xInt16 = 127,
 		/// <summary>Broadcast 2 x <see cref="int"/> to 128-bits</summary>
-		Broadcast128_2xInt32 = 126,
+		Broadcast128_2xInt32 = 128,
 		/// <summary>Broadcast 2 x <see cref="uint"/> to 128-bits</summary>
-		Broadcast128_2xUInt32 = 127,
+		Broadcast128_2xUInt32 = 129,
 		/// <summary>Broadcast 2 x <c>float16</c> to 128-bits</summary>
-		Broadcast128_2xFloat16 = 128,
+		Broadcast128_2xFloat16 = 130,
 		/// <summary>Broadcast 2 x <c>bfloat16</c> to 128-bits</summary>
-		Broadcast128_2xBFloat16 = 129,
+		Broadcast128_2xBFloat16 = 131,
 		/// <summary>Broadcast <see cref="short"/> to 256-bits</summary>
-		Broadcast256_Int16 = 130,
+		Broadcast256_Int16 = 132,
 		/// <summary>Broadcast <see cref="ushort"/> to 256-bits</summary>
-		Broadcast256_UInt16 = 131,
+		Broadcast256_UInt16 = 133,
 		/// <summary>Broadcast <see cref="uint"/> to 256-bits</summary>
-		Broadcast256_UInt32 = 132,
+		Broadcast256_UInt32 = 134,
 		/// <summary>Broadcast <see cref="int"/> to 256-bits</summary>
-		Broadcast256_Int32 = 133,
+		Broadcast256_Int32 = 135,
 		/// <summary>Broadcast <c>uint52</c> to 256-bits</summary>
-		Broadcast256_UInt52 = 134,
+		Broadcast256_UInt52 = 136,
 		/// <summary>Broadcast <see cref="ulong"/> to 256-bits</summary>
-		Broadcast256_UInt64 = 135,
+		Broadcast256_UInt64 = 137,
 		/// <summary>Broadcast <see cref="long"/> to 256-bits</summary>
-		Broadcast256_Int64 = 136,
+		Broadcast256_Int64 = 138,
 		/// <summary>Broadcast <c>float16</c> to 256-bits</summary>
-		Broadcast256_Float16 = 137,
+		Broadcast256_Float16 = 139,
 		/// <summary>Broadcast <see cref="float"/> to 256-bits</summary>
-		Broadcast256_Float32 = 138,
+		Broadcast256_Float32 = 140,
 		/// <summary>Broadcast <see cref="double"/> to 256-bits</summary>
-		Broadcast256_Float64 = 139,
+		Broadcast256_Float64 = 141,
 		/// <summary>Broadcast 2 x <see cref="short"/> to 256-bits</summary>
-		Broadcast256_2xInt16 = 140,
+		Broadcast256_2xInt16 = 142,
 		/// <summary>Broadcast 2 x <see cref="int"/> to 256-bits</summary>
-		Broadcast256_2xInt32 = 141,
+		Broadcast256_2xInt32 = 143,
 		/// <summary>Broadcast 2 x <see cref="uint"/> to 256-bits</summary>
-		Broadcast256_2xUInt32 = 142,
+		Broadcast256_2xUInt32 = 144,
 		/// <summary>Broadcast 2 x <c>float16</c> to 256-bits</summary>
-		Broadcast256_2xFloat16 = 143,
+		Broadcast256_2xFloat16 = 145,
 		/// <summary>Broadcast 2 x <c>bfloat16</c> to 256-bits</summary>
-		Broadcast256_2xBFloat16 = 144,
+		Broadcast256_2xBFloat16 = 146,
 		/// <summary>Broadcast <see cref="short"/> to 512-bits</summary>
-		Broadcast512_Int16 = 145,
+		Broadcast512_Int16 = 147,
 		/// <summary>Broadcast <see cref="ushort"/> to 512-bits</summary>
-		Broadcast512_UInt16 = 146,
+		Broadcast512_UInt16 = 148,
 		/// <summary>Broadcast <see cref="uint"/> to 512-bits</summary>
-		Broadcast512_UInt32 = 147,
+		Broadcast512_UInt32 = 149,
 		/// <summary>Broadcast <see cref="int"/> to 512-bits</summary>
-		Broadcast512_Int32 = 148,
+		Broadcast512_Int32 = 150,
 		/// <summary>Broadcast <c>uint52</c> to 512-bits</summary>
-		Broadcast512_UInt52 = 149,
+		Broadcast512_UInt52 = 151,
 		/// <summary>Broadcast <see cref="ulong"/> to 512-bits</summary>
-		Broadcast512_UInt64 = 150,
+		Broadcast512_UInt64 = 152,
 		/// <summary>Broadcast <see cref="long"/> to 512-bits</summary>
-		Broadcast512_Int64 = 151,
+		Broadcast512_Int64 = 153,
 		/// <summary>Broadcast <c>float16</c> to 512-bits</summary>
-		Broadcast512_Float16 = 152,
+		Broadcast512_Float16 = 154,
 		/// <summary>Broadcast <see cref="float"/> to 512-bits</summary>
-		Broadcast512_Float32 = 153,
+		Broadcast512_Float32 = 155,
 		/// <summary>Broadcast <see cref="double"/> to 512-bits</summary>
-		Broadcast512_Float64 = 154,
+		Broadcast512_Float64 = 156,
 		/// <summary>Broadcast 2 x <c>float16</c> to 512-bits</summary>
-		Broadcast512_2xFloat16 = 155,
+		Broadcast512_2xFloat16 = 157,
 		/// <summary>Broadcast 2 x <see cref="short"/> to 512-bits</summary>
-		Broadcast512_2xInt16 = 156,
+		Broadcast512_2xInt16 = 158,
 		/// <summary>Broadcast 2 x <see cref="uint"/> to 512-bits</summary>
-		Broadcast512_2xUInt32 = 157,
+		Broadcast512_2xUInt32 = 159,
 		/// <summary>Broadcast 2 x <see cref="int"/> to 512-bits</summary>
-		Broadcast512_2xInt32 = 158,
+		Broadcast512_2xInt32 = 160,
 		/// <summary>Broadcast 2 x <c>bfloat16</c> to 512-bits</summary>
-		Broadcast512_2xBFloat16 = 159,
+		Broadcast512_2xBFloat16 = 161,
 	}
 }

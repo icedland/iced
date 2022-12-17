@@ -225,6 +225,11 @@ namespace Generator.Tables {
 			toCpuidName[cpuid[nameof(CpuidFeature.CENTAUR_AIS)]] = "Centaur AIS";
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX_VNNI)]] = "AVX-VNNI";
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX512_FP16)]] = "AVX512-FP16";
+			toCpuidName[cpuid[nameof(CpuidFeature.RAO_INT)]] = "RAO-INT";
+			toCpuidName[cpuid[nameof(CpuidFeature.AMX_FP16)]] = "AMX-FP16";
+			toCpuidName[cpuid[nameof(CpuidFeature.AVX_IFMA)]] = "AVX-IFMA";
+			toCpuidName[cpuid[nameof(CpuidFeature.AVX_NE_CONVERT)]] = "AVX-NE-CONVERT";
+			toCpuidName[cpuid[nameof(CpuidFeature.AVX_VNNI_INT8)]] = "AVX-VNNI-INT8";
 			return toCpuidName;
 		}
 

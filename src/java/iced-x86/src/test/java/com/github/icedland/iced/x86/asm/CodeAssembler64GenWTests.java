@@ -56,6 +56,16 @@ final class CodeAssembler64GenWTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void wrmsrlist() {
+		testAssembler(c -> c.wrmsrlist(), Instruction.create(Code.WRMSRLIST));
+	}
+
+	@Test
+	void wrmsrns() {
+		testAssembler(c -> c.wrmsrns(), Instruction.create(Code.WRMSRNS));
+	}
+
+	@Test
 	void wrpkru() {
 		testAssembler(c -> c.wrpkru(), Instruction.create(Code.WRPKRU));
 	}

@@ -13015,3 +13015,98 @@ addr32 rep xstore_alt
 rep xstore_alt
 addr32 rep xsha512_alt
 rep xsha512_alt
+wrmsrns
+wrmsrlist
+rdmsrlist
+rmpquery
+prefetchit1 (rax)
+prefetchit0 (rax)
+aadd ebx, (rax)
+aadd rbx, (rax)
+aand ebx, (rax)
+aand rbx, (rax)
+axor ebx, (rax)
+axor rbx, (rax)
+aor ebx, (rax)
+aor rbx, (rax)
+vpdpbuud (rax), xmm6, xmm2
+vpdpbuud xmm3, xmm6, xmm2
+vpdpbuud (rax), ymm6, ymm2
+vpdpbuud ymm3, ymm6, ymm2
+vpdpbsud (rax), xmm6, xmm2
+vpdpbsud xmm3, xmm6, xmm2
+vpdpbsud (rax), ymm6, ymm2
+vpdpbsud ymm3, ymm6, ymm2
+vpdpbssd (rax), xmm6, xmm2
+vpdpbssd xmm3, xmm6, xmm2
+vpdpbssd (rax), ymm6, ymm2
+vpdpbssd ymm3, ymm6, ymm2
+vpdpbuuds (rax), xmm6, xmm2
+vpdpbuuds xmm3, xmm6, xmm2
+vpdpbuuds (rax), ymm6, ymm2
+vpdpbuuds ymm3, ymm6, ymm2
+vpdpbsuds (rax), xmm6, xmm2
+vpdpbsuds xmm3, xmm6, xmm2
+vpdpbsuds (rax), ymm6, ymm2
+vpdpbsuds ymm3, ymm6, ymm2
+vpdpbssds (rax), xmm6, xmm2
+vpdpbssds xmm3, xmm6, xmm2
+vpdpbssds (rax), ymm6, ymm2
+vpdpbssds ymm3, ymm6, ymm2
+tdpfp16ps tmm4, tmm3, tmm2
+vcvtneps2bf16x (rax), xmm2
+vcvtneps2bf16x xmm5, xmm1
+vcvtneps2bf16y (rax), xmm2
+vcvtneps2bf16y ymm5, xmm1
+vcvtneoph2ps (rax), xmm2
+vcvtneoph2ps (rax), ymm2
+vcvtneeph2ps (rax), xmm2
+vcvtneeph2ps (rax), ymm2
+vcvtneebf162ps (rax), xmm2
+vcvtneebf162ps (rax), ymm2
+vcvtneobf162ps (rax), xmm2
+vcvtneobf162ps (rax), ymm2
+vbcstnesh2ps (rax), xmm2
+vbcstnesh2ps (rax), ymm2
+vbcstnebf162ps (rax), xmm2
+vbcstnebf162ps (rax), ymm2
+vpmadd52luq (rax), xmm6, xmm2
+vpmadd52luq xmm3, xmm6, xmm2
+vpmadd52luq (rax), ymm6, ymm2
+vpmadd52luq ymm3, ymm6, ymm2
+vpmadd52huq (rax), xmm6, xmm2
+vpmadd52huq xmm3, xmm6, xmm2
+vpmadd52huq (rax), ymm6, ymm2
+vpmadd52huq ymm3, ymm6, ymm2
+cmpoxadd esi, edx, (rax)
+cmpoxadd rsi, rdx, (rax)
+cmpnoxadd esi, edx, (rax)
+cmpnoxadd rsi, rdx, (rax)
+cmpbxadd esi, edx, (rax)
+cmpbxadd rsi, rdx, (rax)
+cmpnbxadd esi, edx, (rax)
+cmpnbxadd rsi, rdx, (rax)
+cmpzxadd esi, edx, (rax)
+cmpzxadd rsi, rdx, (rax)
+cmpnzxadd esi, edx, (rax)
+cmpnzxadd rsi, rdx, (rax)
+cmpbexadd esi, edx, (rax)
+cmpbexadd rsi, rdx, (rax)
+cmpnbexadd esi, edx, (rax)
+cmpnbexadd rsi, rdx, (rax)
+cmpsxadd esi, edx, (rax)
+cmpsxadd rsi, rdx, (rax)
+cmpnsxadd esi, edx, (rax)
+cmpnsxadd rsi, rdx, (rax)
+cmppxadd esi, edx, (rax)
+cmppxadd rsi, rdx, (rax)
+cmpnpxadd esi, edx, (rax)
+cmpnpxadd rsi, rdx, (rax)
+cmplxadd esi, edx, (rax)
+cmplxadd rsi, rdx, (rax)
+cmpnlxadd esi, edx, (rax)
+cmpnlxadd rsi, rdx, (rax)
+cmplexadd esi, edx, (rax)
+cmplexadd rsi, rdx, (rax)
+cmpnlexadd esi, edx, (rax)
+cmpnlexadd rsi, rdx, (rax)

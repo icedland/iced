@@ -38,6 +38,7 @@ impl MiscSectionNames {
 	pub(crate) const JCC_NEAR_INFO: &'static str = "jcc-near-info";
 	pub(crate) const SETCC_INFO: &'static str = "setcc-info";
 	pub(crate) const CMOVCC_INFO: &'static str = "cmovcc-info";
+	pub(crate) const CMPCCXADD_INFO: &'static str = "cmpccxadd-info";
 	pub(crate) const LOOPCC_INFO: &'static str = "loopcc-info";
 	pub(crate) const JKCC_SHORT_INFO: &'static str = "jkcc-short-info";
 	pub(crate) const JKCC_NEAR_INFO: &'static str = "jkcc-near-info";
@@ -68,12 +69,13 @@ impl MiscSectionNameIds {
 	const JCC_NEAR_INFO: u32 = 18;
 	const SETCC_INFO: u32 = 19;
 	const CMOVCC_INFO: u32 = 20;
-	const LOOPCC_INFO: u32 = 21;
-	const STRING_INSTRUCTION: u32 = 22;
-	const JKCC_SHORT: u32 = 23;
-	const JKCC_NEAR: u32 = 24;
-	const JKCC_SHORT_INFO: u32 = 25;
-	const JKCC_NEAR_INFO: u32 = 26;
+	const CMPCCXADD_INFO: u32 = 21;
+	const LOOPCC_INFO: u32 = 22;
+	const STRING_INSTRUCTION: u32 = 23;
+	const JKCC_SHORT: u32 = 24;
+	const JKCC_NEAR: u32 = 25;
+	const JKCC_SHORT_INFO: u32 = 26;
+	const JKCC_NEAR_INFO: u32 = 27;
 }
 
 pub(super) struct MiscTestsData {
@@ -103,6 +105,7 @@ pub(super) struct MiscTestsData {
 	pub(super) jkcc_near_infos: Vec<(Code, Code, Code, ConditionCode)>,
 	pub(super) setcc_infos: Vec<(Code, Code, ConditionCode)>,
 	pub(super) cmovcc_infos: Vec<(Code, Code, ConditionCode)>,
+	pub(super) cmpccxadd_infos: Vec<(Code, Code, ConditionCode)>,
 	pub(super) loopcc_infos: Vec<(Code, Code, ConditionCode)>,
 }
 
@@ -148,6 +151,7 @@ impl MiscTestsDataReader {
 				jkcc_near_infos: Vec::new(),
 				setcc_infos: Vec::new(),
 				cmovcc_infos: Vec::new(),
+				cmpccxadd_infos: Vec::new(),
 				loopcc_infos: Vec::new(),
 			},
 		}
@@ -176,6 +180,7 @@ impl MiscTestsDataReader {
 			(MiscSectionNames::JCC_NEAR_INFO, MiscSectionNameIds::JCC_NEAR_INFO),
 			(MiscSectionNames::SETCC_INFO, MiscSectionNameIds::SETCC_INFO),
 			(MiscSectionNames::CMOVCC_INFO, MiscSectionNameIds::CMOVCC_INFO),
+			(MiscSectionNames::CMPCCXADD_INFO, MiscSectionNameIds::CMPCCXADD_INFO),
 			(MiscSectionNames::LOOPCC_INFO, MiscSectionNameIds::LOOPCC_INFO),
 			(MiscSectionNames::STRING_INSTRUCTION, MiscSectionNameIds::STRING_INSTRUCTION),
 			(MiscSectionNames::JKCC_SHORT, MiscSectionNameIds::JKCC_SHORT),
@@ -257,6 +262,7 @@ impl SectionFileLineHandler for MiscTestsDataReader {
 			MiscSectionNameIds::JCC_NEAR_INFO => Self::add_jcc_info(&mut self.data.jcc_near_infos, line),
 			MiscSectionNameIds::SETCC_INFO => Self::add_instr_cc_info(&mut self.data.setcc_infos, line),
 			MiscSectionNameIds::CMOVCC_INFO => Self::add_instr_cc_info(&mut self.data.cmovcc_infos, line),
+			MiscSectionNameIds::CMPCCXADD_INFO => Self::add_instr_cc_info(&mut self.data.cmpccxadd_infos, line),
 			MiscSectionNameIds::LOOPCC_INFO => Self::add_instr_cc_info(&mut self.data.loopcc_infos, line),
 			MiscSectionNameIds::STRING_INSTRUCTION => Self::add_code(&mut self.data.string, line),
 			MiscSectionNameIds::JKCC_SHORT => Self::add_code(&mut self.data.jkcc_short, line),

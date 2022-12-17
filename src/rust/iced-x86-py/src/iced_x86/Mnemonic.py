@@ -7369,3 +7369,159 @@ ZERO_BYTES: Mnemonic = 1837 # type: ignore
 """
 <no docs>
 """
+AADD: Mnemonic = 1838 # type: ignore
+"""
+<no docs>
+"""
+AAND: Mnemonic = 1839 # type: ignore
+"""
+<no docs>
+"""
+AOR: Mnemonic = 1840 # type: ignore
+"""
+<no docs>
+"""
+AXOR: Mnemonic = 1841 # type: ignore
+"""
+<no docs>
+"""
+CMPBEXADD: Mnemonic = 1842 # type: ignore
+"""
+<no docs>
+"""
+CMPBXADD: Mnemonic = 1843 # type: ignore
+"""
+<no docs>
+"""
+CMPLEXADD: Mnemonic = 1844 # type: ignore
+"""
+<no docs>
+"""
+CMPLXADD: Mnemonic = 1845 # type: ignore
+"""
+<no docs>
+"""
+CMPNBEXADD: Mnemonic = 1846 # type: ignore
+"""
+<no docs>
+"""
+CMPNBXADD: Mnemonic = 1847 # type: ignore
+"""
+<no docs>
+"""
+CMPNLEXADD: Mnemonic = 1848 # type: ignore
+"""
+<no docs>
+"""
+CMPNLXADD: Mnemonic = 1849 # type: ignore
+"""
+<no docs>
+"""
+CMPNOXADD: Mnemonic = 1850 # type: ignore
+"""
+<no docs>
+"""
+CMPNPXADD: Mnemonic = 1851 # type: ignore
+"""
+<no docs>
+"""
+CMPNSXADD: Mnemonic = 1852 # type: ignore
+"""
+<no docs>
+"""
+CMPNZXADD: Mnemonic = 1853 # type: ignore
+"""
+<no docs>
+"""
+CMPOXADD: Mnemonic = 1854 # type: ignore
+"""
+<no docs>
+"""
+CMPPXADD: Mnemonic = 1855 # type: ignore
+"""
+<no docs>
+"""
+CMPSXADD: Mnemonic = 1856 # type: ignore
+"""
+<no docs>
+"""
+CMPZXADD: Mnemonic = 1857 # type: ignore
+"""
+<no docs>
+"""
+PREFETCHIT0: Mnemonic = 1858 # type: ignore
+"""
+<no docs>
+"""
+PREFETCHIT1: Mnemonic = 1859 # type: ignore
+"""
+<no docs>
+"""
+RDMSRLIST: Mnemonic = 1860 # type: ignore
+"""
+<no docs>
+"""
+RMPQUERY: Mnemonic = 1861 # type: ignore
+"""
+<no docs>
+"""
+TDPFP16PS: Mnemonic = 1862 # type: ignore
+"""
+<no docs>
+"""
+VBCSTNEBF162PS: Mnemonic = 1863 # type: ignore
+"""
+<no docs>
+"""
+VBCSTNESH2PS: Mnemonic = 1864 # type: ignore
+"""
+<no docs>
+"""
+VCVTNEEBF162PS: Mnemonic = 1865 # type: ignore
+"""
+<no docs>
+"""
+VCVTNEEPH2PS: Mnemonic = 1866 # type: ignore
+"""
+<no docs>
+"""
+VCVTNEOBF162PS: Mnemonic = 1867 # type: ignore
+"""
+<no docs>
+"""
+VCVTNEOPH2PS: Mnemonic = 1868 # type: ignore
+"""
+<no docs>
+"""
+VPDPBSSD: Mnemonic = 1869 # type: ignore
+"""
+<no docs>
+"""
+VPDPBSSDS: Mnemonic = 1870 # type: ignore
+"""
+<no docs>
+"""
+VPDPBSUD: Mnemonic = 1871 # type: ignore
+"""
+<no docs>
+"""
+VPDPBSUDS: Mnemonic = 1872 # type: ignore
+"""
+<no docs>
+"""
+VPDPBUUD: Mnemonic = 1873 # type: ignore
+"""
+<no docs>
+"""
+VPDPBUUDS: Mnemonic = 1874 # type: ignore
+"""
+<no docs>
+"""
+WRMSRLIST: Mnemonic = 1875 # type: ignore
+"""
+<no docs>
+"""
+WRMSRNS: Mnemonic = 1876 # type: ignore
+"""
+<no docs>
+"""

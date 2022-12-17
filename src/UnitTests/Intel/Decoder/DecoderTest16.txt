@@ -24221,3 +24221,113 @@ F3 67 0FA7 F0, Ccs_encrypt_32, Ccs_encrypt, 0, rep enc=67F30FA7F0
 0F0E, Rdudbg, Rdudbg, 0, decopt=Udbg
 
 0F0F, Wrudbg, Wrudbg, 0, decopt=Udbg
+
+0F01 C6, Wrmsrns, Wrmsrns, 0,
+
+0F18 30, Prefetchit1_m8, Prefetchit1, 1, op0=m;ds;bx;si;1;0;0;UInt8
+
+0F18 38, Prefetchit0_m8, Prefetchit0, 1, op0=m;ds;bx;si;1;0;0;UInt8
+
+0F38 FC 18, Aadd_m32_r32, Aadd, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx
+
+66 0F38 FC 18, Aand_m32_r32, Aand, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx
+
+F3 0F38 FC 18, Axor_m32_r32, Axor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx
+
+F2 0F38 FC 18, Aor_m32_r32, Aor, 2, op0=m;ds;bx;si;1;0;0;UInt32 op1=r;ebx
+
+C4E248 50 10, VEX_Vpdpbuud_xmm_xmm_xmmm128, Vpdpbuud, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt8
+C4E248 50 D3, VEX_Vpdpbuud_xmm_xmm_xmmm128, Vpdpbuud, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C248 50 10, VEX_Vpdpbuud_xmm_xmm_xmmm128, Vpdpbuud, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt8 enc=C4E2485010
+
+C4E24C 50 10, VEX_Vpdpbuud_ymm_ymm_ymmm256, Vpdpbuud, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt8
+C4E24C 50 D3, VEX_Vpdpbuud_ymm_ymm_ymmm256, Vpdpbuud, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24C 50 10, VEX_Vpdpbuud_ymm_ymm_ymmm256, Vpdpbuud, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt8 enc=C4E24C5010
+
+C4E24A 50 10, VEX_Vpdpbsud_xmm_xmm_xmmm128, Vpdpbsud, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E24A 50 D3, VEX_Vpdpbsud_xmm_xmm_xmmm128, Vpdpbsud, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C24A 50 10, VEX_Vpdpbsud_xmm_xmm_xmmm128, Vpdpbsud, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E24A5010
+
+C4E24E 50 10, VEX_Vpdpbsud_ymm_ymm_ymmm256, Vpdpbsud, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24E 50 D3, VEX_Vpdpbsud_ymm_ymm_ymmm256, Vpdpbsud, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24E 50 10, VEX_Vpdpbsud_ymm_ymm_ymmm256, Vpdpbsud, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24E5010
+
+C4E24B 50 10, VEX_Vpdpbssd_xmm_xmm_xmmm128, Vpdpbssd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E24B 50 D3, VEX_Vpdpbssd_xmm_xmm_xmmm128, Vpdpbssd, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C24B 50 10, VEX_Vpdpbssd_xmm_xmm_xmmm128, Vpdpbssd, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E24B5010
+
+C4E24F 50 10, VEX_Vpdpbssd_ymm_ymm_ymmm256, Vpdpbssd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24F 50 D3, VEX_Vpdpbssd_ymm_ymm_ymmm256, Vpdpbssd, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24F 50 10, VEX_Vpdpbssd_ymm_ymm_ymmm256, Vpdpbssd, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24F5010
+
+C4E248 51 10, VEX_Vpdpbuuds_xmm_xmm_xmmm128, Vpdpbuuds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt8
+C4E248 51 D3, VEX_Vpdpbuuds_xmm_xmm_xmmm128, Vpdpbuuds, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C248 51 10, VEX_Vpdpbuuds_xmm_xmm_xmmm128, Vpdpbuuds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt8 enc=C4E2485110
+
+C4E24C 51 10, VEX_Vpdpbuuds_ymm_ymm_ymmm256, Vpdpbuuds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt8
+C4E24C 51 D3, VEX_Vpdpbuuds_ymm_ymm_ymmm256, Vpdpbuuds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24C 51 10, VEX_Vpdpbuuds_ymm_ymm_ymmm256, Vpdpbuuds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt8 enc=C4E24C5110
+
+C4E24A 51 10, VEX_Vpdpbsuds_xmm_xmm_xmmm128, Vpdpbsuds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E24A 51 D3, VEX_Vpdpbsuds_xmm_xmm_xmmm128, Vpdpbsuds, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C24A 51 10, VEX_Vpdpbsuds_xmm_xmm_xmmm128, Vpdpbsuds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E24A5110
+
+C4E24E 51 10, VEX_Vpdpbsuds_ymm_ymm_ymmm256, Vpdpbsuds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24E 51 D3, VEX_Vpdpbsuds_ymm_ymm_ymmm256, Vpdpbsuds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24E 51 10, VEX_Vpdpbsuds_ymm_ymm_ymmm256, Vpdpbsuds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24E5110
+
+C4E24B 51 10, VEX_Vpdpbssds_xmm_xmm_xmmm128, Vpdpbssds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8
+C4E24B 51 D3, VEX_Vpdpbssds_xmm_xmm_xmmm128, Vpdpbssds, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C24B 51 10, VEX_Vpdpbssds_xmm_xmm_xmmm128, Vpdpbssds, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_Int8 enc=C4E24B5110
+
+C4E24F 51 10, VEX_Vpdpbssds_ymm_ymm_ymmm256, Vpdpbssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8
+C4E24F 51 D3, VEX_Vpdpbssds_ymm_ymm_ymmm256, Vpdpbssds, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C24F 51 10, VEX_Vpdpbssds_ymm_ymm_ymmm256, Vpdpbssds, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_Int8 enc=C4E24F5110
+
+C4E27A 72 10, VEX_Vcvtneps2bf16_xmm_xmmm128, Vcvtneps2bf16, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_Float32
+C4E27A 72 CD, VEX_Vcvtneps2bf16_xmm_xmmm128, Vcvtneps2bf16, 2, op0=r;xmm1 op1=r;xmm5
+C4C27A 72 10, VEX_Vcvtneps2bf16_xmm_xmmm128, Vcvtneps2bf16, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_Float32 enc=C4E27A7210
+
+C4E27E 72 10, VEX_Vcvtneps2bf16_xmm_ymmm256, Vcvtneps2bf16, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed256_Float32
+C4E27E 72 CD, VEX_Vcvtneps2bf16_xmm_ymmm256, Vcvtneps2bf16, 2, op0=r;xmm1 op1=r;ymm5
+C4C27E 72 10, VEX_Vcvtneps2bf16_xmm_ymmm256, Vcvtneps2bf16, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed256_Float32 enc=C4E27E7210
+
+C4E278 B0 10, VEX_Vcvtneoph2ps_xmm_m128, Vcvtneoph2ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_Float16
+
+C4E27C B0 10, VEX_Vcvtneoph2ps_ymm_m256, Vcvtneoph2ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Packed256_Float16
+
+C4E279 B0 10, VEX_Vcvtneeph2ps_xmm_m128, Vcvtneeph2ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_Float16
+
+C4E27D B0 10, VEX_Vcvtneeph2ps_ymm_m256, Vcvtneeph2ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Packed256_Float16
+
+C4E27A B0 10, VEX_Vcvtneebf162ps_xmm_m128, Vcvtneebf162ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_BFloat16
+
+C4E27E B0 10, VEX_Vcvtneebf162ps_ymm_m256, Vcvtneebf162ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Packed256_BFloat16
+
+C4E27B B0 10, VEX_Vcvtneobf162ps_xmm_m128, Vcvtneobf162ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Packed128_BFloat16
+
+C4E27F B0 10, VEX_Vcvtneobf162ps_ymm_m256, Vcvtneobf162ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Packed256_BFloat16
+
+C4E279 B1 10, VEX_Vbcstnesh2ps_xmm_m16, Vbcstnesh2ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;Float16
+
+C4E27D B1 10, VEX_Vbcstnesh2ps_ymm_m16, Vbcstnesh2ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;Float16
+
+C4E27A B1 10, VEX_Vbcstnebf162ps_xmm_m16, Vbcstnebf162ps, 2, op0=r;xmm2 op1=m;ds;bx;si;1;0;0;BFloat16
+
+C4E27E B1 10, VEX_Vbcstnebf162ps_ymm_m16, Vbcstnebf162ps, 2, op0=r;ymm2 op1=m;ds;bx;si;1;0;0;BFloat16
+
+C4E2C9 B4 10, VEX_Vpmadd52luq_xmm_xmm_xmmm128, Vpmadd52luq, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt52
+C4E2C9 B4 D3, VEX_Vpmadd52luq_xmm_xmm_xmmm128, Vpmadd52luq, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C2C9 B4 10, VEX_Vpmadd52luq_xmm_xmm_xmmm128, Vpmadd52luq, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt52 enc=C4E2C9B410
+
+C4E2CD B4 10, VEX_Vpmadd52luq_ymm_ymm_ymmm256, Vpmadd52luq, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt52
+C4E2CD B4 D3, VEX_Vpmadd52luq_ymm_ymm_ymmm256, Vpmadd52luq, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C2CD B4 10, VEX_Vpmadd52luq_ymm_ymm_ymmm256, Vpmadd52luq, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt52 enc=C4E2CDB410
+
+C4E2C9 B5 10, VEX_Vpmadd52huq_xmm_xmm_xmmm128, Vpmadd52huq, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt52
+C4E2C9 B5 D3, VEX_Vpmadd52huq_xmm_xmm_xmmm128, Vpmadd52huq, 3, op0=r;xmm2 op1=r;xmm6 op2=r;xmm3
+C4C2C9 B5 10, VEX_Vpmadd52huq_xmm_xmm_xmmm128, Vpmadd52huq, 3, op0=r;xmm2 op1=r;xmm6 op2=m;ds;bx;si;1;0;0;Packed128_UInt52 enc=C4E2C9B510
+
+C4E2CD B5 10, VEX_Vpmadd52huq_ymm_ymm_ymmm256, Vpmadd52huq, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt52
+C4E2CD B5 D3, VEX_Vpmadd52huq_ymm_ymm_ymmm256, Vpmadd52huq, 3, op0=r;ymm2 op1=r;ymm6 op2=r;ymm3
+C4C2CD B5 10, VEX_Vpmadd52huq_ymm_ymm_ymmm256, Vpmadd52huq, 3, op0=r;ymm2 op1=r;ymm6 op2=m;ds;bx;si;1;0;0;Packed256_UInt52 enc=C4E2CDB510

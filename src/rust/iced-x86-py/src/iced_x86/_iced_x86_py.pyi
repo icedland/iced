@@ -3783,7 +3783,7 @@ class Instruction:
 		"""
 		Negates the condition code, eg. `JE` -> `JNE`.
 
-		Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` and does nothing if the instruction doesn't have a condition code.
+		Can be used if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc` and does nothing if the instruction doesn't have a condition code.
 
 		### Examples:
 
@@ -3850,7 +3850,7 @@ class Instruction:
 	@property
 	def condition_code(self) -> ConditionCode:
 		"""
-		`ConditionCode`: Gets the condition code (a `ConditionCode` enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else `ConditionCode.NONE` is returned
+		`ConditionCode`: Gets the condition code (a `ConditionCode` enum value) if it's `Jcc`, `SETcc`, `CMOVcc`, `CMPccXADD`, `LOOPcc` else `ConditionCode.NONE` is returned
 
 		### Examples:
 

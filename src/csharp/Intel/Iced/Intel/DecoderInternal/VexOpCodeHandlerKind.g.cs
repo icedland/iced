@@ -86,6 +86,7 @@ namespace Iced.Intel.DecoderInternal {
 		Ev,
 		K_Jb,
 		K_Jz,
+		Ev_Gv_Gv,
 	}
 }
 #endif

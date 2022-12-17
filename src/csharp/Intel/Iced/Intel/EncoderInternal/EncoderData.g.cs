@@ -13,7 +13,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] EncFlags3 = GetEncFlags3();
 
 		static uint[] GetEncFlags1() =>
-			new uint[4834] {
+			new uint[4911] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4848,10 +4848,87 @@ namespace Iced.Intel.EncoderInternal {
 				0x00000000,// Xsha512_alt_32
 				0x00000000,// Xsha512_alt_64
 				0x00000000,// Zero_bytes
+				0x00000000,// Wrmsrns
+				0x00000000,// Wrmsrlist
+				0x00000000,// Rdmsrlist
+				0x00000000,// Rmpquery
+				0x00000004,// Prefetchit1_m8
+				0x00000004,// Prefetchit0_m8
+				0x00000B04,// Aadd_m32_r32
+				0x00000D04,// Aadd_m64_r64
+				0x00000B04,// Aand_m32_r32
+				0x00000D04,// Aand_m64_r64
+				0x00000B04,// Axor_m32_r32
+				0x00000D04,// Axor_m64_r64
+				0x00000B04,// Aor_m32_r32
+				0x00000D04,// Aor_m64_r64
+				0x00008594,// VEX_Vpdpbuud_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbuud_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpdpbsud_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbsud_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpdpbssd_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbssd_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpdpbssds_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpdpbssds_ymm_ymm_ymmm256
+				0x00026964,// VEX_Tdpfp16ps_tmm_tmm_tmm
+				0x00000214,// VEX_Vcvtneps2bf16_xmm_xmmm128
+				0x00000254,// VEX_Vcvtneps2bf16_xmm_ymmm256
+				0x00000054,// VEX_Vcvtneoph2ps_xmm_m128
+				0x00000059,// VEX_Vcvtneoph2ps_ymm_m256
+				0x00000054,// VEX_Vcvtneeph2ps_xmm_m128
+				0x00000059,// VEX_Vcvtneeph2ps_ymm_m256
+				0x00000054,// VEX_Vcvtneebf162ps_xmm_m128
+				0x00000059,// VEX_Vcvtneebf162ps_ymm_m256
+				0x00000054,// VEX_Vcvtneobf162ps_xmm_m128
+				0x00000059,// VEX_Vcvtneobf162ps_ymm_m256
+				0x00000054,// VEX_Vbcstnesh2ps_xmm_m16
+				0x00000059,// VEX_Vbcstnesh2ps_ymm_m16
+				0x00000054,// VEX_Vbcstnebf162ps_xmm_m16
+				0x00000059,// VEX_Vbcstnebf162ps_ymm_m16
+				0x00008594,// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+				0x00008594,// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+				0x000096D9,// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+				0x0000D2C1,// VEX_Cmpoxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpoxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnoxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnoxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpbxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpbxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnbxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnbxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpzxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpzxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnzxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnzxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpbexadd_m32_r32_r32
+				0x00010381,// VEX_Cmpbexadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnbexadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnbexadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpsxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpsxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnsxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnsxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmppxadd_m32_r32_r32
+				0x00010381,// VEX_Cmppxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnpxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnpxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmplxadd_m32_r32_r32
+				0x00010381,// VEX_Cmplxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnlxadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnlxadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmplexadd_m32_r32_r32
+				0x00010381,// VEX_Cmplexadd_m64_r64_r64
+				0x0000D2C1,// VEX_Cmpnlexadd_m32_r32_r32
+				0x00010381,// VEX_Cmpnlexadd_m64_r64_r64
 			};
 
 		static uint[] GetEncFlags2() =>
-			new uint[4834] {
+			new uint[4911] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -5713,7 +5790,7 @@ namespace Iced.Intel.EncoderInternal {
 				0x000301FC,// Clzerow
 				0x000301FC,// Clzerod
 				0x000301FC,// Clzeroq
-				0x000301FD,// Rdpru
+				0x400301FD,// Rdpru
 				0x00020002,// Lar_r16_rm16
 				0x00020002,// Lar_r32_r32m16
 				0x00020002,// Lar_r64_r64m16
@@ -9686,10 +9763,87 @@ namespace Iced.Intel.EncoderInternal {
 				0x4023A6D8,// Xsha512_alt_32
 				0x4023A6D8,// Xsha512_alt_64
 				0x00000000,// Zero_bytes
+				0x400301C6,// Wrmsrns
+				0x402301C6,// Wrmsrlist
+				0x403301C6,// Rdmsrlist
+				0x402301FD,// Rmpquery
+				0xB0020018,// Prefetchit1_m8
+				0xB8020018,// Prefetchit0_m8
+				0x400400FC,// Aadd_m32_r32
+				0x400400FC,// Aadd_m64_r64
+				0x401400FC,// Aand_m32_r32
+				0x401400FC,// Aand_m64_r64
+				0x402400FC,// Axor_m32_r32
+				0x402400FC,// Axor_m64_r64
+				0x403400FC,// Aor_m32_r32
+				0x403400FC,// Aor_m64_r64
+				0x44040050,// VEX_Vpdpbuud_xmm_xmm_xmmm128
+				0x45040050,// VEX_Vpdpbuud_ymm_ymm_ymmm256
+				0x44240050,// VEX_Vpdpbsud_xmm_xmm_xmmm128
+				0x45240050,// VEX_Vpdpbsud_ymm_ymm_ymmm256
+				0x44340050,// VEX_Vpdpbssd_xmm_xmm_xmmm128
+				0x45340050,// VEX_Vpdpbssd_ymm_ymm_ymmm256
+				0x44040051,// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+				0x45040051,// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+				0x44240051,// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+				0x45240051,// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+				0x44340051,// VEX_Vpdpbssds_xmm_xmm_xmmm128
+				0x45340051,// VEX_Vpdpbssds_ymm_ymm_ymmm256
+				0x4434005C,// VEX_Tdpfp16ps_tmm_tmm_tmm
+				0x44240072,// VEX_Vcvtneps2bf16_xmm_xmmm128
+				0x45240072,// VEX_Vcvtneps2bf16_xmm_ymmm256
+				0x440400B0,// VEX_Vcvtneoph2ps_xmm_m128
+				0x450400B0,// VEX_Vcvtneoph2ps_ymm_m256
+				0x441400B0,// VEX_Vcvtneeph2ps_xmm_m128
+				0x451400B0,// VEX_Vcvtneeph2ps_ymm_m256
+				0x442400B0,// VEX_Vcvtneebf162ps_xmm_m128
+				0x452400B0,// VEX_Vcvtneebf162ps_ymm_m256
+				0x443400B0,// VEX_Vcvtneobf162ps_xmm_m128
+				0x453400B0,// VEX_Vcvtneobf162ps_ymm_m256
+				0x441400B1,// VEX_Vbcstnesh2ps_xmm_m16
+				0x451400B1,// VEX_Vbcstnesh2ps_ymm_m16
+				0x442400B1,// VEX_Vbcstnebf162ps_xmm_m16
+				0x452400B1,// VEX_Vbcstnebf162ps_ymm_m16
+				0x445400B4,// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+				0x455400B4,// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+				0x445400B5,// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+				0x455400B5,// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+				0x44D400E0,// VEX_Cmpoxadd_m32_r32_r32
+				0x445400E0,// VEX_Cmpoxadd_m64_r64_r64
+				0x44D400E1,// VEX_Cmpnoxadd_m32_r32_r32
+				0x445400E1,// VEX_Cmpnoxadd_m64_r64_r64
+				0x44D400E2,// VEX_Cmpbxadd_m32_r32_r32
+				0x445400E2,// VEX_Cmpbxadd_m64_r64_r64
+				0x44D400E3,// VEX_Cmpnbxadd_m32_r32_r32
+				0x445400E3,// VEX_Cmpnbxadd_m64_r64_r64
+				0x44D400E4,// VEX_Cmpzxadd_m32_r32_r32
+				0x445400E4,// VEX_Cmpzxadd_m64_r64_r64
+				0x44D400E5,// VEX_Cmpnzxadd_m32_r32_r32
+				0x445400E5,// VEX_Cmpnzxadd_m64_r64_r64
+				0x44D400E6,// VEX_Cmpbexadd_m32_r32_r32
+				0x445400E6,// VEX_Cmpbexadd_m64_r64_r64
+				0x44D400E7,// VEX_Cmpnbexadd_m32_r32_r32
+				0x445400E7,// VEX_Cmpnbexadd_m64_r64_r64
+				0x44D400E8,// VEX_Cmpsxadd_m32_r32_r32
+				0x445400E8,// VEX_Cmpsxadd_m64_r64_r64
+				0x44D400E9,// VEX_Cmpnsxadd_m32_r32_r32
+				0x445400E9,// VEX_Cmpnsxadd_m64_r64_r64
+				0x44D400EA,// VEX_Cmppxadd_m32_r32_r32
+				0x445400EA,// VEX_Cmppxadd_m64_r64_r64
+				0x44D400EB,// VEX_Cmpnpxadd_m32_r32_r32
+				0x445400EB,// VEX_Cmpnpxadd_m64_r64_r64
+				0x44D400EC,// VEX_Cmplxadd_m32_r32_r32
+				0x445400EC,// VEX_Cmplxadd_m64_r64_r64
+				0x44D400ED,// VEX_Cmpnlxadd_m32_r32_r32
+				0x445400ED,// VEX_Cmpnlxadd_m64_r64_r64
+				0x44D400EE,// VEX_Cmplexadd_m32_r32_r32
+				0x445400EE,// VEX_Cmplexadd_m64_r64_r64
+				0x44D400EF,// VEX_Cmpnlexadd_m32_r32_r32
+				0x445400EF,// VEX_Cmpnlexadd_m64_r64_r64
 			};
 
 		static uint[] GetEncFlags3() =>
-			new uint[4834] {
+			new uint[4911] {
 				0x00030000,// INVALID
 				0x00030000,// DeclareByte
 				0x00030000,// DeclareWord
@@ -14524,6 +14678,83 @@ namespace Iced.Intel.EncoderInternal {
 				0x00030040,// Xsha512_alt_32
 				0x00020060,// Xsha512_alt_64
 				0x00030000,// Zero_bytes
+				0x00030000,// Wrmsrns
+				0x00020000,// Wrmsrlist
+				0x00020000,// Rdmsrlist
+				0x00020000,// Rmpquery
+				0x00030000,// Prefetchit1_m8
+				0x00030000,// Prefetchit0_m8
+				0x00030000,// Aadd_m32_r32
+				0x00020018,// Aadd_m64_r64
+				0x00030000,// Aand_m32_r32
+				0x00020018,// Aand_m64_r64
+				0x00030000,// Axor_m32_r32
+				0x00020018,// Axor_m64_r64
+				0x00030000,// Aor_m32_r32
+				0x00020018,// Aor_m64_r64
+				0x00030001,// VEX_Vpdpbuud_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbuud_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpdpbsud_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbsud_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpdpbssd_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbssd_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpdpbssds_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpdpbssds_ymm_ymm_ymmm256
+				0x00020001,// VEX_Tdpfp16ps_tmm_tmm_tmm
+				0x00030001,// VEX_Vcvtneps2bf16_xmm_xmmm128
+				0x00030001,// VEX_Vcvtneps2bf16_xmm_ymmm256
+				0x00030001,// VEX_Vcvtneoph2ps_xmm_m128
+				0x00030001,// VEX_Vcvtneoph2ps_ymm_m256
+				0x00030001,// VEX_Vcvtneeph2ps_xmm_m128
+				0x00030001,// VEX_Vcvtneeph2ps_ymm_m256
+				0x00030001,// VEX_Vcvtneebf162ps_xmm_m128
+				0x00030001,// VEX_Vcvtneebf162ps_ymm_m256
+				0x00030001,// VEX_Vcvtneobf162ps_xmm_m128
+				0x00030001,// VEX_Vcvtneobf162ps_ymm_m256
+				0x00030001,// VEX_Vbcstnesh2ps_xmm_m16
+				0x00030001,// VEX_Vbcstnesh2ps_ymm_m16
+				0x00030001,// VEX_Vbcstnebf162ps_xmm_m16
+				0x00030001,// VEX_Vbcstnebf162ps_ymm_m16
+				0x00030001,// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+				0x00030001,// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+				0x00030001,// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+				0x00020001,// VEX_Cmpoxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpoxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnoxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnoxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpbxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpbxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnbxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnbxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpzxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpzxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnzxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnzxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpbexadd_m32_r32_r32
+				0x00020001,// VEX_Cmpbexadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnbexadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnbexadd_m64_r64_r64
+				0x00020001,// VEX_Cmpsxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpsxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnsxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnsxadd_m64_r64_r64
+				0x00020001,// VEX_Cmppxadd_m32_r32_r32
+				0x00020001,// VEX_Cmppxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnpxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnpxadd_m64_r64_r64
+				0x00020001,// VEX_Cmplxadd_m32_r32_r32
+				0x00020001,// VEX_Cmplxadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnlxadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnlxadd_m64_r64_r64
+				0x00020001,// VEX_Cmplexadd_m32_r32_r32
+				0x00020001,// VEX_Cmplexadd_m64_r64_r64
+				0x00020001,// VEX_Cmpnlexadd_m32_r32_r32
+				0x00020001,// VEX_Cmpnlexadd_m64_r64_r64
 			};
 	}
 }

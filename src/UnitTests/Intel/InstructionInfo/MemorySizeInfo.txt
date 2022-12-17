@@ -76,6 +76,7 @@ Packed128_Int64, 16, 8, Int64, 2, packed signed
 Packed128_Float16, 16, 2, Float16, 8, packed signed
 Packed128_Float32, 16, 4, Float32, 4, packed signed
 Packed128_Float64, 16, 8, Float64, 2, packed signed
+Packed128_BFloat16, 16, 2, BFloat16, 8, packed signed
 Packed128_2xBFloat16, 16, 4, Packed32_BFloat16, 4, packed signed
 Packed256_UInt8, 32, 1, UInt8, 32, packed
 Packed256_Int8, 32, 1, Int8, 32, packed signed
@@ -92,6 +93,7 @@ Packed256_Float16, 32, 2, Float16, 16, packed signed
 Packed256_Float32, 32, 4, Float32, 8, packed signed
 Packed256_Float64, 32, 8, Float64, 4, packed signed
 Packed256_Float128, 32, 16, Float128, 2, packed signed
+Packed256_BFloat16, 32, 2, BFloat16, 16, packed signed
 Packed256_2xBFloat16, 32, 4, Packed32_BFloat16, 8, packed signed
 Packed512_UInt8, 64, 1, UInt8, 64, packed
 Packed512_Int8, 64, 1, Int8, 64, packed signed

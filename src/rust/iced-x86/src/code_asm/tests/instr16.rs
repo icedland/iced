@@ -42,6 +42,15 @@ fn aad_u() {
 
 #[test]
 #[rustfmt::skip]
+fn aadd_m_r32() {
+	// Aadd_m32_r32
+	test_instr(16, |a| a.aadd(ptr(si), ebx).unwrap(),
+		Instruction::with2(Code::Aadd_m32_r32, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn aam_i() {
 	// Aam_imm8
 	test_instr(16, |a| a.aam(-5i32).unwrap(),
@@ -59,6 +68,15 @@ fn aam_u() {
 	// Aam_imm8
 	test_instr(16, |a| a.aam(0x7Fu32).unwrap(),
 		Instruction::with1(Code::Aam_imm8, 0x7Fu32).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn aand_m_r32() {
+	// Aand_m32_r32
+	test_instr(16, |a| a.aand(ptr(si), ebx).unwrap(),
+		Instruction::with2(Code::Aand_m32_r32, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -1755,6 +1773,15 @@ fn andps_xmm_m() {
 
 #[test]
 #[rustfmt::skip]
+fn aor_m_r32() {
+	// Aor_m32_r32
+	test_instr(16, |a| a.aor(ptr(si), ebx).unwrap(),
+		Instruction::with2(Code::Aor_m32_r32, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn arpl_r16_r16() {
 	// Arpl_rm16_r16
 	test_instr(16, |a| a.arpl(dx, bx).unwrap(),
@@ -1786,6 +1813,15 @@ fn arpl_m_r32() {
 	// Arpl_r32m16_r32
 	test_instr(16, |a| a.arpl(dword_ptr(si), ebx).unwrap(),
 		Instruction::with2(Code::Arpl_r32m16_r32, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn axor_m_r32() {
+	// Axor_m32_r32
+	test_instr(16, |a| a.axor(ptr(si), ebx).unwrap(),
+		Instruction::with2(Code::Axor_m32_r32, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None), Register::EBX).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -18188,6 +18224,24 @@ fn prefetch_m() {
 
 #[test]
 #[rustfmt::skip]
+fn prefetchit0_m() {
+	// Prefetchit0_m8
+	test_instr(16, |a| a.prefetchit0(ptr(si)).unwrap(),
+		Instruction::with1(Code::Prefetchit0_m8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn prefetchit1_m() {
+	// Prefetchit1_m8
+	test_instr(16, |a| a.prefetchit1(ptr(si)).unwrap(),
+		Instruction::with1(Code::Prefetchit1_m8, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn prefetchnta_m() {
 	// Prefetchnta_m8
 	test_instr(16, |a| a.prefetchnta(ptr(si)).unwrap(),
@@ -28176,6 +28230,42 @@ fn vandps_zmm_zmm_m() {
 	// EVEX_Vandps_zmm_k1z_zmm_zmmm512b32
 	test_instr(16, |a| a.vandps(zmm2.k1(), zmm3, zmmword_ptr(si)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vandps_zmm_k1z_zmm_zmmm512b32, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vbcstnebf162ps_xmm_m() {
+	// VEX_Vbcstnebf162ps_xmm_m16
+	test_instr(16, |a| a.vbcstnebf162ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vbcstnebf162ps_xmm_m16, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vbcstnebf162ps_ymm_m() {
+	// VEX_Vbcstnebf162ps_ymm_m16
+	test_instr(16, |a| a.vbcstnebf162ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vbcstnebf162ps_ymm_m16, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vbcstnesh2ps_xmm_m() {
+	// VEX_Vbcstnesh2ps_xmm_m16
+	test_instr(16, |a| a.vbcstnesh2ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vbcstnesh2ps_xmm_m16, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vbcstnesh2ps_ymm_m() {
+	// VEX_Vbcstnesh2ps_ymm_m16
+	test_instr(16, |a| a.vbcstnesh2ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vbcstnesh2ps_ymm_m16, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -40551,20 +40641,106 @@ fn vcvtne2ps2bf16_zmm_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
-fn vcvtneps2bf16_xmm_xmm() {
-	// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-	test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), xmm3).unwrap(),
-		add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Register::XMM2, Register::XMM3).unwrap(), Register::K1),
+fn vcvtneebf162ps_xmm_m() {
+	// VEX_Vcvtneebf162ps_xmm_m128
+	test_instr(16, |a| a.vcvtneebf162ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneebf162ps_xmm_m128, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
 #[test]
 #[rustfmt::skip]
-fn vcvtneps2bf16_xmm_ymm() {
-	// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-	test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), ymm3).unwrap(),
-		add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Register::XMM2, Register::YMM3).unwrap(), Register::K1),
+fn vcvtneebf162ps_ymm_m() {
+	// VEX_Vcvtneebf162ps_ymm_m256
+	test_instr(16, |a| a.vcvtneebf162ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneebf162ps_ymm_m256, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneeph2ps_xmm_m() {
+	// VEX_Vcvtneeph2ps_xmm_m128
+	test_instr(16, |a| a.vcvtneeph2ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneeph2ps_xmm_m128, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneeph2ps_ymm_m() {
+	// VEX_Vcvtneeph2ps_ymm_m256
+	test_instr(16, |a| a.vcvtneeph2ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneeph2ps_ymm_m256, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneobf162ps_xmm_m() {
+	// VEX_Vcvtneobf162ps_xmm_m128
+	test_instr(16, |a| a.vcvtneobf162ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneobf162ps_xmm_m128, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneobf162ps_ymm_m() {
+	// VEX_Vcvtneobf162ps_ymm_m256
+	test_instr(16, |a| a.vcvtneobf162ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneobf162ps_ymm_m256, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneoph2ps_xmm_m() {
+	// VEX_Vcvtneoph2ps_xmm_m128
+	test_instr(16, |a| a.vcvtneoph2ps(xmm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneoph2ps_xmm_m128, Register::XMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneoph2ps_ymm_m() {
+	// VEX_Vcvtneoph2ps_ymm_m256
+	test_instr(16, |a| a.vcvtneoph2ps(ymm2, ptr(si)).unwrap(),
+		Instruction::with2(Code::VEX_Vcvtneoph2ps_ymm_m256, Register::YMM2, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneps2bf16_xmm_xmm() {
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vcvtneps2bf16_xmm_xmmm128
+		test_instr(16, |a| a.vcvtneps2bf16(xmm2, xmm3).unwrap(),
+			Instruction::with2(Code::VEX_Vcvtneps2bf16_xmm_xmmm128, Register::XMM2, Register::XMM3).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+		test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), xmm3).unwrap(),
+			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Register::XMM2, Register::XMM3).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
+}
+
+#[test]
+#[rustfmt::skip]
+fn vcvtneps2bf16_xmm_ymm() {
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vcvtneps2bf16_xmm_ymmm256
+		test_instr(16, |a| a.vcvtneps2bf16(xmm2, ymm3).unwrap(),
+			Instruction::with2(Code::VEX_Vcvtneps2bf16_xmm_ymmm256, Register::XMM2, Register::YMM3).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+		test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), ymm3).unwrap(),
+			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Register::XMM2, Register::YMM3).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
@@ -40585,18 +40761,37 @@ fn vcvtneps2bf16_xmm_m() {
 			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
 			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
 	} /* else if op1.size() == MemoryOperandSize::Yword */ {
-		// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
-		test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), ymmword_ptr(di)).unwrap(),
-			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-			TestInstrFlags::NONE, DecoderOptions::NONE);
+		/* if self.instruction_prefer_vex() */ {
+			// VEX_Vcvtneps2bf16_xmm_ymmm256
+			test_instr(16, |a| a.vcvtneps2bf16(xmm2, ymmword_ptr(di)).unwrap(),
+				Instruction::with2(Code::VEX_Vcvtneps2bf16_xmm_ymmm256, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+				TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+		} /* else */ {
+			// EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32
+			test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), ymmword_ptr(di)).unwrap(),
+				add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_ymmm256b32, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+		}
 	} /* else if op1.size() == MemoryOperandSize::Xword */ {
-		// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-		test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), xmmword_ptr(di)).unwrap(),
-			add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-			TestInstrFlags::NONE, DecoderOptions::NONE);
+		/* if self.instruction_prefer_vex() */ {
+			// VEX_Vcvtneps2bf16_xmm_xmmm128
+			test_instr(16, |a| a.vcvtneps2bf16(xmm2, xmmword_ptr(di)).unwrap(),
+				Instruction::with2(Code::VEX_Vcvtneps2bf16_xmm_xmmm128, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+				TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+		} /* else */ {
+			// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			test_instr(16, |a| a.vcvtneps2bf16(xmm2.k1(), xmmword_ptr(di)).unwrap(),
+				add_op_mask(Instruction::with2(Code::EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32, Register::XMM2, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+				TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+		}
 	} /* else */ {
-		// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
-		test_invalid_instr(16, |a| assert!(a.vcvtneps2bf16(xmm2.k1(), byte_ptr(di)).is_err()), TestInstrFlags::NONE);
+		/* if self.instruction_prefer_vex() */ {
+			// VEX_Vcvtneps2bf16_xmm_xmmm128
+			test_invalid_instr(16, |a| assert!(a.vcvtneps2bf16(xmm2, byte_ptr(di)).is_err()), TestInstrFlags::PREFER_VEX);
+		} /* else */ {
+			// EVEX_Vcvtneps2bf16_xmm_k1z_xmmm128b32
+			test_invalid_instr(16, |a| assert!(a.vcvtneps2bf16(xmm2.k1(), byte_ptr(di)).is_err()), TestInstrFlags::PREFER_EVEX);
+		}
 	}
 }
 
@@ -70103,6 +70298,150 @@ fn vpconflictq_zmm_m() {
 
 #[test]
 #[rustfmt::skip]
+fn vpdpbssd_xmm_xmm_xmm() {
+	// VEX_Vpdpbssd_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbssd(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssd_ymm_ymm_ymm() {
+	// VEX_Vpdpbssd_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbssd(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssd_xmm_xmm_m() {
+	// VEX_Vpdpbssd_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbssd(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssd_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssd_ymm_ymm_m() {
+	// VEX_Vpdpbssd_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbssd(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssd_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssds_xmm_xmm_xmm() {
+	// VEX_Vpdpbssds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbssds(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssds_ymm_ymm_ymm() {
+	// VEX_Vpdpbssds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbssds(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssds_xmm_xmm_m() {
+	// VEX_Vpdpbssds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbssds(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbssds_ymm_ymm_m() {
+	// VEX_Vpdpbssds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbssds(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbssds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsud_xmm_xmm_xmm() {
+	// VEX_Vpdpbsud_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbsud(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsud_ymm_ymm_ymm() {
+	// VEX_Vpdpbsud_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbsud(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsud_xmm_xmm_m() {
+	// VEX_Vpdpbsud_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbsud(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsud_ymm_ymm_m() {
+	// VEX_Vpdpbsud_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbsud(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsuds_xmm_xmm_xmm() {
+	// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbsuds(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsuds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsuds_ymm_ymm_ymm() {
+	// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbsuds(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsuds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsuds_xmm_xmm_m() {
+	// VEX_Vpdpbsuds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbsuds(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsuds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbsuds_ymm_ymm_m() {
+	// VEX_Vpdpbsuds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbsuds(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbsuds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
 fn vpdpbusd_xmm_xmm_xmm() {
 	/* if self.instruction_prefer_vex() */ {
 		// VEX_Vpdpbusd_xmm_xmm_xmmm128
@@ -70282,6 +70621,78 @@ fn vpdpbusds_zmm_zmm_m() {
 	// EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32
 	test_instr(16, |a| a.vpdpbusds(zmm2.k1(), zmm3, zmmword_ptr(si)).unwrap(),
 		add_op_mask(Instruction::with3(Code::EVEX_Vpdpbusds_zmm_k1z_zmm_zmmm512b32, Register::ZMM2, Register::ZMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuud_xmm_xmm_xmm() {
+	// VEX_Vpdpbuud_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbuud(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuud_ymm_ymm_ymm() {
+	// VEX_Vpdpbuud_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbuud(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuud_xmm_xmm_m() {
+	// VEX_Vpdpbuud_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbuud(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuud_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuud_ymm_ymm_m() {
+	// VEX_Vpdpbuud_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbuud(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuud_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuuds_xmm_xmm_xmm() {
+	// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbuuds(xmm2, xmm3, xmm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuuds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuuds_ymm_ymm_ymm() {
+	// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbuuds(ymm2, ymm3, ymm4).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuuds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuuds_xmm_xmm_m() {
+	// VEX_Vpdpbuuds_xmm_xmm_xmmm128
+	test_instr(16, |a| a.vpdpbuuds(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuuds_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn vpdpbuuds_ymm_ymm_m() {
+	// VEX_Vpdpbuuds_ymm_ymm_ymmm256
+	test_instr(16, |a| a.vpdpbuuds(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+		Instruction::with3(Code::VEX_Vpdpbuuds_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 
@@ -74470,19 +74881,33 @@ fn vpmadcswd_xmm_xmm_m_xmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmadd52huq_xmm_xmm_xmm() {
-	// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
-	test_instr(16, |a| a.vpmadd52huq(xmm2.k1(), xmm3, xmm4).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+		test_instr(16, |a| a.vpmadd52huq(xmm2, xmm3, xmm4).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52huq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52huq(xmm2.k1(), xmm3, xmm4).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
 #[rustfmt::skip]
 fn vpmadd52huq_ymm_ymm_ymm() {
-	// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
-	test_instr(16, |a| a.vpmadd52huq(ymm2.k1(), ymm3, ymm4).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+		test_instr(16, |a| a.vpmadd52huq(ymm2, ymm3, ymm4).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52huq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52huq(ymm2.k1(), ymm3, ymm4).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
@@ -74497,19 +74922,43 @@ fn vpmadd52huq_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmadd52huq_xmm_xmm_m() {
-	// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
-	test_instr(16, |a| a.vpmadd52huq(xmm2.k1(), xmm3, xmmword_ptr(si)).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if op2.is_broadcast() */ {
+		// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52huq(xmm2.k1(), xmm3, dword_bcst(di)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
+	} /* else if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52huq_xmm_xmm_xmmm128
+		test_instr(16, |a| a.vpmadd52huq(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52huq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52huq(xmm2.k1(), xmm3, xmmword_ptr(si)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
 #[rustfmt::skip]
 fn vpmadd52huq_ymm_ymm_m() {
-	// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
-	test_instr(16, |a| a.vpmadd52huq(ymm2.k1(), ymm3, ymmword_ptr(si)).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if op2.is_broadcast() */ {
+		// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52huq(ymm2.k1(), ymm3, dword_bcst(di)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
+	} /* else if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52huq_ymm_ymm_ymmm256
+		test_instr(16, |a| a.vpmadd52huq(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52huq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52huq(ymm2.k1(), ymm3, ymmword_ptr(si)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52huq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
@@ -74524,19 +74973,33 @@ fn vpmadd52huq_zmm_zmm_m() {
 #[test]
 #[rustfmt::skip]
 fn vpmadd52luq_xmm_xmm_xmm() {
-	// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
-	test_instr(16, |a| a.vpmadd52luq(xmm2.k1(), xmm3, xmm4).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+		test_instr(16, |a| a.vpmadd52luq(xmm2, xmm3, xmm4).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52luq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52luq(xmm2.k1(), xmm3, xmm4).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, Register::XMM4).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
 #[rustfmt::skip]
 fn vpmadd52luq_ymm_ymm_ymm() {
-	// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
-	test_instr(16, |a| a.vpmadd52luq(ymm2.k1(), ymm3, ymm4).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+		test_instr(16, |a| a.vpmadd52luq(ymm2, ymm3, ymm4).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52luq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52luq(ymm2.k1(), ymm3, ymm4).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, Register::YMM4).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
@@ -74551,19 +75014,43 @@ fn vpmadd52luq_zmm_zmm_zmm() {
 #[test]
 #[rustfmt::skip]
 fn vpmadd52luq_xmm_xmm_m() {
-	// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
-	test_instr(16, |a| a.vpmadd52luq(xmm2.k1(), xmm3, xmmword_ptr(si)).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if op2.is_broadcast() */ {
+		// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52luq(xmm2.k1(), xmm3, dword_bcst(di)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
+	} /* else if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52luq_xmm_xmm_xmmm128
+		test_instr(16, |a| a.vpmadd52luq(xmm2, xmm3, xmmword_ptr(si)).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52luq_xmm_xmm_xmmm128, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64
+		test_instr(16, |a| a.vpmadd52luq(xmm2.k1(), xmm3, xmmword_ptr(si)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_xmm_k1z_xmm_xmmm128b64, Register::XMM2, Register::XMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
 #[rustfmt::skip]
 fn vpmadd52luq_ymm_ymm_m() {
-	// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
-	test_instr(16, |a| a.vpmadd52luq(ymm2.k1(), ymm3, ymmword_ptr(si)).unwrap(),
-		add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
-		TestInstrFlags::NONE, DecoderOptions::NONE);
+	/* if op2.is_broadcast() */ {
+		// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52luq(ymm2.k1(), ymm3, dword_bcst(di)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::DI, Register::None, 1, 0x0i64, 0, true, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX | TestInstrFlags::BROADCAST, DecoderOptions::NONE);
+	} /* else if self.instruction_prefer_vex() */ {
+		// VEX_Vpmadd52luq_ymm_ymm_ymmm256
+		test_instr(16, |a| a.vpmadd52luq(ymm2, ymm3, ymmword_ptr(si)).unwrap(),
+			Instruction::with3(Code::VEX_Vpmadd52luq_ymm_ymm_ymmm256, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(),
+			TestInstrFlags::PREFER_VEX, DecoderOptions::NONE);
+	} /* else */ {
+		// EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64
+		test_instr(16, |a| a.vpmadd52luq(ymm2.k1(), ymm3, ymmword_ptr(si)).unwrap(),
+			add_op_mask(Instruction::with3(Code::EVEX_Vpmadd52luq_ymm_k1z_ymm_ymmm256b64, Register::YMM2, Register::YMM3, MemoryOperand::new(Register::SI, Register::None, 1, 0x0i64, 0, false, Register::None)).unwrap(), Register::K1),
+			TestInstrFlags::PREFER_EVEX, DecoderOptions::NONE);
+	}
 }
 
 #[test]
@@ -93322,6 +93809,15 @@ fn wrmsr() {
 	// Wrmsr
 	test_instr(16, |a| a.wrmsr().unwrap(),
 		Instruction::with(Code::Wrmsr),
+		TestInstrFlags::NONE, DecoderOptions::NONE);
+}
+
+#[test]
+#[rustfmt::skip]
+fn wrmsrns() {
+	// Wrmsrns
+	test_instr(16, |a| a.wrmsrns().unwrap(),
+		Instruction::with(Code::Wrmsrns),
 		TestInstrFlags::NONE, DecoderOptions::NONE);
 }
 

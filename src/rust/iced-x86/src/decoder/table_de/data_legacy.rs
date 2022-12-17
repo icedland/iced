@@ -1556,9 +1556,21 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x03,// Invalid_NoModRM
 
 	// 6 = 0x06
-	0x05,// Dup
-		0x02,// 2
-		0x06,// Null
+	0x14,// MandatoryPrefix_NoModRM
+		0xA4,// Simple
+			0xE2, 0x25,// Wrmsrns
+		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xE3, 0x25,// Wrmsrlist
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xE4, 0x25,// Rdmsrlist
+
+	// 7 = 0x07
+	0x06,// Null
 
 	// 8 = 0x08
 	0x14,// MandatoryPrefix_NoModRM
@@ -1811,7 +1823,7 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x06,// Null
 
 	// 56 = 0x38
-	0x01,// Bitness_DontReadModRM
+	0x00,// Bitness
 		0x02,// Invalid
 		0xA4,// Simple
 			0xD3, 0x06,// Swapgs
@@ -1842,8 +1854,15 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0xDA, 0x06,// Clzerow
 
 	// 61 = 0x3D
-	0xA4,// Simple
-		0xDD, 0x06,// Rdpru
+	0x14,// MandatoryPrefix_NoModRM
+		0xA4,// Simple
+			0xDD, 0x06,// Rdpru
+		0x03,// Invalid_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xE5, 0x25,// Rmpquery
+		0x03,// Invalid_NoModRM
 
 	// 62 = 0x3E
 	0x14,// MandatoryPrefix_NoModRM
@@ -2893,9 +2912,17 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 4 = 0x04
 	0x05,// Dup
-		0x04,// 4
+		0x02,// 2
 		0x07,// HandlerReference
 			0x36,// 0x36 = reservedNop_0F18
+
+	// 6 = 0x06
+	0x6E,// M_1
+		0xE6, 0x25,// Prefetchit1_m8
+
+	// 7 = 0x07
+	0x6E,// M_1
+		0xE7, 0x25,// Prefetchit0_m8
 
 	// grp0F18
 	0x00,// HandlerReference
@@ -3806,8 +3833,27 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x02,// Invalid
 
 	// 252 = 0xFC
+	0x11,// MandatoryPrefix
+		0x09,// RM
+			0x02,// Invalid
+			0x3C,// Ev_Gv_REX
+				0xE8, 0x25,// Aadd_m32_r32
+		0x09,// RM
+			0x02,// Invalid
+			0x3C,// Ev_Gv_REX
+				0xEA, 0x25,// Aand_m32_r32
+		0x09,// RM
+			0x02,// Invalid
+			0x3C,// Ev_Gv_REX
+				0xEC, 0x25,// Axor_m32_r32
+		0x09,// RM
+			0x02,// Invalid
+			0x3C,// Ev_Gv_REX
+				0xEE, 0x25,// Aor_m32_r32
+
+	// 253 = 0xFD
 	0x05,// Dup
-		0x04,// 4
+		0x03,// 3
 		0x02,// Invalid
 
 	// Handlers_0F3A

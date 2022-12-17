@@ -66,6 +66,11 @@ final class CodeAssembler64GenTTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void tdpfp16ps_tmm_tmm_tmm() {
+		testAssembler(c -> c.tdpfp16ps(tmm2, tmm3, tmm4), Instruction.create(Code.VEX_TDPFP16PS_TMM_TMM_TMM, ICRegisters.tmm2, ICRegisters.tmm3, ICRegisters.tmm4));
+	}
+
+	@Test
 	void test_r8_r8() {
 		testAssembler(c -> c.test(dl, bl), Instruction.create(Code.TEST_RM8_R8, ICRegisters.dl, ICRegisters.bl));
 	}

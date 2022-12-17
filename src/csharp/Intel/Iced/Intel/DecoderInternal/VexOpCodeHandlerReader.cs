@@ -103,6 +103,11 @@ namespace Iced.Intel.DecoderInternal {
 				elem = new OpCodeHandler_VEX_Gv_Ev_Gv(code, code + 1);
 				return 1;
 
+			case VexOpCodeHandlerKind.Ev_Gv_Gv:
+				code = deserializer.ReadCode();
+				elem = new OpCodeHandler_VEX_Ev_Gv_Gv(code, code + 1);
+				return 1;
+
 			case VexOpCodeHandlerKind.Gv_Ev_Ib:
 				code = deserializer.ReadCode();
 				elem = new OpCodeHandler_VEX_Gv_Ev_Ib(code, code + 1);

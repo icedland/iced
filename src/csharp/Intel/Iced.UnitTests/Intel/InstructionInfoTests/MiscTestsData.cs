@@ -33,6 +33,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		internal const string JccNearInfo = "jcc-near-info";
 		internal const string SetccInfo = "setcc-info";
 		internal const string CmovccInfo = "cmovcc-info";
+		internal const string CmpccxaddInfo = "cmpccxadd-info";
 		internal const string LoopccInfo = "loopcc-info";
 		internal const string JkccShortInfo = "jkcc-short-info";
 		internal const string JkccNearInfo = "jkcc-near-info";
@@ -67,6 +68,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 		public static readonly (Code jkcc, Code negated, Code jkccShort, ConditionCode cc)[] JkccNearInfos;
 		public static readonly (Code setcc, Code negated, ConditionCode cc)[] SetccInfos;
 		public static readonly (Code cmovcc, Code negated, ConditionCode cc)[] CmovccInfos;
+		public static readonly (Code cmpccxadd, Code negated, ConditionCode cc)[] CmpccxaddInfos;
 		public static readonly (Code loopcc, Code negated, ConditionCode cc)[] LoopccInfos;
 
 		static MiscTestsData() {
@@ -96,6 +98,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			var jkccNearInfos = new List<(Code jkcc, Code negated, Code jkccShort, ConditionCode cc)>();
 			var setccInfos = new List<(Code setcc, Code negated, ConditionCode cc)>();
 			var cmovccInfos = new List<(Code cmovcc, Code negated, ConditionCode cc)>();
+			var cmpccxaddInfos = new List<(Code cmpccxadd, Code negated, ConditionCode cc)>();
 			var loopccInfos = new List<(Code loopcc, Code negated, ConditionCode cc)>();
 
 			var sectionInfos = new (string sectionName, Action<string, string> handler)[] {
@@ -125,6 +128,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 				(MiscSectionNames.JkccNearInfo, (_, line) => AddJccInfo(jkccNearInfos, line)),
 				(MiscSectionNames.SetccInfo, (_, line) => AddInstrCcInfo(setccInfos, line)),
 				(MiscSectionNames.CmovccInfo, (_, line) => AddInstrCcInfo(cmovccInfos, line)),
+				(MiscSectionNames.CmpccxaddInfo, (_, line) => AddInstrCcInfo(cmpccxaddInfos, line)),
 				(MiscSectionNames.LoopccInfo, (_, line) => AddInstrCcInfo(loopccInfos, line)),
 			};
 			var filename = PathUtils.GetTestTextFilename("Misc.txt", "InstructionInfo");
@@ -156,6 +160,7 @@ namespace Iced.UnitTests.Intel.InstructionInfoTests {
 			JkccNearInfos = jkccNearInfos.ToArray();
 			SetccInfos = setccInfos.ToArray();
 			CmovccInfos = cmovccInfos.ToArray();
+			CmpccxaddInfos = cmpccxaddInfos.ToArray();
 			LoopccInfos = loopccInfos.ToArray();
 		}
 

@@ -26,6 +26,7 @@ namespace Generator.Constants.InstructionInfo {
 		public const string JccNearInfo = "jcc-near-info";
 		public const string SetccInfo = "setcc-info";
 		public const string CmovccInfo = "cmovcc-info";
+		public const string CmpccxaddInfo = "cmpccxadd-info";
 		public const string LoopccInfo = "loopcc-info";
 		public const string JkccShortInfo = "jkcc-short-info";
 		public const string JkccNearInfo = "jkcc-near-info";

@@ -8601,7 +8601,7 @@ RDPRU: Code = 861 # type: ignore
 """
 ``RDPRU``
 
-``0F 01 FD``
+``NP 0F 01 FD``
 
 ``RDPRU``
 
@@ -48320,4 +48320,774 @@ XSHA512_ALT_64: Code = 4832 # type: ignore
 ZERO_BYTES: Code = 4833 # type: ignore
 """
 A zero-sized instruction. Can be used as a label.
+"""
+WRMSRNS: Code = 4834 # type: ignore
+"""
+``WRMSRNS``
+
+``NP 0F 01 C6``
+
+``WRMSRNS``
+
+``16/32/64-bit``
+"""
+WRMSRLIST: Code = 4835 # type: ignore
+"""
+``WRMSRLIST``
+
+``F3 0F 01 C6``
+
+``MSRLIST``
+
+``64-bit``
+"""
+RDMSRLIST: Code = 4836 # type: ignore
+"""
+``RDMSRLIST``
+
+``F2 0F 01 C6``
+
+``MSRLIST``
+
+``64-bit``
+"""
+RMPQUERY: Code = 4837 # type: ignore
+"""
+``RMPQUERY``
+
+``F3 0F 01 FD``
+
+``RMPQUERY``
+
+``64-bit``
+"""
+PREFETCHIT1_M8: Code = 4838 # type: ignore
+"""
+``PREFETCHIT1 m8``
+
+``0F 18 /6``
+
+``PREFETCHITI``
+
+``16/32/64-bit``
+"""
+PREFETCHIT0_M8: Code = 4839 # type: ignore
+"""
+``PREFETCHIT0 m8``
+
+``0F 18 /7``
+
+``PREFETCHITI``
+
+``16/32/64-bit``
+"""
+AADD_M32_R32: Code = 4840 # type: ignore
+"""
+``AADD m32, r32``
+
+``NP 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``16/32/64-bit``
+"""
+AADD_M64_R64: Code = 4841 # type: ignore
+"""
+``AADD m64, r64``
+
+``NP o64 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``64-bit``
+"""
+AAND_M32_R32: Code = 4842 # type: ignore
+"""
+``AAND m32, r32``
+
+``66 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``16/32/64-bit``
+"""
+AAND_M64_R64: Code = 4843 # type: ignore
+"""
+``AAND m64, r64``
+
+``66 o64 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``64-bit``
+"""
+AXOR_M32_R32: Code = 4844 # type: ignore
+"""
+``AXOR m32, r32``
+
+``F3 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``16/32/64-bit``
+"""
+AXOR_M64_R64: Code = 4845 # type: ignore
+"""
+``AXOR m64, r64``
+
+``F3 o64 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``64-bit``
+"""
+AOR_M32_R32: Code = 4846 # type: ignore
+"""
+``AOR m32, r32``
+
+``F2 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``16/32/64-bit``
+"""
+AOR_M64_R64: Code = 4847 # type: ignore
+"""
+``AOR m64, r64``
+
+``F2 o64 0F 38 FC !(11):rrr:bbb``
+
+``RAO-INT``
+
+``64-bit``
+"""
+VEX_VPDPBUUD_XMM_XMM_XMMM128: Code = 4848 # type: ignore
+"""
+``VPDPBUUD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBUUD_YMM_YMM_YMMM256: Code = 4849 # type: ignore
+"""
+``VPDPBUUD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSUD_XMM_XMM_XMMM128: Code = 4850 # type: ignore
+"""
+``VPDPBSUD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F3.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSUD_YMM_YMM_YMMM256: Code = 4851 # type: ignore
+"""
+``VPDPBSUD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F3.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSSD_XMM_XMM_XMMM128: Code = 4852 # type: ignore
+"""
+``VPDPBSSD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F2.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSSD_YMM_YMM_YMMM256: Code = 4853 # type: ignore
+"""
+``VPDPBSSD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F2.0F38.W0 50 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBUUDS_XMM_XMM_XMMM128: Code = 4854 # type: ignore
+"""
+``VPDPBUUDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBUUDS_YMM_YMM_YMMM256: Code = 4855 # type: ignore
+"""
+``VPDPBUUDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSUDS_XMM_XMM_XMMM128: Code = 4856 # type: ignore
+"""
+``VPDPBSUDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F3.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSUDS_YMM_YMM_YMMM256: Code = 4857 # type: ignore
+"""
+``VPDPBSUDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F3.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSSDS_XMM_XMM_XMMM128: Code = 4858 # type: ignore
+"""
+``VPDPBSSDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F2.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_VPDPBSSDS_YMM_YMM_YMMM256: Code = 4859 # type: ignore
+"""
+``VPDPBSSDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F2.0F38.W0 51 /r``
+
+``AVX-VNNI-INT8``
+
+``16/32/64-bit``
+"""
+VEX_TDPFP16PS_TMM_TMM_TMM: Code = 4860 # type: ignore
+"""
+``TDPFP16PS tmm1, tmm2, tmm3``
+
+``VEX.128.F2.0F38.W0 5C 11:rrr:bbb``
+
+``AMX-FP16``
+
+``64-bit``
+"""
+VEX_VCVTNEPS2BF16_XMM_XMMM128: Code = 4861 # type: ignore
+"""
+``VCVTNEPS2BF16 xmm1, xmm2/m128``
+
+``VEX.128.F3.0F38.W0 72 /r``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEPS2BF16_XMM_YMMM256: Code = 4862 # type: ignore
+"""
+``VCVTNEPS2BF16 xmm1, ymm2/m256``
+
+``VEX.256.F3.0F38.W0 72 /r``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEOPH2PS_XMM_M128: Code = 4863 # type: ignore
+"""
+``VCVTNEOPH2PS xmm1, m128``
+
+``VEX.128.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEOPH2PS_YMM_M256: Code = 4864 # type: ignore
+"""
+``VCVTNEOPH2PS ymm1, m256``
+
+``VEX.256.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEEPH2PS_XMM_M128: Code = 4865 # type: ignore
+"""
+``VCVTNEEPH2PS xmm1, m128``
+
+``VEX.128.66.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEEPH2PS_YMM_M256: Code = 4866 # type: ignore
+"""
+``VCVTNEEPH2PS ymm1, m256``
+
+``VEX.256.66.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEEBF162PS_XMM_M128: Code = 4867 # type: ignore
+"""
+``VCVTNEEBF162PS xmm1, m128``
+
+``VEX.128.F3.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEEBF162PS_YMM_M256: Code = 4868 # type: ignore
+"""
+``VCVTNEEBF162PS ymm1, m256``
+
+``VEX.256.F3.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEOBF162PS_XMM_M128: Code = 4869 # type: ignore
+"""
+``VCVTNEOBF162PS xmm1, m128``
+
+``VEX.128.F2.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VCVTNEOBF162PS_YMM_M256: Code = 4870 # type: ignore
+"""
+``VCVTNEOBF162PS ymm1, m256``
+
+``VEX.256.F2.0F38.W0 B0 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VBCSTNESH2PS_XMM_M16: Code = 4871 # type: ignore
+"""
+``VBCSTNESH2PS xmm1, m16``
+
+``VEX.128.66.0F38.W0 B1 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VBCSTNESH2PS_YMM_M16: Code = 4872 # type: ignore
+"""
+``VBCSTNESH2PS ymm1, m16``
+
+``VEX.256.66.0F38.W0 B1 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VBCSTNEBF162PS_XMM_M16: Code = 4873 # type: ignore
+"""
+``VBCSTNEBF162PS xmm1, m16``
+
+``VEX.128.F3.0F38.W0 B1 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VBCSTNEBF162PS_YMM_M16: Code = 4874 # type: ignore
+"""
+``VBCSTNEBF162PS ymm1, m16``
+
+``VEX.256.F3.0F38.W0 B1 !(11):rrr:bbb``
+
+``AVX-NE-CONVERT``
+
+``16/32/64-bit``
+"""
+VEX_VPMADD52LUQ_XMM_XMM_XMMM128: Code = 4875 # type: ignore
+"""
+``VPMADD52LUQ xmm1, xmm2, xmm3/m128``
+
+``VEX.128.66.0F38.W1 B4 /r``
+
+``AVX-IFMA``
+
+``16/32/64-bit``
+"""
+VEX_VPMADD52LUQ_YMM_YMM_YMMM256: Code = 4876 # type: ignore
+"""
+``VPMADD52LUQ ymm1, ymm2, ymm3/m256``
+
+``VEX.256.66.0F38.W1 B4 /r``
+
+``AVX-IFMA``
+
+``16/32/64-bit``
+"""
+VEX_VPMADD52HUQ_XMM_XMM_XMMM128: Code = 4877 # type: ignore
+"""
+``VPMADD52HUQ xmm1, xmm2, xmm3/m128``
+
+``VEX.128.66.0F38.W1 B5 /r``
+
+``AVX-IFMA``
+
+``16/32/64-bit``
+"""
+VEX_VPMADD52HUQ_YMM_YMM_YMMM256: Code = 4878 # type: ignore
+"""
+``VPMADD52HUQ ymm1, ymm2, ymm3/m256``
+
+``VEX.256.66.0F38.W1 B5 /r``
+
+``AVX-IFMA``
+
+``16/32/64-bit``
+"""
+VEX_CMPOXADD_M32_R32_R32: Code = 4879 # type: ignore
+"""
+``CMPOXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E0 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPOXADD_M64_R64_R64: Code = 4880 # type: ignore
+"""
+``CMPOXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E0 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNOXADD_M32_R32_R32: Code = 4881 # type: ignore
+"""
+``CMPNOXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E1 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNOXADD_M64_R64_R64: Code = 4882 # type: ignore
+"""
+``CMPNOXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E1 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPBXADD_M32_R32_R32: Code = 4883 # type: ignore
+"""
+``CMPBXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E2 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPBXADD_M64_R64_R64: Code = 4884 # type: ignore
+"""
+``CMPBXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E2 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNBXADD_M32_R32_R32: Code = 4885 # type: ignore
+"""
+``CMPNBXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E3 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNBXADD_M64_R64_R64: Code = 4886 # type: ignore
+"""
+``CMPNBXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E3 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPZXADD_M32_R32_R32: Code = 4887 # type: ignore
+"""
+``CMPZXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E4 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPZXADD_M64_R64_R64: Code = 4888 # type: ignore
+"""
+``CMPZXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E4 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNZXADD_M32_R32_R32: Code = 4889 # type: ignore
+"""
+``CMPNZXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E5 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNZXADD_M64_R64_R64: Code = 4890 # type: ignore
+"""
+``CMPNZXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E5 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPBEXADD_M32_R32_R32: Code = 4891 # type: ignore
+"""
+``CMPBEXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E6 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPBEXADD_M64_R64_R64: Code = 4892 # type: ignore
+"""
+``CMPBEXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E6 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNBEXADD_M32_R32_R32: Code = 4893 # type: ignore
+"""
+``CMPNBEXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E7 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNBEXADD_M64_R64_R64: Code = 4894 # type: ignore
+"""
+``CMPNBEXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E7 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPSXADD_M32_R32_R32: Code = 4895 # type: ignore
+"""
+``CMPSXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E8 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPSXADD_M64_R64_R64: Code = 4896 # type: ignore
+"""
+``CMPSXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E8 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNSXADD_M32_R32_R32: Code = 4897 # type: ignore
+"""
+``CMPNSXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 E9 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNSXADD_M64_R64_R64: Code = 4898 # type: ignore
+"""
+``CMPNSXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 E9 !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPPXADD_M32_R32_R32: Code = 4899 # type: ignore
+"""
+``CMPPXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 EA !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPPXADD_M64_R64_R64: Code = 4900 # type: ignore
+"""
+``CMPPXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 EA !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNPXADD_M32_R32_R32: Code = 4901 # type: ignore
+"""
+``CMPNPXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 EB !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNPXADD_M64_R64_R64: Code = 4902 # type: ignore
+"""
+``CMPNPXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 EB !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPLXADD_M32_R32_R32: Code = 4903 # type: ignore
+"""
+``CMPLXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 EC !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPLXADD_M64_R64_R64: Code = 4904 # type: ignore
+"""
+``CMPLXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 EC !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNLXADD_M32_R32_R32: Code = 4905 # type: ignore
+"""
+``CMPNLXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 ED !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNLXADD_M64_R64_R64: Code = 4906 # type: ignore
+"""
+``CMPNLXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 ED !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPLEXADD_M32_R32_R32: Code = 4907 # type: ignore
+"""
+``CMPLEXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 EE !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPLEXADD_M64_R64_R64: Code = 4908 # type: ignore
+"""
+``CMPLEXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 EE !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNLEXADD_M32_R32_R32: Code = 4909 # type: ignore
+"""
+``CMPNLEXADD m32, r32, r32``
+
+``VEX.128.66.0F38.W0 EF !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
+"""
+VEX_CMPNLEXADD_M64_R64_R64: Code = 4910 # type: ignore
+"""
+``CMPNLEXADD m64, r64, r64``
+
+``VEX.128.66.0F38.W1 EF !(11):rrr:bbb``
+
+``CMPCCXADD``
+
+``64-bit``
 """

@@ -6,7 +6,7 @@
 package com.github.icedland.iced.x86;
 
 /**
- * Instruction condition code (used by {@code Jcc}, {@code SETcc}, {@code CMOVcc}, {@code LOOPcc})
+ * Instruction condition code (used by {@code Jcc}, {@code SETcc}, {@code CMOVcc}, {@code CMPccXADD}, {@code LOOPcc})
  */
 public final class ConditionCode {
 	private ConditionCode() {

@@ -6,7 +6,7 @@
 use crate::CpuidFeature;
 
 #[rustfmt::skip]
-pub(crate) static CPUID: [&[CpuidFeature]; 183] = [
+pub(crate) static CPUID: [&[CpuidFeature]; 193] = [
 	&[CpuidFeature::INTEL8086],// INTEL8086
 	&[CpuidFeature::INTEL8086_ONLY],// INTEL8086_ONLY
 	&[CpuidFeature::INTEL186],// INTEL186
@@ -190,4 +190,14 @@ pub(crate) static CPUID: [&[CpuidFeature]; 183] = [
 	&[CpuidFeature::UDBG],// UDBG
 	&[CpuidFeature::KNC],// KNC
 	&[CpuidFeature::PADLOCK_UNDOC],// PADLOCK_UNDOC
+	&[CpuidFeature::RMPQUERY],// RMPQUERY
+	&[CpuidFeature::RAO_INT],// RAO_INT
+	&[CpuidFeature::PREFETCHITI],// PREFETCHITI
+	&[CpuidFeature::AMX_FP16],// AMX_FP16
+	&[CpuidFeature::CMPCCXADD],// CMPCCXADD
+	&[CpuidFeature::AVX_IFMA],// AVX_IFMA
+	&[CpuidFeature::AVX_NE_CONVERT],// AVX_NE_CONVERT
+	&[CpuidFeature::AVX_VNNI_INT8],// AVX_VNNI_INT8
+	&[CpuidFeature::MSRLIST],// MSRLIST
+	&[CpuidFeature::WRMSRNS],// WRMSRNS
 ];

@@ -14,6 +14,7 @@ import com.github.icedland.iced.x86.Instruction;
 import com.github.icedland.iced.x86.MemorySize;
 import com.github.icedland.iced.x86.Register;
 import com.github.icedland.iced.x86.info.MiscTestsData.CmovccInfo;
+import com.github.icedland.iced.x86.info.MiscTestsData.CmpccxaddInfo;
 import com.github.icedland.iced.x86.info.MiscTestsData.JccNearInfo;
 import com.github.icedland.iced.x86.info.MiscTestsData.JccShortInfo;
 import com.github.icedland.iced.x86.info.MiscTestsData.JkccNearInfo;
@@ -114,6 +115,8 @@ final class MiscTests {
 			toNegatedCodeValue.put(info.setcc, info.negated);
 		for (CmovccInfo info : MiscTestsData.cmovccInfos)
 			toNegatedCodeValue.put(info.cmovcc, info.negated);
+		for (CmpccxaddInfo info : MiscTestsData.cmpccxaddInfos)
+			toNegatedCodeValue.put(info.cmpccxadd, info.negated);
 		for (LoopccInfo info : MiscTestsData.loopccInfos)
 			toNegatedCodeValue.put(info.loopcc, info.negated);
 		for (JkccShortInfo info : MiscTestsData.jkccShortInfos)
@@ -197,6 +200,8 @@ final class MiscTests {
 			toConditionCode.put(info.setcc, info.cc);
 		for (CmovccInfo info : MiscTestsData.cmovccInfos)
 			toConditionCode.put(info.cmovcc, info.cc);
+		for (CmpccxaddInfo info : MiscTestsData.cmpccxaddInfos)
+			toConditionCode.put(info.cmpccxadd, info.cc);
 		for (LoopccInfo info : MiscTestsData.loopccInfos)
 			toConditionCode.put(info.loopcc, info.cc);
 		for (JkccShortInfo info : MiscTestsData.jkccShortInfos)

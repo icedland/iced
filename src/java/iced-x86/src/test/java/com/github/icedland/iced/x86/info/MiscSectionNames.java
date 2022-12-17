@@ -32,6 +32,7 @@ public final class MiscSectionNames {
 	public static final String JCC_NEAR_INFO = "jcc-near-info";
 	public static final String SETCC_INFO = "setcc-info";
 	public static final String CMOVCC_INFO = "cmovcc-info";
+	public static final String CMPCCXADD_INFO = "cmpccxadd-info";
 	public static final String LOOPCC_INFO = "loopcc-info";
 	public static final String JKCC_SHORT_INFO = "jkcc-short-info";
 	public static final String JKCC_NEAR_INFO = "jkcc-near-info";
