@@ -58,23 +58,23 @@ jobs:
         run: |
           cat /etc/lsb-release
 
-      - name: Build manylinux aarch64
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install qemu-user-static
-          git clean -xdf
-          echo "getting latest image"
-          sudo docker pull quay.io/pypa/manylinux2014_aarch64:latest
-          echo "docker images"
-          sudo docker image list
-          sudo ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: py-dist-${{matrix.os}}-aarch64
-          path: /tmp/py-dist
-          if-no-files-found: error
+      # - name: Build manylinux aarch64
+      #   shell: bash
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install qemu-user-static
+      #     git clean -xdf
+      #     echo "getting latest image"
+      #     sudo docker pull quay.io/pypa/manylinux2014_aarch64:latest
+      #     echo "docker images"
+      #     sudo docker image list
+      #     sudo ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
+      #
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: py-dist-${{matrix.os}}-aarch64
+      #     path: /tmp/py-dist
+      #     if-no-files-found: error
 
   #############################################################################
   #############################################################################
