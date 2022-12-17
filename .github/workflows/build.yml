@@ -260,9 +260,14 @@ jobs:
           mkdir /tmp/bin
           unzip stylua-*.zip -d /tmp/bin
 
-      - name: Install luarocks
+      - name: Install Lua and luarocks
         shell: bash
-        run: sudo apt-get install luarocks
+        run: |
+          sudo apt-get install -y lua5.1 lua5.2 lua5.3 lua5.4 liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev luarocks
+          sudo luarocks --lua-version 5.1 install busted
+          sudo luarocks --lua-version 5.2 install busted
+          sudo luarocks --lua-version 5.3 install busted
+          sudo luarocks --lua-version 5.4 install busted
 
       - name: Build and test
         shell: bash
