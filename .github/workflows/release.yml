@@ -1,8 +1,22 @@
 # This is triggered when a new release is created (using the GitHub UI)
 name: New Release
 on:
-  release:
-    types: [released]
+  push:
+    paths:
+      - ".github/workflows/build.yml"
+      - "build/**"
+      - "src/**"
+      - "!**/*.md"
+    branches:
+      - master
+  pull_request:
+    paths:
+      - ".github/workflows/build.yml"
+      - "build/**"
+      - "src/**"
+      - "!**/*.md"
+    branches:
+      - master
 
 # Keep this in sync with the other *.yml files
 env:
@@ -670,55 +684,3 @@ jobs:
           cargo publish --help
           npm publish --help
           mvn --help
-
-      - name: Upload to nuget.org
-        shell: bash
-        run: |
-          for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
-            dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
-          done
-
-      - name: Upload to crates.io
-        shell: bash
-        run: |
-          git reset .
-          git checkout .
-          git clean -xdf
-          cd src/rust/iced-x86
-          cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
-          # --no-verify: we've tested building everything already
-          cargo publish --color always --no-verify
-
-      - name: Upload to pypi.org
-        shell: bash
-        run: |
-          python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
-
-      - name: Upload to npmjs.com
-        shell: bash
-        run: |
-          npm publish /tmp/artifacts/npm/iced-x86-*.tgz
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-      - name: Set up Apache Maven Central
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{env.JAVA_DISTRIBUTION}}
-          java-version: ${{env.JAVA_VERSION}}
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_CENTRAL_TOKEN
-          gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
-
-      - name: Publish to Apache Maven Central
-        run: |
-          cd src/java/iced-x86
-          mvn deploy
-        #TODO: remove this once this works
-        continue-on-error: true
-        env:
-          MAVEN_USERNAME: wtfsck
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
