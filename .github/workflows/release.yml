@@ -68,7 +68,7 @@ jobs:
           sudo docker pull quay.io/pypa/manylinux2014_aarch64:latest
           echo "docker images"
           sudo docker image list
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
+          sudo ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
 
       - uses: actions/upload-artifact@v3
         with:
