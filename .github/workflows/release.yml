@@ -718,8 +718,6 @@ jobs:
         run: |
           cd src/java/iced-x86
           mvn deploy
-        #TODO: remove this once this works
-        continue-on-error: true
         env:
           MAVEN_USERNAME: wtfsck
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
