@@ -108,7 +108,7 @@ jobs:
         shell: bash
         run: |
           python -m pip install -U twine
-          python -m twine check /tmp/py-dist/*
+          #python -m twine check /tmp/py-dist/*
           dotnet nuget push --help
           cargo publish --help
           npm publish --help
