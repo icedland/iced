@@ -87,7 +87,7 @@ lua_pub_methods! { static BLOCK_ENCODER_EXPORTS =>
 				Ok(result) => {
 					lua.create_table(0, 1);
 					lua.push("code_buffer");
-					lua.push(&result.code_buffer);
+					lua.push(result.code_buffer);
 					lua.raw_set(-3);
 				}
 				Err(e) => lua.throw_error(e),

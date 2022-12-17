@@ -249,12 +249,12 @@ impl_to_lua! { lua, value {
 	u32 => unsafe { lua.push_u32(*value) },
 	u64 => unsafe { lua.push_u64(*value) },
 	usize => unsafe { lua.push_usize(*value) },
-	&str => unsafe { lua.push_literal(*value) },
-	String => unsafe { lua.push_literal(&*value) },
-	&String => unsafe { lua.push_literal(*value) },
-	&[u8] => unsafe { lua.push_bytes(*value) },
-	Vec<u8> => unsafe { lua.push_bytes(&*value) },
-	&Vec<u8> => unsafe { lua.push_bytes(&**value) },
+	&str => unsafe { lua.push_literal(value) },
+	String => unsafe { lua.push_literal(value) },
+	&String => unsafe { lua.push_literal(value) },
+	&[u8] => unsafe { lua.push_bytes(value) },
+	Vec<u8> => unsafe { lua.push_bytes(value) },
+	&Vec<u8> => unsafe { lua.push_bytes(value) },
 	//TODO: lua.push(method_name) doesn't work, but if we add `let method_name: lua_CFunction = method_name` before the push() it works...
 	lua_CFunction => unsafe { lua.push_c_function(*value) },
 }}
