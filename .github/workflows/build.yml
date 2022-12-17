@@ -255,12 +255,17 @@ jobs:
 
       - name: Install StyLua
         shell: bash
-        run: cargo install stylua
+        run: |
+          wget https://github.com/JohnnyMorganz/StyLua/releases/download/v0.15.3/stylua-linux-x86_64.zip
+          mkdir /tmp/bin
+          unzip stylua-*.zip -d /tmp/bin
 
       - name: Install luarocks
         shell: bash
-        run: apt-get install luarocks
+        run: sudo apt-get install luarocks
 
       - name: Build and test
         shell: bash
-        run: ./build/build-lua --no-set-rustflags --quick-check
+        run: |
+          export PATH=$PATH:/tmp/bin
+          ./build/build-lua --no-set-rustflags --quick-check
