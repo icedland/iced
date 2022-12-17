@@ -48,10 +48,15 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-20.04]
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Ubuntu version
+        shell: bash
+        run: |
+          cat /etc/lsb-release
 
       - name: Build manylinux aarch64
         shell: bash
@@ -75,106 +80,11 @@ jobs:
   #############################################################################
   #############################################################################
 
-  build-rust-python-macos-x64:
-    name: Python (${{matrix.os}}) x64
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [macos-latest]
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Rust
-        shell: bash
-        run: bash build/ci-install-rust.sh
-
-      # NOTE: We use setup-miniconda and not setup-python because setup-python's
-      #       binaries target a later macos version and will produce warnings
-      #       when building wheels on macos.
-      #           https://github.com/actions/setup-python/issues/26
-      #       This also means that all bash shells (that use Python) must
-      #       use the -le options:
-      #           shell: bash -le {0}
-      #       setup-python is faster to install than setup-miniconda so we only
-      #       use setup-miniconda if this is a macos image.
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.7'
-      - name: Install Python tools
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.7'
-          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
-
-      - name: Build and test
-        shell: bash -le {0}
-        run: |
-          ./build/build-python --no-set-rustflags --python python --quick-check
-          git clean -xdf
-
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.7'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.7'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.8'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.9'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.9'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.10'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.10'
-          bash build/ci-py-build-wheels.sh
-
-      #TODO: enable when it supports 3.11, see all releases: curl -L https://repo.anaconda.com/pkgs/main/osx-64
-      # - uses: conda-incubator/setup-miniconda@v2.2.0
-      #   with:
-      #     python-version: '3.11'
-      # - name: Build and test the wheel
-      #   shell: bash -le {0}
-      #   run: |
-      #     python --version 2>&1 | grep 'Python 3\.11'
-      #     bash build/ci-py-build-wheels.sh
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: py-dist-${{matrix.os}}-x64
-          path: /tmp/py-dist
-          if-no-files-found: error
-
-  #############################################################################
-  #############################################################################
-  #############################################################################
-
   upload-files:
     runs-on: ubuntu-latest
     name: Upload files
     needs:
       - build-rust-python-linux-aarch64
-      - build-rust-python-macos-x64
 
     steps:
       - uses: actions/checkout@v3
