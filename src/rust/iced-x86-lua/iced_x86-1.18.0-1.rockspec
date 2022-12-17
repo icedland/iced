@@ -1,4 +1,4 @@
-local modver = "1.17.0"
+local modver = "1.18.0"
 local specrev = "-1"
 local libname = "iced_x86"
 
@@ -6,7 +6,7 @@ package = "iced_x86"
 version = modver .. specrev
 source = {
 	url = "git+https://git@github.com/icedland/iced.git",
-	tag = "v1.17.0",
+	tag = "v1.18.0",
 }
 description = {
 	summary = "x86/x64 disassembler, assembler and instruction decoder",
