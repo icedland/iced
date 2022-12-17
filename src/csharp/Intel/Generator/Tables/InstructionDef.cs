@@ -394,6 +394,14 @@ namespace Generator.Tables {
 		/// The low 3 bits of the modrm byte is ignored
 		/// </summary>
 		IgnoresModrmLow3Bits	= 0x08000000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// Atomic instruction (no lock needed) if the operand is a memory location, eg. <c>XCHG mem,r</c>, <c>AADD mem,r</c>
+		/// </summary>
+		Atomic					= 0x10000000,//TODO: Add to OpCodeInfo
+		/// <summary>
+		/// The memory operand must be aligned (eg. 4-byte or 8-byte aligned depending on the size of the memory operand)
+		/// </summary>
+		AlignedMemory			= 0x20000000,//TODO: Add to OpCodeInfo
 	}
 
 	enum VmxMode {

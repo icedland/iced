@@ -2584,7 +2584,7 @@ END
 # Code: Xchg_rm8_r8
 INSTRUCTION: 86 /r | XCHG r/m8, r8 | INTEL8086
 	ops: rw=rm rw=reg | UInt8
-	flags: lock xacquire xrelease
+	flags: lock xacquire xrelease atomic
 	gas: suffix=b
 	masm: reverse
 	nasm: reverse
@@ -2593,7 +2593,7 @@ END
 # Code: Xchg_rm16_r16
 INSTRUCTION: o16 87 /r | XCHG r/m16, r16 | INTEL8086
 	ops: rw=rm rw=reg | UInt16
-	flags: lock xacquire xrelease
+	flags: lock xacquire xrelease atomic
 	gas: suffix=w
 	masm: reverse
 	nasm: reverse
@@ -2602,7 +2602,7 @@ END
 # Code: Xchg_rm32_r32
 INSTRUCTION: o32 87 /r | XCHG r/m32, r32 | INTEL386
 	ops: rw=rm rw=reg | UInt32
-	flags: lock xacquire xrelease
+	flags: lock xacquire xrelease atomic
 	gas: suffix=l
 	masm: reverse
 	nasm: reverse
@@ -2611,7 +2611,7 @@ END
 # Code: Xchg_rm64_r64
 INSTRUCTION: o64 87 /r | XCHG r/m64, r64 | X64
 	ops: rw=rm rw=reg | UInt64
-	flags: 64 lock xacquire xrelease
+	flags: 64 lock xacquire xrelease atomic
 	gas: suffix=q
 	masm: reverse
 	nasm: reverse
@@ -33104,14 +33104,16 @@ INSTRUCTION: F3 0F 01 C6 | WRMSRLIST | MSRLIST
 	# Reads a u64 from [rsi+index*8] and a u64 from [rdi+index*8] where 0 <= index <= 63 (index = index of set bit in rcx)
 	implied: r=rcx cr=rsi;rdi cw=rcx cr=[ds:rsi=Unknown] cr=[es:rdi=Unknown]
 	# Not a serializing instruction, unlike WRMSR
-	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
+	# rsi/rdi must be 8-byte aligned
+	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort aligned-mem
 END
 
 # Code: Rdmsrlist
 INSTRUCTION: F2 0F 01 C6 | RDMSRLIST | MSRLIST
 	# Reads a u64 from [rsi+index*8] and writes a u64 to [rdi+index*8] where 0 <= index <= 63 (index = index of set bit in rcx)
 	implied: r=rcx cr=rsi;rdi cw=rcx cr=[ds:rsi=Unknown] cw=[es:rdi=Unknown]
-	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort
+	# rsi/rdi must be 8-byte aligned
+	flags: 64 cpl0 intel-may-vm-exit tdx-non-root-may-gen-ex amd-may-vm-exit tsx-impl-abort aligned-mem
 END
 
 # Code: Rmpquery
@@ -33140,49 +33142,49 @@ END
 # Code: Aadd_m32_r32
 INSTRUCTION: NP 0F 38 FC !(11):rrr:bbb | AADD m32, r32 | RAO_INT
 	ops: rw=rm r=reg | UInt32
-	flags: tsx-abort
+	flags: tsx-abort atomic aligned-mem
 END
 
 # Code: Aadd_m64_r64
 INSTRUCTION: NP o64 0F 38 FC !(11):rrr:bbb | AADD m64, r64 | RAO_INT
 	ops: rw=rm r=reg | UInt64
-	flags: 64 tsx-abort
+	flags: 64 tsx-abort atomic aligned-mem
 END
 
 # Code: Aand_m32_r32
 INSTRUCTION: 66 0F 38 FC !(11):rrr:bbb | AAND m32, r32 | RAO_INT
 	ops: rw=rm r=reg | UInt32
-	flags: tsx-abort
+	flags: tsx-abort atomic aligned-mem
 END
 
 # Code: Aand_m64_r64
 INSTRUCTION: 66 o64 0F 38 FC !(11):rrr:bbb | AAND m64, r64 | RAO_INT
 	ops: rw=rm r=reg | UInt64
-	flags: 64 tsx-abort
+	flags: 64 tsx-abort atomic aligned-mem
 END
 
 # Code: Axor_m32_r32
 INSTRUCTION: F3 0F 38 FC !(11):rrr:bbb | AXOR m32, r32 | RAO_INT
 	ops: rw=rm r=reg | UInt32
-	flags: tsx-abort
+	flags: tsx-abort atomic aligned-mem
 END
 
 # Code: Axor_m64_r64
 INSTRUCTION: F3 o64 0F 38 FC !(11):rrr:bbb | AXOR m64, r64 | RAO_INT
 	ops: rw=rm r=reg | UInt64
-	flags: 64 tsx-abort
+	flags: 64 tsx-abort atomic aligned-mem
 END
 
 # Code: Aor_m32_r32
 INSTRUCTION: F2 0F 38 FC !(11):rrr:bbb | AOR m32, r32 | RAO_INT
 	ops: rw=rm r=reg | UInt32
-	flags: tsx-abort
+	flags: tsx-abort atomic aligned-mem
 END
 
 # Code: Aor_m64_r64
 INSTRUCTION: F2 o64 0F 38 FC !(11):rrr:bbb | AOR m64, r64 | RAO_INT
 	ops: rw=rm r=reg | UInt64
-	flags: 64 tsx-abort
+	flags: 64 tsx-abort atomic aligned-mem
 END
 
 # Code: VEX_Vpdpbuud_xmm_xmm_xmmm128
@@ -33356,7 +33358,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E0 !(11):rrr:bbb | CMPOXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpoxadd_m64_r64_r64
@@ -33364,7 +33366,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E0 !(11):rrr:bbb | CMPOXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnoxadd_m32_r32_r32
@@ -33372,7 +33374,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E1 !(11):rrr:bbb | CMPNOXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnoxadd_m64_r64_r64
@@ -33380,7 +33382,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E1 !(11):rrr:bbb | CMPNOXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpbxadd_m32_r32_r32
@@ -33388,7 +33390,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E2 !(11):rrr:bbb | CMPBXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpbxadd_m64_r64_r64
@@ -33396,7 +33398,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E2 !(11):rrr:bbb | CMPBXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnbxadd_m32_r32_r32
@@ -33404,7 +33406,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E3 !(11):rrr:bbb | CMPNBXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnbxadd_m64_r64_r64
@@ -33412,7 +33414,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E3 !(11):rrr:bbb | CMPNBXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpzxadd_m32_r32_r32
@@ -33420,7 +33422,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E4 !(11):rrr:bbb | CMPZXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpzxadd_m64_r64_r64
@@ -33428,7 +33430,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E4 !(11):rrr:bbb | CMPZXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnzxadd_m32_r32_r32
@@ -33436,7 +33438,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E5 !(11):rrr:bbb | CMPNZXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnzxadd_m64_r64_r64
@@ -33444,7 +33446,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E5 !(11):rrr:bbb | CMPNZXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpbexadd_m32_r32_r32
@@ -33452,7 +33454,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E6 !(11):rrr:bbb | CMPBEXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpbexadd_m64_r64_r64
@@ -33460,7 +33462,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E6 !(11):rrr:bbb | CMPBEXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnbexadd_m32_r32_r32
@@ -33468,7 +33470,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E7 !(11):rrr:bbb | CMPNBEXADD m32, r32, r32 | CM
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnbexadd_m64_r64_r64
@@ -33476,7 +33478,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E7 !(11):rrr:bbb | CMPNBEXADD m64, r64, r64 | CM
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpsxadd_m32_r32_r32
@@ -33484,7 +33486,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E8 !(11):rrr:bbb | CMPSXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpsxadd_m64_r64_r64
@@ -33492,7 +33494,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E8 !(11):rrr:bbb | CMPSXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnsxadd_m32_r32_r32
@@ -33500,7 +33502,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 E9 !(11):rrr:bbb | CMPNSXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnsxadd_m64_r64_r64
@@ -33508,7 +33510,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 E9 !(11):rrr:bbb | CMPNSXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmppxadd_m32_r32_r32
@@ -33516,7 +33518,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 EA !(11):rrr:bbb | CMPPXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmppxadd_m64_r64_r64
@@ -33524,7 +33526,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 EA !(11):rrr:bbb | CMPPXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnpxadd_m32_r32_r32
@@ -33532,7 +33534,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 EB !(11):rrr:bbb | CMPNPXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnpxadd_m64_r64_r64
@@ -33540,7 +33542,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 EB !(11):rrr:bbb | CMPNPXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmplxadd_m32_r32_r32
@@ -33548,7 +33550,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 EC !(11):rrr:bbb | CMPLXADD m32, r32, r32 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmplxadd_m64_r64_r64
@@ -33556,7 +33558,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 EC !(11):rrr:bbb | CMPLXADD m64, r64, r64 | CMPC
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnlxadd_m32_r32_r32
@@ -33564,7 +33566,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 ED !(11):rrr:bbb | CMPNLXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnlxadd_m64_r64_r64
@@ -33572,7 +33574,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 ED !(11):rrr:bbb | CMPNLXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmplexadd_m32_r32_r32
@@ -33580,7 +33582,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 EE !(11):rrr:bbb | CMPLEXADD m32, r32, r32 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmplexadd_m64_r64_r64
@@ -33588,7 +33590,7 @@ INSTRUCTION: VEX.128.66.0F38.W1 EE !(11):rrr:bbb | CMPLEXADD m64, r64, r64 | CMP
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnlexadd_m32_r32_r32
@@ -33596,7 +33598,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 EF !(11):rrr:bbb | CMPNLEXADD m32, r32, r32 | CM
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt32
 	rflags: w=oszacp
-	flags: wig32 64
+	flags: wig32 64 atomic aligned-mem
 END
 
 # Code: VEX_Cmpnlexadd_m64_r64_r64
@@ -33604,5 +33606,5 @@ INSTRUCTION: VEX.128.66.0F38.W1 EF !(11):rrr:bbb | CMPNLEXADD m64, r64, r64 | CM
 	# If condition is false, it will overwrite the memory operand with the original value.
 	ops: rw=rm rw=reg r=vvvv | UInt64
 	rflags: w=oszacp
-	flags: 64
+	flags: 64 atomic aligned-mem
 END

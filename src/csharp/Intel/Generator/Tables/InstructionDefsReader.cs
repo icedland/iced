@@ -641,6 +641,8 @@ namespace Generator.Tables {
 						case "is-string-op": state.Flags3 |= InstructionDefFlags3.IsStringOp; break;
 						case "a32-req": state.Flags3 |= InstructionDefFlags3.RequiresAddressSize32; break;
 						case "ig-modrm-low3": state.Flags3 |= InstructionDefFlags3.IgnoresModrmLow3Bits; break;
+						case "atomic": state.Flags3 |= InstructionDefFlags3.Atomic; break;
+						case "aligned-mem": state.Flags3 |= InstructionDefFlags3.AlignedMemory; break;
 
 						case "vmx":
 							if (state.VmxMode != VmxMode.None) {
