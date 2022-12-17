@@ -3927,7 +3927,7 @@ unsafe fn push_op_accesses(lua: &Lua<'_>, info: &iced_x86::InstructionInfo, inst
 
 lua_methods! {
 	unsafe fn instruction_tostring(lua, instr: &Instruction) -> 1 {
-		unsafe { lua.push(&instr.inner.to_string()) }
+		unsafe { lua.push(instr.inner.to_string()) }
 	}
 
 	unsafe fn instruction_eq(lua, instr: &Instruction, instr2: &Instruction) -> 1 {

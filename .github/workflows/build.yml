@@ -234,3 +234,43 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./build/build-python --no-set-rustflags --python python
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-lua:
+    name: Lua (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - name: Install StyLua
+        shell: bash
+        run: |
+          wget https://github.com/JohnnyMorganz/StyLua/releases/download/v0.15.3/stylua-linux-x86_64.zip
+          mkdir /tmp/bin
+          unzip stylua-*.zip -d /tmp/bin
+
+      - name: Install Lua and luarocks
+        shell: bash
+        run: |
+          sudo apt-get install -y lua5.1 lua5.2 lua5.3 lua5.4 liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev luarocks
+          sudo luarocks --lua-version 5.1 install busted
+          sudo luarocks --lua-version 5.2 install busted
+          sudo luarocks --lua-version 5.3 install busted
+          sudo luarocks --lua-version 5.4 install busted
+
+      - name: Build and test
+        shell: bash
+        run: |
+          export PATH=$PATH:/tmp/bin
+          ./build/build-lua --no-set-rustflags --quick-check

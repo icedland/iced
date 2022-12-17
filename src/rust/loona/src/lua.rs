@@ -340,6 +340,7 @@ impl<'lua> Lua<'lua> {
 		}
 		#[cfg(any(feature = "lua5_3", feature = "lua5_4"))]
 		#[allow(trivial_numeric_casts)]
+		#[allow(clippy::unnecessary_cast)]
 		unsafe {
 			self.to_integer_x(idx, isnum) as i64
 		}
