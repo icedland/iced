@@ -1,4 +1,4 @@
-local modver = "1.17.0"
+local modver = "1.18.0"
 local specrev = "-1"
 local libname = "iced_x86"
 
