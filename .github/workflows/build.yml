@@ -234,3 +234,33 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./build/build-python --no-set-rustflags --python python
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-lua:
+    name: Lua (${{matrix.os}})
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - name: Install StyLua
+        shell: bash
+        run: cargo install stylua
+
+      - name: Install luarocks
+        shell: bash
+        run: apt-get install luarocks
+
+      - name: Build and test
+        shell: bash
+        run: ./build/build-lua --no-set-rustflags --quick-check
