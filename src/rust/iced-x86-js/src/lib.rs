@@ -25,6 +25,7 @@
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::collapsible_else_if)]
 #![allow(clippy::collapsible_if)]
+#![allow(clippy::drop_non_drop)] // wasm-bindgen warning
 #![allow(clippy::field_reassign_with_default)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
