@@ -404,14 +404,15 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.10'
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v2.2.0
-        with:
-          python-version: '3.11'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.11'
-          bash build/ci-py-build-wheels.sh
+      #TODO: enable when it supports 3.11, see all releases: curl -L https://repo.anaconda.com/pkgs/main/osx-64
+      # - uses: conda-incubator/setup-miniconda@v2.2.0
+      #   with:
+      #     python-version: '3.11'
+      # - name: Build and test the wheel
+      #   shell: bash -le {0}
+      #   run: |
+      #     python --version 2>&1 | grep 'Python 3\.11'
+      #     bash build/ci-py-build-wheels.sh
 
       - uses: actions/upload-artifact@v3
         with:
