@@ -91,9 +91,8 @@ fn test_relockind_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = RelocKind;
 	impl Serialize for EnumType {
@@ -102,7 +101,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("RelocKind", *self as u32, GEN_DEBUG_RELOC_KIND[*self as usize])
+			serializer.serialize_unit()
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -111,64 +110,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid RelocKind variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_RELOC_KIND.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["RelocKind enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -180,18 +121,14 @@ const _: () = {
 					formatter.write_str("enum RelocKind")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_unit<E>(self) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
-					}
+					Ok(RelocKind::Offset64)
 				}
 			}
-			deserializer.deserialize_enum("RelocKind", &GEN_DEBUG_RELOC_KIND[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_unit(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };

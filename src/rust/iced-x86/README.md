@@ -56,7 +56,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `code_asm`: Enables [`CodeAssembler`] to allow easy creation of instructions, eg. `a.xor(ecx, dword_ptr(edx))` instead of using the more verbose `Instruction::with*()` methods.
 - `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
 - `std`: (👍 Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate and the `hashbrown` crate.
+- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate.
 - `mvex`: Enables `MVEX` instructions (Knights Corner). You must also pass in `DecoderOptions::KNC` to the [`Decoder`] constructor.
 - `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
