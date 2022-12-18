@@ -100,9 +100,8 @@ fn test_numberbase_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = NumberBase;
 	impl Serialize for EnumType {
@@ -111,7 +110,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("NumberBase", *self as u32, GEN_DEBUG_NUMBER_BASE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -120,65 +119,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberBase variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_NUMBER_BASE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["NumberBase enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -190,18 +130,19 @@ const _: () = {
 					formatter.write_str("enum NumberBase")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberBase variant value"))
 				}
 			}
-			deserializer.deserialize_enum("NumberBase", &GEN_DEBUG_NUMBER_BASE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -343,9 +284,8 @@ fn test_prefixkind_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = PrefixKind;
 	impl Serialize for EnumType {
@@ -354,7 +294,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("PrefixKind", *self as u32, GEN_DEBUG_PREFIX_KIND[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -363,65 +303,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid PrefixKind variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_PREFIX_KIND.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["PrefixKind enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -433,18 +314,19 @@ const _: () = {
 					formatter.write_str("enum PrefixKind")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid PrefixKind variant value"))
 				}
 			}
-			deserializer.deserialize_enum("PrefixKind", &GEN_DEBUG_PREFIX_KIND[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -551,9 +433,8 @@ fn test_decoratorkind_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = DecoratorKind;
 	impl Serialize for EnumType {
@@ -562,7 +443,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("DecoratorKind", *self as u32, GEN_DEBUG_DECORATOR_KIND[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -571,65 +452,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid DecoratorKind variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_DECORATOR_KIND.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["DecoratorKind enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -641,18 +463,19 @@ const _: () = {
 					formatter.write_str("enum DecoratorKind")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid DecoratorKind variant value"))
 				}
 			}
-			deserializer.deserialize_enum("DecoratorKind", &GEN_DEBUG_DECORATOR_KIND[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -758,9 +581,8 @@ fn test_numberkind_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = NumberKind;
 	impl Serialize for EnumType {
@@ -769,7 +591,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("NumberKind", *self as u32, GEN_DEBUG_NUMBER_KIND[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -778,65 +600,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberKind variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_NUMBER_KIND.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["NumberKind enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -848,18 +611,19 @@ const _: () = {
 					formatter.write_str("enum NumberKind")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid NumberKind variant value"))
 				}
 			}
-			deserializer.deserialize_enum("NumberKind", &GEN_DEBUG_NUMBER_KIND[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -995,9 +759,8 @@ fn test_cc_b_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_b;
 	impl Serialize for EnumType {
@@ -1006,7 +769,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_b", *self as u32, GEN_DEBUG_CC_B[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1015,65 +778,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_b variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_B.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_b enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -1085,18 +789,19 @@ const _: () = {
 					formatter.write_str("enum CC_b")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_b variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_b", &GEN_DEBUG_CC_B[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -1194,9 +899,8 @@ fn test_cc_ae_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_ae;
 	impl Serialize for EnumType {
@@ -1205,7 +909,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_ae", *self as u32, GEN_DEBUG_CC_AE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1214,65 +918,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ae variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_AE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_ae enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -1284,18 +929,19 @@ const _: () = {
 					formatter.write_str("enum CC_ae")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ae variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_ae", &GEN_DEBUG_CC_AE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -1390,9 +1036,8 @@ fn test_cc_e_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_e;
 	impl Serialize for EnumType {
@@ -1401,7 +1046,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_e", *self as u32, GEN_DEBUG_CC_E[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1410,65 +1055,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_e variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_E.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_e enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -1480,18 +1066,19 @@ const _: () = {
 					formatter.write_str("enum CC_e")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_e variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_e", &GEN_DEBUG_CC_E[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -1586,9 +1173,8 @@ fn test_cc_ne_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_ne;
 	impl Serialize for EnumType {
@@ -1597,7 +1183,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_ne", *self as u32, GEN_DEBUG_CC_NE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1606,65 +1192,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ne variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_NE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_ne enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -1676,18 +1203,19 @@ const _: () = {
 					formatter.write_str("enum CC_ne")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ne variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_ne", &GEN_DEBUG_CC_NE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -1782,9 +1310,8 @@ fn test_cc_be_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_be;
 	impl Serialize for EnumType {
@@ -1793,7 +1320,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_be", *self as u32, GEN_DEBUG_CC_BE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1802,65 +1329,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_be variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_BE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_be enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -1872,18 +1340,19 @@ const _: () = {
 					formatter.write_str("enum CC_be")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_be variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_be", &GEN_DEBUG_CC_BE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -1978,9 +1447,8 @@ fn test_cc_a_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_a;
 	impl Serialize for EnumType {
@@ -1989,7 +1457,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_a", *self as u32, GEN_DEBUG_CC_A[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -1998,65 +1466,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_a variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_A.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_a enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -2068,18 +1477,19 @@ const _: () = {
 					formatter.write_str("enum CC_a")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_a variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_a", &GEN_DEBUG_CC_A[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -2174,9 +1584,8 @@ fn test_cc_p_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_p;
 	impl Serialize for EnumType {
@@ -2185,7 +1594,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_p", *self as u32, GEN_DEBUG_CC_P[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -2194,65 +1603,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_p variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_P.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_p enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -2264,18 +1614,19 @@ const _: () = {
 					formatter.write_str("enum CC_p")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_p variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_p", &GEN_DEBUG_CC_P[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -2370,9 +1721,8 @@ fn test_cc_np_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_np;
 	impl Serialize for EnumType {
@@ -2381,7 +1731,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_np", *self as u32, GEN_DEBUG_CC_NP[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -2390,65 +1740,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_np variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_NP.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_np enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -2460,18 +1751,19 @@ const _: () = {
 					formatter.write_str("enum CC_np")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_np variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_np", &GEN_DEBUG_CC_NP[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -2566,9 +1858,8 @@ fn test_cc_l_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_l;
 	impl Serialize for EnumType {
@@ -2577,7 +1868,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_l", *self as u32, GEN_DEBUG_CC_L[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -2586,65 +1877,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_l variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_L.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_l enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -2656,18 +1888,19 @@ const _: () = {
 					formatter.write_str("enum CC_l")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_l variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_l", &GEN_DEBUG_CC_L[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -2762,9 +1995,8 @@ fn test_cc_ge_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_ge;
 	impl Serialize for EnumType {
@@ -2773,7 +2005,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_ge", *self as u32, GEN_DEBUG_CC_GE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -2782,65 +2014,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ge variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_GE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_ge enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -2852,18 +2025,19 @@ const _: () = {
 					formatter.write_str("enum CC_ge")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_ge variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_ge", &GEN_DEBUG_CC_GE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -2958,9 +2132,8 @@ fn test_cc_le_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_le;
 	impl Serialize for EnumType {
@@ -2969,7 +2142,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_le", *self as u32, GEN_DEBUG_CC_LE[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -2978,65 +2151,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_le variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_LE.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_le enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -3048,18 +2162,19 @@ const _: () = {
 					formatter.write_str("enum CC_le")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_le variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_le", &GEN_DEBUG_CC_LE[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -3154,9 +2269,8 @@ fn test_cc_g_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = CC_g;
 	impl Serialize for EnumType {
@@ -3165,7 +2279,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("CC_g", *self as u32, GEN_DEBUG_CC_G[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -3174,65 +2288,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_g variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_CC_G.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["CC_g enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -3244,18 +2299,19 @@ const _: () = {
 					formatter.write_str("enum CC_g")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid CC_g variant value"))
 				}
 			}
-			deserializer.deserialize_enum("CC_g", &GEN_DEBUG_CC_G[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };

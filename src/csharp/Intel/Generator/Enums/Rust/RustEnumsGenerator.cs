@@ -408,28 +408,13 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine("#[cfg(feature = \"serde\")]");
 				if (feature is not null)
 					writer.WriteLine(feature);
-				bool useHashLookup = enumType.Values.Length > 50;
 				writer.WriteLine("#[rustfmt::skip]");
 				writer.WriteLine("#[allow(clippy::zero_sized_map_values)]");
 				writer.WriteLine("const _: () = {");
 				using (writer.Indent()) {
-					writer.WriteLine("use alloc::string::String;");
 					writer.WriteLine("use core::marker::PhantomData;");
-					if (useHashLookup) {
-						writer.WriteLine("#[cfg(not(feature = \"std\"))]");
-						writer.WriteLine("use hashbrown::HashMap;");
-						writer.WriteLine("use lazy_static::lazy_static;");
-					}
-					writer.WriteLine("use serde::de::{self, VariantAccess};");
+					writer.WriteLine("use serde::de;");
 					writer.WriteLine("use serde::{Deserialize, Deserializer, Serialize, Serializer};");
-					if (useHashLookup) {
-						writer.WriteLine("#[cfg(feature = \"std\")]");
-						writer.WriteLine("use std::collections::HashMap;");
-						writer.WriteLine("lazy_static! {");
-						using (writer.Indent())
-							writer.WriteLine($"static ref NAME_TO_ENUM: HashMap<&'static [u8], EnumType> = {arrayName}.iter().map(|&s| s.as_bytes()).zip(EnumType::values()).collect();");
-						writer.WriteLine("}");
-					}
 					writer.WriteLine($"type EnumType = {enumTypeName};");
 					writer.WriteLine("impl Serialize for EnumType {");
 					using (writer.Indent()) {
@@ -439,8 +424,12 @@ namespace Generator.Enums.Rust {
 						using (writer.Indent())
 							writer.WriteLine("S: Serializer,");
 						writer.WriteLine("{");
-						using (writer.Indent())
-							writer.WriteLine($"serializer.serialize_unit_variant(\"{enumTypeName}\", *self as u32, {arrayName}[*self as usize])");
+						using (writer.Indent()) {
+							if (enumType.Values.Length == 1)
+								writer.WriteLine("serializer.serialize_unit()");
+							else
+								writer.WriteLine($"serializer.serialize_{enumUnderlyingType}(*self as {enumUnderlyingType})");
+						}
 						writer.WriteLine("}");
 					}
 					writer.WriteLine("}");
@@ -453,102 +442,6 @@ namespace Generator.Enums.Rust {
 							writer.WriteLine("D: Deserializer<'de>,");
 						writer.WriteLine("{");
 						using (writer.Indent()) {
-							if (enumType.Values.Length > 1)
-								writer.WriteLine("#[repr(transparent)]");
-							writer.WriteLine("struct EnumValue(EnumType);");
-							writer.WriteLine("struct EnumValueVisitor;");
-							writer.WriteLine("impl<'de> de::Visitor<'de> for EnumValueVisitor {");
-							using (writer.Indent()) {
-								writer.WriteLine("type Value = EnumValue;");
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {");
-								using (writer.Indent())
-									writer.WriteLine("formatter.write_str(\"variant identifier\")");
-								writer.WriteLine("}");
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("E: de::Error,");
-								writer.WriteLine("{");
-								using (writer.Indent()) {
-									writer.WriteLine("if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {");
-									using (writer.Indent()) {
-										writer.WriteLine("if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {");
-										using (writer.Indent())
-											writer.WriteLine("return Ok(EnumValue(value));");
-										writer.WriteLine("}");
-									}
-									writer.WriteLine("}");
-									writer.WriteLine($"Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &\"a valid {enumTypeName} variant value\"))");
-								}
-								writer.WriteLine("}");
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("E: de::Error,");
-								writer.WriteLine("{");
-								using (writer.Indent())
-									writer.WriteLine("EnumValueVisitor::deserialize_name(v.as_bytes())");
-								writer.WriteLine("}");
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("E: de::Error,");
-								writer.WriteLine("{");
-								using (writer.Indent())
-									writer.WriteLine("EnumValueVisitor::deserialize_name(v)");
-								writer.WriteLine("}");
-							}
-							writer.WriteLine("}");
-							writer.WriteLine("impl EnumValueVisitor {");
-							using (writer.Indent()) {
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("E: de::Error,");
-								writer.WriteLine("{");
-								using (writer.Indent()) {
-									if (useHashLookup) {
-										writer.WriteLine("if let Some(&value) = NAME_TO_ENUM.get(v) {");
-										using (writer.Indent())
-											writer.WriteLine("Ok(EnumValue(value))");
-										writer.WriteLine("} else {");
-										using (writer.Indent())
-											writer.WriteLine($"Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &[\"{enumTypeName} enum variants\"][..]))");
-										writer.WriteLine("}");
-									}
-									else {
-										writer.WriteLine($"for (&name, value) in {arrayName}.iter().zip(EnumType::values()) {{");
-										using (writer.Indent()) {
-											writer.WriteLine("if name.as_bytes() == v {");
-											using (writer.Indent())
-												writer.WriteLine("return Ok(EnumValue(value));");
-											writer.WriteLine("}");
-										}
-										writer.WriteLine("}");
-										writer.WriteLine($"Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &[\"{enumTypeName} enum variants\"][..]))");
-									}
-								}
-								writer.WriteLine("}");
-							}
-							writer.WriteLine("}");
-							writer.WriteLine("impl<'de> Deserialize<'de> for EnumValue {");
-							using (writer.Indent()) {
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("D: Deserializer<'de>,");
-								writer.WriteLine("{");
-								using (writer.Indent())
-									writer.WriteLine("deserializer.deserialize_identifier(EnumValueVisitor)");
-								writer.WriteLine("}");
-							}
-							writer.WriteLine("}");
 							writer.WriteLine("struct Visitor<'de> {");
 							using (writer.Indent()) {
 								writer.WriteLine("marker: PhantomData<EnumType>,");
@@ -563,25 +456,44 @@ namespace Generator.Enums.Rust {
 								using (writer.Indent())
 									writer.WriteLine($"formatter.write_str(\"enum {enumTypeName}\")");
 								writer.WriteLine("}");
-								writer.WriteLine("#[inline]");
-								writer.WriteLine("fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>");
-								writer.WriteLine("where");
-								using (writer.Indent())
-									writer.WriteLine("A: de::EnumAccess<'de>,");
-								writer.WriteLine("{");
-								using (writer.Indent()) {
-									writer.WriteLine("let (field, variant): (EnumValue, _) = data.variant()?;");
-									writer.WriteLine("match variant.unit_variant() {");
+								if (enumType.Values.Length == 1) {
+									writer.WriteLine("#[inline]");
+									writer.WriteLine("fn visit_unit<E>(self) -> Result<Self::Value, E>");
+									writer.WriteLine("where");
+									using (writer.Indent())
+										writer.WriteLine("E: de::Error,");
+									writer.WriteLine("{");
 									using (writer.Indent()) {
-										writer.WriteLine("Ok(_) => Ok(field.0),");
-										writer.WriteLine("Err(err) => Err(err),");
+										writer.WriteLine($"Ok({idConverter.ToDeclTypeAndValue(enumType.Values[0])})");
 									}
 									writer.WriteLine("}");
 								}
-								writer.WriteLine("}");
+								else {
+									writer.WriteLine("#[inline]");
+									writer.WriteLine("fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>");
+									writer.WriteLine("where");
+									using (writer.Indent())
+										writer.WriteLine("E: de::Error,");
+									writer.WriteLine("{");
+									using (writer.Indent()) {
+										writer.WriteLine("if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {");
+										using (writer.Indent()) {
+											writer.WriteLine("if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {");
+											using (writer.Indent())
+												writer.WriteLine("return Ok(value);");
+											writer.WriteLine("}");
+										}
+										writer.WriteLine("}");
+										writer.WriteLine($"Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &\"a valid {enumTypeName} variant value\"))");
+									}
+									writer.WriteLine("}");
+								}
 							}
 							writer.WriteLine("}");
-							writer.WriteLine($"deserializer.deserialize_enum(\"{enumTypeName}\", &{arrayName}[..], Visitor {{ marker: PhantomData::<EnumType>, lifetime: PhantomData }})");
+							if (enumType.Values.Length == 1)
+								writer.WriteLine($"deserializer.deserialize_unit(Visitor {{ marker: PhantomData::<EnumType>, lifetime: PhantomData }})");
+							else
+								writer.WriteLine($"deserializer.deserialize_{enumUnderlyingType}(Visitor {{ marker: PhantomData::<EnumType>, lifetime: PhantomData }})");
 						}
 						writer.WriteLine("}");
 					}

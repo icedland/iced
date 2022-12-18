@@ -3857,7 +3857,7 @@ const _: () = {
 	const NUM_FIELDS_BINARY: usize = 19;
 
 	#[inline]
-	fn is_human_readable(value: bool) -> bool {
+	const fn is_human_readable(value: bool) -> bool {
 		// This feature is used to test the other code paths
 		if cfg!(feature = "__internal_flip") {
 			value ^ true

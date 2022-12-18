@@ -153,9 +153,8 @@ fn test_formattertextkind_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = FormatterTextKind;
 	impl Serialize for EnumType {
@@ -164,7 +163,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("FormatterTextKind", *self as u32, GEN_DEBUG_FORMATTER_TEXT_KIND[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -173,65 +172,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid FormatterTextKind variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_FORMATTER_TEXT_KIND.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["FormatterTextKind enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -243,18 +183,19 @@ const _: () = {
 					formatter.write_str("enum FormatterTextKind")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid FormatterTextKind variant value"))
 				}
 			}
-			deserializer.deserialize_enum("FormatterTextKind", &GEN_DEBUG_FORMATTER_TEXT_KIND[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
@@ -443,9 +384,8 @@ fn test_memorysizeoptions_try_from_usize() {
 #[rustfmt::skip]
 #[allow(clippy::zero_sized_map_values)]
 const _: () = {
-	use alloc::string::String;
 	use core::marker::PhantomData;
-	use serde::de::{self, VariantAccess};
+	use serde::de;
 	use serde::{Deserialize, Deserializer, Serialize, Serializer};
 	type EnumType = MemorySizeOptions;
 	impl Serialize for EnumType {
@@ -454,7 +394,7 @@ const _: () = {
 		where
 			S: Serializer,
 		{
-			serializer.serialize_unit_variant("MemorySizeOptions", *self as u32, GEN_DEBUG_MEMORY_SIZE_OPTIONS[*self as usize])
+			serializer.serialize_u8(*self as u8)
 		}
 	}
 	impl<'de> Deserialize<'de> for EnumType {
@@ -463,65 +403,6 @@ const _: () = {
 		where
 			D: Deserializer<'de>,
 		{
-			#[repr(transparent)]
-			struct EnumValue(EnumType);
-			struct EnumValueVisitor;
-			impl<'de> de::Visitor<'de> for EnumValueVisitor {
-				type Value = EnumValue;
-				#[inline]
-				fn expecting(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
-					formatter.write_str("variant identifier")
-				}
-				#[inline]
-				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
-						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid MemorySizeOptions variant value"))
-				}
-				#[inline]
-				fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v.as_bytes())
-				}
-				#[inline]
-				fn visit_bytes<E>(self, v: &[u8]) -> Result<Self::Value, E>
-				where
-					E: de::Error,
-				{
-					EnumValueVisitor::deserialize_name(v)
-				}
-			}
-			impl EnumValueVisitor {
-				#[inline]
-				fn deserialize_name<E>(v: &[u8]) -> Result<EnumValue, E>
-				where
-					E: de::Error,
-				{
-					for (&name, value) in GEN_DEBUG_MEMORY_SIZE_OPTIONS.iter().zip(EnumType::values()) {
-						if name.as_bytes() == v {
-							return Ok(EnumValue(value));
-						}
-					}
-					Err(de::Error::unknown_variant(&String::from_utf8_lossy(v), &["MemorySizeOptions enum variants"][..]))
-				}
-			}
-			impl<'de> Deserialize<'de> for EnumValue {
-				#[inline]
-				fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-				where
-					D: Deserializer<'de>,
-				{
-					deserializer.deserialize_identifier(EnumValueVisitor)
-				}
-			}
 			struct Visitor<'de> {
 				marker: PhantomData<EnumType>,
 				lifetime: PhantomData<&'de ()>,
@@ -533,18 +414,19 @@ const _: () = {
 					formatter.write_str("enum MemorySizeOptions")
 				}
 				#[inline]
-				fn visit_enum<A>(self, data: A) -> Result<Self::Value, A::Error>
+				fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
 				where
-					A: de::EnumAccess<'de>,
+					E: de::Error,
 				{
-					let (field, variant): (EnumValue, _) = data.variant()?;
-					match variant.unit_variant() {
-						Ok(_) => Ok(field.0),
-						Err(err) => Err(err),
+					if let Ok(v) = <usize as TryFrom<_>>::try_from(v) {
+						if let Ok(value) = <EnumType as TryFrom<_>>::try_from(v) {
+							return Ok(value);
+						}
 					}
+					Err(de::Error::invalid_value(de::Unexpected::Unsigned(v), &"a valid MemorySizeOptions variant value"))
 				}
 			}
-			deserializer.deserialize_enum("MemorySizeOptions", &GEN_DEBUG_MEMORY_SIZE_OPTIONS[..], Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
+			deserializer.deserialize_u8(Visitor { marker: PhantomData::<EnumType>, lifetime: PhantomData })
 		}
 	}
 };
