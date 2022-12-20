@@ -4547,6 +4547,22 @@ impl CodeAsmCmpbxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAss
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmpcxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpcxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpcxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpcxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmpeqpd<AsmRegisterXmm, AsmRegisterXmm> for CodeAssembler {
 	#[inline]
 	fn cmpeqpd(&mut self, op0: AsmRegisterXmm, op1: AsmRegisterXmm) -> Result<(), IcedError> {
@@ -4771,6 +4787,38 @@ impl CodeAsmCmplxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAss
 }
 
 #[rustfmt::skip]
+impl CodeAsmCmpnaexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnaexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnaexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnaexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnaxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpnaxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpnaxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpnaxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpbexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmCmpnbexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
 	#[inline]
 	fn cmpnbexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
@@ -4798,6 +4846,22 @@ impl CodeAsmCmpnbxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAs
 impl CodeAsmCmpnbxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
 	#[inline]
 	fn cmpnbxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpncxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpncxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnbxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpncxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpncxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with3(Code::VEX_Cmpnbxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
@@ -4863,6 +4927,38 @@ impl CodeAsmCmpneqss<AsmRegisterXmm, AsmMemoryOperand> for CodeAssembler {
 	#[inline]
 	fn cmpneqss(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand) -> Result<(), IcedError> {
 		<Self as CodeAsmCmpss<AsmRegisterXmm, AsmMemoryOperand, i32>>::cmpss(self, op0, op1, 4)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpngexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpngexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpngexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpngexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpngxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmpngxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplexadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmpngxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmpngxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmplexadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 
@@ -5199,6 +5295,38 @@ impl CodeAsmCmppd<AsmRegisterXmm, AsmMemoryOperand, u32> for CodeAssembler {
 	#[inline]
 	fn cmppd(&mut self, op0: AsmRegisterXmm, op1: AsmMemoryOperand, op2: u32) -> Result<(), IcedError> {
 		self.add_instr(Instruction::with3(Code::Cmppd_xmm_xmmm128_imm8, op0.register(), op1.to_memory_operand(self.bitness()), op2)?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppexadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmppexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmppxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppexadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmppexadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmppxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppoxadd<AsmMemoryOperand, AsmRegister32, AsmRegister32> for CodeAssembler {
+	#[inline]
+	fn cmppoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister32, op2: AsmRegister32) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnpxadd_m32_r32_r32, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmCmppoxadd<AsmMemoryOperand, AsmRegister64, AsmRegister64> for CodeAssembler {
+	#[inline]
+	fn cmppoxadd(&mut self, op0: AsmMemoryOperand, op1: AsmRegister64, op2: AsmRegister64) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Cmpnpxadd_m64_r64_r64, op0.to_memory_operand(self.bitness()), op1.register(), op2.register())?)
 	}
 }
 

@@ -2968,6 +2968,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void cmpcxadd_m_r32_r32() {
+			TestAssembler(c => c.cmpcxadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpbxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpcxadd_m_r64_r64() {
+			TestAssembler(c => c.cmpcxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpbxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
 		public void cmpeqpd_xmm_xmm() {
 			TestAssembler(c => c.cmpeqpd(xmm2, xmm3), Instruction.Create(Code.Cmppd_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 0));
 		}
@@ -3108,6 +3118,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void cmpnaexadd_m_r32_r32() {
+			TestAssembler(c => c.cmpnaexadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpbxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpnaexadd_m_r64_r64() {
+			TestAssembler(c => c.cmpnaexadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpbxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
+		public void cmpnaxadd_m_r32_r32() {
+			TestAssembler(c => c.cmpnaxadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpbexadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpnaxadd_m_r64_r64() {
+			TestAssembler(c => c.cmpnaxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpbexadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
 		public void cmpnbexadd_m_r32_r32() {
 			TestAssembler(c => c.cmpnbexadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpnbexadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
 		}
@@ -3125,6 +3155,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void cmpnbxadd_m_r64_r64() {
 			TestAssembler(c => c.cmpnbxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpnbxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
+		public void cmpncxadd_m_r32_r32() {
+			TestAssembler(c => c.cmpncxadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpnbxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpncxadd_m_r64_r64() {
+			TestAssembler(c => c.cmpncxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpnbxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
 		}
 
 		[Fact]
@@ -3165,6 +3205,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void cmpneqss_xmm_m() {
 			TestAssembler(c => c.cmpneqss(xmm2, __xmmword_ptr[rcx]), Instruction.Create(Code.Cmpss_xmm_xmmm32_imm8, Register.XMM2, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), 4));
+		}
+
+		[Fact]
+		public void cmpngexadd_m_r32_r32() {
+			TestAssembler(c => c.cmpngexadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmplxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpngexadd_m_r64_r64() {
+			TestAssembler(c => c.cmpngexadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmplxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
+		public void cmpngxadd_m_r32_r32() {
+			TestAssembler(c => c.cmpngxadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmplexadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmpngxadd_m_r64_r64() {
+			TestAssembler(c => c.cmpngxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmplexadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
 		}
 
 		[Fact]
@@ -3375,6 +3435,26 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void cmppd_xmm_m_u() {
 			TestAssembler(c => c.cmppd(xmm2, __xmmword_ptr[rcx], (byte)0x7F), Instruction.Create(Code.Cmppd_xmm_xmmm128_imm8, Register.XMM2, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+		}
+
+		[Fact]
+		public void cmppexadd_m_r32_r32() {
+			TestAssembler(c => c.cmppexadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmppxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmppexadd_m_r64_r64() {
+			TestAssembler(c => c.cmppexadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmppxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
+		}
+
+		[Fact]
+		public void cmppoxadd_m_r32_r32() {
+			TestAssembler(c => c.cmppoxadd(__[rcx], ebx, esp), Instruction.Create(Code.VEX_Cmpnpxadd_m32_r32_r32, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.EBX, Register.ESP));
+		}
+
+		[Fact]
+		public void cmppoxadd_m_r64_r64() {
+			TestAssembler(c => c.cmppoxadd(__[rcx], rbx, rsp), Instruction.Create(Code.VEX_Cmpnpxadd_m64_r64_r64, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), Register.RBX, Register.RSP));
 		}
 
 		[Fact]

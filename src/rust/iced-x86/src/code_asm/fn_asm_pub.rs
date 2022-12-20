@@ -2902,6 +2902,30 @@ impl CodeAssembler {
 		<Self as CodeAsmCmpbxadd<T, U, V>>::cmpbxadd(self, op0, op1, op2)
 	}
 
+	/// `CMPCXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPBXADD m32, r32, r32` | `VEX.128.66.0F38.W0 E2 !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPBXADD m64, r64, r64` | `VEX.128.66.0F38.W1 E2 !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpcxadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpcxadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpcxadd<T, U, V>>::cmpcxadd(self, op0, op1, op2)
+	}
+
 	/// `CMPEQPD` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -3214,6 +3238,54 @@ impl CodeAssembler {
 		<Self as CodeAsmCmplxadd<T, U, V>>::cmplxadd(self, op0, op1, op2)
 	}
 
+	/// `CMPNAEXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPBXADD m32, r32, r32` | `VEX.128.66.0F38.W0 E2 !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPBXADD m64, r64, r64` | `VEX.128.66.0F38.W1 E2 !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpnaexadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpnaexadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpnaexadd<T, U, V>>::cmpnaexadd(self, op0, op1, op2)
+	}
+
+	/// `CMPNAXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPBEXADD m32, r32, r32` | `VEX.128.66.0F38.W0 E6 !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPBEXADD m64, r64, r64` | `VEX.128.66.0F38.W1 E6 !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpnaxadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpnaxadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpnaxadd<T, U, V>>::cmpnaxadd(self, op0, op1, op2)
+	}
+
 	/// `CMPNBEXADD` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -3260,6 +3332,30 @@ impl CodeAssembler {
 		Self: CodeAsmCmpnbxadd<T, U, V>,
 	{
 		<Self as CodeAsmCmpnbxadd<T, U, V>>::cmpnbxadd(self, op0, op1, op2)
+	}
+
+	/// `CMPNCXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPNBXADD m32, r32, r32` | `VEX.128.66.0F38.W0 E3 !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPNBXADD m64, r64, r64` | `VEX.128.66.0F38.W1 E3 !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpncxadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpncxadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpncxadd<T, U, V>>::cmpncxadd(self, op0, op1, op2)
 	}
 
 	/// `CMPNEQPD` instruction
@@ -3348,6 +3444,54 @@ impl CodeAssembler {
 		Self: CodeAsmCmpneqss<T, U>,
 	{
 		<Self as CodeAsmCmpneqss<T, U>>::cmpneqss(self, op0, op1)
+	}
+
+	/// `CMPNGEXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPLXADD m32, r32, r32` | `VEX.128.66.0F38.W0 EC !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPLXADD m64, r64, r64` | `VEX.128.66.0F38.W1 EC !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpngexadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpngexadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpngexadd<T, U, V>>::cmpngexadd(self, op0, op1, op2)
+	}
+
+	/// `CMPNGXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPLEXADD m32, r32, r32` | `VEX.128.66.0F38.W0 EE !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPLEXADD m64, r64, r64` | `VEX.128.66.0F38.W1 EE !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmpngxadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmpngxadd<T, U, V>,
+	{
+		<Self as CodeAsmCmpngxadd<T, U, V>>::cmpngxadd(self, op0, op1, op2)
 	}
 
 	/// `CMPNLEPD` instruction
@@ -3803,6 +3947,54 @@ impl CodeAssembler {
 		Self: CodeAsmCmppd<T, U, V>,
 	{
 		<Self as CodeAsmCmppd<T, U, V>>::cmppd(self, op0, op1, op2)
+	}
+
+	/// `CMPPEXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPPXADD m32, r32, r32` | `VEX.128.66.0F38.W0 EA !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPPXADD m64, r64, r64` | `VEX.128.66.0F38.W1 EA !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmppexadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmppexadd<T, U, V>,
+	{
+		<Self as CodeAsmCmppexadd<T, U, V>>::cmppexadd(self, op0, op1, op2)
+	}
+
+	/// `CMPPOXADD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `CMPNPXADD m32, r32, r32` | `VEX.128.66.0F38.W0 EB !(11):rrr:bbb` | `CMPCCXADD`
+	/// `CMPNPXADD m64, r64, r64` | `VEX.128.66.0F38.W1 EB !(11):rrr:bbb` | `CMPCCXADD`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn cmppoxadd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmCmppoxadd<T, U, V>,
+	{
+		<Self as CodeAsmCmppoxadd<T, U, V>>::cmppoxadd(self, op0, op1, op2)
 	}
 
 	/// `CMPPS` instruction
