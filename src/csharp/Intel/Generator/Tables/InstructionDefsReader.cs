@@ -778,7 +778,14 @@ namespace Generator.Tables {
 								Error(lineIndex, $"Duplicate {newKey}");
 								return false;
 							}
-							switch (newValue) {
+							var ccValues = newValue.Split(';');
+							if (ccValues.Length != 3) {
+								Error(lineIndex, $"Expected 2 semicolons: `{newValue}`");
+								return false;
+							}
+							state.MnemonicCcPrefix = ccValues[0].ToLowerInvariant();
+							state.MnemonicCcSuffix = ccValues[2].ToLowerInvariant();
+							switch (ccValues[1]) {
 							case "o": state.ConditionCode = ConditionCode.o; break;
 							case "no": state.ConditionCode = ConditionCode.no; break;
 							case "b": state.ConditionCode = ConditionCode.b; break;
@@ -1698,25 +1705,29 @@ namespace Generator.Tables {
 				return false;
 			}
 
-			var fmtMnemonic = state.MnemonicStr.ToLowerInvariant();
+			var fmtMnemonic = state.MnemonicStr;
+			// Ignore JKccD, no-one cares about KNC instructions
+			if (state.ConditionCode != ConditionCode.None && (CpuidFeature)state.Cpuid[0].Value != CpuidFeature.KNC)
+				fmtMnemonic = state.MnemonicCcPrefix + GetConditionCodeStr(state.ConditionCode) + state.MnemonicCcSuffix;
+			fmtMnemonic = fmtMnemonic.ToLowerInvariant();
 			PseudoOpsKind? pseudoOp = state.PseudoOpsKind is null ? null : (PseudoOpsKind)state.PseudoOpsKind.Value;
-			if (!TryCreateFastDef(state.Code, fmtMnemonic, pseudoOp, state.FastInfo ?? new FastState(), out var fastDef, out error)) {
+			if (!TryCreateFastDef(state.Code, fmtMnemonic, pseudoOp, state.FastInfo ?? new(), out var fastDef, out error)) {
 				Error(state.LineIndex, "(fast) " + error);
 				return false;
 			}
-			if (!TryCreateGasDef(state, state.Code, fmtMnemonic, pseudoOp, state.Gas ?? new GasState(), out var gasDef, out error)) {
+			if (!TryCreateGasDef(state, state.Code, fmtMnemonic, pseudoOp, state.Gas ?? new(), out var gasDef, out error)) {
 				Error(state.LineIndex, "(gas) " + error);
 				return false;
 			}
-			if (!TryCreateIntelDef(state, state.Code, fmtMnemonic, pseudoOp, state.Intel ?? new IntelState(), out var intelDef, out error)) {
+			if (!TryCreateIntelDef(state, state.Code, fmtMnemonic, pseudoOp, state.Intel ?? new(), out var intelDef, out error)) {
 				Error(state.LineIndex, "(intel) " + error);
 				return false;
 			}
-			if (!TryCreateMasmDef(state, state.Code, fmtMnemonic, pseudoOp, state.Masm ?? new MasmState(), out var masmDef, out error)) {
+			if (!TryCreateMasmDef(state, state.Code, fmtMnemonic, pseudoOp, state.Masm ?? new(), out var masmDef, out error)) {
 				Error(state.LineIndex, "(masm) " + error);
 				return false;
 			}
-			if (!TryCreateNasmDef(state, state.Code, fmtMnemonic, pseudoOp, state.Nasm ?? new NasmState(), out var nasmDef, out error)) {
+			if (!TryCreateNasmDef(state, state.Code, fmtMnemonic, pseudoOp, state.Nasm ?? new(), out var nasmDef, out error)) {
 				Error(state.LineIndex, "(nasm) " + error);
 				return false;
 			}
@@ -1741,7 +1752,8 @@ namespace Generator.Tables {
 				state.OpCode.OpCode,
 				state.OpCode.OpCodeLength, state.OpCode.GroupIndex, state.OpCode.RmGroupIndex,
 				state.OpCode.OperandSize, state.OpCode.AddressSize, (TupleType)state.TupleType.Value, state.OpKinds,
-				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.BranchKind, state.StackInfo, state.FpuStackIncrement,
+				pseudoOp, state.Encoding, state.Cflow, state.ConditionCode, state.MnemonicCcPrefix, state.MnemonicCcSuffix,
+				state.BranchKind, state.StackInfo, state.FpuStackIncrement,
 				state.RflagsRead, state.RflagsUndefined, state.RflagsWritten, state.RflagsCleared, state.RflagsSet,
 				state.Cpuid, cpuidFeatureStrings, state.OpAccess,
 				fastDef, gasDef, intelDef, masmDef, nasmDef,
@@ -1814,37 +1826,62 @@ namespace Generator.Tables {
 			return new OrEnumValue(type, values.ToArray());
 		}
 
+		static string GetConditionCodeStr(ConditionCode cc) =>
+			cc switch {
+				ConditionCode.None  => throw new InvalidOperationException(),
+				ConditionCode.o => "o",
+				ConditionCode.no => "no",
+				ConditionCode.b => "b",
+				ConditionCode.ae => "ae",
+				ConditionCode.e => "e",
+				ConditionCode.ne => "ne",
+				ConditionCode.be => "be",
+				ConditionCode.a => "a",
+				ConditionCode.s => "s",
+				ConditionCode.ns => "ns",
+				ConditionCode.p => "p",
+				ConditionCode.np => "np",
+				ConditionCode.l => "l",
+				ConditionCode.ge => "ge",
+				ConditionCode.le => "le",
+				ConditionCode.g => "g",
+				_ => throw new InvalidOperationException(),
+			};
+
 		// The order of strings must be the same as the CC_xxx enums, eg. CC_b, etc, see CC.cs.
 		// The index into the return array is the low 4 bits of the opcode.
-		static string[][] CreateOtherCCMnemonics(string prefix) =>
+		static string[][] CreateOtherCCMnemonics(string prefix, string suffix = "") =>
 			new string[][] {
-				Array.Empty<string>(),
-				Array.Empty<string>(),
-				new[] { prefix + "c", prefix + "nae" },
-				new[] { prefix + "nb", prefix + "nc" },
-				new[] { prefix + "z" },
-				new[] { prefix + "nz" },
-				new[] { prefix + "na" },
-				new[] { prefix + "nbe" },
-				Array.Empty<string>(),
-				Array.Empty<string>(),
-				new[] { prefix + "pe" },
-				new[] { prefix + "po" },
-				new[] { prefix + "nge" },
-				new[] { prefix + "nl" },
-				new[] { prefix + "ng" },
-				new[] { prefix + "nle" },
+				Array.Empty<string>(), // o
+				Array.Empty<string>(), // no
+				new[] { prefix + "c" + suffix, prefix + "nae" + suffix },
+				new[] { prefix + "nb" + suffix, prefix + "nc" + suffix },
+				new[] { prefix + "z" + suffix },
+				new[] { prefix + "nz" + suffix },
+				new[] { prefix + "na" + suffix },
+				new[] { prefix + "nbe" + suffix },
+				Array.Empty<string>(), // s
+				Array.Empty<string>(), // ns
+				new[] { prefix + "pe" + suffix },
+				new[] { prefix + "po" + suffix },
+				new[] { prefix + "nge" + suffix },
+				new[] { prefix + "nl" + suffix },
+				new[] { prefix + "ng" + suffix },
+				new[] { prefix + "nle" + suffix },
 			};
 		static readonly string[][] jccOtherMnemonics = CreateOtherCCMnemonics("j");
 		static readonly string[][] cmovccOtherMnemonics = CreateOtherCCMnemonics("cmov");
 		static readonly string[][] setccOtherMnemonics = CreateOtherCCMnemonics("set");
+		static readonly string[][] cmpccxaddOtherMnemonics = CreateOtherCCMnemonics("cmp", "xadd");
 
 		static bool TryGetCcMnemonics(InstructionDefState def, out int ccIndex, [NotNullWhen(true)] out string[]? extraMnemonics, [NotNullWhen(false)] out string? error) {
 			ccIndex = (int)(def.OpCode.OpCode & 0x0F);
-			if (def.InstrStr.StartsWith("CMOV", StringComparison.OrdinalIgnoreCase))
+			if (def.MnemonicCcPrefix == "cmov" && def.MnemonicCcSuffix == "")
 				extraMnemonics = cmovccOtherMnemonics[ccIndex];
-			else if (def.InstrStr.StartsWith("SET", StringComparison.OrdinalIgnoreCase))
+			else if (def.MnemonicCcPrefix == "set" && def.MnemonicCcSuffix == "")
 				extraMnemonics = setccOtherMnemonics[ccIndex];
+			else if (def.MnemonicCcPrefix == "cmp" && def.MnemonicCcSuffix == "xadd")
+				extraMnemonics = cmpccxaddOtherMnemonics[ccIndex];
 			else {
 				extraMnemonics = null;
 				error = "Unsupported cc mnemonic";
@@ -3817,6 +3854,8 @@ namespace Generator.Tables {
 		public EnumValue? Cflow;
 		public ImpliedAccesses? ImpliedAccesses;
 		public ConditionCode ConditionCode;
+		public string? MnemonicCcPrefix;
+		public string? MnemonicCcSuffix;
 		public EnumValue? DecoderOption;
 		public InstructionDefFlags1 Flags1;
 		public InstructionDefFlags2 Flags2;

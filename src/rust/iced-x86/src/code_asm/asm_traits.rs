@@ -645,6 +645,11 @@ pub trait CodeAsmCmpbxadd<T, U, V> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmpcxadd<T, U, V> {
+	fn cmpcxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmpeqpd<T, U> {
 	fn cmpeqpd(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -715,6 +720,16 @@ pub trait CodeAsmCmplxadd<T, U, V> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmCmpnaexadd<T, U, V> {
+	fn cmpnaexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpnaxadd<T, U, V> {
+	fn cmpnaxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmCmpnbexadd<T, U, V> {
 	fn cmpnbexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
@@ -722,6 +737,11 @@ pub trait CodeAsmCmpnbexadd<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpnbxadd<T, U, V> {
 	fn cmpnbxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpncxadd<T, U, V> {
+	fn cmpncxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -742,6 +762,16 @@ pub trait CodeAsmCmpneqsd<T, U> {
 #[rustfmt::skip]
 pub trait CodeAsmCmpneqss<T, U> {
 	fn cmpneqss(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpngexadd<T, U, V> {
+	fn cmpngexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmpngxadd<T, U, V> {
+	fn cmpngxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]
@@ -842,6 +872,16 @@ pub trait CodeAsmCmpoxadd<T, U, V> {
 #[rustfmt::skip]
 pub trait CodeAsmCmppd<T, U, V> {
 	fn cmppd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmppexadd<T, U, V> {
+	fn cmppexadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmCmppoxadd<T, U, V> {
+	fn cmppoxadd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]

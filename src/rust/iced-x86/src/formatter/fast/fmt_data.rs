@@ -16809,91 +16809,91 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 
 	// VEX_Cmpnbxadd_m32_r32_r32
 	0x00,// No flags set
-	0xB5, 0x0D,// 1717 = "cmpnbxadd"
+	0xB7, 0x0D,// 1719 = "cmpaexadd"
 
 	// VEX_Cmpnbxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpzxadd_m32_r32_r32
 	0x00,// No flags set
-	0xB6, 0x0D,// 1718 = "cmpzxadd"
+	0xBA, 0x0D,// 1722 = "cmpexadd"
 
 	// VEX_Cmpzxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnzxadd_m32_r32_r32
 	0x00,// No flags set
-	0xB7, 0x0D,// 1719 = "cmpnzxadd"
+	0xBC, 0x0D,// 1724 = "cmpnexadd"
 
 	// VEX_Cmpnzxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpbexadd_m32_r32_r32
 	0x00,// No flags set
-	0xB8, 0x0D,// 1720 = "cmpbexadd"
+	0xBE, 0x0D,// 1726 = "cmpbexadd"
 
 	// VEX_Cmpbexadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnbexadd_m32_r32_r32
 	0x00,// No flags set
-	0xB9, 0x0D,// 1721 = "cmpnbexadd"
+	0xC0, 0x0D,// 1728 = "cmpaxadd"
 
 	// VEX_Cmpnbexadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpsxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBA, 0x0D,// 1722 = "cmpsxadd"
+	0xC2, 0x0D,// 1730 = "cmpsxadd"
 
 	// VEX_Cmpsxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnsxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBB, 0x0D,// 1723 = "cmpnsxadd"
+	0xC3, 0x0D,// 1731 = "cmpnsxadd"
 
 	// VEX_Cmpnsxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmppxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBC, 0x0D,// 1724 = "cmppxadd"
+	0xC5, 0x0D,// 1733 = "cmppxadd"
 
 	// VEX_Cmppxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnpxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBD, 0x0D,// 1725 = "cmpnpxadd"
+	0xC6, 0x0D,// 1734 = "cmpnpxadd"
 
 	// VEX_Cmpnpxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmplxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBE, 0x0D,// 1726 = "cmplxadd"
+	0xC8, 0x0D,// 1736 = "cmplxadd"
 
 	// VEX_Cmplxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnlxadd_m32_r32_r32
 	0x00,// No flags set
-	0xBF, 0x0D,// 1727 = "cmpnlxadd"
+	0xCA, 0x0D,// 1738 = "cmpgexadd"
 
 	// VEX_Cmpnlxadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmplexadd_m32_r32_r32
 	0x00,// No flags set
-	0xC0, 0x0D,// 1728 = "cmplexadd"
+	0xCC, 0x0D,// 1740 = "cmplexadd"
 
 	// VEX_Cmplexadd_m64_r64_r64
 	0x02,// SameAsPrev
 
 	// VEX_Cmpnlexadd_m32_r32_r32
 	0x00,// No flags set
-	0xC1, 0x0D,// 1729 = "cmpnlexadd"
+	0xCE, 0x0D,// 1742 = "cmpgxadd"
 
 	// VEX_Cmpnlexadd_m64_r64_r64
 	0x02,// SameAsPrev

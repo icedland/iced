@@ -600,6 +600,8 @@ namespace Generator.Tables {
 		public readonly PseudoOpsKind? PseudoOp;
 		public readonly EnumValue ControlFlow;
 		public readonly ConditionCode ConditionCode;
+		public readonly string MnemonicCcPrefix;
+		public readonly string MnemonicCcSuffix;
 		public readonly BranchKind BranchKind;//TODO: Add to OpCodeInfo
 		public readonly StackInfo StackInfo;
 		public readonly int FpuStackIncrement;
@@ -630,7 +632,8 @@ namespace Generator.Tables {
 			MandatoryPrefix mandatoryPrefix, OpCodeTableKind table, OpCodeL lBit, OpCodeW wBit, NonDestructiveOpKind ndKind,
 			uint opCode, int opCodeLength,
 			int groupIndex, int rmGroupIndex, CodeSize operandSize, CodeSize addressSize, TupleType tupleType, OpCodeOperandKindDef[] opKinds,
-			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode,
+			PseudoOpsKind? pseudoOp, EnumValue encoding, EnumValue flowControl, ConditionCode conditionCode, string? mnemonicCcPrefix,
+			string? mnemonicCcSuffix,
 			BranchKind branchKind, StackInfo stackInfo, int fpuStackIncrement,
 			RflagsBits read, RflagsBits undefined, RflagsBits written, RflagsBits cleared, RflagsBits set,
 			EnumValue[] cpuid, string[] cpuidFeatureStrings, OpInfo[] opInfo,
@@ -669,6 +672,8 @@ namespace Generator.Tables {
 			PseudoOp = pseudoOp;
 			ControlFlow = flowControl;
 			ConditionCode = conditionCode;
+			MnemonicCcPrefix = mnemonicCcPrefix ?? string.Empty;
+			MnemonicCcSuffix = mnemonicCcSuffix ?? string.Empty;
 			BranchKind = branchKind;
 			StackInfo = stackInfo;
 			FpuStackIncrement = fpuStackIncrement;
