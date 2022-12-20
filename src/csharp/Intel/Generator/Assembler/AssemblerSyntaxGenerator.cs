@@ -1438,14 +1438,18 @@ namespace Generator.Assembler {
 			}
 
 			if (def.ConditionCode != ConditionCode.None && (opCodeArgFlags & OpCodeArgFlags.GeneratedCondCode) == 0) {
-				var (oldSuffix, newSuffixes) = GetConditionCodeSuffixes(group.Defs[0].ConditionCode);
-				if (!group.MnemonicName.EndsWith(oldSuffix, StringComparison.Ordinal))
+				var newCcStrings = GetConditionCodeStrings(group.Defs[0].ConditionCode);
+				if (!group.MnemonicName.StartsWith(def.MnemonicCcPrefix, StringComparison.OrdinalIgnoreCase))
 					throw new InvalidOperationException();
-				if (!group.Name.EndsWith(oldSuffix, StringComparison.Ordinal))
+				if (!group.MnemonicName.EndsWith(def.MnemonicCcSuffix, StringComparison.OrdinalIgnoreCase))
 					throw new InvalidOperationException();
-				foreach (var newSuffix in newSuffixes) {
-					var newMnemonicName = group.MnemonicName[..^oldSuffix.Length] + newSuffix;
-					var newName = group.Name[..^oldSuffix.Length] + newSuffix;
+				if (!group.Name.StartsWith(def.MnemonicCcPrefix, StringComparison.Ordinal))
+					throw new InvalidOperationException();
+				if (!group.Name.EndsWith(def.MnemonicCcSuffix, StringComparison.Ordinal))
+					throw new InvalidOperationException();
+				foreach (var newCcString in newCcStrings) {
+					var newName = def.MnemonicCcPrefix + newCcString + def.MnemonicCcSuffix;
+					var newMnemonicName = newName[0..1].ToUpperInvariant() + newName[1..];
 					AddOpCodeToGroup(newName, newMnemonicName, signature, def, opCodeArgFlags | OpCodeArgFlags.GeneratedCondCode,
 						pseudoOpsKind, numberLeadingArgsToDiscard, argSizes, isOtherImmediate);
 				}
@@ -1454,24 +1458,24 @@ namespace Generator.Assembler {
 			return group;
 		}
 
-		static (string oldSuffix, string[] newSuffixes) GetConditionCodeSuffixes(ConditionCode cc) =>
+		static string[] GetConditionCodeStrings(ConditionCode cc) =>
 			cc switch {
-				ConditionCode.o => ("o", Array.Empty<string>()),
-				ConditionCode.no => ("no", Array.Empty<string>()),
-				ConditionCode.b => ("b", new[] { "c", "nae" }),
-				ConditionCode.ae => ("ae", new[] { "nb", "nc" }),
-				ConditionCode.e => ("e", new[] { "z" }),
-				ConditionCode.ne => ("ne", new[] { "nz" }),
-				ConditionCode.be => ("be", new[] { "na" }),
-				ConditionCode.a => ("a", new[] { "nbe" }),
-				ConditionCode.s => ("s", Array.Empty<string>()),
-				ConditionCode.ns => ("ns", Array.Empty<string>()),
-				ConditionCode.p => ("p", new[] { "pe" }),
-				ConditionCode.np => ("np", new[] { "po" }),
-				ConditionCode.l => ("l", new[] { "nge" }),
-				ConditionCode.ge => ("ge", new[] { "nl" }),
-				ConditionCode.le => ("le", new[] { "ng" }),
-				ConditionCode.g => ("g", new[] { "nle" }),
+				ConditionCode.o => Array.Empty<string>(),
+				ConditionCode.no => Array.Empty<string>(),
+				ConditionCode.b => new[] { "c", "nae" },
+				ConditionCode.ae => new[] { "nb", "nc" },
+				ConditionCode.e => new[] { "z" },
+				ConditionCode.ne => new[] { "nz" },
+				ConditionCode.be => new[] { "na" },
+				ConditionCode.a => new[] { "nbe" },
+				ConditionCode.s => Array.Empty<string>(),
+				ConditionCode.ns => Array.Empty<string>(),
+				ConditionCode.p => new[] { "pe" },
+				ConditionCode.np => new[] { "po" },
+				ConditionCode.l => new[] { "nge" },
+				ConditionCode.ge => new[] { "nl" },
+				ConditionCode.le => new[] { "ng" },
+				ConditionCode.g => new[] { "nle" },
 				_ => throw new InvalidOperationException(),
 			};
 

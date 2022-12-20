@@ -4,6 +4,7 @@
 using System;
 
 using Generator.Enums.Formatter;
+
 namespace Generator.Formatters {
 	static class FormatterConstants {
 		public static (string mnemonic, int imm)[] GetPseudoOps(PseudoOpsKind kind) =>
