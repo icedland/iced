@@ -52,9 +52,9 @@ pub(super) trait Instr {
 	fn get_target_instr(&mut self) -> (&mut TargetInstr, u64);
 
 	/// Returns `true` if the instruction was updated to a shorter instruction, `false` if nothing changed
-	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool;
+	fn optimize(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>, gained: u64) -> bool;
 
-	fn encode<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError>;
+	fn encode(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>) -> Result<(ConstantOffsets, bool), IcedError>;
 }
 
 fn correct_diff(in_block: bool, diff: i64, gained: u64) -> i64 {
@@ -105,7 +105,7 @@ impl TargetInstr {
 		}
 	}
 
-	fn address<'a>(&self, ctx: &mut InstrContext<'a>) -> u64 {
+	fn address(&self, ctx: &mut InstrContext<'_>) -> u64 {
 		match self {
 			TargetInstr::Instruction(instr_index) => ctx.all_ips[*instr_index],
 			TargetInstr::Address(address) => *address,

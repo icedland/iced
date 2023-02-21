@@ -50,7 +50,7 @@ impl XbeginInstr {
 		Self { instruction: *instruction, target_instr: TargetInstr::default(), instr_kind, short_instruction_size, near_instruction_size }
 	}
 
-	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rel16 {
 			base.done = true;
 			return false;
@@ -77,11 +77,11 @@ impl Instr for XbeginInstr {
 		(&mut self.target_instr, self.instruction.near_branch_target())
 	}
 
-	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn optimize(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>, gained: u64) -> bool {
 		self.try_optimize(base, ctx, gained)
 	}
 
-	fn encode<'a>(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'_>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rel16 | InstrKind::Rel32 => {
 				if self.instr_kind == InstrKind::Unchanged {

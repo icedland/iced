@@ -250,7 +250,7 @@ pub trait FormatterOutput {
 			SymResTextInfo::Text(ref part) => {
 				let s = match &part.text {
 					&SymResString::Str(s) => s,
-					&SymResString::String(ref s) => s.as_str(),
+					SymResString::String(s) => s.as_str(),
 				};
 				self.write(s, part.color);
 			}
@@ -259,7 +259,7 @@ pub trait FormatterOutput {
 				for part in v.iter() {
 					let s = match &part.text {
 						&SymResString::Str(s) => s,
-						&SymResString::String(ref s) => s.as_str(),
+						SymResString::String(s) => s.as_str(),
 					};
 					self.write(s, part.color);
 				}

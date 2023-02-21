@@ -1295,7 +1295,7 @@ impl MasmFormatter {
 		instruction: &Instruction, operand: u32, instruction_operand: Option<u32>, symbol: &Option<SymbolResult<'_>>, abs_addr: u64, mut displ: i64,
 		mut displ_size: u32, addr_size: u32, need_plus: bool, force_displ: bool,
 	) {
-		if let &Some(ref symbol) = symbol {
+		if let Some(symbol) = symbol {
 			if need_plus {
 				if d.options.space_between_memory_add_operators() {
 					output.write(" ", FormatterTextKind::Text);

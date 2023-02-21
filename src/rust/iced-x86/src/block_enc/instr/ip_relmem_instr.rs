@@ -45,7 +45,7 @@ impl IpRelMemOpInstr {
 		}
 	}
 
-	fn try_optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn try_optimize(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>, gained: u64) -> bool {
 		if self.instr_kind == InstrKind::Unchanged || self.instr_kind == InstrKind::Rip || self.instr_kind == InstrKind::Eip {
 			base.done = true;
 			return false;
@@ -86,11 +86,11 @@ impl Instr for IpRelMemOpInstr {
 		(&mut self.target_instr, self.instruction.ip_rel_memory_address())
 	}
 
-	fn optimize<'a>(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'a>, gained: u64) -> bool {
+	fn optimize(&mut self, base: &mut InstrBase, ctx: &mut InstrContext<'_>, gained: u64) -> bool {
 		self.try_optimize(base, ctx, gained)
 	}
 
-	fn encode<'a>(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'a>) -> Result<(ConstantOffsets, bool), IcedError> {
+	fn encode(&mut self, _base: &mut InstrBase, ctx: &mut InstrContext<'_>) -> Result<(ConstantOffsets, bool), IcedError> {
 		match self.instr_kind {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
 				if self.instr_kind == InstrKind::Rip {

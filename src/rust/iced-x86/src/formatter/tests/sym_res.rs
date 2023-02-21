@@ -56,7 +56,7 @@ fn get_infos_and_lines(dir: &str, filename: &str) -> (&'static [SymbolResolverTe
 	let mut path = get_formatter_unit_tests_dir();
 	path.push(dir);
 	path.push(format!("{}.txt", filename));
-	let &(ref infos, ref ignored) = &*ALL_INFOS;
+	let (infos, ignored) = &*ALL_INFOS;
 	let formatted_lines = filter_removed_code_tests(super::get_lines_ignore_comments(path.as_path()), ignored);
 	if infos.len() != formatted_lines.len() {
 		panic!("infos.len() ({}) != formatted_lines.len() ({})", infos.len(), formatted_lines.len());

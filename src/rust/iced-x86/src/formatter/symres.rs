@@ -49,7 +49,7 @@ impl SymResString<'_> {
 	pub(super) fn to_owned2<'b>(&self) -> SymResString<'b> {
 		match self {
 			&SymResString::Str(s) => SymResString::String(String::from(s)),
-			&SymResString::String(ref s) => SymResString::String(s.clone()),
+			SymResString::String(s) => SymResString::String(s.clone()),
 		}
 	}
 }

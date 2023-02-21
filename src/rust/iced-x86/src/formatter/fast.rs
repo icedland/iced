@@ -1705,7 +1705,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			SymResTextInfo::Text(ref part) => {
 				let s = match &part.text {
 					&SymResString::Str(s) => s,
-					&SymResString::String(ref s) => s.as_str(),
+					SymResString::String(s) => s.as_str(),
 				};
 				dst.extend_from_slice(s.as_bytes());
 			}
@@ -1714,7 +1714,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				for part in v.iter() {
 					let s = match &part.text {
 						&SymResString::Str(s) => s,
-						&SymResString::String(ref s) => s.as_str(),
+						SymResString::String(s) => s.as_str(),
 					};
 					dst.extend_from_slice(s.as_bytes());
 				}

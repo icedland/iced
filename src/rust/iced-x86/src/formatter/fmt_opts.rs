@@ -17,7 +17,7 @@ impl FormatterOptionString {
 	#[inline]
 	pub fn as_str(&self) -> &str {
 		match self {
-			&FormatterOptionString::String(ref s) => s.as_str(),
+			FormatterOptionString::String(s) => s.as_str(),
 			&FormatterOptionString::Str(s) => s,
 		}
 	}

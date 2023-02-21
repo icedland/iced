@@ -250,7 +250,7 @@ impl<'a> TableDeserializer<'a> {
 		let read_kind = self.reader.read_u8() as u32;
 		debug_assert_eq!(read_kind, kind);
 		let index = self.reader.read_u8();
-		if let &HandlerInfo::Handlers(ref handlers) = self.id_to_handler.get(index).unwrap() {
+		if let HandlerInfo::Handlers(handlers) = self.id_to_handler.get(index).unwrap() {
 			// There are a few dupe refs, clone the whole thing
 			handlers.to_vec()
 		} else {

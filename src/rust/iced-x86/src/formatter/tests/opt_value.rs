@@ -74,7 +74,7 @@ impl OptionValue {
 	}
 
 	fn to_str(&self) -> String {
-		if let &OptionValue::String(ref value) = self {
+		if let OptionValue::String(value) = self {
 			value.clone()
 		} else {
 			panic!()
@@ -208,7 +208,7 @@ impl OptionValue {
 
 	pub(super) fn get_decoder_options(props: &[(OptionsProps, OptionValue)]) -> u32 {
 		let mut decoder_options = DecoderOptions::NONE;
-		for &(_, ref prop) in props.iter() {
+		for (_, prop) in props.iter() {
 			if let &OptionValue::DecoderOptions(value) = prop {
 				decoder_options |= value;
 			}
