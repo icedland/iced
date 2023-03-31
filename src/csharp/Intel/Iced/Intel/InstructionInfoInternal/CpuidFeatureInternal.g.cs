@@ -201,6 +201,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 		AVX_VNNI_INT8,
 		MSRLIST,
 		WRMSRNS,
+		AMX_COMPLEX,
 	}
 }
 #endif

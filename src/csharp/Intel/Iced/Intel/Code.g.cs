@@ -39260,5 +39260,21 @@ namespace Iced.Intel {
 		/// <br/>
 		/// <c>64-bit</c></summary>
 		VEX_Cmpnlexadd_m64_r64_r64 = 4910,
+		/// <summary><c>TCMMRLFP16PS tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.0F38.W0 6C 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-COMPLEX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tcmmrlfp16ps_tmm_tmm_tmm = 4911,
+		/// <summary><c>TCMMIMFP16PS tmm1, tmm2, tmm3</c><br/>
+		/// <br/>
+		/// <c>VEX.128.66.0F38.W0 6C 11:rrr:bbb</c><br/>
+		/// <br/>
+		/// <c>AMX-COMPLEX</c><br/>
+		/// <br/>
+		/// <c>64-bit</c></summary>
+		VEX_Tcmmimfp16ps_tmm_tmm_tmm = 4912,
 	}
 }

@@ -34898,5 +34898,19 @@ public final class Code {
 	 * {@code 64-bit}
 	 */
 	public static final int VEX_CMPNLEXADD_M64_R64_R64 = 4910;
+	/**
+	 * {@code TCMMRLFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.0F38.W0 6C 11:rrr:bbb}<p>
+	 * {@code AMX-COMPLEX}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_TCMMRLFP16PS_TMM_TMM_TMM = 4911;
+	/**
+	 * {@code TCMMIMFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.66.0F38.W0 6C 11:rrr:bbb}<p>
+	 * {@code AMX-COMPLEX}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int VEX_TCMMIMFP16PS_TMM_TMM_TMM = 4912;
 	// GENERATOR-END: Variants
 }

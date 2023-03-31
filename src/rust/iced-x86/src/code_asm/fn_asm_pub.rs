@@ -21077,6 +21077,52 @@ impl CodeAssembler {
 		<Self as CodeAsmT1mskc<T, U>>::t1mskc(self, op0, op1)
 	}
 
+	/// `TCMMIMFP16PS` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `TCMMIMFP16PS tmm1, tmm2, tmm3` | `VEX.128.66.0F38.W0 6C 11:rrr:bbb` | `AMX-COMPLEX`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn tcmmimfp16ps<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmTcmmimfp16ps<T, U, V>,
+	{
+		<Self as CodeAsmTcmmimfp16ps<T, U, V>>::tcmmimfp16ps(self, op0, op1, op2)
+	}
+
+	/// `TCMMRLFP16PS` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `TCMMRLFP16PS tmm1, tmm2, tmm3` | `VEX.128.0F38.W0 6C 11:rrr:bbb` | `AMX-COMPLEX`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn tcmmrlfp16ps<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmTcmmrlfp16ps<T, U, V>,
+	{
+		<Self as CodeAsmTcmmrlfp16ps<T, U, V>>::tcmmrlfp16ps(self, op0, op1, op2)
+	}
+
 	/// `TDCALL` instruction
 	///
 	/// Instruction | Opcode | CPUID

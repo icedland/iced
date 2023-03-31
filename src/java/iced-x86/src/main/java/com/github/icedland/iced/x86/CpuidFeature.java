@@ -700,4 +700,8 @@ public final class CpuidFeature {
 	 * CPUID.<!-- -->(EAX=07H, ECX=1H):EAX.<!-- -->WRMSRNS[bit 19]
 	 */
 	public static final int WRMSRNS = 171;
+	/**
+	 * CPUID.<!-- -->(EAX=07H, ECX=1H):EDX.<!-- -->AMX-COMPLEX[bit 8]
+	 */
+	public static final int AMX_COMPLEX = 172;
 }

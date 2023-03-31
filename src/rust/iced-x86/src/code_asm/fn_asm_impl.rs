@@ -23440,6 +23440,22 @@ impl CodeAsmT1mskc<AsmRegister64, AsmMemoryOperand> for CodeAssembler {
 }
 
 #[rustfmt::skip]
+impl CodeAsmTcmmimfp16ps<AsmRegisterTmm, AsmRegisterTmm, AsmRegisterTmm> for CodeAssembler {
+	#[inline]
+	fn tcmmimfp16ps(&mut self, op0: AsmRegisterTmm, op1: AsmRegisterTmm, op2: AsmRegisterTmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Tcmmimfp16ps_tmm_tmm_tmm, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
+impl CodeAsmTcmmrlfp16ps<AsmRegisterTmm, AsmRegisterTmm, AsmRegisterTmm> for CodeAssembler {
+	#[inline]
+	fn tcmmrlfp16ps(&mut self, op0: AsmRegisterTmm, op1: AsmRegisterTmm, op2: AsmRegisterTmm) -> Result<(), IcedError> {
+		self.add_instr(Instruction::with3(Code::VEX_Tcmmrlfp16ps_tmm_tmm_tmm, op0.register(), op1.register(), op2.register())?)
+	}
+}
+
+#[rustfmt::skip]
 impl CodeAsmTdcall for CodeAssembler {
 	#[inline]
 	fn tdcall(&mut self) -> Result<(), IcedError> {

@@ -4795,6 +4795,16 @@ pub trait CodeAsmT1mskc<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmTcmmimfp16ps<T, U, V> {
+	fn tcmmimfp16ps(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmTcmmrlfp16ps<T, U, V> {
+	fn tcmmrlfp16ps(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmTdcall {
 	fn tdcall(&mut self) -> Result<(), IcedError>;
 }

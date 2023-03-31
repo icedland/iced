@@ -18,7 +18,7 @@ impl IcedConstants {
 	pub(crate) const YMM_LAST: Register = Register::YMM31;
 	pub(crate) const ZMM_LAST: Register = Register::ZMM31;
 	pub(crate) const TMM_LAST: Register = Register::TMM7;
-	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 193;
+	pub(crate) const MAX_CPUID_FEATURE_INTERNAL_VALUES: usize = 194;
 	pub(crate) const FIRST_BROADCAST_MEMORY_SIZE: MemorySize = MemorySize::Broadcast32_Float16;
 	pub(crate) const MVEX_START: u32 = 4611;
 	pub(crate) const MVEX_LENGTH: u32 = 207;
@@ -34,10 +34,10 @@ impl IcedConstants {
 	pub(crate) const CC_NE_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_NP_ENUM_COUNT: usize = 2;
 	pub(crate) const CC_P_ENUM_COUNT: usize = 2;
-	pub(crate) const CODE_ENUM_COUNT: usize = 4911;
+	pub(crate) const CODE_ENUM_COUNT: usize = 4913;
 	pub(crate) const CODE_SIZE_ENUM_COUNT: usize = 4;
 	pub(crate) const CONDITION_CODE_ENUM_COUNT: usize = 17;
-	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 172;
+	pub(crate) const CPUID_FEATURE_ENUM_COUNT: usize = 173;
 	pub(crate) const DECODER_ERROR_ENUM_COUNT: usize = 3;
 	pub(crate) const DECORATOR_KIND_ENUM_COUNT: usize = 6;
 	pub(crate) const ENCODING_KIND_ENUM_COUNT: usize = 6;
@@ -47,7 +47,7 @@ impl IcedConstants {
 	pub(crate) const MANDATORY_PREFIX_ENUM_COUNT: usize = 5;
 	pub(crate) const MEMORY_SIZE_ENUM_COUNT: usize = 162;
 	pub(crate) const MEMORY_SIZE_OPTIONS_ENUM_COUNT: usize = 4;
-	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1877;
+	pub(crate) const MNEMONIC_ENUM_COUNT: usize = 1879;
 	pub(crate) const MVEX_CONV_FN_ENUM_COUNT: usize = 13;
 	pub(crate) const MVEX_EHBIT_ENUM_COUNT: usize = 3;
 	pub(crate) const MVEX_REG_MEM_CONV_ENUM_COUNT: usize = 17;

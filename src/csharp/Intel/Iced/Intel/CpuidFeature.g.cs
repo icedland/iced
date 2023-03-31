@@ -353,6 +353,8 @@ namespace Iced.Intel {
 		MSRLIST = 170,
 		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX.WRMSRNS[bit 19]</summary>
 		WRMSRNS = 171,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]</summary>
+		AMX_COMPLEX = 172,
 	}
 }
 #endif

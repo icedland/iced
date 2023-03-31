@@ -4923,6 +4923,8 @@ namespace Iced.Intel {
 			3,// VEX_Cmplexadd_m64_r64_r64
 			3,// VEX_Cmpnlexadd_m32_r32_r32
 			3,// VEX_Cmpnlexadd_m64_r64_r64
+			3,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+			3,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 		};
 	}
 }

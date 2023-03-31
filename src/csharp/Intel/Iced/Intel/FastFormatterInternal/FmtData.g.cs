@@ -16906,6 +16906,14 @@ namespace Iced.Intel.FastFormatterInternal {
 
 				// VEX_Cmpnlexadd_m64_r64_r64
 				0x02,// SameAsPrev
+
+				// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+				0x00,// No flags set
+				0xD0, 0x0D,// 1744 = "tcmmrlfp16ps"
+
+				// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+				0x00,// No flags set
+				0xD1, 0x0D,// 1745 = "tcmmimfp16ps"
 			};
 	}
 }

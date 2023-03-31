@@ -14953,6 +14953,16 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void tcmmimfp16ps_tmm_tmm_tmm() {
+			TestAssembler(c => c.tcmmimfp16ps(tmm2, tmm3, tmm4), Instruction.Create(Code.VEX_Tcmmimfp16ps_tmm_tmm_tmm, Register.TMM2, Register.TMM3, Register.TMM4));
+		}
+
+		[Fact]
+		public void tcmmrlfp16ps_tmm_tmm_tmm() {
+			TestAssembler(c => c.tcmmrlfp16ps(tmm2, tmm3, tmm4), Instruction.Create(Code.VEX_Tcmmrlfp16ps_tmm_tmm_tmm, Register.TMM2, Register.TMM3, Register.TMM4));
+		}
+
+		[Fact]
 		public void tdcall() {
 			TestAssembler(c => c.tdcall(), Instruction.Create(Code.Tdcall));
 		}

@@ -784,4 +784,8 @@ public final class CpuidFeatureInternal {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int WRMSRNS = 192;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AMX_COMPLEX = 193;
 }
