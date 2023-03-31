@@ -22197,3 +22197,7 @@ C4E2C9 EE 10, VEX_Cmplexadd_m64_r64_r64, VEX, CMPCCXADD, fw=oszacp op0=rw op1=rw
 C4E249 EF 10, VEX_Cmpnlexadd_m32_r32_r32, VEX, CMPCCXADD, fw=oszacp op0=rw op1=rw op2=r r=edx;esi;rax w=rdx rwm=ds:rax;UInt32
 # cmpnlexadd [rax],rdx,rsi
 C4E2C9 EF 10, VEX_Cmpnlexadd_m64_r64_r64, VEX, CMPCCXADD, fw=oszacp op0=rw op1=rw op2=r r=rdx;rsi;rax w=rdx rwm=ds:rax;UInt64
+# tdpfp16ps tmm2,tmm3,tmm4
+C4E258 6C D3, VEX_Tcmmrlfp16ps_tmm_tmm_tmm, VEX, AMX_COMPLEX, op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4
+# tdpfp16ps tmm2,tmm3,tmm4
+C4E259 6C D3, VEX_Tcmmimfp16ps_tmm_tmm_tmm, VEX, AMX_COMPLEX, op0=rw op1=r op2=r rw=tmm2 r=tmm3;tmm4

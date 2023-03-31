@@ -4923,6 +4923,8 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt64,// VEX_Cmplexadd_m64_r64_r64
 			(byte)MemorySize.UInt32,// VEX_Cmpnlexadd_m32_r32_r32
 			(byte)MemorySize.UInt64,// VEX_Cmpnlexadd_m64_r64_r64
+			0,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+			0,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 		};
 
 #if HAS_SPAN
@@ -9841,6 +9843,8 @@ namespace Iced.Intel {
 			0,// VEX_Cmplexadd_m64_r64_r64
 			0,// VEX_Cmpnlexadd_m32_r32_r32
 			0,// VEX_Cmpnlexadd_m64_r64_r64
+			0,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+			0,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 		};
 	}
 }

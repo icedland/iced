@@ -705,3 +705,7 @@ WRMSRNS: CpuidFeature = 171 # type: ignore
 """
 : CPUID.(EAX=07H, ECX=1H):EAX.WRMSRNS[bit 19]
 """
+AMX_COMPLEX: CpuidFeature = 172 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]
+"""

@@ -13,7 +13,7 @@ namespace Iced.Intel.EncoderInternal {
 		internal static readonly uint[] EncFlags3 = GetEncFlags3();
 
 		static uint[] GetEncFlags1() =>
-			new uint[4911] {
+			new uint[4913] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -4925,10 +4925,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x00010381,// VEX_Cmplexadd_m64_r64_r64
 				0x0000D2C1,// VEX_Cmpnlexadd_m32_r32_r32
 				0x00010381,// VEX_Cmpnlexadd_m64_r64_r64
+				0x00026964,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+				0x00026964,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 			};
 
 		static uint[] GetEncFlags2() =>
-			new uint[4911] {
+			new uint[4913] {
 				0x00000000,// INVALID
 				0x00000000,// DeclareByte
 				0x00000000,// DeclareWord
@@ -9840,10 +9842,12 @@ namespace Iced.Intel.EncoderInternal {
 				0x445400EE,// VEX_Cmplexadd_m64_r64_r64
 				0x44D400EF,// VEX_Cmpnlexadd_m32_r32_r32
 				0x445400EF,// VEX_Cmpnlexadd_m64_r64_r64
+				0x4404006C,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+				0x4414006C,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 			};
 
 		static uint[] GetEncFlags3() =>
-			new uint[4911] {
+			new uint[4913] {
 				0x00030000,// INVALID
 				0x00030000,// DeclareByte
 				0x00030000,// DeclareWord
@@ -14755,6 +14759,8 @@ namespace Iced.Intel.EncoderInternal {
 				0x00020001,// VEX_Cmplexadd_m64_r64_r64
 				0x00020001,// VEX_Cmpnlexadd_m32_r32_r32
 				0x00020001,// VEX_Cmpnlexadd_m64_r64_r64
+				0x00020001,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+				0x00020001,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 			};
 	}
 }

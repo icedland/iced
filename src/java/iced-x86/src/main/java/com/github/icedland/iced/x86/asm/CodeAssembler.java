@@ -34361,6 +34361,30 @@ public class CodeAssembler {
 	}
 
 	/**
+	 * {@code TCMMIMFP16PS} instruction<hr>
+	 * <p>
+	 * {@code TCMMIMFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.66.0F38.W0 6C 11:rrr:bbb}<p>
+	 * {@code AMX-COMPLEX}<p>
+	 * {@code 64-bit}
+	 */
+	public void tcmmimfp16ps(AsmRegisterTMM dst, AsmRegisterTMM src1, AsmRegisterTMM src2) {
+		addInstruction(Instruction.create(Code.VEX_TCMMIMFP16PS_TMM_TMM_TMM, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
+	 * {@code TCMMRLFP16PS} instruction<hr>
+	 * <p>
+	 * {@code TCMMRLFP16PS tmm1, tmm2, tmm3}<p>
+	 * {@code VEX.128.0F38.W0 6C 11:rrr:bbb}<p>
+	 * {@code AMX-COMPLEX}<p>
+	 * {@code 64-bit}
+	 */
+	public void tcmmrlfp16ps(AsmRegisterTMM dst, AsmRegisterTMM src1, AsmRegisterTMM src2) {
+		addInstruction(Instruction.create(Code.VEX_TCMMRLFP16PS_TMM_TMM_TMM, dst.get(), src1.get(), src2.get()));
+	}
+
+	/**
 	 * {@code TDCALL} instruction<hr>
 	 * <p>
 	 * {@code TDCALL}<p>

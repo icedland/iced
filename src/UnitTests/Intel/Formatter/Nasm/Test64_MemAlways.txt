@@ -13110,3 +13110,5 @@ cmplexadd dword [rax], edx, esi
 cmplexadd qword [rax], rdx, rsi
 cmpgxadd dword [rax], edx, esi
 cmpgxadd qword [rax], rdx, rsi
+tcmmrlfp16ps tmm2, tmm3, tmm4
+tcmmimfp16ps tmm2, tmm3, tmm4

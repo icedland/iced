@@ -234,6 +234,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0xA9,// AVX_VNNI_INT8
 				0xAA,// MSRLIST
 				0xAB,// WRMSRNS
+				0xAC,// AMX_COMPLEX
 			};
 	}
 }

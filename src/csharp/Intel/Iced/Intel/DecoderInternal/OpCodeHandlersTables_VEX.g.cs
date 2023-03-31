@@ -1744,7 +1744,35 @@ namespace Iced.Intel.DecoderInternal {
 
 				// 95 = 0x5F
 				0x02,// Dup
-					0x13,// 19
+					0x0D,// 13
+					0x00,// Invalid
+
+				// 108 = 0x6C
+				0x45,// Bitness
+					0x00,// Invalid
+					0x0B,// MandatoryPrefix2_4
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0xAF, 0x26,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x09,// W
+							0x0E,// VectorLength
+								0x07,// RM
+									0x43,// VT_RT_HT
+										0xB0, 0x26,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+									0x00,// Invalid
+								0x00,// Invalid
+							0x00,// Invalid
+						0x00,// Invalid
+						0x00,// Invalid
+
+				// 109 = 0x6D
+				0x02,// Dup
+					0x05,// 5
 					0x00,// Invalid
 
 				// 114 = 0x72

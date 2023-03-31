@@ -38,7 +38,7 @@ public final class ToCode {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(4911);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(4913);
 		initMap0(map);
 		initMap1(map);
 		initMap2(map);
@@ -4991,5 +4991,7 @@ public final class ToCode {
 		map.put("VEX_Cmplexadd_m64_r64_r64", Code.VEX_CMPLEXADD_M64_R64_R64);
 		map.put("VEX_Cmpnlexadd_m32_r32_r32", Code.VEX_CMPNLEXADD_M32_R32_R32);
 		map.put("VEX_Cmpnlexadd_m64_r64_r64", Code.VEX_CMPNLEXADD_M64_R64_R64);
+		map.put("VEX_Tcmmrlfp16ps_tmm_tmm_tmm", Code.VEX_TCMMRLFP16PS_TMM_TMM_TMM);
+		map.put("VEX_Tcmmimfp16ps_tmm_tmm_tmm", Code.VEX_TCMMIMFP16PS_TMM_TMM_TMM);
 	}
 }

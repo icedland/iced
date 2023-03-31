@@ -39257,4 +39257,20 @@ return {
 	---
 	---`64-bit`
 	VEX_Cmpnlexadd_m64_r64_r64 = 4910,
+	---`TCMMRLFP16PS tmm1, tmm2, tmm3`
+	---
+	---`VEX.128.0F38.W0 6C 11:rrr:bbb`
+	---
+	---`AMX-COMPLEX`
+	---
+	---`64-bit`
+	VEX_Tcmmrlfp16ps_tmm_tmm_tmm = 4911,
+	---`TCMMIMFP16PS tmm1, tmm2, tmm3`
+	---
+	---`VEX.128.66.0F38.W0 6C 11:rrr:bbb`
+	---
+	---`AMX-COMPLEX`
+	---
+	---`64-bit`
+	VEX_Tcmmimfp16ps_tmm_tmm_tmm = 4912,
 }

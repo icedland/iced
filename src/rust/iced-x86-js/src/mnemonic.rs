@@ -1888,6 +1888,8 @@ pub enum Mnemonic {
 	Vpdpbuuds = 1874,
 	Wrmsrlist = 1875,
 	Wrmsrns = 1876,
+	Tcmmrlfp16ps = 1877,
+	Tcmmimfp16ps = 1878,
 }
 // GENERATOR-END: Enum
 

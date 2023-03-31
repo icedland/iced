@@ -38,7 +38,7 @@ public final class ToMnemonic {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(1877);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(1879);
 		initMap0(map);
 		initMap1(map);
 		initMap2(map);
@@ -1933,5 +1933,7 @@ public final class ToMnemonic {
 		map.put("Vpdpbuuds", Mnemonic.VPDPBUUDS);
 		map.put("Wrmsrlist", Mnemonic.WRMSRLIST);
 		map.put("Wrmsrns", Mnemonic.WRMSRNS);
+		map.put("Tcmmrlfp16ps", Mnemonic.TCMMRLFP16PS);
+		map.put("Tcmmimfp16ps", Mnemonic.TCMMIMFP16PS);
 	}
 }

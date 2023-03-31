@@ -254,6 +254,7 @@ public final class CpuidFeatureInternalData {
 			(byte)0xA9,// AVX_VNNI_INT8
 			(byte)0xAA,// MSRLIST
 			(byte)0xAB,// WRMSRNS
+			(byte)0xAC,// AMX_COMPLEX
 		};
 	}
 	// GENERATOR-END: Table

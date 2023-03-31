@@ -1886,6 +1886,8 @@ namespace Iced.Intel {
 		Vpdpbuuds = 1874,
 		Wrmsrlist = 1875,
 		Wrmsrns = 1876,
+		Tcmmrlfp16ps = 1877,
+		Tcmmimfp16ps = 1878,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

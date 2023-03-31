@@ -49091,3 +49091,23 @@ VEX_CMPNLEXADD_M64_R64_R64: Code = 4910 # type: ignore
 
 ``64-bit``
 """
+VEX_TCMMRLFP16PS_TMM_TMM_TMM: Code = 4911 # type: ignore
+"""
+``TCMMRLFP16PS tmm1, tmm2, tmm3``
+
+``VEX.128.0F38.W0 6C 11:rrr:bbb``
+
+``AMX-COMPLEX``
+
+``64-bit``
+"""
+VEX_TCMMIMFP16PS_TMM_TMM_TMM: Code = 4912 # type: ignore
+"""
+``TCMMIMFP16PS tmm1, tmm2, tmm3``
+
+``VEX.128.66.0F38.W0 6C 11:rrr:bbb``
+
+``AMX-COMPLEX``
+
+``64-bit``
+"""

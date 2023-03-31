@@ -230,6 +230,7 @@ namespace Generator.Tables {
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX_IFMA)]] = "AVX-IFMA";
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX_NE_CONVERT)]] = "AVX-NE-CONVERT";
 			toCpuidName[cpuid[nameof(CpuidFeature.AVX_VNNI_INT8)]] = "AVX-VNNI-INT8";
+			toCpuidName[cpuid[nameof(CpuidFeature.AMX_COMPLEX)]] = "AMX-COMPLEX";
 			return toCpuidName;
 		}
 

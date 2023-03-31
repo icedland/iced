@@ -348,5 +348,7 @@ namespace Generator.Enums.InstructionInfo {
 		MSRLIST,
 		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.WRMSRNS[bit 19]")]
 		WRMSRNS,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]")]
+		AMX_COMPLEX,
 	}
 }

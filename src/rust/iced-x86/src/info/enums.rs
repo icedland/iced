@@ -1101,10 +1101,11 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX_VNNI_INT8,
 	MSRLIST,
 	WRMSRNS,
+	AMX_COMPLEX,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 193] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 194] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1298,6 +1299,7 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 193] = [
 	"AVX_VNNI_INT8",
 	"MSRLIST",
 	"WRMSRNS",
+	"AMX_COMPLEX",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

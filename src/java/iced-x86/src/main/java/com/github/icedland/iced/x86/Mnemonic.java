@@ -1889,4 +1889,6 @@ public final class Mnemonic {
 	public static final int VPDPBUUDS = 1874;
 	public static final int WRMSRLIST = 1875;
 	public static final int WRMSRNS = 1876;
+	public static final int TCMMRLFP16PS = 1877;
+	public static final int TCMMIMFP16PS = 1878;
 }

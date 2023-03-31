@@ -13110,3 +13110,5 @@ cmplexadd %esi,%edx,(%rax)
 cmplexadd %rsi,%rdx,(%rax)
 cmpgxadd %esi,%edx,(%rax)
 cmpgxadd %rsi,%rdx,(%rax)
+tcmmrlfp16ps %tmm4,%tmm3,%tmm2
+tcmmimfp16ps %tmm4,%tmm3,%tmm2

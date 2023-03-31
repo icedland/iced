@@ -7525,3 +7525,11 @@ WRMSRNS: Mnemonic = 1876 # type: ignore
 """
 <no docs>
 """
+TCMMRLFP16PS: Mnemonic = 1877 # type: ignore
+"""
+<no docs>
+"""
+TCMMIMFP16PS: Mnemonic = 1878 # type: ignore
+"""
+<no docs>
+"""
