@@ -1881,5 +1881,7 @@ namespace Generator.Enums {
 		Vpdpbuuds,
 		Wrmsrlist,
 		Wrmsrns,
+		Tcmmrlfp16ps,
+		Tcmmimfp16ps,
 	}
 }

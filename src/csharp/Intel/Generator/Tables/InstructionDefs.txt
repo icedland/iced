@@ -33736,3 +33736,13 @@ INSTRUCTION: VEX.128.66.0F38.W1 EF !(11):rrr:bbb | CMPNLEXADD m64, r64, r64 | CM
 	masm: cc
 	nasm: cc
 END
+
+INSTRUCTION: VEX.128.0F38.W0 6C 11:rrr:bbb | TCMMRLFP16PS tmm1, tmm2, tmm3 | AMX_COMPLEX
+	ops: rw=reg r=rm r=vvvv
+	flags: 64 unique-reg-num tsx-abort
+END
+
+INSTRUCTION: VEX.128.66.0F38.W0 6C 11:rrr:bbb | TCMMIMFP16PS tmm1, tmm2, tmm3 | AMX_COMPLEX
+	ops: rw=reg r=rm r=vvvv
+	flags: 64 unique-reg-num tsx-abort
+END

@@ -13110,3 +13110,5 @@ C4E249 EE 10, VEX_Cmplexadd_m32_r32_r32
 C4E2C9 EE 10, VEX_Cmplexadd_m64_r64_r64
 C4E249 EF 10, VEX_Cmpnlexadd_m32_r32_r32
 C4E2C9 EF 10, VEX_Cmpnlexadd_m64_r64_r64
+C4E258 6C D3, VEX_Tcmmrlfp16ps_tmm_tmm_tmm
+C4E259 6C D3, VEX_Tcmmimfp16ps_tmm_tmm_tmm
