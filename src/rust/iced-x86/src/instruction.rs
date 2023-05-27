@@ -2896,9 +2896,9 @@ impl Instruction {
 			| Code::Retfq => 16,
 			Code::Uiret => 24,
 			Code::Popad => 32,
-			Code::Iretq
-			| Code::Eretu
-			| Code::Erets => 40,
+			Code::Iretq => 40,
+			Code::Eretu
+			| Code::Erets => 48,
 			Code::Enterw_imm16_imm8 => -(2 + (self.immediate8_2nd() as i32 & 0x1F) * 2 + self.immediate16() as i32),
 			Code::Enterd_imm16_imm8 => -(4 + (self.immediate8_2nd() as i32 & 0x1F) * 4 + self.immediate16() as i32),
 			Code::Enterq_imm16_imm8 => -(8 + (self.immediate8_2nd() as i32 & 0x1F) * 8 + self.immediate16() as i32),

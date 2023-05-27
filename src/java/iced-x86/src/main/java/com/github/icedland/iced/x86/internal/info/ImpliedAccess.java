@@ -771,11 +771,11 @@ public final class ImpliedAccess {
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int T_WRSP_WCS_WSS_POP5X8 = 189;
+	public static final int T_WRSP_WCS_WSS_POP6X8 = 189;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */
-	public static final int T_RCS_RSS_WRSP_POP5X8 = 190;
+	public static final int T_RCS_RSS_WRSP_POP6X8 = 190;
 	/**
 	 * DO NOT USE: INTERNAL API
 	 */

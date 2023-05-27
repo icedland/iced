@@ -2189,9 +2189,10 @@ public final class Instruction {
 		case Code.POPAD:
 			return 32;
 		case Code.IRETQ:
+			return 40;
 		case Code.ERETU:
 		case Code.ERETS:
-			return 40;
+			return 48;
 		case Code.ENTERW_IMM16_IMM8:
 			return -(2 + (getImmediate8_2nd() & 0x1F) * 2 + (getImmediate16() & 0xFFFF));
 		case Code.ENTERD_IMM16_IMM8:

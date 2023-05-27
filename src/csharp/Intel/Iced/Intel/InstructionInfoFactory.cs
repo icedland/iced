@@ -1647,21 +1647,21 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.GS, OpAccess.Write);
 				}
 				break;
-			case ImpliedAccess.t_Wrsp_Wcs_Wss_pop5x8:
+			case ImpliedAccess.t_Wrsp_Wcs_Wss_pop6x8:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.RSP, OpAccess.Write);
 					AddRegister(flags, Register.CS, OpAccess.Write);
 					AddRegister(flags, Register.SS, OpAccess.Write);
 				}
-				CommandPop(instruction, flags, 5, 8);
+				CommandPop(instruction, flags, 6, 8);
 				break;
-			case ImpliedAccess.t_Rcs_Rss_Wrsp_pop5x8:
+			case ImpliedAccess.t_Rcs_Rss_Wrsp_pop6x8:
 				if ((flags & Flags.NoRegisterUsage) == 0) {
 					AddRegister(flags, Register.CS, OpAccess.Read);
 					AddRegister(flags, Register.SS, OpAccess.Read);
 					AddRegister(flags, Register.RSP, OpAccess.Write);
 				}
-				CommandPop(instruction, flags, 5, 8);
+				CommandPop(instruction, flags, 6, 8);
 				break;
 			case ImpliedAccess.t_Reax_Recx_Wedx_Webx:
 				if ((flags & Flags.NoRegisterUsage) == 0) {

@@ -1625,21 +1625,21 @@ public final class InstructionInfoFactory {
 				addRegister(flags, Register.GS, OpAccess.WRITE);
 			}
 			break;
-		case ImpliedAccess.T_WRSP_WCS_WSS_POP5X8:
+		case ImpliedAccess.T_WRSP_WCS_WSS_POP6X8:
 			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
 				addRegister(flags, Register.RSP, OpAccess.WRITE);
 				addRegister(flags, Register.CS, OpAccess.WRITE);
 				addRegister(flags, Register.SS, OpAccess.WRITE);
 			}
-			commandPop(instruction, flags, 5, 8);
+			commandPop(instruction, flags, 6, 8);
 			break;
-		case ImpliedAccess.T_RCS_RSS_WRSP_POP5X8:
+		case ImpliedAccess.T_RCS_RSS_WRSP_POP6X8:
 			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
 				addRegister(flags, Register.CS, OpAccess.READ);
 				addRegister(flags, Register.SS, OpAccess.READ);
 				addRegister(flags, Register.RSP, OpAccess.WRITE);
 			}
-			commandPop(instruction, flags, 5, 8);
+			commandPop(instruction, flags, 6, 8);
 			break;
 		case ImpliedAccess.T_REAX_RECX_WEDX_WEBX:
 			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
