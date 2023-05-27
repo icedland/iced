@@ -19234,9 +19234,9 @@ F2 48 0F00 F1, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=cx w=gs
 # lkgs word ptr [rax]
 F2 48 0F00 30, Lkgs_r64m16, Legacy, LKGS, priv op0=r r=rax w=gs rm=ds:rax;UInt16
 # eretu
-F3 0F 01 CA, Eretu, Legacy, FRED, priv flow=Return fw=acopszidA w=cs;ss;rsp rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 stack=40
+F3 0F 01 CA, Eretu, Legacy, FRED, priv flow=Return fw=acopszidA w=cs;ss;rsp rw=xsp rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 rm=ss:xsp+0x28;UInt64 stack=48
 # erets
-F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp r=cs;ss rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 stack=40
+F2 0F 01 CA, Erets, Legacy, FRED, priv flow=Return fw=acopszidA w=rsp rw=xsp r=cs;ss rm=ss:xsp;UInt64 rm=ss:xsp+8;UInt64 rm=ss:xsp+0x10;UInt64 rm=ss:xsp+0x18;UInt64 rm=ss:xsp+0x20;UInt64 rm=ss:xsp+0x28;UInt64 stack=48
 # vaddph xmm2,xmm6,[rax+10h]
 62 F54C08 58 50 01, EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16, EVEX, AVX512VL;AVX512_FP16, op0=w op1=r op2=r w=vmm2 r=xmm6 r=rax rm=ds:rax+0x10;Packed128_Float16
 # vaddph xmm2{k3},xmm6,xmm3

@@ -30103,16 +30103,18 @@ END
 # Code: Eretu
 INSTRUCTION: F3 0F 01 CA | ERETU | FRED
 	# Also loads GS.base (but not GS (selector))
-	implied: pop=5x8 w=rsp;cs;ss
+	# The first 8 bytes (error code) aren't read
+	implied: pop=6x8 w=rsp;cs;ss
 	rflags: w=oszacpdiA
-	flags: 64 cpl0 sp=pop;40 cflow=ret
+	flags: 64 cpl0 sp=pop;48 cflow=ret
 END
 
 # Code: Erets
 INSTRUCTION: F2 0F 01 CA | ERETS | FRED
-	implied: pop=5x8 w=rsp r=cs;ss
+	# The first 8 bytes (error code) aren't read
+	implied: pop=6x8 w=rsp r=cs;ss
 	rflags: w=oszacpdiA
-	flags: 64 cpl0 sp=pop;40 cflow=ret
+	flags: 64 cpl0 sp=pop;48 cflow=ret
 END
 
 # Code: EVEX_Vaddph_xmm_k1z_xmm_xmmm128b16
