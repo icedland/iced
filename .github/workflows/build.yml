@@ -118,17 +118,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Upload files
     needs:
-      - build-dotnet
-      - build-java
-      - build-rust
-      - build-rust-js-wasm
-      - build-rust-python-linux-aarch64
       - build-rust-python-linux-x64
       - build-rust-python-linux-x86
-      - build-rust-python-musllinux-x64
-      - build-rust-python-macos-x64
-      - build-rust-python-windows-x64
-      - build-rust-python-windows-x86
 
     steps:
       - uses: actions/checkout@v3
