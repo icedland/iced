@@ -22,7 +22,6 @@
 #![warn(unused_import_braces)]
 #![warn(unused_lifetimes)]
 #![warn(unused_must_use)]
-#![warn(unused_qualifications)]
 #![warn(unused_results)]
 #![allow(clippy::assertions_on_constants)]
 #![allow(clippy::borrow_deref_ref)]
