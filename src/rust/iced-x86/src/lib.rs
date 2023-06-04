@@ -21,7 +21,6 @@
 #![warn(unused_import_braces)]
 #![warn(unused_lifetimes)]
 #![warn(unused_must_use)]
-#![warn(unused_qualifications)]
 #![warn(unused_results)]
 #![warn(rustdoc::invalid_html_tags)]
 #![allow(clippy::assertions_on_constants)]
