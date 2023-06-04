@@ -76,7 +76,7 @@ jobs:
         shell: bash
         run: |
           git clean -xdf
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_x86_64" --pypy
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_x86_64" --pypy
 
       - uses: actions/upload-artifact@v3
         with:
@@ -102,7 +102,7 @@ jobs:
         shell: bash
         run: |
           git clean -xdf
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2010_i686"
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_i686"
 
       - uses: actions/upload-artifact@v3
         with:
