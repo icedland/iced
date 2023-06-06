@@ -168,14 +168,9 @@ namespace Generator.Misc.Python {
 				if (argsSectCount != expectedArgsSectCount)
 					throw GetException($"Class {pyClass.Name}: Expected exactly {expectedArgsSectCount} `Args:` sections but found {argsSectCount}");
 				if (ctor is not null) {
-					var expectedTextSig = GetExpectedTextSignature(ctor);
-					var textSigAttr = pyClass.Attributes.Attributes.First(a => a.Kind == AttributeKind.TextSignature);
-					if (textSigAttr.Text != expectedTextSig)
-						throw GetException($"Class {pyClass.Name}: #[pyo3(text_signature ...)] didn't match the expected value: {expectedTextSig}");
-
-					var argsAttr = pyClass.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
-					if (argsAttr is not null)
-						throw GetException($"Class {pyClass.Name}: The ctor should have the #[args] attribute");
+					var sigAttr = pyClass.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Signature);
+					if (sigAttr is not null)
+						throw GetException($"Class {pyClass.Name}: The ctor should have the #[pyo3(signature = (...))] attribute");
 
 					if (!CheckArgsSectionAndMethodArgs(pyClass.DocComments, ctor.Arguments, out var error))
 						throw GetException($"Class {pyClass.Name}: {error}");
@@ -381,30 +376,47 @@ namespace Generator.Misc.Python {
 		static string GetExpectedTextSignature(PyMethod method) {
 			var sb = new StringBuilder();
 			sb.Append("#[pyo3(text_signature = \"(");
-			foreach (var arg in method.Arguments) {
+			Dictionary<string, string> toDefaultValue;
+			var sigAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Signature);
+			if (sigAttr is null)
+				toDefaultValue = new Dictionary<string, string>(StringComparer.Ordinal);
+			else
+				toDefaultValue = ParseUtils.GetArgsNameValues(sigAttr.Text).ToDictionary(a => a.name, a => a.value, StringComparer.Ordinal);
+			for (int i = 0; i < method.Arguments.Count; i++) {
+				if (i > 0)
+					sb.Append(", ");
+				var arg = method.Arguments[i];
 				sb.Append(arg.Name);
-				sb.Append(", ");
+				if (toDefaultValue.TryGetValue(arg.Name, out var defaultValue)) {
+					sb.Append(" = ");
+					sb.Append(defaultValue);
+				}
 			}
-			sb.Append("/)\")]");
+			sb.Append(")\")]");
 			return sb.ToString();
 		}
 
-		static bool CheckArgsAttribute(PyMethod method, string? argsAttr) {
+		static bool CheckSignatureAttribute(PyMethod method, string? argsAttr) {
 			if (argsAttr is null)
 				return true;
 
-			if (!ParseUtils.TryGetArgsPayload(argsAttr, out var s))
+			bool isStaticMethod = method.Attributes.Any(AttributeKind.StaticMethod);
+			bool isClassMethod = method.Attributes.Any(AttributeKind.ClassMethod);
+			bool isCtor = method.Attributes.Any(AttributeKind.New);
+			bool isInstanceMethod = !isStaticMethod && !isClassMethod && !isCtor;
+
+			if (!ParseUtils.TryGetSignaturePayload(argsAttr, out var s))
 				return false;
-			var attrArgs = s.Split(',');
-			if (attrArgs.Length > method.Arguments.Count)
+			var attrArgs = s.Split(',').ToList();
+			if (isInstanceMethod && (attrArgs.Count == 0 || attrArgs[0] != "$self"))
+				attrArgs.Insert(0, selfArgName);
+			if (attrArgs.Count != method.Arguments.Count)
 				return false;
-			for (int i = 0; i < attrArgs.Length; i++) {
-				var attrArg = attrArgs[i];
+			for (int i = 0; i < attrArgs.Count; i++) {
+				var attrArg = attrArgs[i].Trim();
 				int index = attrArg.IndexOf('=', StringComparison.Ordinal);
-				if (index < 0)
-					return false;
-				var attrArgName = attrArg[..index].Trim();
-				var argName = method.Arguments[method.Arguments.Count - attrArgs.Length + i].Name;
+				var attrArgName = index < 0 ? attrArg : attrArg[..index].Trim();
+				var argName = method.Arguments[i].Name;
 				if (attrArgName != argName)
 					return false;
 			}
@@ -484,14 +496,14 @@ namespace Generator.Misc.Python {
 
 			var method = new PyMethod(name, docComments2, attributes, args, rustReturnType);
 
-			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
+			var sigAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Signature);
 			if (isSpecial || isGetter || isSetter) {
-				if (argsAttr is not null)
-					throw GetException("Unexpected #[args] attribute found");
+				if (sigAttr is not null)
+					throw GetException("Unexpected #[pyo3(signature = (...))] attribute found");
 			}
 			else {
-				if (!CheckArgsAttribute(method, argsAttr?.Text))
-					throw GetException($"Invalid #[args] attribute: {argsAttr?.Text}");
+				if (!CheckSignatureAttribute(method, sigAttr?.Text))
+					throw GetException($"Invalid #[pyo3(signature = (...))] attribute: {sigAttr?.Text}");
 			}
 
 			if (!(isSpecial || isGetter || isSetter || isCtor)) {
@@ -638,7 +650,7 @@ namespace Generator.Misc.Python {
 				"staticmethod" => AttributeKind.StaticMethod,
 				"classmethod" => AttributeKind.ClassMethod,
 				"text_signature" => AttributeKind.TextSignature,
-				"args" => AttributeKind.Args,
+				"signature" => AttributeKind.Signature,
 				"derive" or "allow" or "rustfmt::skip" or "macro_use" or
 				"pymodule" or "inline" => AttributeKind.Ignored,
 				// Don't ignore unknown attrs by default. We must know what the attribute does

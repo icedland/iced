@@ -68,10 +68,10 @@ namespace Generator.Misc.Python {
 						argToEnumType.Add(docArg.Name, enumType);
 					}
 
-					var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
-					if (argsAttr is null)
+					var sigAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Signature);
+					if (sigAttr is null)
 						continue;
-					foreach (var (name, value) in ParseUtils.GetArgsNameValues(argsAttr.Text)) {
+					foreach (var (name, value) in ParseUtils.GetArgsNameValues(sigAttr.Text)) {
 						if (!argToEnumType.TryGetValue(name, out var enumType))
 							continue;
 						if (!uint.TryParse(value, out var rawValue))
@@ -219,11 +219,11 @@ namespace Generator.Misc.Python {
 			int hasThis = method.Arguments.Count != 0 && method.Arguments[0].IsSelf ? 1 : 0;
 
 			Dictionary<string, string> toDefaultValue;
-			var argsAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Args);
-			if (argsAttr is null)
+			var sigAttr = method.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.Signature);
+			if (sigAttr is null)
 				toDefaultValue = new Dictionary<string, string>(StringComparer.Ordinal);
 			else
-				toDefaultValue = ParseUtils.GetArgsNameValues(argsAttr.Text).ToDictionary(a => a.name, a => a.value, StringComparer.Ordinal);
+				toDefaultValue = ParseUtils.GetArgsNameValues(sigAttr.Text).ToDictionary(a => a.name, a => a.value, StringComparer.Ordinal);
 
 			for (int i = 0; i < method.Arguments.Count; i++) {
 				if (argsDocs is not null && argsDocs.Args.Length != method.Arguments.Count - hasThis)

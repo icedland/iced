@@ -96,7 +96,6 @@ enum DecoderDataRef {
 ///     assert instr.code == Code.ADD_RM32_R32
 ///     assert instr.has_lock_prefix
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(bitness, data, options, ip, /)")]
 pub(crate) struct Decoder {
 	// * If the decoder ctor was called with a `bytes` object, data_ref is PyObj(`bytes` object)
 	//   and the decoder holds a ref to its data.
@@ -109,9 +108,10 @@ pub(crate) struct Decoder {
 #[pymethods]
 impl Decoder {
 	#[new]
-	#[args(options = 0, ip = 0)]
+	#[pyo3(text_signature = "(bitness, data, options = 0, ip = 0)")]
+	#[pyo3(signature = (bitness, data, options = 0, ip = 0))]
 	fn new(bitness: u32, data: &PyAny, options: u32, ip: u64) -> PyResult<Self> {
-		// #[args] line assumption
+		// #[pyo3(signature = (...))] line assumption
 		const _: () = assert!(iced_x86::DecoderOptions::NONE == 0);
 
 		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
@@ -290,7 +290,7 @@ impl Decoder {
 	///
 	///     assert instr.has_lock_prefix
 	///     assert instr.has_xrelease_prefix
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn decode(&mut self) -> Instruction {
 		Instruction { instr: self.decoder.decode() }
 	}
@@ -336,7 +336,7 @@ impl Decoder {
 	///
 	///     assert instr.has_lock_prefix
 	///     assert instr.has_xrelease_prefix
-	#[pyo3(text_signature = "($self, instruction, /)")]
+	#[pyo3(text_signature = "($self, instruction)")]
 	fn decode_out(&mut self, instruction: &mut Instruction) {
 		self.decoder.decode_out(&mut instruction.instr)
 	}
@@ -377,7 +377,7 @@ impl Decoder {
 	///     assert not co.has_immediate2
 	///     assert co.immediate_offset2 == 0
 	///     assert co.immediate_size2 == 0
-	#[pyo3(text_signature = "($self, instruction, /)")]
+	#[pyo3(text_signature = "($self, instruction)")]
 	fn get_constant_offsets(&self, instruction: &Instruction) -> ConstantOffsets {
 		ConstantOffsets { offsets: self.decoder.get_constant_offsets(&instruction.instr) }
 	}

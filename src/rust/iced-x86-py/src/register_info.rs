@@ -18,7 +18,6 @@ use pyo3::prelude::*;
 ///     info = RegisterInfo(Register.GS)
 ///     assert info.number == 5
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(register, /)")]
 pub(crate) struct RegisterInfo {
 	pub(crate) info: &'static iced_x86::RegisterInfo,
 }
@@ -26,6 +25,7 @@ pub(crate) struct RegisterInfo {
 #[pymethods]
 impl RegisterInfo {
 	#[new]
+	#[pyo3(text_signature = "(register)")]
 	fn new(register: u32) -> PyResult<Self> {
 		Ok(RegisterInfo { info: to_register(register)?.info() })
 	}
