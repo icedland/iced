@@ -41,7 +41,6 @@ use pyo3::types::PyBytes;
 ///     buffer = encoder.take_buffer()
 ///     assert buffer == b"\x86\x64\x32\x16"
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(bitness, capacity, /)")]
 pub(crate) struct Encoder {
 	encoder: iced_x86::Encoder,
 }
@@ -49,7 +48,8 @@ pub(crate) struct Encoder {
 #[pymethods]
 impl Encoder {
 	#[new]
-	#[args(capacity = 0)]
+	#[pyo3(text_signature = "(bitness, capacity = 0)")]
+	#[pyo3(signature = (bitness, capacity = 0))]
 	fn new(bitness: u32, capacity: usize) -> PyResult<Self> {
 		let encoder = iced_x86::Encoder::try_with_capacity(bitness, capacity).map_err(to_value_error)?;
 		Ok(Self { encoder })
@@ -90,7 +90,7 @@ impl Encoder {
 	///     # We're done, take ownership of the buffer
 	///     buffer = encoder.take_buffer()
 	///     assert buffer == b"\x75\xF2"
-	#[pyo3(text_signature = "($self, instruction, rip, /)")]
+	#[pyo3(text_signature = "($self, instruction, rip)")]
 	fn encode(&mut self, instruction: &Instruction, rip: u64) -> PyResult<usize> {
 		self.encoder.encode(&instruction.instr, rip).map_err(to_value_error)
 	}
@@ -129,7 +129,7 @@ impl Encoder {
 	///     # We're done, take ownership of the buffer
 	///     buffer = encoder.take_buffer()
 	///     assert buffer == b"\x90\x75\xF2\x90"
-	#[pyo3(text_signature = "($self, value, /)")]
+	#[pyo3(text_signature = "($self, value)")]
 	fn write_u8(&mut self, value: u8) {
 		self.encoder.write_u8(value)
 	}
@@ -140,7 +140,7 @@ impl Encoder {
 	///
 	/// Returns:
 	///     bytes: The encoded instructions
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn take_buffer<'py>(&mut self, py: Python<'py>) -> &'py PyBytes {
 		let buffer = self.encoder.take_buffer();
 		PyBytes::new(py, &buffer)
@@ -152,7 +152,7 @@ impl Encoder {
 	///
 	/// Returns:
 	///     ConstantOffsets: Offsets and sizes of immediates
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn get_constant_offsets(&self) -> ConstantOffsets {
 		ConstantOffsets { offsets: self.encoder.get_constant_offsets() }
 	}

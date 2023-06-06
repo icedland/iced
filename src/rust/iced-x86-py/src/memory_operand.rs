@@ -20,7 +20,6 @@ use std::collections::hash_map::DefaultHasher;
 ///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcast memory (EVEX instructions)
 ///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)")]
 #[derive(Copy, Clone)]
 pub(crate) struct MemoryOperand {
 	pub(crate) mem: iced_x86::MemoryOperand,
@@ -29,9 +28,9 @@ pub(crate) struct MemoryOperand {
 #[pymethods]
 impl MemoryOperand {
 	#[new]
-	#[args(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)]
+	#[pyo3(signature = (base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0))]
 	fn new(base: u32, index: u32, scale: u32, displ: i64, mut displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
-		// #[args] line assumption
+		// #[pyo3(signature = (...))] line assumption
 		const _: () = assert!(iced_x86::Register::None as u32 == 0);
 
 		if displ != 0 && displ_size == 0 {
@@ -58,8 +57,8 @@ impl MemoryOperand {
 	///
 	/// Returns:
 	///     MemoryOperand: A new instance
-	#[pyo3(text_signature = "(base, index, scale, displ, displ_size, is_broadcast, seg, /)")]
-	#[args(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)]
+	#[pyo3(text_signature = "(base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0)")]
+	#[pyo3(signature = (base = 0, index = 0, scale = 1, displ = 0, displ_size = 0, is_broadcast = false, seg = 0))]
 	#[staticmethod]
 	fn ctor_u64(base: u32, index: u32, scale: u32, displ: u64, displ_size: u32, is_broadcast: bool, seg: u32) -> PyResult<Self> {
 		MemoryOperand::new(base, index, scale, displ as i64, displ_size, is_broadcast, seg)
@@ -71,7 +70,7 @@ impl MemoryOperand {
 	///     MemoryOperand: A copy of this instance
 	///
 	/// This is identical to :class:`MemoryOperand.copy`
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn __copy__(&self) -> Self {
 		*self
 	}
@@ -85,7 +84,7 @@ impl MemoryOperand {
 	///     MemoryOperand: A copy of this instance
 	///
 	/// This is identical to :class:`MemoryOperand.copy`
-	#[pyo3(text_signature = "($self, memo, /)")]
+	#[pyo3(text_signature = "($self, memo)")]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
 	}
@@ -94,7 +93,7 @@ impl MemoryOperand {
 	///
 	/// Returns:
 	///     MemoryOperand: A copy of this instance
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn copy(&self) -> Self {
 		*self
 	}

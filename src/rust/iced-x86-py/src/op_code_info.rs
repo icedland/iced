@@ -26,7 +26,6 @@ use std::collections::hash_map::DefaultHasher;
 ///     assert OpCodeInfo(Code.SUB_R8_RM8).op_code == 0x2A
 ///     assert OpCodeInfo(Code.CVTPI2PS_XMM_MMM64).op_code == 0x2A
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(code, /)")]
 pub(crate) struct OpCodeInfo {
 	info: &'static iced_x86::OpCodeInfo,
 }
@@ -34,6 +33,7 @@ pub(crate) struct OpCodeInfo {
 #[pymethods]
 impl OpCodeInfo {
 	#[new]
+	#[pyo3(text_signature = "(code)")]
 	pub(crate) fn new(code: u32) -> PyResult<Self> {
 		Ok(Self { info: to_code(code)?.op_code() })
 	}
@@ -814,7 +814,7 @@ impl OpCodeInfo {
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
-	#[pyo3(text_signature = "($self, operand, /)")]
+	#[pyo3(text_signature = "($self, operand)")]
 	fn op_kind(&self, operand: u32) -> PyResult<u32> {
 		self.info.try_op_kind(operand).map_or_else(|e| Err(to_value_error(e)), |op_kind| Ok(op_kind as u32))
 	}
@@ -823,7 +823,7 @@ impl OpCodeInfo {
 	///
 	/// Returns:
 	///     List[:class:`OpCodeOperandKind`]: All operand kinds
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn op_kinds(&self) -> Vec<u32> {
 		self.info.op_kinds().iter().map(|x| *x as u32).collect()
 	}
@@ -835,7 +835,7 @@ impl OpCodeInfo {
 	///
 	/// Returns:
 	///     bool: ``True`` if it's available in the mode
-	#[pyo3(text_signature = "($self, bitness, /)")]
+	#[pyo3(text_signature = "($self, bitness)")]
 	fn is_available_in_mode(&self, bitness: u32) -> bool {
 		self.info.is_available_in_mode(bitness)
 	}

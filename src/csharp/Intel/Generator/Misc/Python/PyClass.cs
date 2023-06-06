@@ -17,7 +17,7 @@ namespace Generator.Misc.Python {
 		StaticMethod,
 		ClassMethod,
 		TextSignature,
-		Args,
+		Signature,
 	}
 
 	[DebuggerDisplay("Count = {Attributes.Count}")]

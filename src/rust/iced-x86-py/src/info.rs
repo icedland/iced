@@ -35,7 +35,7 @@ impl UsedRegister {
 	///     UsedRegister: A copy of this instance
 	///
 	/// This is identical to :class:`UsedRegister.copy`
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn __copy__(&self) -> Self {
 		*self
 	}
@@ -49,7 +49,7 @@ impl UsedRegister {
 	///     UsedRegister: A copy of this instance
 	///
 	/// This is identical to :class:`UsedRegister.copy`
-	#[pyo3(text_signature = "($self, memo, /)")]
+	#[pyo3(text_signature = "($self, memo)")]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
 	}
@@ -58,7 +58,7 @@ impl UsedRegister {
 	///
 	/// Returns:
 	///     UsedRegister: A copy of this instance
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn copy(&self) -> Self {
 		*self
 	}
@@ -153,7 +153,7 @@ impl UsedMemory {
 	///     UsedMemory: A copy of this instance
 	///
 	/// This is identical to :class:`UsedMemory.copy`
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn __copy__(&self) -> Self {
 		*self
 	}
@@ -167,7 +167,7 @@ impl UsedMemory {
 	///     UsedMemory: A copy of this instance
 	///
 	/// This is identical to :class:`UsedMemory.copy`
-	#[pyo3(text_signature = "($self, memo, /)")]
+	#[pyo3(text_signature = "($self, memo)")]
 	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
 		*self
 	}
@@ -176,7 +176,7 @@ impl UsedMemory {
 	///
 	/// Returns:
 	///     UsedMemory: A copy of this instance
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn copy(&self) -> Self {
 		*self
 	}
@@ -215,7 +215,7 @@ impl InstructionInfo {
 	/// this method returns the 8-bit register even if it's ``SPL``, ``BPL``, ``SIL``, ``DIL`` and the
 	/// instruction was decoded in 16 or 32-bit mode. This is more accurate than returning the ``r16``/``r32``
 	/// register. Example instructions that do this: ``PINSRB``, ``ARPL``
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn used_registers(&self) -> Vec<UsedRegister> {
 		self.info.used_registers().iter().map(|a| UsedRegister { info: *a }).collect()
 	}
@@ -224,7 +224,7 @@ impl InstructionInfo {
 	///
 	/// Returns:
 	///     List[UsedMemory]: All accessed memory locations
-	#[pyo3(text_signature = "($self, /)")]
+	#[pyo3(text_signature = "($self)")]
 	fn used_memory(&self) -> Vec<UsedMemory> {
 		self.info.used_memory().iter().map(|a| UsedMemory { info: *a }).collect()
 	}
@@ -269,7 +269,7 @@ impl InstructionInfo {
 	///
 	/// Raises:
 	///     ValueError: If `operand` is invalid
-	#[pyo3(text_signature = "($self, operand, /)")]
+	#[pyo3(text_signature = "($self, operand)")]
 	fn op_access(&self, operand: u32) -> PyResult<u32> {
 		self.info.try_op_access(operand).map_or_else(|e| Err(to_value_error(e)), |op_access| Ok(op_access as u32))
 	}
@@ -331,7 +331,6 @@ impl InstructionInfo {
 ///     Used register: reg=R12 access=READ
 ///     Used register: reg=ESI access=READ
 #[pyclass(module = "iced_x86._iced_x86_py")]
-#[pyo3(text_signature = "(/)")]
 pub(crate) struct InstructionInfoFactory {
 	info: iced_x86::InstructionInfoFactory,
 }
@@ -339,6 +338,7 @@ pub(crate) struct InstructionInfoFactory {
 #[pymethods]
 impl InstructionInfoFactory {
 	#[new]
+	#[pyo3(text_signature = "()")]
 	fn new() -> Self {
 		Self { info: iced_x86::InstructionInfoFactory::new() }
 	}
@@ -384,7 +384,7 @@ impl InstructionInfoFactory {
 	///     assert regs[1].access == OpAccess.READ
 	///     assert regs[2].register == Register.ESI
 	///     assert regs[2].access == OpAccess.READ
-	#[pyo3(text_signature = "($self, instruction, /)")]
+	#[pyo3(text_signature = "($self, instruction)")]
 	fn info(&mut self, instruction: &Instruction) -> InstructionInfo {
 		InstructionInfo { info: self.info.info(&instruction.instr).clone() }
 	}

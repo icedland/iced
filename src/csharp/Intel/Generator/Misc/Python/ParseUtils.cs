@@ -9,12 +9,12 @@ using System.Linq;
 namespace Generator.Misc.Python {
 	static class ParseUtils {
 		public static IEnumerable<(string name, string value)> GetArgsNameValues(string argsAttr) {
-			if (!ParseUtils.TryGetArgsPayload(argsAttr, out var args))
-				throw new InvalidOperationException($"Invalid #[args] attr: {argsAttr}");
+			if (!ParseUtils.TryGetSignaturePayload(argsAttr, out var args))
+				throw new InvalidOperationException($"Invalid #[pyo3(signature = (...))] attr: {argsAttr}");
 			foreach (var part in args.Split(',', StringSplitOptions.RemoveEmptyEntries)) {
 				int index = part.IndexOf('=', StringComparison.Ordinal);
 				if (index < 0)
-					throw new InvalidOperationException();
+					continue;
 				var name = part[..index].Trim();
 				var value = part[(index + 1)..].Trim();
 				yield return (name, value);
@@ -56,8 +56,8 @@ namespace Generator.Misc.Python {
 			return true;
 		}
 
-		public static bool TryGetArgsPayload(string argsAttr, [NotNullWhen(true)] out string? args) =>
-			TryRemovePrefixSuffix(argsAttr, "#[args(", ")]", out args);
+		public static bool TryGetSignaturePayload(string argsAttr, [NotNullWhen(true)] out string? args) =>
+			TryRemovePrefixSuffix(argsAttr, "#[pyo3(signature = (", "))]", out args);
 
 		public static bool TryParseTypeAndDocs(string argLine, [NotNullWhen(false)] out string? error, out TypeAndDocs result) {
 			result = default;

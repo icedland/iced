@@ -160,39 +160,41 @@ namespace Generator.Encoder.Python {
 		void WriteTextSignature(in GenerateMethodContext ctx) {
 			sb.Clear();
 			sb.Append("#[pyo3(text_signature = \"(");
-			foreach (var argInfo in ctx.Info.ArgInfos) {
-				sb.Append(argInfo.PythonName);
-				sb.Append(", ");
-			}
-			sb.Append("/)\")]");
+			var defaultArgsCount = WriteArgs(ctx);
+			sb.Append(")\")]");
 			ctx.Writer.WriteLine(sb.ToString());
 		}
 
-		void WriteDefaultArgs(in GenerateMethodContext ctx) {
+		void WriteSignature(in GenerateMethodContext ctx) {
 			sb.Clear();
-			sb.Append("#[args(");
-			int defaultArgsCount = 0;
-			for (int i = 0; i < ctx.Method.Args.Count; i++) {
-				var defaultValue = ctx.Method.Args[i].DefaultValue;
-				if (defaultValue is null)
-					continue;
-				if (defaultArgsCount > 0)
-					sb.Append(", ");
-				defaultArgsCount++;
-				var argName = ctx.Info.ArgInfos[i].PythonName;
-				sb.Append(argName);
-				sb.Append(" = ");
-				switch (defaultValue) {
-				case EnumValue enumValue:
-					sb.Append(enumValue.Value);
-					break;
-				default:
-					throw new InvalidOperationException();
-				}
-			}
-			sb.Append(")]");
+			sb.Append("#[pyo3(signature = (");
+			var defaultArgsCount = WriteArgs(ctx);
+			sb.Append("))]");
 			if (defaultArgsCount > 0)
 				ctx.Writer.WriteLine(sb.ToString());
+		}
+
+		int WriteArgs(in GenerateMethodContext ctx) {
+			int defaultArgsCount = 0;
+			for (int i = 0; i < ctx.Method.Args.Count; i++) {
+				if (i > 0)
+					sb.Append(", ");
+				var defaultValue = ctx.Method.Args[i].DefaultValue;
+				var argName = ctx.Info.ArgInfos[i].PythonName;
+				sb.Append(argName);
+				if (defaultValue is not null) {
+					defaultArgsCount++;
+					sb.Append(" = ");
+					switch (defaultValue) {
+					case EnumValue enumValue:
+						sb.Append(enumValue.Value);
+						break;
+					default:
+						throw new InvalidOperationException();
+					}
+				}
+			}
+			return defaultArgsCount;
 		}
 
 		static (string sphinxType, string pythonType, string? descType) GetArgType(MethodArgType type) =>
@@ -246,7 +248,7 @@ namespace Generator.Encoder.Python {
 			ctx.Writer.WriteLine("#[rustfmt::skip]");
 			ctx.Writer.WriteLine("#[staticmethod]");
 			WriteTextSignature(ctx);
-			WriteDefaultArgs(ctx);
+			WriteSignature(ctx);
 			ctx.Writer.Write($"fn {ctx.Info.PythonMethodName}(");
 			WriteMethodDeclArgs(ctx);
 			ctx.Writer.WriteLine(") -> PyResult<Self> {");
