@@ -29,7 +29,7 @@ If on Windows, replace `python3` in all commands with `python` or `py`.
 Prerequisites:
 
 - Rust: https://www.rust-lang.org/tools/install
-- Python >= 3.7: https://www.python.org/downloads/
+- Python >= 3.8: https://www.python.org/downloads/
 - `python3 -m pip install -r requirements.txt`
 
 ```sh
