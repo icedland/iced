@@ -31,7 +31,7 @@ final class MemorySizeInfoTestReader {
 			}
 			if (result[tc.memorySize] != null)
 				throw new UnsupportedOperationException(String.format("Duplicate test, %s, line %d", filename, lineNo));
-			result[(int)tc.memorySize] = tc;
+			result[tc.memorySize] = tc;
 		}
 
 		StringBuilder sb = new StringBuilder();

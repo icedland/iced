@@ -48,7 +48,7 @@ final class TableDeserializer {
 				break;
 
 			case SerializedDataKind.ARRAY_REFERENCE:
-				idToHandler.add(new HandlerInfo(readHandlers((int)reader.readCompressedUInt32())));
+				idToHandler.add(new HandlerInfo(readHandlers(reader.readCompressedUInt32())));
 				break;
 
 			default:

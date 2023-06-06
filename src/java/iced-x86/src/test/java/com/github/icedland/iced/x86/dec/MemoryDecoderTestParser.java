@@ -66,9 +66,9 @@ final class MemoryDecoderTestParser {
 		tc.segmentRegister = ToRegister.get(parts[4].trim());
 		tc.baseRegister = ToRegister.get(parts[5].trim());
 		tc.indexRegister = ToRegister.get(parts[6].trim());
-		tc.scale = (int)NumberConverter.toUInt32(parts[7].trim());
+		tc.scale = NumberConverter.toUInt32(parts[7].trim());
 		tc.displacement = NumberConverter.toUInt64(parts[8].trim());
-		tc.displacementSize = (int)NumberConverter.toUInt32(parts[9].trim());
+		tc.displacementSize = NumberConverter.toUInt32(parts[9].trim());
 		String coStr = parts[10].trim();
 		ConstantOffsets co = DecoderTestParser.tryParseConstantOffsets(coStr);
 		if (co == null)

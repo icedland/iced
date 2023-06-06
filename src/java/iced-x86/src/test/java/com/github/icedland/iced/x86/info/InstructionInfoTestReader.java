@@ -337,13 +337,13 @@ final class InstructionInfoTestReader {
 
 		switch (mem.addressSize) {
 		case CodeSize.CODE16:
-			if (!(-0x8000 <= (long)mem.displ && (long)mem.displ <= 0x7FFF) && Long.compareUnsigned(mem.displ, 0xFFFF) > 0)
+			if (!(-0x8000 <= mem.displ && mem.displ <= 0x7FFF) && Long.compareUnsigned(mem.displ, 0xFFFF) > 0)
 				return false;
 			mem.displ = mem.displ & 0xFFFF;
 			break;
 
 		case CodeSize.CODE32:
-			if (!(-0x8000_0000 <= (long)mem.displ && (long)mem.displ <= 0x7FFF_FFFF) && Long.compareUnsigned(mem.displ, 0xFFFF_FFFFL) > 0)
+			if (!(-0x8000_0000 <= mem.displ && mem.displ <= 0x7FFF_FFFF) && Long.compareUnsigned(mem.displ, 0xFFFF_FFFFL) > 0)
 				return false;
 			mem.displ = mem.displ & 0xFFFF_FFFFL;
 			break;

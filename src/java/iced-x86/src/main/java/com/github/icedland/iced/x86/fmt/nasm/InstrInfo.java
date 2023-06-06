@@ -396,7 +396,7 @@ final class SimpleInstrInfo_imul extends InstrInfo {
 				&& info.op0Register == info.op1Register) {
 			info.opCount--;
 			info.op0Index = OP_ACCESS_READ_WRITE;
-			info.op1Kind = (byte)info.op2Kind;
+			info.op1Kind = info.op2Kind;
 			info.op1Index = 2;
 			info.op2Index = OP_ACCESS_INVALID;
 		}

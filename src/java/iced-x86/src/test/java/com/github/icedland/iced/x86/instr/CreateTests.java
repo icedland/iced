@@ -1538,15 +1538,15 @@ final class CreateTests {
 		}
 		{
 			Instruction instruction = Instruction.createDeclareDword(new int[1]);
-			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareDwordValue(-1, (int)0));
-			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareDwordValue(4, (int)0));
+			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareDwordValue(-1, 0));
+			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareDwordValue(4, 0));
 			for (int i = 0; i < 4; i++)
-				instruction.setDeclareDwordValue(i, (int)0);
+				instruction.setDeclareDwordValue(i, 0);
 		}
 		{
 			Instruction instruction = Instruction.createDeclareQword(new long[1]);
-			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareQwordValue(-1, (long)0L));
-			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareQwordValue(2, (long)0L));
+			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareQwordValue(-1, 0L));
+			assertThrows(IllegalArgumentException.class, () -> instruction.setDeclareQwordValue(2, 0L));
 			for (int i = 0; i < 2; i++)
 				instruction.setDeclareQwordValue(i, (long)0);
 		}

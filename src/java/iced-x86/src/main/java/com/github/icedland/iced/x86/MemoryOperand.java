@@ -320,7 +320,7 @@ public final class MemoryOperand {
 		this.base = ICRegister.NONE;
 		this.index = ICRegister.NONE;
 		this.scale = 1;
-		this.displacement = (long)displacement;
+		this.displacement = displacement;
 		this.displSize = displSize;
 		this.isBroadcast = false;
 	}

@@ -697,7 +697,7 @@ public final class GasFormatter extends Formatter {
 						numberFormatter, numberOptions, imm8 & 0xFF, symbol, options.getShowSymbolAddress());
 			else {
 				if (numberOptions.signedNumber) {
-					imm64 = (byte)imm8;
+					imm64 = imm8;
 					numberKind = NumberKind.INT8;
 					if (imm8 < 0) {
 						output.write("-", FormatterTextKind.OPERATOR);
@@ -733,7 +733,7 @@ public final class GasFormatter extends Formatter {
 						numberFormatter, numberOptions, imm16 & 0xFFFF, symbol, options.getShowSymbolAddress());
 			else {
 				if (numberOptions.signedNumber) {
-					imm64 = (short)imm16;
+					imm64 = imm16;
 					numberKind = NumberKind.INT16;
 					if (imm16 < 0) {
 						output.write("-", FormatterTextKind.OPERATOR);

@@ -122,7 +122,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { (byte)0x8B, 0x46, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -134,7 +134,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { (byte)0x8B, 0x45, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -146,7 +146,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { (byte)0x8B, 0x44, 0x15, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -158,7 +158,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x67, 0x41, (byte)0x8B, 0x45, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -170,7 +170,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x67, 0x41, (byte)0x8B, 0x44, 0x15, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -182,7 +182,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x48, (byte)0x8B, 0x45, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -194,7 +194,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x48, (byte)0x8B, 0x44, 0x15, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -206,7 +206,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x49, (byte)0x8B, 0x45, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -218,7 +218,7 @@ final class MiscTests {
 		int len = encoder.encode(instruction, 0);
 		byte[] expected = new byte[] { 0x49, (byte)0x8B, 0x44, 0x15, 0x00 };
 		byte[] actual = writer.toArray();
-		assertEquals(actual.length, (int)len);
+		assertEquals(actual.length, len);
 		assertArrayEquals(expected, actual);
 	}
 
@@ -1726,12 +1726,12 @@ final class MiscTests {
 	void testInvalidEipRelMemTargetAddr() {
 		for (long target : new long[] { 0, 0x7FFF_FFFF, 0xFFFF_FFFFL }) {
 			Encoder encoder = new Encoder(64, new CodeWriterImpl());
-			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.eip, ICRegister.NONE, 1, (long)target, 4, false, ICRegister.NONE));
+			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.eip, ICRegister.NONE, 1, target, 4, false, ICRegister.NONE));
 			assertTrue(encoder.tryEncode(instr, 0) instanceof Integer);
 		}
 		for (long target : new long[] { 0x1_0000_0000L, 0xFFFF_FFFF_FFFF_FFFFL }) {
 			Encoder encoder = new Encoder(64, new CodeWriterImpl());
-			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.eip, ICRegister.NONE, 1, (long)target, 4, false, ICRegister.NONE));
+			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.eip, ICRegister.NONE, 1, target, 4, false, ICRegister.NONE));
 			assertTrue(encoder.tryEncode(instr, 0) instanceof String);
 		}
 	}
@@ -1763,7 +1763,7 @@ final class MiscTests {
 		for (long diff : new long[] { -0x8000_0000L, 0x7FFF_FFFFL, -1, 0, 1, -0x1234_5678L, 0x1234_5678L }) {
 			CodeWriterImpl writer = new CodeWriterImpl();
 			Encoder encoder = new Encoder(64, writer);
-			long target = (long)(instrAddr + instrLen) + diff;
+			long target = instrAddr + instrLen + diff;
 			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.rip, ICRegister.NONE, 1, target, 8, false, ICRegister.NONE));
 			Object result = encoder.tryEncode(instr, instrAddr);
 			assertTrue(result instanceof Integer);
@@ -1775,9 +1775,9 @@ final class MiscTests {
 			assertEquals(Register.RIP, decoded.getMemoryBase());
 			assertEquals(target, decoded.getMemoryDisplacement64());
 		}
-		for (long diff : new long[] { -0x8000_0001L, (long)0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL }) {
+		for (long diff : new long[] { -0x8000_0001L, 0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL }) {
 			Encoder encoder = new Encoder(64, new CodeWriterImpl());
-			long target = (long)(instrAddr + instrLen) + diff;
+			long target = instrAddr + instrLen + diff;
 			Instruction instr = Instruction.create(Code.NOT_RM8, new MemoryOperand(ICRegisters.rip, ICRegister.NONE, 1, target, 8, false, ICRegister.NONE));
 			assertFalse(encoder.tryEncode(instr, instrAddr) instanceof Integer);
 		}
@@ -1821,7 +1821,7 @@ final class MiscTests {
 	@Test
 	void testInvalidJccRel32_64() {
 		long[] validDiffs = new long[] { -0x8000_0000L, 0x7FFF_FFFFL, -1, 0, 1, -0x1234_5678L, 0x1234_5678L };
-		long[] invalidDiffs = new long[] { -0x8000_0001L, (long)0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL };
+		long[] invalidDiffs = new long[] { -0x8000_0001L, 0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL };
 		testInvalidJcc(64, Code.JE_REL32_64, 0x1234_5678_9ABC_DEF0L, 6, 0xFFFF_FFFF_FFFF_FFFFL, validDiffs, invalidDiffs);
 	}
 
@@ -1867,7 +1867,7 @@ final class MiscTests {
 	@Test
 	void testInvalidXbeginRel32_64() {
 		long[] validDiffs = new long[] { -0x8000_0000L, 0x7FFF_FFFFL, -1, 0, 1, -0x1234_5678L, 0x1234_5678L };
-		long[] invalidDiffs = new long[] { -0x8000_0001L, (long)0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL };
+		long[] invalidDiffs = new long[] { -0x8000_0001L, 0x8000_0000L, -0x1234_5678_9ABC_DEF0L, 0x1234_5678_9ABC_DEF0L, -0x8000_0000_0000_0000L, 0x7FFF_FFFF_FFFF_FFFFL };
 		testInvalidXbegin(64, Code.XBEGIN_REL32, 0x1234_5678_9ABC_DEF0L, 6, 0xFFFF_FFFF_FFFF_FFFFL, validDiffs, invalidDiffs);
 	}
 
@@ -1889,7 +1889,7 @@ final class MiscTests {
 		for (long diff : validDiffs) {
 			CodeWriterImpl writer = new CodeWriterImpl();
 			Encoder encoder = new Encoder(bitness, writer);
-			long target = (instrAddr + instrLen + (long)diff) & addrMask;
+			long target = (instrAddr + instrLen + diff) & addrMask;
 			Instruction instr = createInstr.create(code, bitness, target);
 			Object result = encoder.tryEncode(instr, instrAddr);
 			assertTrue(result instanceof Integer);
@@ -1902,7 +1902,7 @@ final class MiscTests {
 		}
 		for (long diff : invalidDiffs) {
 			Encoder encoder = new Encoder(bitness, new CodeWriterImpl());
-			long target = (instrAddr + instrLen + (long)diff) & addrMask;
+			long target = (instrAddr + instrLen + diff) & addrMask;
 			Instruction instr = createInstr.create(code, bitness, target);
 			assertTrue(encoder.tryEncode(instr, instrAddr) instanceof String);
 		}

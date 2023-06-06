@@ -35,7 +35,7 @@ class BlockEncoderTests {
 			int c = Long.compareUnsigned(a.address, b.address);
 			if (c != 0)
 				return c;
-			return (int)a.kind - (int)b.kind;
+			return a.kind - b.kind;
 		});
 		return list.toArray(new RelocInfo[0]);
 	}
@@ -86,7 +86,7 @@ class BlockEncoderTests {
 			if (newInstructionOffsets[i] == 0xFFFF_FFFF)
 				expectedConstantOffsets[i] = new ConstantOffsets();
 			else {
-				reader.index = (int)newInstructionOffsets[i];
+				reader.index = newInstructionOffsets[i];
 				decoder.setIP(newRip + newInstructionOffsets[i]);
 				Instruction instruction = decoder.decode();
 				expectedConstantOffsets[i] = decoder.getConstantOffsets(instruction);

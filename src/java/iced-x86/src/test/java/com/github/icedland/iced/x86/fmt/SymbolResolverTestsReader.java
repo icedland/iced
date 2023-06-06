@@ -92,7 +92,7 @@ final class SymbolResolverTestsReader {
 					continue;
 				Integer f = SymbolResolverDicts.toSymbolFlags.get(value);
 				if (f != null)
-					flags |= (Integer)f;
+					flags |= f;
 				else
 					memorySize = ToMemorySize.get(value);
 			}

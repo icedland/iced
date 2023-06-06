@@ -755,6 +755,7 @@ namespace Generator.Assembler.Java {
 				writerTests.WriteLine("import static com.github.icedland.iced.x86.asm.AsmRegisters.*;");
 				writerTests.WriteLine();
 
+				writerTests.WriteLine("@SuppressWarnings(\"cast\")");
 				writerTests.WriteLine($"final class {testName} extends CodeAssemblerTestsBase {{");
 				using (writerTests.Indent()) {
 					writerTests.WriteLine($"{testName}() {{");

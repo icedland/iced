@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.github.icedland.iced.x86.*;
 import static com.github.icedland.iced.x86.asm.AsmRegisters.*;
 
+@SuppressWarnings("cast")
 final class CodeAssembler64GenOTests extends CodeAssemblerTestsBase {
 	CodeAssembler64GenOTests() {
 		super(64);

@@ -152,7 +152,7 @@ final class EncoderTests {
 		fixConstantOffsets(encodedConstantOffsets, origInstr.getLength(), encodedInstrLen);
 		assertTrue(equals(origConstantOffsets, encodedConstantOffsets));
 		byte[] encodedBytes = writer.toArray();
-		assertEquals(encodedBytes.length, (int)encodedInstrLen);
+		assertEquals(encodedBytes.length, encodedInstrLen);
 		assertTrue(origInstr.equalsAllBits(origInstrCopy));
 
 		byte[] expectedBytes = HexUtils.toByteArray(encodedHexBytes);

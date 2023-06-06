@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.github.icedland.iced.x86.*;
 import static com.github.icedland.iced.x86.asm.AsmRegisters.*;
 
+@SuppressWarnings("cast")
 final class CodeAssembler16GenNTests extends CodeAssemblerTestsBase {
 	CodeAssembler16GenNTests() {
 		super(16);

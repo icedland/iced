@@ -214,7 +214,7 @@ final class DecoderTests {
 		assertEquals(cdec.length, instruction.getLength());
 		assertEquals(rip, instruction.getIP());
 		assertEquals(cdec.decoder.getIP(), instruction.getNextIP());
-		assertEquals(rip + (int)cdec.length, instruction.getNextIP());
+		assertEquals(rip + cdec.length, instruction.getNextIP());
 		switch (bitness) {
 		case 16:
 			assertEquals(CodeSize.CODE16, instruction.getCodeSize());
@@ -336,11 +336,11 @@ final class DecoderTests {
 				break;
 
 			case OpKind.IMMEDIATE8TO64:
-				assertEquals((long)tc.immediate, instruction.getImmediate8to64());
+				assertEquals(tc.immediate, instruction.getImmediate8to64());
 				break;
 
 			case OpKind.IMMEDIATE32TO64:
-				assertEquals((long)tc.immediate, instruction.getImmediate32to64());
+				assertEquals(tc.immediate, instruction.getImmediate32to64());
 				break;
 
 			case OpKind.MEMORY_SEG_SI:

@@ -18,4 +18,6 @@ public final class EncoderException extends RuntimeException {
 		super(message);
 		this.instruction = instruction;
 	}
+
+	private static final long serialVersionUID = 1;
 }

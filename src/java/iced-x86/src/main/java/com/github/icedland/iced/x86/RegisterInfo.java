@@ -52,7 +52,7 @@ public final class RegisterInfo {
 			int fullReg = data[i + 2] & 0xFF;
 			int size = (data[i + 3] & 0xFF) | ((data[i + 4] & 0xFF) << 8);
 			while (reg <= regEnd) {
-				regInfos[(int)reg] = new RegisterInfo(reg, baseReg, fullReg, size);
+				regInfos[reg] = new RegisterInfo(reg, baseReg, fullReg, size);
 				reg++;
 				fullReg++;
 				if (reg == Register.AH)
@@ -102,7 +102,7 @@ public final class RegisterInfo {
 	 * {@code XMM11}/{@code YMM11}/{@code ZMM11} -&gt; {@code ZMM11}
 	 */
 	public int getFullRegister32() {
-		int fullRegister = (int)this.fullRegister;
+		int fullRegister = this.fullRegister;
 		if (Register.isGPR(fullRegister)) {
 			assert Register.RAX <= fullRegister && fullRegister <= Register.R15 : fullRegister;
 			return fullRegister - Register.RAX + Register.EAX;

@@ -961,9 +961,9 @@ public final class Instruction {
 		case OpKind.IMMEDIATE8TO32:
 			return (long)getImmediate8to32();
 		case OpKind.IMMEDIATE8TO64:
-			return (long)getImmediate8to64();
+			return getImmediate8to64();
 		case OpKind.IMMEDIATE32TO64:
-			return (long)getImmediate32to64();
+			return getImmediate32to64();
 		default:
 			throw new IllegalArgumentException();
 		}
@@ -1136,7 +1136,7 @@ public final class Instruction {
 	 * Gets the operand's immediate value. Use this property if the operand has kind {@link OpKind#IMMEDIATE32TO64}
 	 */
 	public long getImmediate32to64() {
-		return (int)immediate;
+		return immediate;
 	}
 
 	/**
