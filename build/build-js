@@ -144,7 +144,7 @@ cargo --version
 echo "Rust version"
 rustc --version
 echo "wasm-pack version"
-wasm-pack --version
+#wasm-pack --version
 echo "node version"
 node --version
 echo "npm version"
