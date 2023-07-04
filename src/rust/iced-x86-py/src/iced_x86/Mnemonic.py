@@ -7533,3 +7533,63 @@ TCMMIMFP16PS: Mnemonic = 1878 # type: ignore
 """
 <no docs>
 """
+PBNDKB: Mnemonic = 1879 # type: ignore
+"""
+<no docs>
+"""
+VPDPWSUD: Mnemonic = 1880 # type: ignore
+"""
+<no docs>
+"""
+VPDPWSUDS: Mnemonic = 1881 # type: ignore
+"""
+<no docs>
+"""
+VPDPWUSD: Mnemonic = 1882 # type: ignore
+"""
+<no docs>
+"""
+VPDPWUSDS: Mnemonic = 1883 # type: ignore
+"""
+<no docs>
+"""
+VPDPWUUD: Mnemonic = 1884 # type: ignore
+"""
+<no docs>
+"""
+VPDPWUUDS: Mnemonic = 1885 # type: ignore
+"""
+<no docs>
+"""
+VSHA512MSG1: Mnemonic = 1886 # type: ignore
+"""
+<no docs>
+"""
+VSHA512MSG2: Mnemonic = 1887 # type: ignore
+"""
+<no docs>
+"""
+VSHA512RNDS2: Mnemonic = 1888 # type: ignore
+"""
+<no docs>
+"""
+VSM3MSG1: Mnemonic = 1889 # type: ignore
+"""
+<no docs>
+"""
+VSM3MSG2: Mnemonic = 1890 # type: ignore
+"""
+<no docs>
+"""
+VSM3RNDS2: Mnemonic = 1891 # type: ignore
+"""
+<no docs>
+"""
+VSM4KEY4: Mnemonic = 1892 # type: ignore
+"""
+<no docs>
+"""
+VSM4RNDS4: Mnemonic = 1893 # type: ignore
+"""
+<no docs>
+"""

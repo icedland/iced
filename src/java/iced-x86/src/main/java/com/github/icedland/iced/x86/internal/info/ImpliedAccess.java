@@ -812,4 +812,8 @@ public final class ImpliedAccess {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int T_RDL_RRAX_WEAX_WRCX_WRDX = 199;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int T_RMEM_WMEM_RRCX_RRBX_RDS_WEAX = 200;
 }

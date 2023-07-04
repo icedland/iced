@@ -3170,6 +3170,11 @@ pub trait CodeAsmPblendw<T, U, V> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmPbndkb {
+	fn pbndkb(&mut self) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmPclmulhqhqdq<T, U> {
 	fn pclmulhqhqdq(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
 }
@@ -9335,6 +9340,36 @@ pub trait CodeAsmVpdpwssds<T, U, V> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmVpdpwsud<T, U, V> {
+	fn vpdpwsud(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpwsuds<T, U, V> {
+	fn vpdpwsuds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpwusd<T, U, V> {
+	fn vpdpwusd(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpwusds<T, U, V> {
+	fn vpdpwusds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpwuud<T, U, V> {
+	fn vpdpwuud(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVpdpwuuds<T, U, V> {
+	fn vpdpwuuds(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmVperm2f128<T, U, V, W> {
 	fn vperm2f128(&mut self, op0: T, op1: U, op2: V, op3: W) -> Result<(), IcedError>;
 }
@@ -10910,6 +10945,21 @@ pub trait CodeAsmVscatterqps<T, U> {
 }
 
 #[rustfmt::skip]
+pub trait CodeAsmVsha512msg1<T, U> {
+	fn vsha512msg1(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsha512msg2<T, U> {
+	fn vsha512msg2(&mut self, op0: T, op1: U) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsha512rnds2<T, U, V> {
+	fn vsha512rnds2(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
 pub trait CodeAsmVshuff32x4<T, U, V, W> {
 	fn vshuff32x4(&mut self, op0: T, op1: U, op2: V, op3: W) -> Result<(), IcedError>;
 }
@@ -10937,6 +10987,31 @@ pub trait CodeAsmVshufpd<T, U, V, W> {
 #[rustfmt::skip]
 pub trait CodeAsmVshufps<T, U, V, W> {
 	fn vshufps(&mut self, op0: T, op1: U, op2: V, op3: W) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsm3msg1<T, U, V> {
+	fn vsm3msg1(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsm3msg2<T, U, V> {
+	fn vsm3msg2(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsm3rnds2<T, U, V, W> {
+	fn vsm3rnds2(&mut self, op0: T, op1: U, op2: V, op3: W) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsm4key4<T, U, V> {
+	fn vsm4key4(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
+}
+
+#[rustfmt::skip]
+pub trait CodeAsmVsm4rnds4<T, U, V> {
+	fn vsm4rnds4(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>;
 }
 
 #[rustfmt::skip]

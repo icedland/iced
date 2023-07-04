@@ -1207,7 +1207,15 @@ namespace Generator.Decoder {
 							new object[] { Simple, code[nameof(Code.Rdmsrlist)] },
 						},
 					},
-					null,
+					new object[] { MandatoryPrefix_NoModRM,
+						new object[] { Bitness,
+							invalid_NoModRM,
+							new object[] { Simple, code[nameof(Code.Pbndkb)] },
+						},
+						invalid_NoModRM,
+						invalid_NoModRM,
+						invalid_NoModRM,
+					},
 
 					// C8
 					new object[] { MandatoryPrefix_NoModRM,

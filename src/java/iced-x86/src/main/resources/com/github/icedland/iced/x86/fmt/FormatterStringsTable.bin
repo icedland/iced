@@ -113,4 +113,4 @@ zero_byteswrmsrns	wrmsrlist	rdmsrlistrmpqueryprefetchit1prefetchit0aaddaan
 cmpnaexadd	cmpaexadd	cmpnbxadd	cmpncxaddcmpexaddcmpzxadd	cmpnexadd	cmpnzxadd	cmpbexadd	cmpnaxaddcmpaxadd
 cmpnbexaddcmpsxadd	cmpnsxadd	cmppexaddcmppxadd	cmpnpxadd	cmppoxaddcmplxadd
 cmpngexadd	cmpgexadd	cmpnlxadd	cmplexadd	cmpngxaddcmpgxadd
-cmpnlexaddtcmmrlfp16pstcmmimfp16ps
+cmpnlexaddtcmmrlfp16pstcmmimfp16pspbndkbvsha512rnds2vsha512msg1vsha512msg2vpdpwuudvpdpwusdvpdpwsud	vpdpwuuds	vpdpwusds	vpdpwsudsvsm3msg1vsm3msg2vsm4key4	vsm4rnds4	vsm3rnds2

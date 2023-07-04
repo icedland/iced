@@ -124,9 +124,10 @@ test_wheel() {
 
 	patchci_verify_patched
 
-	$python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
+	#TODO: use venv
+	$python -m pip install --break-system-packages iced-x86 --no-index -f dist --only-binary iced-x86
 	$python -m pytest --color=yes --code-highlight=yes
-	$python -m pip uninstall -y iced-x86
+	$python -m pip uninstall -y --break-system-packages iced-x86
 
 	cd "$curr_dir"
 }
@@ -172,9 +173,10 @@ misc_tests() {
 	echo "mypy"
 	$python -m mypy --version
 	$python -m mypy --strict src/iced_x86
-	$python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
+	#TODO: use venv
+	$python -m pip install --break-system-packages iced-x86 --no-index -f dist --only-binary iced-x86
 	$python -m mypy --strict tests/
-	$python -m pip uninstall -y iced-x86
+	$python -m pip uninstall -y --break-system-packages iced-x86
 
 	echo "pylint"
 	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error

@@ -350,5 +350,15 @@ namespace Generator.Enums.InstructionInfo {
 		WRMSRNS,
 		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]")]
 		AMX_COMPLEX,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.SHA512[bit 0]")]
+		SHA512,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.SM3[bit 1]")]
+		SM3,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EAX.SM4[bit 2]")]
+		SM4,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EBX.TSE[bit 1]")]
+		TSE,
+		[Comment("CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT16[bit 10]")]
+		AVX_VNNI_INT16,
 	}
 }

@@ -2204,10 +2204,20 @@ pub enum CpuidFeature {
 	WRMSRNS = 171,
 	/// CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX\[bit 8\]
 	AMX_COMPLEX = 172,
+	/// CPUID.(EAX=07H, ECX=1H):EAX.SHA512\[bit 0\]
+	SHA512 = 173,
+	/// CPUID.(EAX=07H, ECX=1H):EAX.SM3\[bit 1\]
+	SM3 = 174,
+	/// CPUID.(EAX=07H, ECX=1H):EAX.SM4\[bit 2\]
+	SM4 = 175,
+	/// CPUID.(EAX=07H, ECX=1H):EBX.TSE\[bit 1\]
+	TSE = 176,
+	/// CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT16\[bit 10\]
+	AVX_VNNI_INT16 = 177,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE: [&str; 173] = [
+static GEN_DEBUG_CPUID_FEATURE: [&str; 178] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -2381,6 +2391,11 @@ static GEN_DEBUG_CPUID_FEATURE: [&str; 173] = [
 	"MSRLIST",
 	"WRMSRNS",
 	"AMX_COMPLEX",
+	"SHA512",
+	"SM3",
+	"SM4",
+	"TSE",
+	"AVX_VNNI_INT16",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeature {

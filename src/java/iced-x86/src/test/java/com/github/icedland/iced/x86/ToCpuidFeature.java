@@ -38,7 +38,7 @@ public final class ToCpuidFeature {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(173);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(178);
 		initMap0(map);
 		return map;
 	}
@@ -217,5 +217,10 @@ public final class ToCpuidFeature {
 		map.put("MSRLIST", CpuidFeature.MSRLIST);
 		map.put("WRMSRNS", CpuidFeature.WRMSRNS);
 		map.put("AMX_COMPLEX", CpuidFeature.AMX_COMPLEX);
+		map.put("SHA512", CpuidFeature.SHA512);
+		map.put("SM3", CpuidFeature.SM3);
+		map.put("SM4", CpuidFeature.SM4);
+		map.put("TSE", CpuidFeature.TSE);
+		map.put("AVX_VNNI_INT16", CpuidFeature.AVX_VNNI_INT16);
 	}
 }

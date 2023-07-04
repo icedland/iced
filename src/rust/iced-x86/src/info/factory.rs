@@ -1940,6 +1940,20 @@ impl InstructionInfoFactory {
 					Self::add_register(flags, info, Register::RDX, OpAccess::Write);
 				}
 			}
+			ImpliedAccess::t_Rmem_Wmem_Rrcx_Rrbx_Rds_Weax => {
+				if (flags & Flags::NO_MEMORY_USAGE) == 0 {
+					Self::add_memory(info, Register::DS, Register::RBX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::Read, CodeSize::Code64, 0);
+					Self::add_memory(info, Register::DS, Register::RCX, Register::None, 1, 0x0, MemorySize::Unknown, OpAccess::Write, CodeSize::Code64, 0);
+				}
+				if (flags & Flags::NO_REGISTER_USAGE) == 0 {
+					Self::add_register(flags, info, Register::RCX, OpAccess::Read);
+					Self::add_register(flags, info, Register::RBX, OpAccess::Read);
+					if (flags & Flags::IS_64BIT) == 0 {
+						Self::add_register(flags, info, Register::DS, OpAccess::Read);
+					}
+					Self::add_register(flags, info, Register::EAX, OpAccess::Write);
+				}
+			}
 			// GENERATOR-END: ImpliedAccessHandler
 		}
 	}

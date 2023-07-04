@@ -13112,3 +13112,45 @@ cmpgxadd dword ptr [rax], edx, esi
 cmpgxadd qword ptr [rax], rdx, rsi
 tcmmrlfp16ps tmm2, tmm3, tmm4
 tcmmimfp16ps tmm2, tmm3, tmm4
+pbndkb
+vsha512rnds2 ymm2, ymm6, xmm3
+vsha512msg1 ymm1, xmm5
+vsha512msg2 ymm1, ymm5
+vpdpwuud xmm2, xmm6, xmmword ptr [rax]
+vpdpwuud xmm2, xmm6, xmm3
+vpdpwuud ymm2, ymm6, ymmword ptr [rax]
+vpdpwuud ymm2, ymm6, ymm3
+vpdpwusd xmm2, xmm6, xmmword ptr [rax]
+vpdpwusd xmm2, xmm6, xmm3
+vpdpwusd ymm2, ymm6, ymmword ptr [rax]
+vpdpwusd ymm2, ymm6, ymm3
+vpdpwsud xmm2, xmm6, xmmword ptr [rax]
+vpdpwsud xmm2, xmm6, xmm3
+vpdpwsud ymm2, ymm6, ymmword ptr [rax]
+vpdpwsud ymm2, ymm6, ymm3
+vpdpwuuds xmm2, xmm6, xmmword ptr [rax]
+vpdpwuuds xmm2, xmm6, xmm3
+vpdpwuuds ymm2, ymm6, ymmword ptr [rax]
+vpdpwuuds ymm2, ymm6, ymm3
+vpdpwusds xmm2, xmm6, xmmword ptr [rax]
+vpdpwusds xmm2, xmm6, xmm3
+vpdpwusds ymm2, ymm6, ymmword ptr [rax]
+vpdpwusds ymm2, ymm6, ymm3
+vpdpwsuds xmm2, xmm6, xmmword ptr [rax]
+vpdpwsuds xmm2, xmm6, xmm3
+vpdpwsuds ymm2, ymm6, ymmword ptr [rax]
+vpdpwsuds ymm2, ymm6, ymm3
+vsm3msg1 xmm2, xmm6, xmmword ptr [rax]
+vsm3msg1 xmm2, xmm6, xmm3
+vsm3msg2 xmm2, xmm6, xmmword ptr [rax]
+vsm3msg2 xmm2, xmm6, xmm3
+vsm4key4 xmm2, xmm6, xmmword ptr [rax]
+vsm4key4 xmm2, xmm6, xmm3
+vsm4key4 ymm2, ymm6, ymmword ptr [rax]
+vsm4key4 ymm2, ymm6, ymm3
+vsm4rnds4 xmm2, xmm6, xmmword ptr [rax]
+vsm4rnds4 xmm2, xmm6, xmm3
+vsm4rnds4 ymm2, ymm6, ymmword ptr [rax]
+vsm4rnds4 ymm2, ymm6, ymm3
+vsm3rnds2 xmm2, xmm6, xmmword ptr [rax], -5Bh
+vsm3rnds2 xmm2, xmm6, xmm3, -5Bh

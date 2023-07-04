@@ -39285,9 +39285,193 @@ pub enum Code {
 	///
 	/// `64-bit`
 	VEX_Tcmmimfp16ps_tmm_tmm_tmm = 4912,
+	/// `PBNDKB`
+	///
+	/// `NP 0F 01 C7`
+	///
+	/// `TSE`
+	///
+	/// `64-bit`
+	Pbndkb = 4913,
+	/// `VSHA512RNDS2 ymm1, ymm2, xmm3`
+	///
+	/// `VEX.256.F2.0F38.W0 CB 11:rrr:bbb`
+	///
+	/// `AVX and SHA512`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsha512rnds2_ymm_ymm_xmm = 4914,
+	/// `VSHA512MSG1 ymm1, xmm2`
+	///
+	/// `VEX.256.F2.0F38.W0 CC 11:rrr:bbb`
+	///
+	/// `AVX and SHA512`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsha512msg1_ymm_xmm = 4915,
+	/// `VSHA512MSG2 ymm1, ymm2`
+	///
+	/// `VEX.256.F2.0F38.W0 CD 11:rrr:bbb`
+	///
+	/// `AVX and SHA512`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsha512msg2_ymm_ymm = 4916,
+	/// `VPDPWUUD xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwuud_xmm_xmm_xmmm128 = 4917,
+	/// `VPDPWUUD ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwuud_ymm_ymm_ymmm256 = 4918,
+	/// `VPDPWUSD xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwusd_xmm_xmm_xmmm128 = 4919,
+	/// `VPDPWUSD ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwusd_ymm_ymm_ymmm256 = 4920,
+	/// `VPDPWSUD xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.F3.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwsud_xmm_xmm_xmmm128 = 4921,
+	/// `VPDPWSUD ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.F3.0F38.W0 D2 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwsud_ymm_ymm_ymmm256 = 4922,
+	/// `VPDPWUUDS xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwuuds_xmm_xmm_xmmm128 = 4923,
+	/// `VPDPWUUDS ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwuuds_ymm_ymm_ymmm256 = 4924,
+	/// `VPDPWUSDS xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwusds_xmm_xmm_xmmm128 = 4925,
+	/// `VPDPWUSDS ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.66.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwusds_ymm_ymm_ymmm256 = 4926,
+	/// `VPDPWSUDS xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.F3.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwsuds_xmm_xmm_xmmm128 = 4927,
+	/// `VPDPWSUDS ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.F3.0F38.W0 D3 /r`
+	///
+	/// `AVX-VNNI-INT16`
+	///
+	/// `16/32/64-bit`
+	VEX_Vpdpwsuds_ymm_ymm_ymmm256 = 4928,
+	/// `VSM3MSG1 xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.0F38.W0 DA /r`
+	///
+	/// `AVX and SM3`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm3msg1_xmm_xmm_xmmm128 = 4929,
+	/// `VSM3MSG2 xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.66.0F38.W0 DA /r`
+	///
+	/// `AVX and SM3`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm3msg2_xmm_xmm_xmmm128 = 4930,
+	/// `VSM4KEY4 xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.F3.0F38.W0 DA /r`
+	///
+	/// `AVX and SM4`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm4key4_xmm_xmm_xmmm128 = 4931,
+	/// `VSM4KEY4 ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.F3.0F38.W0 DA /r`
+	///
+	/// `AVX and SM4`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm4key4_ymm_ymm_ymmm256 = 4932,
+	/// `VSM4RNDS4 xmm1, xmm2, xmm3/m128`
+	///
+	/// `VEX.128.F2.0F38.W0 DA /r`
+	///
+	/// `AVX and SM4`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm4rnds4_xmm_xmm_xmmm128 = 4933,
+	/// `VSM4RNDS4 ymm1, ymm2, ymm3/m256`
+	///
+	/// `VEX.256.F2.0F38.W0 DA /r`
+	///
+	/// `AVX and SM4`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm4rnds4_ymm_ymm_ymmm256 = 4934,
+	/// `VSM3RNDS2 xmm1, xmm2, xmm3/m128, imm8`
+	///
+	/// `VEX.128.66.0F3A.W0 DE /r ib`
+	///
+	/// `AVX and SM3`
+	///
+	/// `16/32/64-bit`
+	VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8 = 4935,
 }
 #[rustfmt::skip]
-static GEN_DEBUG_CODE: [&str; 4913] = [
+static GEN_DEBUG_CODE: [&str; 4936] = [
 	"INVALID",
 	"DeclareByte",
 	"DeclareWord",
@@ -44201,6 +44385,29 @@ static GEN_DEBUG_CODE: [&str; 4913] = [
 	"VEX_Cmpnlexadd_m64_r64_r64",
 	"VEX_Tcmmrlfp16ps_tmm_tmm_tmm",
 	"VEX_Tcmmimfp16ps_tmm_tmm_tmm",
+	"Pbndkb",
+	"VEX_Vsha512rnds2_ymm_ymm_xmm",
+	"VEX_Vsha512msg1_ymm_xmm",
+	"VEX_Vsha512msg2_ymm_ymm",
+	"VEX_Vpdpwuud_xmm_xmm_xmmm128",
+	"VEX_Vpdpwuud_ymm_ymm_ymmm256",
+	"VEX_Vpdpwusd_xmm_xmm_xmmm128",
+	"VEX_Vpdpwusd_ymm_ymm_ymmm256",
+	"VEX_Vpdpwsud_xmm_xmm_xmmm128",
+	"VEX_Vpdpwsud_ymm_ymm_ymmm256",
+	"VEX_Vpdpwuuds_xmm_xmm_xmmm128",
+	"VEX_Vpdpwuuds_ymm_ymm_ymmm256",
+	"VEX_Vpdpwusds_xmm_xmm_xmmm128",
+	"VEX_Vpdpwusds_ymm_ymm_ymmm256",
+	"VEX_Vpdpwsuds_xmm_xmm_xmmm128",
+	"VEX_Vpdpwsuds_ymm_ymm_ymmm256",
+	"VEX_Vsm3msg1_xmm_xmm_xmmm128",
+	"VEX_Vsm3msg2_xmm_xmm_xmmm128",
+	"VEX_Vsm4key4_xmm_xmm_xmmm128",
+	"VEX_Vsm4key4_ymm_ymm_ymmm256",
+	"VEX_Vsm4rnds4_xmm_xmm_xmmm128",
+	"VEX_Vsm4rnds4_ymm_ymm_ymmm256",
+	"VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8",
 ];
 impl fmt::Debug for Code {
 	#[inline]

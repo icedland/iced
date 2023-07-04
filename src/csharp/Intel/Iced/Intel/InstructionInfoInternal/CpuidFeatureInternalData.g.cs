@@ -39,7 +39,7 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0x08,
 				0x08,
 				0x00,
-				0x00,
+				0x1C,
 
 				0x00,// INTEL8086
 				0x01,// INTEL8086_ONLY
@@ -235,6 +235,11 @@ namespace Iced.Intel.InstructionInfoInternal {
 				0xAA,// MSRLIST
 				0xAB,// WRMSRNS
 				0xAC,// AMX_COMPLEX
+				0x0F, 0xAD,// AVX_and_SHA512
+				0x0F, 0xAE,// AVX_and_SM3
+				0x0F, 0xAF,// AVX_and_SM4
+				0xB0,// TSE
+				0xB1,// AVX_VNNI_INT16
 			};
 	}
 }

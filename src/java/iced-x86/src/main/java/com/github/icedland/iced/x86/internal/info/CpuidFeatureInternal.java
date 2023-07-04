@@ -788,4 +788,24 @@ public final class CpuidFeatureInternal {
 	 * DO NOT USE: INTERNAL API
 	 */
 	public static final int AMX_COMPLEX = 193;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_AND_SHA512 = 194;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_AND_SM3 = 195;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_AND_SM4 = 196;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int TSE = 197;
+	/**
+	 * DO NOT USE: INTERNAL API
+	 */
+	public static final int AVX_VNNI_INT16 = 198;
 }

@@ -2630,8 +2630,60 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 192 = 0xC0
 	0x02,// Dup
-		0x0F,// 15
+		0x0B,// 11
 		0x00,// Invalid
+
+	// 203 = 0xCB
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x00,// Invalid
+				0x07,// RM
+					0x2B,// VHW_4
+						0x6D,// YMM0
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0xB2, 0x26,// VEX_Vsha512rnds2_ymm_ymm_xmm
+					0x00,// Invalid
+			0x00,// Invalid
+
+	// 204 = 0xCC
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x00,// Invalid
+				0x07,// RM
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x4D,// XMM0
+						0xB3, 0x26,// VEX_Vsha512msg1_ymm_xmm
+					0x00,// Invalid
+			0x00,// Invalid
+
+	// 205 = 0xCD
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x00,// Invalid
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x00,// Invalid
+				0x07,// RM
+					0x37,// VW_3
+						0x6D,// YMM0
+						0x6D,// YMM0
+						0xB4, 0x26,// VEX_Vsha512msg2_ymm_ymm
+					0x00,// Invalid
+			0x00,// Invalid
+
+	// 206 = 0xCE
+	0x00,// Invalid
 
 	// 207 = 0xCF
 	0x0B,// MandatoryPrefix2_4
@@ -2649,9 +2701,109 @@ pub(super) static TBL_DATA: &[u8] = &[
 		0x00,// Invalid
 
 	// 208 = 0xD0
-	0x02,// Dup
-		0x0B,// 11
+	0x01,// Invalid2
+
+	// 210 = 0xD2
+	0x0B,// MandatoryPrefix2_4
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xB5, 0x26,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xB6, 0x26,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xB7, 0x26,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xB8, 0x26,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xB9, 0x26,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xBA, 0x26,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+			0x00,// Invalid
 		0x00,// Invalid
+
+	// 211 = 0xD3
+	0x0B,// MandatoryPrefix2_4
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xBB, 0x26,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xBC, 0x26,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xBD, 0x26,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xBE, 0x26,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xBF, 0x26,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xC0, 0x26,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x00,// Invalid
+
+	// 212 = 0xD4
+	0x02,// Dup
+		0x06,// 6
+		0x00,// Invalid
+
+	// 218 = 0xDA
+	0x0B,// MandatoryPrefix2_4
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xC1, 0x26,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+				0x00,// Invalid
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xC2, 0x26,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+				0x00,// Invalid
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xC3, 0x26,// VEX_Vsm4key4_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xC4, 0x26,// VEX_Vsm4key4_ymm_ymm_ymmm256
+			0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x29,// VHW_2
+					0x4D,// XMM0
+					0xC5, 0x26,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+				0x29,// VHW_2
+					0x6D,// YMM0
+					0xC6, 0x26,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+			0x00,// Invalid
 
 	// 219 = 0xDB
 	0x0B,// MandatoryPrefix2_4
@@ -4099,7 +4251,20 @@ pub(super) static TBL_DATA: &[u8] = &[
 
 	// 208 = 0xD0
 	0x02,// Dup
-		0x0F,// 15
+		0x0E,// 14
+		0x00,// Invalid
+
+	// 222 = 0xDE
+	0x0B,// MandatoryPrefix2_4
+		0x00,// Invalid
+		0x09,// W
+			0x0E,// VectorLength
+				0x2C,// VHWIb_2
+					0x4D,// XMM0
+					0xC7, 0x26,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
+				0x00,// Invalid
+			0x00,// Invalid
+		0x00,// Invalid
 		0x00,// Invalid
 
 	// 223 = 0xDF

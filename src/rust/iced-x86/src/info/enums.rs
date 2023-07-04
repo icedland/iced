@@ -492,10 +492,11 @@ pub(crate) enum ImpliedAccess {
 	t_CRmem_CRmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx,
 	t_CRmem_CWmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx,
 	t_Rdl_Rrax_Weax_Wrcx_Wrdx,
+	t_Rmem_Wmem_Rrcx_Rrbx_Rds_Weax,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_IMPLIED_ACCESS: [&str; 200] = [
+static GEN_DEBUG_IMPLIED_ACCESS: [&str; 201] = [
 	"None",
 	"Shift_Ib_MASK1FMOD9",
 	"Shift_Ib_MASK1FMOD11",
@@ -696,6 +697,7 @@ static GEN_DEBUG_IMPLIED_ACCESS: [&str; 200] = [
 	"t_CRmem_CRmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx",
 	"t_CRmem_CWmem_Rrcx_CRrsi_CRrdi_CRes_CRds_CWrcx",
 	"t_Rdl_Rrax_Weax_Wrcx_Wrdx",
+	"t_Rmem_Wmem_Rrcx_Rrbx_Rds_Weax",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for ImpliedAccess {
@@ -1102,10 +1104,15 @@ pub(crate) enum CpuidFeatureInternal {
 	MSRLIST,
 	WRMSRNS,
 	AMX_COMPLEX,
+	AVX_and_SHA512,
+	AVX_and_SM3,
+	AVX_and_SM4,
+	TSE,
+	AVX_VNNI_INT16,
 }
 #[cfg(feature = "instr_info")]
 #[rustfmt::skip]
-static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 194] = [
+static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 199] = [
 	"INTEL8086",
 	"INTEL8086_ONLY",
 	"INTEL186",
@@ -1300,6 +1307,11 @@ static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 194] = [
 	"MSRLIST",
 	"WRMSRNS",
 	"AMX_COMPLEX",
+	"AVX_and_SHA512",
+	"AVX_and_SM3",
+	"AVX_and_SM4",
+	"TSE",
+	"AVX_VNNI_INT16",
 ];
 #[cfg(feature = "instr_info")]
 impl fmt::Debug for CpuidFeatureInternal {

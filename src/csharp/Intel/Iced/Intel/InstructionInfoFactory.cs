@@ -1770,6 +1770,19 @@ namespace Iced.Intel {
 					AddRegister(flags, Register.RDX, OpAccess.Write);
 				}
 				break;
+			case ImpliedAccess.t_Rmem_Wmem_Rrcx_Rrbx_Rds_Weax:
+				if ((flags & Flags.NoMemoryUsage) == 0) {
+					AddMemory(Register.DS, Register.RBX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.Read, CodeSize.Code64, 0);
+					AddMemory(Register.DS, Register.RCX, Register.None, 1, 0x0, MemorySize.Unknown, OpAccess.Write, CodeSize.Code64, 0);
+				}
+				if ((flags & Flags.NoRegisterUsage) == 0) {
+					AddRegister(flags, Register.RCX, OpAccess.Read);
+					AddRegister(flags, Register.RBX, OpAccess.Read);
+					if ((flags & Flags.Is64Bit) == 0)
+						AddRegister(flags, Register.DS, OpAccess.Read);
+					AddRegister(flags, Register.EAX, OpAccess.Write);
+				}
+				break;
 			// GENERATOR-END: ImpliedAccessHandler
 
 			default:

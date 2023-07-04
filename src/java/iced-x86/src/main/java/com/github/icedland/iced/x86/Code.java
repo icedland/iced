@@ -34912,5 +34912,166 @@ public final class Code {
 	 * {@code 64-bit}
 	 */
 	public static final int VEX_TCMMIMFP16PS_TMM_TMM_TMM = 4912;
+	/**
+	 * {@code PBNDKB}<p>
+	 * {@code NP 0F 01 C7}<p>
+	 * {@code TSE}<p>
+	 * {@code 64-bit}
+	 */
+	public static final int PBNDKB = 4913;
+	/**
+	 * {@code VSHA512RNDS2 ymm1, ymm2, xmm3}<p>
+	 * {@code VEX.256.F2.0F38.W0 CB 11:rrr:bbb}<p>
+	 * {@code AVX and SHA512}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSHA512RNDS2_YMM_YMM_XMM = 4914;
+	/**
+	 * {@code VSHA512MSG1 ymm1, xmm2}<p>
+	 * {@code VEX.256.F2.0F38.W0 CC 11:rrr:bbb}<p>
+	 * {@code AVX and SHA512}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSHA512MSG1_YMM_XMM = 4915;
+	/**
+	 * {@code VSHA512MSG2 ymm1, ymm2}<p>
+	 * {@code VEX.256.F2.0F38.W0 CD 11:rrr:bbb}<p>
+	 * {@code AVX and SHA512}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSHA512MSG2_YMM_YMM = 4916;
+	/**
+	 * {@code VPDPWUUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUUD_XMM_XMM_XMMM128 = 4917;
+	/**
+	 * {@code VPDPWUUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUUD_YMM_YMM_YMMM256 = 4918;
+	/**
+	 * {@code VPDPWUSD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUSD_XMM_XMM_XMMM128 = 4919;
+	/**
+	 * {@code VPDPWUSD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUSD_YMM_YMM_YMMM256 = 4920;
+	/**
+	 * {@code VPDPWSUD xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWSUD_XMM_XMM_XMMM128 = 4921;
+	/**
+	 * {@code VPDPWSUD ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 D2 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWSUD_YMM_YMM_YMMM256 = 4922;
+	/**
+	 * {@code VPDPWUUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUUDS_XMM_XMM_XMMM128 = 4923;
+	/**
+	 * {@code VPDPWUUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUUDS_YMM_YMM_YMMM256 = 4924;
+	/**
+	 * {@code VPDPWUSDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUSDS_XMM_XMM_XMMM128 = 4925;
+	/**
+	 * {@code VPDPWUSDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.66.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWUSDS_YMM_YMM_YMMM256 = 4926;
+	/**
+	 * {@code VPDPWSUDS xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWSUDS_XMM_XMM_XMMM128 = 4927;
+	/**
+	 * {@code VPDPWSUDS ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 D3 /r}<p>
+	 * {@code AVX-VNNI-INT16}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VPDPWSUDS_YMM_YMM_YMMM256 = 4928;
+	/**
+	 * {@code VSM3MSG1 xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM3}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM3MSG1_XMM_XMM_XMMM128 = 4929;
+	/**
+	 * {@code VSM3MSG2 xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.66.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM3}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM3MSG2_XMM_XMM_XMMM128 = 4930;
+	/**
+	 * {@code VSM4KEY4 xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F3.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM4}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM4KEY4_XMM_XMM_XMMM128 = 4931;
+	/**
+	 * {@code VSM4KEY4 ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F3.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM4}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM4KEY4_YMM_YMM_YMMM256 = 4932;
+	/**
+	 * {@code VSM4RNDS4 xmm1, xmm2, xmm3/m128}<p>
+	 * {@code VEX.128.F2.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM4}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM4RNDS4_XMM_XMM_XMMM128 = 4933;
+	/**
+	 * {@code VSM4RNDS4 ymm1, ymm2, ymm3/m256}<p>
+	 * {@code VEX.256.F2.0F38.W0 DA /r}<p>
+	 * {@code AVX and SM4}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM4RNDS4_YMM_YMM_YMMM256 = 4934;
+	/**
+	 * {@code VSM3RNDS2 xmm1, xmm2, xmm3/m128, imm8}<p>
+	 * {@code VEX.128.66.0F3A.W0 DE /r ib}<p>
+	 * {@code AVX and SM3}<p>
+	 * {@code 16/32/64-bit}
+	 */
+	public static final int VEX_VSM3RNDS2_XMM_XMM_XMMM128_IMM8 = 4935;
 	// GENERATOR-END: Variants
 }

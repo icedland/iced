@@ -4920,4 +4920,27 @@ pub(super) static OP_COUNT: [u8; IcedConstants::CODE_ENUM_COUNT] = [
 	3,// VEX_Cmpnlexadd_m64_r64_r64
 	3,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 	3,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+	0,// Pbndkb
+	3,// VEX_Vsha512rnds2_ymm_ymm_xmm
+	2,// VEX_Vsha512msg1_ymm_xmm
+	2,// VEX_Vsha512msg2_ymm_ymm
+	3,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+	3,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+	3,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+	3,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+	3,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+	3,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+	3,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+	3,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+	3,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+	3,// VEX_Vsm4key4_xmm_xmm_xmmm128
+	3,// VEX_Vsm4key4_ymm_ymm_ymmm256
+	3,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+	3,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+	4,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 ];

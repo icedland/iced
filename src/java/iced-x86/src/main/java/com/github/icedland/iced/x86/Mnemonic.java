@@ -1891,4 +1891,19 @@ public final class Mnemonic {
 	public static final int WRMSRNS = 1876;
 	public static final int TCMMRLFP16PS = 1877;
 	public static final int TCMMIMFP16PS = 1878;
+	public static final int PBNDKB = 1879;
+	public static final int VPDPWSUD = 1880;
+	public static final int VPDPWSUDS = 1881;
+	public static final int VPDPWUSD = 1882;
+	public static final int VPDPWUSDS = 1883;
+	public static final int VPDPWUUD = 1884;
+	public static final int VPDPWUUDS = 1885;
+	public static final int VSHA512MSG1 = 1886;
+	public static final int VSHA512MSG2 = 1887;
+	public static final int VSHA512RNDS2 = 1888;
+	public static final int VSM3MSG1 = 1889;
+	public static final int VSM3MSG2 = 1890;
+	public static final int VSM3RNDS2 = 1891;
+	public static final int VSM4KEY4 = 1892;
+	public static final int VSM4RNDS4 = 1893;
 }

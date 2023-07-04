@@ -19103,4 +19103,88 @@ pub(super) static FORMATTER_TBL_DATA: &[u8] = &[
 	// VEX_Tcmmimfp16ps_tmm_tmm_tmm
 	0x01,// Normal_1
 	0xD1, 0x0D,// 1745 = "tcmmimfp16ps"
+
+	// Pbndkb
+	0x01,// Normal_1
+	0xD2, 0x0D,// 1746 = "pbndkb"
+
+	// VEX_Vsha512rnds2_ymm_ymm_xmm
+	0x01,// Normal_1
+	0xD3, 0x0D,// 1747 = "vsha512rnds2"
+
+	// VEX_Vsha512msg1_ymm_xmm
+	0x01,// Normal_1
+	0xD4, 0x0D,// 1748 = "vsha512msg1"
+
+	// VEX_Vsha512msg2_ymm_ymm
+	0x01,// Normal_1
+	0xD5, 0x0D,// 1749 = "vsha512msg2"
+
+	// VEX_Vpdpwuud_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xD6, 0x0D,// 1750 = "vpdpwuud"
+
+	// VEX_Vpdpwuud_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpwusd_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xD7, 0x0D,// 1751 = "vpdpwusd"
+
+	// VEX_Vpdpwusd_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpwsud_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xD8, 0x0D,// 1752 = "vpdpwsud"
+
+	// VEX_Vpdpwsud_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xD9, 0x0D,// 1753 = "vpdpwuuds"
+
+	// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpwusds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDA, 0x0D,// 1754 = "vpdpwusds"
+
+	// VEX_Vpdpwusds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDB, 0x0D,// 1755 = "vpdpwsuds"
+
+	// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vsm3msg1_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDC, 0x0D,// 1756 = "vsm3msg1"
+
+	// VEX_Vsm3msg2_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDD, 0x0D,// 1757 = "vsm3msg2"
+
+	// VEX_Vsm4key4_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDE, 0x0D,// 1758 = "vsm4key4"
+
+	// VEX_Vsm4key4_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+	0x01,// Normal_1
+	0xDF, 0x0D,// 1759 = "vsm4rnds4"
+
+	// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+	0x00,// Previous
+
+	// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
+	0x01,// Normal_1
+	0xE0, 0x0D,// 1760 = "vsm3rnds2"
 ];

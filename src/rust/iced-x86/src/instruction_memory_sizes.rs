@@ -4921,6 +4921,29 @@ pub(super) static SIZES_NORMAL: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::UInt64,// VEX_Cmpnlexadd_m64_r64_r64
 	MemorySize::Unknown,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+	MemorySize::Unknown,// Pbndkb
+	MemorySize::Unknown,// VEX_Vsha512rnds2_ymm_ymm_xmm
+	MemorySize::Unknown,// VEX_Vsha512msg1_ymm_xmm
+	MemorySize::Unknown,// VEX_Vsha512msg2_ymm_ymm
+	MemorySize::Packed128_UInt16,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt16,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt16,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt16,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+	MemorySize::Packed128_Int16,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int16,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt16,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt16,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt16,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt16,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+	MemorySize::Packed128_Int16,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+	MemorySize::Packed256_Int16,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt32,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+	MemorySize::Packed128_UInt32,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+	MemorySize::Packed128_UInt32,// VEX_Vsm4key4_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt32,// VEX_Vsm4key4_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt32,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+	MemorySize::Packed256_UInt32,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+	MemorySize::Packed128_UInt32,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 ];
 
 #[rustfmt::skip]
@@ -9838,4 +9861,27 @@ pub(super) static SIZES_BCST: [MemorySize; IcedConstants::CODE_ENUM_COUNT] = [
 	MemorySize::Unknown,// VEX_Cmpnlexadd_m64_r64_r64
 	MemorySize::Unknown,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 	MemorySize::Unknown,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+	MemorySize::Unknown,// Pbndkb
+	MemorySize::Unknown,// VEX_Vsha512rnds2_ymm_ymm_xmm
+	MemorySize::Unknown,// VEX_Vsha512msg1_ymm_xmm
+	MemorySize::Unknown,// VEX_Vsha512msg2_ymm_ymm
+	MemorySize::Unknown,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vsm4key4_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vsm4key4_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+	MemorySize::Unknown,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+	MemorySize::Unknown,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 ];
