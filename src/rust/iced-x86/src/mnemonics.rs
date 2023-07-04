@@ -4921,4 +4921,27 @@ pub(super) static TO_MNEMONIC: [Mnemonic; IcedConstants::CODE_ENUM_COUNT] = [
 	Mnemonic::Cmpnlexadd,// VEX_Cmpnlexadd_m64_r64_r64
 	Mnemonic::Tcmmrlfp16ps,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 	Mnemonic::Tcmmimfp16ps,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+	Mnemonic::Pbndkb,// Pbndkb
+	Mnemonic::Vsha512rnds2,// VEX_Vsha512rnds2_ymm_ymm_xmm
+	Mnemonic::Vsha512msg1,// VEX_Vsha512msg1_ymm_xmm
+	Mnemonic::Vsha512msg2,// VEX_Vsha512msg2_ymm_ymm
+	Mnemonic::Vpdpwuud,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwuud,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwusd,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwusd,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwsud,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwsud,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwuuds,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwuuds,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwusds,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwusds,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+	Mnemonic::Vpdpwsuds,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+	Mnemonic::Vpdpwsuds,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+	Mnemonic::Vsm3msg1,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+	Mnemonic::Vsm3msg2,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+	Mnemonic::Vsm4key4,// VEX_Vsm4key4_xmm_xmm_xmmm128
+	Mnemonic::Vsm4key4,// VEX_Vsm4key4_ymm_ymm_ymmm256
+	Mnemonic::Vsm4rnds4,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+	Mnemonic::Vsm4rnds4,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+	Mnemonic::Vsm3rnds2,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 ];

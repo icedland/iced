@@ -33751,6 +33751,7 @@ INSTRUCTION: VEX.128.66.0F38.W0 6C 11:rrr:bbb | TCMMIMFP16PS tmm1, tmm2, tmm3 | 
 	flags: 64 unique-reg-num tsx-abort
 END
 
+# Code: Pbndkb
 INSTRUCTION: NP 0F 01 C7 | PBNDKB | TSE
 	# Addresses stored in rbx/rcx must be 256-byte aligned and rbx must not equal rcx
 	implied: r=rcx;rbx w=eax r=[ds:rbx=Unknown] w=[ds:rcx=Unknown]
@@ -33758,90 +33759,112 @@ INSTRUCTION: NP 0F 01 C7 | PBNDKB | TSE
 	flags: 64 cpl0
 END
 
+# Code: VEX_Vsha512rnds2_ymm_ymm_xmm
 INSTRUCTION: VEX.256.F2.0F38.W0 CB 11:rrr:bbb | VSHA512RNDS2 ymm1, ymm2, xmm3 | AVX SHA512
 	ops: rw=reg r=vvvv r=rm
 END
 
+# Code: VEX_Vsha512msg1_ymm_xmm
 INSTRUCTION: VEX.256.F2.0F38.W0 CC 11:rrr:bbb | VSHA512MSG1 ymm1, xmm2 | AVX SHA512
 	ops: rw=reg r=rm
 END
 
+# Code: VEX_Vsha512msg2_ymm_ymm
 INSTRUCTION: VEX.256.F2.0F38.W0 CD 11:rrr:bbb | VSHA512MSG2 ymm1, ymm2 | AVX SHA512
 	ops: rw=reg r=rm
 END
 
+# Code: VEX_Vpdpwuud_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.0F38.W0 D2 /r | VPDPWUUD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt16
 END
 
+# Code: VEX_Vpdpwuud_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.0F38.W0 D2 /r | VPDPWUUD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_UInt16
 END
 
+# Code: VEX_Vpdpwusd_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.W0 D2 /r | VPDPWUSD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt16
 END
 
+# Code: VEX_Vpdpwusd_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.W0 D2 /r | VPDPWUSD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_UInt16
 END
 
+# Code: VEX_Vpdpwsud_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.F3.0F38.W0 D2 /r | VPDPWSUD xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_Int16
 END
 
+# Code: VEX_Vpdpwsud_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.F3.0F38.W0 D2 /r | VPDPWSUD ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_Int16
 END
 
+# Code: VEX_Vpdpwuuds_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.0F38.W0 D3 /r | VPDPWUUDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt16
 END
 
+# Code: VEX_Vpdpwuuds_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.0F38.W0 D3 /r | VPDPWUUDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_UInt16
 END
 
+# Code: VEX_Vpdpwusds_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.W0 D3 /r | VPDPWUSDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt16
 END
 
+# Code: VEX_Vpdpwusds_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.66.0F38.W0 D3 /r | VPDPWUSDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_UInt16
 END
 
+# Code: VEX_Vpdpwsuds_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.F3.0F38.W0 D3 /r | VPDPWSUDS xmm1, xmm2, xmm3/m128 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed128_Int16
 END
 
+# Code: VEX_Vpdpwsuds_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.F3.0F38.W0 D3 /r | VPDPWSUDS ymm1, ymm2, ymm3/m256 | AVX_VNNI_INT16
 	ops: rw=reg r=vvvv r=rm | Packed256_Int16
 END
 
+# Code: VEX_Vsm3msg1_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.0F38.W0 DA /r | VSM3MSG1 xmm1, xmm2, xmm3/m128 | AVX SM3
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt32
 END
 
+# Code: VEX_Vsm3msg2_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.66.0F38.W0 DA /r | VSM3MSG2 xmm1, xmm2, xmm3/m128 | AVX SM3
 	ops: rw=reg r=vvvv r=rm | Packed128_UInt32
 END
 
+# Code: VEX_Vsm4key4_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.F3.0F38.W0 DA /r | VSM4KEY4 xmm1, xmm2, xmm3/m128 | AVX SM4
 	ops: w=reg r=vvvv r=rm | Packed128_UInt32
 END
 
+# Code: VEX_Vsm4key4_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.F3.0F38.W0 DA /r | VSM4KEY4 ymm1, ymm2, ymm3/m256 | AVX SM4
 	ops: w=reg r=vvvv r=rm | Packed256_UInt32
 END
 
+# Code: VEX_Vsm4rnds4_xmm_xmm_xmmm128
 INSTRUCTION: VEX.128.F2.0F38.W0 DA /r | VSM4RNDS4 xmm1, xmm2, xmm3/m128 | AVX SM4
 	ops: w=reg r=vvvv r=rm | Packed128_UInt32
 END
 
+# Code: VEX_Vsm4rnds4_ymm_ymm_ymmm256
 INSTRUCTION: VEX.256.F2.0F38.W0 DA /r | VSM4RNDS4 ymm1, ymm2, ymm3/m256 | AVX SM4
 	ops: w=reg r=vvvv r=rm | Packed256_UInt32
 END
 
+# Code: VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 INSTRUCTION: VEX.128.66.0F3A.W0 DE /r ib | VSM3RNDS2 xmm1, xmm2, xmm3/m128, imm8 | AVX SM3
 	ops: rw=reg r=vvvv r=rm r=imm | Packed128_UInt32
 END

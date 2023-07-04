@@ -1570,7 +1570,14 @@ pub(super) static TBL_DATA: &[u8] = &[
 				0xE4, 0x25,// Rdmsrlist
 
 	// 7 = 0x07
-	0x06,// Null
+	0x14,// MandatoryPrefix_NoModRM
+		0x00,// Bitness
+			0x03,// Invalid_NoModRM
+			0xA4,// Simple
+				0xB1, 0x26,// Pbndkb
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
+		0x03,// Invalid_NoModRM
 
 	// 8 = 0x08
 	0x14,// MandatoryPrefix_NoModRM

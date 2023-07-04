@@ -38,7 +38,7 @@ public final class ToCode {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(4913);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(4936);
 		initMap0(map);
 		initMap1(map);
 		initMap2(map);
@@ -4993,5 +4993,28 @@ public final class ToCode {
 		map.put("VEX_Cmpnlexadd_m64_r64_r64", Code.VEX_CMPNLEXADD_M64_R64_R64);
 		map.put("VEX_Tcmmrlfp16ps_tmm_tmm_tmm", Code.VEX_TCMMRLFP16PS_TMM_TMM_TMM);
 		map.put("VEX_Tcmmimfp16ps_tmm_tmm_tmm", Code.VEX_TCMMIMFP16PS_TMM_TMM_TMM);
+		map.put("Pbndkb", Code.PBNDKB);
+		map.put("VEX_Vsha512rnds2_ymm_ymm_xmm", Code.VEX_VSHA512RNDS2_YMM_YMM_XMM);
+		map.put("VEX_Vsha512msg1_ymm_xmm", Code.VEX_VSHA512MSG1_YMM_XMM);
+		map.put("VEX_Vsha512msg2_ymm_ymm", Code.VEX_VSHA512MSG2_YMM_YMM);
+		map.put("VEX_Vpdpwuud_xmm_xmm_xmmm128", Code.VEX_VPDPWUUD_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwuud_ymm_ymm_ymmm256", Code.VEX_VPDPWUUD_YMM_YMM_YMMM256);
+		map.put("VEX_Vpdpwusd_xmm_xmm_xmmm128", Code.VEX_VPDPWUSD_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwusd_ymm_ymm_ymmm256", Code.VEX_VPDPWUSD_YMM_YMM_YMMM256);
+		map.put("VEX_Vpdpwsud_xmm_xmm_xmmm128", Code.VEX_VPDPWSUD_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwsud_ymm_ymm_ymmm256", Code.VEX_VPDPWSUD_YMM_YMM_YMMM256);
+		map.put("VEX_Vpdpwuuds_xmm_xmm_xmmm128", Code.VEX_VPDPWUUDS_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwuuds_ymm_ymm_ymmm256", Code.VEX_VPDPWUUDS_YMM_YMM_YMMM256);
+		map.put("VEX_Vpdpwusds_xmm_xmm_xmmm128", Code.VEX_VPDPWUSDS_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwusds_ymm_ymm_ymmm256", Code.VEX_VPDPWUSDS_YMM_YMM_YMMM256);
+		map.put("VEX_Vpdpwsuds_xmm_xmm_xmmm128", Code.VEX_VPDPWSUDS_XMM_XMM_XMMM128);
+		map.put("VEX_Vpdpwsuds_ymm_ymm_ymmm256", Code.VEX_VPDPWSUDS_YMM_YMM_YMMM256);
+		map.put("VEX_Vsm3msg1_xmm_xmm_xmmm128", Code.VEX_VSM3MSG1_XMM_XMM_XMMM128);
+		map.put("VEX_Vsm3msg2_xmm_xmm_xmmm128", Code.VEX_VSM3MSG2_XMM_XMM_XMMM128);
+		map.put("VEX_Vsm4key4_xmm_xmm_xmmm128", Code.VEX_VSM4KEY4_XMM_XMM_XMMM128);
+		map.put("VEX_Vsm4key4_ymm_ymm_ymmm256", Code.VEX_VSM4KEY4_YMM_YMM_YMMM256);
+		map.put("VEX_Vsm4rnds4_xmm_xmm_xmmm128", Code.VEX_VSM4RNDS4_XMM_XMM_XMMM128);
+		map.put("VEX_Vsm4rnds4_ymm_ymm_ymmm256", Code.VEX_VSM4RNDS4_YMM_YMM_YMMM256);
+		map.put("VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8", Code.VEX_VSM3RNDS2_XMM_XMM_XMMM128_IMM8);
 	}
 }

@@ -13957,6 +13957,23 @@ impl CodeAssembler {
 		<Self as CodeAsmPblendw<T, U, V>>::pblendw(self, op0, op1, op2)
 	}
 
+	/// `PBNDKB` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `PBNDKB` | `NP 0F 01 C7` | `TSE`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	#[inline]
+	pub fn pbndkb(&mut self) -> Result<(), IcedError>
+	where
+		Self: CodeAsmPbndkb,
+	{
+		<Self as CodeAsmPbndkb>::pbndkb(self)
+	}
+
 	/// `PCLMULHQHQDQ` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -43265,6 +43282,150 @@ impl CodeAssembler {
 		<Self as CodeAsmVpdpwssds<T, U, V>>::vpdpwssds(self, op0, op1, op2)
 	}
 
+	/// `VPDPWSUD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWSUD xmm1, xmm2, xmm3/m128` | `VEX.128.F3.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWSUD ymm1, ymm2, ymm3/m256` | `VEX.256.F3.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwsud<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwsud<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwsud<T, U, V>>::vpdpwsud(self, op0, op1, op2)
+	}
+
+	/// `VPDPWSUDS` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWSUDS xmm1, xmm2, xmm3/m128` | `VEX.128.F3.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWSUDS ymm1, ymm2, ymm3/m256` | `VEX.256.F3.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwsuds<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwsuds<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwsuds<T, U, V>>::vpdpwsuds(self, op0, op1, op2)
+	}
+
+	/// `VPDPWUSD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWUSD xmm1, xmm2, xmm3/m128` | `VEX.128.66.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWUSD ymm1, ymm2, ymm3/m256` | `VEX.256.66.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwusd<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwusd<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwusd<T, U, V>>::vpdpwusd(self, op0, op1, op2)
+	}
+
+	/// `VPDPWUSDS` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWUSDS xmm1, xmm2, xmm3/m128` | `VEX.128.66.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWUSDS ymm1, ymm2, ymm3/m256` | `VEX.256.66.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwusds<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwusds<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwusds<T, U, V>>::vpdpwusds(self, op0, op1, op2)
+	}
+
+	/// `VPDPWUUD` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWUUD xmm1, xmm2, xmm3/m128` | `VEX.128.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWUUD ymm1, ymm2, ymm3/m256` | `VEX.256.0F38.W0 D2 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwuud<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwuud<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwuud<T, U, V>>::vpdpwuud(self, op0, op1, op2)
+	}
+
+	/// `VPDPWUUDS` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VPDPWUUDS xmm1, xmm2, xmm3/m128` | `VEX.128.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	/// `VPDPWUUDS ymm1, ymm2, ymm3/m256` | `VEX.256.0F38.W0 D3 /r` | `AVX-VNNI-INT16`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vpdpwuuds<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVpdpwuuds<T, U, V>,
+	{
+		<Self as CodeAsmVpdpwuuds<T, U, V>>::vpdpwuuds(self, op0, op1, op2)
+	}
+
 	/// `VPERM2F128` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -51124,6 +51285,73 @@ impl CodeAssembler {
 		<Self as CodeAsmVscatterqps<T, U>>::vscatterqps(self, op0, op1)
 	}
 
+	/// `VSHA512MSG1` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSHA512MSG1 ymm1, xmm2` | `VEX.256.F2.0F38.W0 CC 11:rrr:bbb` | `AVX SHA512`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn vsha512msg1<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsha512msg1<T, U>,
+	{
+		<Self as CodeAsmVsha512msg1<T, U>>::vsha512msg1(self, op0, op1)
+	}
+
+	/// `VSHA512MSG2` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSHA512MSG2 ymm1, ymm2` | `VEX.256.F2.0F38.W0 CD 11:rrr:bbb` | `AVX SHA512`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	#[inline]
+	pub fn vsha512msg2<T, U>(&mut self, op0: T, op1: U) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsha512msg2<T, U>,
+	{
+		<Self as CodeAsmVsha512msg2<T, U>>::vsha512msg2(self, op0, op1)
+	}
+
+	/// `VSHA512RNDS2` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSHA512RNDS2 ymm1, ymm2, xmm3` | `VEX.256.F2.0F38.W0 CB 11:rrr:bbb` | `AVX SHA512`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vsha512rnds2<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsha512rnds2<T, U, V>,
+	{
+		<Self as CodeAsmVsha512rnds2<T, U, V>>::vsha512rnds2(self, op0, op1, op2)
+	}
+
 	/// `VSHUFF32X4` instruction
 	///
 	/// Instruction | Opcode | CPUID
@@ -51278,6 +51506,124 @@ impl CodeAssembler {
 		Self: CodeAsmVshufps<T, U, V, W>,
 	{
 		<Self as CodeAsmVshufps<T, U, V, W>>::vshufps(self, op0, op1, op2, op3)
+	}
+
+	/// `VSM3MSG1` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSM3MSG1 xmm1, xmm2, xmm3/m128` | `VEX.128.0F38.W0 DA /r` | `AVX SM3`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vsm3msg1<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsm3msg1<T, U, V>,
+	{
+		<Self as CodeAsmVsm3msg1<T, U, V>>::vsm3msg1(self, op0, op1, op2)
+	}
+
+	/// `VSM3MSG2` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSM3MSG2 xmm1, xmm2, xmm3/m128` | `VEX.128.66.0F38.W0 DA /r` | `AVX SM3`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vsm3msg2<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsm3msg2<T, U, V>,
+	{
+		<Self as CodeAsmVsm3msg2<T, U, V>>::vsm3msg2(self, op0, op1, op2)
+	}
+
+	/// `VSM3RNDS2` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSM3RNDS2 xmm1, xmm2, xmm3/m128, imm8` | `VEX.128.66.0F3A.W0 DE /r ib` | `AVX SM3`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	/// * `op3`: Fourth operand
+	#[inline]
+	pub fn vsm3rnds2<T, U, V, W>(&mut self, op0: T, op1: U, op2: V, op3: W) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsm3rnds2<T, U, V, W>,
+	{
+		<Self as CodeAsmVsm3rnds2<T, U, V, W>>::vsm3rnds2(self, op0, op1, op2, op3)
+	}
+
+	/// `VSM4KEY4` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSM4KEY4 xmm1, xmm2, xmm3/m128` | `VEX.128.F3.0F38.W0 DA /r` | `AVX SM4`
+	/// `VSM4KEY4 ymm1, ymm2, ymm3/m256` | `VEX.256.F3.0F38.W0 DA /r` | `AVX SM4`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vsm4key4<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsm4key4<T, U, V>,
+	{
+		<Self as CodeAsmVsm4key4<T, U, V>>::vsm4key4(self, op0, op1, op2)
+	}
+
+	/// `VSM4RNDS4` instruction
+	///
+	/// Instruction | Opcode | CPUID
+	/// ------------|--------|------
+	/// `VSM4RNDS4 xmm1, xmm2, xmm3/m128` | `VEX.128.F2.0F38.W0 DA /r` | `AVX SM4`
+	/// `VSM4RNDS4 ymm1, ymm2, ymm3/m256` | `VEX.256.F2.0F38.W0 DA /r` | `AVX SM4`
+	///
+	/// # Errors
+	///
+	/// Fails if an operand is invalid (basic checks only)
+	///
+	/// # Arguments
+	///
+	/// * `op0`: First operand (eg. an integer (a `u32`/`i64`/`u64` number suffix is sometimes needed), a register (`rdx`), memory (`dword_ptr(rcx+r13*4)`) or a label)
+	/// * `op1`: Second operand
+	/// * `op2`: Third operand
+	#[inline]
+	pub fn vsm4rnds4<T, U, V>(&mut self, op0: T, op1: U, op2: V) -> Result<(), IcedError>
+	where
+		Self: CodeAsmVsm4rnds4<T, U, V>,
+	{
+		<Self as CodeAsmVsm4rnds4<T, U, V>>::vsm4rnds4(self, op0, op1, op2)
 	}
 
 	/// `VSQRTPD` instruction

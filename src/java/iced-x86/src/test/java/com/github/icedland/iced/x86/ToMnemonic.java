@@ -38,7 +38,7 @@ public final class ToMnemonic {
 	private static final HashMap<String, Integer> map = getMap();
 
 	private static HashMap<String, Integer> getMap() {
-		HashMap<String, Integer> map = new HashMap<String, Integer>(1879);
+		HashMap<String, Integer> map = new HashMap<String, Integer>(1894);
 		initMap0(map);
 		initMap1(map);
 		initMap2(map);
@@ -1935,5 +1935,20 @@ public final class ToMnemonic {
 		map.put("Wrmsrns", Mnemonic.WRMSRNS);
 		map.put("Tcmmrlfp16ps", Mnemonic.TCMMRLFP16PS);
 		map.put("Tcmmimfp16ps", Mnemonic.TCMMIMFP16PS);
+		map.put("Pbndkb", Mnemonic.PBNDKB);
+		map.put("Vpdpwsud", Mnemonic.VPDPWSUD);
+		map.put("Vpdpwsuds", Mnemonic.VPDPWSUDS);
+		map.put("Vpdpwusd", Mnemonic.VPDPWUSD);
+		map.put("Vpdpwusds", Mnemonic.VPDPWUSDS);
+		map.put("Vpdpwuud", Mnemonic.VPDPWUUD);
+		map.put("Vpdpwuuds", Mnemonic.VPDPWUUDS);
+		map.put("Vsha512msg1", Mnemonic.VSHA512MSG1);
+		map.put("Vsha512msg2", Mnemonic.VSHA512MSG2);
+		map.put("Vsha512rnds2", Mnemonic.VSHA512RNDS2);
+		map.put("Vsm3msg1", Mnemonic.VSM3MSG1);
+		map.put("Vsm3msg2", Mnemonic.VSM3MSG2);
+		map.put("Vsm3rnds2", Mnemonic.VSM3RNDS2);
+		map.put("Vsm4key4", Mnemonic.VSM4KEY4);
+		map.put("Vsm4rnds4", Mnemonic.VSM4RNDS4);
 	}
 }

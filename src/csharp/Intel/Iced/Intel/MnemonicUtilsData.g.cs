@@ -4921,6 +4921,29 @@ namespace Iced.Intel {
 			(ushort)Mnemonic.Cmpnlexadd,// VEX_Cmpnlexadd_m64_r64_r64
 			(ushort)Mnemonic.Tcmmrlfp16ps,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 			(ushort)Mnemonic.Tcmmimfp16ps,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+			(ushort)Mnemonic.Pbndkb,// Pbndkb
+			(ushort)Mnemonic.Vsha512rnds2,// VEX_Vsha512rnds2_ymm_ymm_xmm
+			(ushort)Mnemonic.Vsha512msg1,// VEX_Vsha512msg1_ymm_xmm
+			(ushort)Mnemonic.Vsha512msg2,// VEX_Vsha512msg2_ymm_ymm
+			(ushort)Mnemonic.Vpdpwuud,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwuud,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwusd,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwusd,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwsud,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwsud,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwuuds,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwuuds,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwusds,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwusds,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vpdpwsuds,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vpdpwsuds,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vsm3msg1,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vsm3msg2,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vsm4key4,// VEX_Vsm4key4_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vsm4key4,// VEX_Vsm4key4_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vsm4rnds4,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+			(ushort)Mnemonic.Vsm4rnds4,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+			(ushort)Mnemonic.Vsm3rnds2,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 		};
 	}
 }

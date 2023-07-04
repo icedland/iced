@@ -1890,6 +1890,21 @@ pub enum Mnemonic {
 	Wrmsrns = 1876,
 	Tcmmrlfp16ps = 1877,
 	Tcmmimfp16ps = 1878,
+	Pbndkb = 1879,
+	Vpdpwsud = 1880,
+	Vpdpwsuds = 1881,
+	Vpdpwusd = 1882,
+	Vpdpwusds = 1883,
+	Vpdpwuud = 1884,
+	Vpdpwuuds = 1885,
+	Vsha512msg1 = 1886,
+	Vsha512msg2 = 1887,
+	Vsha512rnds2 = 1888,
+	Vsm3msg1 = 1889,
+	Vsm3msg2 = 1890,
+	Vsm3rnds2 = 1891,
+	Vsm4key4 = 1892,
+	Vsm4rnds4 = 1893,
 }
 // GENERATOR-END: Enum
 

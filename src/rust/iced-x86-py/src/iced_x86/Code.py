@@ -49111,3 +49111,233 @@ VEX_TCMMIMFP16PS_TMM_TMM_TMM: Code = 4912 # type: ignore
 
 ``64-bit``
 """
+PBNDKB: Code = 4913 # type: ignore
+"""
+``PBNDKB``
+
+``NP 0F 01 C7``
+
+``TSE``
+
+``64-bit``
+"""
+VEX_VSHA512RNDS2_YMM_YMM_XMM: Code = 4914 # type: ignore
+"""
+``VSHA512RNDS2 ymm1, ymm2, xmm3``
+
+``VEX.256.F2.0F38.W0 CB 11:rrr:bbb``
+
+``AVX and SHA512``
+
+``16/32/64-bit``
+"""
+VEX_VSHA512MSG1_YMM_XMM: Code = 4915 # type: ignore
+"""
+``VSHA512MSG1 ymm1, xmm2``
+
+``VEX.256.F2.0F38.W0 CC 11:rrr:bbb``
+
+``AVX and SHA512``
+
+``16/32/64-bit``
+"""
+VEX_VSHA512MSG2_YMM_YMM: Code = 4916 # type: ignore
+"""
+``VSHA512MSG2 ymm1, ymm2``
+
+``VEX.256.F2.0F38.W0 CD 11:rrr:bbb``
+
+``AVX and SHA512``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUUD_XMM_XMM_XMMM128: Code = 4917 # type: ignore
+"""
+``VPDPWUUD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUUD_YMM_YMM_YMMM256: Code = 4918 # type: ignore
+"""
+``VPDPWUUD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUSD_XMM_XMM_XMMM128: Code = 4919 # type: ignore
+"""
+``VPDPWUSD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.66.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUSD_YMM_YMM_YMMM256: Code = 4920 # type: ignore
+"""
+``VPDPWUSD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.66.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWSUD_XMM_XMM_XMMM128: Code = 4921 # type: ignore
+"""
+``VPDPWSUD xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F3.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWSUD_YMM_YMM_YMMM256: Code = 4922 # type: ignore
+"""
+``VPDPWSUD ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F3.0F38.W0 D2 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUUDS_XMM_XMM_XMMM128: Code = 4923 # type: ignore
+"""
+``VPDPWUUDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUUDS_YMM_YMM_YMMM256: Code = 4924 # type: ignore
+"""
+``VPDPWUUDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUSDS_XMM_XMM_XMMM128: Code = 4925 # type: ignore
+"""
+``VPDPWUSDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.66.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWUSDS_YMM_YMM_YMMM256: Code = 4926 # type: ignore
+"""
+``VPDPWUSDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.66.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWSUDS_XMM_XMM_XMMM128: Code = 4927 # type: ignore
+"""
+``VPDPWSUDS xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F3.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VPDPWSUDS_YMM_YMM_YMMM256: Code = 4928 # type: ignore
+"""
+``VPDPWSUDS ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F3.0F38.W0 D3 /r``
+
+``AVX-VNNI-INT16``
+
+``16/32/64-bit``
+"""
+VEX_VSM3MSG1_XMM_XMM_XMMM128: Code = 4929 # type: ignore
+"""
+``VSM3MSG1 xmm1, xmm2, xmm3/m128``
+
+``VEX.128.0F38.W0 DA /r``
+
+``AVX and SM3``
+
+``16/32/64-bit``
+"""
+VEX_VSM3MSG2_XMM_XMM_XMMM128: Code = 4930 # type: ignore
+"""
+``VSM3MSG2 xmm1, xmm2, xmm3/m128``
+
+``VEX.128.66.0F38.W0 DA /r``
+
+``AVX and SM3``
+
+``16/32/64-bit``
+"""
+VEX_VSM4KEY4_XMM_XMM_XMMM128: Code = 4931 # type: ignore
+"""
+``VSM4KEY4 xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F3.0F38.W0 DA /r``
+
+``AVX and SM4``
+
+``16/32/64-bit``
+"""
+VEX_VSM4KEY4_YMM_YMM_YMMM256: Code = 4932 # type: ignore
+"""
+``VSM4KEY4 ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F3.0F38.W0 DA /r``
+
+``AVX and SM4``
+
+``16/32/64-bit``
+"""
+VEX_VSM4RNDS4_XMM_XMM_XMMM128: Code = 4933 # type: ignore
+"""
+``VSM4RNDS4 xmm1, xmm2, xmm3/m128``
+
+``VEX.128.F2.0F38.W0 DA /r``
+
+``AVX and SM4``
+
+``16/32/64-bit``
+"""
+VEX_VSM4RNDS4_YMM_YMM_YMMM256: Code = 4934 # type: ignore
+"""
+``VSM4RNDS4 ymm1, ymm2, ymm3/m256``
+
+``VEX.256.F2.0F38.W0 DA /r``
+
+``AVX and SM4``
+
+``16/32/64-bit``
+"""
+VEX_VSM3RNDS2_XMM_XMM_XMMM128_IMM8: Code = 4935 # type: ignore
+"""
+``VSM3RNDS2 xmm1, xmm2, xmm3/m128, imm8``
+
+``VEX.128.66.0F3A.W0 DE /r ib``
+
+``AVX and SM3``
+
+``16/32/64-bit``
+"""

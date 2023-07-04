@@ -59,7 +59,7 @@ public final class CpuidFeatureInternalData {
 			(byte)0x08,
 			(byte)0x08,
 			(byte)0x00,
-			(byte)0x00,
+			(byte)0x1C,
 
 			(byte)0x00,// INTEL8086
 			(byte)0x01,// INTEL8086_ONLY
@@ -255,6 +255,11 @@ public final class CpuidFeatureInternalData {
 			(byte)0xAA,// MSRLIST
 			(byte)0xAB,// WRMSRNS
 			(byte)0xAC,// AMX_COMPLEX
+			(byte)0x0F, (byte)0xAD,// AVX_AND_SHA512
+			(byte)0x0F, (byte)0xAE,// AVX_AND_SM3
+			(byte)0x0F, (byte)0xAF,// AVX_AND_SM4
+			(byte)0xB0,// TSE
+			(byte)0xB1,// AVX_VNNI_INT16
 		};
 	}
 	// GENERATOR-END: Table

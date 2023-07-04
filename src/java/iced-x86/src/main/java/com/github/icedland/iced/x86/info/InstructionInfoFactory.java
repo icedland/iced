@@ -1748,6 +1748,19 @@ public final class InstructionInfoFactory {
 				addRegister(flags, Register.RDX, OpAccess.WRITE);
 			}
 			break;
+		case ImpliedAccess.T_RMEM_WMEM_RRCX_RRBX_RDS_WEAX:
+			if ((flags & Flags.NO_MEMORY_USAGE) == 0) {
+				addMemory(Register.DS, Register.RBX, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.READ, CodeSize.CODE64, 0);
+				addMemory(Register.DS, Register.RCX, Register.NONE, 1, 0x0, MemorySize.UNKNOWN, OpAccess.WRITE, CodeSize.CODE64, 0);
+			}
+			if ((flags & Flags.NO_REGISTER_USAGE) == 0) {
+				addRegister(flags, Register.RCX, OpAccess.READ);
+				addRegister(flags, Register.RBX, OpAccess.READ);
+				if ((flags & Flags.IS_64_BIT) == 0)
+					addRegister(flags, Register.DS, OpAccess.READ);
+				addRegister(flags, Register.EAX, OpAccess.WRITE);
+			}
+			break;
 		// GENERATOR-END: ImpliedAccessHandler
 
 		default:

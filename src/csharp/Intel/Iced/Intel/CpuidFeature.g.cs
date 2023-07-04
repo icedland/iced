@@ -355,6 +355,16 @@ namespace Iced.Intel {
 		WRMSRNS = 171,
 		/// <summary>CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]</summary>
 		AMX_COMPLEX = 172,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX.SHA512[bit 0]</summary>
+		SHA512 = 173,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX.SM3[bit 1]</summary>
+		SM3 = 174,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EAX.SM4[bit 2]</summary>
+		SM4 = 175,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EBX.TSE[bit 1]</summary>
+		TSE = 176,
+		/// <summary>CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT16[bit 10]</summary>
+		AVX_VNNI_INT16 = 177,
 	}
 }
 #endif

@@ -1790,6 +1790,21 @@ final class CodeAssembler64GenSTests extends CodeAssemblerTestsBase {
 	}
 
 	@Test
+	void vsha512msg1_ymm_xmm() {
+		testAssembler(c -> c.vsha512msg1(ymm2, xmm3), Instruction.create(Code.VEX_VSHA512MSG1_YMM_XMM, ICRegisters.ymm2, ICRegisters.xmm3));
+	}
+
+	@Test
+	void vsha512msg2_ymm_ymm() {
+		testAssembler(c -> c.vsha512msg2(ymm2, ymm3), Instruction.create(Code.VEX_VSHA512MSG2_YMM_YMM, ICRegisters.ymm2, ICRegisters.ymm3));
+	}
+
+	@Test
+	void vsha512rnds2_ymm_ymm_xmm() {
+		testAssembler(c -> c.vsha512rnds2(ymm2, ymm3, xmm4), Instruction.create(Code.VEX_VSHA512RNDS2_YMM_YMM_XMM, ICRegisters.ymm2, ICRegisters.ymm3, ICRegisters.xmm4));
+	}
+
+	@Test
 	void vshuff32x4_ymm_ymm_ymm_i() {
 		testAssembler(c -> c.vshuff32x4(ymm2.k1(), ymm3, ymm4, -5), applyK(Instruction.create(Code.EVEX_VSHUFF32X4_YMM_K1Z_YMM_YMMM256B32_IMM8, ICRegisters.ymm2, ICRegisters.ymm3, ICRegisters.ymm4, -5), Register.K1));
 	}
@@ -1951,6 +1966,76 @@ final class CodeAssembler64GenSTests extends CodeAssemblerTestsBase {
 	@Test
 	void vshufps_zmm_zmm_m_i() {
 		testAssembler(c -> c.vshufps(zmm2.k1(), zmm3, zmmword_ptr(0x0L).base(rcx), -5), applyK(Instruction.create(Code.EVEX_VSHUFPS_ZMM_K1Z_ZMM_ZMMM512B32_IMM8, ICRegisters.zmm2, ICRegisters.zmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), -5), Register.K1));
+	}
+
+	@Test
+	void vsm3msg1_xmm_xmm_xmm() {
+		testAssembler(c -> c.vsm3msg1(xmm2, xmm3, xmm4), Instruction.create(Code.VEX_VSM3MSG1_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4));
+	}
+
+	@Test
+	void vsm3msg1_xmm_xmm_m() {
+		testAssembler(c -> c.vsm3msg1(xmm2, xmm3, xmmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM3MSG1_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vsm3msg2_xmm_xmm_xmm() {
+		testAssembler(c -> c.vsm3msg2(xmm2, xmm3, xmm4), Instruction.create(Code.VEX_VSM3MSG2_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4));
+	}
+
+	@Test
+	void vsm3msg2_xmm_xmm_m() {
+		testAssembler(c -> c.vsm3msg2(xmm2, xmm3, xmmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM3MSG2_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vsm3rnds2_xmm_xmm_xmm_i() {
+		testAssembler(c -> c.vsm3rnds2(xmm2, xmm3, xmm4, -5), Instruction.create(Code.VEX_VSM3RNDS2_XMM_XMM_XMMM128_IMM8, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4, -5));
+	}
+
+	@Test
+	void vsm3rnds2_xmm_xmm_m_i() {
+		testAssembler(c -> c.vsm3rnds2(xmm2, xmm3, xmmword_ptr(0x0L).base(rcx), -5), Instruction.create(Code.VEX_VSM3RNDS2_XMM_XMM_XMMM128_IMM8, ICRegisters.xmm2, ICRegisters.xmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE), -5));
+	}
+
+	@Test
+	void vsm4key4_xmm_xmm_xmm() {
+		testAssembler(c -> c.vsm4key4(xmm2, xmm3, xmm4), Instruction.create(Code.VEX_VSM4KEY4_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4));
+	}
+
+	@Test
+	void vsm4key4_ymm_ymm_ymm() {
+		testAssembler(c -> c.vsm4key4(ymm2, ymm3, ymm4), Instruction.create(Code.VEX_VSM4KEY4_YMM_YMM_YMMM256, ICRegisters.ymm2, ICRegisters.ymm3, ICRegisters.ymm4));
+	}
+
+	@Test
+	void vsm4key4_xmm_xmm_m() {
+		testAssembler(c -> c.vsm4key4(xmm2, xmm3, xmmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM4KEY4_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vsm4key4_ymm_ymm_m() {
+		testAssembler(c -> c.vsm4key4(ymm2, ymm3, ymmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM4KEY4_YMM_YMM_YMMM256, ICRegisters.ymm2, ICRegisters.ymm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vsm4rnds4_xmm_xmm_xmm() {
+		testAssembler(c -> c.vsm4rnds4(xmm2, xmm3, xmm4), Instruction.create(Code.VEX_VSM4RNDS4_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, ICRegisters.xmm4));
+	}
+
+	@Test
+	void vsm4rnds4_ymm_ymm_ymm() {
+		testAssembler(c -> c.vsm4rnds4(ymm2, ymm3, ymm4), Instruction.create(Code.VEX_VSM4RNDS4_YMM_YMM_YMMM256, ICRegisters.ymm2, ICRegisters.ymm3, ICRegisters.ymm4));
+	}
+
+	@Test
+	void vsm4rnds4_xmm_xmm_m() {
+		testAssembler(c -> c.vsm4rnds4(xmm2, xmm3, xmmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM4RNDS4_XMM_XMM_XMMM128, ICRegisters.xmm2, ICRegisters.xmm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
+	}
+
+	@Test
+	void vsm4rnds4_ymm_ymm_m() {
+		testAssembler(c -> c.vsm4rnds4(ymm2, ymm3, ymmword_ptr(0x0L).base(rcx)), Instruction.create(Code.VEX_VSM4RNDS4_YMM_YMM_YMMM256, ICRegisters.ymm2, ICRegisters.ymm3, new MemoryOperand(ICRegisters.rcx, ICRegister.NONE, 1, 0x0L, 0, false, ICRegister.NONE)));
 	}
 
 	@Test

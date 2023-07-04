@@ -9143,6 +9143,11 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void pbndkb() {
+			TestAssembler(c => c.pbndkb(), Instruction.Create(Code.Pbndkb));
+		}
+
+		[Fact]
 		public void pclmulhqhqdq_xmm_xmm() {
 			TestAssembler(c => c.pclmulhqhqdq(xmm2, xmm3), Instruction.Create(Code.Pclmulqdq_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, 17));
 		}
@@ -38209,6 +38214,126 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void vpdpwsud_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwsud(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwsud_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwsud_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwsud(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwsud_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwsud_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwsud(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwsud_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwsud_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwsud(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwsud_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwsuds_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwsuds(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwsuds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwsuds_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwsuds(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwsuds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwsuds_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwsuds(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwsuds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwsuds_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwsuds(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwsuds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwusd_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwusd(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwusd_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwusd_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwusd(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwusd_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwusd_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwusd(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwusd_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwusd_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwusd(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwusd_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwusds_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwusds(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwusds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwusds_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwusds(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwusds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwusds_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwusds(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwusds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwusds_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwusds(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwusds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwuud_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwuud(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwuud_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwuud_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwuud(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwuud_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwuud_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwuud(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwuud_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwuud_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwuud(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwuud_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwuuds_xmm_xmm_xmm() {
+			TestAssembler(c => c.vpdpwuuds(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vpdpwuuds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vpdpwuuds_ymm_ymm_ymm() {
+			TestAssembler(c => c.vpdpwuuds(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vpdpwuuds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vpdpwuuds_xmm_xmm_m() {
+			TestAssembler(c => c.vpdpwuuds(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwuuds_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vpdpwuuds_ymm_ymm_m() {
+			TestAssembler(c => c.vpdpwuuds(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vpdpwuuds_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
 		public void vperm2f128_ymm_ymm_ymm_i() {
 			TestAssembler(c => c.vperm2f128(ymm2, ymm3, ymm4, -5), Instruction.Create(Code.VEX_Vperm2f128_ymm_ymm_ymmm256_imm8, Register.YMM2, Register.YMM3, Register.YMM4, -5));
 		}
@@ -48172,6 +48297,21 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		}
 
 		[Fact]
+		public void vsha512msg1_ymm_xmm() {
+			TestAssembler(c => c.vsha512msg1(ymm2, xmm3), Instruction.Create(Code.VEX_Vsha512msg1_ymm_xmm, Register.YMM2, Register.XMM3));
+		}
+
+		[Fact]
+		public void vsha512msg2_ymm_ymm() {
+			TestAssembler(c => c.vsha512msg2(ymm2, ymm3), Instruction.Create(Code.VEX_Vsha512msg2_ymm_ymm, Register.YMM2, Register.YMM3));
+		}
+
+		[Fact]
+		public void vsha512rnds2_ymm_ymm_xmm() {
+			TestAssembler(c => c.vsha512rnds2(ymm2, ymm3, xmm4), Instruction.Create(Code.VEX_Vsha512rnds2_ymm_ymm_xmm, Register.YMM2, Register.YMM3, Register.XMM4));
+		}
+
+		[Fact]
 		public void vshuff32x4_ymm_ymm_ymm_i() {
 			TestAssembler(c => c.vshuff32x4(ymm2.k1, ymm3, ymm4, -5), ApplyK(Instruction.Create(Code.EVEX_Vshuff32x4_ymm_k1z_ymm_ymmm256b32_imm8, Register.YMM2, Register.YMM3, Register.YMM4, -5), Register.K1));
 		}
@@ -48497,6 +48637,86 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 		[Fact]
 		public void vshufps_zmm_zmm_m_u() {
 			TestAssembler(c => c.vshufps(zmm2.k1, zmm3, __zmmword_ptr[rcx], (byte)0x7F), ApplyK(Instruction.Create(Code.EVEX_Vshufps_zmm_k1z_zmm_zmmm512b32_imm8, Register.ZMM2, Register.ZMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU), Register.K1));
+		}
+
+		[Fact]
+		public void vsm3msg1_xmm_xmm_xmm() {
+			TestAssembler(c => c.vsm3msg1(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vsm3msg1_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vsm3msg1_xmm_xmm_m() {
+			TestAssembler(c => c.vsm3msg1(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm3msg1_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vsm3msg2_xmm_xmm_xmm() {
+			TestAssembler(c => c.vsm3msg2(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vsm3msg2_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vsm3msg2_xmm_xmm_m() {
+			TestAssembler(c => c.vsm3msg2(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm3msg2_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vsm3rnds2_xmm_xmm_xmm_i() {
+			TestAssembler(c => c.vsm3rnds2(xmm2, xmm3, xmm4, -5), Instruction.Create(Code.VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, Register.XMM4, -5));
+		}
+
+		[Fact]
+		public void vsm3rnds2_xmm_xmm_m_i() {
+			TestAssembler(c => c.vsm3rnds2(xmm2, xmm3, __xmmword_ptr[rcx], -5), Instruction.Create(Code.VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), -5));
+		}
+
+		[Fact]
+		public void vsm3rnds2_xmm_xmm_xmm_u() {
+			TestAssembler(c => c.vsm3rnds2(xmm2, xmm3, xmm4, (byte)0x7F), Instruction.Create(Code.VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, Register.XMM4, 0x7FU));
+		}
+
+		[Fact]
+		public void vsm3rnds2_xmm_xmm_m_u() {
+			TestAssembler(c => c.vsm3rnds2(xmm2, xmm3, __xmmword_ptr[rcx], (byte)0x7F), Instruction.Create(Code.VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None), 0x7FU));
+		}
+
+		[Fact]
+		public void vsm4key4_xmm_xmm_xmm() {
+			TestAssembler(c => c.vsm4key4(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vsm4key4_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vsm4key4_ymm_ymm_ymm() {
+			TestAssembler(c => c.vsm4key4(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vsm4key4_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vsm4key4_xmm_xmm_m() {
+			TestAssembler(c => c.vsm4key4(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm4key4_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vsm4key4_ymm_ymm_m() {
+			TestAssembler(c => c.vsm4key4(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm4key4_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vsm4rnds4_xmm_xmm_xmm() {
+			TestAssembler(c => c.vsm4rnds4(xmm2, xmm3, xmm4), Instruction.Create(Code.VEX_Vsm4rnds4_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, Register.XMM4));
+		}
+
+		[Fact]
+		public void vsm4rnds4_ymm_ymm_ymm() {
+			TestAssembler(c => c.vsm4rnds4(ymm2, ymm3, ymm4), Instruction.Create(Code.VEX_Vsm4rnds4_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, Register.YMM4));
+		}
+
+		[Fact]
+		public void vsm4rnds4_xmm_xmm_m() {
+			TestAssembler(c => c.vsm4rnds4(xmm2, xmm3, __xmmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm4rnds4_xmm_xmm_xmmm128, Register.XMM2, Register.XMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
+		}
+
+		[Fact]
+		public void vsm4rnds4_ymm_ymm_m() {
+			TestAssembler(c => c.vsm4rnds4(ymm2, ymm3, __ymmword_ptr[rcx]), Instruction.Create(Code.VEX_Vsm4rnds4_ymm_ymm_ymmm256, Register.YMM2, Register.YMM3, new MemoryOperand(Register.RCX, Register.None, 1, 0x0, 0, false, Register.None)));
 		}
 
 		[Fact]

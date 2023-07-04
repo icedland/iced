@@ -4925,6 +4925,29 @@ namespace Iced.Intel {
 			(byte)MemorySize.UInt64,// VEX_Cmpnlexadd_m64_r64_r64
 			0,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 			0,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+			0,// Pbndkb
+			0,// VEX_Vsha512rnds2_ymm_ymm_xmm
+			0,// VEX_Vsha512msg1_ymm_xmm
+			0,// VEX_Vsha512msg2_ymm_ymm
+			(byte)MemorySize.Packed128_UInt16,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt16,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_Int16,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt16,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt16,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt16,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_Int16,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_Int16,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt32,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed128_UInt32,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed128_UInt32,// VEX_Vsm4key4_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt32,// VEX_Vsm4key4_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt32,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+			(byte)MemorySize.Packed256_UInt32,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+			(byte)MemorySize.Packed128_UInt32,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 		};
 
 #if HAS_SPAN
@@ -9845,6 +9868,29 @@ namespace Iced.Intel {
 			0,// VEX_Cmpnlexadd_m64_r64_r64
 			0,// VEX_Tcmmrlfp16ps_tmm_tmm_tmm
 			0,// VEX_Tcmmimfp16ps_tmm_tmm_tmm
+			0,// Pbndkb
+			0,// VEX_Vsha512rnds2_ymm_ymm_xmm
+			0,// VEX_Vsha512msg1_ymm_xmm
+			0,// VEX_Vsha512msg2_ymm_ymm
+			0,// VEX_Vpdpwuud_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwuud_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwusd_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwusd_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwsud_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwsud_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwuuds_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwuuds_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwusds_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwusds_ymm_ymm_ymmm256
+			0,// VEX_Vpdpwsuds_xmm_xmm_xmmm128
+			0,// VEX_Vpdpwsuds_ymm_ymm_ymmm256
+			0,// VEX_Vsm3msg1_xmm_xmm_xmmm128
+			0,// VEX_Vsm3msg2_xmm_xmm_xmmm128
+			0,// VEX_Vsm4key4_xmm_xmm_xmmm128
+			0,// VEX_Vsm4key4_ymm_ymm_ymmm256
+			0,// VEX_Vsm4rnds4_xmm_xmm_xmmm128
+			0,// VEX_Vsm4rnds4_ymm_ymm_ymmm256
+			0,// VEX_Vsm3rnds2_xmm_xmm_xmmm128_imm8
 		};
 	}
 }

@@ -709,3 +709,23 @@ AMX_COMPLEX: CpuidFeature = 172 # type: ignore
 """
 : CPUID.(EAX=07H, ECX=1H):EDX.AMX-COMPLEX[bit 8]
 """
+SHA512: CpuidFeature = 173 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.SHA512[bit 0]
+"""
+SM3: CpuidFeature = 174 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.SM3[bit 1]
+"""
+SM4: CpuidFeature = 175 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EAX.SM4[bit 2]
+"""
+TSE: CpuidFeature = 176 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EBX.TSE[bit 1]
+"""
+AVX_VNNI_INT16: CpuidFeature = 177 # type: ignore
+"""
+: CPUID.(EAX=07H, ECX=1H):EDX.AVX-VNNI-INT16[bit 10]
+"""
