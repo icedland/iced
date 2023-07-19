@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86-py"
-version = "1.19.0"
+version = "1.20.0"
 edition = "2021"
 publish = false
 rust-version = "1.57.0"
@@ -19,7 +19,7 @@ features = ["macros", "extension-module", "abi3-py38"]
 
 [dependencies.iced-x86]
 # If building from sdist, it should use the exact same version as the sdist.
-version = "=1.19.0"
+version = "=1.20.0"
 features = ["serde", "mvex"]
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
 #	paths = ["/abs/path/to/iced/src/rust/iced-x86"]

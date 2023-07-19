@@ -1,6 +1,6 @@
 [package]
 name = "iced-x86-lua"
-version = "1.19.0"
+version = "1.20.0"
 edition = "2021"
 publish = false
 rust-version = "1.57.0"
@@ -25,7 +25,7 @@ libc = "0.2"
 
 [dependencies.iced-x86]
 # The version must match the one we expect, it should not be the latest version on crates.io
-version = "=1.19.0"
+version = "=1.20.0"
 default-features = false
 features = ["std", "decoder", "mvex", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm"]
 # To use ../iced-x86 source code, add this to your $HOME/.cargo/config.toml
