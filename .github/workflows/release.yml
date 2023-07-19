@@ -353,7 +353,7 @@ jobs:
         shell: bash -le {0}
         run: |
           python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: conda-incubator/setup-miniconda@v2.2.0
         with:
@@ -429,7 +429,7 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v4
         with:
@@ -512,7 +512,7 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v4
         with:
