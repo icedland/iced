@@ -1040,6 +1040,10 @@ impl Instruction {
 	/// [`OpKind::Immediate64`], [`OpKind::Immediate8to16`], [`OpKind::Immediate8to32`],
 	/// [`OpKind::Immediate8to64`], [`OpKind::Immediate32to64`]
 	///
+	/// # Errors
+	///
+	/// - Fails if the operand is not one of those listed above
+	/// 
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
