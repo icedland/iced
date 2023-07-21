@@ -1033,8 +1033,17 @@ impl Instruction {
 		self.mem_displ = new_value;
 	}
 
+	
+	/// Tries to get an operand's immediate value.
+	/// Can only be called if the operand has kind [`OpKind::Immediate8`],
+	/// [`OpKind::Immediate8_2nd`], [`OpKind::Immediate16`], [`OpKind::Immediate32`],
+	/// [`OpKind::Immediate64`], [`OpKind::Immediate8to16`], [`OpKind::Immediate8to32`],
+	/// [`OpKind::Immediate8to64`], [`OpKind::Immediate32to64`]
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
 	#[allow(clippy::missing_inline_in_public_items)]
-	#[doc(hidden)]
 	pub fn try_immediate(&self, operand: u32) -> Result<u64, IcedError> {
 		Ok(match self.try_op_kind(operand)? {
 			OpKind::Immediate8 => self.immediate8() as u64,
