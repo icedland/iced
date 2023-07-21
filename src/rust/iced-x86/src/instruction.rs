@@ -1033,7 +1033,6 @@ impl Instruction {
 		self.mem_displ = new_value;
 	}
 
-	
 	/// Tries to get an operand's immediate value.
 	/// Can only be called if the operand has kind [`OpKind::Immediate8`],
 	/// [`OpKind::Immediate8_2nd`], [`OpKind::Immediate16`], [`OpKind::Immediate32`],
