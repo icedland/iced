@@ -1043,7 +1043,7 @@ impl Instruction {
 	/// # Errors
 	///
 	/// - Fails if the operand is not one of those listed above
-	/// 
+	///
 	/// # Arguments
 	///
 	/// * `operand`: Operand number, 0-4
