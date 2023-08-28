@@ -36,7 +36,7 @@ fn read_infos<'a>(
 	opts_filename.push(dir);
 	opts_filename.push(format!("{}.txt", options_file));
 	ignored = HashSet::new();
-	tmp_infos.extend(OptionsTestParser::new(opts_filename.as_path(), &mut ignored).into_iter());
+	tmp_infos.extend(OptionsTestParser::new(opts_filename.as_path(), &mut ignored));
 	filter_infos(dir, file_part, tmp_infos, &ignored)
 }
 
@@ -51,7 +51,7 @@ fn filter_infos<'a>(
 	if lines.len() != all_infos.len() {
 		panic!("lines.len() ({}) != all_infos.len() ({}), file: {}", lines.len(), all_infos.len(), display_filename);
 	}
-	all_infos.iter().zip(lines.into_iter()).map(|a| (a.0, a.1)).collect()
+	all_infos.iter().zip(lines).map(|a| (a.0, a.1)).collect()
 }
 
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]

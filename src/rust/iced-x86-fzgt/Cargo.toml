@@ -11,6 +11,7 @@ rust-version = "1.57.0"
 path = "../iced-x86"
 
 [workspace]
+resolver = "2"
 # We can only override [profile.release] if this is the root workspace.
 # So make sure this is the root workspace.
 

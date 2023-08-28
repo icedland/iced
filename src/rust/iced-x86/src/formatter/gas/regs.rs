@@ -16,7 +16,7 @@ lazy_static! {
 		let regs_tbl: &[FormatterString; IcedConstants::REGISTER_ENUM_COUNT] = &REGS_TBL;
 		let mut v = Vec::with_capacity(IcedConstants::REGISTER_ENUM_COUNT);
 		let mut s = String::with_capacity(MAX_STRING_LENGTH + 1);
-		for reg in regs_tbl.iter() {
+		for reg in regs_tbl {
 			s.push('%');
 			s.push_str(reg.get(false));
 			v.push(FormatterString::new(s.clone()));

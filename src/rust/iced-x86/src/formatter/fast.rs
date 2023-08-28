@@ -1711,7 +1711,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			}
 
 			SymResTextInfo::TextVec(v) => {
-				for part in v.iter() {
+				for part in v {
 					let s = match &part.text {
 						&SymResString::Str(s) => s,
 						SymResString::String(s) => s.as_str(),

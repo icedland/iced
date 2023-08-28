@@ -87,7 +87,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		{
 			vec_index_same_as_op_index = true;
 		}
-		for &op_kind in op_code.op_kinds().iter() {
+		for &op_kind in op_code.op_kinds() {
 			match op_kind {
 				OpCodeOperandKind::r32_reg
 				| OpCodeOperandKind::r32_reg_mem

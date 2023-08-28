@@ -2814,10 +2814,11 @@ fn verify_invalid_table_encoding() {
 						1 | 2 | 3 | 5 | 6 => continue,
 						_ => {}
 					},
-					EncodingKind::MVEX => match i {
-						1 | 2 | 3 => continue,
-						_ => {}
-					},
+					EncodingKind::MVEX => {
+						if let 1..=3 = i {
+							continue;
+						}
+					}
 					_ => unreachable!(),
 				}
 				hex_bytes[evex_index + 1] = (hex_bytes[evex_index + 1] & !(max_table - 1)) | i;
@@ -2846,7 +2847,7 @@ fn verify_invalid_table_encoding() {
 						#[cfg(feature = "mvex")]
 						continue;
 					}
-					1 | 2 | 3 => continue,
+					1..=3 => continue,
 					_ => {}
 				}
 				hex_bytes[vex_index + 1] = (hex_bytes[vex_index + 1] & 0xE0) | i;
@@ -2867,9 +2868,8 @@ fn verify_invalid_table_encoding() {
 			let mut hex_bytes = to_vec_u8(info.hex_bytes()).unwrap();
 			let vex_index = get_vex_xop_index(&hex_bytes);
 			for i in 0..32 {
-				match i {
-					8 | 9 | 10 => continue,
-					_ => {}
+				if let 8..=10 = i {
+					continue;
 				}
 				hex_bytes[vex_index + 1] = (hex_bytes[vex_index + 1] & 0xE0) | i;
 				{

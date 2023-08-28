@@ -208,7 +208,7 @@ impl OptionValue {
 
 	pub(super) fn get_decoder_options(props: &[(OptionsProps, OptionValue)]) -> u32 {
 		let mut decoder_options = DecoderOptions::NONE;
-		for (_, prop) in props.iter() {
+		for (_, prop) in props {
 			if let &OptionValue::DecoderOptions(value) = prop {
 				decoder_options |= value;
 			}

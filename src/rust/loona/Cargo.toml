@@ -22,3 +22,4 @@ extra_checks = []
 libc = "0.2"
 
 [workspace]
+resolver = "2"

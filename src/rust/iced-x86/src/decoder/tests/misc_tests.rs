@@ -263,7 +263,7 @@ fn decoder_for_loop_decoder_iter() {
 	let bytes = b"\x23\x18\x48\x89\xCE";
 	let mut decoder = Decoder::with_ip(64, bytes, 0x1234_5678_9ABC_DEF0, DecoderOptions::NONE);
 	let mut instrs: Vec<Instruction> = Vec::new();
-	for instr in decoder.iter() {
+	for instr in &mut decoder {
 		instrs.push(instr);
 	}
 	assert_eq!(decoder.ip(), 0x1234_5678_9ABC_DEF5);

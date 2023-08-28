@@ -207,7 +207,7 @@ lazy_static! {
 		const _: () = assert!(MAX_MEMORY_SIZE_STR_LEN > FastStringMemorySize::SIZE - 4);
 
 		let mut v = Vec::with_capacity(IcedConstants::MEMORY_SIZE_ENUM_COUNT);
-		for &mem_keywords in MEM_SIZE_TBL_DATA.iter() {
+		for mem_keywords in MEM_SIZE_TBL_DATA {
 			let keywords = MEM_SIZE_TBL_STRINGS[mem_keywords as usize];
 			debug_assert!(keywords.len() == 1 + FastStringMemorySize::SIZE);
 			v.push(FastStringMemorySize::new(keywords.as_ptr()));
