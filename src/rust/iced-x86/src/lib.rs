@@ -35,6 +35,7 @@
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::ptr_eq)]
 #![allow(clippy::redundant_closure)] // Clippy is buggy
+#![allow(clippy::redundant_locals)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::upper_case_acronyms)]
