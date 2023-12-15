@@ -50,13 +50,13 @@ jobs:
         shell: bash
         run: ./build/build-dotnet --quick-check
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/coverage.info
@@ -100,7 +100,7 @@ jobs:
         shell: bash
         run: ./build/build-java --quick-check
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: java
           path: src/java/iced-x86/target/iced-x86*
@@ -138,7 +138,7 @@ jobs:
         shell: bash
         run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std --coverage
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: rust-coverage
           path: cov-out/rust/merged/
@@ -189,7 +189,7 @@ jobs:
         shell: bash
         run: ./build/build-js --no-set-rustflags --quick-check
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: npm
           path: src/rust/iced-x86-js/pkg/release/iced-x86-*.tgz
