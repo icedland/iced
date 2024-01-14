@@ -52,7 +52,6 @@
 #![warn(clippy::match_bool)]
 #![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
-#![warn(clippy::missing_errors_doc)]
 #![warn(clippy::needless_borrow)]
 #![warn(clippy::print_stderr)]
 #![warn(clippy::print_stdout)]
