@@ -63,8 +63,6 @@ pub use crate::formatter::nasm::*;
 use crate::formatter::num_fmt::NumberFormatter;
 #[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
 pub use crate::formatter::num_fmt_opts::*;
-#[cfg(any(feature = "gas", feature = "intel", feature = "masm", feature = "nasm"))]
-pub use crate::formatter::string_output::*;
 pub use crate::formatter::symres::*;
 use crate::*;
 use alloc::string::String;
