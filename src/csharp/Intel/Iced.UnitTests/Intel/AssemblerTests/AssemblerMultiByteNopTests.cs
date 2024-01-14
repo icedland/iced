@@ -31,7 +31,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 						case Code.Nop_rm64:
 							break;
 						default:
-							Assert.True(false, $"Expected a NOP but got {instr.Code}");
+							Assert.Fail($"Expected a NOP but got {instr.Code}");
 							break;
 						}
 					}

@@ -32,7 +32,7 @@ namespace Iced.UnitTests.Intel.AssemblerTests {
 			fAsm(assembler);
 
 			// Expecting only one instruction
-			Assert.Equal(1, assembler.Instructions.Count);
+			Assert.Single(assembler.Instructions);
 
 			// Check that the instruction is the one expected
 			if ((flags & TestInstrFlags.Broadcast) != 0)
