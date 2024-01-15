@@ -10,6 +10,7 @@ import com.github.icedland.iced.x86.OpKind;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 
 final class SimpleBranchInstr extends Instr {
+	private final byte bitness;
 	private Instruction instruction;
 	private TargetInstr targetInstr;
 	private BlockData pointerData;
@@ -30,6 +31,7 @@ final class SimpleBranchInstr extends Instr {
 
 	public SimpleBranchInstr(BlockEncoder blockEncoder, Block block, Instruction instruction) {
 		super(block, instruction.getIP());
+		this.bitness = (byte)blockEncoder.getBitness();
 		this.instruction = instruction;
 		instrKind = InstrKind.UNINITIALIZED;
 
@@ -220,11 +222,15 @@ final class SimpleBranchInstr extends Instr {
 			return true;
 		}
 
-		targetAddress = targetInstr.getAddress();
-		nextRip = ip + nearInstructionSize;
-		diff = targetAddress - nextRip;
-		diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
-		boolean useNear = -0x8000_0000 <= diff && diff <= 0x7FFF_FFFF;
+		// If it's in the same block, we assume the target is at most 2GB away.
+		boolean useNear = bitness != 64 || targetInstr.isInBlock(block);
+		if (!useNear) {
+			targetAddress = targetInstr.getAddress();
+			nextRip = ip + nearInstructionSize;
+			diff = targetAddress - nextRip;
+			diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
+			useNear = -0x8000_0000 <= diff && diff <= 0x7FFF_FFFF;
+		}
 		if (useNear) {
 			if (pointerData != null)
 				pointerData.isValid = false;

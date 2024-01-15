@@ -10,6 +10,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Jcc instruction
 	/// </summary>
 	sealed class JccInstr : Instr {
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
@@ -41,6 +42,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public JccInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 			longInstructionSize64 = (byte)GetLongInstructionSize64(instruction);
@@ -97,11 +99,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			targetAddress = targetInstr.GetAddress();
-			nextRip = IP + nearInstructionSize;
-			diff = (long)(targetAddress - nextRip);
-			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
-			bool useNear = int.MinValue <= diff && diff <= int.MaxValue;
+			// If it's in the same block, we assume the target is at most 2GB away.
+			bool useNear = bitness != 64 || targetInstr.IsInBlock(Block);
+			if (!useNear) {
+				targetAddress = targetInstr.GetAddress();
+				nextRip = IP + nearInstructionSize;
+				diff = (long)(targetAddress - nextRip);
+				diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
+				useNear = int.MinValue <= diff && diff <= int.MaxValue;
+			}
 			if (useNear) {
 				if (pointerData is not null)
 					pointerData.IsValid = false;
