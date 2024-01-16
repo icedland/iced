@@ -10,6 +10,7 @@ import com.github.icedland.iced.x86.OpKind;
 import com.github.icedland.iced.x86.internal.IcedConstants;
 
 final class JccInstr extends Instr {
+	private final byte bitness;
 	private Instruction instruction;
 	private TargetInstr targetInstr;
 	private BlockData pointerData;
@@ -39,6 +40,7 @@ final class JccInstr extends Instr {
 
 	JccInstr(BlockEncoder blockEncoder, Block block, Instruction instruction) {
 		super(block, instruction.getIP());
+		this.bitness = (byte)blockEncoder.getBitness();
 		this.instruction = instruction;
 		instrKind = InstrKind.UNINITIALIZED;
 		longInstructionSize64 = (byte)getLongInstructionSize64(instruction);
@@ -91,7 +93,7 @@ final class JccInstr extends Instr {
 		long targetAddress = targetInstr.getAddress();
 		long nextRip = ip + shortInstructionSize;
 		long diff = targetAddress - nextRip;
-		diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
+		diff = convertDiffToBitnessDiff(bitness, correctDiff(targetInstr.isInBlock(block), diff, gained));
 		if (-0x80 <= diff && diff <= 0x7F) {
 			if (pointerData != null)
 				pointerData.isValid = false;
@@ -101,11 +103,15 @@ final class JccInstr extends Instr {
 			return true;
 		}
 
-		targetAddress = targetInstr.getAddress();
-		nextRip = ip + nearInstructionSize;
-		diff = targetAddress - nextRip;
-		diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
-		boolean useNear = -0x8000_0000 <= diff && diff <= 0x7FFF_FFFF;
+		// If it's in the same block, we assume the target is at most 2GB away.
+		boolean useNear = bitness != 64 || targetInstr.isInBlock(block);
+		if (!useNear) {
+			targetAddress = targetInstr.getAddress();
+			nextRip = ip + nearInstructionSize;
+			diff = targetAddress - nextRip;
+			diff = convertDiffToBitnessDiff(bitness, correctDiff(targetInstr.isInBlock(block), diff, gained));
+			useNear = -0x8000_0000 <= diff && diff <= 0x7FFF_FFFF;
+		}
 		if (useNear) {
 			if (pointerData != null)
 				pointerData.isValid = false;

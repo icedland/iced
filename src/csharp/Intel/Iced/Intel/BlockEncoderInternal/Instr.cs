@@ -272,6 +272,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 			else
 				return diff;
 		}
+
+		protected static long ConvertDiffToBitnessDiff(int bitness, long diff) {
+			Debug.Assert(bitness == 16 || bitness == 32 || bitness == 64);
+			return bitness switch {
+				16 => (short)diff,
+				32 => (int)diff,
+				_ => diff,
+			};
+		}
 	}
 }
 #endif

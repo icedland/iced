@@ -10,6 +10,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 	/// Simple branch instruction that only has one code value, eg. loopcc, jrcxz
 	/// </summary>
 	sealed class SimpleBranchInstr : Instr {
+		readonly byte bitness;
 		Instruction instruction;
 		TargetInstr targetInstr;
 		BlockData? pointerData;
@@ -30,6 +31,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 
 		public SimpleBranchInstr(BlockEncoder blockEncoder, Block block, in Instruction instruction)
 			: base(block, instruction.IP) {
+			bitness = (byte)blockEncoder.Bitness;
 			this.instruction = instruction;
 			instrKind = InstrKind.Uninitialized;
 
@@ -188,7 +190,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var targetAddress = targetInstr.GetAddress();
 			var nextRip = IP + shortInstructionSize;
 			long diff = (long)(targetAddress - nextRip);
-			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
+			diff = ConvertDiffToBitnessDiff(bitness, CorrectDiff(targetInstr.IsInBlock(Block), diff, gained));
 			if (sbyte.MinValue <= diff && diff <= sbyte.MaxValue) {
 				if (pointerData is not null)
 					pointerData.IsValid = false;
@@ -198,11 +200,15 @@ namespace Iced.Intel.BlockEncoderInternal {
 				return true;
 			}
 
-			targetAddress = targetInstr.GetAddress();
-			nextRip = IP + nearInstructionSize;
-			diff = (long)(targetAddress - nextRip);
-			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
-			bool useNear = int.MinValue <= diff && diff <= int.MaxValue;
+			// If it's in the same block, we assume the target is at most 2GB away.
+			bool useNear = bitness != 64 || targetInstr.IsInBlock(Block);
+			if (!useNear) {
+				targetAddress = targetInstr.GetAddress();
+				nextRip = IP + nearInstructionSize;
+				diff = (long)(targetAddress - nextRip);
+				diff = ConvertDiffToBitnessDiff(bitness, CorrectDiff(targetInstr.IsInBlock(Block), diff, gained));
+				useNear = int.MinValue <= diff && diff <= int.MaxValue;
+			}
 			if (useNear) {
 				if (pointerData is not null)
 					pointerData.IsValid = false;

@@ -275,4 +275,15 @@ abstract class Instr {
 		else
 			return diff;
 	}
+
+	protected static long convertDiffToBitnessDiff(int bitness, long diff) {
+		switch (bitness) {
+		case 16:
+			return (short)diff;
+		case 32:
+			return (int)diff;
+		default: 
+			return diff;
+		}
+	}
 }
