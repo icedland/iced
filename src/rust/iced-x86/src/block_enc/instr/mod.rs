@@ -355,4 +355,14 @@ impl InstrUtils {
 		}
 		Ok(size)
 	}
+
+	#[inline]
+	fn convert_diff_to_bitness_diff(bitness: u8, diff: i64) -> i64 {
+		debug_assert!(matches!(bitness, 16 | 32 | 64));
+		match bitness {
+			16 => diff as i16 as i64,
+			32 => diff as i32 as i64,
+			_ => diff,
+		}
+	}
 }

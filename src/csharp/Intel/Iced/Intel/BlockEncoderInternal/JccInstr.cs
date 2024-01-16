@@ -89,7 +89,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 			var targetAddress = targetInstr.GetAddress();
 			var nextRip = IP + shortInstructionSize;
 			long diff = (long)(targetAddress - nextRip);
-			diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
+			diff = ConvertDiffToBitnessDiff(bitness, CorrectDiff(targetInstr.IsInBlock(Block), diff, gained));
 			if (sbyte.MinValue <= diff && diff <= sbyte.MaxValue) {
 				if (pointerData is not null)
 					pointerData.IsValid = false;
@@ -105,7 +105,7 @@ namespace Iced.Intel.BlockEncoderInternal {
 				targetAddress = targetInstr.GetAddress();
 				nextRip = IP + nearInstructionSize;
 				diff = (long)(targetAddress - nextRip);
-				diff = CorrectDiff(targetInstr.IsInBlock(Block), diff, gained);
+				diff = ConvertDiffToBitnessDiff(bitness, CorrectDiff(targetInstr.IsInBlock(Block), diff, gained));
 				useNear = int.MinValue <= diff && diff <= int.MaxValue;
 			}
 			if (useNear) {

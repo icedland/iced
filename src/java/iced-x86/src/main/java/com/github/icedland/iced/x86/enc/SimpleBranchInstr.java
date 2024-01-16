@@ -212,7 +212,7 @@ final class SimpleBranchInstr extends Instr {
 		long targetAddress = targetInstr.getAddress();
 		long nextRip = ip + shortInstructionSize;
 		long diff = targetAddress - nextRip;
-		diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
+		diff = convertDiffToBitnessDiff(bitness, correctDiff(targetInstr.isInBlock(block), diff, gained));
 		if (-0x80 <= diff && diff <= 0x7F) {
 			if (pointerData != null)
 				pointerData.isValid = false;
@@ -228,7 +228,7 @@ final class SimpleBranchInstr extends Instr {
 			targetAddress = targetInstr.getAddress();
 			nextRip = ip + nearInstructionSize;
 			diff = targetAddress - nextRip;
-			diff = correctDiff(targetInstr.isInBlock(block), diff, gained);
+			diff = convertDiffToBitnessDiff(bitness, correctDiff(targetInstr.isInBlock(block), diff, gained));
 			useNear = -0x8000_0000 <= diff && diff <= 0x7FFF_FFFF;
 		}
 		if (useNear) {
