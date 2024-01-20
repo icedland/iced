@@ -1,7 +1,7 @@
 [package]
 name = "iced-x86"
 # The version number can't be the same as iced-x86's version number or cargo build will fail
-version = "1.20.1000"
+version = "1.21.1000"
 license = "MIT"
 description = "iced-x86 is a blazing fast and correct x86/x64 disassembler, assembler and instruction decoder written in Rust and compiled to WebAssembly"
 homepage = "https://github.com/icedland/iced"
