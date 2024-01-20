@@ -37,7 +37,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -48,34 +48,19 @@ jobs:
 
       - name: Build and test
         shell: bash
-        run: ./build/build-dotnet --quick-check
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-dotnet $extra_args
 
       - uses: actions/upload-artifact@v4
+        if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
           if-no-files-found: error
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage.info
-          path: src/csharp/Intel/Iced.UnitTests/coverage.info
-          if-no-files-found: error
-
-      - name: Upload coverage report
-        if: github.ref == 'refs/heads/master'
-        shell: bash
-        continue-on-error: true
-        run: |
-          # https://docs.codecov.com/docs/codecov-uploader
-          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
-          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
-          shasum -a 256 -c codecov.SHA256SUM
-          chmod +x codecov
-          ./codecov -t "${{secrets.CODECOV_TOKEN}}" -f "src/csharp/Intel/Iced.UnitTests/coverage.info"
 
   #############################################################################
   #############################################################################
@@ -86,7 +71,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -98,9 +83,15 @@ jobs:
 
       - name: Build and test
         shell: bash
-        run: ./build/build-java --quick-check
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-java $extra_args
 
       - uses: actions/upload-artifact@v4
+        if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: java
           path: src/java/iced-x86/target/iced-x86*
@@ -115,7 +106,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -128,36 +119,14 @@ jobs:
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
-      - name: Install kcov
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install kcov
-
       - name: Build and test
         shell: bash
-        run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std --coverage
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: rust-coverage
-          path: cov-out/rust/merged/
-          if-no-files-found: error
-
-      - name: Upload coverage report
-        if: github.ref == 'refs/heads/master'
-        shell: bash
-        continue-on-error: true
         run: |
-          # https://docs.codecov.com/docs/codecov-uploader
-          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
-          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
-          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
-          shasum -a 256 -c codecov.SHA256SUM
-          chmod +x codecov
-          ./codecov -t "${{secrets.CODECOV_TOKEN}}" -f "cov-out/rust/merged/kcov-merged/cobertura.xml"
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-rust --no-set-rustflags $extra_args
 
   #############################################################################
   #############################################################################
@@ -168,7 +137,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -187,13 +156,58 @@ jobs:
 
       - name: Build and test
         shell: bash
-        run: ./build/build-js --no-set-rustflags --quick-check
+        run: |
+          extra_args=
+          if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=--quick-check
+          fi
+          ./build/build-js --no-set-rustflags $extra_args
 
       - uses: actions/upload-artifact@v4
+        if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: npm
           path: src/rust/iced-x86-js/pkg/release/iced-x86-*.tgz
           if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  # If the supported Python versions get updated (added/removed), do:
+  # - Update .github/workflows/*.yml
+  #     - Search for 3.8, 3\.8, 38, py38
+  # - Update build/ci-py-build-wheels.sh (update cp38)
+  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py38" to min supported version)
+  # - Update src/rust/iced-x86-py/README.md (py min ver: 'Python >= 3.8')
+  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 38)
+  # - Update src/rust/iced-x86-py/setup.py (Python versions)
+  # - Update src/rust/iced-x86-py/tox.ini
+
+  build-rust-python-linux-aarch64:
+    name: Python (${{matrix.os}}) aarch64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # TODO: this fails in GitHub Actions, but works locally, so disable for now.
+      # - name: Build manylinux aarch64
+      #   shell: bash
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install qemu-user-static
+      #     git clean -xdf
+      #     ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
+      #
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: py-dist-${{matrix.os}}-aarch64
+      #     path: /tmp/py-dist
+      #     if-no-files-found: error
 
   #############################################################################
   #############################################################################
@@ -224,14 +238,39 @@ jobs:
 
       - name: Build and test
         shell: bash
-        run: ./build/build-python --no-set-rustflags --python python
+        run: |
+          ./build/build-python --no-set-rustflags --python python
+          git clean -xdf
+
+      - name: Create the sdist
+        shell: bash
+        run: |
+          git reset .
+          git checkout .
+          git clean -xdf
+          ./build/build-python --sdist-only
+          mkdir -p /tmp/py-dist
+          cp src/rust/iced-x86-py/dist/* /tmp/py-dist
+          git clean -xdf
+
+      - name: Build manylinux x86_64
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_x86_64" --pypy
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: /tmp/py-dist
+          if-no-files-found: error
 
   #############################################################################
   #############################################################################
   #############################################################################
 
-  build-rust-lua:
-    name: Lua (${{matrix.os}})
+  build-rust-python-linux-x86:
+    name: Python (${{matrix.os}}) x86
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -240,28 +279,332 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build manylinux i686
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_i686"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x86
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-musllinux-x64:
+    name: Python (${{matrix.os}}) x64 (musllinux)
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build musllinux x86_64
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_1_x86_64"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x86_64-musllinux
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-macos-x64:
+    name: Python (${{matrix.os}}) x64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - name: Install StyLua
-        shell: bash
+      # NOTE: We use setup-miniconda and not setup-python because setup-python's
+      #       binaries target a later macos version and will produce warnings
+      #       when building wheels on macos.
+      #           https://github.com/actions/setup-python/issues/26
+      #       This also means that all bash shells (that use Python) must
+      #       use the -le options:
+      #           shell: bash -le {0}
+      #       setup-python is faster to install than setup-miniconda so we only
+      #       use setup-miniconda if this is a macos image.
+      - uses: conda-incubator/setup-miniconda@v3.0.1
+        with:
+          python-version: '3.8'
+      - name: Install Python tools
+        shell: bash -le {0}
         run: |
-          wget https://github.com/JohnnyMorganz/StyLua/releases/download/v0.15.3/stylua-linux-x86_64.zip
-          mkdir /tmp/bin
-          unzip stylua-*.zip -d /tmp/bin
+          python --version 2>&1 | grep 'Python 3\.8'
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
-      - name: Install Lua and luarocks
+      - name: Build and test
+        shell: bash -le {0}
+        run: |
+          ./build/build-python --no-set-rustflags --python python --quick-check
+          git clean -xdf
+
+      - uses: conda-incubator/setup-miniconda@v3.0.1
+        with:
+          python-version: '3.8'
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep 'Python 3\.8'
+          bash build/ci-py-build-wheels.sh --build
+
+      - uses: conda-incubator/setup-miniconda@v3.0.1
+        with:
+          python-version: '3.9'
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep 'Python 3\.9'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: conda-incubator/setup-miniconda@v3.0.1
+        with:
+          python-version: '3.10'
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep 'Python 3\.10'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: conda-incubator/setup-miniconda@v3.0.1
+        with:
+          python-version: '3.11'
+      - name: Build and test the wheel
+        shell: bash -le {0}
+        run: |
+          python --version 2>&1 | grep 'Python 3\.11'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: /tmp/py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-windows-x64:
+    name: Python (${{matrix.os}}) x64
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Install Python tools
         shell: bash
         run: |
-          sudo apt-get install -y lua5.1 lua5.2 lua5.3 lua5.4 liblua5.1-0-dev liblua5.2-dev liblua5.3-dev liblua5.4-dev luarocks
-          sudo luarocks --lua-version 5.1 install busted
-          sudo luarocks --lua-version 5.2 install busted
-          sudo luarocks --lua-version 5.3 install busted
-          sudo luarocks --lua-version 5.4 install busted
+          python --version 2>&1 | grep 'Python 3\.8'
+          python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
         shell: bash
         run: |
-          export PATH=$PATH:/tmp/bin
-          ./build/build-lua --no-set-rustflags --quick-check
+          ./build/build-python --no-set-rustflags --python python --quick-check
+          git clean -xdf
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.8'
+          bash build/ci-py-build-wheels.sh --build
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.9'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.10'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.11'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 'pypy-3.8'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version
+          python --version 2>&1 | grep 'Python 3\.8'
+          bash build/ci-py-build-wheels.sh --build --py-kind pypy
+
+      - name: Fix upload path
+        shell: bash
+        run: |
+          git clean -xdf
+          cp -r /tmp/py-dist .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x64
+          path: py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  build-rust-python-windows-x86:
+    name: Python (${{matrix.os}}) x86
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - name: Install 32-bit Rust
+        shell: bash
+        run: |
+          rustup install stable-i686-pc-windows-msvc --no-self-update
+          rustup default stable-i686-pc-windows-msvc
+          rustup show
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.8'
+          bash build/ci-py-build-wheels.sh --build
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.9'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.10'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.11'
+          bash build/ci-py-build-wheels.sh
+
+      - name: Fix upload path
+        shell: bash
+        run: |
+          git clean -xdf
+          cp -r /tmp/py-dist .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-x86
+          path: py-dist
+          if-no-files-found: error
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
+  upload-files:
+    runs-on: ubuntu-latest
+    name: Upload files
+    needs:
+      - build-dotnet
+      - build-java
+      - build-rust
+      - build-rust-js-wasm
+      - build-rust-python-linux-aarch64
+      - build-rust-python-linux-x64
+      - build-rust-python-linux-x86
+      - build-rust-python-musllinux-x64
+      - build-rust-python-macos-x64
+      - build-rust-python-windows-x64
+      - build-rust-python-windows-x86
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.CI_NODE_MIN_VER}}
+          registry-url: "https://registry.npmjs.org"
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/artifacts
