@@ -635,12 +635,12 @@ jobs:
           npm publish --help
           mvn --help
 
-      # - name: Upload to nuget.org
-      #   shell: bash
-      #   run: |
-      #     for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
-      #       dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
-      #     done
+      - name: Upload to nuget.org
+        shell: bash
+        run: |
+          for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
+            dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
+          done
 
       - name: Upload to crates.io
         shell: bash
