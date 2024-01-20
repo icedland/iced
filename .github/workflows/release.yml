@@ -644,12 +644,13 @@ jobs:
 
       - name: Upload to crates.io
         shell: bash
+        env:
+          CARGO_REGISTRY_TOKEN: ${{secrets.CRATES_IO_TOKEN}}
         run: |
           git reset .
           git checkout .
           git clean -xdf
           cd src/rust/iced-x86
-          cargo login --color always -- "${{secrets.CRATES_IO_TOKEN}}"
           # --no-verify: we've tested building everything already
           cargo publish --color always --no-verify
 
