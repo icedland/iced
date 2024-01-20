@@ -6,7 +6,7 @@
 
   <groupId>io.github.icedland.iced</groupId>
   <artifactId>iced-x86</artifactId>
-  <version>1.20.0</version>
+  <version>1.21.0</version>
 
   <name>iced-x86</name>
   <description>x86/x64 disassembler, encoder, assembler written in Java</description>

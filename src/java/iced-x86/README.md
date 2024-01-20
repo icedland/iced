@@ -1,4 +1,4 @@
-# iced [![maven](https://img.shields.io/maven-central/v/io.github.icedland.iced/iced-x86)](https://central.sonatype.com/artifact/io.github.icedland.iced/iced-x86/1.20.0) [![GitHub builds](https://github.com/icedland/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/icedland/iced/actions)
+# iced [![maven](https://img.shields.io/maven-central/v/io.github.icedland.iced/iced-x86)](https://central.sonatype.com/artifact/io.github.icedland.iced/iced-x86/1.21.0) [![GitHub builds](https://github.com/icedland/iced/workflows/GitHub%20CI/badge.svg)](https://github.com/icedland/iced/actions)
 
 iced is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Java.
 
