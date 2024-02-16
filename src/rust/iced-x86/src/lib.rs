@@ -30,6 +30,7 @@
 #![allow(clippy::collapsible_else_if)]
 #![allow(clippy::collapsible_if)]
 #![allow(clippy::field_reassign_with_default)]
+#![allow(clippy::implied_bounds_in_impls)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
 #![allow(clippy::needless_late_init)]
