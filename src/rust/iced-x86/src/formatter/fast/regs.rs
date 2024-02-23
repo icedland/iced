@@ -25,7 +25,7 @@ fn create() -> Box<[FastStringRegister; IcedConstants::REGISTER_ENUM_COUNT]> {
 
 		// It's safe to read FastStringRegister::SIZE bytes from the last string since the
 		// table includes extra padding. See const-assert above and the table.
-		result.push(FastStringRegister::new(data.as_ptr()));
+		result.push(FastStringRegister::from_raw(data));
 
 		data = &data[1 + len..];
 	}

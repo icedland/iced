@@ -30,7 +30,7 @@ fn get_strings_table() -> Vec<FastStringMnemonic> {
 		// It's safe to read FastStringMnemonic::SIZE bytes from the last string since the
 		// table includes extra padding. See const-assert above and the table.
 		let len_data = reader.read_len_data();
-		strings.push(FastStringMnemonic::new(len_data));
+		strings.push(FastStringMnemonic::from_raw(len_data));
 	}
 	debug_assert_eq!(reader.len_left(), PADDING_SIZE);
 
@@ -68,8 +68,8 @@ fn read() -> FmtTableData {
 			new_vec.push(b'v');
 			new_vec.extend(old_str.get_slice().iter().copied().chain(core::iter::repeat(b' ')).take(FastStringMnemonic::SIZE - 1));
 			debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
-			let len_data = new_vec.leak().as_ptr();
-			FastStringMnemonic::new(len_data)
+			let len_data = new_vec.leak();
+			FastStringMnemonic::from_raw(len_data)
 		} else {
 			strings[reader.read_compressed_u32() as usize]
 		};
