@@ -36,7 +36,7 @@ impl PartialEq<FormatterOptionString> for FormatterOptionString {
 	#[must_use]
 	#[inline]
 	fn eq(&self, other: &FormatterOptionString) -> bool {
-		self.as_str().eq(other.as_str())
+		self.as_str() == other.as_str()
 	}
 }
 
