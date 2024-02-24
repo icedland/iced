@@ -309,16 +309,11 @@ pub(super) fn read_evex() -> (
 	)
 }
 
-#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
-type VexMap0Type = Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>;
-#[cfg(all(not(feature = "no_vex"), not(feature = "mvex")))]
-type VexMap0Type = ();
-
 #[cfg(not(feature = "no_vex"))]
 #[must_use]
 #[allow(clippy::let_unit_value)]
 pub(super) fn read_vex() -> (
-	VexMap0Type,
+	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
@@ -327,13 +322,8 @@ pub(super) fn read_vex() -> (
 	let mut deserializer = TableDeserializer::new(data_vex::TBL_DATA, data_vex::MAX_ID_NAMES, handler_reader);
 	deserializer.deserialize();
 
-	#[cfg(feature = "mvex")]
-	let map0 = deserializer.table(data_vex::HANDLERS_MAP0_INDEX);
-	#[cfg(not(feature = "mvex"))]
-	let map0 = ();
-
 	(
-		map0,
+		deserializer.table(data_vex::HANDLERS_MAP0_INDEX),
 		deserializer.table(data_vex::HANDLERS_0F_INDEX),
 		deserializer.table(data_vex::HANDLERS_0F38_INDEX),
 		deserializer.table(data_vex::HANDLERS_0F3A_INDEX),

@@ -14,7 +14,8 @@ pub(in crate::decoder) struct Tables {
 	invalid_map: (),
 
 	pub(in crate::decoder) handlers_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	#[cfg(all(not(feature = "no_vex"), feature = "mvex"))]
+	#[cfg(not(feature = "no_vex"))]
+	#[allow(dead_code)]
 	pub(in crate::decoder) handlers_vex_map0: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(not(feature = "no_vex"))]
 	pub(in crate::decoder) handlers_vex_0f: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
@@ -44,7 +45,7 @@ pub(in crate::decoder) struct Tables {
 	pub(in crate::decoder) handlers_mvex_0f38: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
 	#[cfg(feature = "mvex")]
 	pub(in crate::decoder) handlers_mvex_0f3a: Vec<(OpCodeHandlerDecodeFn, &'static OpCodeHandler)>,
-	#[cfg(not(all(not(feature = "no_vex"), feature = "mvex")))]
+	#[cfg(feature = "no_vex")]
 	#[allow(dead_code)]
 	handlers_vex_map0: (),
 	#[cfg(feature = "no_vex")]
