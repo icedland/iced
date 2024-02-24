@@ -331,7 +331,7 @@ jobs:
       #           shell: bash -le {0}
       #       setup-python is faster to install than setup-miniconda so we only
       #       use setup-miniconda if this is a macos image.
-      - uses: conda-incubator/setup-miniconda@v3.0.1
+      - uses: conda-incubator/setup-miniconda@v3.0.2
         with:
           python-version: '3.8'
       - name: Install Python tools
@@ -346,7 +346,7 @@ jobs:
           ./build/build-python --no-set-rustflags --python python --quick-check
           git clean -xdf
 
-      - uses: conda-incubator/setup-miniconda@v3.0.1
+      - uses: conda-incubator/setup-miniconda@v3.0.2
         with:
           python-version: '3.8'
       - name: Build and test the wheel
@@ -355,7 +355,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.8'
           bash build/ci-py-build-wheels.sh --build
 
-      - uses: conda-incubator/setup-miniconda@v3.0.1
+      - uses: conda-incubator/setup-miniconda@v3.0.2
         with:
           python-version: '3.9'
       - name: Build and test the wheel
@@ -364,7 +364,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.9'
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v3.0.1
+      - uses: conda-incubator/setup-miniconda@v3.0.2
         with:
           python-version: '3.10'
       - name: Build and test the wheel
@@ -373,7 +373,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.10'
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v3.0.1
+      - uses: conda-incubator/setup-miniconda@v3.0.2
         with:
           python-version: '3.11'
       - name: Build and test the wheel
