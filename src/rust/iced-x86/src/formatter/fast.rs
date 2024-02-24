@@ -110,11 +110,12 @@ impl<const SIZE: usize> FastString<SIZE> {
 	const SIZE: usize = SIZE;
 
 	#[allow(dead_code)]
+	#[allow(clippy::transmute_ptr_to_ref)] // Can't use pointer dereference in const fn yet
 	const fn from_raw(len_data: &'static [u8]) -> Self {
 		let required_size = 1 + SIZE;
 		assert!(len_data.len() >= required_size);
 		assert!(len_data[0] as usize <= SIZE);
-		let len_data = unsafe { &*(len_data.as_ptr() as *const FastStringRepr<SIZE>) };
+		let len_data: &'static FastStringRepr<SIZE> = unsafe { mem::transmute(len_data.as_ptr()) };
 		Self::new(len_data)
 	}
 
@@ -131,7 +132,7 @@ impl<const SIZE: usize> FastString<SIZE> {
 	}
 
 	#[allow(dead_code)]
-	const fn get_slice(self) -> &'static [u8] {
+	fn get_slice(self) -> &'static [u8] {
 		unsafe { slice::from_raw_parts(self.utf8_data(), self.len()) }
 	}
 }
