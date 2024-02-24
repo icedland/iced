@@ -7,7 +7,6 @@ use crate::formatter::fast::fmt_data::FORMATTER_TBL_DATA;
 use crate::formatter::fast::{FastStringMnemonic, FmtTableData};
 use crate::formatter::strings_data::*;
 use crate::iced_constants::IcedConstants;
-use alloc::boxed::Box;
 use alloc::vec::Vec;
 use core::convert::TryInto;
 use lazy_static::lazy_static;
@@ -69,7 +68,7 @@ fn read() -> FmtTableData {
 			new_vec.push(b'v');
 			new_vec.extend(old_str.get_slice().iter().copied().chain(core::iter::repeat(b' ')).take(FastStringMnemonic::SIZE - 1));
 			debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
-			let len_data = Box::leak(Box::new(new_vec)).as_ptr();
+			let len_data = new_vec.leak().as_ptr();
 			FastStringMnemonic::new(len_data)
 		} else {
 			strings[reader.read_compressed_u32() as usize]

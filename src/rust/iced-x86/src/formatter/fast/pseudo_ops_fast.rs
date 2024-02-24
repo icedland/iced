@@ -5,7 +5,6 @@
 
 use crate::formatter::enums_shared::PseudoOpsKind;
 use crate::formatter::fast::FastStringMnemonic;
-use alloc::boxed::Box;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
@@ -263,7 +262,7 @@ fn create(cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FastStrin
 		new_vec.extend_from_slice(suffix.as_bytes());
 		new_vec.extend(core::iter::repeat(b' ').take(FastStringMnemonic::SIZE - (new_vec.len() - 1)));
 		debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
-		let len_data = Box::leak(Box::new(new_vec)).as_ptr();
+		let len_data = new_vec.leak().as_ptr();
 		strings.push(FastStringMnemonic::new(len_data));
 	}
 	strings

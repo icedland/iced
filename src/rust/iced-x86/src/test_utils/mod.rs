@@ -10,16 +10,10 @@ use crate::iced_constants::IcedConstants;
 use crate::test_utils::decoder_constants::*;
 use crate::Decoder;
 use core::cmp;
-use std::env;
 use std::path::PathBuf;
 
 fn get_unit_tests_base_dir() -> PathBuf {
-	let mut path = env::current_exe().expect("Couldn't get the path of the current executable");
-	for _ in 0..5 {
-		let _ = path.pop();
-	}
-	path.extend(["UnitTests", "Intel"]);
-	path
+	PathBuf::from("../../UnitTests/Intel")
 }
 
 pub(crate) fn get_instruction_unit_tests_dir() -> PathBuf {
