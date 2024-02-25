@@ -76,70 +76,90 @@ const _: () = assert!(
 // Make sure it doesn't grow too much without us knowing about it (eg. if more operands are added)
 const _: () = assert!(MAX_FMT_INSTR_LEN < 350);
 
-// Creates a fast string type. It contains one ptr to the len (u8) + valid utf8 string.
-// The utf8 string has enough bytes following it (eg. padding or the next fast str instance)
-// so it's possible to read up to Self::SIZE bytes without crashing or causing a UB.
-// Since the compiler knows that Self::SIZE is a constant, it can optimize the string copy,
-// eg. if Self::SIZE == 8, it can read one unaligned u64 and write one unaligned u64.
-macro_rules! mk_fast_str_ty {
-	($ty_name:ident, $size:literal) => {
-		#[repr(transparent)]
-		#[derive(Copy, Clone)]
-		struct $ty_name {
-			// offset 0: u8, length in bytes of utf8 string
-			// offset 1: [u8; SIZE] SIZE bytes can be read but only the first len() bytes are part of the string
-			len_data: *const u8,
-		}
-		impl $ty_name {
-			const SIZE: usize = $size;
-
-			#[allow(dead_code)]
-			fn new(len_data: *const u8) -> Self {
-				debug_assert!(unsafe { *len_data as usize <= <$ty_name>::SIZE });
-				Self { len_data }
-			}
-
-			fn len(self) -> usize {
-				unsafe { *self.len_data as usize }
-			}
-
-			fn utf8_data(self) -> *const u8 {
-				unsafe { self.len_data.add(1) }
-			}
-
-			#[allow(dead_code)]
-			fn get_slice(self) -> &'static [u8] {
-				unsafe { slice::from_raw_parts(self.utf8_data(), self.len()) }
-			}
-		}
-		// SAFETY: The ptr field points to a static immutable u8 array.
-		unsafe impl Send for $ty_name {}
-		unsafe impl Sync for $ty_name {}
-	};
+#[derive(Copy, Clone)]
+#[repr(C)]
+struct FastStringRepr<const SIZE: usize> {
+	len: u8,
+	// SIZE bytes can be read but only the first len bytes are part of the string
+	data: [u8; SIZE],
 }
+
+impl<const SIZE: usize> FastStringRepr<SIZE> {
+	const fn from_str(s: &str) -> Self {
+		assert!(s.len() <= SIZE);
+		let s = s.as_bytes();
+		let len = s.len() as u8;
+		let mut data = [0; SIZE];
+		let mut i = 0;
+		while i < SIZE {
+			data[i] = if i < s.len() { s[i] } else { b' ' };
+			i += 1;
+		}
+		Self { len, data }
+	}
+}
+
+#[repr(transparent)]
+#[derive(Copy, Clone)]
+struct FastString<const SIZE: usize> {
+	// offset 0: u8, length in bytes of utf8 string
+	len_data: &'static FastStringRepr<SIZE>,
+}
+
+impl<const SIZE: usize> FastString<SIZE> {
+	const SIZE: usize = SIZE;
+
+	#[allow(dead_code)]
+	#[allow(clippy::transmute_ptr_to_ref)] // Can't use pointer dereference in const fn yet
+	const fn from_raw(len_data: &'static [u8]) -> Self {
+		let required_size = 1 + SIZE;
+		assert!(len_data.len() >= required_size);
+		assert!(len_data[0] as usize <= SIZE);
+		let len_data: &'static FastStringRepr<SIZE> = unsafe { mem::transmute(len_data.as_ptr()) };
+		Self::new(len_data)
+	}
+
+	const fn new(len_data: &'static FastStringRepr<SIZE>) -> Self {
+		Self { len_data }
+	}
+
+	const fn len(self) -> usize {
+		self.len_data.len as usize
+	}
+
+	const fn utf8_data(self) -> *const u8 {
+		self.len_data.data.as_ptr()
+	}
+
+	#[allow(dead_code)]
+	fn get_slice(self) -> &'static [u8] {
+		unsafe { slice::from_raw_parts(self.utf8_data(), self.len()) }
+	}
+}
+
 // FastString2 isn't used since the code needs a 66h prefix (if target CPU is x86)
-mk_fast_str_ty! {FastString4, 4} // ld 4
-mk_fast_str_ty! {FastString8, 8} // ld 8
-mk_fast_str_ty! {FastString12, 12} // ld 8 + ld 4
-mk_fast_str_ty! {FastString16, 16} // ld 16
-mk_fast_str_ty! {FastString20, 20} // ld 16 + ld 4
+type FastString4 = FastString<4>; // ld 4
+type FastString8 = FastString<8>; // ld 8
+type FastString12 = FastString<12>; // ld 8 + ld 4
+type FastString16 = FastString<16>; // ld 16
+type FastString20 = FastString<20>; // ld 16 + ld 4
 
 type FastStringMnemonic = FastString20;
 type FastStringMemorySize = FastString16;
 type FastStringRegister = FastString8;
 
-// It doesn't seem to be possible to const-verify the arg (string literal) in a const fn so we create it with this macro
 macro_rules! mk_const_fast_str {
-	// $fast_ty = FastStringN where N is some integer
-	// $str = padded string. First byte is the string len and the rest is the utf8 data
-	//		  of $fast_ty::SIZE bytes padded with any bytes if needed
-	($fast_ty:tt, $str:literal) => {{
-		const STR: &str = $str;
-		const _: () = assert!(STR.len() == 1 + <$fast_ty>::SIZE);
-		const _: () = assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
-		$fast_ty { len_data: STR.as_ptr() }
+	($fast_ty:ty, $str:literal) => {{
+		use $crate::formatter::fast::{FastString, FastStringRepr};
+
+		// Eventually, inline-const will let us do:
+		// const { FastString::new(&FastStringRepr::from_str($str)) }
+		// to avoid having to pass a fast string type, and let it be inferred.
+		const RES: $fast_ty = FastString::new(&FastStringRepr::from_str($str));
+		RES
 	}};
 }
+use mk_const_fast_str;
 
 macro_rules! verify_output_has_enough_bytes_left {
 	($dst:ident, $dst_next_p:ident, $num_bytes:expr) => {
@@ -510,10 +530,10 @@ macro_rules! call_format_memory {
 }
 
 static SCALE_NUMBERS: [FastString4; 4] = [
-	mk_const_fast_str!(FastString4, "\x02*1  "),
-	mk_const_fast_str!(FastString4, "\x02*2  "),
-	mk_const_fast_str!(FastString4, "\x02*4  "),
-	mk_const_fast_str!(FastString4, "\x02*8  "),
+	mk_const_fast_str!(FastString4, "*1"),
+	mk_const_fast_str!(FastString4, "*2"),
+	mk_const_fast_str!(FastString4, "*4"),
+	mk_const_fast_str!(FastString4, "*8"),
 ];
 const _: () = assert!(RoundingControl::None as u32 == 0);
 const _: () = assert!(RoundingControl::RoundToNearest as u32 == 1);
@@ -521,58 +541,58 @@ const _: () = assert!(RoundingControl::RoundDown as u32 == 2);
 const _: () = assert!(RoundingControl::RoundUp as u32 == 3);
 const _: () = assert!(RoundingControl::RoundTowardZero as u32 == 4);
 static RC_SAE_STRINGS: [FastString8; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
-	mk_const_fast_str!(FastString8, "\x00        "),
-	mk_const_fast_str!(FastString8, "\x08{rn-sae}"),
-	mk_const_fast_str!(FastString8, "\x08{rd-sae}"),
-	mk_const_fast_str!(FastString8, "\x08{ru-sae}"),
-	mk_const_fast_str!(FastString8, "\x08{rz-sae}"),
+	mk_const_fast_str!(FastString8, ""),
+	mk_const_fast_str!(FastString8, "{rn-sae}"),
+	mk_const_fast_str!(FastString8, "{rd-sae}"),
+	mk_const_fast_str!(FastString8, "{ru-sae}"),
+	mk_const_fast_str!(FastString8, "{rz-sae}"),
 ];
 static RC_STRINGS: [FastString4; IcedConstants::ROUNDING_CONTROL_ENUM_COUNT] = [
-	mk_const_fast_str!(FastString4, "\x00    "),
-	mk_const_fast_str!(FastString4, "\x04{rn}"),
-	mk_const_fast_str!(FastString4, "\x04{rd}"),
-	mk_const_fast_str!(FastString4, "\x04{ru}"),
-	mk_const_fast_str!(FastString4, "\x04{rz}"),
+	mk_const_fast_str!(FastString4, ""),
+	mk_const_fast_str!(FastString4, "{rn}"),
+	mk_const_fast_str!(FastString4, "{rd}"),
+	mk_const_fast_str!(FastString4, "{ru}"),
+	mk_const_fast_str!(FastString4, "{rz}"),
 ];
 #[cfg(feature = "mvex")]
 static MVEX_REG_MEM_CONSTS_32: [FastString12; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT] = [
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x06{cdab}      "),
-	mk_const_fast_str!(FastString12, "\x06{badc}      "),
-	mk_const_fast_str!(FastString12, "\x06{dacb}      "),
-	mk_const_fast_str!(FastString12, "\x06{aaaa}      "),
-	mk_const_fast_str!(FastString12, "\x06{bbbb}      "),
-	mk_const_fast_str!(FastString12, "\x06{cccc}      "),
-	mk_const_fast_str!(FastString12, "\x06{dddd}      "),
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x07{1to16}     "),
-	mk_const_fast_str!(FastString12, "\x07{4to16}     "),
-	mk_const_fast_str!(FastString12, "\x09{float16}   "),
-	mk_const_fast_str!(FastString12, "\x07{uint8}     "),
-	mk_const_fast_str!(FastString12, "\x07{sint8}     "),
-	mk_const_fast_str!(FastString12, "\x08{uint16}    "),
-	mk_const_fast_str!(FastString12, "\x08{sint16}    "),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, "{cdab}"),
+	mk_const_fast_str!(FastString12, "{badc}"),
+	mk_const_fast_str!(FastString12, "{dacb}"),
+	mk_const_fast_str!(FastString12, "{aaaa}"),
+	mk_const_fast_str!(FastString12, "{bbbb}"),
+	mk_const_fast_str!(FastString12, "{cccc}"),
+	mk_const_fast_str!(FastString12, "{dddd}"),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, "{1to16}"),
+	mk_const_fast_str!(FastString12, "{4to16}"),
+	mk_const_fast_str!(FastString12, "{float16}"),
+	mk_const_fast_str!(FastString12, "{uint8}"),
+	mk_const_fast_str!(FastString12, "{sint8}"),
+	mk_const_fast_str!(FastString12, "{uint16}"),
+	mk_const_fast_str!(FastString12, "{sint16}"),
 ];
 #[cfg(feature = "mvex")]
 static MVEX_REG_MEM_CONSTS_64: [FastString12; IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT] = [
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x06{cdab}      "),
-	mk_const_fast_str!(FastString12, "\x06{badc}      "),
-	mk_const_fast_str!(FastString12, "\x06{dacb}      "),
-	mk_const_fast_str!(FastString12, "\x06{aaaa}      "),
-	mk_const_fast_str!(FastString12, "\x06{bbbb}      "),
-	mk_const_fast_str!(FastString12, "\x06{cccc}      "),
-	mk_const_fast_str!(FastString12, "\x06{dddd}      "),
-	mk_const_fast_str!(FastString12, "\x00            "),
-	mk_const_fast_str!(FastString12, "\x06{1to8}      "),
-	mk_const_fast_str!(FastString12, "\x06{4to8}      "),
-	mk_const_fast_str!(FastString12, "\x09{float16}   "),
-	mk_const_fast_str!(FastString12, "\x07{uint8}     "),
-	mk_const_fast_str!(FastString12, "\x07{sint8}     "),
-	mk_const_fast_str!(FastString12, "\x08{uint16}    "),
-	mk_const_fast_str!(FastString12, "\x08{sint16}    "),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, "{cdab}"),
+	mk_const_fast_str!(FastString12, "{badc}"),
+	mk_const_fast_str!(FastString12, "{dacb}"),
+	mk_const_fast_str!(FastString12, "{aaaa}"),
+	mk_const_fast_str!(FastString12, "{bbbb}"),
+	mk_const_fast_str!(FastString12, "{cccc}"),
+	mk_const_fast_str!(FastString12, "{dddd}"),
+	mk_const_fast_str!(FastString12, ""),
+	mk_const_fast_str!(FastString12, "{1to8}"),
+	mk_const_fast_str!(FastString12, "{4to8}"),
+	mk_const_fast_str!(FastString12, "{float16}"),
+	mk_const_fast_str!(FastString12, "{uint8}"),
+	mk_const_fast_str!(FastString12, "{sint8}"),
+	mk_const_fast_str!(FastString12, "{uint16}"),
+	mk_const_fast_str!(FastString12, "{sint16}"),
 ];
 
 struct FmtTableData {
@@ -878,21 +898,21 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 			let mut has_xacquire_xrelease = false;
 			if instruction.has_xacquire_prefix() {
-				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xacquire    ");
+				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "xacquire ");
 				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
 				has_xacquire_xrelease = true;
 			}
 			if instruction.has_xrelease_prefix() {
-				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "\x09xrelease    ");
+				const FAST_STR: FastString12 = mk_const_fast_str!(FastString12, "xrelease ");
 				write_fast_str!(dst, dst_next_p, FastString12, FAST_STR);
 				has_xacquire_xrelease = true;
 			}
 			if instruction.has_lock_prefix() {
-				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05lock    ");
+				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "lock ");
 				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
 			if has_notrack_prefix {
-				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x08notrack ");
+				const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "notrack ");
 				write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 			}
 			if !has_xacquire_xrelease {
@@ -901,10 +921,10 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						|| show_rep_or_repe_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES))
 				{
 					if is_repe_or_repne_instruction(code) {
-						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05repe    ");
+						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "repe ");
 						write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 					} else {
-						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04rep ");
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "rep ");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					}
 				}
@@ -915,12 +935,12 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						|| (Code::Jmp_rm16 <= code && code <= Code::Jmp_rm64)
 						|| code.is_jcc_short_or_near()
 					{
-						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04bnd ");
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "bnd ");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					} else if SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES
 						|| show_repne_prefix_bool(code, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)
 					{
-						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x06repne   ");
+						const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "repne ");
 						write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 					}
 				}
@@ -1068,7 +1088,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 									None
 								} {
 									if (symbol.flags & SymbolFlags::RELATIVE) == 0 {
-										const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x07offset  ");
+										const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "offset ");
 										write_fast_str!($dst, $dst_next_p, FastString8, FAST_STR);
 									}
 									call_write_symbol!($slf, $dst, $dst_next_p, $imm as u64, symbol);
@@ -1267,7 +1287,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						);
 						#[cfg(feature = "mvex")]
 						if instruction.is_mvex_eviction_hint() {
-							const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x04{eh}");
+							const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "{eh}");
 							write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 						}
 					}};
@@ -1460,7 +1480,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						write_fast_ascii_char_lit!(dst, dst_next_p, '}', true);
 					}
 					if instruction.zeroing_masking() {
-						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x03{z} ");
+						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "{z}");
 						write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 					}
 				}
@@ -1483,7 +1503,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 				}
 
 				if TraitOptions::space_after_operand_separator(&self.d.options) {
-					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02,   ");
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, ", ");
 					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 				} else {
 					write_fast_ascii_char_lit!(dst, dst_next_p, ',', true);
@@ -1501,7 +1521,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					}
 				} else {
 					debug_assert!(instruction.suppress_all_exceptions());
-					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "\x05{sae}   ");
+					const FAST_STR: FastString8 = mk_const_fast_str!(FastString8, "{sae}");
 					write_fast_str!(dst, dst_next_p, FastString8, FAST_STR);
 				}
 			}
@@ -1561,7 +1581,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		macro_rules! format_number_impl {
 			($dst:ident, $dst_next_p:ident, $value:ident, $uppercase_hex:literal, $use_hex_prefix:literal) => {{
 				if $use_hex_prefix {
-					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x020x  ");
+					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "0x");
 					write_fast_str!($dst, $dst_next_p, FastString4, FAST_STR);
 				}
 
@@ -1733,7 +1753,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			call_format_number!(self, dst, dst_next_p, displ as u64);
 		}
 		if TraitOptions::show_symbol_address(&self.d.options) {
-			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "\x02 (  ");
+			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, " (");
 			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 			call_format_number!(self, dst, dst_next_p, address);
 			write_fast_ascii_char_lit!(dst, dst_next_p, ')', true);
@@ -1822,4 +1842,5 @@ pub type FastFormatter = SpecializedFormatter<DefaultFastFormatterTraitOptions>;
 #[allow(missing_copy_implementations)]
 #[allow(missing_debug_implementations)]
 pub struct DefaultSpecializedFormatterTraitOptions;
+
 impl SpecializedFormatterTraitOptions for DefaultSpecializedFormatterTraitOptions {}

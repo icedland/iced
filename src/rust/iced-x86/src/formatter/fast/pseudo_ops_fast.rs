@@ -8,15 +8,7 @@ use crate::formatter::fast::FastStringMnemonic;
 use alloc::vec::Vec;
 use lazy_static::lazy_static;
 
-// Copied from fast.rs since it doesn't seem to be possible to use it from this module even with #[macro_use]
-macro_rules! mk_const_fast_str {
-	($fast_ty:tt, $str:literal) => {{
-		const STR: &str = $str;
-		const _: () = assert!(STR.len() == 1 + <$fast_ty>::SIZE);
-		const _: () = assert!(STR.as_bytes()[0] as usize <= <$fast_ty>::SIZE);
-		$fast_ty { len_data: STR.as_ptr() }
-	}};
-}
+use super::mk_const_fast_str;
 
 pub(super) fn get_pseudo_ops(kind: PseudoOpsKind) -> &'static Vec<FastStringMnemonic> {
 	let pseudo_ops = &*PSEUDO_OPS;
@@ -177,17 +169,17 @@ lazy_static! {
 
 		#[rustfmt::skip]
 		let pclmulqdq = vec![
-			mk_const_fast_str!(FastStringMnemonic, "\x0Cpclmullqlqdq        "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Cpclmulhqlqdq        "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Cpclmullqhqdq        "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Cpclmulhqhqdq        "),
+			mk_const_fast_str!(FastStringMnemonic, "pclmullqlqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "pclmulhqlqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "pclmullqhqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "pclmulhqhqdq"),
 		];
 		#[rustfmt::skip]
 		let vpclmulqdq = vec![
-			mk_const_fast_str!(FastStringMnemonic, "\x0Dvpclmullqlqdq       "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Dvpclmulhqlqdq       "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Dvpclmullqhqdq       "),
-			mk_const_fast_str!(FastStringMnemonic, "\x0Dvpclmulhqhqdq       "),
+			mk_const_fast_str!(FastStringMnemonic, "vpclmullqlqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "vpclmulhqlqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "vpclmullqhqdq"),
+			mk_const_fast_str!(FastStringMnemonic, "vpclmulhqhqdq"),
 		];
 
 		#[rustfmt::skip]
@@ -262,8 +254,8 @@ fn create(cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FastStrin
 		new_vec.extend_from_slice(suffix.as_bytes());
 		new_vec.extend(core::iter::repeat(b' ').take(FastStringMnemonic::SIZE - (new_vec.len() - 1)));
 		debug_assert_eq!(new_vec.len(), 1 + FastStringMnemonic::SIZE);
-		let len_data = new_vec.leak().as_ptr();
-		strings.push(FastStringMnemonic::new(len_data));
+		let len_data = new_vec.leak();
+		strings.push(FastStringMnemonic::from_raw(len_data));
 	}
 	strings
 }

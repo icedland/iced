@@ -210,7 +210,7 @@ lazy_static! {
 		for mem_keywords in MEM_SIZE_TBL_DATA {
 			let keywords = MEM_SIZE_TBL_STRINGS[mem_keywords as usize];
 			debug_assert!(keywords.len() == 1 + FastStringMemorySize::SIZE);
-			v.push(FastStringMemorySize::new(keywords.as_ptr()));
+			v.push(FastStringMemorySize::from_raw(keywords.as_bytes()));
 		}
 		#[allow(clippy::unwrap_used)]
 		v.into_boxed_slice().try_into().ok().unwrap()

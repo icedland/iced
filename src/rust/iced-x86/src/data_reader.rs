@@ -64,12 +64,14 @@ impl<'a> DataReader<'a> {
 		s
 	}
 
+	// Returns the whole slice starting at the current index,
+	// including the length byte, and advances the index by the current length + 1
 	#[cfg(feature = "fast_fmt")]
-	#[allow(trivial_casts)]
-	pub(crate) fn read_len_data(&mut self) -> *const u8 {
-		let len = &self.data[self.index];
-		let len_data = len as *const u8;
-		self.index += 1 + *len as usize;
+	pub(crate) fn read_len_data(&mut self) -> &'a [u8] {
+		let len = usize::from(self.data[self.index]);
+		debug_assert!(self.index + 1 + len <= self.data.len());
+		let len_data = &self.data[self.index..];
+		self.index += 1 + len;
 		len_data
 	}
 }
