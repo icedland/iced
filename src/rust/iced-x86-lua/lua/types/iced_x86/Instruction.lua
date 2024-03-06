@@ -1216,7 +1216,7 @@ function Instruction:is_privileged() end
 ---```
 function Instruction:is_stack_instruction() end
 
----`true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+---`true` if it's an instruction that saves or restores many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 ---
 ---@return boolean
 function Instruction:is_save_restore_instruction() end

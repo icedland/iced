@@ -937,7 +937,7 @@ impl OpCodeInfo {
 		(self.opc_flags1 & OpCodeInfoFlags1::PRIVILEGED) != 0
 	}
 
-	/// `true` if it reads/writes too many registers
+	/// `true` if it reads/writes to many registers
 	#[must_use]
 	#[inline]
 	pub const fn is_save_restore(&self) -> bool {

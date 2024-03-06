@@ -410,7 +410,7 @@ function OpCodeInfo:requires_unique_dest_reg_num() end
 ---@return boolean
 function OpCodeInfo:is_privileged() end
 
----`true` if it reads/writes too many registers
+---`true` if it reads/writes to many registers
 ---
 ---@return boolean
 function OpCodeInfo:is_save_restore() end

@@ -3475,7 +3475,7 @@ class Instruction:
 		...
 	@property
 	def is_save_restore_instruction(self) -> bool:
-		"""bool: `True` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc)."""
+		"""bool: `True` if it's an instruction that saves or restores many registers (eg. `FXRSTOR`, `XSAVE`, etc)."""
 		...
 	@property
 	def is_string_instruction(self) -> bool:
@@ -7669,7 +7669,7 @@ class OpCodeInfo:
 		...
 	@property
 	def is_save_restore(self) -> bool:
-		"""bool: `True` if it reads/writes too many registers"""
+		"""bool: `True` if it reads/writes to many registers"""
 		...
 	@property
 	def is_stack_instruction(self) -> bool:

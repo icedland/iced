@@ -299,7 +299,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// <see langword="true"/> if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
+		/// <see langword="true"/> if it's an instruction that saves or restores many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// </summary>
 		public readonly bool IsSaveRestoreInstruction {
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]

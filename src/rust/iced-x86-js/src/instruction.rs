@@ -1959,7 +1959,7 @@ impl Instruction {
 		self.0.is_stack_instruction()
 	}
 
-	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	/// `true` if it's an instruction that saves or restores many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isSaveRestoreInstruction")]
 	pub fn is_save_restore_instruction(&self) -> bool {

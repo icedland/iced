@@ -43,7 +43,7 @@ namespace Generator.Tables {
 		/// </summary>
 		Cpl3					= 0x00000040,
 		/// <summary>
-		/// It reads/writes too many registers
+		/// It reads/writes to many registers
 		/// </summary>
 		SaveRestore				= 0x00000080,
 		/// <summary>

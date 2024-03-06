@@ -475,7 +475,7 @@ impl OpCodeInfo {
 		self.info.is_privileged()
 	}
 
-	/// bool: ``True`` if it reads/writes too many registers
+	/// bool: ``True`` if it reads/writes to many registers
 	#[getter]
 	fn is_save_restore(&self) -> bool {
 		self.info.is_save_restore()

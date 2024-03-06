@@ -822,7 +822,7 @@ public final class OpCodeInfo {
 	}
 
 	/**
-	 * {@code true} if it reads/writes too many registers
+	 * {@code true} if it reads/writes to many registers
 	 */
 	public boolean isSaveRestore() {
 		return (opcFlags1 & OpCodeInfoFlags1.SAVE_RESTORE) != 0;

@@ -83,7 +83,7 @@ namespace Iced.Intel {
 		}
 
 		/// <summary>
-		/// Checks if it's an instruction that saves or restores too many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
+		/// Checks if it's an instruction that saves or restores many registers (eg. <c>FXRSTOR</c>, <c>XSAVE</c>, etc).
 		/// </summary>
 		/// <param name="code">Code value</param>
 		/// <returns></returns>

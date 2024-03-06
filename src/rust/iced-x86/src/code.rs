@@ -44662,7 +44662,7 @@ impl Code {
 		(crate::info::info_table::TABLE[self as usize].1 & InfoFlags2::STACK_INSTRUCTION) != 0
 	}
 
-	/// Checks if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	/// Checks if it's an instruction that saves or restores many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	#[must_use]
 	#[inline]
 	pub fn is_save_restore_instruction(self) -> bool {

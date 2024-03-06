@@ -149,7 +149,7 @@ public final class Code {
 	}
 
 	/**
-	 * Checks if it's an instruction that saves or restores too many registers (eg.<!-- --> {@code FXRSTOR}, {@code XSAVE}, etc).
+	 * Checks if it's an instruction that saves or restores many registers (eg.<!-- --> {@code FXRSTOR}, {@code XSAVE}, etc).
 	 *
 	 * @param code Code value (a {@link Code} enum variant)
 	 */

@@ -586,7 +586,7 @@ impl OpCodeInfo {
 		self.0.is_privileged()
 	}
 
-	/// `true` if it reads/writes too many registers
+	/// `true` if it reads/writes to many registers
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "isSaveRestore")]
 	pub fn is_save_restore(&self) -> bool {

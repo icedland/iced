@@ -518,7 +518,7 @@ lua_pub_methods! { static OP_CODE_INFO_EXPORTS =>
 		unsafe { lua.push(this.inner.is_privileged()); }
 	}
 
-	/// `true` if it reads/writes too many registers
+	/// `true` if it reads/writes to many registers
 	/// @return boolean
 	unsafe fn is_save_restore(lua, this: &OpCodeInfo) -> 1 {
 		unsafe { lua.push(this.inner.is_save_restore()); }
