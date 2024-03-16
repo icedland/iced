@@ -270,7 +270,7 @@ namespace Generator.Enums.Python {
 				writer.WriteLine();
 				writer.WriteLine("import typing");
 				foreach (var cls in exportedClasses.Where(x => x.kind != DocClassKind.Enum))
-					writer.WriteLine($"from ._iced_x86_py import {cls.name}");
+					writer.WriteLine($"from ._iced_x86_py import {cls.name} # pylint: disable=import-self");
 				foreach (var cls in exportedClasses.Where(x => x.kind == DocClassKind.Enum))
 					writer.WriteLine($"from . import {cls.name}");
 				writer.WriteLine();

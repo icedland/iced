@@ -94,6 +94,8 @@ namespace Generator.Misc.Python {
 			var filename = genTypes.Dirs.GetPythonPyFilename("_iced_x86_py.pyi");
 			using (var writer = new FileWriter(TargetLanguage.Python, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
+				writer.WriteLine("# pylint: skip-file");
+				writer.WriteLine();
 				writer.WriteLine("from collections.abc import Iterator");
 				writer.WriteLine("from enum import IntEnum, IntFlag");
 				writer.WriteLine("from typing import Any, List, Optional, Union");

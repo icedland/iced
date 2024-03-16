@@ -12,24 +12,24 @@ iced-x86 is a blazing fast and correct x86/x64 disassembler, assembler and instr
 """
 
 import typing
-from ._iced_x86_py import BlockEncoder
-from ._iced_x86_py import ConstantOffsets
-from ._iced_x86_py import Decoder
-from ._iced_x86_py import Encoder
-from ._iced_x86_py import FastFormatter
-from ._iced_x86_py import Formatter
-from ._iced_x86_py import FpuStackIncrementInfo
-from ._iced_x86_py import Instruction
-from ._iced_x86_py import InstructionInfo
-from ._iced_x86_py import InstructionInfoFactory
-from ._iced_x86_py import MemoryOperand
-from ._iced_x86_py import MemorySizeExt
-from ._iced_x86_py import MemorySizeInfo
-from ._iced_x86_py import OpCodeInfo
-from ._iced_x86_py import RegisterExt
-from ._iced_x86_py import RegisterInfo
-from ._iced_x86_py import UsedMemory
-from ._iced_x86_py import UsedRegister
+from ._iced_x86_py import BlockEncoder # pylint: disable=import-self
+from ._iced_x86_py import ConstantOffsets # pylint: disable=import-self
+from ._iced_x86_py import Decoder # pylint: disable=import-self
+from ._iced_x86_py import Encoder # pylint: disable=import-self
+from ._iced_x86_py import FastFormatter # pylint: disable=import-self
+from ._iced_x86_py import Formatter # pylint: disable=import-self
+from ._iced_x86_py import FpuStackIncrementInfo # pylint: disable=import-self
+from ._iced_x86_py import Instruction # pylint: disable=import-self
+from ._iced_x86_py import InstructionInfo # pylint: disable=import-self
+from ._iced_x86_py import InstructionInfoFactory # pylint: disable=import-self
+from ._iced_x86_py import MemoryOperand # pylint: disable=import-self
+from ._iced_x86_py import MemorySizeExt # pylint: disable=import-self
+from ._iced_x86_py import MemorySizeInfo # pylint: disable=import-self
+from ._iced_x86_py import OpCodeInfo # pylint: disable=import-self
+from ._iced_x86_py import RegisterExt # pylint: disable=import-self
+from ._iced_x86_py import RegisterInfo # pylint: disable=import-self
+from ._iced_x86_py import UsedMemory # pylint: disable=import-self
+from ._iced_x86_py import UsedRegister # pylint: disable=import-self
 from . import CC_a
 from . import CC_ae
 from . import CC_b
