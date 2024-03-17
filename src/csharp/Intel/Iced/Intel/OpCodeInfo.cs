@@ -625,7 +625,7 @@ namespace Iced.Intel {
 		public bool IsPrivileged => (opcFlags1 & OpCodeInfoFlags1.Privileged) != 0;
 
 		/// <summary>
-		/// <see langword="true"/> if it reads/writes too many registers
+		/// <see langword="true"/> if it reads/writes to many registers
 		/// </summary>
 		public bool IsSaveRestore => (opcFlags1 & OpCodeInfoFlags1.SaveRestore) != 0;
 

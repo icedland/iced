@@ -1410,7 +1410,7 @@ lua_pub_methods! { static INSTRUCTION_EXPORTS =>
 		unsafe { lua.push(this.inner.is_stack_instruction()); }
 	}
 
-	/// `true` if it's an instruction that saves or restores too many registers (eg. `FXRSTOR`, `XSAVE`, etc).
+	/// `true` if it's an instruction that saves or restores many registers (eg. `FXRSTOR`, `XSAVE`, etc).
 	/// @return boolean
 	unsafe fn is_save_restore_instruction(lua, this: &Instruction) -> 1 {
 		unsafe { lua.push(this.inner.is_save_restore_instruction()); }

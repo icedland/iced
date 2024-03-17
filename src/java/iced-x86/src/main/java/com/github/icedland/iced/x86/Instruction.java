@@ -2345,7 +2345,7 @@ public final class Instruction {
 	}
 
 	/**
-	 * {@code true} if it's an instruction that saves or restores too many registers (eg.<!-- --> {@code FXRSTOR}, {@code XSAVE}, etc).
+	 * {@code true} if it's an instruction that saves or restores many registers (eg.<!-- --> {@code FXRSTOR}, {@code XSAVE}, etc).
 	 */
 	public boolean isSaveRestoreInstruction() {
 		return Code.isSaveRestoreInstruction(getCode());

@@ -1642,7 +1642,7 @@ impl Instruction {
 		self.instr.is_stack_instruction()
 	}
 
-	/// bool: ``True`` if it's an instruction that saves or restores too many registers (eg. ``FXRSTOR``, ``XSAVE``, etc).
+	/// bool: ``True`` if it's an instruction that saves or restores many registers (eg. ``FXRSTOR``, ``XSAVE``, etc).
 	#[getter]
 	fn is_save_restore_instruction(&self) -> bool {
 		self.instr.is_save_restore_instruction()
