@@ -136,7 +136,7 @@ namespace Generator.Encoder.Python {
 					ctx.Writer.Write("u64");
 					break;
 				case MethodArgType.ByteSlice:
-					ctx.Writer.Write("&PyAny");
+					ctx.Writer.Write("&Bound<'_, PyAny>");
 					break;
 				case MethodArgType.ByteArray:
 				case MethodArgType.WordArray:
