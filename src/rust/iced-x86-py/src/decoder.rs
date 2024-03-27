@@ -5,7 +5,6 @@ use crate::constant_offsets::ConstantOffsets;
 use crate::instruction::Instruction;
 use crate::utils::to_value_error;
 use core::slice;
-use pyo3::class::iter::IterNextOutput;
 use pyo3::exceptions::PyTypeError;
 use pyo3::gc::PyVisit;
 use pyo3::prelude::*;
@@ -14,7 +13,8 @@ use pyo3::PyTraverseError;
 
 enum DecoderDataRef {
 	None,
-	Vec(Vec<u8>),
+	Vec(#[allow(dead_code)] Vec<u8>),
+	#[allow(dead_code)]
 	PyObj(PyObject),
 }
 
@@ -110,15 +110,16 @@ impl Decoder {
 	#[new]
 	#[pyo3(text_signature = "(bitness, data, options = 0, ip = 0)")]
 	#[pyo3(signature = (bitness, data, options = 0, ip = 0))]
-	fn new(bitness: u32, data: &PyAny, options: u32, ip: u64) -> PyResult<Self> {
+	fn new(bitness: u32, data: &Bound<'_, PyAny>, options: u32, ip: u64) -> PyResult<Self> {
 		// #[pyo3(signature = (...))] line assumption
 		const _: () = assert!(iced_x86::DecoderOptions::NONE == 0);
 
-		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = <PyBytes as PyTryFrom>::try_from(data) {
-			let slice_data = bytes.as_bytes();
-			let decoder_data = unsafe { slice::from_raw_parts(slice_data.as_ptr(), slice_data.len()) };
-			(DecoderDataRef::PyObj(bytes.into()), decoder_data)
-		} else if let Ok(bytearray) = <PyByteArray as PyTryFrom>::try_from(data) {
+		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = data.downcast::<PyBytes>() {
+			//TODO: try to use a reference to the original data like we did with PyO3 0.20 and earlier, see previous commit
+			let vec_data: Vec<_> = bytes.as_bytes().into();
+			let decoder_data = unsafe { slice::from_raw_parts(vec_data.as_ptr(), vec_data.len()) };
+			(DecoderDataRef::Vec(vec_data), decoder_data)
+		} else if let Ok(bytearray) = data.downcast::<PyByteArray>() {
 			//TODO: support bytearray without copying its data by getting a ref to its data every time the Decoder is used (also update the ctor args docs)
 			let vec_data: Vec<_> = unsafe { bytearray.as_bytes().into() };
 			let decoder_data = unsafe { slice::from_raw_parts(vec_data.as_ptr(), vec_data.len()) };
@@ -400,11 +401,11 @@ impl Decoder {
 		slf
 	}
 
-	fn __next__(mut slf: PyRefMut<'_, Self>) -> IterNextOutput<Instruction, ()> {
+	fn __next__(mut slf: PyRefMut<'_, Self>) -> Option<Instruction> {
 		if slf.can_decode() {
-			IterNextOutput::Yield(slf.decode())
+			Some(slf.decode())
 		} else {
-			IterNextOutput::Return(())
+			None
 		}
 	}
 }

@@ -85,7 +85,7 @@ impl MemoryOperand {
 	///
 	/// This is identical to :class:`MemoryOperand.copy`
 	#[pyo3(text_signature = "($self, memo)")]
-	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
+	fn __deepcopy__(&self, _memo: &Bound<'_, PyAny>) -> Self {
 		*self
 	}
 

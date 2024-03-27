@@ -189,7 +189,7 @@ impl Instruction {
 	///     bytes: The unpickled state
 	#[pyo3(text_signature = "($self)")]
 	fn __getstate__(&self, py: Python<'_>) -> PyResult<PyObject> {
-		let state = PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
+		let state = PyBytes::new_bound(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
 		Ok(state)
 	}
 
@@ -214,7 +214,7 @@ impl Instruction {
 	///
 	/// This is identical to :class:`Instruction.copy`
 	#[pyo3(text_signature = "($self, memo)")]
-	fn __deepcopy__(&self, _memo: &PyAny) -> Self {
+	fn __deepcopy__(&self, _memo: &Bound<'_, PyAny>) -> Self {
 		*self
 	}
 
@@ -4735,7 +4735,7 @@ impl Instruction {
 	#[rustfmt::skip]
 	#[staticmethod]
 	#[pyo3(text_signature = "(data)")]
-	fn create_declare_byte(data: &PyAny) -> PyResult<Self> {
+	fn create_declare_byte(data: &Bound<'_, PyAny>) -> PyResult<Self> {
 		let data = unsafe { get_temporary_byte_array_ref(data)? };
 		Ok(Instruction { instr: iced_x86::Instruction::with_declare_byte(data).map_err(to_value_error)? })
 	}

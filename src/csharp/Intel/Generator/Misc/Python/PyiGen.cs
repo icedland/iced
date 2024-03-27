@@ -359,7 +359,7 @@ namespace Generator.Misc.Python {
 				return "str";
 			case "PyRef<'_, Self>" or "PyRefMut<'_, Self>" or "Self":
 				return pyClass.Name;
-			case "&PyAny":
+			case "&Bound<'_, PyAny>":
 				return "Any";
 			default:
 				if (ParseUtils.TryRemovePrefixSuffix(rustType, "PyRef<'_, ", ">", out extractedType))

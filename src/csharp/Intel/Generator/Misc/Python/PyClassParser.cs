@@ -582,7 +582,7 @@ namespace Generator.Misc.Python {
 						};
 						var newArgs = new List<PyMethodArg> {
 							new PyMethodArg(selfArgName, "&self", isSelf: true),
-							new PyMethodArg("other", "&PyAny", isSelf: false),
+							new PyMethodArg("other", "&Bound<'_, PyAny>", isSelf: false),
 						};
 						yield return new PyMethod(opName, method.DocComments, method.Attributes, newArgs, "bool");
 					}
