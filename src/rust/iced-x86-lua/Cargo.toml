@@ -3,7 +3,7 @@ name = "iced-x86-lua"
 version = "1.21.0"
 edition = "2021"
 publish = false
-rust-version = "1.57.0"
+rust-version = "1.60.0"
 
 [lib]
 name = "iced_x86"
