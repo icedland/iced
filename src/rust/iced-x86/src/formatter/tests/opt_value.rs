@@ -10,7 +10,7 @@ pub(in super::super) enum OptionValue {
 	#[allow(dead_code)]
 	Ignore,
 	Boolean(bool),
-	Int32(i32),
+	Int32(#[allow(dead_code)] i32),
 	UInt64(u64),
 	String(String),
 	MemorySizeOptions(MemorySizeOptions),
