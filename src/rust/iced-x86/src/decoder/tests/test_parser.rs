@@ -271,7 +271,7 @@ impl IntoIter {
 		tc.ip = get_default_ip(self.bitness);
 		tc.hex_bytes = parts[0].trim().to_string();
 		let _ = to_vec_u8(&tc.hex_bytes)?;
-		tc.encoded_hex_bytes = tc.hex_bytes.clone();
+		tc.encoded_hex_bytes.clone_from(&tc.hex_bytes);
 		if is_ignored_code(parts[1]) {
 			return Ok(None);
 		}
