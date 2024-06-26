@@ -1,0 +1,36 @@
+object FrmFormatterOutput: TFrmFormatterOutput
+  Left = 484
+  Top = 226
+  AutoScroll = False
+  Caption = 'FormatterOutput'
+  ClientHeight = 246
+  ClientWidth = 535
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PrintScale = poNone
+  Scaled = False
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object rEdtOutput: TRichEdit
+    Left = 0
+    Top = 0
+    Width = 535
+    Height = 246
+    Align = alClient
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Consolas'
+    Font.Style = []
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 0
+  end
+end
