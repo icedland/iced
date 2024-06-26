@@ -1,4 +1,4 @@
-iced-x86
+iced-x86-delphi
 [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
 [![Minimum rustc version](https://img.shields.io/badge/rustc-1.60.0+-blue.svg)](#minimum-supported-rustc-version)
@@ -8,35 +8,22 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 
 - 👍 Supports all Intel and AMD instructions
 - 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
-- 👍 100% Rust code
+- 👍 100% Rust code with C compatible exports
 - 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
 - 👍 Blazing fast: Decodes >250 MB/s and decode+format >130 MB/s ([see here](https://github.com/icedland/disas-bench/tree/a865849deacfb6c33ee0e78f3a3ad7f4c82099f5#results))
 - 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
-- 👍 Create instructions with code assembler, eg. `asm.mov(eax, edx)`
 - 👍 The encoder can be used to re-encode decoded instructions at any address
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
-- 👍 Supports `#![no_std]` and `WebAssembly`
-- 👍 Supports `rustc` `1.60.0` or later
-- 👍 Few dependencies (`lazy_static`)
 - 👍 License: MIT
 
 ## Usage
 
-Add this to your `Cargo.toml`:
+Add this to your Project:
 
-```toml
-[dependencies]
-iced-x86 = "1.21.0"
-```
-
-Or to customize which features to use:
-
-```toml
-[dependencies.iced-x86]
-version = "1.21.0"
-default-features = false
-# See below for all features
-features = ["std", "decoder", "masm"]
+```pas
+  uIced.Types,
+  uIced.Imports,
+  uIced,
 ```
 
 ## Crate feature flags
@@ -53,12 +40,7 @@ You can enable/disable these in your `Cargo.toml` file.
 - `masm`: (👍 Enabled by default) Enables the masm formatter
 - `nasm`: (👍 Enabled by default) Enables the nasm formatter
 - `fast_fmt`: (👍 Enabled by default) Enables [`SpecializedFormatter<TraitOptions>`] (and [`FastFormatter`]) (masm syntax) which is ~3.3x faster than the other formatters (the time includes decoding + formatting). Use it if formatting speed is more important than being able to re-assemble formatted instructions or if targeting wasm (this formatter uses less code).
-- `code_asm`: Enables [`CodeAssembler`] to allow easy creation of instructions, eg. `a.xor(ecx, dword_ptr(edx))` instead of using the more verbose `Instruction::with*()` methods.
-- `serde`: Enables serialization support ([`Instruction`]). Not guaranteed to work if different versions of iced was used to serialize and deserialize it.
-- `std`: (👍 Enabled by default) Enables the `std` crate. `std` or `no_std` must be defined, but not both.
-- `no_std`: Enables `#![no_std]`. `std` or `no_std` must be defined, but not both. This feature uses the `alloc` crate.
 - `mvex`: Enables `MVEX` instructions (Knights Corner). You must also pass in `DecoderOptions::KNC` to the [`Decoder`] constructor.
-- `exhaustive_enums`: Enables exhaustive enums, i.e., no enum has the `#[non_exhaustive]` attribute
 
 [`BlockEncoder`]: https://docs.rs/iced-x86/1.21.0/iced_x86/struct.BlockEncoder.html
 [`CodeAssembler`]: https://docs.rs/iced-x86/1.21.0/iced_x86/code_asm/struct.CodeAssembler.html
