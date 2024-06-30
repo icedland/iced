@@ -5,8 +5,10 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions};
+use iced_x86::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions, SymbolResolver};
 use crate::SymbolResolver::{TSymbolResolver, TSymbolResolverCallback};
+use crate::SpecializedFormatterTraitOptions::*;
+
 use std::ptr::null_mut;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -16,25 +18,22 @@ pub(crate) type
 
 // Creates a Specialized formatter
 #[no_mangle]
-pub extern "C" fn SpecializedFormatter_Create( SymbolResolver : Option<TSymbolResolverCallback>, UserData : *const usize ) -> *mut TSpecializedFormatter {   
+pub extern "C" fn SpecializedFormatter_Create( SymbolResolver : Option<TSymbolResolverCallback>, UserData : *const usize ) -> *mut TSpecializedFormatter {
+    let mut symbols: Option<Box<dyn SymbolResolver>> = None;
     if !SymbolResolver.is_none() {
-        let symbols = Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData });
-
-        match TSpecializedFormatter::try_with_options( Some( symbols ) ) {
-            Ok( value ) => return Box::into_raw( Box::new( value ) ),
-            Err( _e ) => return null_mut()
-        }
-    }else {
-        match TSpecializedFormatter::try_with_options( None ) {
-            Ok( value ) => return Box::into_raw( Box::new( value ) ),
-            Err( _e ) => return null_mut()
-        }
+        symbols = Some( Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData } ) );
     }
+
+    match TSpecializedFormatter::try_with_options( symbols ) {
+        Ok( value ) => return Box::into_raw( Box::new( value ) ),
+        Err( _e ) => return null_mut()
+    }    
 }
 
 // Format Instruction
 #[no_mangle]
-pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializedFormatter, Instruction: *mut Instruction, Output : *mut u8, Size : usize ) {     
+/*
+pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializedFormatter, Options : u16, Instruction: *mut Instruction, Output : *mut u8, Size : usize ) {     
     if Formatter.is_null() {
         return;
     }
@@ -49,9 +48,96 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
     }
 
     let mut obj = Box::from_raw( Formatter );
-    let mut output = String::new();
+    let mut output = String::new();    
     obj.format( Instruction.as_mut().unwrap(), &mut output );
-    Box::into_raw( obj );
+    Box::into_raw( obj ); 
+
+    let mut l = output.len();
+    if l > Size {
+        l = Size;
+    }
+    
+    if l > 0 {
+        for i in 0..l {
+            *( Output.add( i ) ) = output.as_bytes()[ i ];
+        }
+    }
+    *( Output.add( l ) ) = 0;
+}
+*/
+
+pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializedFormatter, Options : u8, Instruction: *mut Instruction, Output : *mut u8, Size : usize ) {     
+    if Formatter.is_null() {
+        return;
+    }
+    if Instruction.is_null() {
+        return;
+    }
+    if Output.is_null() {
+        return;
+    }
+    if Size <= 0 {
+        return;
+    }
+
+    let mut output = String::new();
+
+    match Options {
+        0 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter000);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+
+        1 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter001);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        2 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter010);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        3 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter011);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        4 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter100);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        5 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter101);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        6 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter110);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }
+    
+        7 => {
+            let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter111);
+            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            Box::into_raw(obj);
+        }   
+
+        _ => {
+            //let mut obj = Box::from_raw( Formatter );
+            //obj.format( Instruction.as_mut().unwrap(), &mut output );
+            //Box::into_raw( obj ); 
+            return;
+        }        
+    }
 
     let mut l = output.len();
     if l > Size {
@@ -69,7 +155,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
 // NOTE: Specialized Formatter only supports the following Options
 // Options
 
-// Always show the size of memory operands
+// Always show the size of memory operands 
 //
 // Default | Value | Example | Example
 // --------|-------|---------|--------

@@ -7,7 +7,6 @@
 
 use iced_x86::{Instruction, Decoder, ConstantOffsets};
 use std::{slice, ptr::null_mut};
-use std::mem::transmute;// Enum<->Int
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Decoder
@@ -149,13 +148,13 @@ pub unsafe extern "C" fn Decoder_SetPosition( Decoder: *mut Decoder, Value : usi
 // Gets the last decoder error. Unless you need to know the reason it failed,
 // it's better to check [ `instruction.is_invalid()` ].
 #[no_mangle]
-pub unsafe extern "C" fn Decoder_GetLastError( Decoder: *mut Decoder ) -> u32 { // FFI-Unsafe: TDecoderError
+pub unsafe extern "C" fn Decoder_GetLastError( Decoder: *mut Decoder ) -> u8 { // FFI-Unsafe: TDecoderError
     if Decoder.is_null() {
         return 0;// TDecoderError::None;
     }
     let obj = Box::from_raw( Decoder );
 
-    let value: u32/*TDecoderError*/ = transmute( obj.last_error() as u32 );
+    let value: u8/*TDecoderError*/ = obj.last_error() as u8;
 
     Box::into_raw( obj );
    
