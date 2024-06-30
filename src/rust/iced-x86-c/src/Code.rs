@@ -105,7 +105,8 @@ pub unsafe extern "C" fn Code_Encoding( Code : u16 ) -> u16/*EncodingKind*/ { //
 // Gets the CPU or CPUID feature flags
 #[allow( non_upper_case_globals )]
 pub const CPUIDFeaturesMaxEntries : usize = 5;
-#[repr(C)]
+//#[repr(C)]
+#[repr(packed)]
 pub struct TCPUIDFeaturesArray { 
     pub Entries : [CpuidFeature;CPUIDFeaturesMaxEntries], 
     pub Count : u8

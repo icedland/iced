@@ -11,7 +11,8 @@ use std::mem::transmute;// Enum<->Int
 //#[allow( non_upper_case_globals )]
 //pub const OpCodeInfoCharCount : usize = 30;
 
-#[repr(C)]
+//#[repr(C)]
+#[repr(packed)]
 pub struct TOpCodeInfo { 
 //    pub op_code_string: [u8;OpCodeInfoCharCount],
 //    pub instruction_string: [u8;OpCodeInfoCharCount],

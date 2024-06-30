@@ -27,7 +27,8 @@ pub(crate)type
     pub(crate) callback: Option<TFormatterOptionsProviderCallback>
 }
 
-#[repr(C)]
+//#[repr(C)]
+#[repr(packed)]
 pub struct TNumberFormattingOptions {
 	/// Number prefix or an empty string
 	pub prefix: *const c_char,

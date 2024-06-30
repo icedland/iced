@@ -31,7 +31,8 @@ use std::{slice, ptr::null_mut};
 //
 // # Result
 // * Pointer to Result-Data. Musst be free'd using RustFreeMemory()
-#[repr(C)]
+//#[repr(C)]
+#[repr(packed)]
 pub struct TBlockEncoderResult {
 	/// Base IP of all encoded instructions
 	pub rip: u64,

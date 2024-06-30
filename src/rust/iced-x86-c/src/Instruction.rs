@@ -104,7 +104,8 @@ pub unsafe extern "C" fn Instruction_RFlagsModified( Instruction: *mut Instructi
 // Gets all op kinds ([`op_count()`] values)
 #[allow( non_upper_case_globals )]
 pub const OPKindsMaxEntries : usize = 5;
-#[repr(C)]
+//#[repr(C)]
+#[repr(packed)]
 pub struct TOPKindsArray { 
     Entries : [OpKind;OPKindsMaxEntries], 
     Count : u8
