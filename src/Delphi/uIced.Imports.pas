@@ -66,18 +66,19 @@ var
   // Gets the last decoder error. Unless you need to know the reason it failed,
   // it's better to check [`instruction.is_invalid()`].
   Decoder_GetLastError : function( Decoder : Pointer ) : TDecoderError; cdecl = nil;
+  DecoderError_AsString : procedure( const DecoderError : TDecoderErrorType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
 
   // Decodes and returns the next instruction, see also [`decode_out(&mut Instruction)`]
   // which avoids copying the decoded instruction to the caller's return variable.
   // See also [`last_error()`].
-  Decoder_Decode : procedure( Decoder : Pointer; var Instruction : TInstruction ); cdecl = nil;
+  Decoder_Decode : procedure( Decoder : Pointer; const Instruction : TInstruction ); cdecl = nil;
 
   // Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
   // The caller can check if there are any relocations at those addresses.
   //
   // # Arguments
   // * `instruction`: The latest instruction that was decoded by this decoder
-  Decoder_GetConstantOffsets : function( Decoder : Pointer; var Instruction : TInstruction; var ConstantOffsets : TConstantOffsets ) : Boolean; cdecl = nil;
+  Decoder_GetConstantOffsets : function( Decoder : Pointer; const Instruction : TInstruction; var ConstantOffsets : TConstantOffsets ) : Boolean; cdecl = nil;
 
   // Creates a formatter Output Callback
   FormatterOutput_Create : function( Callback : TFormatterOutputCallback; UserData : Pointer = nil ) : Pointer; cdecl = nil;
@@ -90,8 +91,8 @@ var
   MasmFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  MasmFormatter_Format : procedure( Formatter : Pointer; var Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
-  MasmFormatter_FormatCallback : procedure( Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  MasmFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MasmFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
 
   // Creates a Nasm formatter
   //
@@ -101,8 +102,8 @@ var
   NasmFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  NasmFormatter_Format : procedure( Formatter : Pointer; var Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
-  NasmFormatter_FormatCallback : procedure( Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  NasmFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  NasmFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
 
   // Creates a Gas formatter
   //
@@ -112,8 +113,8 @@ var
   GasFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  GasFormatter_Format : procedure( Formatter : Pointer; var Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
-  GasFormatter_FormatCallback : procedure( Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  GasFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  GasFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
 
   // Creates a Intel formatter
   //
@@ -123,21 +124,21 @@ var
   IntelFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  IntelFormatter_Format : procedure( Formatter : Pointer; var Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
-  IntelFormatter_FormatCallback : procedure( Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  IntelFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  IntelFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
 
   // Creates a Fast formatter (Specialized)
   // NOTE: Fast Formatter only supports Specialized-Options
   FastFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  FastFormatter_Format : procedure( Formatter : Pointer; var Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  FastFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
 
   // Creates a Specialized formatter
-  SpecializedFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; DBDWDDDQ : Boolean = False; UserData : Pointer = nil ) : Pointer; cdecl = nil;
+  SpecializedFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  SpecializedFormatter_Format : procedure( Formatter : Pointer; FormatterType : TIcedSpecializedFormatterType; var Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  SpecializedFormatter_Format : procedure( Formatter : Pointer; Options : Byte; const Instruction: TInstruction; output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
 
 // Options
   // NOTE: Specialized Formatter only supports the following Options
@@ -148,7 +149,7 @@ var
   // --------|-------|---------|--------
   // _ | `true` | `mov eax,dword ptr [ebx]` | `add byte ptr [eax],0x12`
   // X | `false` | `mov eax,[ebx]` | `add byte ptr [eax],0x12`
-  SpecializedFormatter_GetAlwaysShowMemorySize : function( Formatter: Pointer; FormatterType : TIcedSpecializedFormatterType ) : boolean; cdecl = nil;
+  SpecializedFormatter_GetAlwaysShowMemorySize : function( Formatter: Pointer ) : boolean; cdecl = nil;
 
   // Always show the size of memory operands
   //
@@ -159,7 +160,7 @@ var
   //
   // # Arguments
   // * `value`: New value
-  SpecializedFormatter_SetAlwaysShowMemorySize : function( Formatter: Pointer; FormatterType : TIcedSpecializedFormatterType; Value : Boolean ) : boolean; cdecl = nil;
+  SpecializedFormatter_SetAlwaysShowMemorySize : function( Formatter: Pointer; Value : Boolean ) : boolean; cdecl = nil;
 
   // Use a hex prefix ( `0x` ) or a hex suffix ( `h` )
   //
@@ -167,7 +168,7 @@ var
   // --------|-------|--------
   // _ | `true` | `0x5A`
   // X | `false` | `5Ah`
-  SpecializedFormatter_GetUseHexPrefix : function( Formatter: Pointer; FormatterType : TIcedSpecializedFormatterType ) : boolean; cdecl = nil;
+  SpecializedFormatter_GetUseHexPrefix : function( Formatter: Pointer ) : boolean; cdecl = nil;
 
   // Use a hex prefix ( `0x` ) or a hex suffix ( `h` )
   //
@@ -178,14 +179,14 @@ var
   //
   // # Arguments
   // * `value`: New value
-  SpecializedFormatter_SetUseHexPrefix : function( Formatter: Pointer; FormatterType : TIcedSpecializedFormatterType; Value : Boolean ) : boolean; cdecl = nil;
+  SpecializedFormatter_SetUseHexPrefix : function( Formatter: Pointer; Value : Boolean ) : boolean; cdecl = nil;
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Formatter Options
   // Format Instruction
-  Formatter_Format : procedure( Formatter : Pointer; FormatterType : TIcedFormatterType; var Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
-  Formatter_FormatCallback : procedure( Formatter : Pointer; FormatterType : TIcedFormatterType; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  Formatter_Format : procedure( Formatter : Pointer; FormatterType : TIcedFormatterType; const Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  Formatter_FormatCallback : procedure( Formatter : Pointer; FormatterType : TIcedFormatterType; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
 
   // Prefixes are uppercased
   //
@@ -1327,7 +1328,7 @@ var
   // # Arguments
   // * `instruction`: Instruction to encode
   // * `rip`: `RIP` of the encoded instruction
-  Encoder_Encode : function( Encoder : Pointer; var Instruction : TInstruction ) : NativeUInt; cdecl = nil;
+  Encoder_Encode : function( Encoder : Pointer; const Instruction : TInstruction ) : NativeUInt; cdecl = nil;
 
   // Writes a byte to the output buffer
   //
@@ -1426,450 +1427,49 @@ var
   //
   // # Result
   // * Pointer to Result-Data. Musst be free'd using FreeMemory()
-  BlockEncoder : function( Bitness : Cardinal; RIP : UInt64; var Instructions : TInstruction; Count : NativeUInt; var Result : TBlockEncoderResult; Options : Cardinal = beoNONE ) : Pointer; cdecl = nil;
+  BlockEncoder : function( Bitness : Cardinal; RIP : UInt64; const Instructions : TInstruction; Count : NativeUInt; var Result : TBlockEncoderResult; Options : Cardinal = beoNONE ) : Pointer; cdecl = nil;
 
   // Instruction
   // Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop
   // and whether `TOP` is written.
-  Instruction_FPU_StackIncrementInfo : function( var Instruction : TInstruction; var Info : TFpuStackIncrementInfo ) : Boolean; cdecl = nil;
-
-  // Instruction encoding, eg. Legacy, 3DNow!, VEX, EVEX, XOP
-  Instruction_Encoding : function( var Instruction : TInstruction ) : TEncodingKind; cdecl = nil;
-
-  // Gets the mnemonic, see also [`code()`]
-  Instruction_Mnemonic : function( var Instruction : TInstruction ) : TMnemonic; cdecl = nil;
-
-  // Gets the CPU or CPUID feature flags
-  Instruction_CPUIDFeatures : function( var Instruction : TInstruction; var CPUIDFeatures : TCPUIDFeaturesArray ) : Boolean; cdecl = nil;
-
-  // `true` if this is an instruction that implicitly uses the stack pointer (`SP`/`ESP`/`RSP`), eg. `CALL`, `PUSH`, `POP`, `RET`, etc.
-  // See also [`stack_pointer_increment()`]
-  //
-  // [`stack_pointer_increment()`]: #method.stack_pointer_increment
-  Instruction_IsStackInstruction : function( var Instruction : TInstruction ) : Boolean; cdecl = nil;
+  Instruction_FPU_StackIncrementInfo : function( const Instruction : TInstruction; var Info : TFpuStackIncrementInfo ) : Boolean; cdecl = nil;
 
   // Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
   // the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
-  Instruction_StackPointerIncrement : function( var Instruction : TInstruction ) : Integer; cdecl = nil;
-
-  // Gets the condition code if it's `Jcc`, `SETcc`, `CMOVcc`, `LOOPcc` else [`ConditionCode::None`] is returned
-  //
-  // [`ConditionCode::None`]: enum.ConditionCode.html#variant.None
-  Instruction_ConditionCode : function( var Instruction : TInstruction ) : TConditionCode; cdecl = nil;
+  Instruction_StackPointerIncrement : function( const Instruction : TInstruction ) : Integer; cdecl = nil;
 
   // All flags that are read by the CPU when executing the instruction.
   // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
-  Instruction_RFlagsRead : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
+  Instruction_RFlagsRead : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
   // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
-  Instruction_RFlagsWritten : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
+  Instruction_RFlagsWritten : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // All flags that are always cleared by the CPU.
   // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
-  Instruction_RFlagsCleared : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
+  Instruction_RFlagsCleared : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // All flags that are always set by the CPU.
   // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
-  Instruction_RFlagsSet : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
+  Instruction_RFlagsSet : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // All flags that are undefined after executing the instruction.
   // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
-  Instruction_RFlagsUndefined : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
+  Instruction_RFlagsUndefined : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns an [`RflagsBits`] value.
-  Instruction_RFlagsModified : function( var Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
-
-  // Control flow info
-  Instruction_FlowControl : function( var Instruction : TInstruction ) : TFlowControl; cdecl = nil;
+  Instruction_RFlagsModified : function( const Instruction : TInstruction ) : TRFlag{Cardinal}; cdecl = nil;
 
   // Gets all op kinds ([`op_count()`] values)
-  Instruction_OPKinds : function( var Instruction : TInstruction; var OPKindsArray : TOPKindsArray ) : TFlowControl; cdecl = nil;
+  Instruction_OPKinds : function( const Instruction : TInstruction; var OPKindsArray : TOPKindsArray ) : TFlowControl; cdecl = nil;
 
   // Gets the size of the memory location that is referenced by the operand. See also [`is_broadcast()`].
   // Use this method if the operand has kind [`OpKind::Memory`],
-  Instruction_MemorySize : function( var Instruction : TInstruction ) : Byte; cdecl = nil;
+  Instruction_MemorySize : function( const Instruction : TInstruction ) : TMemorySize; cdecl = nil;
 
   // Gets the operand count. An instruction can have 0-5 operands.
-  Instruction_OPCount : function( var Instruction : TInstruction ) : Cardinal; cdecl = nil;
-
-  // OpCodeInfo
-  // Gets the code
-  Instruction_OpCodeInfo_Code : function( var Instruction : TInstruction ) : TCode; cdecl = nil;
-
-  // Gets the mnemonic
-  Instruction_OpCodeInfo_Mnemonic : function( var Instruction : TInstruction ) : TMnemonic; cdecl = nil;
-
-  // `true` if it's an instruction, `false` if it's eg. [`Code::INVALID`], [`db`], [`dw`], [`dd`], [`dq`], [`zero_bytes`]
-  Instruction_OpCodeInfo_IsInstruction : function( var Instruction : TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's an instruction available in 16-bit mode
-  Instruction_OpCodeInfo_Mode16 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's an instruction available in 32-bit mode
-  Instruction_OpCodeInfo_Mode32 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's an instruction available in 64-bit mode
-  Instruction_OpCodeInfo_Mode64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if an `FWAIT` (`9B`) instruction is added before the instruction
-  Instruction_OpCodeInfo_Fwait : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (Legacy encoding) Gets the required operand size (16,32,64) or 0
-  Instruction_OpCodeInfo_OperandSize : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // (Legacy encoding) Gets the required address size (16,32,64) or 0
-  Instruction_OpCodeInfo_AddressSize : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // (VEX/XOP/EVEX) `L` / `L'L` value or default value if [`is_lig()`] is `true`
-  Instruction_OpCodeInfo_L : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // (VEX/XOP/EVEX/MVEX) `W` value or default value if [`is_wig()`] or [`is_wig32()`] is `true`
-  Instruction_OpCodeInfo_W : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // (VEX/XOP/EVEX) `true` if the `L` / `L'L` fields are ignored.
-  //
-  // EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
-  Instruction_OpCodeInfo_IsLig : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
-  Instruction_OpCodeInfo_IsWig : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
-  Instruction_OpCodeInfo_IsWig32 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX/MVEX) Gets the tuple type
-  Instruction_OpCodeInfo_TupleType : function( var Instruction: TInstruction ) : TTupleType; cdecl = nil;
-
-  // (MVEX) Gets the `EH` bit that's required to encode this instruction
-  Instruction_OpCodeInfo_MvexEhBit : function( var Instruction: TInstruction ) : TMvexEHBit; cdecl = nil;
-
-  // (MVEX) `true` if the instruction supports eviction hint (if it has a memory operand)
-  Instruction_OpCodeInfo_MvexCanUseEvictionHint : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (MVEX) `true` if the instruction's rounding control bits are stored in `imm8[1:0]`
-  Instruction_OpCodeInfo_MvexCanUseImmRoundingControl : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
-  Instruction_OpCodeInfo_MvexIgnoresOpMaskRegister : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
-  Instruction_OpCodeInfo_MvexNoSaeRc : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (MVEX) Gets the tuple type / conv lut kind
-  Instruction_OpCodeInfo_MvexTupleTypeLutKind : function( var Instruction: TInstruction ) : TMvexTupleTypeLutKind; cdecl = nil;
-
-  // (MVEX) Gets the conversion function, eg. `Sf32`
-  Instruction_OpCodeInfo_MvexConversionFunc : function( var Instruction: TInstruction ) : TMvexConvFn; cdecl = nil;
-
-  // (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
-  Instruction_OpCodeInfo_MvexValidConversionFuncsMask : function( var Instruction: TInstruction ) : Byte; cdecl = nil;
-
-  // (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
-  Instruction_OpCodeInfo_MvexValidSwizzleFuncsMask : function( var Instruction: TInstruction ) : Byte; cdecl = nil;
-
-  // If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
-  Instruction_OpCodeInfo_MemorySize : function( var Instruction: TInstruction ) : TMemorySize; cdecl = nil;
-
-  // If it has a memory operand, gets the [`MemorySize`] (broadcast memory type)
-  Instruction_OpCodeInfo_BroadcastMemorySize : function( var Instruction: TInstruction ) : TMemorySize; cdecl = nil;
-
-  // (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)
-  Instruction_OpCodeInfo_CanBroadcast : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX/MVEX) `true` if the instruction supports rounding control
-  Instruction_OpCodeInfo_CanUseRoundingControl : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX/MVEX) `true` if the instruction supports suppress all exceptions
-  Instruction_OpCodeInfo_CanSuppressAllExceptions : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX/MVEX) `true` if an opmask register can be used
-  Instruction_OpCodeInfo_CanUseOpMaskRegister : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX/MVEX) `true` if a non-zero opmask register must be used
-  Instruction_OpCodeInfo_RequireOpMaskRegister : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (EVEX) `true` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)
-  Instruction_OpCodeInfo_CanUseZeroingMasking : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `LOCK` (`F0`) prefix can be used
-  Instruction_OpCodeInfo_CanUseLockPrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `XACQUIRE` (`F2`) prefix can be used
-  Instruction_OpCodeInfo_CanUseXacquirePrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `XRELEASE` (`F3`) prefix can be used
-  Instruction_OpCodeInfo_CanUseXreleasePrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `REP` / `REPE` (`F3`) prefixes can be used
-  Instruction_OpCodeInfo_CanUseRepPrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `REPNE` (`F2`) prefix can be used
-  Instruction_OpCodeInfo_CanUseRepnePrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `BND` (`F2`) prefix can be used
-  Instruction_OpCodeInfo_CanUseBndPrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used
-  Instruction_OpCodeInfo_CanUseHintTakenPrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `NOTRACK` (`3E`) prefix can be used
-  Instruction_OpCodeInfo_CanUseNotrackPrefix : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if rounding control is ignored (#UD is not generated)
-  Instruction_OpCodeInfo_IgnoresRoundingControl : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)
-  Instruction_OpCodeInfo_AmdLockRegBit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size.
-  Instruction_OpCodeInfo_DefaultOpSize64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored.
-  Instruction_OpCodeInfo_ForceOpSize64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored.
-  Instruction_OpCodeInfo_IntelForceOpSize64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can only be executed when CPL=0
-  Instruction_OpCodeInfo_MustBeCpl0 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed when CPL=0
-  Instruction_OpCodeInfo_Cpl0 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed when CPL=1
-  Instruction_OpCodeInfo_Cpl1 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed when CPL=2
-  Instruction_OpCodeInfo_Cpl2 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed when CPL=3
-  Instruction_OpCodeInfo_Cpl3 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)
-  Instruction_OpCodeInfo_IsInputOutput : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)
-  Instruction_OpCodeInfo_IsNop : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)
-  Instruction_OpCodeInfo_IsReservedNop : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a serializing instruction (Intel CPUs)
-  Instruction_OpCodeInfo_IsSerializingIntel : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a serializing instruction (AMD CPUs)
-  Instruction_OpCodeInfo_IsSerializingAmd : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)
-  Instruction_OpCodeInfo_MayRequireCpl0 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a tracked `JMP`/`CALL` indirect instruction (CET)
-  Instruction_OpCodeInfo_IsCetTracked : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)
-  Instruction_OpCodeInfo_IsNonTemporal : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a no-wait FPU instruction, eg. `FNINIT`
-  Instruction_OpCodeInfo_IsFpuNoWait : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`
-  Instruction_OpCodeInfo_IgnoresModBits : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `66` prefix is not allowed (it will #UD)
-  Instruction_OpCodeInfo_No66 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the `F2`/`F3` prefixes aren't allowed
-  Instruction_OpCodeInfo_Nfx : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
-  // eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
-  Instruction_OpCodeInfo_RequiresUniqueRegNums : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the destination register's reg-num must not be present in any other operand, eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]`
-  // is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
-  Instruction_OpCodeInfo_RequiresUniqueDestRegNum : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
-  Instruction_OpCodeInfo_IsPrivileged : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it reads/writes too many registers
-  Instruction_OpCodeInfo_IsSaveRestore : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc
-  Instruction_OpCodeInfo_IsStackInstruction : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the instruction doesn't read the segment register if it uses a memory operand
-  Instruction_OpCodeInfo_IgnoresSegment : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`.
-  Instruction_OpCodeInfo_IsOpMaskReadWrite : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed in real mode
-  Instruction_OpCodeInfo_RealMode : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed in protected mode
-  Instruction_OpCodeInfo_ProtectedMode : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed in virtual 8086 mode
-  Instruction_OpCodeInfo_Virtual8086Mode : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed in compatibility mode
-  Instruction_OpCodeInfo_CompatibilityMode : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be executed in 64-bit mode
-  Instruction_OpCodeInfo_LongMode : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used outside SMM
-  Instruction_OpCodeInfo_UseOutsideSmm : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used in SMM
-  Instruction_OpCodeInfo_UseInSmm : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used outside an enclave (SGX)
-  Instruction_OpCodeInfo_UseOutsideEnclaveSgx : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used inside an enclave (SGX1)
-  Instruction_OpCodeInfo_UseInEnclaveSgx1 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used inside an enclave (SGX2)
-  Instruction_OpCodeInfo_UseInEnclaveSgx2 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used outside VMX operation
-  Instruction_OpCodeInfo_UseOutsideVmxOp : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used in VMX root operation
-  Instruction_OpCodeInfo_UseInVmxRootOp : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used in VMX non-root operation
-  Instruction_OpCodeInfo_UseInVmxNonRootOp : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used outside SEAM
-  Instruction_OpCodeInfo_UseOutsideSeam : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it can be used in SEAM
-  Instruction_OpCodeInfo_UseInSeam : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if #UD is generated in TDX non-root operation
-  Instruction_OpCodeInfo_TdxNonRootGenUd : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if #VE is generated in TDX non-root operation
-  Instruction_OpCodeInfo_TdxNonRootGenVe : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation
-  Instruction_OpCodeInfo_TdxNonRootMayGenEx : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (Intel VMX) `true` if it causes a VM exit in VMX non-root operation
-  Instruction_OpCodeInfo_IntelVMExit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (Intel VMX) `true` if it may cause a VM exit in VMX non-root operation
-  Instruction_OpCodeInfo_IntelMayVMExit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (Intel VMX) `true` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
-  Instruction_OpCodeInfo_IntelSmmVMExit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (AMD SVM) `true` if it causes a #VMEXIT in guest mode
-  Instruction_OpCodeInfo_AmdVMExit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // (AMD SVM) `true` if it may cause a #VMEXIT in guest mode
-  Instruction_OpCodeInfo_AmdMayVMExit : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it causes a TSX abort inside a TSX transaction
-  Instruction_OpCodeInfo_TsxAbort : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it causes a TSX abort inside a TSX transaction depending on the implementation
-  Instruction_OpCodeInfo_TsxImplAbort : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it may cause a TSX abort inside a TSX transaction depending on some condition
-  Instruction_OpCodeInfo_TsxMayAbort : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 16-bit Intel decoder
-  Instruction_OpCodeInfo_IntelDecoder16 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 32-bit Intel decoder
-  Instruction_OpCodeInfo_IntelDecoder32 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 64-bit Intel decoder
-  Instruction_OpCodeInfo_IntelDecoder64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 16-bit AMD decoder
-  Instruction_OpCodeInfo_AmdDecoder16 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 32-bit AMD decoder
-  Instruction_OpCodeInfo_AmdDecoder32 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // `true` if it's decoded by iced's 64-bit AMD decoder
-  Instruction_OpCodeInfo_AmdDecoder64 : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // Gets the decoder option that's needed to decode the instruction or [`DecoderOptions::NONE`].
-  // The return value is a [`DecoderOptions`] value.
-  Instruction_OpCodeInfo_DecoderOption : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // Gets the opcode table
-  Instruction_OpCodeInfo_Table : function( var Instruction: TInstruction ) : TOpCodeTableKind; cdecl = nil;
-
-  // Gets the mandatory prefix
-  Instruction_OpCodeInfo_MandatoryPrefix : function( var Instruction: TInstruction ) : TMandatoryPrefix; cdecl = nil;
-
-  // Gets the opcode byte(s). The low byte(s) of this value is the opcode. The length is in [`op_code_len()`].
-  // It doesn't include the table value, see [`table()`].
-  Instruction_OpCodeInfo_OpCode : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // Gets the length of the opcode bytes ([`op_code()`]). The low bytes is the opcode value.
-  Instruction_OpCodeInfo_OpCodeLen : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // `true` if it's part of a group
-  Instruction_OpCodeInfo_IsGroup : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // Group index (0-7) or -1. If it's 0-7, it's stored in the `reg` field of the `modrm` byte.
-  Instruction_OpCodeInfo_GroupIndex : function( var Instruction: TInstruction ) : Integer; cdecl = nil;
-
-  // `true` if it's part of a modrm.rm group
-  Instruction_OpCodeInfo_IsRMGroup : function( var Instruction: TInstruction ) : Boolean; cdecl = nil;
-
-  // Group index (0-7) or -1. If it's 0-7, it's stored in the `rm` field of the `modrm` byte.
-  Instruction_OpCodeInfo_RMGroupIndex : function( var Instruction: TInstruction ) : Integer; cdecl = nil;
-
-  // Gets the number of operands
-  Instruction_OpCodeInfo_OPCount : function( var Instruction: TInstruction ) : Cardinal; cdecl = nil;
-
-  // Gets operand #0's opkind
-  Instruction_OpCodeInfo_OP0Kind : function( var Instruction: TInstruction ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets operand #1's opkind
-  Instruction_OpCodeInfo_OP1Kind : function( var Instruction: TInstruction ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets operand #2's opkind
-  Instruction_OpCodeInfo_OP2Kind : function( var Instruction: TInstruction ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets operand #3's opkind
-  Instruction_OpCodeInfo_OP3Kind : function( var Instruction: TInstruction ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets operand #4's opkind
-  Instruction_OpCodeInfo_OP4Kind : function( var Instruction: TInstruction ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets an operand's opkind
-  //
-  // # Arguments
-  //
-  // * `operand`: Operand number, 0-4
-  Instruction_OpCodeInfo_OPKind : function( var Instruction: TInstruction; operand: Cardinal ) : TOpCodeOperandKind; cdecl = nil;
-
-  // Gets all operand kinds
-  Instruction_OpCodeInfo_OPKinds : function( var Instruction: TInstruction; var OPKinds : TOPCodeOperandKindArray ) : Boolean; cdecl = nil;
-
-  // Checks if the instruction is available in 16-bit mode, 32-bit mode or 64-bit mode
-  //
-  // # Arguments
-  //
-  // * `bitness`: 16, 32 or 64
-  Instruction_OpCodeInfo_IsAvailableInMode : function( var Instruction: TInstruction; Bitness: Cardinal ) : Boolean; cdecl = nil;
-
-  // Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also [`instruction_string()`]
-  Instruction_OpCodeInfo_OpCodeString : function( var Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ) : Boolean; cdecl = nil;
-
-  // Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also [`op_code_string()`]
-  Instruction_OpCodeInfo_InstructionString : function( var Instruction: TInstruction; Output: PAnsiChar; Size : NativeUInt ) : Boolean; cdecl = nil;
+  Instruction_OPCount : function( const Instruction : TInstruction ) : Cardinal; cdecl = nil;
 
   // Virtual-Address Resolver
   // Gets the virtual address of a memory operand
@@ -1884,7 +1484,316 @@ var
   // * Arg 1: `register`: Register (GPR8, GPR16, GPR32, GPR64, XMM, YMM, ZMM, seg). If it's a segment register, the call-back function should return the segment's base address, not the segment's register value.
   // * Arg 2: `element_index`: Only used if it's a vsib memory operand. This is the element index of the vector index register.
   // * Arg 3: `element_size`: Only used if it's a vsib memory operand. Size in bytes of elements in vector index register (4 or 8).
-  Instruction_VirtualAddress : function ( var Instruction: TInstruction; Callback : TVirtualAddressResolverCallback; Operand : Cardinal = 0; Index : NativeUInt = 0; UserData : Pointer = nil ) : UInt64; cdecl = nil;
+  Instruction_VirtualAddress : function ( const Instruction: TInstruction; Callback : TVirtualAddressResolverCallback; Operand : Cardinal = 0; Index : NativeUInt = 0; UserData : Pointer = nil ) : UInt64; cdecl = nil;
+
+  // `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+  Instruction_IsMvexEvictionHint : function( const Instruction: TInstruction ) : Boolean; cdecl = nil;
+
+  // (MVEX) Register/memory operand conversion function
+  Instruction_MvexRegMemConv : function( const Instruction: TInstruction ) : TMvexRegMemConv; cdecl = nil;
+
+  // Gets the opcode string, eg. `VEX.128.66.0F38.W0 78 /r`, see also [`instruction_string()`]
+  OpCodeInfo_OpCodeString : procedure( const Code: TCodeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+
+  // Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also [`op_code_string()`]
+  OpCodeInfo_InstructionString : procedure( const Code: TCodeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+
+  // `true` if it's an instruction available in 16-bit mode
+  OpCodeInfo_Mode16 : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's an instruction available in 32-bit mode
+  OpCodeInfo_Mode32 : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's an instruction available in 64-bit mode
+  OpCodeInfo_Mode64 : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if an `FWAIT` (`9B`) instruction is added before the instruction
+  OpCodeInfo_Fwait : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+
+  // (VEX/XOP/EVEX/MVEX) `W` value or default value if [`is_wig()`] or [`is_wig32()`] is `true`
+  OpCodeInfo_W : function( const Code : TCodeType ) : Cardinal; cdecl = nil;
+
+  // (VEX/XOP/EVEX) `true` if the `L` / `L'L` fields are ignored.
+  //
+  // EVEX: if reg-only ops and `{er}` (`EVEX.b` is set), `L'L` is the rounding control and not ignored.
+  OpCodeInfo_IsLig : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32/64-bit modes
+  OpCodeInfo_IsWig : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (VEX/XOP/EVEX/MVEX) `true` if the `W` field is ignored in 16/32-bit modes (but not 64-bit mode)
+  OpCodeInfo_IsWig32 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // OpCodeInfo
+  // (MVEX) Gets the `EH` bit that's required to encode this instruction
+  OpCodeInfo_MvexEhBit : function( const Code: TCodeType ) : TMvexEHBit; cdecl = nil;
+
+  // (MVEX) `true` if the instruction supports eviction hint (if it has a memory operand)
+  OpCodeInfo_MvexCanUseEvictionHint : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (MVEX) `true` if the instruction's rounding control bits are stored in `imm8[1:0]`
+  OpCodeInfo_MvexCanUseImmRoundingControl : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
+  OpCodeInfo_MvexIgnoresOpMaskRegister : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
+  OpCodeInfo_MvexNoSaeRc : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (MVEX) Gets the tuple type / conv lut kind
+  OpCodeInfo_MvexTupleTypeLutKind : function( const Code: TCodeType ) : TMvexTupleTypeLutKind; cdecl = nil;
+
+  // (MVEX) Gets the conversion function, eg. `Sf32`
+  OpCodeInfo_MvexConversionFunc : function( const Code: TCodeType ) : TMvexConvFn; cdecl = nil;
+
+  // (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+  OpCodeInfo_MvexValidConversionFuncsMask : function( const Code: TCodeType ) : Byte; cdecl = nil;
+
+  // (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+  OpCodeInfo_MvexValidSwizzleFuncsMask : function( const Code: TCodeType ) : Byte; cdecl = nil;
+
+  // If it has a memory operand, gets the [`MemorySize`] (non-broadcast memory type)
+  OpCodeInfo_MemorySize : function( const Code: TCodeType ) : TMemorySize; cdecl = nil;
+
+  // If it has a memory operand, gets the [`MemorySize`] (broadcast memory type)
+  OpCodeInfo_BroadcastMemorySize : function( const Code: TCodeType ) : TMemorySize; cdecl = nil;
+
+  // (EVEX) `true` if the instruction supports broadcasting (`EVEX.b` bit) (if it has a memory operand)
+  OpCodeInfo_CanBroadcast : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (EVEX/MVEX) `true` if the instruction supports rounding control
+  OpCodeInfo_CanUseRoundingControl : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (EVEX/MVEX) `true` if the instruction supports suppress all exceptions
+  OpCodeInfo_CanSuppressAllExceptions : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (EVEX/MVEX) `true` if an opmask register can be used
+  OpCodeInfo_CanUseOpMaskRegister : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (EVEX/MVEX) `true` if a non-zero opmask register must be used
+  OpCodeInfo_RequireOpMaskRegister : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (EVEX) `true` if the instruction supports zeroing masking (if one of the opmask registers `K1`-`K7` is used and destination operand is not a memory operand)
+  OpCodeInfo_CanUseZeroingMasking : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `LOCK` (`F0`) prefix can be used
+  OpCodeInfo_CanUseLockPrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `XACQUIRE` (`F2`) prefix can be used
+  OpCodeInfo_CanUseXacquirePrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `XRELEASE` (`F3`) prefix can be used
+  OpCodeInfo_CanUseXreleasePrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `REP` / `REPE` (`F3`) prefixes can be used
+  OpCodeInfo_CanUseRepPrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `REPNE` (`F2`) prefix can be used
+  OpCodeInfo_CanUseRepnePrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `BND` (`F2`) prefix can be used
+  OpCodeInfo_CanUseBndPrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `HINT-TAKEN` (`3E`) and `HINT-NOT-TAKEN` (`2E`) prefixes can be used
+  OpCodeInfo_CanUseHintTakenPrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `NOTRACK` (`3E`) prefix can be used
+  OpCodeInfo_CanUseNotrackPrefix : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if rounding control is ignored (#UD is not generated)
+  OpCodeInfo_IgnoresRoundingControl : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `LOCK` prefix can be used as an extra register bit (bit 3) to access registers 8-15 without a `REX` prefix (eg. in 32-bit mode)
+  OpCodeInfo_AmdLockRegBit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the default operand size is 64 in 64-bit mode. A `66` prefix can switch to 16-bit operand size.
+  OpCodeInfo_DefaultOpSize64 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the operand size is always 64 in 64-bit mode. A `66` prefix is ignored.
+  OpCodeInfo_ForceOpSize64 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the Intel decoder forces 64-bit operand size. A `66` prefix is ignored.
+  OpCodeInfo_IntelForceOpSize64 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can only be executed when CPL=0
+  OpCodeInfo_MustBeCpl0 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed when CPL=0
+  OpCodeInfo_Cpl0 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed when CPL=1
+  OpCodeInfo_Cpl1 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed when CPL=2
+  OpCodeInfo_Cpl2 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed when CPL=3
+  OpCodeInfo_Cpl3 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the instruction accesses the I/O address space (eg. `IN`, `OUT`, `INS`, `OUTS`)
+  OpCodeInfo_IsInputOutput : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's one of the many nop instructions (does not include FPU nop instructions, eg. `FNOP`)
+  OpCodeInfo_IsNop : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's one of the many reserved nop instructions (eg. `0F0D`, `0F18-0F1F`)
+  OpCodeInfo_IsReservedNop : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a serializing instruction (Intel CPUs)
+  OpCodeInfo_IsSerializingIntel : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a serializing instruction (AMD CPUs)
+  OpCodeInfo_IsSerializingAmd : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the instruction requires either CPL=0 or CPL<=3 depending on some CPU option (eg. `CR4.TSD`, `CR4.PCE`, `CR4.UMIP`)
+  OpCodeInfo_MayRequireCpl0 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a tracked `JMP`/`CALL` indirect instruction (CET)
+  OpCodeInfo_IsCetTracked : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a non-temporal hint memory access (eg. `MOVNTDQ`)
+  OpCodeInfo_IsNonTemporal : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a no-wait FPU instruction, eg. `FNINIT`
+  OpCodeInfo_IsFpuNoWait : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the mod bits are ignored and it's assumed `modrm[7:6] == 11b`
+  OpCodeInfo_IgnoresModBits : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `66` prefix is not allowed (it will #UD)
+  OpCodeInfo_No66 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the `F2`/`F3` prefixes aren't allowed
+  OpCodeInfo_Nfx : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the index reg's reg-num (vsib op) (if any) and register ops' reg-nums must be unique,
+  // eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]` is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+  OpCodeInfo_RequiresUniqueRegNums : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the destination register's reg-num must not be present in any other operand, eg. `MNEMONIC XMM1,YMM1,[RAX+ZMM1*2]`
+  // is invalid. Registers = `XMM`/`YMM`/`ZMM`/`TMM`.
+  OpCodeInfo_RequiresUniqueDestRegNum : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's a privileged instruction (all CPL=0 instructions (except `VMCALL`) and IOPL instructions `IN`, `INS`, `OUT`, `OUTS`, `CLI`, `STI`)
+  OpCodeInfo_IsPrivileged : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it reads/writes too many registers
+  OpCodeInfo_IsSaveRestore : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's an instruction that implicitly uses the stack register, eg. `CALL`, `POP`, etc
+  OpCodeInfo_IsStackInstruction : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the instruction doesn't read the segment register if it uses a memory operand
+  OpCodeInfo_IgnoresSegment : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if the opmask register is read and written (instead of just read). This also implies that it can't be `K0`.
+  OpCodeInfo_IsOpMaskReadWrite : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed in real mode
+  OpCodeInfo_RealMode : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed in protected mode
+  OpCodeInfo_ProtectedMode : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed in virtual 8086 mode
+  OpCodeInfo_Virtual8086Mode : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed in compatibility mode
+  OpCodeInfo_CompatibilityMode : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be executed in 64-bit mode
+  OpCodeInfo_LongMode : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used outside SMM
+  OpCodeInfo_UseOutsideSmm : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used in SMM
+  OpCodeInfo_UseInSmm : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used outside an enclave (SGX)
+  OpCodeInfo_UseOutsideEnclaveSgx : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used inside an enclave (SGX1)
+  OpCodeInfo_UseInEnclaveSgx1 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used inside an enclave (SGX2)
+  OpCodeInfo_UseInEnclaveSgx2 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used outside VMX operation
+  OpCodeInfo_UseOutsideVmxOp : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used in VMX root operation
+  OpCodeInfo_UseInVmxRootOp : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used in VMX non-root operation
+  OpCodeInfo_UseInVmxNonRootOp : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used outside SEAM
+  OpCodeInfo_UseOutsideSeam : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it can be used in SEAM
+  OpCodeInfo_UseInSeam : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if #UD is generated in TDX non-root operation
+  OpCodeInfo_TdxNonRootGenUd : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if #VE is generated in TDX non-root operation
+  OpCodeInfo_TdxNonRootGenVe : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if an exception (eg. #GP(0), #VE) may be generated in TDX non-root operation
+  OpCodeInfo_TdxNonRootMayGenEx : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (Intel VMX) `true` if it causes a VM exit in VMX non-root operation
+  OpCodeInfo_IntelVMExit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (Intel VMX) `true` if it may cause a VM exit in VMX non-root operation
+  OpCodeInfo_IntelMayVMExit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (Intel VMX) `true` if it causes an SMM VM exit in VMX root operation (if dual-monitor treatment is activated)
+  OpCodeInfo_IntelSmmVMExit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (AMD SVM) `true` if it causes a #VMEXIT in guest mode
+  OpCodeInfo_AmdVMExit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // (AMD SVM) `true` if it may cause a #VMEXIT in guest mode
+  OpCodeInfo_AmdMayVMExit : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it causes a TSX abort inside a TSX transaction
+  OpCodeInfo_TsxAbort : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it causes a TSX abort inside a TSX transaction depending on the implementation
+  OpCodeInfo_TsxImplAbort : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it may cause a TSX abort inside a TSX transaction depending on some condition
+  OpCodeInfo_TsxMayAbort : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 16-bit Intel decoder
+  OpCodeInfo_IntelDecoder16 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 32-bit Intel decoder
+  OpCodeInfo_IntelDecoder32 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 64-bit Intel decoder
+  OpCodeInfo_IntelDecoder64 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 16-bit AMD decoder
+  OpCodeInfo_AmdDecoder16 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 32-bit AMD decoder
+  OpCodeInfo_AmdDecoder32 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // `true` if it's decoded by iced's 64-bit AMD decoder
+  OpCodeInfo_AmdDecoder64 : function( const Code: TCodeType ) : Boolean; cdecl = nil;
+
+  // Gets the decoder option that's needed to decode the instruction or [`DecoderOptions::NONE`].
+  // The return value is a [`DecoderOptions`] value.
+  OpCodeInfo_DecoderOption : function( const Code: TCodeType ) : Cardinal; cdecl = nil;
+
+  // Gets the length of the opcode bytes ([`op_code()`]). The low bytes is the opcode value.
+  OpCodeInfo_OpCodeLen : function( const Code: TCodeType ) : Cardinal; cdecl = nil;
+
+  // Gets the number of operands
+  OpCodeInfo_OPCount : function( const Code: TCodeType ) : Cardinal; cdecl = nil;
 
   // InstructionInfoFactory
   // Creates a new instance.
@@ -1901,155 +1810,217 @@ var
   //
   // If you don't need to know register and memory usage, it's faster to call [`Instruction`] and
   // [`Code`] methods such as [`Instruction::flow_control()`] instead of getting that info from this struct.
-  InstructionInfoFactory_Info : function( InstructionInfoFactory : Pointer; var Instruction: TInstruction; var InstructionInfo : TInstructionInfo; Options : Cardinal = iioNone ) : Boolean; cdecl = nil;
+  InstructionInfoFactory_Info : function( InstructionInfoFactory : Pointer; const Instruction: TInstruction; const InstructionInfo : TInstructionInfo; Options : Cardinal = iioNone ) : Boolean; cdecl = nil;
 
   // Instruction 'WITH'
   // Creates an instruction with no operands
-  Instruction_With : function( var Instruction : TInstruction; Code : TCode ) : Boolean; cdecl = nil;
+  Instruction_With : function( const Instruction : TInstruction; Code : TCodeType ) : Boolean; cdecl = nil;
 
   // Creates an instruction with 1 operand
   //
   // # Errors
   // Fails if one of the operands is invalid (basic checks)
-  Instruction_With1_Register : function( var Instruction : TInstruction; Code : TCode; Register : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With1_i32 : function( var Instruction : TInstruction; Code : TCode; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With1_u32 : function( var Instruction : TInstruction; Code : TCode; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With1_Memory : function( var Instruction : TInstruction; Code : TCode; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_Register : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_i64 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate : Int64 ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_u64 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate : UInt64 ) : Boolean; cdecl = nil;
-  Instruction_With2_Register_MemoryOperand : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
-  Instruction_With2_i32_Register : function( var Instruction : TInstruction; Code : TCode; Immediate : Integer; Register : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With2_u32_Register : function( var Instruction : TInstruction; Code : TCode; Immediate : Cardinal; Register : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With2_i32_i32 : function( var Instruction : TInstruction; Code : TCode; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
-  Instruction_With2_u32_u32 : function( var Instruction : TInstruction; Code : TCode; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With2_MemoryOperand_Register : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Register : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With2_MemoryOperand_i32 : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With2_MemoryOperand_u32 : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_Register_Register : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_Register_MemoryOperand : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_i32_i32 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_u32_u32 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_MemoryOperand_Register : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Memory : TMemoryOperand; Register2 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_MemoryOperand_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With3_Register_MemoryOperand_u32 : function( var Instruction : TInstruction; Code : TCode; Register : TRegister; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With3_MemoryOperand_Register_Register : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Register1 : TRegister; Register2 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With3_MemoryOperand_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Register : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With3_MemoryOperand_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Memory : TMemoryOperand; Register : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_Register_Register : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Register4 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_Register_MemoryOperand : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_i32_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_u32_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_MemoryOperand_Register : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Memory : TMemoryOperand; Register3 : TRegister ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_MemoryOperand_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With4_Register_Register_MemoryOperand_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_Register_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Register4 : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_Register_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Register4 : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_Register_MemoryOperand_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_Register_MemoryOperand_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Register3 : TRegister; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_MemoryOperand_Register_i32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Memory : TMemoryOperand; Register3 : TRegister; Immediate : Integer ) : Boolean; cdecl = nil;
-  Instruction_With5_Register_Register_MemoryOperand_Register_u32 : function( var Instruction : TInstruction; Code : TCode; Register1 : TRegister; Register2 : TRegister; Memory : TMemoryOperand; Register3 : TRegister; Immediate : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Branch : function( var Instruction : TInstruction; Code : TCode; Target : UInt64 ) : Boolean; cdecl = nil;
-  Instruction_With_Far_Branch : function( var Instruction : TInstruction; Code : TCode; Selector : Word; Offset : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_xbegin : function( var Instruction : TInstruction; Bitness : Cardinal; Target : UInt64 ) : Boolean; cdecl = nil;
-  Instruction_With_outsb : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_outsb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_outsw : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_outsw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_outsd : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_outsd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_lodsb : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_lodsb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_lodsw : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_lodsw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_lodsd : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_lodsd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_lodsq : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_lodsq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_scasb : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_scasb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_scasb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_scasw : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_scasw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_scasw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_scasd : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_scasd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_scasd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_scasq : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_scasq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_scasq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_insb : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_insb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_insw : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_insw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_insd : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_insd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_stosb : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_stosb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_stosw : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_stosw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_stosd : function( var Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_stosd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_stosq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_cmpsb : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_cmpsb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_cmpsb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_cmpsw : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_cmpsw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_cmpsw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_cmpsd : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_cmpsd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_cmpsd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_cmpsq : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repe_cmpsq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Repne_cmpsq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_movsb : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_movsb : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_movsw : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_movsw : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_movsd : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_movsd : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_movsq : function( var Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Rep_movsq : function( var Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_maskmovq : function( var Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegister; Register2 : TRegister; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_maskmovdqu : function( var Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegister; Register2 : TRegister; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_vmaskmovdqu : function( var Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegister; Register2 : TRegister; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_1 : function( var Instruction : TInstruction; B0 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_2 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_3 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_4 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_5 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_6 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_7 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_8 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_9 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_10 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_11 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_12 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_13 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_14 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_15 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte; B14 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Byte_16 : function( var Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte; B14 : Byte; B15 : Byte ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_1 : function( var Instruction : TInstruction; W0 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_2 : function( var Instruction : TInstruction; W0 : Word; W1 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_3 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_4 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_5 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_6 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_7 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word; W6 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_Word_8 : function( var Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word; W6 : Word; W7 : Word ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_DWord_1 : function( var Instruction : TInstruction; D0 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_DWord_2 : function( var Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_DWord_3 : function( var Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal; D2 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_DWord_4 : function( var Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal; D2 : Cardinal; D3 : Cardinal ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_QWord_1 : function( var Instruction : TInstruction; Q0 : UInt64 ) : Boolean; cdecl = nil;
-  Instruction_With_Declare_QWord_2 : function( var Instruction : TInstruction; Q0 : UInt64; Q1 : UInt64 ) : Boolean; cdecl = nil;
+  Instruction_With1_Register : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With1_i32 : function( const Instruction : TInstruction; Code : TCodeType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With1_u32 : function( const Instruction : TInstruction; Code : TCodeType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With1_Memory : function( const Instruction : TInstruction; Code : TCodeType; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_Register : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_i64 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate : Int64 ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_u64 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate : UInt64 ) : Boolean; cdecl = nil;
+  Instruction_With2_Register_MemoryOperand : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
+  Instruction_With2_i32_Register : function( const Instruction : TInstruction; Code : TCodeType; Immediate : Integer; Register : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With2_u32_Register : function( const Instruction : TInstruction; Code : TCodeType; Immediate : Cardinal; Register : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With2_i32_i32 : function( const Instruction : TInstruction; Code : TCodeType; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
+  Instruction_With2_u32_u32 : function( const Instruction : TInstruction; Code : TCodeType; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With2_MemoryOperand_Register : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Register : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With2_MemoryOperand_i32 : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With2_MemoryOperand_u32 : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_Register_Register : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_Register_MemoryOperand : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_i32_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_u32_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_MemoryOperand_Register : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Memory : TMemoryOperand; Register2 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_MemoryOperand_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With3_Register_MemoryOperand_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register : TRegisterType; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With3_MemoryOperand_Register_Register : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Register1 : TRegisterType; Register2 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With3_MemoryOperand_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Register : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With3_MemoryOperand_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Memory : TMemoryOperand; Register : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_Register_Register : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Register4 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_Register_MemoryOperand : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; var Memory : TMemoryOperand ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_i32_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Immediate1 : Integer; Immediate2 : Integer ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_u32_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Immediate1 : Cardinal; Immediate2 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_MemoryOperand_Register : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Memory : TMemoryOperand; Register3 : TRegisterType ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_MemoryOperand_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With4_Register_Register_MemoryOperand_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_Register_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Register4 : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_Register_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Register4 : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_Register_MemoryOperand_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Memory : TMemoryOperand; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_Register_MemoryOperand_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Register3 : TRegisterType; Memory : TMemoryOperand; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_MemoryOperand_Register_i32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Memory : TMemoryOperand; Register3 : TRegisterType; Immediate : Integer ) : Boolean; cdecl = nil;
+  Instruction_With5_Register_Register_MemoryOperand_Register_u32 : function( const Instruction : TInstruction; Code : TCodeType; Register1 : TRegisterType; Register2 : TRegisterType; Memory : TMemoryOperand; Register3 : TRegisterType; Immediate : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Branch : function( const Instruction : TInstruction; Code : TCodeType; Target : UInt64 ) : Boolean; cdecl = nil;
+  Instruction_With_Far_Branch : function( const Instruction : TInstruction; Code : TCodeType; Selector : Word; Offset : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_xbegin : function( const Instruction : TInstruction; Bitness : Cardinal; Target : UInt64 ) : Boolean; cdecl = nil;
+  Instruction_With_outsb : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_outsb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_outsw : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_outsw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_outsd : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_outsd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_lodsb : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_lodsb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_lodsw : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_lodsw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_lodsd : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_lodsd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_lodsq : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_lodsq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_scasb : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_scasb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_scasb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_scasw : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_scasw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_scasw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_scasd : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_scasd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_scasd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_scasq : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_scasq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_scasq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_insb : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_insb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_insw : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_insw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_insd : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_insd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_stosb : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_stosb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_stosw : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_stosw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_stosd : function( const Instruction : TInstruction; AddressSize: Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_stosd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_stosq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_cmpsb : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_cmpsb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_cmpsb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_cmpsw : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_cmpsw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_cmpsw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_cmpsd : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_cmpsd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_cmpsd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_cmpsq : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repe_cmpsq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Repne_cmpsq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_movsb : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_movsb : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_movsw : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_movsw : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_movsd : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_movsd : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_movsq : function( const Instruction : TInstruction; AddressSize: Cardinal; SegmentPrefix : Cardinal; RepPrefix: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Rep_movsq : function( const Instruction : TInstruction; AddressSize: Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_maskmovq : function( const Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegisterType; Register2 : TRegisterType; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_maskmovdqu : function( const Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegisterType; Register2 : TRegisterType; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_vmaskmovdqu : function( const Instruction : TInstruction; AddressSize: Cardinal; Register1 : TRegisterType; Register2 : TRegisterType; SegmentPrefix : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_1 : function( const Instruction : TInstruction; B0 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_2 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_3 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_4 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_5 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_6 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_7 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_8 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_9 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_10 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_11 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_12 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_13 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_14 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_15 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte; B14 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Byte_16 : function( const Instruction : TInstruction; B0 : Byte; B1 : Byte; B2 : Byte; B3 : Byte; B4 : Byte; B5 : Byte; B6 : Byte; B7 : Byte; B8 : Byte; B9 : Byte; B10 : Byte; B11 : Byte; B12 : Byte; B13 : Byte; B14 : Byte; B15 : Byte ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_1 : function( const Instruction : TInstruction; W0 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_2 : function( const Instruction : TInstruction; W0 : Word; W1 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_3 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_4 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_5 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_6 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_7 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word; W6 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_Word_8 : function( const Instruction : TInstruction; W0 : Word; W1 : Word; W2 : Word; W3 : Word; W4 : Word; W5 : Word; W6 : Word; W7 : Word ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_DWord_1 : function( const Instruction : TInstruction; D0 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_DWord_2 : function( const Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_DWord_3 : function( const Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal; D2 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_DWord_4 : function( const Instruction : TInstruction; D0 : Cardinal; D1 : Cardinal; D2 : Cardinal; D3 : Cardinal ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_QWord_1 : function( const Instruction : TInstruction; Q0 : UInt64 ) : Boolean; cdecl = nil;
+  Instruction_With_Declare_QWord_2 : function( const Instruction : TInstruction; Q0 : UInt64; Q1 : UInt64 ) : Boolean; cdecl = nil;
+
+  Code_AsString : procedure( const Code : TCodeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  Code_Mnemonic : function( const Code : TCodeType ) : TMnemonic; cdecl = nil;
+  Code_OPCode : procedure( const Code : TCodeType; var Info : TOpCodeInfo ); cdecl = nil;
+  Code_Encoding : function( const Code : TCodeType ) : TEncodingKind; cdecl = nil;
+  Code_CPUidFeature : function( const Code : TCodeType; var CPUIDFeatures : TCPUIDFeaturesArray ) : boolean; cdecl = nil;
+  Code_FlowControl : function( const Code : TCodeType ) : TFlowControl; cdecl = nil;
+  Code_IsPrivileged : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsStackInstruction : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsSaveRestoreInstruction : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJccShort : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpShort : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpShortOrNear : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpNear : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpFar : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsCallNear : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsCallFar : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpNearIndirect : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJmpFarIndirect : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsCallNearIndirect : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsCallFarIndirect : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_ConditionCode : function( const Code : TCodeType ) : TConditionCode; cdecl = nil;
+  Code_IsJcxShort : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsLoopCC : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsLoop : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_IsJccShortOrNear : function( const Code : TCodeType ) : Boolean; cdecl = nil;
+  Code_NegateConditionCode : function( const Code : TCodeType ) : TCode; cdecl = nil;
+  Code_AsShortBranch : function( const Code : TCodeType ) : TCode; cdecl = nil;
+  Code_AsNearBranch : function( const Code : TCodeType ) : TCode; cdecl = nil;
+
+  Mnemonic_AsString : procedure( const Mnemonic : TMnemonicType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  OpKind_AsString : procedure( const OpKind : TOpKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  EncodingKind_AsString : procedure( const EncodingKind : TEncodingKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  CPUidFeature_AsString : procedure( const CPUidFeature : TCPUidFeatureType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  ConditionCode_AsString : procedure( const ConditionCode : TConditionCodeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  FlowControl_AsString : procedure( const FlowControl : TFlowControlType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  TupleType_AsString : procedure( const TupleType : TTupleTypeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MvexEHBit_AsString : procedure( const MvexEHBit : TMvexEHBitType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MvexTupleTypeLutKind_AsString : procedure( const MvexTupleTypeLutKind : TMvexTupleTypeLutKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MvexConvFn_AsString : procedure( const MvexConvFn : TMvexConvFnType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MvexRegMemConv_AsString : procedure( const MvexRegMemConv : TMvexRegMemConvType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  RoundingControl_AsString : procedure( const RoundingControl : TRoundingControlType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  NumberBase_AsString : procedure( const NumberBase : TNumberBaseType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  RepPrefixKind_AsString : procedure( const RepPrefixKind : TRepPrefixKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MemorySizeOptions_AsString : procedure( const MemorySizeOptions : TMemorySizeOptionsType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+
+  MemorySize_AsString : procedure( const MemorySize : TMemorySizeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MemorySize_Info : procedure( const MemorySize : TMemorySizeType; var Info : TMemorySizeInfo ); cdecl = nil;
+
+  OpCodeTableKind_AsString : procedure( const OpCodeTableKind : TOpCodeTableKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  MandatoryPrefix_AsString : procedure( const MandatoryPrefix : TMandatoryPrefixType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  OpCodeOperandKind_AsString : procedure( const OpCodeOperandKind : TOpCodeOperandKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  OpAccess_AsString : procedure( const OpAccess : TOpAccessType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  CodeSize_AsString : procedure( const CodeSize : TCodeSizeType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+  FormatterTextKind_AsString : procedure( const FormatterTextKind : TFormatterTextKindType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
+
+  Register_Base : function( const Register: TRegisterType ) : TRegister; cdecl = nil;
+  Register_Number : function( const Register: TRegisterType ) : NativeUInt; cdecl = nil;
+  Register_FullRegister : function( const Register: TRegisterType ) : TRegister; cdecl = nil;
+  Register_FullRegister32 : function( const Register: TRegisterType ) : TRegister; cdecl = nil;
+  Register_Size : function( const Register: TRegisterType ) : NativeUInt; cdecl = nil;
+  Register_AsString : procedure( const Register: TRegisterType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
 
 function IsInitDLL : Boolean;
 
@@ -2089,7 +2060,7 @@ begin
   @IcedFreeMemory := GetProcAddress( Handle, 'IcedFreeMemory' );
 
   // Decoder
-  @Decoder_Create := GetProcAddress( Handle,  'Decoder_Create' );
+  @Decoder_Create := GetProcAddress( Handle, 'Decoder_Create' );
   @Decoder_CanDecode := GetProcAddress( Handle, 'Decoder_CanDecode' );
   @Decoder_GetIP := GetProcAddress( Handle, 'Decoder_GetIP' );
   @Decoder_SetIP := GetProcAddress( Handle, 'Decoder_SetIP' );
@@ -2098,6 +2069,7 @@ begin
   @Decoder_GetPosition := GetProcAddress( Handle, 'Decoder_GetPosition' );
   @Decoder_SetPosition := GetProcAddress( Handle, 'Decoder_SetPosition' );
   @Decoder_GetLastError := GetProcAddress( Handle, 'Decoder_GetLastError' );
+  @DecoderError_AsString := GetProcAddress( Handle, 'DecoderError_AsString' );
   @Decoder_Decode := GetProcAddress( Handle, 'Decoder_Decode' );
   @Decoder_GetConstantOffsets := GetProcAddress( Handle, 'Decoder_GetConstantOffsets' );
 
@@ -2274,7 +2246,7 @@ begin
   @Encoder_Encode := GetProcAddress( Handle, 'Encoder_Encode' );
   @Encoder_WriteByte := GetProcAddress( Handle, 'Encoder_WriteByte' );
   @Encoder_GetBuffer := GetProcAddress( Handle, 'Encoder_GetBuffer' );
-//  @Encoder_SetBuffer := GetProcAddress( Handle, 'Encoder_SetBuffer' );
+//  @Encoder_SetBuffer := GetProcAddress( Handle, ''Encoder_SetBuffer' );
   @Encoder_GetConstantOffsets := GetProcAddress( Handle, 'Encoder_GetConstantOffsets' );
   @Encoder_GetPreventVex2 := GetProcAddress( Handle, 'Encoder_GetPreventVex2' );
   @Encoder_SetPreventVex2 := GetProcAddress( Handle, 'Encoder_SetPreventVex2' );
@@ -2293,10 +2265,7 @@ begin
   @BlockEncoder := GetProcAddress( Handle, 'BlockEncoder' );
 
   // Instruction
-  @Instruction_IsStackInstruction := GetProcAddress( Handle, 'Instruction_IsStackInstruction' );
   @Instruction_StackPointerIncrement := GetProcAddress( Handle, 'Instruction_StackPointerIncrement' );
-  @Instruction_ConditionCode := GetProcAddress( Handle, 'Instruction_ConditionCode' );
-  @Instruction_FlowControl := GetProcAddress( Handle, 'Instruction_FlowControl' );
   @Instruction_RFlagsRead := GetProcAddress( Handle, 'Instruction_RFlagsRead' );
   @Instruction_RFlagsWritten := GetProcAddress( Handle, 'Instruction_RFlagsWritten' );
   @Instruction_RFlagsCleared := GetProcAddress( Handle, 'Instruction_RFlagsCleared' );
@@ -2305,135 +2274,12 @@ begin
   @Instruction_RFlagsModified := GetProcAddress( Handle, 'Instruction_RFlagsModified' );
 
   @Instruction_FPU_StackIncrementInfo := GetProcAddress( Handle, 'Instruction_FPU_StackIncrementInfo' );
-  @Instruction_Encoding := GetProcAddress( Handle, 'Instruction_Encoding' );
-  @Instruction_Mnemonic := GetProcAddress( Handle, 'Instruction_Mnemonic' );
-  @Instruction_CPUIDFeatures := GetProcAddress( Handle, 'Instruction_CPUIDFeatures' );
   @Instruction_OPKinds := GetProcAddress( Handle, 'Instruction_OPKinds' );
   @Instruction_MemorySize := GetProcAddress( Handle, 'Instruction_MemorySize' );
   @Instruction_OPCount := GetProcAddress( Handle, 'Instruction_OPCount' );
-
-  @Instruction_OpCodeInfo_Code := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Code' );
-  @Instruction_OpCodeInfo_Mnemonic := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Mnemonic' );
-  @Instruction_OpCodeInfo_IsInstruction := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsInstruction' );
-  @Instruction_OpCodeInfo_Mode16 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Mode16' );
-  @Instruction_OpCodeInfo_Mode32 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Mode32' );
-  @Instruction_OpCodeInfo_Mode64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Mode64' );
-  @Instruction_OpCodeInfo_Fwait := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Fwait' );
-  @Instruction_OpCodeInfo_OperandSize := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OperandSize' );
-  @Instruction_OpCodeInfo_AddressSize := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AddressSize' );
-  @Instruction_OpCodeInfo_L := GetProcAddress( Handle, 'Instruction_OpCodeInfo_L' );
-  @Instruction_OpCodeInfo_W := GetProcAddress( Handle, 'Instruction_OpCodeInfo_W' );
-  @Instruction_OpCodeInfo_IsLig := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsLig' );
-  @Instruction_OpCodeInfo_IsWig := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsWig' );
-  @Instruction_OpCodeInfo_IsWig32 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsWig32' );
-  @Instruction_OpCodeInfo_TupleType := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TupleType' );
-  @Instruction_OpCodeInfo_MvexEhBit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexEhBit' );
-  @Instruction_OpCodeInfo_MvexCanUseEvictionHint := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexCanUseEvictionHint' );
-  @Instruction_OpCodeInfo_MvexCanUseImmRoundingControl := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexCanUseImmRoundingControl' );
-  @Instruction_OpCodeInfo_MvexIgnoresOpMaskRegister := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexIgnoresOpMaskRegister' );
-  @Instruction_OpCodeInfo_MvexNoSaeRc := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexNoSaeRc' );
-  @Instruction_OpCodeInfo_MvexTupleTypeLutKind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexTupleTypeLutKind' );
-  @Instruction_OpCodeInfo_MvexConversionFunc := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexConversionFunc' );
-  @Instruction_OpCodeInfo_MvexValidConversionFuncsMask := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexValidConversionFuncsMask' );
-  @Instruction_OpCodeInfo_MvexValidSwizzleFuncsMask := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MvexValidSwizzleFuncsMask' );
-  @Instruction_OpCodeInfo_MemorySize := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MemorySize' );
-  @Instruction_OpCodeInfo_BroadcastMemorySize := GetProcAddress( Handle, 'Instruction_OpCodeInfo_BroadcastMemorySize' );
-  @Instruction_OpCodeInfo_CanBroadcast := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanBroadcast' );
-  @Instruction_OpCodeInfo_CanUseRoundingControl := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseRoundingControl' );
-  @Instruction_OpCodeInfo_CanSuppressAllExceptions := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanSuppressAllExceptions' );
-  @Instruction_OpCodeInfo_CanUseOpMaskRegister := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseOpMaskRegister' );
-  @Instruction_OpCodeInfo_RequireOpMaskRegister := GetProcAddress( Handle, 'Instruction_OpCodeInfo_RequireOpMaskRegister' );
-  @Instruction_OpCodeInfo_CanUseZeroingMasking := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseZeroingMasking' );
-  @Instruction_OpCodeInfo_CanUseLockPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseLockPrefix' );
-  @Instruction_OpCodeInfo_CanUseXacquirePrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseXacquirePrefix' );
-  @Instruction_OpCodeInfo_CanUseXreleasePrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseXreleasePrefix' );
-  @Instruction_OpCodeInfo_CanUseRepPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseRepPrefix' );
-  @Instruction_OpCodeInfo_CanUseRepnePrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseRepnePrefix' );
-  @Instruction_OpCodeInfo_CanUseBndPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseBndPrefix' );
-  @Instruction_OpCodeInfo_CanUseHintTakenPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseHintTakenPrefix' );
-  @Instruction_OpCodeInfo_CanUseNotrackPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CanUseNotrackPrefix' );
-  @Instruction_OpCodeInfo_IgnoresRoundingControl := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IgnoresRoundingControl' );
-  @Instruction_OpCodeInfo_AmdLockRegBit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdLockRegBit' );
-  @Instruction_OpCodeInfo_DefaultOpSize64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_DefaultOpSize64' );
-  @Instruction_OpCodeInfo_ForceOpSize64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_ForceOpSize64' );
-  @Instruction_OpCodeInfo_IntelForceOpSize64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelForceOpSize64' );
-  @Instruction_OpCodeInfo_MustBeCpl0 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MustBeCpl0' );
-  @Instruction_OpCodeInfo_Cpl0 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Cpl0' );
-  @Instruction_OpCodeInfo_Cpl1 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Cpl1' );
-  @Instruction_OpCodeInfo_Cpl2 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Cpl2' );
-  @Instruction_OpCodeInfo_Cpl3 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Cpl3' );
-  @Instruction_OpCodeInfo_IsInputOutput := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsInputOutput' );
-  @Instruction_OpCodeInfo_IsNop := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsNop' );
-  @Instruction_OpCodeInfo_IsReservedNop := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsReservedNop' );
-  @Instruction_OpCodeInfo_IsSerializingIntel := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsSerializingIntel' );
-  @Instruction_OpCodeInfo_IsSerializingAmd := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsSerializingAmd' );
-  @Instruction_OpCodeInfo_MayRequireCpl0 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MayRequireCpl0' );
-  @Instruction_OpCodeInfo_IsCetTracked := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsCetTracked' );
-  @Instruction_OpCodeInfo_IsNonTemporal := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsNonTemporal' );
-  @Instruction_OpCodeInfo_IsFpuNoWait := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsFpuNoWait' );
-  @Instruction_OpCodeInfo_IgnoresModBits := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IgnoresModBits' );
-  @Instruction_OpCodeInfo_No66 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_No66' );
-  @Instruction_OpCodeInfo_Nfx := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Nfx' );
-  @Instruction_OpCodeInfo_RequiresUniqueRegNums := GetProcAddress( Handle, 'Instruction_OpCodeInfo_RequiresUniqueRegNums' );
-  @Instruction_OpCodeInfo_RequiresUniqueDestRegNum := GetProcAddress( Handle, 'Instruction_OpCodeInfo_RequiresUniqueDestRegNum' );
-  @Instruction_OpCodeInfo_IsPrivileged := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsPrivileged' );
-  @Instruction_OpCodeInfo_IsSaveRestore := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsSaveRestore' );
-  @Instruction_OpCodeInfo_IsStackInstruction := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsStackInstruction' );
-  @Instruction_OpCodeInfo_IgnoresSegment := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IgnoresSegment' );
-  @Instruction_OpCodeInfo_IsOpMaskReadWrite := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsOpMaskReadWrite' );
-  @Instruction_OpCodeInfo_RealMode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_RealMode' );
-  @Instruction_OpCodeInfo_ProtectedMode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_ProtectedMode' );
-  @Instruction_OpCodeInfo_Virtual8086Mode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Virtual8086Mode' );
-  @Instruction_OpCodeInfo_CompatibilityMode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_CompatibilityMode' );
-  @Instruction_OpCodeInfo_LongMode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_LongMode' );
-  @Instruction_OpCodeInfo_UseOutsideSmm := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseOutsideSmm' );
-  @Instruction_OpCodeInfo_UseInSmm := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInSmm' );
-  @Instruction_OpCodeInfo_UseOutsideEnclaveSgx := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseOutsideEnclaveSgx' );
-  @Instruction_OpCodeInfo_UseInEnclaveSgx1 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInEnclaveSgx1' );
-  @Instruction_OpCodeInfo_UseInEnclaveSgx2 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInEnclaveSgx2' );
-  @Instruction_OpCodeInfo_UseOutsideVmxOp := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseOutsideVmxOp' );
-  @Instruction_OpCodeInfo_UseInVmxRootOp := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInVmxRootOp' );
-  @Instruction_OpCodeInfo_UseInVmxNonRootOp := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInVmxNonRootOp' );
-  @Instruction_OpCodeInfo_UseOutsideSeam := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseOutsideSeam' );
-  @Instruction_OpCodeInfo_UseInSeam := GetProcAddress( Handle, 'Instruction_OpCodeInfo_UseInSeam' );
-  @Instruction_OpCodeInfo_TdxNonRootGenUd := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TdxNonRootGenUd' );
-  @Instruction_OpCodeInfo_TdxNonRootGenVe := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TdxNonRootGenVe' );
-  @Instruction_OpCodeInfo_TdxNonRootMayGenEx := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TdxNonRootMayGenEx' );
-  @Instruction_OpCodeInfo_IntelVMExit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelVMExit' );
-  @Instruction_OpCodeInfo_IntelMayVMExit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelMayVMExit' );
-  @Instruction_OpCodeInfo_IntelSmmVMExit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelSmmVMExit' );
-  @Instruction_OpCodeInfo_AmdVMExit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdVMExit' );
-  @Instruction_OpCodeInfo_AmdMayVMExit := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdMayVMExit' );
-  @Instruction_OpCodeInfo_TsxAbort := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TsxAbort' );
-  @Instruction_OpCodeInfo_TsxImplAbort := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TsxImplAbort' );
-  @Instruction_OpCodeInfo_TsxMayAbort := GetProcAddress( Handle, 'Instruction_OpCodeInfo_TsxMayAbort' );
-  @Instruction_OpCodeInfo_IntelDecoder16 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelDecoder16' );
-  @Instruction_OpCodeInfo_IntelDecoder32 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelDecoder32' );
-  @Instruction_OpCodeInfo_IntelDecoder64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IntelDecoder64' );
-  @Instruction_OpCodeInfo_AmdDecoder16 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdDecoder16' );
-  @Instruction_OpCodeInfo_AmdDecoder32 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdDecoder32' );
-  @Instruction_OpCodeInfo_AmdDecoder64 := GetProcAddress( Handle, 'Instruction_OpCodeInfo_AmdDecoder64' );
-  @Instruction_OpCodeInfo_DecoderOption := GetProcAddress( Handle, 'Instruction_OpCodeInfo_DecoderOption' );
-  @Instruction_OpCodeInfo_Table := GetProcAddress( Handle, 'Instruction_OpCodeInfo_Table' );
-  @Instruction_OpCodeInfo_MandatoryPrefix := GetProcAddress( Handle, 'Instruction_OpCodeInfo_MandatoryPrefix' );
-  @Instruction_OpCodeInfo_OpCode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OpCode' );
-  @Instruction_OpCodeInfo_OpCodeLen := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OpCodeLen' );
-  @Instruction_OpCodeInfo_IsGroup := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsGroup' );
-  @Instruction_OpCodeInfo_GroupIndex := GetProcAddress( Handle, 'Instruction_OpCodeInfo_GroupIndex' );
-  @Instruction_OpCodeInfo_IsRMGroup := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsRMGroup' );
-  @Instruction_OpCodeInfo_RMGroupIndex := GetProcAddress( Handle, 'Instruction_OpCodeInfo_RMGroupIndex' );
-  @Instruction_OpCodeInfo_OPCount := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OPCount' );
-  @Instruction_OpCodeInfo_OP0Kind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OP0Kind' );
-  @Instruction_OpCodeInfo_OP1Kind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OP1Kind' );
-  @Instruction_OpCodeInfo_OP2Kind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OP2Kind' );
-  @Instruction_OpCodeInfo_OP3Kind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OP3Kind' );
-  @Instruction_OpCodeInfo_OP4Kind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OP4Kind' );
-  @Instruction_OpCodeInfo_OPKind := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OPKind' );
-  @Instruction_OpCodeInfo_OPKinds := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OPKinds' );
-  @Instruction_OpCodeInfo_IsAvailableInMode := GetProcAddress( Handle, 'Instruction_OpCodeInfo_IsAvailableInMode' );
-  @Instruction_OpCodeInfo_OpCodeString := GetProcAddress( Handle, 'Instruction_OpCodeInfo_OpCodeString' );
-  @Instruction_OpCodeInfo_InstructionString := GetProcAddress( Handle, 'Instruction_OpCodeInfo_InstructionString' );
   @Instruction_VirtualAddress := GetProcAddress( Handle, 'Instruction_VirtualAddress' );
+  @Instruction_IsMvexEvictionHint := GetProcAddress( Handle, 'Instruction_IsMvexEvictionHint' );
+  @Instruction_MvexRegMemConv := GetProcAddress( Handle, 'Instruction_MvexRegMemConv' );
 
   @InstructionInfoFactory_Create := GetProcAddress( Handle, 'InstructionInfoFactory_Create' );
   @InstructionInfoFactory_Info := GetProcAddress( Handle, 'InstructionInfoFactory_Info' );
@@ -2579,6 +2425,166 @@ begin
   @Instruction_With_Declare_DWord_4 := GetProcAddress( Handle, 'Instruction_With_Declare_DWord_4' );
   @Instruction_With_Declare_QWord_1 := GetProcAddress( Handle, 'Instruction_With_Declare_QWord_1' );
   @Instruction_With_Declare_QWord_2 := GetProcAddress( Handle, 'Instruction_With_Declare_QWord_2' );
+
+  @OpCodeInfo_OpCodeString := GetProcAddress( Handle, 'OpCodeInfo_OpCodeString' );
+  @OpCodeInfo_InstructionString := GetProcAddress( Handle, 'OpCodeInfo_InstructionString' );
+  @OpCodeInfo_Mode16 := GetProcAddress( Handle, 'OpCodeInfo_Mode16' );
+  @OpCodeInfo_Mode32 := GetProcAddress( Handle, 'OpCodeInfo_Mode32' );
+  @OpCodeInfo_Mode64 := GetProcAddress( Handle, 'OpCodeInfo_Mode64' );
+  @OpCodeInfo_Fwait := GetProcAddress( Handle, 'OpCodeInfo_Fwait' );
+  @OpCodeInfo_W := GetProcAddress( Handle, 'OpCodeInfo_W' );
+  @OpCodeInfo_IsLig := GetProcAddress( Handle, 'OpCodeInfo_IsLig' );
+  @OpCodeInfo_IsWig := GetProcAddress( Handle, 'OpCodeInfo_IsWig' );
+  @OpCodeInfo_IsWig32 := GetProcAddress( Handle, 'OpCodeInfo_IsWig32' );
+  @OpCodeInfo_MvexEhBit := GetProcAddress( Handle, 'OpCodeInfo_MvexEhBit' );
+  @OpCodeInfo_MvexCanUseEvictionHint := GetProcAddress( Handle, 'OpCodeInfo_MvexCanUseEvictionHint' );
+  @OpCodeInfo_MvexCanUseImmRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_MvexCanUseImmRoundingControl' );
+  @OpCodeInfo_MvexIgnoresOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_MvexIgnoresOpMaskRegister' );
+  @OpCodeInfo_MvexNoSaeRc := GetProcAddress( Handle, 'OpCodeInfo_MvexNoSaeRc' );
+  @OpCodeInfo_MvexTupleTypeLutKind := GetProcAddress( Handle, 'OpCodeInfo_MvexTupleTypeLutKind' );
+  @OpCodeInfo_MvexConversionFunc := GetProcAddress( Handle, 'OpCodeInfo_MvexConversionFunc' );
+  @OpCodeInfo_MvexValidConversionFuncsMask := GetProcAddress( Handle, 'OpCodeInfo_MvexValidConversionFuncsMask' );
+  @OpCodeInfo_MvexValidSwizzleFuncsMask := GetProcAddress( Handle, 'OpCodeInfo_MvexValidSwizzleFuncsMask' );
+  @OpCodeInfo_MemorySize := GetProcAddress( Handle, 'OpCodeInfo_MemorySize' );
+  @OpCodeInfo_BroadcastMemorySize := GetProcAddress( Handle, 'OpCodeInfo_BroadcastMemorySize' );
+  @OpCodeInfo_CanBroadcast := GetProcAddress( Handle, 'OpCodeInfo_CanBroadcast' );
+  @OpCodeInfo_CanUseRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_CanUseRoundingControl' );
+  @OpCodeInfo_CanSuppressAllExceptions := GetProcAddress( Handle, 'OpCodeInfo_CanSuppressAllExceptions' );
+  @OpCodeInfo_CanUseOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_CanUseOpMaskRegister' );
+  @OpCodeInfo_RequireOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_RequireOpMaskRegister' );
+  @OpCodeInfo_CanUseZeroingMasking := GetProcAddress( Handle, 'OpCodeInfo_CanUseZeroingMasking' );
+  @OpCodeInfo_CanUseLockPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseLockPrefix' );
+  @OpCodeInfo_CanUseXacquirePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseXacquirePrefix' );
+  @OpCodeInfo_CanUseXreleasePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseXreleasePrefix' );
+  @OpCodeInfo_CanUseRepPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseRepPrefix' );
+  @OpCodeInfo_CanUseRepnePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseRepnePrefix' );
+  @OpCodeInfo_CanUseBndPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseBndPrefix' );
+  @OpCodeInfo_CanUseHintTakenPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseHintTakenPrefix' );
+  @OpCodeInfo_CanUseNotrackPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseNotrackPrefix' );
+  @OpCodeInfo_IgnoresRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_IgnoresRoundingControl' );
+  @OpCodeInfo_AmdLockRegBit := GetProcAddress( Handle, 'OpCodeInfo_AmdLockRegBit' );
+  @OpCodeInfo_DefaultOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_DefaultOpSize64' );
+  @OpCodeInfo_ForceOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_ForceOpSize64' );
+  @OpCodeInfo_IntelForceOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_IntelForceOpSize64' );
+  @OpCodeInfo_MustBeCpl0 := GetProcAddress( Handle, 'OpCodeInfo_MustBeCpl0' );
+  @OpCodeInfo_Cpl0 := GetProcAddress( Handle, 'OpCodeInfo_Cpl0' );
+  @OpCodeInfo_Cpl1 := GetProcAddress( Handle, 'OpCodeInfo_Cpl1' );
+  @OpCodeInfo_Cpl2 := GetProcAddress( Handle, 'OpCodeInfo_Cpl2' );
+  @OpCodeInfo_Cpl3 := GetProcAddress( Handle, 'OpCodeInfo_Cpl3' );
+  @OpCodeInfo_IsInputOutput := GetProcAddress( Handle, 'OpCodeInfo_IsInputOutput' );
+  @OpCodeInfo_IsNop := GetProcAddress( Handle, 'OpCodeInfo_IsNop' );
+  @OpCodeInfo_IsReservedNop := GetProcAddress( Handle, 'OpCodeInfo_IsReservedNop' );
+  @OpCodeInfo_IsSerializingIntel := GetProcAddress( Handle, 'OpCodeInfo_IsSerializingIntel' );
+  @OpCodeInfo_IsSerializingAmd := GetProcAddress( Handle, 'OpCodeInfo_IsSerializingAmd' );
+  @OpCodeInfo_MayRequireCpl0 := GetProcAddress( Handle, 'OpCodeInfo_MayRequireCpl0' );
+  @OpCodeInfo_IsCetTracked := GetProcAddress( Handle, 'OpCodeInfo_IsCetTracked' );
+  @OpCodeInfo_IsNonTemporal := GetProcAddress( Handle, 'OpCodeInfo_IsNonTemporal' );
+  @OpCodeInfo_IsFpuNoWait := GetProcAddress( Handle, 'OpCodeInfo_IsFpuNoWait' );
+  @OpCodeInfo_IgnoresModBits := GetProcAddress( Handle, 'OpCodeInfo_IgnoresModBits' );
+  @OpCodeInfo_No66 := GetProcAddress( Handle, 'OpCodeInfo_No66' );
+  @OpCodeInfo_Nfx := GetProcAddress( Handle, 'OpCodeInfo_Nfx' );
+  @OpCodeInfo_RequiresUniqueRegNums := GetProcAddress( Handle, 'OpCodeInfo_RequiresUniqueRegNums' );
+  @OpCodeInfo_RequiresUniqueDestRegNum := GetProcAddress( Handle, 'OpCodeInfo_RequiresUniqueDestRegNum' );
+  @OpCodeInfo_IsPrivileged := GetProcAddress( Handle, 'OpCodeInfo_IsPrivileged' );
+  @OpCodeInfo_IsSaveRestore := GetProcAddress( Handle, 'OpCodeInfo_IsSaveRestore' );
+  @OpCodeInfo_IsStackInstruction := GetProcAddress( Handle, 'OpCodeInfo_IsStackInstruction' );
+  @OpCodeInfo_IgnoresSegment := GetProcAddress( Handle, 'OpCodeInfo_IgnoresSegment' );
+  @OpCodeInfo_IsOpMaskReadWrite := GetProcAddress( Handle, 'OpCodeInfo_IsOpMaskReadWrite' );
+  @OpCodeInfo_RealMode := GetProcAddress( Handle, 'OpCodeInfo_RealMode' );
+  @OpCodeInfo_ProtectedMode := GetProcAddress( Handle, 'OpCodeInfo_ProtectedMode' );
+  @OpCodeInfo_Virtual8086Mode := GetProcAddress( Handle, 'OpCodeInfo_Virtual8086Mode' );
+  @OpCodeInfo_CompatibilityMode := GetProcAddress( Handle, 'OpCodeInfo_CompatibilityMode' );
+  @OpCodeInfo_LongMode := GetProcAddress( Handle, 'OpCodeInfo_LongMode' );
+  @OpCodeInfo_UseOutsideSmm := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideSmm' );
+  @OpCodeInfo_UseInSmm := GetProcAddress( Handle, 'OpCodeInfo_UseInSmm' );
+  @OpCodeInfo_UseOutsideEnclaveSgx := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideEnclaveSgx' );
+  @OpCodeInfo_UseInEnclaveSgx1 := GetProcAddress( Handle, 'OpCodeInfo_UseInEnclaveSgx1' );
+  @OpCodeInfo_UseInEnclaveSgx2 := GetProcAddress( Handle, 'OpCodeInfo_UseInEnclaveSgx2' );
+  @OpCodeInfo_UseOutsideVmxOp := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideVmxOp' );
+  @OpCodeInfo_UseInVmxRootOp := GetProcAddress( Handle, 'OpCodeInfo_UseInVmxRootOp' );
+  @OpCodeInfo_UseInVmxNonRootOp := GetProcAddress( Handle, 'OpCodeInfo_UseInVmxNonRootOp' );
+  @OpCodeInfo_UseOutsideSeam := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideSeam' );
+  @OpCodeInfo_UseInSeam := GetProcAddress( Handle, 'OpCodeInfo_UseInSeam' );
+  @OpCodeInfo_TdxNonRootGenUd := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootGenUd' );
+  @OpCodeInfo_TdxNonRootGenVe := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootGenVe' );
+  @OpCodeInfo_TdxNonRootMayGenEx := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootMayGenEx' );
+  @OpCodeInfo_IntelVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelVMExit' );
+  @OpCodeInfo_IntelMayVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelMayVMExit' );
+  @OpCodeInfo_IntelSmmVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelSmmVMExit' );
+  @OpCodeInfo_AmdVMExit := GetProcAddress( Handle, 'OpCodeInfo_AmdVMExit' );
+  @OpCodeInfo_AmdMayVMExit := GetProcAddress( Handle, 'OpCodeInfo_AmdMayVMExit' );
+  @OpCodeInfo_TsxAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxAbort' );
+  @OpCodeInfo_TsxImplAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxImplAbort' );
+  @OpCodeInfo_TsxMayAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxMayAbort' );
+  @OpCodeInfo_IntelDecoder16 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder16' );
+  @OpCodeInfo_IntelDecoder32 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder32' );
+  @OpCodeInfo_IntelDecoder64 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder64' );
+  @OpCodeInfo_AmdDecoder16 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder16' );
+  @OpCodeInfo_AmdDecoder32 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder32' );
+  @OpCodeInfo_AmdDecoder64 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder64' );
+  @OpCodeInfo_DecoderOption := GetProcAddress( Handle, 'OpCodeInfo_DecoderOption' );
+  @OpCodeInfo_OpCodeLen := GetProcAddress( Handle, 'OpCodeInfo_OpCodeLen' );
+  @OpCodeInfo_OPCount := GetProcAddress( Handle, 'OpCodeInfo_OPCount' );
+
+  @Code_AsString := GetProcAddress( Handle, 'Code_AsString' );
+  @Code_Mnemonic := GetProcAddress( Handle, 'Code_Mnemonic' );
+  @Code_OPCode := GetProcAddress( Handle, 'Code_OPCode' );
+  @Code_Encoding := GetProcAddress( Handle, 'Code_Encoding' );
+  @Code_CPUidFeature := GetProcAddress( Handle, 'Code_CPUidFeature' );
+  @Code_FlowControl := GetProcAddress( Handle, 'Code_FlowControl' );
+  @Code_IsPrivileged := GetProcAddress( Handle, 'Code_IsPrivileged' );
+  @Code_IsStackInstruction := GetProcAddress( Handle, 'Code_IsStackInstruction' );
+  @Code_IsSaveRestoreInstruction := GetProcAddress( Handle, 'Code_IsSaveRestoreInstruction' );
+  @Code_IsJccShort := GetProcAddress( Handle, 'Code_IsJccShort' );
+  @Code_IsJmpShort := GetProcAddress( Handle, 'Code_IsJmpShort' );
+  @Code_IsJmpShortOrNear := GetProcAddress( Handle, 'Code_IsJmpShortOrNear' );
+  @Code_IsJmpNear := GetProcAddress( Handle, 'Code_IsJmpNear' );
+  @Code_IsJmpFar := GetProcAddress( Handle, 'Code_IsJmpFar' );
+  @Code_IsCallNear := GetProcAddress( Handle, 'Code_IsCallNear' );
+  @Code_IsCallFar := GetProcAddress( Handle, 'Code_IsCallFar' );
+  @Code_IsJmpNearIndirect := GetProcAddress( Handle, 'Code_IsJmpNearIndirect' );
+  @Code_IsJmpFarIndirect := GetProcAddress( Handle, 'Code_IsJmpFarIndirect' );
+  @Code_IsCallNearIndirect := GetProcAddress( Handle, 'Code_IsCallNearIndirect' );
+  @Code_IsCallFarIndirect := GetProcAddress( Handle, 'Code_IsCallFarIndirect' );
+  @Code_ConditionCode := GetProcAddress( Handle, 'Code_ConditionCode' );
+  @Code_IsJcxShort := GetProcAddress( Handle, 'Code_IsJcxShort' );
+  @Code_IsLoopCC := GetProcAddress( Handle, 'Code_IsLoopCC' );
+  @Code_IsLoop := GetProcAddress( Handle, 'Code_IsLoop' );
+  @Code_IsJccShortOrNear := GetProcAddress( Handle, 'Code_IsJccShortOrNear' );
+  @Code_NegateConditionCode := GetProcAddress( Handle, 'Code_NegateConditionCode' );
+  @Code_AsShortBranch := GetProcAddress( Handle, 'Code_AsShortBranch' );
+  @Code_AsNearBranch := GetProcAddress( Handle, 'Code_AsNearBranch' );
+
+  @Mnemonic_AsString := GetProcAddress( Handle, 'Mnemonic_AsString' );
+  @OpKind_AsString := GetProcAddress( Handle, 'OpKind_AsString' );
+  @EncodingKind_AsString := GetProcAddress( Handle, 'EncodingKind_AsString' );
+  @CPUidFeature_AsString := GetProcAddress( Handle, 'CPUidFeature_AsString' );
+  @ConditionCode_AsString := GetProcAddress( Handle, 'ConditionCode_AsString' );
+  @FlowControl_AsString := GetProcAddress( Handle, 'FlowControl_AsString' );
+  @TupleType_AsString := GetProcAddress( Handle, 'TupleType_AsString' );
+  @MvexEHBit_AsString := GetProcAddress( Handle, 'MvexEHBit_AsString' );
+  @MvexTupleTypeLutKind_AsString := GetProcAddress( Handle, 'MvexTupleTypeLutKind_AsString' );
+  @MvexConvFn_AsString := GetProcAddress( Handle, 'MvexConvFn_AsString' );
+  @MvexRegMemConv_AsString := GetProcAddress( Handle, 'MvexRegMemConv_AsString' );
+  @RoundingControl_AsString := GetProcAddress( Handle, 'RoundingControl_AsString' );
+  @NumberBase_AsString := GetProcAddress( Handle, 'NumberBase_AsString' );
+  @RepPrefixKind_AsString := GetProcAddress( Handle, 'RepPrefixKind_AsString' );
+  @MemorySize_AsString := GetProcAddress( Handle, 'MemorySize_AsString' );
+  @MemorySizeOptions_AsString := GetProcAddress( Handle, 'MemorySizeOptions_AsString' );  
+  @MemorySize_Info := GetProcAddress( Handle, 'MemorySize_Info' );
+  @OpCodeTableKind_AsString := GetProcAddress( Handle, 'OpCodeTableKind_AsString' );
+  @MandatoryPrefix_AsString := GetProcAddress( Handle, 'MandatoryPrefix_AsString' );
+  @OpCodeOperandKind_AsString := GetProcAddress( Handle, 'OpCodeOperandKind_AsString' );
+  @OpAccess_AsString := GetProcAddress( Handle, 'OpAccess_AsString' );
+  @CodeSize_AsString := GetProcAddress( Handle, 'CodeSize_AsString' );
+  @FormatterTextKind_AsString := GetProcAddress( Handle, 'FormatterTextKind_AsString' );
+
+  @Register_Base := GetProcAddress( Handle, 'Register_Base' );
+  @Register_Number := GetProcAddress( Handle, 'Register_Number' );
+  @Register_FullRegister := GetProcAddress( Handle, 'Register_FullRegister' );
+  @Register_FullRegister32 := GetProcAddress( Handle, 'Register_FullRegister32' );
+  @Register_Size := GetProcAddress( Handle, 'Register_Size' );
+  @Register_AsString := GetProcAddress( Handle, 'Register_AsString' );
   {$WARNINGS ON}
 end;
 

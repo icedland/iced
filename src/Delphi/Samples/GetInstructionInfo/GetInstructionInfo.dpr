@@ -11,7 +11,7 @@ uses
 
 {
 This example produces the following output:
-00007FFAC46ACDA4 mov [rsp+10h],rbx
+00007FFAC46ACDA4 48895C2410 mov [rsp+10h],rbx
     OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
@@ -20,15 +20,15 @@ This example produces the following output:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
-    Memory size: 8
+    Memory Size: 8
     Op0Access: Write
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
     Used reg: RSP:Read
     Used reg: RBX:Read
-    Used mem: [SS:RSP+0x10;UInt64;Write]
-00007FFAC46ACDA9 mov [rsp+18h],rsi
+    Used mem: SS:RSP+0x10:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDA9 4889742418 mov [rsp+18h],rsi
     OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
@@ -37,15 +37,15 @@ This example produces the following output:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 4, size = 1
-    Memory size: 8
+    Memory Size: 8
     Op0Access: Write
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
     Used reg: RSP:Read
     Used reg: RSI:Read
-    Used mem: [SS:RSP+0x18;UInt64;Write]
-00007FFAC46ACDAE push rbp
+    Used mem: SS:RSP+0x18:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDAE 55 push rbp
     OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
@@ -58,8 +58,8 @@ This example produces the following output:
     Op0: r64_opcode
     Used reg: RBP:Read
     Used reg: RSP:ReadWrite
-    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
-00007FFAC46ACDAF push rdi
+    Used mem: SS:RSP+0xFFFFFFFFFFFFFFF8:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDAF 57 push rdi
     OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
@@ -72,8 +72,8 @@ This example produces the following output:
     Op0: r64_opcode
     Used reg: RDI:Read
     Used reg: RSP:ReadWrite
-    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
-00007FFAC46ACDB0 push r14
+    Used mem: SS:RSP+0xFFFFFFFFFFFFFFF8:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDB0 4156 push r14
     OpCode: o64 50+ro
     Instruction: PUSH r64
     Encoding: Legacy
@@ -86,8 +86,8 @@ This example produces the following output:
     Op0: r64_opcode
     Used reg: R14:Read
     Used reg: RSP:ReadWrite
-    Used mem: [SS:RSP+0xFFFFFFFFFFFFFFF8;UInt64;Write]
-00007FFAC46ACDB2 lea rbp,[rsp-100h]
+    Used mem: SS:RSP+0xFFFFFFFFFFFFFFF8:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDB2 488DAC2400FFFFFF lea rbp,[rsp-100h]
     OpCode: o64 8D /r
     Instruction: LEA r64, m
     Encoding: Legacy
@@ -102,7 +102,7 @@ This example produces the following output:
     Op1: mem
     Used reg: RBP:Write
     Used reg: RSP:Read
-00007FFAC46ACDBA sub rsp,200h
+00007FFAC46ACDBA 4881EC00020000 sub rsp,200h
     OpCode: o64 81 /5 id
     Instruction: SUB r/m64, imm32
     Encoding: Legacy
@@ -118,7 +118,7 @@ This example produces the following output:
     Op0: r64_or_mem
     Op1: imm32sex64
     Used reg: RSP:ReadWrite
-00007FFAC46ACDC1 mov rax,[7FFAC47524E0h]
+00007FFAC46ACDC1 488B0518570A00 mov rax,[7FFAC47524E0h]
     OpCode: o64 8B /r
     Instruction: MOV r64, r/m64
     Encoding: Legacy
@@ -127,14 +127,14 @@ This example produces the following output:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
-    Memory size: 8
+    Memory Size: 8
     Op0Access: Write
     Op1Access: Read
     Op0: r64_reg
     Op1: r64_or_mem
     Used reg: RAX:Write
-    Used mem: [DS:0x7FFAC47524E0;UInt64;Read]
-00007FFAC46ACDC8 xor rax,rsp
+    Used mem: DS:None+0x7FFAC47524E0:None:1:UInt64:Read:Code64:0
+00007FFAC46ACDC8 4833C4 xor rax,rsp
     OpCode: o64 33 /r
     Instruction: XOR r64, r/m64
     Encoding: Legacy
@@ -152,7 +152,7 @@ This example produces the following output:
     Op1: r64_or_mem
     Used reg: RAX:ReadWrite
     Used reg: RSP:Read
-00007FFAC46ACDCB mov [rbp+0F0h],rax
+00007FFAC46ACDCB 488985F0000000 mov [rbp+0F0h],rax
     OpCode: o64 89 /r
     Instruction: MOV r/m64, r64
     Encoding: Legacy
@@ -161,15 +161,15 @@ This example produces the following output:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
-    Memory size: 8
+    Memory Size: 8
     Op0Access: Write
     Op1Access: Read
     Op0: r64_or_mem
     Op1: r64_reg
     Used reg: RBP:Read
     Used reg: RAX:Read
-    Used mem: [SS:RBP+0xF0;UInt64;Write]
-00007FFAC46ACDD2 mov r8,[7FFAC474F208h]
+    Used mem: SS:RBP+0xF0:None:1:UInt64:Write:Code64:0
+00007FFAC46ACDD2 4C8B052F240A00 mov r8,[7FFAC474F208h]
     OpCode: o64 8B /r
     Instruction: MOV r64, r/m64
     Encoding: Legacy
@@ -178,14 +178,14 @@ This example produces the following output:
     CpuidFeature: X64
     FlowControl: Next
     Displacement offset = 3, size = 4
-    Memory size: 8
+    Memory Size: 8
     Op0Access: Write
     Op1Access: Read
     Op0: r64_reg
     Op1: r64_or_mem
     Used reg: R8:Write
-    Used mem: [DS:0x7FFAC474F208;UInt64;Read]
-00007FFAC46ACDD9 lea rax,[7FFAC46F4A58h]
+    Used mem: DS:None+0x7FFAC474F208:None:1:UInt64:Read:Code64:0
+00007FFAC46ACDD9 488D05787C0400 lea rax,[7FFAC46F4A58h]
     OpCode: o64 8D /r
     Instruction: LEA r64, m
     Encoding: Legacy
@@ -199,7 +199,7 @@ This example produces the following output:
     Op0: r64_reg
     Op1: mem
     Used reg: RAX:Write
-00007FFAC46ACDE0 xor edi,edi
+00007FFAC46ACDE0 33FF xor edi,edi
     OpCode: o32 33 /r
     Instruction: XOR r32, r/m32
     Encoding: Legacy
@@ -233,6 +233,11 @@ var
   FPU_Info      : TFpuStackIncrementInfo;
   CPUIDFeatures : TCPUIDFeaturesArray;
   OPKinds       : TOPKindsArray;
+  Encoding      : TEncodingKind;
+  Mnemonic      : TMnemonic;
+  FlowControl   : TFlowControl;
+  OPKind        : TOpCodeOperandKind;
+  MemorySize    : TMemorySize;
 //  OPKinds_      : TOPCodeOperandKindArray;
   Info          : TInstructionInfo;
   CC            : TConditionCode;
@@ -262,7 +267,7 @@ begin
   // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
   // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
   // speed is more important than being able to re-assemble formatted instructions.
-  Iced.Formatter.FormatterType := ftNasm;
+  Iced.Formatter.FormatterType := ftMasm;
 
   while Iced.Decoder.CanDecode do
     begin
@@ -283,6 +288,10 @@ begin
 //    for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len*2+1 do
       S := S + ' ';
 
+    // For quick hacks, it's fine to use the Display trait to format an instruction,
+    // but for real code, use a formatter, eg. MasmFormatter. See other examples.
+//    WriteLn( S + Instruction.Format );
+
     Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
     WriteLn( S + String( tOutput ) );
 
@@ -295,24 +304,27 @@ begin
 //    FillChar( OPKinds_, SizeOf( OPKinds_ ), 0 );
 //    Instruction.OpCodeInfo_OPKinds( OPKinds_ );
 
-    WriteLn( '    OpCode: ' + Instruction.OpCodeInfo_OpCodeString );
-    WriteLn( '    Instruction: ' + Instruction.OpCodeInfo_InstructionString );
-    WriteLn( '    Encoding: ' + TEncodingKind_String[ Integer( Instruction.Encoding ) ] );
-    WriteLn( '    Mnemonic: ' + TMnemonic_String[ Integer( Instruction.Mnemonic ) ] );
-    WriteLn( '    Code: ' + TCode_String[ Integer( Instruction.code ) ] );
+    WriteLn( '    OpCode: ' + Instruction.OpCodeString );
+    WriteLn( '    Instruction: ' + Instruction.InstructionString );
+    Encoding := Instruction.Encoding;
+    WriteLn( '    Encoding: ' + Encoding.AsString );
+    Mnemonic := Instruction.Mnemonic;
+    WriteLn( '    Mnemonic: ' + Mnemonic.AsString );
+    WriteLn( '    Code: ' + Instruction.code.AsString );
 
     CPUIDFeatures := Instruction.CPUIDFeatures;
     S := '';
     for i := 0 to CPUIDFeatures.Count-1 do
       begin
       if ( i > 0 ) then
-        S := S + 'AND ' + TCPUidFeature_String[ Integer( CPUIDFeatures.Entries[ i ] ) ]
+        S := S + 'AND ' + CPUIDFeatures.Entries[ i ].AsString
       else
-        S := TCPUidFeature_String[ Integer( CPUIDFeatures.Entries[ i ] ) ];
+        S := CPUIDFeatures.Entries[ i ].AsString;
       end;
     WriteLn( '    CpuidFeature: ' + S );
 
-    WriteLn( '    FlowControl: ' + TFlowControl_String[ Integer( Instruction.FlowControl ) ] );
+    FlowControl := Instruction.FlowControl;
+    WriteLn( '    FlowControl: ' + FlowControl.AsString );
 
     FPU_Info := Instruction.FPU_StackIncrementInfo;
     if FPU_Info.writes_top then
@@ -340,8 +352,8 @@ begin
 
     CC := Instruction.ConditionCode;
     RFlags := Instruction.RFlags;
-    if ( CC <> cc_None ) then
-      WriteLn( Format( '    Condition code: %s', [ TConditionCode_String[ Integer( CC ) ] ] ) );
+    if ( CC.ConditionCode <> cc_None ) then
+      WriteLn( Format( '    Condition code: %s', [ CC.AsString ] ) );
 
     if ( NOT RFlags.Read.IsNone ) OR ( NOT RFlags.Written.IsNone ) OR ( NOT RFlags.Cleared.IsNone ) OR ( NOT RFlags.Set_.IsNone ) OR ( NOT RFlags.Undefined.IsNone ) OR ( NOT RFlags.Modified.IsNone ) then
       begin
@@ -363,40 +375,41 @@ begin
     Instruction.OPKinds( OPKinds );
     for i := 0 to OPKinds.Count-1 do
       begin
-      if ( OPKinds.Entries[ i ] = okMemory ) then
+      if ( OPKinds.Entries[ i ].OpKind = okMemory ) then
         begin
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
-        C := Instruction.MemorySize;
-        if ( C <> 0 ) then
-          WriteLn( '    Memory Size: ' + IntToStr( C ) );
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118          
+        MemorySize := Instruction.MemorySize;
+        if ( MemorySize.Size <> 0 ) then
+          WriteLn( '    Memory Size: ' + IntToStr( MemorySize.Size ) );
         break;
         end;
       end;
 
     Iced.InfoFactory.Info( Instruction, Info );
     for i := 0 to Instruction.OPCount-1 do
-      WriteLn( Format( '    Op%dAccess: %s', [ i, TOpAccess_String[ Integer( Info.op_accesses[ i ] ) ] ] ) );
+      WriteLn( Format( '    Op%dAccess: %s', [ i, Info.op_accesses[ i ].AsString ] ) );
 
     for i := 0 to Instruction.OpCodeInfo_OPCount-1 do
-      WriteLn( Format( '    Op%d: %s', [ i, TOpCodeOperandKind_Strings[ Integer( Instruction.OpCodeInfo_OPKind( i ) ) ] ] ) );
+      begin
+      OPKind := Instruction.OpCodeInfo.op_kinds[ i ];
+      WriteLn( Format( '    Op%d: %s', [ i, OPKind.AsString ] ) );
+      end;
 
     for i := 0 to Info.used_registers.Count-1 do
-      WriteLn( Format( '    Used reg: %s:%s', [ TRegister_String[ Integer( Info.used_registers.Entries[ i ].register_ ) ], TOpAccess_String[ Integer( Info.used_registers.Entries[ i ].access ) ] ] ) );
+      WriteLn( Format( '    Used reg: %s:%s', [ Info.used_registers.Entries[ i ].register_.AsString, Info.used_registers.Entries[ i ].access.AsString ] ) );
 
     for i := 0 to Info.used_memory_locations.Count-1 do
+//      WriteLn( '    Used mem: ' + Info.used_memory_locations.Entries[ i ].AsString );
       WriteLn( Format( '    Used mem: %s:%s+0x%.2x:%s:%d:%s:%s:%s:%d', [
-                                                                        TRegister_String[ Integer( Info.used_memory_locations.Entries[ i ].segment ) ],
-                                                                        TRegister_String[ Integer( Info.used_memory_locations.Entries[ i ].base ) ],
+                                                                        Info.used_memory_locations.Entries[ i ].segment.AsString,
+                                                                        Info.used_memory_locations.Entries[ i ].base.AsString,
                                                                         Info.used_memory_locations.Entries[ i ].displacement,
-                                                                        TRegister_String[ Integer( Info.used_memory_locations.Entries[ i ].index ) ],
+                                                                        Info.used_memory_locations.Entries[ i ].index.AsString,
                                                                         Info.used_memory_locations.Entries[ i ].scale,
-                                                                        TMemorySize_String[ Integer( Info.used_memory_locations.Entries[ i ].memory_size ) ],
-                                                                        TOpAccess_String[ Integer( Info.used_memory_locations.Entries[ i ].access ) ],
-                                                                        TCodeSize_String[ Integer( Info.used_memory_locations.Entries[ i ].address_size ) ],
+                                                                        Info.used_memory_locations.Entries[ i ].memory_size.AsString,
+                                                                        Info.used_memory_locations.Entries[ i ].access.AsString,
+                                                                        Info.used_memory_locations.Entries[ i ].address_size.AsString,
                                                                         Info.used_memory_locations.Entries[ i ].vsib_size
                                                                       ] ) );
-
     end;
 //  Iced.Decoder.SetIP( Decoder, EXAMPLE_RIP );
 //  Iced.Decoder.SetPosition( Decoder, 0 );

@@ -13,7 +13,7 @@ function VirtualAddressResolverCallback( Register: TRegister; Index : NativeUInt
 begin
   result := True;
   {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
-  case Register of
+  case Register.Register of
     // The base address of ES, CS, SS and DS is always 0 in 64-bit mode
     ES, CS, SS, DS: Address := 0;
 

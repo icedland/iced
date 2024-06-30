@@ -57,7 +57,7 @@ end;
 procedure FormatterOutputCallback( Text : PAnsiChar; Kind : TFormatterTextKind; UserData : Pointer ); cdecl;
 begin
   // Determine Color
-  case Kind of
+  case Kind.FormatterTextKind of
     ftkDirective,
     ftkKeyword         : FrmFormatterOutput.rEdtOutput.SelAttributes.Color := clYellow;
 
