@@ -429,7 +429,7 @@ impl StateFlags {
 #[derive(Default, Debug, Copy, Clone, Eq, PartialEq)]
 enum DecoderMandatoryPrefix {
 	#[default]
-	PNP,
+	PNP = 0,
 	P66 = 1,
 	PF3 = 2,
 	PF2 = 3,
