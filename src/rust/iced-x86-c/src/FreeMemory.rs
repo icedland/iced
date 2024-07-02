@@ -5,12 +5,10 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::Decoder;
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Free Memory
 #[no_mangle]
-pub unsafe extern "C" fn IcedFreeMemory( Pointer: *mut Decoder ) -> bool { 
+pub unsafe extern "C" fn IcedFreeMemory( Pointer: *mut u8 ) -> bool { 
     if Pointer.is_null() {
         return false;
     }

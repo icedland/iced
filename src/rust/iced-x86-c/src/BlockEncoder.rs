@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, InstructionBlock, ConstantOffsets, RelocInfo, BlockEncoder, BlockEncoderResult};
+use iced_x86_rust::{Instruction, InstructionBlock, ConstantOffsets, RelocInfo, BlockEncoder, BlockEncoderResult};
 use std::{slice, ptr::null_mut};
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

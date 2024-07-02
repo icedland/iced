@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, Encoder, ConstantOffsets};
+use iced_x86_rust::{Instruction, Encoder, ConstantOffsets};
 use std::ptr::null_mut;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -320,6 +320,7 @@ pub unsafe extern "C" fn Encoder_SetEvexLig( Encoder: *mut Encoder, Value : u32 
 }
 
 // Value of the `MVEX.W` bit to use if it's an instruction that ignores the bit. Default is 0.
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn Encoder_GetMvexWig( Encoder: *mut Encoder ) -> u32 {
     if Encoder.is_null() {
@@ -338,6 +339,7 @@ pub unsafe extern "C" fn Encoder_GetMvexWig( Encoder: *mut Encoder ) -> u32 {
 //
 // # Arguments
 // * `new_value`: new value ( 0 or 1 )
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn Encoder_SetMvexWig( Encoder: *mut Encoder, Value : u32 ) -> bool {
     if Encoder.is_null() {

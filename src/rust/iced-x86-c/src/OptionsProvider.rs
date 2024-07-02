@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, NumberBase, NumberFormattingOptions, FormatterOperandOptions, FormatterOptionsProvider};
+use iced_x86_rust::{Instruction, NumberBase, NumberFormattingOptions, FormatterOperandOptions, FormatterOptionsProvider};
 use std::ptr::eq;
 use std::{slice, str};
 use libc::{c_char, strlen};

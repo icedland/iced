@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::DecoderError;
+use iced_x86_rust::DecoderError;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

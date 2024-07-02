@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::OpAccess;
+use iced_x86_rust::OpAccess;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

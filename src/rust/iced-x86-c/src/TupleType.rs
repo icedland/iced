@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::TupleType;
+use iced_x86_rust::TupleType;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

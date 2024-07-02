@@ -5,7 +5,12 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Code, CpuidFeature, OpCodeOperandKind};
+use iced_x86_rust::Code;
+#[cfg(feature = "instr_info")]
+use iced_x86_rust::CpuidFeature;
+#[cfg(feature = "op_code_info")]
+use iced_x86_rust::OpCodeOperandKind;
+#[cfg(feature = "op_code_info")]
 use crate::OpCodeInfo::TOpCodeInfo;
 use std::mem::transmute;// Enum<->Int
 
@@ -40,6 +45,7 @@ pub unsafe extern "C" fn Code_Mnemonic( Code : u16 ) -> u16/*Mnemonic*/ { // FFI
     code.mnemonic() as u16
 }
 
+#[cfg(feature = "op_code_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_OPCode( Code : u16, Info : *mut TOpCodeInfo ) { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -95,6 +101,7 @@ pub unsafe extern "C" fn Code_OPCode( Code : u16, Info : *mut TOpCodeInfo ) { //
     }   
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_Encoding( Code : u16 ) -> u16/*EncodingKind*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -103,8 +110,10 @@ pub unsafe extern "C" fn Code_Encoding( Code : u16 ) -> u16/*EncodingKind*/ { //
 }
 
 // Gets the CPU or CPUID feature flags
+#[cfg(feature = "instr_info")]
 #[allow( non_upper_case_globals )]
 pub const CPUIDFeaturesMaxEntries : usize = 5;
+#[cfg(feature = "instr_info")]
 //#[repr(C)]
 #[repr(packed)]
 pub struct TCPUIDFeaturesArray { 
@@ -112,6 +121,7 @@ pub struct TCPUIDFeaturesArray {
     pub Count : u8
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_CPUidFeature( Code : u16, CPUIDFeatures : *mut TCPUIDFeaturesArray ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -131,138 +141,161 @@ pub unsafe extern "C" fn Code_CPUidFeature( Code : u16, CPUIDFeatures : *mut TCP
     return true;
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_FlowControl( Code : u16 ) -> u16/*FlowControl*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.flow_control() as u16
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsPrivileged( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_privileged()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsStackInstruction( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_stack_instruction()    
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsSaveRestoreInstruction( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_save_restore_instruction()
 }
 
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJccShort( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jkcc_short()    
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpShort( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_short()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpShortOrNear( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_short_or_near()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpNear( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_near()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpFar( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_far()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsCallNear( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_call_near()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsCallFar( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_call_far()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpNearIndirect( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_near_indirect()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJmpFarIndirect( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jmp_far_indirect()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsCallNearIndirect( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_call_near_indirect()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsCallFarIndirect( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_call_far_indirect()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_ConditionCode( Code : u16 ) -> u8/*ConditionCode*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.condition_code() as u8
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJcxShort( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jcx_short()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsLoopCC( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_loopcc()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsLoop( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_loop()
 }
 
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_IsJccShortOrNear( Code : u16 ) -> bool { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.is_jcc_short_or_near()
 }
 
+#[cfg(feature = "instr_create")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_NegateConditionCode( Code : u16 ) -> u16/*Code*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.negate_condition_code() as u16
 }
 
+#[cfg(feature = "instr_create")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_AsShortBranch( Code : u16 ) -> u16/*Code*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );
     code.as_short_branch() as u16
 }
 
+#[cfg(feature = "instr_create")]
 #[no_mangle]
 pub unsafe extern "C" fn Code_AsNearBranch( Code : u16 ) -> u16/*Code*/ { // FFI-Unsafe: Code
     let code : Code = transmute( Code as u16 );

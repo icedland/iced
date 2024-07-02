@@ -5,7 +5,9 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{MemorySize, MemorySizeInfo};
+use iced_x86_rust::MemorySize;
+#[cfg(feature = "instr_create")]
+use iced_x86_rust::MemorySizeInfo;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]
@@ -33,6 +35,7 @@ pub unsafe extern "C" fn MemorySize_AsString( MemorySize : u8, Output : *mut u8,
     *( Output.add( l ) ) = 0;
 }
 
+#[cfg(feature = "instr_create")]
 #[no_mangle]
 pub unsafe extern "C" fn MemorySize_Info( MemorySize : u8, Info : *mut MemorySizeInfo ) { // FFI-Unsafe: MemorySize
     if Info.is_null() {

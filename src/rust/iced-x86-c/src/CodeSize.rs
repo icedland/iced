@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::CodeSize;
+use iced_x86_rust::CodeSize;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

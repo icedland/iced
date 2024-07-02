@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, SpecializedFormatter, DefaultFastFormatterTraitOptions};
+use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultFastFormatterTraitOptions};
 use crate::SymbolResolver::{TSymbolResolver, TSymbolResolverCallback};
 use std::ptr::null_mut;
 

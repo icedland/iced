@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{SpecializedFormatter, SpecializedFormatterTraitOptions, FastFormatterOptions};
+use iced_x86_rust::{SpecializedFormatter, SpecializedFormatterTraitOptions, FastFormatterOptions};
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Specialized-Formatter Trait Combos

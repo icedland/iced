@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::OpKind;
+use iced_x86_rust::OpKind;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

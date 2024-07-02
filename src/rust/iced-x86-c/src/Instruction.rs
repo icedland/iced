@@ -5,13 +5,15 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, FpuStackIncrementInfo, OpKind};
-
+use iced_x86_rust::{Instruction, OpKind};
+#[cfg(feature = "instr_info")]
+use iced_x86_rust::FpuStackIncrementInfo;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Instruction
 
 // Gets the FPU status word's `TOP` increment and whether it's a conditional or unconditional push/pop
 // and whether `TOP` is written.
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_FPU_StackIncrementInfo( Instruction: *mut Instruction, Info: *mut FpuStackIncrementInfo ) -> bool { 
     if Instruction.is_null() {
@@ -27,6 +29,7 @@ pub unsafe extern "C" fn Instruction_FPU_StackIncrementInfo( Instruction: *mut I
 
 // Gets the number of bytes added to `SP`/`ESP`/`RSP` or 0 if it's not an instruction that pushes or pops data. This method assumes
 // the instruction doesn't change the privilege level (eg. `IRET/D/Q`). If it's the `LEAVE` instruction, this method returns 0.
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_StackPointerIncrement( Instruction: *mut Instruction ) -> i32 { 
     if Instruction.is_null() {
@@ -38,6 +41,7 @@ pub unsafe extern "C" fn Instruction_StackPointerIncrement( Instruction: *mut In
 
 // All flags that are read by the CPU when executing the instruction.
 // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsRead( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -49,6 +53,7 @@ pub unsafe extern "C" fn Instruction_RFlagsRead( Instruction: *mut Instruction )
 
 // All flags that are written by the CPU, except those flags that are known to be undefined, always set or always cleared.
 // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsWritten( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -60,6 +65,7 @@ pub unsafe extern "C" fn Instruction_RFlagsWritten( Instruction: *mut Instructio
 
 // All flags that are always cleared by the CPU.
 // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsCleared( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -71,6 +77,7 @@ pub unsafe extern "C" fn Instruction_RFlagsCleared( Instruction: *mut Instructio
 
 // All flags that are always set by the CPU.
 // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsSet( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -82,6 +89,7 @@ pub unsafe extern "C" fn Instruction_RFlagsSet( Instruction: *mut Instruction ) 
 
 // All flags that are undefined after executing the instruction.
 // This method returns an [`RflagsBits`] value. See also [`rflags_modified()`].
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsUndefined( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -92,6 +100,7 @@ pub unsafe extern "C" fn Instruction_RFlagsUndefined( Instruction: *mut Instruct
 }
 
 // All flags that are modified by the CPU. This is `rflags_written() + rflags_cleared() + rflags_set() + rflags_undefined()`. This method returns an [`RflagsBits`] value.
+#[cfg(feature = "instr_info")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_RFlagsModified( Instruction: *mut Instruction ) -> u32 { 
     if Instruction.is_null() {
@@ -154,6 +163,7 @@ pub unsafe extern "C" fn Instruction_OPCount( Instruction: *mut Instruction ) ->
 }
 
 // `true` if eviction hint bit is set (`{eh}`) (MVEX instructions only)
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_IsMvexEvictionHint( Instruction: *mut Instruction ) -> bool { 
     if Instruction.is_null() {
@@ -164,6 +174,7 @@ pub unsafe extern "C" fn Instruction_IsMvexEvictionHint( Instruction: *mut Instr
 }
 
 // (MVEX) Register/memory operand conversion function
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn Instruction_MvexRegMemConv( Instruction: *mut Instruction ) -> u8 { 
     if Instruction.is_null() {

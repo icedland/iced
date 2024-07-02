@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, SymbolResolver, SymbolResult};
+use iced_x86_rust::{Instruction, SymbolResolver, SymbolResult};
 use std::{slice, str};
 use libc::{c_char, strlen};
 

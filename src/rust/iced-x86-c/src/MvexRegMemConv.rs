@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::MvexRegMemConv;
+use iced_x86_rust::MvexRegMemConv;
 use std::mem::transmute;// Enum<->Int
 
 #[no_mangle]

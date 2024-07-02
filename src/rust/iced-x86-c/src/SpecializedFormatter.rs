@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions, SymbolResolver};
+use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions, SymbolResolver};
 use crate::SymbolResolver::{TSymbolResolver, TSymbolResolverCallback};
 use crate::SpecializedFormatterTraitOptions::*;
 

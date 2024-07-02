@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::{Instruction, Formatter, NasmFormatter};
+use iced_x86_rust::{Instruction, Formatter, NasmFormatter};
 use crate::SymbolResolver::{TSymbolResolver, TSymbolResolverCallback};
 use crate::OptionsProvider::{TFormatterOptionsProvider, TFormatterOptionsProviderCallback};
 use crate::OutputCallback::TFormatterOutput;

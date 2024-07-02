@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86::Code;
+use iced_x86_rust::Code;
 use std::mem::transmute;// Enum<->Int
 
 //#[allow( non_upper_case_globals )]
@@ -158,6 +158,7 @@ pub unsafe extern "C" fn OpCodeInfo_IsWig32( Code : u16 ) -> bool { // FFI Unsaf
 }
 
 // (MVEX) Gets the `EH` bit that's required to encode this instruction
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexEhBit( Code : u16 ) -> u8 { // FFI Unsafe: Code, MvexEHBit
     let code : Code = transmute( Code as u16 );
@@ -167,6 +168,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexEhBit( Code : u16 ) -> u8 { // FFI Unsaf
 }
 
 // (MVEX) `true` if the instruction supports eviction hint (if it has a memory operand)
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexCanUseEvictionHint( Code : u16 ) -> bool { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -176,6 +178,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexCanUseEvictionHint( Code : u16 ) -> bool
 }
 
 // (MVEX) `true` if the instruction's rounding control bits are stored in `imm8[1:0]`
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexCanUseImmRoundingControl( Code : u16 ) -> bool { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -185,6 +188,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexCanUseImmRoundingControl( Code : u16 ) -
 }
 
 // (MVEX) `true` if the instruction ignores op mask registers (eg. `{k1}`)
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexIgnoresOpMaskRegister( Code : u16 ) -> bool { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -194,6 +198,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexIgnoresOpMaskRegister( Code : u16 ) -> b
 }
 
 // (MVEX) `true` if the instruction must have `MVEX.SSS=000` if `MVEX.EH=1`
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexNoSaeRc( Code : u16 ) -> bool { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -203,6 +208,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexNoSaeRc( Code : u16 ) -> bool { // FFI U
 }
 
 // (MVEX) Gets the tuple type / conv lut kind
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexTupleTypeLutKind( Code : u16 ) -> u8 { // FFI Unsafe: Code, MvexTupleTypeLutKind
     let code : Code = transmute( Code as u16 );
@@ -212,6 +218,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexTupleTypeLutKind( Code : u16 ) -> u8 { /
 }
 
 // (MVEX) Gets the conversion function, eg. `Sf32`
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexConversionFunc( Code : u16 ) -> u8 { // FFI Unsafe: Code, MvexConvFn
     let code : Code = transmute( Code as u16 );
@@ -221,6 +228,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexConversionFunc( Code : u16 ) -> u8 { // 
 }
 
 // (MVEX) Gets flags indicating which conversion functions are valid (bit 0 == func 0)
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexValidConversionFuncsMask( Code : u16 ) -> u8 { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -230,6 +238,7 @@ pub unsafe extern "C" fn OpCodeInfo_MvexValidConversionFuncsMask( Code : u16 ) -
 }
 
 // (MVEX) Gets flags indicating which swizzle functions are valid (bit 0 == func 0)
+#[cfg(feature = "mvex")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_MvexValidSwizzleFuncsMask( Code : u16 ) -> u8 { // FFI Unsafe: Code
     let code : Code = transmute( Code as u16 );
@@ -935,6 +944,7 @@ pub unsafe extern "C" fn OpCodeInfo_AmdDecoder64( Code : u16 ) -> bool {
 
 // Gets the decoder option that's needed to decode the instruction or [`DecoderOptions::NONE`].
 // The return value is a [`DecoderOptions`] value.
+#[cfg(feature = "decoder")]
 #[no_mangle]
 pub unsafe extern "C" fn OpCodeInfo_DecoderOption( Code : u16 ) -> u32 {
     let code : Code = transmute( Code as u16 );
