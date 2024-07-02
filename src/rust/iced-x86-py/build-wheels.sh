@@ -16,7 +16,7 @@ while [ "$#" -gt 0 ]; do
 done
 
 # Build with minimum supported Rust version since later versions require a later GLIBC
-msrv="1.60.0"
+msrv="1.63.0"
 curl https://sh.rustup.rs | sh -s -- -y --profile=minimal --default-toolchain=$msrv
 export PATH="$HOME/.cargo/bin:$PATH"
 
