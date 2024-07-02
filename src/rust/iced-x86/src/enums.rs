@@ -94,7 +94,7 @@ fn test_codesize_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<CodeSize as TryFrom<usize>>::try_from(IcedConstants::CODE_SIZE_ENUM_COUNT).is_err());
-	assert!(<CodeSize as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<CodeSize as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -239,7 +239,7 @@ fn test_roundingcontrol_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<RoundingControl as TryFrom<usize>>::try_from(IcedConstants::ROUNDING_CONTROL_ENUM_COUNT).is_err());
-	assert!(<RoundingControl as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<RoundingControl as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -526,7 +526,7 @@ fn test_opkind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<OpKind as TryFrom<usize>>::try_from(IcedConstants::OP_KIND_ENUM_COUNT).is_err());
-	assert!(<OpKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<OpKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -757,7 +757,7 @@ fn test_encodingkind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<EncodingKind as TryFrom<usize>>::try_from(IcedConstants::ENCODING_KIND_ENUM_COUNT).is_err());
-	assert!(<EncodingKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<EncodingKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info", feature = "op_code_info"))]
@@ -956,7 +956,7 @@ fn test_tupletype_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<TupleType as TryFrom<usize>>::try_from(IcedConstants::TUPLE_TYPE_ENUM_COUNT).is_err());
-	assert!(<TupleType as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<TupleType as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "op_code_info"))]
@@ -1128,7 +1128,7 @@ fn test_flowcontrol_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<FlowControl as TryFrom<usize>>::try_from(IcedConstants::FLOW_CONTROL_ENUM_COUNT).is_err());
-	assert!(<FlowControl as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<FlowControl as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "instr_info")]
@@ -1605,7 +1605,7 @@ fn test_opcodeoperandkind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<OpCodeOperandKind as TryFrom<usize>>::try_from(IcedConstants::OP_CODE_OPERAND_KIND_ENUM_COUNT).is_err());
-	assert!(<OpCodeOperandKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<OpCodeOperandKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -1756,7 +1756,7 @@ fn test_mvexehbit_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MvexEHBit as TryFrom<usize>>::try_from(IcedConstants::MVEX_EHBIT_ENUM_COUNT).is_err());
-	assert!(<MvexEHBit as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MvexEHBit as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "mvex")]
@@ -2471,7 +2471,7 @@ fn test_cpuidfeature_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<CpuidFeature as TryFrom<usize>>::try_from(IcedConstants::CPUID_FEATURE_ENUM_COUNT).is_err());
-	assert!(<CpuidFeature as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<CpuidFeature as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "instr_info")]
@@ -2677,7 +2677,7 @@ fn test_opaccess_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<OpAccess as TryFrom<usize>>::try_from(IcedConstants::OP_ACCESS_ENUM_COUNT).is_err());
-	assert!(<OpAccess as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<OpAccess as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "instr_info")]
@@ -2869,7 +2869,7 @@ fn test_conditioncode_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<ConditionCode as TryFrom<usize>>::try_from(IcedConstants::CONDITION_CODE_ENUM_COUNT).is_err());
-	assert!(<ConditionCode as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<ConditionCode as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "instr_info")]
@@ -3024,7 +3024,7 @@ fn test_mandatoryprefix_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MandatoryPrefix as TryFrom<usize>>::try_from(IcedConstants::MANDATORY_PREFIX_ENUM_COUNT).is_err());
-	assert!(<MandatoryPrefix as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MandatoryPrefix as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -3192,7 +3192,7 @@ fn test_opcodetablekind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<OpCodeTableKind as TryFrom<usize>>::try_from(IcedConstants::OP_CODE_TABLE_KIND_ENUM_COUNT).is_err());
-	assert!(<OpCodeTableKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<OpCodeTableKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
@@ -3333,7 +3333,7 @@ fn test_instrscale_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<InstrScale as TryFrom<usize>>::try_from(4).is_err());
-	assert!(<InstrScale as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<InstrScale as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -3513,7 +3513,7 @@ fn test_mvexconvfn_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MvexConvFn as TryFrom<usize>>::try_from(IcedConstants::MVEX_CONV_FN_ENUM_COUNT).is_err());
-	assert!(<MvexConvFn as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MvexConvFn as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "mvex")]
@@ -3706,7 +3706,7 @@ fn test_mvexregmemconv_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MvexRegMemConv as TryFrom<usize>>::try_from(IcedConstants::MVEX_REG_MEM_CONV_ENUM_COUNT).is_err());
-	assert!(<MvexRegMemConv as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MvexRegMemConv as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "mvex")]
@@ -3890,7 +3890,7 @@ fn test_mvextupletypelutkind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MvexTupleTypeLutKind as TryFrom<usize>>::try_from(IcedConstants::MVEX_TUPLE_TYPE_LUT_KIND_ENUM_COUNT).is_err());
-	assert!(<MvexTupleTypeLutKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MvexTupleTypeLutKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[cfg(feature = "mvex")]

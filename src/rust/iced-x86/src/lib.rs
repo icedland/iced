@@ -33,6 +33,7 @@
 #![allow(clippy::implied_bounds_in_impls)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
+#![allow(clippy::missing_transmute_annotations)] // TODO: enable again
 #![allow(clippy::needless_late_init)]
 #![allow(clippy::ptr_eq)]
 #![allow(clippy::redundant_closure)] // Clippy is buggy

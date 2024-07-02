@@ -85,7 +85,7 @@ fn test_relockind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<RelocKind as TryFrom<usize>>::try_from(IcedConstants::RELOC_KIND_ENUM_COUNT).is_err());
-	assert!(<RelocKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<RelocKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]

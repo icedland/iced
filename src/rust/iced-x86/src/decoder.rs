@@ -261,7 +261,7 @@ fn test_decodererror_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<DecoderError as TryFrom<usize>>::try_from(IcedConstants::DECODER_ERROR_ENUM_COUNT).is_err());
-	assert!(<DecoderError as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<DecoderError as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]

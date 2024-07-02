@@ -396,7 +396,7 @@ namespace Generator.Enums.Rust {
 						}
 						writer.WriteLine("}");
 						writer.WriteLine($"assert!(<{enumTypeName} as TryFrom<{tryFromType}>>::try_from({icedConstValue}{castToFromType}).is_err());");
-						writer.WriteLine($"assert!(<{enumTypeName} as TryFrom<{tryFromType}>>::try_from(core::{tryFromType}::MAX).is_err());");
+						writer.WriteLine($"assert!(<{enumTypeName} as TryFrom<{tryFromType}>>::try_from({tryFromType}::MAX).is_err());");
 					}
 					writer.WriteLine("}");
 				}

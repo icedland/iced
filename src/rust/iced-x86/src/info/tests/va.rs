@@ -18,7 +18,7 @@ fn va_tests() {
 
 		let mut factory = InstructionInfoFactory::new();
 		let info = factory.info(&instruction);
-		let used_mem = info.used_memory().iter().nth(tc.used_mem_index as usize).unwrap();
+		let used_mem = info.used_memory().get(tc.used_mem_index as usize).unwrap();
 
 		let value1 = used_mem.virtual_address(tc.element_index, |register, element_index, element_size| {
 			for reg_value in &tc.register_values {
