@@ -5,7 +5,7 @@ license = "MIT"
 description = "Test FuzzerGen output"
 edition = "2021"
 publish = false
-rust-version = "1.60.0"
+rust-version = "1.63.0"
 
 [dependencies.iced-x86]
 path = "../iced-x86"

@@ -945,7 +945,7 @@ fn test_memorysize_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MemorySize as TryFrom<usize>>::try_from(IcedConstants::MEMORY_SIZE_ENUM_COUNT).is_err());
-	assert!(<MemorySize as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MemorySize as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]

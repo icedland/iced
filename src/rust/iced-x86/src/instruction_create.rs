@@ -28,7 +28,6 @@ mod private {
 use self::private::{With1, With2, With3, With4, With5};
 use crate::instruction_internal;
 use crate::{Code, IcedError, Instruction, MemoryOperand, OpKind, Register, RepPrefixKind};
-use core::{u16, u32, u64};
 
 impl Instruction {
 	fn init_memory_operand(instruction: &mut Instruction, memory: &MemoryOperand) {

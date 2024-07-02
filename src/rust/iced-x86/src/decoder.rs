@@ -261,7 +261,7 @@ fn test_decodererror_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<DecoderError as TryFrom<usize>>::try_from(IcedConstants::DECODER_ERROR_ENUM_COUNT).is_err());
-	assert!(<DecoderError as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<DecoderError as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -426,17 +426,13 @@ impl StateFlags {
 // It could fit in a `u8` but then it wouldn't be cleared at the same time as the other fields since the
 // compiler would move other `u32` fields above it to align the fields.
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[derive(Default, Debug, Copy, Clone, Eq, PartialEq)]
 enum DecoderMandatoryPrefix {
+	#[default]
 	PNP = 0,
 	P66 = 1,
 	PF3 = 2,
 	PF2 = 3,
-}
-impl Default for DecoderMandatoryPrefix {
-	fn default() -> Self {
-		DecoderMandatoryPrefix::PNP
-	}
 }
 
 #[derive(Default)]

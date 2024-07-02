@@ -26,7 +26,7 @@ cov_out_rust_tmp=$cov_out_rust/tmp
 cov_out_rust_merged=$cov_out_rust/merged
 
 # Minimum supported Rust version
-msrv="1.60.0"
+msrv="1.63.0"
 
 new_func() {
 	echo
@@ -195,7 +195,7 @@ cargo_test_cov() {
 	cov_test_dir=$1
 	shift
 	if [ "$gen_cov" = "y" ]; then
-		test_exe=$(cargo test --color always --no-run --message-format=json "$@" | grep -- '"name":"iced-x86"' | tail -1 | sed -e 's/.*"executable":"\([^"]\+\)".*/\1/')
+		test_exe=$(cargo test --color always --no-run --message-format=json "$@" | grep -- 'iced/src/rust/iced-x86' | tail -1 | sed -e 's/.*"executable":"\([^"]\+\)".*/\1/')
 		if [ ! -x "$test_exe" ]; then
 			echo "Couldn't get the test executable name, got '$test_exe'"
 			echo "json output:"

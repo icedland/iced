@@ -173,13 +173,13 @@ impl Instruction {
 	/// Args:
 	///     state (Any): unpickled state
 	#[pyo3(text_signature = "($self, state)")]
-	fn __setstate__(&mut self, py: Python<'_>, state: PyObject) -> PyResult<()> {
-		match state.extract::<&PyBytes>(py) {
+	fn __setstate__(&mut self, state: &Bound<'_, PyAny>) -> PyResult<()> {
+		match state.downcast::<PyBytes>() {
 			Ok(s) => {
 				self.instr = deserialize(s.as_bytes()).map_err(to_value_error)?;
 				Ok(())
 			}
-			Err(e) => Err(e),
+			Err(e) => Err(to_value_error(e)),
 		}
 	}
 

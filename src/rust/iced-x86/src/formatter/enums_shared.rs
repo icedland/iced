@@ -147,7 +147,7 @@ fn test_formattertextkind_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(IcedConstants::FORMATTER_TEXT_KIND_ENUM_COUNT).is_err());
-	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<FormatterTextKind as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
@@ -378,7 +378,7 @@ fn test_memorysizeoptions_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(IcedConstants::MEMORY_SIZE_OPTIONS_ENUM_COUNT).is_err());
-	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<MemorySizeOptions as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]

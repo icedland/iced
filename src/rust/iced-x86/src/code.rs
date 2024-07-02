@@ -44476,7 +44476,7 @@ fn test_code_try_from_usize() {
 		assert_eq!(converted, value);
 	}
 	assert!(<Code as TryFrom<usize>>::try_from(IcedConstants::CODE_ENUM_COUNT).is_err());
-	assert!(<Code as TryFrom<usize>>::try_from(core::usize::MAX).is_err());
+	assert!(<Code as TryFrom<usize>>::try_from(usize::MAX).is_err());
 }
 #[cfg(feature = "serde")]
 #[rustfmt::skip]
