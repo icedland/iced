@@ -426,17 +426,13 @@ impl StateFlags {
 // It could fit in a `u8` but then it wouldn't be cleared at the same time as the other fields since the
 // compiler would move other `u32` fields above it to align the fields.
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+#[derive(Default, Debug, Copy, Clone, Eq, PartialEq)]
 enum DecoderMandatoryPrefix {
-	PNP = 0,
+	#[default]
+	PNP,
 	P66 = 1,
 	PF3 = 2,
 	PF2 = 3,
-}
-impl Default for DecoderMandatoryPrefix {
-	fn default() -> Self {
-		DecoderMandatoryPrefix::PNP
-	}
 }
 
 #[derive(Default)]
