@@ -10,7 +10,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - 👍 100% Rust code with C-Compatible Exports
 - 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- 👍 Blazing fast: Decodes >200 MB/s
+- 👍 Blazing fast: Decodes >200 MB/s, 93MB/s with Formatting
 - 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
 - 👍 The encoder can be used to re-encode decoded instructions at any address
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
