@@ -8,7 +8,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - 👍 Supports all Intel and AMD instructions
 - 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- 👍 Blazing fast: Decodes >200 MB/s
+- 👍 Blazing fast: Decodes >200 MB/s, 93MB/s with Formatting
 - 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
 - 👍 The encoder can be used to re-encode decoded instructions at any address
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
@@ -836,7 +836,7 @@ var
   Info          : TInstructionInfo;
   CC            : TConditionCode;
   RFlags        : TRFlags;
-  tOutput       : Array [ 0..255 ] of AnsiChar;
+  tOutput       : PAnsiChar;
 
   S             : String;
   C             : UInt64;
@@ -880,7 +880,7 @@ begin
     // For quick hacks, it's fine to use the Display trait to format an instruction,
     // but for real code, use a formatter, eg. MasmFormatter. See other examples.
 
-    Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
+    Iced.Formatter.Format( Instruction, tOutput );
     WriteLn( S + String( tOutput ) );
 
     // Gets offsets in the instruction of the displacement and immediates and their sizes.
