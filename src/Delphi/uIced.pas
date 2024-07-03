@@ -23,7 +23,7 @@ interface
 {.$DEFINE DECODER_LOCAL_POSITION} // Buffer-Position is saved in Local-Variable, updated each Decode
 
 {.$DEFINE SynUnicode}
-{$DEFINE AssemblyTools} // MS test again in the end
+{.$DEFINE AssemblyTools} // MS test again in the end
 {.$DEFINE TEST_FUNCTIONS}
 
 uses
@@ -424,8 +424,8 @@ type
     destructor  Destroy; override;
     procedure   DefaultSettings;
 
-    function    FormatToString( var Instruction: TInstruction ) : AnsiString; overload; {$IF CompilerVersion >= 23}inline;{$IFEND}
-    procedure   Format( var Instruction: TInstruction; AOutput: PAnsiChar; Size : NativeUInt ); overload; {$IF CompilerVersion >= 23}inline;{$IFEND}
+    function    FormatToString( var Instruction: TInstruction ) : PAnsiChar;  {$IF CompilerVersion >= 23}inline;{$IFEND}
+    procedure   Format( var Instruction: TInstruction; var AOutput: PAnsiChar; Size : PNativeUInt = nil ); overload; {$IF CompilerVersion >= 23}inline;{$IFEND}
     procedure   Format( var Instruction: TInstruction ); overload; {$IF CompilerVersion >= 23}inline;{$IFEND} // TFormatterOutputCallback
 
     property    Handle                          : Pointer                            read GetHandle;
@@ -1580,60 +1580,56 @@ begin
     fOutputHandle := nil;
 end;
 
-function TIcedFormatter.FormatToString( var Instruction: TInstruction ) : AnsiString;
+function TIcedFormatter.FormatToString( var Instruction: TInstruction ) : PAnsiChar;
 var
-  tOutput : Array [ 0..255 ] of AnsiChar;
+  Size : NativeUInt;
 begin
-  result := '';
+  result := nil;
   if ( self = nil ) then
     Exit;
 
   if ( fHandle = nil ) then
     Exit;
 
-  FillChar( tOutput[ 0 ], Length( tOutput ), 0 );
+  Size := 0;
   case fType of
-//    ftMasm        : MasmFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
-    ftNasm        : NasmFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
-    ftGas         : GasFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
-    ftIntel       : IntelFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
-    ftFast        : FastFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
-    ftSpecialized : SpecializedFormatter_Format( fHandle, fSpecialized.Options, Instruction, @tOutput[ 0 ], Length( tOutput ) ); // M
+    ftMasm        : MasmFormatter_Format( fHandle, Instruction, result, Size );
+    ftNasm        : NasmFormatter_Format( fHandle, Instruction, result, Size );
+    ftGas         : GasFormatter_Format( fHandle, Instruction, result, Size );
+    ftIntel       : IntelFormatter_Format( fHandle, Instruction, result, Size );
+    ftFast        : FastFormatter_Format( fHandle, Instruction, result, Size );
+    ftSpecialized : SpecializedFormatter_Format( fHandle, fSpecialized.Options, Instruction, result, Size );
   else
-    MasmFormatter_Format( fHandle, Instruction, @tOutput[ 0 ], Length( tOutput ) );
+    MasmFormatter_Format( fHandle, Instruction, result, Size );
   end;
-  result := AnsiString( tOutput )
 end;
 
-procedure TIcedFormatter.Format( var Instruction: TInstruction; AOutput: PAnsiChar; Size : NativeUInt );
+procedure TIcedFormatter.Format( var Instruction: TInstruction; var AOutput: PAnsiChar; Size : PNativeUInt = nil );
+var
+  t : NativeUInt;
 begin
-  if ( AOutput = nil ) then
-    Exit;
-  if ( Size = 0 ) then
-    Exit;
-
+  AOutput := nil;
+  if ( Size <> nil ) then
+    Size^ := 0;
   if ( self = nil ) then
-    begin
-    FillChar( AOutput^, Size, 0 );
     Exit;
-    end;
 
   if ( fHandle = nil ) then
-    begin
-    FillChar( AOutput^, Size, 0 );
     Exit;
-    end;
 
+  t := 0;
   case fType of
-//    ftMasm        : MasmFormatter_Format( fHandle, Instruction, AOutput, Size );
-    ftNasm        : NasmFormatter_Format( fHandle, Instruction, AOutput, Size );
-    ftGas         : GasFormatter_Format( fHandle, Instruction, AOutput, Size );
-    ftIntel       : IntelFormatter_Format( fHandle, Instruction, AOutput, Size );
-    ftFast        : FastFormatter_Format( fHandle, Instruction, AOutput, Size );
-    ftSpecialized : SpecializedFormatter_Format( fHandle, fSpecialized.Options, Instruction, AOutput, Size ); // M
+//    ftMasm        : MasmFormatter_Format( fHandle, Instruction, AOutput, t );
+    ftNasm        : NasmFormatter_Format( fHandle, Instruction, AOutput, t );
+    ftGas         : GasFormatter_Format( fHandle, Instruction, AOutput, t );
+    ftIntel       : IntelFormatter_Format( fHandle, Instruction, AOutput, t );
+    ftFast        : FastFormatter_Format( fHandle, Instruction, AOutput, t );
+    ftSpecialized : SpecializedFormatter_Format( fHandle, fSpecialized.Options, Instruction, AOutput, t );
   else
-    MasmFormatter_Format( fHandle, Instruction, AOutput, Size );
+    MasmFormatter_Format( fHandle, Instruction, AOutput, t );
   end;
+  if ( Size <> nil ) then
+    Size^ := t;
 end;
 
 procedure TIcedFormatter.Format( var Instruction: TInstruction ); // TFormatterOutputCallback
@@ -4106,7 +4102,7 @@ const
   DETAILS_BLOCKSIZE = 1000;
 var
   Instruction : TInstruction;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
   i           : Integer;
   S           : String;
 begin
@@ -4134,8 +4130,8 @@ begin
         fDecoder.Decode( Instruction, Details^ );
         Inc( Details^.Count );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -4158,8 +4154,8 @@ begin
         fDecoder.Decode( Instruction, Details^ );
         Inc( Details^.Count );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         end;
@@ -4213,8 +4209,8 @@ begin
         begin
         fDecoder.Decode( Instruction );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -4233,8 +4229,8 @@ begin
         begin
         fDecoder.Decode( Instruction );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         end;
@@ -4264,7 +4260,7 @@ const
   DETAILS_BLOCKSIZE = 1000;
 var
   Instruction : TInstruction;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
   i           : Integer;
   S           : String;
 begin
@@ -4294,8 +4290,8 @@ begin
         fDecoder.Decode( Instruction, Details^ );
         Inc( Details^.Count );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -4319,8 +4315,8 @@ begin
         fDecoder.Decode( Instruction, Details^ );
         Inc( Details^.Count );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         Dec( Count );
@@ -4377,8 +4373,8 @@ begin
         begin
         fDecoder.Decode( Instruction );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -4398,8 +4394,8 @@ begin
         begin
         fDecoder.Decode( Instruction );
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         Dec( Count );
@@ -4762,7 +4758,7 @@ const
   BLOCKSIZE_NOP     = MAX_INSTRUCTION_LEN_;
 var
   Instruction : TInstruction;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
   i           : Integer;
   S           : String;
   bDecode     : Boolean;
@@ -4798,8 +4794,8 @@ begin
           begin
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             Inc( Details^.Count );
             end;
 
@@ -4834,8 +4830,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( Details^.Count );
 
@@ -4865,8 +4861,8 @@ begin
           begin
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             Inc( Details^.Count );
             end;
           Inc( bNOP );
@@ -4891,8 +4887,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( Details^.Count );
         Inc( result, Instruction.len );
@@ -5018,8 +5014,8 @@ begin
 
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             end;
 
           if bDecode AND ( bNOP <= BLOCKSIZE_NOP ) then
@@ -5051,8 +5047,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -5079,8 +5075,8 @@ begin
 
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             end;
 
           if bDecode AND ( bNOP <= BLOCKSIZE_NOP ) then
@@ -5103,8 +5099,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         end;
@@ -5167,7 +5163,7 @@ const
   BLOCKSIZE_NOP     = 16;
 var
   Instruction : TInstruction;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
   i           : Integer;
   S           : String;
   bDecode     : Boolean;
@@ -5206,8 +5202,8 @@ begin
           begin
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             Inc( Details^.Count );
             end;
 
@@ -5242,8 +5238,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( Details^.Count );
 
@@ -5274,8 +5270,8 @@ begin
           begin
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             Inc( Details^.Count );
             end;
           Inc( bNOP );
@@ -5300,8 +5296,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( Details^.Count );
         Inc( result, Instruction.len );
@@ -5430,8 +5426,8 @@ begin
 
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             end;
 
           if bDecode AND ( bNOP <= BLOCKSIZE_NOP ) then
@@ -5463,8 +5459,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         S := '';
         for i := 0 to Instruction.len-1 do
@@ -5492,8 +5488,8 @@ begin
 
           if ( bNOP = 0 ) then
             begin
-            Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-            StrL_Assembly.Add( String( tOutput ) );
+            Formatter.Format( Instruction, tOutput );
+            StrL_Assembly.Add( tOutput );
             end;
 
           if bDecode AND ( bNOP <= BLOCKSIZE_NOP ) then
@@ -5516,8 +5512,8 @@ begin
           end;
         bNOP := 0;
 
-        Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-        StrL_Assembly.Add( String( tOutput ) );
+        Formatter.Format( Instruction, tOutput );
+        StrL_Assembly.Add( tOutput );
 
         Inc( result, Instruction.len );
         end;
@@ -6084,7 +6080,7 @@ begin
               SetLength( results, Length( results )+BLOCK_SIZE );
             {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
             Results[ result ].Origin      := Instruction.RIP;
-            Results[ result ].Instruction := String( Formatter.FormatToString( Instruction ) );
+            Results[ result ].Instruction := Formatter.FormatToString( Instruction );
             Results[ result ].vPointer    := Off;
             Results[ result ].Count       := 0;
             {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
@@ -6219,7 +6215,7 @@ begin
             SetLength( results, Length( results )+BLOCK_SIZE );
           {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
           Results[ result ].Origin      := Instruction.RIP;
-          Results[ result ].Instruction := String( Formatter.FormatToString( Instruction ) );
+          Results[ result ].Instruction := Formatter.FormatToString( Instruction );
           {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
           Inc( result );
           end;
@@ -6375,7 +6371,7 @@ var
   StrL        : TStringList;
   iCnt        : Cardinal;
   sInstruction: TStringList;
-  cInstruction: Array [ 0..255 ] of AnsiChar;
+  cInstruction: PAnsiChar;
   {$IF Declared( RegularExpressions )}
   RegEx       : TRegEx;
   {$IFEND}
@@ -6517,13 +6513,13 @@ begin
 
     if Instruction.IsValid then
       begin
-      Formatter.Format( Instruction, @cInstruction[ 0 ], Length( cInstruction ) );
+      Formatter.Format( Instruction, cInstruction );
 
       case Mode of
-        asmEqual    : b := ( CompareText( StrL[ iCnt ], String( cInstruction ) ) = 0 );
-        asmWildcard : b := IsWm( String( cInstruction ), StrL[ iCnt ], False );
+        asmEqual    : b := ( CompareText( StrL[ iCnt ], cInstruction ) = 0 );
+        asmWildcard : b := IsWm( cInstruction, StrL[ iCnt ], False );
       {$IF Declared( RegularExpressions )}
-        asmRegExp   : b := RegEx.IsMatch( String( cInstruction ) );
+        asmRegExp   : b := RegEx.IsMatch( cInstruction );
       {$IFEND}
       else
         b := False;
@@ -6538,7 +6534,7 @@ begin
 
         if ( iCnt = StrL.Count-1 ) then
           begin
-          sInstruction.Add( String( cInstruction ) );
+          sInstruction.Add( cInstruction );
           j := 0;
           for i := sInstruction.Count-1 downTo 0 do
             begin
@@ -6571,7 +6567,7 @@ begin
         else
           begin
           Inc( iCnt );
-          sInstruction.Add( String( cInstruction ) );
+          sInstruction.Add( cInstruction );
           end;
         end
       else
@@ -6691,7 +6687,7 @@ begin
           {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
           Offset := Instruction.RIP;
           {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
-        sInstruction := sInstruction + String( Formatter.FormatToString( Instruction ) ) + #13#10;
+        sInstruction := sInstruction + Formatter.FormatToString( Instruction ) + #13#10;
         Inc( i );
 
         if ( i >= AssemblyCount ) then
@@ -6895,7 +6891,7 @@ begin
     if ( InstructionBytes <> nil ) then
       Move( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( Data ) + result )^, InstructionBytes^[ 0 ], Inst.len );
     if ( Instruction <> nil ) then
-      Instruction^ := String( Formatter.FormatToString( Inst ) );
+      Instruction^ := Formatter.FormatToString( Inst );
     end;
 end;
 
@@ -7128,32 +7124,32 @@ end;
 {
   i9, Delphi 7
     193mb without Formatting in: 1.0901749 seconds
-    193mb with Masm in: 34.4844735 seconds (5.596mb/s)
-    193mb with Fast in: 15.1733084 seconds (12.719mb/s)
+    193mb with Masm in: 5.0143247 seconds (38.489mb/s)
+    193mb with Fast in: 2.1930881 seconds (88.003mb/s)
 
   i9, Delphi 10.3
     193mb without Formatting in: 1.0695132 seconds
-    193mb with Masm in: 34.8067761 seconds (5.544mb/s)
-    193mb with Fast in: 14.9694206 seconds (12.892mb/s)
+    193mb with Masm in: 5.026139 seconds (38.399mb/s)
+    193mb with Fast in: 2.0566496 seconds (93.841mb/s)
 }
 function Benchmark( Data : PByte; Size : Cardinal; Bitness : TIcedBitness; AFormat : Boolean = False ) : Double;
 var
   Instruction : TInstruction;
   f, t1, t2   : Int64;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
 begin
   Iced.Decoder.Bitness := Bitness;
   Iced.Decoder.SetData( Data, Size );
   
   if AFormat then
     begin
-    Iced.Formatter.FormatterType := ftFast;
+    Iced.Formatter.FormatterType := ftSpecialized;
     Iced.Formatter.VerifyOutputHasEnoughBytesLeft := False;    
     QueryPerformanceCounter( t1 );
     while Iced.Decoder.CanDecode do
       begin
       Iced.Decoder.Decode( Instruction );
-      Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
+      Iced.Formatter.Format( Instruction, tOutput );
       end;
     QueryPerformanceCounter( t2 );
     end
@@ -7260,11 +7256,12 @@ var
   Mnemonic      : TMnemonic;
   FlowControl   : TFlowControl;
   OPKind        : TOPCodeOperandKind;
+  MemorySize    : TMemorySize;
 //  OPKinds_      : TOPCodeOperandKindArray;
   Info          : TInstructionInfo;
   CC            : TConditionCode;
   RFlags        : TRFlags;
-  tOutput       : Array [ 0..255 ] of AnsiChar;
+  tOutput       : PAnsiChar;
 
   S             : String;
   C             : UInt64;
@@ -7305,8 +7302,8 @@ begin
 
       if ( @FormatterOutputCallback <> nil ) then
         Iced.Formatter.Format( Instruction );
-      Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-      AOutput.Add( S + String( tOutput ) );
+      Iced.Formatter.Format( Instruction, tOutput );
+      AOutput.Add( S + tOutput );
       end;
 
     if DecodeInfos then
@@ -7322,8 +7319,8 @@ begin
 
       if Infos then
         begin
-        AOutput.Add( '    OpCode: ' + Instruction.OpCodeInfo_OpCodeString );
-        AOutput.Add( '    Instruction: ' + Instruction.OpCodeInfo_InstructionString );
+        AOutput.Add( '    OpCode: ' + Instruction.OpCodeString );
+        AOutput.Add( '    Instruction: ' + Instruction.InstructionString );
 
         Encoding := Instruction.Encoding;
         AOutput.Add( '    Encoding: ' + Encoding.AsString );
@@ -7409,11 +7406,9 @@ begin
           begin
           if ( OPKinds.Entries[ i ].OpKind = okMemory ) then
             begin
-            {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
-            C := Instruction.MemorySize;
-            if ( C <> 0 ) then
-            {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
-              AOutput.Add( '    Memory Size: ' + IntToStr( C ) );
+            MemorySize := Instruction.MemorySize;
+            if ( MemorySize.Size <> 0 ) then
+              AOutput.Add( '    Memory Size: ' + IntToStr( MemorySize.Size ) );
             break;
             end;
           end;
@@ -7425,9 +7420,9 @@ begin
         for i := 0 to Instruction.OPCount-1 do
           AOutput.Add( Format( '    Op%dAccess: %s', [ i, Info.op_accesses[ i ].AsString ] ) );
 
-        for i := 0 to Instruction.OpCodeInfo_OPCount-1 do
+        for i := 0 to Instruction.OpCodeInfo.OPCount-1 do
           begin
-          OPKind := Instruction.OpCodeInfo_OPKind( i );
+          OPKind := Instruction.OpCodeInfo.op_kinds[ i ];
           AOutput.Add( Format( '    Op%d: %s', [ i, OPKind.AsString ] ) );
           end;
 
@@ -7458,7 +7453,7 @@ end;
 function Test_ReEncode( Data : PByte; Size : Cardinal; ARIP : UInt64; {LocalBuffer : Boolean = False;} BlockEncode : Boolean = False; AOutput : TStringList = nil ) : Boolean;
 var
   Instruction : TInstruction;
-  tOutput     : Array [ 0..255 ] of AnsiChar;
+  tOutput     : PAnsiChar;
   Buffer      : Array of Byte;
   Block       : TInstructionArray;
   Results     : TBlockEncoderResult;
@@ -7527,10 +7522,7 @@ begin
       C := Instruction.next_rip-Instruction.len;
       {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
       S := Format( '%.16x ', [ C ] );
-      {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
-      C := C-ARIP;
-      {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
-
+      
       for i := 0 to Instruction.len-1 do
         begin
         S := S + Format( '%.2x', [ Data^ ] );
@@ -7540,8 +7532,8 @@ begin
       for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len*2+1 do
         S := S + ' ';
 
-      Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-      AOutput.Add( S + string( tOutput ) );
+      Iced.Formatter.Format( Instruction, tOutput );
+      AOutput.Add( S + tOutput );
       end;
     end;
 
@@ -7577,7 +7569,7 @@ var
   data1        : UInt64;
   i            : Integer;
   Instruction  : TInstruction;
-  tOutput      : Array [ 0..255 ] of AnsiChar;
+  tOutput      : PAnsiChar;
   S            : String;
   Data         : PByte;
   C            : Cardinal;
@@ -7670,13 +7662,13 @@ begin
       for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len*2+1 do
         S := S + ' ';
 
-      Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-      AOutput.Add( S + String( tOutput ) );
+      Iced.Formatter.Format( Instruction, tOutput );
+      AOutput.Add( S + tOutput );
       end;
 
     Instruction := {T}Instruction.with_declare_byte( raw_data );
-    Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-    AOutput.Add( S + String( tOutput ) );
+    Iced.Formatter.Format( Instruction, tOutput );
+    AOutput.Add( S + tOutput );
     end;
 
   Iced.BlockEncoder.Clear;

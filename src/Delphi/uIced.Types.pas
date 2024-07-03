@@ -344,6 +344,7 @@ uses
 type
   NativeUInt = Cardinal;
 //  NativeInt  = Integer;
+  PNativeUInt = ^NativeUInt;
 {$IFEND}
 
 {$IF NOT Declared( PUInt64 )}
@@ -44886,8 +44887,7 @@ type
     {$IFDEF UNICODE}
     class operator Implicit( Instruction : TInstruction ) : AnsiString; {$IF CompilerVersion >= 23}inline;{$IFEND}
     {$ENDIF UNICODE}
-    function  Format( AType : TIcedFormatterType = DEFAULT_FORMATTER ) : AnsiString; overload; {$IF CompilerVersion >= 23}inline;{$IFEND}
-    procedure Format( AOutput: PAnsiChar; Size : NativeUInt; AType : TIcedFormatterType = DEFAULT_FORMATTER ); overload; {$IF CompilerVersion >= 23}inline;{$IFEND}
+    function  Format( AType : TIcedFormatterType = DEFAULT_FORMATTER ) : AnsiString; {$IF CompilerVersion >= 23}inline;{$IFEND}
 
     class function  With_( ACode : TCodeType ) : TInstruction; {$IF CompilerVersion >= 23}inline; static;{$IFEND}
     class function  With1( ACode : TCodeType; ARegister_ : TRegisterType ) : TInstruction; overload; {$IF CompilerVersion >= 23}inline; static;{$IFEND}
@@ -51917,82 +51917,43 @@ end;
 function TInstruction.Format( AType : TIcedFormatterType = DEFAULT_FORMATTER ) : AnsiString;
 var
   Handle : Pointer;
-  tOutput : Array [ 0..255 ] of AnsiChar;
+  P      : PAnsiChar;
+  Size   : NativeUInt;
 begin
-  result := '';
-
-  FillChar( tOutput[ 0 ], Length( tOutput ), 0 );
+  P    := nil;
+  Size := 0;
   case AType of
 //    ftMasm        : begin
 //                    Handle := MasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-//                    MasmFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+//                    MasmFormatter_Format( Handle, self, P, Size );
 //                    end;
     ftNasm        : begin
                     Handle := NasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    NasmFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+                    NasmFormatter_Format( Handle, self, P, Size );
                     end;
     ftGas         : begin
                     Handle := GasFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    GasFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+                    GasFormatter_Format( Handle, self, P, Size );
                     end;
     ftIntel       : begin
                     Handle := IntelFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    IntelFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+                    IntelFormatter_Format( Handle, self, P, Size );
                     end;
     ftFast        : begin
                     Handle := FastFormatter_Create( nil{SymbolResolver}, nil{UserData} );
-                    FastFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+                    FastFormatter_Format( Handle, self, P, Size );
                     end;
     ftSpecialized : begin
                     Handle := SpecializedFormatter_Create( nil{SymbolResolver}, nil{UserData} );
-                    SpecializedFormatter_Format( Handle, 0, self, @tOutput[ 0 ], Length( tOutput ) );
+                    SpecializedFormatter_Format( Handle, 0, self, P, Size );
                     end;
   else
     begin
     Handle := MasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-    MasmFormatter_Format( Handle, self, @tOutput[ 0 ], Length( tOutput ) );
+    MasmFormatter_Format( Handle, self, P, Size );
     end;
   end;
-  IcedFreeMemory( Handle );
-  result := AnsiString( tOutput );
-end;
-
-procedure TInstruction.Format( AOutput: PAnsiChar; Size : NativeUInt; AType : TIcedFormatterType = DEFAULT_FORMATTER );
-var
-  Handle : Pointer;
-begin
-  FillChar( AOutput^, Size, 0 );
-  case AType of
-//    ftMasm        : begin
-//                    Handle := MasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-//                    MasmFormatter_Format( Handle, self, AOutput, Size );
-//                    end;
-    ftNasm        : begin
-                    Handle := NasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    NasmFormatter_Format( Handle, self, AOutput, Size );
-                    end;
-    ftGas         : begin
-                    Handle := GasFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    GasFormatter_Format( Handle, self, AOutput, Size );
-                    end;
-    ftIntel       : begin
-                    Handle := IntelFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-                    IntelFormatter_Format( Handle, self, AOutput, Size );
-                    end;
-    ftFast        : begin
-                    Handle := FastFormatter_Create( nil{SymbolResolver}, nil{UserData} );
-                    FastFormatter_Format( Handle, self, AOutput, Size );
-                    end;
-    ftSpecialized : begin
-                    Handle := SpecializedFormatter_Create( nil{SymbolResolver}, nil{UserData} );
-                    SpecializedFormatter_Format( Handle, 0, self, AOutput, Size );
-                    end;
-  else
-    begin
-    Handle := MasmFormatter_Create( nil{SymbolResolver}, nil{OptionsProvider}, nil{UserData} );
-    MasmFormatter_Format( Handle, self, AOutput, Size );
-    end;
-  end;
+  result := P;
   IcedFreeMemory( Handle );
 end;
 

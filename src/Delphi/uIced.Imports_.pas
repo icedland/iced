@@ -8,14 +8,76 @@ unit uIced.Imports;
 
 interface
 
-{$WARN UNSAFE_TYPE OFF}
+{$DEFINE AUTO_INIT}               // AutoInit/DeInit DLL(s) during initialization/finalization
+{.$DEFINE VERCHECK}                // Perform Version-Check and inform on missmatch
+{$DEFINE OnlyWarnOnLowerVersions} 
+{.$DEFINE SILENT}                 // Don't show any warnings (missing DLL, Version-Missmatch) but Linking Errors
+{.$DEFINE CLOSE_APP_ON_FAIL}
+{$DEFINE WARN_DLLs_IN_FOLDER}     // Warning if DLLs are present in Application-Folder
+{.$DEFINE IGNORE_LINKING_ERRORS}  // Ignore linking errors (DEBUG)
+{.$DEFINE LIST_MISSING_MODULES}   // uses MemoryModule
+
+// ResourceFile
+{$DEFINE ResourceMode}            // Load DLL from Resourcefile
+{$IFDEF ResourceMode}
+  {.$R Iced.res}                   // DLL-ResourceFile (each DLLName without extension as RCDATA)
+  {$IFDEF Win64}
+  {$R Iced64.res}                  // DLL-ResourceFile (each DLLName without extension as RCDATA)
+  {$ELSE}
+  {$R Iced86.res}                  // DLL-ResourceFile (each DLLName without extension as RCDATA)
+  {$ENDIF}
+{$ENDIF}
+
+{$DEFINE ResourceCompression}     // DLLs in ResourceFile are 7zip compressed (JEDI-Unit)
+{$DEFINE PREFER_DLL_IN_FOLDER}    // If DLL is present in ApplicationFolder use it
+{$DEFINE MemoryModule}            // use MemoryModule (Load without HDD-caching)
+
+{$DEFINE GetModuleHandle}         // Try GetModuleHandle before LoadLibrary
+{.$DEFINE ONLY_LOADLIBRARY_ERRORS} // Ignore 'GetLastError <> ERROR_SUCCESS' unless LoadLibrary actually failed
+
+{$IF CompilerVersion >= 22}
+  {$LEGACYIFEND ON}
+{$IFEND}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-uses
-  uIced.Types; 
+{$DEFINE section_INTERFACE_USES}
+{$I DynamicDLL.inc}
+{$UNDEF section_INTERFACE_USES}
+,uIced.Types
+;
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{$DEFINE section_INTERFACE}
+{$I DynamicDLL.inc}
+{$UNDEF section_INTERFACE}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Constantes~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const
+  DLLCount_   = 1;
+var
+  DLLPath_    : Array [0..DLLCount_-1] of String = ( '' );
+
+const
+  DLLLoadDLL_ : Array [0..DLLCount_-1] of boolean = ( True );
+  {$IFDEF Win64}
+  DLLName_    : Array [0..DLLCount_-1] of String = ( 'Iced64.dll' );
+  {$ELSE}
+  DLLName_    : Array [0..DLLCount_-1] of String = ( 'Iced.dll' );
+  {$ENDIF}
+  DLLVersion_ : Array [0..DLLCount_-1] of String = ( '1.0.4.0' );
+  {$IFDEF ResourceMode}
+  DLLPass_    : Array [0..DLLCount_-1] of String = ( '' );
+  {$ENDIF}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DLL Declarations~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{$WARNINGS OFF}
+
+{$DEFINE section_Declaration} // Include
+{.$I Iced.inc}
+{$UNDEF section_Declaration}
+
 var
   // Free Memory
   IcedFreeMemory : function( Pointer : Pointer ) : Boolean; cdecl = nil;
@@ -2022,584 +2084,578 @@ var
   Register_Size : function( const Register: TRegisterType ) : NativeUInt; cdecl = nil;
   Register_AsString : procedure( const Register: TRegisterType; Output: PAnsiChar; Size : NativeUInt ); cdecl = nil;
 
-function IsInitDLL : Boolean;
-
 {$WARNINGS ON}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 implementation
 
-uses
-  Windows;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{$DEFINE section_IMPLEMENTATION_USES}
+{$I DynamicDLL.inc}
+{$UNDEF section_IMPLEMENTATION_USES}
+;
+
+{$DEFINE section_IMPLEMENTATION_INITVAR}
+{$I DynamicDLL.inc}
+{$UNDEF section_IMPLEMENTATION_INITVAR}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var
-  Handle : THandle = 0;  
-
-function IsInitDLL : Boolean;
+procedure PreInitialization;
 begin
-  result := ( Handle <> 0 ) AND ( Handle <> INVALID_HANDLE_VALUE );
+  // Code needed before Init, likely change DLL OS-Dependent
 end;
 
-procedure Load;
-const
-  {$IFDEF Win64}
-  Name = 'Iced64.dll';
-  {$ELSE}
-  Name = 'Iced.dll';
-  {$ENDIF}
+procedure InitDLL( ID : Byte; StrL : TStringList );
 begin
-  if ( Handle <> 0 ) AND ( Handle <> INVALID_HANDLE_VALUE ) then
-    Exit;
-
-  Handle := LoadLibrary( Name );
-  if ( Handle = 0 ) OR ( Handle = INVALID_HANDLE_VALUE ) then
-    Exit;
-
+  {$DEFINE section_InitVar}
   {$WARNINGS OFF}
-  @IcedFreeMemory := GetProcAddress( Handle, 'IcedFreeMemory' );
 
-  // Decoder
-  @Decoder_Create := GetProcAddress( Handle, 'Decoder_Create' );
-  @Decoder_CanDecode := GetProcAddress( Handle, 'Decoder_CanDecode' );
-  @Decoder_GetIP := GetProcAddress( Handle, 'Decoder_GetIP' );
-  @Decoder_SetIP := GetProcAddress( Handle, 'Decoder_SetIP' );
-  @Decoder_GetBitness := GetProcAddress( Handle, 'Decoder_GetBitness' );
-  @Decoder_GetMaxPosition := GetProcAddress( Handle, 'Decoder_GetMaxPosition' );
-  @Decoder_GetPosition := GetProcAddress( Handle, 'Decoder_GetPosition' );
-  @Decoder_SetPosition := GetProcAddress( Handle, 'Decoder_SetPosition' );
-  @Decoder_GetLastError := GetProcAddress( Handle, 'Decoder_GetLastError' );
-  @DecoderError_AsString := GetProcAddress( Handle, 'DecoderError_AsString' );
-  @Decoder_Decode := GetProcAddress( Handle, 'Decoder_Decode' );
-  @Decoder_GetConstantOffsets := GetProcAddress( Handle, 'Decoder_GetConstantOffsets' );
+  case ID of
+    0 : begin
+        InitVar( @IcedFreeMemory, 'IcedFreeMemory', ID, StrL );
 
-  @FormatterOutput_Create := GetProcAddress( Handle, 'FormatterOutput_Create' );
+        // Decoder
+        InitVar( @Decoder_Create,  'Decoder_Create', ID, StrL );
+        InitVar( @Decoder_CanDecode, 'Decoder_CanDecode', ID, StrL );
+        InitVar( @Decoder_GetIP, 'Decoder_GetIP', ID, StrL );
+        InitVar( @Decoder_SetIP, 'Decoder_SetIP', ID, StrL );
+        InitVar( @Decoder_GetBitness, 'Decoder_GetBitness', ID, StrL );
+        InitVar( @Decoder_GetMaxPosition, 'Decoder_GetMaxPosition', ID, StrL );
+        InitVar( @Decoder_GetPosition, 'Decoder_GetPosition', ID, StrL );
+        InitVar( @Decoder_SetPosition, 'Decoder_SetPosition', ID, StrL );
+        InitVar( @Decoder_GetLastError, 'Decoder_GetLastError', ID, StrL );
+        InitVar( @DecoderError_AsString, 'DecoderError_AsString', ID, StrL );
+        InitVar( @Decoder_Decode, 'Decoder_Decode', ID, StrL );
+        InitVar( @Decoder_GetConstantOffsets, 'Decoder_GetConstantOffsets', ID, StrL );
 
-  // MasmFormatter
-  @MasmFormatter_Create := GetProcAddress( Handle, 'MasmFormatter_Create' );
-  @MasmFormatter_Format := GetProcAddress( Handle, 'MasmFormatter_Format' );
-  @MasmFormatter_FormatCallback := GetProcAddress( Handle, 'MasmFormatter_FormatCallback' );
+        InitVar( @FormatterOutput_Create, 'FormatterOutput_Create', ID, StrL );
 
-  // NasmFormatter
-  @NasmFormatter_Create := GetProcAddress( Handle, 'NasmFormatter_Create' );
-  @NasmFormatter_Format := GetProcAddress( Handle, 'NasmFormatter_Format' );
-  @NasmFormatter_FormatCallback := GetProcAddress( Handle, 'NasmFormatter_FormatCallback' );
+        // MasmFormatter
+        InitVar( @MasmFormatter_Create, 'MasmFormatter_Create', ID, StrL );
+        InitVar( @MasmFormatter_Format, 'MasmFormatter_Format', ID, StrL );
+        InitVar( @MasmFormatter_FormatCallback, 'MasmFormatter_FormatCallback', ID, StrL );
 
-  // GasFormatter
-  @GasFormatter_Create := GetProcAddress( Handle, 'GasFormatter_Create' );
-  @GasFormatter_Format := GetProcAddress( Handle, 'GasFormatter_Format' );
-  @GasFormatter_FormatCallback := GetProcAddress( Handle, 'GasFormatter_FormatCallback' );
+        // NasmFormatter
+        InitVar( @NasmFormatter_Create, 'NasmFormatter_Create', ID, StrL );
+        InitVar( @NasmFormatter_Format, 'NasmFormatter_Format', ID, StrL );
+        InitVar( @NasmFormatter_FormatCallback, 'NasmFormatter_FormatCallback', ID, StrL );
 
-  // IntelFormatter
-  @IntelFormatter_Create := GetProcAddress( Handle, 'IntelFormatter_Create' );
-  @IntelFormatter_Format := GetProcAddress( Handle, 'IntelFormatter_Format' );
-  @IntelFormatter_FormatCallback := GetProcAddress( Handle, 'IntelFormatter_FormatCallback' );
+        // GasFormatter
+        InitVar( @GasFormatter_Create, 'GasFormatter_Create', ID, StrL );
+        InitVar( @GasFormatter_Format, 'GasFormatter_Format', ID, StrL );
+        InitVar( @GasFormatter_FormatCallback, 'GasFormatter_FormatCallback', ID, StrL );
 
-  // FastFormatter
-  @FastFormatter_Create := GetProcAddress( Handle, 'FastFormatter_Create' );
-  @FastFormatter_Format := GetProcAddress( Handle, 'FastFormatter_Format' );
+        // IntelFormatter
+        InitVar( @IntelFormatter_Create, 'IntelFormatter_Create', ID, StrL );
+        InitVar( @IntelFormatter_Format, 'IntelFormatter_Format', ID, StrL );
+        InitVar( @IntelFormatter_FormatCallback, 'IntelFormatter_FormatCallback', ID, StrL );
 
-  // SpecializedFormatter
-  @SpecializedFormatter_Create := GetProcAddress( Handle, 'SpecializedFormatter_Create' );
-  @SpecializedFormatter_Format := GetProcAddress( Handle, 'SpecializedFormatter_Format' );
-  // Options
-  @SpecializedFormatter_GetAlwaysShowMemorySize := GetProcAddress( Handle, 'SpecializedFormatter_GetAlwaysShowMemorySize' );
-  @SpecializedFormatter_SetAlwaysShowMemorySize := GetProcAddress( Handle, 'SpecializedFormatter_SetAlwaysShowMemorySize' );
-  @SpecializedFormatter_GetUseHexPrefix := GetProcAddress( Handle, 'SpecializedFormatter_GetUseHexPrefix' );
-  @SpecializedFormatter_SetUseHexPrefix := GetProcAddress( Handle, 'SpecializedFormatter_SetUseHexPrefix' );
+        // FastFormatter
+        InitVar( @FastFormatter_Create, 'FastFormatter_Create', ID, StrL );
+        InitVar( @FastFormatter_Format, 'FastFormatter_Format', ID, StrL );
 
-  // Formatter Options
-  @Formatter_Format := GetProcAddress( Handle, 'Formatter_Format' );
-  @Formatter_FormatCallback := GetProcAddress( Handle, 'Formatter_FormatCallback' );
+        // SpecializedFormatter
+        InitVar( @SpecializedFormatter_Create, 'SpecializedFormatter_Create', ID, StrL );
+        InitVar( @SpecializedFormatter_Format, 'SpecializedFormatter_Format', ID, StrL );
+        // Options
+        InitVar( @SpecializedFormatter_GetAlwaysShowMemorySize, 'SpecializedFormatter_GetAlwaysShowMemorySize', ID, StrL );
+        InitVar( @SpecializedFormatter_SetAlwaysShowMemorySize, 'SpecializedFormatter_SetAlwaysShowMemorySize', ID, StrL );
+        InitVar( @SpecializedFormatter_GetUseHexPrefix, 'SpecializedFormatter_GetUseHexPrefix', ID, StrL );
+        InitVar( @SpecializedFormatter_SetUseHexPrefix, 'SpecializedFormatter_SetUseHexPrefix', ID, StrL );
 
-  @Formatter_GetUpperCasePrefixes := GetProcAddress( Handle, 'Formatter_GetUpperCasePrefixes' );
-  @Formatter_SetUpperCasePrefixes := GetProcAddress( Handle, 'Formatter_SetUpperCasePrefixes' );
-  @Formatter_GetUpperCaseMnemonics := GetProcAddress( Handle, 'Formatter_GetUpperCaseMnemonics' );
-  @Formatter_SetUpperCaseMnemonics := GetProcAddress( Handle, 'Formatter_SetUpperCaseMnemonics' );
-  @Formatter_GetUpperCaseRegisters := GetProcAddress( Handle, 'Formatter_GetUpperCaseRegisters' );
-  @Formatter_SetUpperCaseRegisters := GetProcAddress( Handle, 'Formatter_SetUpperCaseRegisters' );
-  @Formatter_GetUpperCaseKeyWords := GetProcAddress( Handle, 'Formatter_GetUpperCaseKeyWords' );
-  @Formatter_SetUpperCaseKeyWords := GetProcAddress( Handle, 'Formatter_SetUpperCaseKeyWords' );
-  @Formatter_GetUpperCaseDecorators := GetProcAddress( Handle, 'Formatter_GetUpperCaseDecorators' );
-  @Formatter_SetUpperCaseDecorators := GetProcAddress( Handle, 'Formatter_SetUpperCaseDecorators' );
-  @Formatter_GetUpperCaseEverything := GetProcAddress( Handle, 'Formatter_GetUpperCaseEverything' );
-  @Formatter_SetUpperCaseEverything := GetProcAddress( Handle, 'Formatter_SetUpperCaseEverything' );
-  @Formatter_GetFirstOperandCharIndex := GetProcAddress( Handle, 'Formatter_GetFirstOperandCharIndex' );
-  @Formatter_SetFirstOperandCharIndex := GetProcAddress( Handle, 'Formatter_SetFirstOperandCharIndex' );
-  @Formatter_GetTabSize := GetProcAddress( Handle, 'Formatter_GetTabSize' );
-  @Formatter_SetTabSize := GetProcAddress( Handle, 'Formatter_SetTabSize' );
-  @Formatter_GetSpaceAfterOperandSeparator := GetProcAddress( Handle, 'Formatter_GetSpaceAfterOperandSeparator' );
-  @Formatter_SetSpaceAfterOperandSeparator := GetProcAddress( Handle, 'Formatter_SetSpaceAfterOperandSeparator' );
-  @Formatter_GetSpaceAfterMemoryBracket := GetProcAddress( Handle, 'Formatter_GetSpaceAfterMemoryBracket' );
-  @Formatter_SetSpaceAfterMemoryBracket := GetProcAddress( Handle, 'Formatter_SetSpaceAfterMemoryBracket' );
-  @Formatter_GetSpaceBetweenMemoryAddOperators := GetProcAddress( Handle, 'Formatter_GetSpaceBetweenMemoryAddOperators' );
-  @Formatter_SetSpaceBetweenMemoryAddOperators := GetProcAddress( Handle, 'Formatter_SetSpaceBetweenMemoryAddOperators' );
-  @Formatter_GetSpaceBetweenMemoryMulOperators := GetProcAddress( Handle, 'Formatter_GetSpaceBetweenMemoryMulOperators' );
-  @Formatter_SetSpaceBetweenMemoryMulOperators := GetProcAddress( Handle, 'Formatter_SetSpaceBetweenMemoryMulOperators' );
-  @Formatter_GetScaleBeforeIndex := GetProcAddress( Handle, 'Formatter_GetScaleBeforeIndex' );
-  @Formatter_SetScaleBeforeIndex := GetProcAddress( Handle, 'Formatter_SetScaleBeforeIndex' );
-  @Formatter_GetAlwaysShowScale := GetProcAddress( Handle, 'Formatter_GetAlwaysShowScale' );
-  @Formatter_SetAlwaysShowScale := GetProcAddress( Handle, 'Formatter_SetAlwaysShowScale' );
-  @Formatter_GetAlwaysShowSegmentRegister := GetProcAddress( Handle, 'Formatter_GetAlwaysShowSegmentRegister' );
-  @Formatter_SetAlwaysShowSegmentRegister := GetProcAddress( Handle, 'Formatter_SetAlwaysShowSegmentRegister' );
-  @Formatter_GetShowZeroDisplacements := GetProcAddress( Handle, 'Formatter_GetShowZeroDisplacements' );
-  @Formatter_SetShowZeroDisplacements := GetProcAddress( Handle, 'Formatter_SetShowZeroDisplacements' );
-  @Formatter_GetHexPrefix := GetProcAddress( Handle, 'Formatter_GetHexPrefix' );
-  @Formatter_SetHexPrefix := GetProcAddress( Handle, 'Formatter_SetHexPrefix' );
-  @Formatter_GetHexSuffix := GetProcAddress( Handle, 'Formatter_GetHexSuffix' );
-  @Formatter_SetHexSuffix := GetProcAddress( Handle, 'Formatter_SetHexSuffix' );
-  @Formatter_GetHexDigitGroupSize := GetProcAddress( Handle, 'Formatter_GetHexDigitGroupSize' );
-  @Formatter_SetHexDigitGroupSize := GetProcAddress( Handle, 'Formatter_SetHexDigitGroupSize' );
-  @Formatter_GetDecimalPrefix := GetProcAddress( Handle, 'Formatter_GetDecimalPrefix' );
-  @Formatter_SetDecimalPrefix := GetProcAddress( Handle, 'Formatter_SetDecimalPrefix' );
-  @Formatter_GetDecimalSuffix := GetProcAddress( Handle, 'Formatter_GetDecimalSuffix' );
-  @Formatter_SetDecimalSuffix := GetProcAddress( Handle, 'Formatter_SetDecimalSuffix' );
-  @Formatter_GetDecimalDigitGroupSize := GetProcAddress( Handle, 'Formatter_GetDecimalDigitGroupSize' );
-  @Formatter_SetDecimalDigitGroupSize := GetProcAddress( Handle, 'Formatter_SetDecimalDigitGroupSize' );
-  @Formatter_GetOctalPrefix := GetProcAddress( Handle, 'Formatter_GetOctalPrefix' );
-  @Formatter_SetOctalPrefix := GetProcAddress( Handle, 'Formatter_SetOctalPrefix' );
-  @Formatter_GetOctalSuffix := GetProcAddress( Handle, 'Formatter_GetOctalSuffix' );
-  @Formatter_SetOctalSuffix := GetProcAddress( Handle, 'Formatter_SetOctalSuffix' );
-  @Formatter_GetOctalDigitGroupSize := GetProcAddress( Handle, 'Formatter_GetOctalDigitGroupSize' );
-  @Formatter_SetOctalDigitGroupSize := GetProcAddress( Handle, 'Formatter_SetOctalDigitGroupSize' );
-  @Formatter_GetBinaryPrefix := GetProcAddress( Handle, 'Formatter_GetBinaryPrefix' );
-  @Formatter_SetBinaryPrefix := GetProcAddress( Handle, 'Formatter_SetBinaryPrefix' );
-  @Formatter_GetBinarySuffix := GetProcAddress( Handle, 'Formatter_GetBinarySuffix' );
-  @Formatter_SetBinarySuffix := GetProcAddress( Handle, 'Formatter_SetBinarySuffix' );
-  @Formatter_GetBinaryDigitGroupSize := GetProcAddress( Handle, 'Formatter_GetBinaryDigitGroupSize' );
-  @Formatter_SetBinaryDigitGroupSize := GetProcAddress( Handle, 'Formatter_SetBinaryDigitGroupSize' );
-  @Formatter_GetDigitSeparator := GetProcAddress( Handle, 'Formatter_GetDigitSeparator' );
-  @Formatter_SetDigitSeparator := GetProcAddress( Handle, 'Formatter_SetDigitSeparator' );
-  @Formatter_GetLeadingZeros := GetProcAddress( Handle, 'Formatter_GetLeadingZeros' );
-  @Formatter_SetLeadingZeros := GetProcAddress( Handle, 'Formatter_SetLeadingZeros' );
-  @Formatter_GetUppercaseHex := GetProcAddress( Handle, 'Formatter_GetUppercaseHex' );
-  @Formatter_SetUppercaseHex := GetProcAddress( Handle, 'Formatter_SetUppercaseHex' );
-  @Formatter_GetSmallHexNumbersInDecimal := GetProcAddress( Handle, 'Formatter_GetSmallHexNumbersInDecimal' );
-  @Formatter_SetSmallHexNumbersInDecimal := GetProcAddress( Handle, 'Formatter_SetSmallHexNumbersInDecimal' );
-  @Formatter_GetAddLeadingZeroToHexNumbers := GetProcAddress( Handle, 'Formatter_GetAddLeadingZeroToHexNumbers' );
-  @Formatter_SetAddLeadingZeroToHexNumbers := GetProcAddress( Handle, 'Formatter_SetAddLeadingZeroToHexNumbers' );
-  @Formatter_GetNumberBase := GetProcAddress( Handle, 'Formatter_GetNumberBase' );
-  @Formatter_SetNumberBase := GetProcAddress( Handle, 'Formatter_SetNumberBase' );
-  @Formatter_GetBranchLeadingZeros := GetProcAddress( Handle, 'Formatter_GetBranchLeadingZeros' );
-  @Formatter_SetBranchLeadingZeros := GetProcAddress( Handle, 'Formatter_SetBranchLeadingZeros' );
-  @Formatter_GetSignedImmediateOperands := GetProcAddress( Handle, 'Formatter_GetSignedImmediateOperands' );
-  @Formatter_SetSignedImmediateOperands := GetProcAddress( Handle, 'Formatter_SetSignedImmediateOperands' );
-  @Formatter_GetSignedMemoryDisplacements := GetProcAddress( Handle, 'Formatter_GetSignedMemoryDisplacements' );
-  @Formatter_SetSignedMemoryDisplacements := GetProcAddress( Handle, 'Formatter_SetSignedMemoryDisplacements' );
-  @Formatter_GetDisplacementLeadingZeros := GetProcAddress( Handle, 'Formatter_GetDisplacementLeadingZeros' );
-  @Formatter_SetDisplacementLeadingZeros := GetProcAddress( Handle, 'Formatter_SetDisplacementLeadingZeros' );
-  @Formatter_GetMemorySizeOptions := GetProcAddress( Handle, 'Formatter_GetMemorySizeOptions' );
-  @Formatter_SetMemorySizeOptions := GetProcAddress( Handle, 'Formatter_SetMemorySizeOptions' );
-  @Formatter_GetRipRelativeAddresses := GetProcAddress( Handle, 'Formatter_GetRipRelativeAddresses' );
-  @Formatter_SetRipRelativeAddresses := GetProcAddress( Handle, 'Formatter_SetRipRelativeAddresses' );
-  @Formatter_GetShowBranchSize := GetProcAddress( Handle, 'Formatter_GetShowBranchSize' );
-  @Formatter_SetShowBranchSize := GetProcAddress( Handle, 'Formatter_SetShowBranchSize' );
-  @Formatter_GetUsePseudoOps := GetProcAddress( Handle, 'Formatter_GetUsePseudoOps' );
-  @Formatter_SetUsePseudoOps := GetProcAddress( Handle, 'Formatter_SetUsePseudoOps' );
-  @Formatter_GetShowSymbolAddress := GetProcAddress( Handle, 'Formatter_GetShowSymbolAddress' );
-  @Formatter_SetShowSymbolAddress := GetProcAddress( Handle, 'Formatter_SetShowSymbolAddress' );
-  @GasFormatter_GetNakedRegisters := GetProcAddress( Handle, 'GasFormatter_GetNakedRegisters' );
-  @GasFormatter_SetNakedRegisters := GetProcAddress( Handle, 'GasFormatter_SetNakedRegisters' );
-  @GasFormatter_GetShowMnemonicSizeSuffix := GetProcAddress( Handle, 'GasFormatter_GetShowMnemonicSizeSuffix' );
-  @GasFormatter_SetShowMnemonicSizeSuffix := GetProcAddress( Handle, 'GasFormatter_SetShowMnemonicSizeSuffix' );
-  @GasFormatter_GetSpaceAfterMemoryOperandComma := GetProcAddress( Handle, 'GasFormatter_GetSpaceAfterMemoryOperandComma' );
-  @GasFormatter_SetSpaceAfterMemoryOperandComma := GetProcAddress( Handle, 'GasFormatter_SetSpaceAfterMemoryOperandComma' );
-  @MasmFormatter_GetAddDsPrefix32 := GetProcAddress( Handle, 'MasmFormatter_GetAddDsPrefix32' );
-  @MasmFormatter_SetAddDsPrefix32 := GetProcAddress( Handle, 'MasmFormatter_SetAddDsPrefix32' );
-  @MasmFormatter_GetSymbolDisplacementInBrackets := GetProcAddress( Handle, 'MasmFormatter_GetSymbolDisplacementInBrackets' );
-  @MasmFormatter_SetSymbolDisplacementInBrackets := GetProcAddress( Handle, 'MasmFormatter_SetSymbolDisplacementInBrackets' );
-  @MasmFormatter_GetDisplacementInBrackets := GetProcAddress( Handle, 'MasmFormatter_GetDisplacementInBrackets' );
-  @MasmFormatter_SetDisplacementInBrackets := GetProcAddress( Handle, 'MasmFormatter_SetDisplacementInBrackets' );
-  @NasmFormatter_GetShowSignExtendedImmediateSize := GetProcAddress( Handle, 'NasmFormatter_GetShowSignExtendedImmediateSize' );
-  @NasmFormatter_SetShowSignExtendedImmediateSize := GetProcAddress( Handle, 'NasmFormatter_SetShowSignExtendedImmediateSize' );
-  @Formatter_GetPreferST0 := GetProcAddress( Handle, 'Formatter_GetPreferST0' );
-  @Formatter_SetPreferST0 := GetProcAddress( Handle, 'Formatter_SetPreferST0' );
-  @Formatter_GetShowUselessPrefixes := GetProcAddress( Handle, 'Formatter_GetShowUselessPrefixes' );
-  @Formatter_SetShowUselessPrefixes := GetProcAddress( Handle, 'Formatter_SetShowUselessPrefixes' );
-  @Formatter_GetCC_b := GetProcAddress( Handle, 'Formatter_GetCC_b' );
-  @Formatter_SetCC_b := GetProcAddress( Handle, 'Formatter_SetCC_b' );
-  @Formatter_GetCC_ae := GetProcAddress( Handle, 'Formatter_GetCC_ae' );
-  @Formatter_SetCC_ae := GetProcAddress( Handle, 'Formatter_SetCC_ae' );
-  @Formatter_GetCC_e := GetProcAddress( Handle, 'Formatter_GetCC_e' );
-  @Formatter_SetCC_e := GetProcAddress( Handle, 'Formatter_SetCC_e' );
-  @Formatter_GetCC_ne := GetProcAddress( Handle, 'Formatter_GetCC_ne' );
-  @Formatter_SetCC_ne := GetProcAddress( Handle, 'Formatter_SetCC_ne' );
-  @Formatter_GetCC_be := GetProcAddress( Handle, 'Formatter_GetCC_be' );
-  @Formatter_SetCC_be := GetProcAddress( Handle, 'Formatter_SetCC_be' );
-  @Formatter_GetCC_a := GetProcAddress( Handle, 'Formatter_GetCC_a' );
-  @Formatter_SetCC_a := GetProcAddress( Handle, 'Formatter_SetCC_a' );
-  @Formatter_GetCC_p := GetProcAddress( Handle, 'Formatter_GetCC_p' );
-  @Formatter_SetCC_p := GetProcAddress( Handle, 'Formatter_SetCC_p' );
-  @Formatter_GetCC_np := GetProcAddress( Handle, 'Formatter_GetCC_np' );
-  @Formatter_SetCC_np := GetProcAddress( Handle, 'Formatter_SetCC_np' );
-  @Formatter_GetCC_l := GetProcAddress( Handle, 'Formatter_GetCC_l' );
-  @Formatter_SetCC_l := GetProcAddress( Handle, 'Formatter_SetCC_l' );
-  @Formatter_GetCC_ge := GetProcAddress( Handle, 'Formatter_GetCC_ge' );
-  @Formatter_SetCC_ge := GetProcAddress( Handle, 'Formatter_SetCC_ge' );
-  @Formatter_GetCC_le := GetProcAddress( Handle, 'Formatter_GetCC_le' );
-  @Formatter_SetCC_le := GetProcAddress( Handle, 'Formatter_SetCC_le' );
-  @Formatter_GetCC_g := GetProcAddress( Handle, 'Formatter_GetCC_g' );
-  @Formatter_SetCC_g := GetProcAddress( Handle, 'Formatter_SetCC_g' );
+        // Formatter Options
+        InitVar( @Formatter_Format, 'Formatter_Format', ID, StrL );
+        InitVar( @Formatter_FormatCallback, 'Formatter_FormatCallback', ID, StrL );
 
-  // Encoder
-  @Encoder_Create := GetProcAddress( Handle, 'Encoder_Create' );
-  @Encoder_Encode := GetProcAddress( Handle, 'Encoder_Encode' );
-  @Encoder_WriteByte := GetProcAddress( Handle, 'Encoder_WriteByte' );
-  @Encoder_GetBuffer := GetProcAddress( Handle, 'Encoder_GetBuffer' );
-//  @Encoder_SetBuffer := GetProcAddress( Handle, ''Encoder_SetBuffer' );
-  @Encoder_GetConstantOffsets := GetProcAddress( Handle, 'Encoder_GetConstantOffsets' );
-  @Encoder_GetPreventVex2 := GetProcAddress( Handle, 'Encoder_GetPreventVex2' );
-  @Encoder_SetPreventVex2 := GetProcAddress( Handle, 'Encoder_SetPreventVex2' );
-  @Encoder_GetVexWig := GetProcAddress( Handle, 'Encoder_GetVexWig' );
-  @Encoder_SetVexWig := GetProcAddress( Handle, 'Encoder_SetVexWig' );
-  @Encoder_GetVexLig := GetProcAddress( Handle, 'Encoder_GetVexLig' );
-  @Encoder_SetVexLig := GetProcAddress( Handle, 'Encoder_SetVexLig' );
-  @Encoder_GetEvexWig := GetProcAddress( Handle, 'Encoder_GetEvexWig' );
-  @Encoder_SetEvexWig := GetProcAddress( Handle, 'Encoder_SetEvexWig' );
-  @Encoder_GetEvexLig := GetProcAddress( Handle, 'Encoder_GetEvexLig' );
-  @Encoder_SetEvexLig := GetProcAddress( Handle, 'Encoder_SetEvexLig' );
-  @Encoder_GetMvexWig := GetProcAddress( Handle, 'Encoder_GetMvexWig' );
-  @Encoder_SetMvexWig := GetProcAddress( Handle, 'Encoder_SetMvexWig' );
-  @Encoder_GetBitness := GetProcAddress( Handle, 'Encoder_GetBitness' );
+        InitVar( @Formatter_GetUpperCasePrefixes, 'Formatter_GetUpperCasePrefixes', ID, StrL );
+        InitVar( @Formatter_SetUpperCasePrefixes, 'Formatter_SetUpperCasePrefixes', ID, StrL );
+        InitVar( @Formatter_GetUpperCaseMnemonics, 'Formatter_GetUpperCaseMnemonics', ID, StrL );
+        InitVar( @Formatter_SetUpperCaseMnemonics, 'Formatter_SetUpperCaseMnemonics', ID, StrL );
+        InitVar( @Formatter_GetUpperCaseRegisters, 'Formatter_GetUpperCaseRegisters', ID, StrL );
+        InitVar( @Formatter_SetUpperCaseRegisters, 'Formatter_SetUpperCaseRegisters', ID, StrL );
+        InitVar( @Formatter_GetUpperCaseKeyWords, 'Formatter_GetUpperCaseKeyWords', ID, StrL );
+        InitVar( @Formatter_SetUpperCaseKeyWords, 'Formatter_SetUpperCaseKeyWords', ID, StrL );
+        InitVar( @Formatter_GetUpperCaseDecorators, 'Formatter_GetUpperCaseDecorators', ID, StrL );
+        InitVar( @Formatter_SetUpperCaseDecorators, 'Formatter_SetUpperCaseDecorators', ID, StrL );
+        InitVar( @Formatter_GetUpperCaseEverything, 'Formatter_GetUpperCaseEverything', ID, StrL );
+        InitVar( @Formatter_SetUpperCaseEverything, 'Formatter_SetUpperCaseEverything', ID, StrL );
+        InitVar( @Formatter_GetFirstOperandCharIndex, 'Formatter_GetFirstOperandCharIndex', ID, StrL );
+        InitVar( @Formatter_SetFirstOperandCharIndex, 'Formatter_SetFirstOperandCharIndex', ID, StrL );
+        InitVar( @Formatter_GetTabSize, 'Formatter_GetTabSize', ID, StrL );
+        InitVar( @Formatter_SetTabSize, 'Formatter_SetTabSize', ID, StrL );
+        InitVar( @Formatter_GetSpaceAfterOperandSeparator, 'Formatter_GetSpaceAfterOperandSeparator', ID, StrL );
+        InitVar( @Formatter_SetSpaceAfterOperandSeparator, 'Formatter_SetSpaceAfterOperandSeparator', ID, StrL );
+        InitVar( @Formatter_GetSpaceAfterMemoryBracket, 'Formatter_GetSpaceAfterMemoryBracket', ID, StrL );
+        InitVar( @Formatter_SetSpaceAfterMemoryBracket, 'Formatter_SetSpaceAfterMemoryBracket', ID, StrL );
+        InitVar( @Formatter_GetSpaceBetweenMemoryAddOperators, 'Formatter_GetSpaceBetweenMemoryAddOperators', ID, StrL );
+        InitVar( @Formatter_SetSpaceBetweenMemoryAddOperators, 'Formatter_SetSpaceBetweenMemoryAddOperators', ID, StrL );
+        InitVar( @Formatter_GetSpaceBetweenMemoryMulOperators, 'Formatter_GetSpaceBetweenMemoryMulOperators', ID, StrL );
+        InitVar( @Formatter_SetSpaceBetweenMemoryMulOperators, 'Formatter_SetSpaceBetweenMemoryMulOperators', ID, StrL );
+        InitVar( @Formatter_GetScaleBeforeIndex, 'Formatter_GetScaleBeforeIndex', ID, StrL );
+        InitVar( @Formatter_SetScaleBeforeIndex, 'Formatter_SetScaleBeforeIndex', ID, StrL );
+        InitVar( @Formatter_GetAlwaysShowScale, 'Formatter_GetAlwaysShowScale', ID, StrL );
+        InitVar( @Formatter_SetAlwaysShowScale, 'Formatter_SetAlwaysShowScale', ID, StrL );
+        InitVar( @Formatter_GetAlwaysShowSegmentRegister, 'Formatter_GetAlwaysShowSegmentRegister', ID, StrL );
+        InitVar( @Formatter_SetAlwaysShowSegmentRegister, 'Formatter_SetAlwaysShowSegmentRegister', ID, StrL );
+        InitVar( @Formatter_GetShowZeroDisplacements, 'Formatter_GetShowZeroDisplacements', ID, StrL );
+        InitVar( @Formatter_SetShowZeroDisplacements, 'Formatter_SetShowZeroDisplacements', ID, StrL );
+        InitVar( @Formatter_GetHexPrefix, 'Formatter_GetHexPrefix', ID, StrL );
+        InitVar( @Formatter_SetHexPrefix, 'Formatter_SetHexPrefix', ID, StrL );
+        InitVar( @Formatter_GetHexSuffix, 'Formatter_GetHexSuffix', ID, StrL );
+        InitVar( @Formatter_SetHexSuffix, 'Formatter_SetHexSuffix', ID, StrL );
+        InitVar( @Formatter_GetHexDigitGroupSize, 'Formatter_GetHexDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_SetHexDigitGroupSize, 'Formatter_SetHexDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_GetDecimalPrefix, 'Formatter_GetDecimalPrefix', ID, StrL );
+        InitVar( @Formatter_SetDecimalPrefix, 'Formatter_SetDecimalPrefix', ID, StrL );
+        InitVar( @Formatter_GetDecimalSuffix, 'Formatter_GetDecimalSuffix', ID, StrL );
+        InitVar( @Formatter_SetDecimalSuffix, 'Formatter_SetDecimalSuffix', ID, StrL );
+        InitVar( @Formatter_GetDecimalDigitGroupSize, 'Formatter_GetDecimalDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_SetDecimalDigitGroupSize, 'Formatter_SetDecimalDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_GetOctalPrefix, 'Formatter_GetOctalPrefix', ID, StrL );
+        InitVar( @Formatter_SetOctalPrefix, 'Formatter_SetOctalPrefix', ID, StrL );
+        InitVar( @Formatter_GetOctalSuffix, 'Formatter_GetOctalSuffix', ID, StrL );
+        InitVar( @Formatter_SetOctalSuffix, 'Formatter_SetOctalSuffix', ID, StrL );
+        InitVar( @Formatter_GetOctalDigitGroupSize, 'Formatter_GetOctalDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_SetOctalDigitGroupSize, 'Formatter_SetOctalDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_GetBinaryPrefix, 'Formatter_GetBinaryPrefix', ID, StrL );
+        InitVar( @Formatter_SetBinaryPrefix, 'Formatter_SetBinaryPrefix', ID, StrL );
+        InitVar( @Formatter_GetBinarySuffix, 'Formatter_GetBinarySuffix', ID, StrL );
+        InitVar( @Formatter_SetBinarySuffix, 'Formatter_SetBinarySuffix', ID, StrL );
+        InitVar( @Formatter_GetBinaryDigitGroupSize, 'Formatter_GetBinaryDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_SetBinaryDigitGroupSize, 'Formatter_SetBinaryDigitGroupSize', ID, StrL );
+        InitVar( @Formatter_GetDigitSeparator, 'Formatter_GetDigitSeparator', ID, StrL );
+        InitVar( @Formatter_SetDigitSeparator, 'Formatter_SetDigitSeparator', ID, StrL );
+        InitVar( @Formatter_GetLeadingZeros, 'Formatter_GetLeadingZeros', ID, StrL );
+        InitVar( @Formatter_SetLeadingZeros, 'Formatter_SetLeadingZeros', ID, StrL );
+        InitVar( @Formatter_GetUppercaseHex, 'Formatter_GetUppercaseHex', ID, StrL );
+        InitVar( @Formatter_SetUppercaseHex, 'Formatter_SetUppercaseHex', ID, StrL );
+        InitVar( @Formatter_GetSmallHexNumbersInDecimal, 'Formatter_GetSmallHexNumbersInDecimal', ID, StrL );
+        InitVar( @Formatter_SetSmallHexNumbersInDecimal, 'Formatter_SetSmallHexNumbersInDecimal', ID, StrL );
+        InitVar( @Formatter_GetAddLeadingZeroToHexNumbers, 'Formatter_GetAddLeadingZeroToHexNumbers', ID, StrL );
+        InitVar( @Formatter_SetAddLeadingZeroToHexNumbers, 'Formatter_SetAddLeadingZeroToHexNumbers', ID, StrL );
+        InitVar( @Formatter_GetNumberBase, 'Formatter_GetNumberBase', ID, StrL );
+        InitVar( @Formatter_SetNumberBase, 'Formatter_SetNumberBase', ID, StrL );
+        InitVar( @Formatter_GetBranchLeadingZeros, 'Formatter_GetBranchLeadingZeros', ID, StrL );
+        InitVar( @Formatter_SetBranchLeadingZeros, 'Formatter_SetBranchLeadingZeros', ID, StrL );
+        InitVar( @Formatter_GetSignedImmediateOperands, 'Formatter_GetSignedImmediateOperands', ID, StrL );
+        InitVar( @Formatter_SetSignedImmediateOperands, 'Formatter_SetSignedImmediateOperands', ID, StrL );
+        InitVar( @Formatter_GetSignedMemoryDisplacements, 'Formatter_GetSignedMemoryDisplacements', ID, StrL );
+        InitVar( @Formatter_SetSignedMemoryDisplacements, 'Formatter_SetSignedMemoryDisplacements', ID, StrL );
+        InitVar( @Formatter_GetDisplacementLeadingZeros, 'Formatter_GetDisplacementLeadingZeros', ID, StrL );
+        InitVar( @Formatter_SetDisplacementLeadingZeros, 'Formatter_SetDisplacementLeadingZeros', ID, StrL );
+        InitVar( @Formatter_GetMemorySizeOptions, 'Formatter_GetMemorySizeOptions', ID, StrL );
+        InitVar( @Formatter_SetMemorySizeOptions, 'Formatter_SetMemorySizeOptions', ID, StrL );
+        InitVar( @Formatter_GetRipRelativeAddresses, 'Formatter_GetRipRelativeAddresses', ID, StrL );
+        InitVar( @Formatter_SetRipRelativeAddresses, 'Formatter_SetRipRelativeAddresses', ID, StrL );
+        InitVar( @Formatter_GetShowBranchSize, 'Formatter_GetShowBranchSize', ID, StrL );
+        InitVar( @Formatter_SetShowBranchSize, 'Formatter_SetShowBranchSize', ID, StrL );
+        InitVar( @Formatter_GetUsePseudoOps, 'Formatter_GetUsePseudoOps', ID, StrL );
+        InitVar( @Formatter_SetUsePseudoOps, 'Formatter_SetUsePseudoOps', ID, StrL );
+        InitVar( @Formatter_GetShowSymbolAddress, 'Formatter_GetShowSymbolAddress', ID, StrL );
+        InitVar( @Formatter_SetShowSymbolAddress, 'Formatter_SetShowSymbolAddress', ID, StrL );
+        InitVar( @GasFormatter_GetNakedRegisters, 'GasFormatter_GetNakedRegisters', ID, StrL );
+        InitVar( @GasFormatter_SetNakedRegisters, 'GasFormatter_SetNakedRegisters', ID, StrL );
+        InitVar( @GasFormatter_GetShowMnemonicSizeSuffix, 'GasFormatter_GetShowMnemonicSizeSuffix', ID, StrL );
+        InitVar( @GasFormatter_SetShowMnemonicSizeSuffix, 'GasFormatter_SetShowMnemonicSizeSuffix', ID, StrL );
+        InitVar( @GasFormatter_GetSpaceAfterMemoryOperandComma, 'GasFormatter_GetSpaceAfterMemoryOperandComma', ID, StrL );
+        InitVar( @GasFormatter_SetSpaceAfterMemoryOperandComma, 'GasFormatter_SetSpaceAfterMemoryOperandComma', ID, StrL );
+        InitVar( @MasmFormatter_GetAddDsPrefix32, 'MasmFormatter_GetAddDsPrefix32', ID, StrL );
+        InitVar( @MasmFormatter_SetAddDsPrefix32, 'MasmFormatter_SetAddDsPrefix32', ID, StrL );
+        InitVar( @MasmFormatter_GetSymbolDisplacementInBrackets, 'MasmFormatter_GetSymbolDisplacementInBrackets', ID, StrL );
+        InitVar( @MasmFormatter_SetSymbolDisplacementInBrackets, 'MasmFormatter_SetSymbolDisplacementInBrackets', ID, StrL );
+        InitVar( @MasmFormatter_GetDisplacementInBrackets, 'MasmFormatter_GetDisplacementInBrackets', ID, StrL );
+        InitVar( @MasmFormatter_SetDisplacementInBrackets, 'MasmFormatter_SetDisplacementInBrackets', ID, StrL );
+        InitVar( @NasmFormatter_GetShowSignExtendedImmediateSize, 'NasmFormatter_GetShowSignExtendedImmediateSize', ID, StrL );
+        InitVar( @NasmFormatter_SetShowSignExtendedImmediateSize, 'NasmFormatter_SetShowSignExtendedImmediateSize', ID, StrL );
+        InitVar( @Formatter_GetPreferST0, 'Formatter_GetPreferST0', ID, StrL );
+        InitVar( @Formatter_SetPreferST0, 'Formatter_SetPreferST0', ID, StrL );
+        InitVar( @Formatter_GetShowUselessPrefixes, 'Formatter_GetShowUselessPrefixes', ID, StrL );
+        InitVar( @Formatter_SetShowUselessPrefixes, 'Formatter_SetShowUselessPrefixes', ID, StrL );
+        InitVar( @Formatter_GetCC_b, 'Formatter_GetCC_b', ID, StrL );
+        InitVar( @Formatter_SetCC_b, 'Formatter_SetCC_b', ID, StrL );
+        InitVar( @Formatter_GetCC_ae, 'Formatter_GetCC_ae', ID, StrL );
+        InitVar( @Formatter_SetCC_ae, 'Formatter_SetCC_ae', ID, StrL );
+        InitVar( @Formatter_GetCC_e, 'Formatter_GetCC_e', ID, StrL );
+        InitVar( @Formatter_SetCC_e, 'Formatter_SetCC_e', ID, StrL );
+        InitVar( @Formatter_GetCC_ne, 'Formatter_GetCC_ne', ID, StrL );
+        InitVar( @Formatter_SetCC_ne, 'Formatter_SetCC_ne', ID, StrL );
+        InitVar( @Formatter_GetCC_be, 'Formatter_GetCC_be', ID, StrL );
+        InitVar( @Formatter_SetCC_be, 'Formatter_SetCC_be', ID, StrL );
+        InitVar( @Formatter_GetCC_a, 'Formatter_GetCC_a', ID, StrL );
+        InitVar( @Formatter_SetCC_a, 'Formatter_SetCC_a', ID, StrL );
+        InitVar( @Formatter_GetCC_p, 'Formatter_GetCC_p', ID, StrL );
+        InitVar( @Formatter_SetCC_p, 'Formatter_SetCC_p', ID, StrL );
+        InitVar( @Formatter_GetCC_np, 'Formatter_GetCC_np', ID, StrL );
+        InitVar( @Formatter_SetCC_np, 'Formatter_SetCC_np', ID, StrL );
+        InitVar( @Formatter_GetCC_l, 'Formatter_GetCC_l', ID, StrL );
+        InitVar( @Formatter_SetCC_l, 'Formatter_SetCC_l', ID, StrL );
+        InitVar( @Formatter_GetCC_ge, 'Formatter_GetCC_ge', ID, StrL );
+        InitVar( @Formatter_SetCC_ge, 'Formatter_SetCC_ge', ID, StrL );
+        InitVar( @Formatter_GetCC_le, 'Formatter_GetCC_le', ID, StrL );
+        InitVar( @Formatter_SetCC_le, 'Formatter_SetCC_le', ID, StrL );
+        InitVar( @Formatter_GetCC_g, 'Formatter_GetCC_g', ID, StrL );
+        InitVar( @Formatter_SetCC_g, 'Formatter_SetCC_g', ID, StrL );
 
-  @BlockEncoder := GetProcAddress( Handle, 'BlockEncoder' );
+        // Encoder
+        InitVar( @Encoder_Create, 'Encoder_Create', ID, StrL );
+        InitVar( @Encoder_Encode, 'Encoder_Encode', ID, StrL );
+        InitVar( @Encoder_WriteByte, 'Encoder_WriteByte', ID, StrL );
+        InitVar( @Encoder_GetBuffer, 'Encoder_GetBuffer', ID, StrL );
+//        InitVar( @Encoder_SetBuffer, 'Encoder_SetBuffer', ID, StrL );
+        InitVar( @Encoder_GetConstantOffsets, 'Encoder_GetConstantOffsets', ID, StrL );
+        InitVar( @Encoder_GetPreventVex2, 'Encoder_GetPreventVex2', ID, StrL );
+        InitVar( @Encoder_SetPreventVex2, 'Encoder_SetPreventVex2', ID, StrL );
+        InitVar( @Encoder_GetVexWig, 'Encoder_GetVexWig', ID, StrL );
+        InitVar( @Encoder_SetVexWig, 'Encoder_SetVexWig', ID, StrL );
+        InitVar( @Encoder_GetVexLig, 'Encoder_GetVexLig', ID, StrL );
+        InitVar( @Encoder_SetVexLig, 'Encoder_SetVexLig', ID, StrL );
+        InitVar( @Encoder_GetEvexWig, 'Encoder_GetEvexWig', ID, StrL );
+        InitVar( @Encoder_SetEvexWig, 'Encoder_SetEvexWig', ID, StrL );
+        InitVar( @Encoder_GetEvexLig, 'Encoder_GetEvexLig', ID, StrL );
+        InitVar( @Encoder_SetEvexLig, 'Encoder_SetEvexLig', ID, StrL );
+        InitVar( @Encoder_GetMvexWig, 'Encoder_GetMvexWig', ID, StrL );
+        InitVar( @Encoder_SetMvexWig, 'Encoder_SetMvexWig', ID, StrL );
+        InitVar( @Encoder_GetBitness, 'Encoder_GetBitness', ID, StrL );
 
-  // Instruction
-  @Instruction_StackPointerIncrement := GetProcAddress( Handle, 'Instruction_StackPointerIncrement' );
-  @Instruction_RFlagsRead := GetProcAddress( Handle, 'Instruction_RFlagsRead' );
-  @Instruction_RFlagsWritten := GetProcAddress( Handle, 'Instruction_RFlagsWritten' );
-  @Instruction_RFlagsCleared := GetProcAddress( Handle, 'Instruction_RFlagsCleared' );
-  @Instruction_RFlagsSet := GetProcAddress( Handle, 'Instruction_RFlagsSet' );
-  @Instruction_RFlagsUndefined := GetProcAddress( Handle, 'Instruction_RFlagsUndefined' );
-  @Instruction_RFlagsModified := GetProcAddress( Handle, 'Instruction_RFlagsModified' );
+        InitVar( @BlockEncoder, 'BlockEncoder', ID, StrL );
 
-  @Instruction_FPU_StackIncrementInfo := GetProcAddress( Handle, 'Instruction_FPU_StackIncrementInfo' );
-  @Instruction_OPKinds := GetProcAddress( Handle, 'Instruction_OPKinds' );
-  @Instruction_MemorySize := GetProcAddress( Handle, 'Instruction_MemorySize' );
-  @Instruction_OPCount := GetProcAddress( Handle, 'Instruction_OPCount' );
-  @Instruction_VirtualAddress := GetProcAddress( Handle, 'Instruction_VirtualAddress' );
-  @Instruction_IsMvexEvictionHint := GetProcAddress( Handle, 'Instruction_IsMvexEvictionHint' );
-  @Instruction_MvexRegMemConv := GetProcAddress( Handle, 'Instruction_MvexRegMemConv' );
+        // Instruction
+        InitVar( @Instruction_StackPointerIncrement, 'Instruction_StackPointerIncrement', ID, StrL );
+        InitVar( @Instruction_RFlagsRead, 'Instruction_RFlagsRead', ID, StrL );
+        InitVar( @Instruction_RFlagsWritten, 'Instruction_RFlagsWritten', ID, StrL );
+        InitVar( @Instruction_RFlagsCleared, 'Instruction_RFlagsCleared', ID, StrL );
+        InitVar( @Instruction_RFlagsSet, 'Instruction_RFlagsSet', ID, StrL );
+        InitVar( @Instruction_RFlagsUndefined, 'Instruction_RFlagsUndefined', ID, StrL );
+        InitVar( @Instruction_RFlagsModified, 'Instruction_RFlagsModified', ID, StrL );
 
-  @InstructionInfoFactory_Create := GetProcAddress( Handle, 'InstructionInfoFactory_Create' );
-  @InstructionInfoFactory_Info := GetProcAddress( Handle, 'InstructionInfoFactory_Info' );
+        InitVar( @Instruction_FPU_StackIncrementInfo, 'Instruction_FPU_StackIncrementInfo', ID, StrL );
+        InitVar( @Instruction_OPKinds, 'Instruction_OPKinds', ID, StrL );
+        InitVar( @Instruction_MemorySize, 'Instruction_MemorySize', ID, StrL );
+        InitVar( @Instruction_OPCount, 'Instruction_OPCount', ID, StrL );
+        InitVar( @Instruction_VirtualAddress, 'Instruction_VirtualAddress', ID, StrL );
+        InitVar( @Instruction_IsMvexEvictionHint, 'Instruction_IsMvexEvictionHint', ID, StrL );
+        InitVar( @Instruction_MvexRegMemConv, 'Instruction_MvexRegMemConv', ID, StrL );
 
-  // Instruction
-  @Instruction_With := GetProcAddress( Handle, 'Instruction_With' );
-  @Instruction_With1_Register := GetProcAddress( Handle, 'Instruction_With1_Register' );
-  @Instruction_With1_i32 := GetProcAddress( Handle, 'Instruction_With1_i32' );
-  @Instruction_With1_u32 := GetProcAddress( Handle, 'Instruction_With1_u32' );
-  @Instruction_With1_Memory := GetProcAddress( Handle, 'Instruction_With1_Memory' );
-  @Instruction_With2_Register_Register := GetProcAddress( Handle, 'Instruction_With2_Register_Register' );
-  @Instruction_With2_Register_i32 := GetProcAddress( Handle, 'Instruction_With2_Register_i32' );
-  @Instruction_With2_Register_u32 := GetProcAddress( Handle, 'Instruction_With2_Register_u32' );
-  @Instruction_With2_Register_i64 := GetProcAddress( Handle, 'Instruction_With2_Register_i64' );
-  @Instruction_With2_Register_u64 := GetProcAddress( Handle, 'Instruction_With2_Register_u64' );
-  @Instruction_With2_Register_MemoryOperand := GetProcAddress( Handle, 'Instruction_With2_Register_MemoryOperand' );
-  @Instruction_With2_i32_Register := GetProcAddress( Handle, 'Instruction_With2_i32_Register' );
-  @Instruction_With2_u32_Register := GetProcAddress( Handle, 'Instruction_With2_u32_Register' );
-  @Instruction_With2_i32_i32 := GetProcAddress( Handle, 'Instruction_With2_i32_i32' );
-  @Instruction_With2_u32_u32 := GetProcAddress( Handle, 'Instruction_With2_u32_u32' );
-  @Instruction_With2_MemoryOperand_Register := GetProcAddress( Handle, 'Instruction_With2_MemoryOperand_Register' );
-  @Instruction_With2_MemoryOperand_i32 := GetProcAddress( Handle, 'Instruction_With2_MemoryOperand_i32' );
-  @Instruction_With2_MemoryOperand_u32 := GetProcAddress( Handle, 'Instruction_With2_MemoryOperand_u32' );
-  @Instruction_With3_Register_Register_Register := GetProcAddress( Handle, 'Instruction_With3_Register_Register_Register' );
-  @Instruction_With3_Register_Register_i32 := GetProcAddress( Handle, 'Instruction_With3_Register_Register_i32' );
-  @Instruction_With3_Register_Register_u32 := GetProcAddress( Handle, 'Instruction_With3_Register_Register_u32' );
-  @Instruction_With3_Register_Register_MemoryOperand := GetProcAddress( Handle, 'Instruction_With3_Register_Register_MemoryOperand' );
-  @Instruction_With3_Register_i32_i32 := GetProcAddress( Handle, 'Instruction_With3_Register_i32_i32' );
-  @Instruction_With3_Register_u32_u32 := GetProcAddress( Handle, 'Instruction_With3_Register_u32_u32' );
-  @Instruction_With3_Register_MemoryOperand_Register := GetProcAddress( Handle, 'Instruction_With3_Register_MemoryOperand_Register' );
-  @Instruction_With3_Register_MemoryOperand_i32 := GetProcAddress( Handle, 'Instruction_With3_Register_MemoryOperand_i32' );
-  @Instruction_With3_Register_MemoryOperand_u32 := GetProcAddress( Handle, 'Instruction_With3_Register_MemoryOperand_u32' );
-  @Instruction_With3_MemoryOperand_Register_Register := GetProcAddress( Handle, 'Instruction_With3_MemoryOperand_Register_Register' );
-  @Instruction_With3_MemoryOperand_Register_i32 := GetProcAddress( Handle, 'Instruction_With3_MemoryOperand_Register_i32' );
-  @Instruction_With3_MemoryOperand_Register_u32 := GetProcAddress( Handle, 'Instruction_With3_MemoryOperand_Register_u32' );
-  @Instruction_With4_Register_Register_Register_Register := GetProcAddress( Handle, 'Instruction_With4_Register_Register_Register_Register' );
-  @Instruction_With4_Register_Register_Register_i32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_Register_i32' );
-  @Instruction_With4_Register_Register_Register_u32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_Register_u32' );
-  @Instruction_With4_Register_Register_Register_MemoryOperand := GetProcAddress( Handle, 'Instruction_With4_Register_Register_Register_MemoryOperand' );
-  @Instruction_With4_Register_Register_i32_i32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_i32_i32' );
-  @Instruction_With4_Register_Register_u32_u32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_u32_u32' );
-  @Instruction_With4_Register_Register_MemoryOperand_Register := GetProcAddress( Handle, 'Instruction_With4_Register_Register_MemoryOperand_Register' );
-  @Instruction_With4_Register_Register_MemoryOperand_i32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_MemoryOperand_i32' );
-  @Instruction_With4_Register_Register_MemoryOperand_u32 := GetProcAddress( Handle, 'Instruction_With4_Register_Register_MemoryOperand_u32' );
-  @Instruction_With5_Register_Register_Register_Register_i32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_Register_Register_i32' );
-  @Instruction_With5_Register_Register_Register_Register_u32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_Register_Register_u32' );
-  @Instruction_With5_Register_Register_Register_MemoryOperand_i32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_Register_MemoryOperand_i32' );
-  @Instruction_With5_Register_Register_Register_MemoryOperand_u32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_Register_MemoryOperand_u32' );
-  @Instruction_With5_Register_Register_MemoryOperand_Register_i32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_MemoryOperand_Register_i32' );
-  @Instruction_With5_Register_Register_MemoryOperand_Register_u32 := GetProcAddress( Handle, 'Instruction_With5_Register_Register_MemoryOperand_Register_u32' );
-  @Instruction_With_Branch := GetProcAddress( Handle, 'Instruction_With_Branch' );
-  @Instruction_With_Far_Branch := GetProcAddress( Handle, 'Instruction_With_Far_Branch' );
-  @Instruction_With_xbegin := GetProcAddress( Handle, 'Instruction_With_xbegin' );
-  @Instruction_With_outsb := GetProcAddress( Handle, 'Instruction_With_outsb' );
-  @Instruction_With_Rep_outsb := GetProcAddress( Handle, 'Instruction_With_Rep_outsb' );
-  @Instruction_With_outsw := GetProcAddress( Handle, 'Instruction_With_outsw' );
-  @Instruction_With_Rep_outsw := GetProcAddress( Handle, 'Instruction_With_Rep_outsw' );
-  @Instruction_With_outsd := GetProcAddress( Handle, 'Instruction_With_outsd' );
-  @Instruction_With_Rep_outsd := GetProcAddress( Handle, 'Instruction_With_Rep_outsd' );
-  @Instruction_With_lodsb := GetProcAddress( Handle, 'Instruction_With_lodsb' );
-  @Instruction_With_Rep_lodsb := GetProcAddress( Handle, 'Instruction_With_Rep_lodsb' );
-  @Instruction_With_lodsw := GetProcAddress( Handle, 'Instruction_With_lodsw' );
-  @Instruction_With_Rep_lodsw := GetProcAddress( Handle, 'Instruction_With_Rep_lodsw' );
-  @Instruction_With_lodsd := GetProcAddress( Handle, 'Instruction_With_lodsd' );
-  @Instruction_With_Rep_lodsd := GetProcAddress( Handle, 'Instruction_With_Rep_lodsd' );
-  @Instruction_With_lodsq := GetProcAddress( Handle, 'Instruction_With_lodsq' );
-  @Instruction_With_Rep_lodsq := GetProcAddress( Handle, 'Instruction_With_Rep_lodsq' );
-  @Instruction_With_scasb := GetProcAddress( Handle, 'Instruction_With_scasb' );
-  @Instruction_With_Repe_scasb := GetProcAddress( Handle, 'Instruction_With_Repe_scasb' );
-  @Instruction_With_Repne_scasb := GetProcAddress( Handle, 'Instruction_With_Repne_scasb' );
-  @Instruction_With_scasw := GetProcAddress( Handle, 'Instruction_With_scasw' );
-  @Instruction_With_Repe_scasw := GetProcAddress( Handle, 'Instruction_With_Repe_scasw' );
-  @Instruction_With_Repne_scasw := GetProcAddress( Handle, 'Instruction_With_Repne_scasw' );
-  @Instruction_With_scasd := GetProcAddress( Handle, 'Instruction_With_scasd' );
-  @Instruction_With_Repe_scasd := GetProcAddress( Handle, 'Instruction_With_Repe_scasd' );
-  @Instruction_With_Repne_scasd := GetProcAddress( Handle, 'Instruction_With_Repne_scasd' );
-  @Instruction_With_scasq := GetProcAddress( Handle, 'Instruction_With_scasq' );
-  @Instruction_With_Repe_scasq := GetProcAddress( Handle, 'Instruction_With_Repe_scasq' );
-  @Instruction_With_Repne_scasq := GetProcAddress( Handle, 'Instruction_With_Repne_scasq' );
-  @Instruction_With_insb := GetProcAddress( Handle, 'Instruction_With_insb' );
-  @Instruction_With_Rep_insb := GetProcAddress( Handle, 'Instruction_With_Rep_insb' );
-  @Instruction_With_insw := GetProcAddress( Handle, 'Instruction_With_insw' );
-  @Instruction_With_Rep_insw := GetProcAddress( Handle, 'Instruction_With_Rep_insw' );
-  @Instruction_With_insd := GetProcAddress( Handle, 'Instruction_With_insd' );
-  @Instruction_With_Rep_insd := GetProcAddress( Handle, 'Instruction_With_Rep_insd' );
-  @Instruction_With_stosb := GetProcAddress( Handle, 'Instruction_With_stosb' );
-  @Instruction_With_Rep_stosb := GetProcAddress( Handle, 'Instruction_With_Rep_stosb' );
-  @Instruction_With_stosw := GetProcAddress( Handle, 'Instruction_With_stosw' );
-  @Instruction_With_Rep_stosw := GetProcAddress( Handle, 'Instruction_With_Rep_stosw' );
-  @Instruction_With_stosd := GetProcAddress( Handle, 'Instruction_With_stosd' );
-  @Instruction_With_Rep_stosd := GetProcAddress( Handle, 'Instruction_With_Rep_stosd' );
-  @Instruction_With_Rep_stosq := GetProcAddress( Handle, 'Instruction_With_Rep_stosq' );
-  @Instruction_With_cmpsb := GetProcAddress( Handle, 'Instruction_With_cmpsb' );
-  @Instruction_With_Repe_cmpsb := GetProcAddress( Handle, 'Instruction_With_Repe_cmpsb' );
-  @Instruction_With_Repne_cmpsb := GetProcAddress( Handle, 'Instruction_With_Repne_cmpsb' );
-  @Instruction_With_cmpsw := GetProcAddress( Handle, 'Instruction_With_cmpsw' );
-  @Instruction_With_Repe_cmpsw := GetProcAddress( Handle, 'Instruction_With_Repe_cmpsw' );
-  @Instruction_With_Repne_cmpsw := GetProcAddress( Handle, 'Instruction_With_Repne_cmpsw' );
-  @Instruction_With_cmpsd := GetProcAddress( Handle, 'Instruction_With_cmpsd' );
-  @Instruction_With_Repe_cmpsd := GetProcAddress( Handle, 'Instruction_With_Repe_cmpsd' );
-  @Instruction_With_Repne_cmpsd := GetProcAddress( Handle, 'Instruction_With_Repne_cmpsd' );
-  @Instruction_With_cmpsq := GetProcAddress( Handle, 'Instruction_With_cmpsq' );
-  @Instruction_With_Repe_cmpsq := GetProcAddress( Handle, 'Instruction_With_Repe_cmpsq' );
-  @Instruction_With_Repne_cmpsq := GetProcAddress( Handle, 'Instruction_With_Repne_cmpsq' );
-  @Instruction_With_movsb := GetProcAddress( Handle, 'Instruction_With_movsb' );
-  @Instruction_With_Rep_movsb := GetProcAddress( Handle, 'Instruction_With_Rep_movsb' );
-  @Instruction_With_movsw := GetProcAddress( Handle, 'Instruction_With_movsw' );
-  @Instruction_With_Rep_movsw := GetProcAddress( Handle, 'Instruction_With_Rep_movsw' );
-  @Instruction_With_movsd := GetProcAddress( Handle, 'Instruction_With_movsd' );
-  @Instruction_With_Rep_movsd := GetProcAddress( Handle, 'Instruction_With_Rep_movsd' );
-  @Instruction_With_movsq := GetProcAddress( Handle, 'Instruction_With_movsq' );
-  @Instruction_With_Rep_movsq := GetProcAddress( Handle, 'Instruction_With_Rep_movsq' );
-  @Instruction_With_maskmovq := GetProcAddress( Handle, 'Instruction_With_maskmovq' );
-  @Instruction_With_maskmovdqu := GetProcAddress( Handle, 'Instruction_With_maskmovdqu' );
-  @Instruction_With_vmaskmovdqu := GetProcAddress( Handle, 'Instruction_With_vmaskmovdqu' );
-  @Instruction_With_Declare_Byte_1 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_1' );
-  @Instruction_With_Declare_Byte_2 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_2' );
-  @Instruction_With_Declare_Byte_3 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_3' );
-  @Instruction_With_Declare_Byte_4 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_4' );
-  @Instruction_With_Declare_Byte_5 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_5' );
-  @Instruction_With_Declare_Byte_6 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_6' );
-  @Instruction_With_Declare_Byte_7 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_7' );
-  @Instruction_With_Declare_Byte_8 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_8' );
-  @Instruction_With_Declare_Byte_9 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_9' );
-  @Instruction_With_Declare_Byte_10 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_10' );
-  @Instruction_With_Declare_Byte_11 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_11' );
-  @Instruction_With_Declare_Byte_12 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_12' );
-  @Instruction_With_Declare_Byte_13 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_13' );
-  @Instruction_With_Declare_Byte_14 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_14' );
-  @Instruction_With_Declare_Byte_15 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_15' );
-  @Instruction_With_Declare_Byte_16 := GetProcAddress( Handle, 'Instruction_With_Declare_Byte_16' );
-  @Instruction_With_Declare_Word_1 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_1' );
-  @Instruction_With_Declare_Word_2 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_2' );
-  @Instruction_With_Declare_Word_3 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_3' );
-  @Instruction_With_Declare_Word_4 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_4' );
-  @Instruction_With_Declare_Word_5 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_5' );
-  @Instruction_With_Declare_Word_6 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_6' );
-  @Instruction_With_Declare_Word_7 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_7' );
-  @Instruction_With_Declare_Word_8 := GetProcAddress( Handle, 'Instruction_With_Declare_Word_8' );
-  @Instruction_With_Declare_DWord_1 := GetProcAddress( Handle, 'Instruction_With_Declare_DWord_1' );
-  @Instruction_With_Declare_DWord_2 := GetProcAddress( Handle, 'Instruction_With_Declare_DWord_2' );
-  @Instruction_With_Declare_DWord_3 := GetProcAddress( Handle, 'Instruction_With_Declare_DWord_3' );
-  @Instruction_With_Declare_DWord_4 := GetProcAddress( Handle, 'Instruction_With_Declare_DWord_4' );
-  @Instruction_With_Declare_QWord_1 := GetProcAddress( Handle, 'Instruction_With_Declare_QWord_1' );
-  @Instruction_With_Declare_QWord_2 := GetProcAddress( Handle, 'Instruction_With_Declare_QWord_2' );
+        InitVar( @InstructionInfoFactory_Create, 'InstructionInfoFactory_Create', ID, StrL );
+        InitVar( @InstructionInfoFactory_Info, 'InstructionInfoFactory_Info', ID, StrL );
 
-  @OpCodeInfo_OpCodeString := GetProcAddress( Handle, 'OpCodeInfo_OpCodeString' );
-  @OpCodeInfo_InstructionString := GetProcAddress( Handle, 'OpCodeInfo_InstructionString' );
-  @OpCodeInfo_Mode16 := GetProcAddress( Handle, 'OpCodeInfo_Mode16' );
-  @OpCodeInfo_Mode32 := GetProcAddress( Handle, 'OpCodeInfo_Mode32' );
-  @OpCodeInfo_Mode64 := GetProcAddress( Handle, 'OpCodeInfo_Mode64' );
-  @OpCodeInfo_Fwait := GetProcAddress( Handle, 'OpCodeInfo_Fwait' );
-  @OpCodeInfo_W := GetProcAddress( Handle, 'OpCodeInfo_W' );
-  @OpCodeInfo_IsLig := GetProcAddress( Handle, 'OpCodeInfo_IsLig' );
-  @OpCodeInfo_IsWig := GetProcAddress( Handle, 'OpCodeInfo_IsWig' );
-  @OpCodeInfo_IsWig32 := GetProcAddress( Handle, 'OpCodeInfo_IsWig32' );
-  @OpCodeInfo_MvexEhBit := GetProcAddress( Handle, 'OpCodeInfo_MvexEhBit' );
-  @OpCodeInfo_MvexCanUseEvictionHint := GetProcAddress( Handle, 'OpCodeInfo_MvexCanUseEvictionHint' );
-  @OpCodeInfo_MvexCanUseImmRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_MvexCanUseImmRoundingControl' );
-  @OpCodeInfo_MvexIgnoresOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_MvexIgnoresOpMaskRegister' );
-  @OpCodeInfo_MvexNoSaeRc := GetProcAddress( Handle, 'OpCodeInfo_MvexNoSaeRc' );
-  @OpCodeInfo_MvexTupleTypeLutKind := GetProcAddress( Handle, 'OpCodeInfo_MvexTupleTypeLutKind' );
-  @OpCodeInfo_MvexConversionFunc := GetProcAddress( Handle, 'OpCodeInfo_MvexConversionFunc' );
-  @OpCodeInfo_MvexValidConversionFuncsMask := GetProcAddress( Handle, 'OpCodeInfo_MvexValidConversionFuncsMask' );
-  @OpCodeInfo_MvexValidSwizzleFuncsMask := GetProcAddress( Handle, 'OpCodeInfo_MvexValidSwizzleFuncsMask' );
-  @OpCodeInfo_MemorySize := GetProcAddress( Handle, 'OpCodeInfo_MemorySize' );
-  @OpCodeInfo_BroadcastMemorySize := GetProcAddress( Handle, 'OpCodeInfo_BroadcastMemorySize' );
-  @OpCodeInfo_CanBroadcast := GetProcAddress( Handle, 'OpCodeInfo_CanBroadcast' );
-  @OpCodeInfo_CanUseRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_CanUseRoundingControl' );
-  @OpCodeInfo_CanSuppressAllExceptions := GetProcAddress( Handle, 'OpCodeInfo_CanSuppressAllExceptions' );
-  @OpCodeInfo_CanUseOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_CanUseOpMaskRegister' );
-  @OpCodeInfo_RequireOpMaskRegister := GetProcAddress( Handle, 'OpCodeInfo_RequireOpMaskRegister' );
-  @OpCodeInfo_CanUseZeroingMasking := GetProcAddress( Handle, 'OpCodeInfo_CanUseZeroingMasking' );
-  @OpCodeInfo_CanUseLockPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseLockPrefix' );
-  @OpCodeInfo_CanUseXacquirePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseXacquirePrefix' );
-  @OpCodeInfo_CanUseXreleasePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseXreleasePrefix' );
-  @OpCodeInfo_CanUseRepPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseRepPrefix' );
-  @OpCodeInfo_CanUseRepnePrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseRepnePrefix' );
-  @OpCodeInfo_CanUseBndPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseBndPrefix' );
-  @OpCodeInfo_CanUseHintTakenPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseHintTakenPrefix' );
-  @OpCodeInfo_CanUseNotrackPrefix := GetProcAddress( Handle, 'OpCodeInfo_CanUseNotrackPrefix' );
-  @OpCodeInfo_IgnoresRoundingControl := GetProcAddress( Handle, 'OpCodeInfo_IgnoresRoundingControl' );
-  @OpCodeInfo_AmdLockRegBit := GetProcAddress( Handle, 'OpCodeInfo_AmdLockRegBit' );
-  @OpCodeInfo_DefaultOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_DefaultOpSize64' );
-  @OpCodeInfo_ForceOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_ForceOpSize64' );
-  @OpCodeInfo_IntelForceOpSize64 := GetProcAddress( Handle, 'OpCodeInfo_IntelForceOpSize64' );
-  @OpCodeInfo_MustBeCpl0 := GetProcAddress( Handle, 'OpCodeInfo_MustBeCpl0' );
-  @OpCodeInfo_Cpl0 := GetProcAddress( Handle, 'OpCodeInfo_Cpl0' );
-  @OpCodeInfo_Cpl1 := GetProcAddress( Handle, 'OpCodeInfo_Cpl1' );
-  @OpCodeInfo_Cpl2 := GetProcAddress( Handle, 'OpCodeInfo_Cpl2' );
-  @OpCodeInfo_Cpl3 := GetProcAddress( Handle, 'OpCodeInfo_Cpl3' );
-  @OpCodeInfo_IsInputOutput := GetProcAddress( Handle, 'OpCodeInfo_IsInputOutput' );
-  @OpCodeInfo_IsNop := GetProcAddress( Handle, 'OpCodeInfo_IsNop' );
-  @OpCodeInfo_IsReservedNop := GetProcAddress( Handle, 'OpCodeInfo_IsReservedNop' );
-  @OpCodeInfo_IsSerializingIntel := GetProcAddress( Handle, 'OpCodeInfo_IsSerializingIntel' );
-  @OpCodeInfo_IsSerializingAmd := GetProcAddress( Handle, 'OpCodeInfo_IsSerializingAmd' );
-  @OpCodeInfo_MayRequireCpl0 := GetProcAddress( Handle, 'OpCodeInfo_MayRequireCpl0' );
-  @OpCodeInfo_IsCetTracked := GetProcAddress( Handle, 'OpCodeInfo_IsCetTracked' );
-  @OpCodeInfo_IsNonTemporal := GetProcAddress( Handle, 'OpCodeInfo_IsNonTemporal' );
-  @OpCodeInfo_IsFpuNoWait := GetProcAddress( Handle, 'OpCodeInfo_IsFpuNoWait' );
-  @OpCodeInfo_IgnoresModBits := GetProcAddress( Handle, 'OpCodeInfo_IgnoresModBits' );
-  @OpCodeInfo_No66 := GetProcAddress( Handle, 'OpCodeInfo_No66' );
-  @OpCodeInfo_Nfx := GetProcAddress( Handle, 'OpCodeInfo_Nfx' );
-  @OpCodeInfo_RequiresUniqueRegNums := GetProcAddress( Handle, 'OpCodeInfo_RequiresUniqueRegNums' );
-  @OpCodeInfo_RequiresUniqueDestRegNum := GetProcAddress( Handle, 'OpCodeInfo_RequiresUniqueDestRegNum' );
-  @OpCodeInfo_IsPrivileged := GetProcAddress( Handle, 'OpCodeInfo_IsPrivileged' );
-  @OpCodeInfo_IsSaveRestore := GetProcAddress( Handle, 'OpCodeInfo_IsSaveRestore' );
-  @OpCodeInfo_IsStackInstruction := GetProcAddress( Handle, 'OpCodeInfo_IsStackInstruction' );
-  @OpCodeInfo_IgnoresSegment := GetProcAddress( Handle, 'OpCodeInfo_IgnoresSegment' );
-  @OpCodeInfo_IsOpMaskReadWrite := GetProcAddress( Handle, 'OpCodeInfo_IsOpMaskReadWrite' );
-  @OpCodeInfo_RealMode := GetProcAddress( Handle, 'OpCodeInfo_RealMode' );
-  @OpCodeInfo_ProtectedMode := GetProcAddress( Handle, 'OpCodeInfo_ProtectedMode' );
-  @OpCodeInfo_Virtual8086Mode := GetProcAddress( Handle, 'OpCodeInfo_Virtual8086Mode' );
-  @OpCodeInfo_CompatibilityMode := GetProcAddress( Handle, 'OpCodeInfo_CompatibilityMode' );
-  @OpCodeInfo_LongMode := GetProcAddress( Handle, 'OpCodeInfo_LongMode' );
-  @OpCodeInfo_UseOutsideSmm := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideSmm' );
-  @OpCodeInfo_UseInSmm := GetProcAddress( Handle, 'OpCodeInfo_UseInSmm' );
-  @OpCodeInfo_UseOutsideEnclaveSgx := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideEnclaveSgx' );
-  @OpCodeInfo_UseInEnclaveSgx1 := GetProcAddress( Handle, 'OpCodeInfo_UseInEnclaveSgx1' );
-  @OpCodeInfo_UseInEnclaveSgx2 := GetProcAddress( Handle, 'OpCodeInfo_UseInEnclaveSgx2' );
-  @OpCodeInfo_UseOutsideVmxOp := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideVmxOp' );
-  @OpCodeInfo_UseInVmxRootOp := GetProcAddress( Handle, 'OpCodeInfo_UseInVmxRootOp' );
-  @OpCodeInfo_UseInVmxNonRootOp := GetProcAddress( Handle, 'OpCodeInfo_UseInVmxNonRootOp' );
-  @OpCodeInfo_UseOutsideSeam := GetProcAddress( Handle, 'OpCodeInfo_UseOutsideSeam' );
-  @OpCodeInfo_UseInSeam := GetProcAddress( Handle, 'OpCodeInfo_UseInSeam' );
-  @OpCodeInfo_TdxNonRootGenUd := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootGenUd' );
-  @OpCodeInfo_TdxNonRootGenVe := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootGenVe' );
-  @OpCodeInfo_TdxNonRootMayGenEx := GetProcAddress( Handle, 'OpCodeInfo_TdxNonRootMayGenEx' );
-  @OpCodeInfo_IntelVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelVMExit' );
-  @OpCodeInfo_IntelMayVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelMayVMExit' );
-  @OpCodeInfo_IntelSmmVMExit := GetProcAddress( Handle, 'OpCodeInfo_IntelSmmVMExit' );
-  @OpCodeInfo_AmdVMExit := GetProcAddress( Handle, 'OpCodeInfo_AmdVMExit' );
-  @OpCodeInfo_AmdMayVMExit := GetProcAddress( Handle, 'OpCodeInfo_AmdMayVMExit' );
-  @OpCodeInfo_TsxAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxAbort' );
-  @OpCodeInfo_TsxImplAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxImplAbort' );
-  @OpCodeInfo_TsxMayAbort := GetProcAddress( Handle, 'OpCodeInfo_TsxMayAbort' );
-  @OpCodeInfo_IntelDecoder16 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder16' );
-  @OpCodeInfo_IntelDecoder32 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder32' );
-  @OpCodeInfo_IntelDecoder64 := GetProcAddress( Handle, 'OpCodeInfo_IntelDecoder64' );
-  @OpCodeInfo_AmdDecoder16 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder16' );
-  @OpCodeInfo_AmdDecoder32 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder32' );
-  @OpCodeInfo_AmdDecoder64 := GetProcAddress( Handle, 'OpCodeInfo_AmdDecoder64' );
-  @OpCodeInfo_DecoderOption := GetProcAddress( Handle, 'OpCodeInfo_DecoderOption' );
-  @OpCodeInfo_OpCodeLen := GetProcAddress( Handle, 'OpCodeInfo_OpCodeLen' );
-  @OpCodeInfo_OPCount := GetProcAddress( Handle, 'OpCodeInfo_OPCount' );
+        // Instruction
+        InitVar( @Instruction_With, 'Instruction_With', ID, StrL );
+        InitVar( @Instruction_With1_Register, 'Instruction_With1_Register', ID, StrL );
+        InitVar( @Instruction_With1_i32, 'Instruction_With1_i32', ID, StrL );
+        InitVar( @Instruction_With1_u32, 'Instruction_With1_u32', ID, StrL );
+        InitVar( @Instruction_With1_Memory, 'Instruction_With1_Memory', ID, StrL );
+        InitVar( @Instruction_With2_Register_Register, 'Instruction_With2_Register_Register', ID, StrL );
+        InitVar( @Instruction_With2_Register_i32, 'Instruction_With2_Register_i32', ID, StrL );
+        InitVar( @Instruction_With2_Register_u32, 'Instruction_With2_Register_u32', ID, StrL );
+        InitVar( @Instruction_With2_Register_i64, 'Instruction_With2_Register_i64', ID, StrL );
+        InitVar( @Instruction_With2_Register_u64, 'Instruction_With2_Register_u64', ID, StrL );
+        InitVar( @Instruction_With2_Register_MemoryOperand, 'Instruction_With2_Register_MemoryOperand', ID, StrL );
+        InitVar( @Instruction_With2_i32_Register, 'Instruction_With2_i32_Register', ID, StrL );
+        InitVar( @Instruction_With2_u32_Register, 'Instruction_With2_u32_Register', ID, StrL );
+        InitVar( @Instruction_With2_i32_i32, 'Instruction_With2_i32_i32', ID, StrL );
+        InitVar( @Instruction_With2_u32_u32, 'Instruction_With2_u32_u32', ID, StrL );
+        InitVar( @Instruction_With2_MemoryOperand_Register, 'Instruction_With2_MemoryOperand_Register', ID, StrL );
+        InitVar( @Instruction_With2_MemoryOperand_i32, 'Instruction_With2_MemoryOperand_i32', ID, StrL );
+        InitVar( @Instruction_With2_MemoryOperand_u32, 'Instruction_With2_MemoryOperand_u32', ID, StrL );
+        InitVar( @Instruction_With3_Register_Register_Register, 'Instruction_With3_Register_Register_Register', ID, StrL );
+        InitVar( @Instruction_With3_Register_Register_i32, 'Instruction_With3_Register_Register_i32', ID, StrL );
+        InitVar( @Instruction_With3_Register_Register_u32, 'Instruction_With3_Register_Register_u32', ID, StrL );
+        InitVar( @Instruction_With3_Register_Register_MemoryOperand, 'Instruction_With3_Register_Register_MemoryOperand', ID, StrL );
+        InitVar( @Instruction_With3_Register_i32_i32, 'Instruction_With3_Register_i32_i32', ID, StrL );
+        InitVar( @Instruction_With3_Register_u32_u32, 'Instruction_With3_Register_u32_u32', ID, StrL );
+        InitVar( @Instruction_With3_Register_MemoryOperand_Register, 'Instruction_With3_Register_MemoryOperand_Register', ID, StrL );
+        InitVar( @Instruction_With3_Register_MemoryOperand_i32, 'Instruction_With3_Register_MemoryOperand_i32', ID, StrL );
+        InitVar( @Instruction_With3_Register_MemoryOperand_u32, 'Instruction_With3_Register_MemoryOperand_u32', ID, StrL );
+        InitVar( @Instruction_With3_MemoryOperand_Register_Register, 'Instruction_With3_MemoryOperand_Register_Register', ID, StrL );
+        InitVar( @Instruction_With3_MemoryOperand_Register_i32, 'Instruction_With3_MemoryOperand_Register_i32', ID, StrL );
+        InitVar( @Instruction_With3_MemoryOperand_Register_u32, 'Instruction_With3_MemoryOperand_Register_u32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_Register_Register, 'Instruction_With4_Register_Register_Register_Register', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_Register_i32, 'Instruction_With4_Register_Register_Register_i32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_Register_u32, 'Instruction_With4_Register_Register_Register_u32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_Register_MemoryOperand, 'Instruction_With4_Register_Register_Register_MemoryOperand', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_i32_i32, 'Instruction_With4_Register_Register_i32_i32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_u32_u32, 'Instruction_With4_Register_Register_u32_u32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_MemoryOperand_Register, 'Instruction_With4_Register_Register_MemoryOperand_Register', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_MemoryOperand_i32, 'Instruction_With4_Register_Register_MemoryOperand_i32', ID, StrL );
+        InitVar( @Instruction_With4_Register_Register_MemoryOperand_u32, 'Instruction_With4_Register_Register_MemoryOperand_u32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_Register_Register_i32, 'Instruction_With5_Register_Register_Register_Register_i32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_Register_Register_u32, 'Instruction_With5_Register_Register_Register_Register_u32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_Register_MemoryOperand_i32, 'Instruction_With5_Register_Register_Register_MemoryOperand_i32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_Register_MemoryOperand_u32, 'Instruction_With5_Register_Register_Register_MemoryOperand_u32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_MemoryOperand_Register_i32, 'Instruction_With5_Register_Register_MemoryOperand_Register_i32', ID, StrL );
+        InitVar( @Instruction_With5_Register_Register_MemoryOperand_Register_u32, 'Instruction_With5_Register_Register_MemoryOperand_Register_u32', ID, StrL );
+        InitVar( @Instruction_With_Branch, 'Instruction_With_Branch', ID, StrL );
+        InitVar( @Instruction_With_Far_Branch, 'Instruction_With_Far_Branch', ID, StrL );
+        InitVar( @Instruction_With_xbegin, 'Instruction_With_xbegin', ID, StrL );
+        InitVar( @Instruction_With_outsb, 'Instruction_With_outsb', ID, StrL );
+        InitVar( @Instruction_With_Rep_outsb, 'Instruction_With_Rep_outsb', ID, StrL );
+        InitVar( @Instruction_With_outsw, 'Instruction_With_outsw', ID, StrL );
+        InitVar( @Instruction_With_Rep_outsw, 'Instruction_With_Rep_outsw', ID, StrL );
+        InitVar( @Instruction_With_outsd, 'Instruction_With_outsd', ID, StrL );
+        InitVar( @Instruction_With_Rep_outsd, 'Instruction_With_Rep_outsd', ID, StrL );
+        InitVar( @Instruction_With_lodsb, 'Instruction_With_lodsb', ID, StrL );
+        InitVar( @Instruction_With_Rep_lodsb, 'Instruction_With_Rep_lodsb', ID, StrL );
+        InitVar( @Instruction_With_lodsw, 'Instruction_With_lodsw', ID, StrL );
+        InitVar( @Instruction_With_Rep_lodsw, 'Instruction_With_Rep_lodsw', ID, StrL );
+        InitVar( @Instruction_With_lodsd, 'Instruction_With_lodsd', ID, StrL );
+        InitVar( @Instruction_With_Rep_lodsd, 'Instruction_With_Rep_lodsd', ID, StrL );
+        InitVar( @Instruction_With_lodsq, 'Instruction_With_lodsq', ID, StrL );
+        InitVar( @Instruction_With_Rep_lodsq, 'Instruction_With_Rep_lodsq', ID, StrL );
+        InitVar( @Instruction_With_scasb, 'Instruction_With_scasb', ID, StrL );
+        InitVar( @Instruction_With_Repe_scasb, 'Instruction_With_Repe_scasb', ID, StrL );
+        InitVar( @Instruction_With_Repne_scasb, 'Instruction_With_Repne_scasb', ID, StrL );
+        InitVar( @Instruction_With_scasw, 'Instruction_With_scasw', ID, StrL );
+        InitVar( @Instruction_With_Repe_scasw, 'Instruction_With_Repe_scasw', ID, StrL );
+        InitVar( @Instruction_With_Repne_scasw, 'Instruction_With_Repne_scasw', ID, StrL );
+        InitVar( @Instruction_With_scasd, 'Instruction_With_scasd', ID, StrL );
+        InitVar( @Instruction_With_Repe_scasd, 'Instruction_With_Repe_scasd', ID, StrL );
+        InitVar( @Instruction_With_Repne_scasd, 'Instruction_With_Repne_scasd', ID, StrL );
+        InitVar( @Instruction_With_scasq, 'Instruction_With_scasq', ID, StrL );
+        InitVar( @Instruction_With_Repe_scasq, 'Instruction_With_Repe_scasq', ID, StrL );
+        InitVar( @Instruction_With_Repne_scasq, 'Instruction_With_Repne_scasq', ID, StrL );
+        InitVar( @Instruction_With_insb, 'Instruction_With_insb', ID, StrL );
+        InitVar( @Instruction_With_Rep_insb, 'Instruction_With_Rep_insb', ID, StrL );
+        InitVar( @Instruction_With_insw, 'Instruction_With_insw', ID, StrL );
+        InitVar( @Instruction_With_Rep_insw, 'Instruction_With_Rep_insw', ID, StrL );
+        InitVar( @Instruction_With_insd, 'Instruction_With_insd', ID, StrL );
+        InitVar( @Instruction_With_Rep_insd, 'Instruction_With_Rep_insd', ID, StrL );
+        InitVar( @Instruction_With_stosb, 'Instruction_With_stosb', ID, StrL );
+        InitVar( @Instruction_With_Rep_stosb, 'Instruction_With_Rep_stosb', ID, StrL );
+        InitVar( @Instruction_With_stosw, 'Instruction_With_stosw', ID, StrL );
+        InitVar( @Instruction_With_Rep_stosw, 'Instruction_With_Rep_stosw', ID, StrL );
+        InitVar( @Instruction_With_stosd, 'Instruction_With_stosd', ID, StrL );
+        InitVar( @Instruction_With_Rep_stosd, 'Instruction_With_Rep_stosd', ID, StrL );
+        InitVar( @Instruction_With_Rep_stosq, 'Instruction_With_Rep_stosq', ID, StrL );
+        InitVar( @Instruction_With_cmpsb, 'Instruction_With_cmpsb', ID, StrL );
+        InitVar( @Instruction_With_Repe_cmpsb, 'Instruction_With_Repe_cmpsb', ID, StrL );
+        InitVar( @Instruction_With_Repne_cmpsb, 'Instruction_With_Repne_cmpsb', ID, StrL );
+        InitVar( @Instruction_With_cmpsw, 'Instruction_With_cmpsw', ID, StrL );
+        InitVar( @Instruction_With_Repe_cmpsw, 'Instruction_With_Repe_cmpsw', ID, StrL );
+        InitVar( @Instruction_With_Repne_cmpsw, 'Instruction_With_Repne_cmpsw', ID, StrL );
+        InitVar( @Instruction_With_cmpsd, 'Instruction_With_cmpsd', ID, StrL );
+        InitVar( @Instruction_With_Repe_cmpsd, 'Instruction_With_Repe_cmpsd', ID, StrL );
+        InitVar( @Instruction_With_Repne_cmpsd, 'Instruction_With_Repne_cmpsd', ID, StrL );
+        InitVar( @Instruction_With_cmpsq, 'Instruction_With_cmpsq', ID, StrL );
+        InitVar( @Instruction_With_Repe_cmpsq, 'Instruction_With_Repe_cmpsq', ID, StrL );
+        InitVar( @Instruction_With_Repne_cmpsq, 'Instruction_With_Repne_cmpsq', ID, StrL );
+        InitVar( @Instruction_With_movsb, 'Instruction_With_movsb', ID, StrL );
+        InitVar( @Instruction_With_Rep_movsb, 'Instruction_With_Rep_movsb', ID, StrL );
+        InitVar( @Instruction_With_movsw, 'Instruction_With_movsw', ID, StrL );
+        InitVar( @Instruction_With_Rep_movsw, 'Instruction_With_Rep_movsw', ID, StrL );
+        InitVar( @Instruction_With_movsd, 'Instruction_With_movsd', ID, StrL );
+        InitVar( @Instruction_With_Rep_movsd, 'Instruction_With_Rep_movsd', ID, StrL );
+        InitVar( @Instruction_With_movsq, 'Instruction_With_movsq', ID, StrL );
+        InitVar( @Instruction_With_Rep_movsq, 'Instruction_With_Rep_movsq', ID, StrL );
+        InitVar( @Instruction_With_maskmovq, 'Instruction_With_maskmovq', ID, StrL );
+        InitVar( @Instruction_With_maskmovdqu, 'Instruction_With_maskmovdqu', ID, StrL );
+        InitVar( @Instruction_With_vmaskmovdqu, 'Instruction_With_vmaskmovdqu', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_1, 'Instruction_With_Declare_Byte_1', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_2, 'Instruction_With_Declare_Byte_2', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_3, 'Instruction_With_Declare_Byte_3', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_4, 'Instruction_With_Declare_Byte_4', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_5, 'Instruction_With_Declare_Byte_5', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_6, 'Instruction_With_Declare_Byte_6', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_7, 'Instruction_With_Declare_Byte_7', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_8, 'Instruction_With_Declare_Byte_8', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_9, 'Instruction_With_Declare_Byte_9', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_10, 'Instruction_With_Declare_Byte_10', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_11, 'Instruction_With_Declare_Byte_11', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_12, 'Instruction_With_Declare_Byte_12', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_13, 'Instruction_With_Declare_Byte_13', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_14, 'Instruction_With_Declare_Byte_14', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_15, 'Instruction_With_Declare_Byte_15', ID, StrL );
+        InitVar( @Instruction_With_Declare_Byte_16, 'Instruction_With_Declare_Byte_16', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_1, 'Instruction_With_Declare_Word_1', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_2, 'Instruction_With_Declare_Word_2', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_3, 'Instruction_With_Declare_Word_3', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_4, 'Instruction_With_Declare_Word_4', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_5, 'Instruction_With_Declare_Word_5', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_6, 'Instruction_With_Declare_Word_6', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_7, 'Instruction_With_Declare_Word_7', ID, StrL );
+        InitVar( @Instruction_With_Declare_Word_8, 'Instruction_With_Declare_Word_8', ID, StrL );
+        InitVar( @Instruction_With_Declare_DWord_1, 'Instruction_With_Declare_DWord_1', ID, StrL );
+        InitVar( @Instruction_With_Declare_DWord_2, 'Instruction_With_Declare_DWord_2', ID, StrL );
+        InitVar( @Instruction_With_Declare_DWord_3, 'Instruction_With_Declare_DWord_3', ID, StrL );
+        InitVar( @Instruction_With_Declare_DWord_4, 'Instruction_With_Declare_DWord_4', ID, StrL );
+        InitVar( @Instruction_With_Declare_QWord_1, 'Instruction_With_Declare_QWord_1', ID, StrL );
+        InitVar( @Instruction_With_Declare_QWord_2, 'Instruction_With_Declare_QWord_2', ID, StrL );
 
-  @Code_AsString := GetProcAddress( Handle, 'Code_AsString' );
-  @Code_Mnemonic := GetProcAddress( Handle, 'Code_Mnemonic' );
-  @Code_OPCode := GetProcAddress( Handle, 'Code_OPCode' );
-  @Code_Encoding := GetProcAddress( Handle, 'Code_Encoding' );
-  @Code_CPUidFeature := GetProcAddress( Handle, 'Code_CPUidFeature' );
-  @Code_FlowControl := GetProcAddress( Handle, 'Code_FlowControl' );
-  @Code_IsPrivileged := GetProcAddress( Handle, 'Code_IsPrivileged' );
-  @Code_IsStackInstruction := GetProcAddress( Handle, 'Code_IsStackInstruction' );
-  @Code_IsSaveRestoreInstruction := GetProcAddress( Handle, 'Code_IsSaveRestoreInstruction' );
-  @Code_IsJccShort := GetProcAddress( Handle, 'Code_IsJccShort' );
-  @Code_IsJmpShort := GetProcAddress( Handle, 'Code_IsJmpShort' );
-  @Code_IsJmpShortOrNear := GetProcAddress( Handle, 'Code_IsJmpShortOrNear' );
-  @Code_IsJmpNear := GetProcAddress( Handle, 'Code_IsJmpNear' );
-  @Code_IsJmpFar := GetProcAddress( Handle, 'Code_IsJmpFar' );
-  @Code_IsCallNear := GetProcAddress( Handle, 'Code_IsCallNear' );
-  @Code_IsCallFar := GetProcAddress( Handle, 'Code_IsCallFar' );
-  @Code_IsJmpNearIndirect := GetProcAddress( Handle, 'Code_IsJmpNearIndirect' );
-  @Code_IsJmpFarIndirect := GetProcAddress( Handle, 'Code_IsJmpFarIndirect' );
-  @Code_IsCallNearIndirect := GetProcAddress( Handle, 'Code_IsCallNearIndirect' );
-  @Code_IsCallFarIndirect := GetProcAddress( Handle, 'Code_IsCallFarIndirect' );
-  @Code_ConditionCode := GetProcAddress( Handle, 'Code_ConditionCode' );
-  @Code_IsJcxShort := GetProcAddress( Handle, 'Code_IsJcxShort' );
-  @Code_IsLoopCC := GetProcAddress( Handle, 'Code_IsLoopCC' );
-  @Code_IsLoop := GetProcAddress( Handle, 'Code_IsLoop' );
-  @Code_IsJccShortOrNear := GetProcAddress( Handle, 'Code_IsJccShortOrNear' );
-  @Code_NegateConditionCode := GetProcAddress( Handle, 'Code_NegateConditionCode' );
-  @Code_AsShortBranch := GetProcAddress( Handle, 'Code_AsShortBranch' );
-  @Code_AsNearBranch := GetProcAddress( Handle, 'Code_AsNearBranch' );
+        InitVar( @OpCodeInfo_OpCodeString, 'OpCodeInfo_OpCodeString', ID, StrL );
+        InitVar( @OpCodeInfo_InstructionString, 'OpCodeInfo_InstructionString', ID, StrL );
+        InitVar( @OpCodeInfo_Mode16, 'OpCodeInfo_Mode16', ID, StrL );
+        InitVar( @OpCodeInfo_Mode32, 'OpCodeInfo_Mode32', ID, StrL );
+        InitVar( @OpCodeInfo_Mode64, 'OpCodeInfo_Mode64', ID, StrL );
+        InitVar( @OpCodeInfo_Fwait, 'OpCodeInfo_Fwait', ID, StrL );
+        InitVar( @OpCodeInfo_W, 'OpCodeInfo_W', ID, StrL );
+        InitVar( @OpCodeInfo_IsLig, 'OpCodeInfo_IsLig', ID, StrL );
+        InitVar( @OpCodeInfo_IsWig, 'OpCodeInfo_IsWig', ID, StrL );
+        InitVar( @OpCodeInfo_IsWig32, 'OpCodeInfo_IsWig32', ID, StrL );
+        InitVar( @OpCodeInfo_MvexEhBit, 'OpCodeInfo_MvexEhBit', ID, StrL );
+        InitVar( @OpCodeInfo_MvexCanUseEvictionHint, 'OpCodeInfo_MvexCanUseEvictionHint', ID, StrL );
+        InitVar( @OpCodeInfo_MvexCanUseImmRoundingControl, 'OpCodeInfo_MvexCanUseImmRoundingControl', ID, StrL );
+        InitVar( @OpCodeInfo_MvexIgnoresOpMaskRegister, 'OpCodeInfo_MvexIgnoresOpMaskRegister', ID, StrL );
+        InitVar( @OpCodeInfo_MvexNoSaeRc, 'OpCodeInfo_MvexNoSaeRc', ID, StrL );
+        InitVar( @OpCodeInfo_MvexTupleTypeLutKind, 'OpCodeInfo_MvexTupleTypeLutKind', ID, StrL );
+        InitVar( @OpCodeInfo_MvexConversionFunc, 'OpCodeInfo_MvexConversionFunc', ID, StrL );
+        InitVar( @OpCodeInfo_MvexValidConversionFuncsMask, 'OpCodeInfo_MvexValidConversionFuncsMask', ID, StrL );
+        InitVar( @OpCodeInfo_MvexValidSwizzleFuncsMask, 'OpCodeInfo_MvexValidSwizzleFuncsMask', ID, StrL );
+        InitVar( @OpCodeInfo_MemorySize, 'OpCodeInfo_MemorySize', ID, StrL );
+        InitVar( @OpCodeInfo_BroadcastMemorySize, 'OpCodeInfo_BroadcastMemorySize', ID, StrL );
+        InitVar( @OpCodeInfo_CanBroadcast, 'OpCodeInfo_CanBroadcast', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseRoundingControl, 'OpCodeInfo_CanUseRoundingControl', ID, StrL );
+        InitVar( @OpCodeInfo_CanSuppressAllExceptions, 'OpCodeInfo_CanSuppressAllExceptions', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseOpMaskRegister, 'OpCodeInfo_CanUseOpMaskRegister', ID, StrL );
+        InitVar( @OpCodeInfo_RequireOpMaskRegister, 'OpCodeInfo_RequireOpMaskRegister', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseZeroingMasking, 'OpCodeInfo_CanUseZeroingMasking', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseLockPrefix, 'OpCodeInfo_CanUseLockPrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseXacquirePrefix, 'OpCodeInfo_CanUseXacquirePrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseXreleasePrefix, 'OpCodeInfo_CanUseXreleasePrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseRepPrefix, 'OpCodeInfo_CanUseRepPrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseRepnePrefix, 'OpCodeInfo_CanUseRepnePrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseBndPrefix, 'OpCodeInfo_CanUseBndPrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseHintTakenPrefix, 'OpCodeInfo_CanUseHintTakenPrefix', ID, StrL );
+        InitVar( @OpCodeInfo_CanUseNotrackPrefix, 'OpCodeInfo_CanUseNotrackPrefix', ID, StrL );
+        InitVar( @OpCodeInfo_IgnoresRoundingControl, 'OpCodeInfo_IgnoresRoundingControl', ID, StrL );
+        InitVar( @OpCodeInfo_AmdLockRegBit, 'OpCodeInfo_AmdLockRegBit', ID, StrL );
+        InitVar( @OpCodeInfo_DefaultOpSize64, 'OpCodeInfo_DefaultOpSize64', ID, StrL );
+        InitVar( @OpCodeInfo_ForceOpSize64, 'OpCodeInfo_ForceOpSize64', ID, StrL );
+        InitVar( @OpCodeInfo_IntelForceOpSize64, 'OpCodeInfo_IntelForceOpSize64', ID, StrL );
+        InitVar( @OpCodeInfo_MustBeCpl0, 'OpCodeInfo_MustBeCpl0', ID, StrL );
+        InitVar( @OpCodeInfo_Cpl0, 'OpCodeInfo_Cpl0', ID, StrL );
+        InitVar( @OpCodeInfo_Cpl1, 'OpCodeInfo_Cpl1', ID, StrL );
+        InitVar( @OpCodeInfo_Cpl2, 'OpCodeInfo_Cpl2', ID, StrL );
+        InitVar( @OpCodeInfo_Cpl3, 'OpCodeInfo_Cpl3', ID, StrL );
+        InitVar( @OpCodeInfo_IsInputOutput, 'OpCodeInfo_IsInputOutput', ID, StrL );
+        InitVar( @OpCodeInfo_IsNop, 'OpCodeInfo_IsNop', ID, StrL );
+        InitVar( @OpCodeInfo_IsReservedNop, 'OpCodeInfo_IsReservedNop', ID, StrL );
+        InitVar( @OpCodeInfo_IsSerializingIntel, 'OpCodeInfo_IsSerializingIntel', ID, StrL );
+        InitVar( @OpCodeInfo_IsSerializingAmd, 'OpCodeInfo_IsSerializingAmd', ID, StrL );
+        InitVar( @OpCodeInfo_MayRequireCpl0, 'OpCodeInfo_MayRequireCpl0', ID, StrL );
+        InitVar( @OpCodeInfo_IsCetTracked, 'OpCodeInfo_IsCetTracked', ID, StrL );
+        InitVar( @OpCodeInfo_IsNonTemporal, 'OpCodeInfo_IsNonTemporal', ID, StrL );
+        InitVar( @OpCodeInfo_IsFpuNoWait, 'OpCodeInfo_IsFpuNoWait', ID, StrL );
+        InitVar( @OpCodeInfo_IgnoresModBits, 'OpCodeInfo_IgnoresModBits', ID, StrL );
+        InitVar( @OpCodeInfo_No66, 'OpCodeInfo_No66', ID, StrL );
+        InitVar( @OpCodeInfo_Nfx, 'OpCodeInfo_Nfx', ID, StrL );
+        InitVar( @OpCodeInfo_RequiresUniqueRegNums, 'OpCodeInfo_RequiresUniqueRegNums', ID, StrL );
+        InitVar( @OpCodeInfo_RequiresUniqueDestRegNum, 'OpCodeInfo_RequiresUniqueDestRegNum', ID, StrL );
+        InitVar( @OpCodeInfo_IsPrivileged, 'OpCodeInfo_IsPrivileged', ID, StrL );
+        InitVar( @OpCodeInfo_IsSaveRestore, 'OpCodeInfo_IsSaveRestore', ID, StrL );
+        InitVar( @OpCodeInfo_IsStackInstruction, 'OpCodeInfo_IsStackInstruction', ID, StrL );
+        InitVar( @OpCodeInfo_IgnoresSegment, 'OpCodeInfo_IgnoresSegment', ID, StrL );
+        InitVar( @OpCodeInfo_IsOpMaskReadWrite, 'OpCodeInfo_IsOpMaskReadWrite', ID, StrL );
+        InitVar( @OpCodeInfo_RealMode, 'OpCodeInfo_RealMode', ID, StrL );
+        InitVar( @OpCodeInfo_ProtectedMode, 'OpCodeInfo_ProtectedMode', ID, StrL );
+        InitVar( @OpCodeInfo_Virtual8086Mode, 'OpCodeInfo_Virtual8086Mode', ID, StrL );
+        InitVar( @OpCodeInfo_CompatibilityMode, 'OpCodeInfo_CompatibilityMode', ID, StrL );
+        InitVar( @OpCodeInfo_LongMode, 'OpCodeInfo_LongMode', ID, StrL );
+        InitVar( @OpCodeInfo_UseOutsideSmm, 'OpCodeInfo_UseOutsideSmm', ID, StrL );
+        InitVar( @OpCodeInfo_UseInSmm, 'OpCodeInfo_UseInSmm', ID, StrL );
+        InitVar( @OpCodeInfo_UseOutsideEnclaveSgx, 'OpCodeInfo_UseOutsideEnclaveSgx', ID, StrL );
+        InitVar( @OpCodeInfo_UseInEnclaveSgx1, 'OpCodeInfo_UseInEnclaveSgx1', ID, StrL );
+        InitVar( @OpCodeInfo_UseInEnclaveSgx2, 'OpCodeInfo_UseInEnclaveSgx2', ID, StrL );
+        InitVar( @OpCodeInfo_UseOutsideVmxOp, 'OpCodeInfo_UseOutsideVmxOp', ID, StrL );
+        InitVar( @OpCodeInfo_UseInVmxRootOp, 'OpCodeInfo_UseInVmxRootOp', ID, StrL );
+        InitVar( @OpCodeInfo_UseInVmxNonRootOp, 'OpCodeInfo_UseInVmxNonRootOp', ID, StrL );
+        InitVar( @OpCodeInfo_UseOutsideSeam, 'OpCodeInfo_UseOutsideSeam', ID, StrL );
+        InitVar( @OpCodeInfo_UseInSeam, 'OpCodeInfo_UseInSeam', ID, StrL );
+        InitVar( @OpCodeInfo_TdxNonRootGenUd, 'OpCodeInfo_TdxNonRootGenUd', ID, StrL );
+        InitVar( @OpCodeInfo_TdxNonRootGenVe, 'OpCodeInfo_TdxNonRootGenVe', ID, StrL );
+        InitVar( @OpCodeInfo_TdxNonRootMayGenEx, 'OpCodeInfo_TdxNonRootMayGenEx', ID, StrL );
+        InitVar( @OpCodeInfo_IntelVMExit, 'OpCodeInfo_IntelVMExit', ID, StrL );
+        InitVar( @OpCodeInfo_IntelMayVMExit, 'OpCodeInfo_IntelMayVMExit', ID, StrL );
+        InitVar( @OpCodeInfo_IntelSmmVMExit, 'OpCodeInfo_IntelSmmVMExit', ID, StrL );
+        InitVar( @OpCodeInfo_AmdVMExit, 'OpCodeInfo_AmdVMExit', ID, StrL );
+        InitVar( @OpCodeInfo_AmdMayVMExit, 'OpCodeInfo_AmdMayVMExit', ID, StrL );
+        InitVar( @OpCodeInfo_TsxAbort, 'OpCodeInfo_TsxAbort', ID, StrL );
+        InitVar( @OpCodeInfo_TsxImplAbort, 'OpCodeInfo_TsxImplAbort', ID, StrL );
+        InitVar( @OpCodeInfo_TsxMayAbort, 'OpCodeInfo_TsxMayAbort', ID, StrL );
+        InitVar( @OpCodeInfo_IntelDecoder16, 'OpCodeInfo_IntelDecoder16', ID, StrL );
+        InitVar( @OpCodeInfo_IntelDecoder32, 'OpCodeInfo_IntelDecoder32', ID, StrL );
+        InitVar( @OpCodeInfo_IntelDecoder64, 'OpCodeInfo_IntelDecoder64', ID, StrL );
+        InitVar( @OpCodeInfo_AmdDecoder16, 'OpCodeInfo_AmdDecoder16', ID, StrL );
+        InitVar( @OpCodeInfo_AmdDecoder32, 'OpCodeInfo_AmdDecoder32', ID, StrL );
+        InitVar( @OpCodeInfo_AmdDecoder64, 'OpCodeInfo_AmdDecoder64', ID, StrL );
+        InitVar( @OpCodeInfo_DecoderOption, 'OpCodeInfo_DecoderOption', ID, StrL );
+        InitVar( @OpCodeInfo_OpCodeLen, 'OpCodeInfo_OpCodeLen', ID, StrL );
+        InitVar( @OpCodeInfo_OPCount, 'OpCodeInfo_OPCount', ID, StrL );
 
-  @Mnemonic_AsString := GetProcAddress( Handle, 'Mnemonic_AsString' );
-  @OpKind_AsString := GetProcAddress( Handle, 'OpKind_AsString' );
-  @EncodingKind_AsString := GetProcAddress( Handle, 'EncodingKind_AsString' );
-  @CPUidFeature_AsString := GetProcAddress( Handle, 'CPUidFeature_AsString' );
-  @ConditionCode_AsString := GetProcAddress( Handle, 'ConditionCode_AsString' );
-  @FlowControl_AsString := GetProcAddress( Handle, 'FlowControl_AsString' );
-  @TupleType_AsString := GetProcAddress( Handle, 'TupleType_AsString' );
-  @MvexEHBit_AsString := GetProcAddress( Handle, 'MvexEHBit_AsString' );
-  @MvexTupleTypeLutKind_AsString := GetProcAddress( Handle, 'MvexTupleTypeLutKind_AsString' );
-  @MvexConvFn_AsString := GetProcAddress( Handle, 'MvexConvFn_AsString' );
-  @MvexRegMemConv_AsString := GetProcAddress( Handle, 'MvexRegMemConv_AsString' );
-  @RoundingControl_AsString := GetProcAddress( Handle, 'RoundingControl_AsString' );
-  @NumberBase_AsString := GetProcAddress( Handle, 'NumberBase_AsString' );
-  @RepPrefixKind_AsString := GetProcAddress( Handle, 'RepPrefixKind_AsString' );
-  @MemorySize_AsString := GetProcAddress( Handle, 'MemorySize_AsString' );
-  @MemorySizeOptions_AsString := GetProcAddress( Handle, 'MemorySizeOptions_AsString' );  
-  @MemorySize_Info := GetProcAddress( Handle, 'MemorySize_Info' );
-  @OpCodeTableKind_AsString := GetProcAddress( Handle, 'OpCodeTableKind_AsString' );
-  @MandatoryPrefix_AsString := GetProcAddress( Handle, 'MandatoryPrefix_AsString' );
-  @OpCodeOperandKind_AsString := GetProcAddress( Handle, 'OpCodeOperandKind_AsString' );
-  @OpAccess_AsString := GetProcAddress( Handle, 'OpAccess_AsString' );
-  @CodeSize_AsString := GetProcAddress( Handle, 'CodeSize_AsString' );
-  @FormatterTextKind_AsString := GetProcAddress( Handle, 'FormatterTextKind_AsString' );
+        InitVar( @Code_AsString, 'Code_AsString', ID, StrL );
+        InitVar( @Code_Mnemonic, 'Code_Mnemonic', ID, StrL );
+        InitVar( @Code_OPCode, 'Code_OPCode', ID, StrL );
+        InitVar( @Code_Encoding, 'Code_Encoding', ID, StrL );
+        InitVar( @Code_CPUidFeature, 'Code_CPUidFeature', ID, StrL );
+        InitVar( @Code_FlowControl, 'Code_FlowControl', ID, StrL );
+        InitVar( @Code_IsPrivileged, 'Code_IsPrivileged', ID, StrL );
+        InitVar( @Code_IsStackInstruction, 'Code_IsStackInstruction', ID, StrL );
+        InitVar( @Code_IsSaveRestoreInstruction, 'Code_IsSaveRestoreInstruction', ID, StrL );
+        InitVar( @Code_IsJccShort, 'Code_IsJccShort', ID, StrL );
+        InitVar( @Code_IsJmpShort, 'Code_IsJmpShort', ID, StrL );
+        InitVar( @Code_IsJmpShortOrNear, 'Code_IsJmpShortOrNear', ID, StrL );
+        InitVar( @Code_IsJmpNear, 'Code_IsJmpNear', ID, StrL );
+        InitVar( @Code_IsJmpFar, 'Code_IsJmpFar', ID, StrL );
+        InitVar( @Code_IsCallNear, 'Code_IsCallNear', ID, StrL );
+        InitVar( @Code_IsCallFar, 'Code_IsCallFar', ID, StrL );
+        InitVar( @Code_IsJmpNearIndirect, 'Code_IsJmpNearIndirect', ID, StrL );
+        InitVar( @Code_IsJmpFarIndirect, 'Code_IsJmpFarIndirect', ID, StrL );
+        InitVar( @Code_IsCallNearIndirect, 'Code_IsCallNearIndirect', ID, StrL );
+        InitVar( @Code_IsCallFarIndirect, 'Code_IsCallFarIndirect', ID, StrL );
+        InitVar( @Code_ConditionCode, 'Code_ConditionCode', ID, StrL );
+        InitVar( @Code_IsJcxShort, 'Code_IsJcxShort', ID, StrL );
+        InitVar( @Code_IsLoopCC, 'Code_IsLoopCC', ID, StrL );
+        InitVar( @Code_IsLoop, 'Code_IsLoop', ID, StrL );
+        InitVar( @Code_IsJccShortOrNear, 'Code_IsJccShortOrNear', ID, StrL );
+        InitVar( @Code_NegateConditionCode, 'Code_NegateConditionCode', ID, StrL );
+        InitVar( @Code_AsShortBranch, 'Code_AsShortBranch', ID, StrL );
+        InitVar( @Code_AsNearBranch, 'Code_AsNearBranch', ID, StrL );
 
-  @Register_Base := GetProcAddress( Handle, 'Register_Base' );
-  @Register_Number := GetProcAddress( Handle, 'Register_Number' );
-  @Register_FullRegister := GetProcAddress( Handle, 'Register_FullRegister' );
-  @Register_FullRegister32 := GetProcAddress( Handle, 'Register_FullRegister32' );
-  @Register_Size := GetProcAddress( Handle, 'Register_Size' );
-  @Register_AsString := GetProcAddress( Handle, 'Register_AsString' );
+        InitVar( @Mnemonic_AsString, 'Mnemonic_AsString', ID, StrL );
+        InitVar( @OpKind_AsString, 'OpKind_AsString', ID, StrL );
+        InitVar( @EncodingKind_AsString, 'EncodingKind_AsString', ID, StrL );
+        InitVar( @CPUidFeature_AsString, 'CPUidFeature_AsString', ID, StrL );
+        InitVar( @ConditionCode_AsString, 'ConditionCode_AsString', ID, StrL );
+        InitVar( @FlowControl_AsString, 'FlowControl_AsString', ID, StrL );
+        InitVar( @TupleType_AsString, 'TupleType_AsString', ID, StrL );
+        InitVar( @MvexEHBit_AsString, 'MvexEHBit_AsString', ID, StrL );
+        InitVar( @MvexTupleTypeLutKind_AsString, 'MvexTupleTypeLutKind_AsString', ID, StrL );
+        InitVar( @MvexConvFn_AsString, 'MvexConvFn_AsString', ID, StrL );
+        InitVar( @MvexRegMemConv_AsString, 'MvexRegMemConv_AsString', ID, StrL );
+        InitVar( @RoundingControl_AsString, 'RoundingControl_AsString', ID, StrL );
+        InitVar( @NumberBase_AsString, 'NumberBase_AsString', ID, StrL );
+        InitVar( @RepPrefixKind_AsString, 'RepPrefixKind_AsString', ID, StrL );
+        InitVar( @MemorySizeOptions_AsString, 'MemorySizeOptions_AsString', ID, StrL );
+        InitVar( @MemorySize_AsString, 'MemorySize_AsString', ID, StrL );
+        InitVar( @MemorySize_Info, 'MemorySize_Info', ID, StrL );
+        InitVar( @OpCodeTableKind_AsString, 'OpCodeTableKind_AsString', ID, StrL );
+        InitVar( @MandatoryPrefix_AsString, 'MandatoryPrefix_AsString', ID, StrL );
+        InitVar( @OpCodeOperandKind_AsString, 'OpCodeOperandKind_AsString', ID, StrL );
+        InitVar( @OpAccess_AsString, 'OpAccess_AsString', ID, StrL );
+        InitVar( @CodeSize_AsString, 'CodeSize_AsString', ID, StrL );
+        InitVar( @FormatterTextKind_AsString, 'FormatterTextKind_AsString', ID, StrL );
+
+        InitVar( @Register_Base, 'Register_Base', ID, StrL );
+        InitVar( @Register_Number, 'Register_Number', ID, StrL );
+        InitVar( @Register_FullRegister, 'Register_FullRegister', ID, StrL );
+        InitVar( @Register_FullRegister32, 'Register_FullRegister32', ID, StrL );
+        InitVar( @Register_Size, 'Register_Size', ID, StrL );
+        InitVar( @Register_AsString, 'Register_AsString', ID, StrL );
+        end;
+  end;
+
   {$WARNINGS ON}
+  {$UNDEF section_InitVar}
 end;
 
-procedure Unload;
-begin
-  if ( Handle = 0 ) OR ( Handle = INVALID_HANDLE_VALUE ) then 
-    Exit;
-  FreeLibrary( Handle );
-  Handle := 0;
-end;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Redirects~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{$DEFINE section_Redirects}
+{.$I Iced.inc}
+{$UNDEF section_Redirects}
 
-initialization
-  Load;
-  
-finalization
-  Unload;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{$DEFINE section_IMPLEMENTATION}
+{$I DynamicDLL.inc}
+{$UNDEF section_IMPLEMENTATION}
 
 end.
