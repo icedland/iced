@@ -17,18 +17,13 @@ pub unsafe extern "C" fn CodeSize_AsString( CodeSize : u8, Output : *mut u8, Siz
         return;
     }
     
-    let codeSize : CodeSize = transmute( CodeSize as u8 );
-    
+    let codeSize : CodeSize = transmute( CodeSize as u8 );    
     let output = format!("{codeSize:?}");
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];        
-        }
-    }
-    *( Output.add( l ) ) = 0;
+
+    let aOutput = Output as *mut [u8;1024];
+    let aSource = output.as_bytes();
+        
+    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
+    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
+    (*aOutput)[n] = 0;
 }

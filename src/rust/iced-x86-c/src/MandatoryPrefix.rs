@@ -18,17 +18,12 @@ pub unsafe extern "C" fn MandatoryPrefix_AsString( MandatoryPrefix : u8, Output 
     }
     
     let mandatoryPrefix : MandatoryPrefix = transmute( MandatoryPrefix as u8 );
-    
     let output = format!("{mandatoryPrefix:?}");
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];        
-        }
-    }
-    *( Output.add( l ) ) = 0;
+
+    let aOutput = Output as *mut [u8;1024];
+    let aSource = output.as_bytes();
+        
+    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
+    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
+    (*aOutput)[n] = 0;
 }

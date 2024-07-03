@@ -44,17 +44,12 @@ pub unsafe extern "C" fn OpCodeInfo_OpCodeString( Code : u16, Output : *mut u8, 
     let info = code.op_code();
     
     let output = info.op_code_string();
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];
-        }
-    }
-    *( Output.add( l ) ) = 0;
+    let aOutput = Output as *mut [u8;1024];
+    let aSource = output.as_bytes();
+        
+    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
+    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
+    (*aOutput)[n] = 0;
 }
 
 // Gets the instruction string, eg. `VPBROADCASTB xmm1, xmm2/m8`, see also [`op_code_string()`]
@@ -70,17 +65,12 @@ pub unsafe extern "C" fn OpCodeInfo_InstructionString( Code : u16, Output : *mut
     let info = code.op_code();    
     
     let output = info.instruction_string();
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];
-        }
-    }
-    *( Output.add( l ) ) = 0;
+    let aOutput = Output as *mut [u8;1024];
+    let aSource = output.as_bytes();
+        
+    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
+    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
+    (*aOutput)[n] = 0;
 }
 
 // `true` if it's an instruction available in 16-bit mode

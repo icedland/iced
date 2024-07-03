@@ -497,19 +497,35 @@ impl SpecializedFormatterTraitOptions for SpecializedFormatterTraitOptions110 {
     }
 }
 
-pub(crate) type
-  TSpecializedFormatter000 = SpecializedFormatter<SpecializedFormatterTraitOptions000>;
-pub(crate) type
-  TSpecializedFormatter100 = SpecializedFormatter<SpecializedFormatterTraitOptions100>;
-pub(crate) type
-  TSpecializedFormatter010 = SpecializedFormatter<SpecializedFormatterTraitOptions010>;
-pub(crate) type
-  TSpecializedFormatter001 = SpecializedFormatter<SpecializedFormatterTraitOptions001>;
-pub(crate) type
-  TSpecializedFormatter011 = SpecializedFormatter<SpecializedFormatterTraitOptions011>;
-pub(crate) type
-  TSpecializedFormatter111 = SpecializedFormatter<SpecializedFormatterTraitOptions111>;   
-pub(crate) type
-  TSpecializedFormatter101 = SpecializedFormatter<SpecializedFormatterTraitOptions101>;
-pub(crate) type
-  TSpecializedFormatter110 = SpecializedFormatter<SpecializedFormatterTraitOptions110>;  
+pub(crate) struct TSpecializedFormatter000 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions000>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter100 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions100>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter010 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions010>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter001 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions001>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter011 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions011>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter111 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions111>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter101 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions101>,
+    pub Output : String,
+}  
+pub(crate) struct TSpecializedFormatter110 {
+    pub Formatter : SpecializedFormatter<SpecializedFormatterTraitOptions110>,
+    pub Output : String,
+}  

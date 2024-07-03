@@ -24,19 +24,14 @@ pub unsafe extern "C" fn Code_AsString( Code : u16, Output : *mut u8, Size : usi
     }
 
     let code : Code = transmute( Code as u16 );
-    
     let output = format!("{code:?}");
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];        
-        }
-    }
-    *( Output.add( l ) ) = 0;
+
+    let aOutput = Output as *mut [u8;1024];
+    let aSource = output.as_bytes();
+        
+    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
+    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
+    (*aOutput)[n] = 0;
 }
 
 #[no_mangle]
@@ -53,32 +48,16 @@ pub unsafe extern "C" fn Code_OPCode( Code : u16, Info : *mut TOpCodeInfo ) { //
 
 /*
     // OpCodeString
-    let mut s = info.op_code_string();
-    let mut l = s.len();
-    if l > (*Info).op_code_string.len() {
-        l = (*Info).op_code_string.len();
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            (*Info).op_code_string[ i ] = s.as_bytes()[ i ];        
-        }
-    }
-    (*Info).op_code_string[ l ] = 0;
+    let output = info.op_code_string().as_bytes();
+    let n = std::cmp::min( output.len(), (*Info).op_code_string.len() );
+    (*Info).op_code_string[0..n].copy_from_slice(&output[0..n]);
+    (*Info).op_code_string[n] = 0;
 
     // InstructionString
-    s = info.instruction_string();
-    let mut l = s.len();
-    if l > (*Info).instruction_string.len() {
-        l = (*Info).instruction_string.len();
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            (*Info).instruction_string[ i ] = s.as_bytes()[ i ];        
-        }
-    }
-    (*Info).instruction_string[ l ] = 0;    
+    let output = info.instruction_string().as_bytes();
+    let n = std::cmp::min( output.len(), (*Info).instruction_string.len() );
+    (*Info).instruction_string[0..n].copy_from_slice(&output[0..n]);
+    (*Info).instruction_string[n] = 0;
 */    
 
     (*Info).code = info.code() as u16;

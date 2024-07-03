@@ -71,8 +71,8 @@ pub unsafe extern "C" fn Instruction_With1_u32( Instruction : *mut Instruction, 
   };
 }
 
-//#[repr(C)]
-#[repr(packed)]
+#[repr(C)]
+//#[repr(packed)]
 pub struct TMemoryOperand {
 	/// Segment override or [`Register::None`]
 	///

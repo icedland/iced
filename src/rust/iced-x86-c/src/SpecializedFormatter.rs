@@ -5,7 +5,7 @@
     TetzkatLipHoka 2022-2024
 */
 
-use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions, SymbolResolver};
+use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions};
 use crate::SymbolResolver::{TSymbolResolver, TSymbolResolverCallback};
 use crate::SpecializedFormatterTraitOptions::*;
 
@@ -14,20 +14,28 @@ use std::ptr::null_mut;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // Specialized-Formatter
 pub(crate) type
-  TSpecializedFormatter = SpecializedFormatter<DefaultSpecializedFormatterTraitOptions>;
+TSpecializedFormatterDefault = SpecializedFormatter<DefaultSpecializedFormatterTraitOptions>;
 
+pub(crate) struct TSpecializedFormatter {
+    pub Formatter : TSpecializedFormatterDefault,
+    pub Output : String,
+}  
 // Creates a Specialized formatter
 #[no_mangle]
 pub extern "C" fn SpecializedFormatter_Create( SymbolResolver : Option<TSymbolResolverCallback>, UserData : *const usize ) -> *mut TSpecializedFormatter {
-    let mut symbols: Option<Box<dyn SymbolResolver>> = None;
     if !SymbolResolver.is_none() {
-        symbols = Some( Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData } ) );
-    }
+        let symbols = Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData });
 
-    match TSpecializedFormatter::try_with_options( symbols ) {
-        Ok( value ) => return Box::into_raw( Box::new( value ) ),
+        match TSpecializedFormatterDefault::try_with_options( Some( symbols ) ) {
+            Ok( value ) => return Box::into_raw( Box::new( TSpecializedFormatter { Formatter: value, Output: String::new() } ) ),
         Err( _e ) => return null_mut()
     }    
+    } else {
+        match TSpecializedFormatterDefault::try_with_options( None ) {
+            Ok( value ) => return Box::into_raw( Box::new( TSpecializedFormatter { Formatter: value, Output: String::new() } ) ),
+            Err( _e ) => return null_mut()
+        }
+    }
 }
 
 // Format Instruction
@@ -48,25 +56,21 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
     }
 
     let mut obj = Box::from_raw( Formatter );
-    let mut output = String::new();    
-    obj.format( Instruction.as_mut().unwrap(), &mut output );
-    Box::into_raw( obj ); 
-
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
+    obj.Output.clear();
+    obj.Formatter.format( Instruction.as_mut().unwrap(), &mut obj.Output );
+    if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+        *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+    } else {
+        let newsize = obj.Output.len()+1;
+        obj.Output.as_mut_vec().resize( newsize, 0 );    
     }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];
-        }
-    }
-    *( Output.add( l ) ) = 0;
+    (*Output) = obj.Output.as_ptr();
+    (*Size) = obj.Output.len();    
+    Box::into_raw( obj );
 }
 */
 
-pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializedFormatter, Options : u8, Instruction: *mut Instruction, Output : *mut u8, Size : usize ) {     
+pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializedFormatter, Options : u8, Instruction: *mut Instruction, Output : *mut *const u8, Size : *mut usize ) {    
     if Formatter.is_null() {
         return;
     }
@@ -76,80 +80,135 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
     if Output.is_null() {
         return;
     }
-    if Size <= 0 {
+    if Size.is_null() {
         return;
     }
-
-    let mut output = String::new();
 
     match Options {
         0 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter000);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
 
         1 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter001);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
     
         2 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter010);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
+            *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
             Box::into_raw(obj);
         }
     
         3 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter011);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
     
         4 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter100);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
     
         5 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter101);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
     
         6 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter110);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }            
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }
     
         7 => {
             let mut obj = Box::from_raw(Formatter as *mut TSpecializedFormatter111);
-            obj.format(Instruction.as_mut().unwrap(), &mut output);
+            obj.Output.clear();
+            obj.Formatter.format(Instruction.as_mut().unwrap(), &mut obj.Output);
+            if obj.Output.len() < 315/*MAX_FMT_INSTR_LEN*/ {
+                *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
+            } else {
+                let newsize = obj.Output.len()+1;
+                obj.Output.as_mut_vec().resize( newsize, 0 );    
+            }
+            (*Output) = obj.Output.as_ptr();
+            (*Size) = obj.Output.len();
             Box::into_raw(obj);
         }   
 
         _ => {
             //let mut obj = Box::from_raw( Formatter );
-            //obj.format( Instruction.as_mut().unwrap(), &mut output );
+            //obj.Output.clear();
+            //obj.Formatter.format( Instruction.as_mut().unwrap(), &mut obj.Output );
+            //*obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
             //Box::into_raw( obj ); 
             return;
         }        
     }
-
-    let mut l = output.len();
-    if l > Size {
-        l = Size;
-    }
-    
-    if l > 0 {
-        for i in 0..l {
-            *( Output.add( i ) ) = output.as_bytes()[ i ];
-        }
-    }
-    *( Output.add( l ) ) = 0;
 }
 
 // NOTE: Specialized Formatter only supports the following Options
@@ -168,7 +227,7 @@ pub unsafe extern "C" fn SpecializedFormatter_GetAlwaysShowMemorySize( Formatter
     }
     let mut obj = Box::from_raw( Formatter );
 
-    let value = obj.options_mut().always_show_memory_size();
+    let value = obj.Formatter.options_mut().always_show_memory_size();
 
     Box::into_raw( obj );
  
@@ -191,7 +250,7 @@ pub unsafe extern "C" fn SpecializedFormatter_SetAlwaysShowMemorySize( Formatter
     }
     let mut obj = Box::from_raw( Formatter );
 
-    obj.options_mut().set_always_show_memory_size( Value );
+    obj.Formatter.options_mut().set_always_show_memory_size( Value );
 
     Box::into_raw( obj );
 
@@ -211,7 +270,7 @@ pub unsafe extern "C" fn SpecializedFormatter_GetUseHexPrefix( Formatter: *mut T
     }
     let mut obj = Box::from_raw( Formatter );
 
-    let value = obj.options_mut().use_hex_prefix();
+    let value = obj.Formatter.options_mut().use_hex_prefix();
 
     Box::into_raw( obj );
  
@@ -234,7 +293,7 @@ pub unsafe extern "C" fn SpecializedFormatter_SetUseHexPrefix( Formatter: *mut T
     }
     let mut obj = Box::from_raw( Formatter );
 
-    obj.options_mut().set_use_hex_prefix( Value );
+    obj.Formatter.options_mut().set_use_hex_prefix( Value );
 
     Box::into_raw( obj );
 
