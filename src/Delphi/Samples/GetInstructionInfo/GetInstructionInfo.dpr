@@ -242,7 +242,7 @@ var
   Info          : TInstructionInfo;
   CC            : TConditionCode;
   RFlags        : TRFlags;
-  tOutput       : Array [ 0..255 ] of AnsiChar;
+  tOutput       : PAnsiChar;
 
   S             : String;
   C             : UInt64;
@@ -292,8 +292,8 @@ begin
     // but for real code, use a formatter, eg. MasmFormatter. See other examples.
 //    WriteLn( S + Instruction.Format );
 
-    Iced.Formatter.Format( Instruction, tOutput, Length( tOutput ) );
-    WriteLn( S + String( tOutput ) );
+    Iced.Formatter.Format( Instruction, tOutput );
+    WriteLn( S + tOutput );
 
     // Gets offsets in the instruction of the displacement and immediates and their sizes.
     // This can be useful if there are relocations in the binary. The encoder has a similar
