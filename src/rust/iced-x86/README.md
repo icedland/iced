@@ -1,7 +1,7 @@
 iced-x86
 [![Latest version](https://img.shields.io/crates/v/iced-x86.svg)](https://crates.io/crates/iced-x86)
 [![Documentation](https://docs.rs/iced-x86/badge.svg)](https://docs.rs/iced-x86)
-[![Minimum rustc version](https://img.shields.io/badge/rustc-1.60.0+-blue.svg)](#minimum-supported-rustc-version)
+[![Minimum rustc version](https://img.shields.io/badge/rustc-1.63.0+-blue.svg)](#minimum-supported-rustc-version)
 ![License](https://img.shields.io/crates/l/iced-x86.svg)
 
 iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, disassembler and assembler written in Rust.
@@ -16,7 +16,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - 👍 The encoder can be used to re-encode decoded instructions at any address
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
 - 👍 Supports `#![no_std]` and `WebAssembly`
-- 👍 Supports `rustc` `1.60.0` or later
+- 👍 Supports `rustc` `1.63.0` or later
 - 👍 Few dependencies (`lazy_static`)
 - 👍 License: MIT
 
@@ -1280,7 +1280,7 @@ Output:
 
 ## Minimum supported `rustc` version
 
-iced-x86 supports `rustc` `1.60.0` or later.
+iced-x86 supports `rustc` `1.63.0` or later.
 This is checked in CI builds where the minimum supported version and the latest stable version are used to build the source code and run tests.
 
 Bumping the minimum supported version of `rustc` is considered a minor breaking change. The minor version of iced-x86 will be incremented.

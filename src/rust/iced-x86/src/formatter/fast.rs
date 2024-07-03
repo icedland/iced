@@ -345,24 +345,24 @@ macro_rules! format_memory_else_block {
 				let c = if $addr_size == 8 {
 					if $displ < 0 {
 						$displ = $displ.wrapping_neg();
-						'-'
+						b'-'
 					} else {
-						'+'
+						b'+'
 					}
 				} else if $addr_size == 4 {
 					if ($displ as i32) < 0 {
 						$displ = ($displ as i32).wrapping_neg() as u32 as i64;
-						'-'
+						b'-'
 					} else {
-						'+'
+						b'+'
 					}
 				} else {
 					debug_assert_eq!($addr_size, 2);
 					if ($displ as i16) < 0 {
 						$displ = ($displ as i16).wrapping_neg() as u16 as i64;
-						'-'
+						b'-'
 					} else {
-						'+'
+						b'+'
 					}
 				};
 				write_fast_ascii_char!($dst, $dst_next_p, c, true);
@@ -431,9 +431,9 @@ macro_rules! format_memory_code {
 					|| show_segment_prefix_bool(Register::None, $instruction, SpecializedFormatter::<TraitOptions>::SHOW_USELESS_PREFIXES)))
 			{
 				call_format_register!($slf, $dst, $dst_next_p, $seg_reg);
-				write_fast_ascii_char_lit!($dst, $dst_next_p, ':', true);
+				write_fast_ascii_char_lit!($dst, $dst_next_p, b':', true);
 			}
-			write_fast_ascii_char_lit!($dst, $dst_next_p, '[', true);
+			write_fast_ascii_char_lit!($dst, $dst_next_p, b'[', true);
 
 			let mut need_plus = if base_reg != Register::None {
 				call_format_register!($slf, $dst, $dst_next_p, base_reg);
@@ -444,7 +444,7 @@ macro_rules! format_memory_code {
 
 			if $index_reg != Register::None {
 				if need_plus {
-					write_fast_ascii_char_lit!($dst, $dst_next_p, '+', true);
+					write_fast_ascii_char_lit!($dst, $dst_next_p, b'+', true);
 				}
 				need_plus = true;
 
@@ -466,10 +466,10 @@ macro_rules! format_memory_code {
 					None
 				} {
 					if need_plus {
-						let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { '-' } else { '+' };
+						let c = if (symbol.flags & SymbolFlags::SIGNED) != 0 { b'-' } else { b'+' };
 						write_fast_ascii_char!($dst, $dst_next_p, c, true);
 					} else if (symbol.flags & SymbolFlags::SIGNED) != 0 {
-						write_fast_ascii_char_lit!($dst, $dst_next_p, '-', true);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, b'-', true);
 					}
 
 					call_write_symbol2!($slf, $dst, $dst_next_p, abs_addr, symbol, false);
@@ -482,7 +482,7 @@ macro_rules! format_memory_code {
 				format_memory_else_block!($slf, $dst, $dst_next_p, need_plus, displ_size, displ, addr_size);
 			}
 
-			write_fast_ascii_char_lit!($dst, $dst_next_p, ']', true);
+			write_fast_ascii_char_lit!($dst, $dst_next_p, b']', true);
 		}
 	};
 }
@@ -893,7 +893,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			if !has_notrack_prefix && prefix_seg < 6 && SpecializedFormatter::<TraitOptions>::show_segment_prefix(instruction, op_count) {
 				let prefix_seg = unsafe { mem::transmute((Register::ES as u32 + prefix_seg) as RegisterUnderlyingType) };
 				call_format_register!(self, dst, dst_next_p, prefix_seg);
-				write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
+				write_fast_ascii_char_lit!(dst, dst_next_p, b' ', true);
 			}
 
 			let mut has_xacquire_xrelease = false;
@@ -971,7 +971,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		};
 
 		if op_count > 0 {
-			write_fast_ascii_char_lit!(dst, dst_next_p, ' ', true);
+			write_fast_ascii_char_lit!(dst, dst_next_p, b' ', true);
 
 			#[cfg(feature = "mvex")]
 			let mvex_rm_operand = {
@@ -1061,16 +1061,16 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 								} else {
 									call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
 								}
-								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
+								write_fast_ascii_char_lit!(dst, dst_next_p, b':', true);
 								call_write_symbol!($slf, $dst, $dst_next_p, $imm64, symbol);
 							} else {
 								call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
-								write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
+								write_fast_ascii_char_lit!(dst, dst_next_p, b':', true);
 								call_format_number!($slf, $dst, $dst_next_p, $imm64);
 							}
 						} else {
 							call_format_number!($slf, $dst, $dst_next_p, $instruction.far_branch_selector() as u64);
-							write_fast_ascii_char_lit!(dst, dst_next_p, ':', true);
+							write_fast_ascii_char_lit!(dst, dst_next_p, b':', true);
 							call_format_number!($slf, $dst, $dst_next_p, $imm64);
 						}
 					}};
@@ -1475,9 +1475,9 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 
 				if operand == 0 && instruction_internal::internal_has_op_mask_or_zeroing_masking(instruction) {
 					if instruction.has_op_mask() {
-						write_fast_ascii_char_lit!(dst, dst_next_p, '{', true);
+						write_fast_ascii_char_lit!(dst, dst_next_p, b'{', true);
 						call_format_register!(self, dst, dst_next_p, instruction.op_mask());
-						write_fast_ascii_char_lit!(dst, dst_next_p, '}', true);
+						write_fast_ascii_char_lit!(dst, dst_next_p, b'}', true);
 					}
 					if instruction.zeroing_masking() {
 						const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, "{z}");
@@ -1506,7 +1506,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, ", ");
 					write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 				} else {
-					write_fast_ascii_char_lit!(dst, dst_next_p, ',', true);
+					write_fast_ascii_char_lit!(dst, dst_next_p, b',', true);
 				}
 			}
 			if instruction_internal::internal_has_rounding_control_or_sae(instruction) {
@@ -1597,14 +1597,14 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						// 1 (possible '0' prefix) + 1 (hex digit) + 1 ('h' suffix)
 						verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + 1 + 1);
 						if $value > 9 {
-							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+							write_fast_ascii_char_lit!($dst, $dst_next_p, b'0', false);
 						}
 
 						let hex_table = if $uppercase_hex { b"0123456789ABCDEF" } else { b"0123456789abcdef" };
 						// SAFETY: 0<=$value<=0xF and hex_table.len() == 0x10
 						let c = unsafe { *hex_table.get_unchecked($value as usize) };
 						write_fast_ascii_char!($dst, $dst_next_p, c, false);
-						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, b'h', false);
 
 						$dst_next_p
 					}
@@ -1620,12 +1620,12 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						// '+2' also includes the 'h' suffix.
 						verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + 2 + 2);
 						if $value > 0x9F {
-							write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+							write_fast_ascii_char_lit!($dst, $dst_next_p, b'0', false);
 						}
 
 						let lower_or_value = if $uppercase_hex { 0 } else { 0x2020_2020 };
 						write_fast_hex2_rw_4bytes!($dst, $dst_next_p, $value, lower_or_value, false);
-						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, b'h', false);
 
 						$dst_next_p
 					}
@@ -1639,7 +1639,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 					verify_output_has_enough_bytes_left!($dst, $dst_next_p, 1 + rshift / 4 + 2);
 
 					if !$use_hex_prefix && (($value >> (rshift - 4)) & 0xF) > 9 {
-						write_fast_ascii_char_lit!($dst, $dst_next_p, '0', false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, b'0', false);
 					}
 
 					// If odd number of hex digits
@@ -1670,7 +1670,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 						// The last `+2` is the padding that needed to be there. That's where
 						// this 'h' gets written so we don't need to verify the vec len here
 						// because it has at least 2 more bytes left.
-						write_fast_ascii_char_lit!($dst, $dst_next_p, 'h', false);
+						write_fast_ascii_char_lit!($dst, $dst_next_p, b'h', false);
 					}
 
 					$dst_next_p
@@ -1712,7 +1712,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		let mut displ = address.wrapping_sub(symbol.address) as i64;
 		if (symbol.flags & SymbolFlags::SIGNED) != 0 {
 			if write_minus_if_signed {
-				write_fast_ascii_char_lit!(dst, dst_next_p, '-', true);
+				write_fast_ascii_char_lit!(dst, dst_next_p, b'-', true);
 			}
 			displ = displ.wrapping_neg();
 		}
@@ -1745,9 +1745,9 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 		if displ != 0 {
 			let c = if displ < 0 {
 				displ = displ.wrapping_neg();
-				'-'
+				b'-'
 			} else {
-				'+'
+				b'+'
 			};
 			write_fast_ascii_char!(dst, dst_next_p, c, true);
 			call_format_number!(self, dst, dst_next_p, displ as u64);
@@ -1756,7 +1756,7 @@ impl<TraitOptions: SpecializedFormatterTraitOptions> SpecializedFormatter<TraitO
 			const FAST_STR: FastString4 = mk_const_fast_str!(FastString4, " (");
 			write_fast_str!(dst, dst_next_p, FastString4, FAST_STR);
 			call_format_number!(self, dst, dst_next_p, address);
-			write_fast_ascii_char_lit!(dst, dst_next_p, ')', true);
+			write_fast_ascii_char_lit!(dst, dst_next_p, b')', true);
 		}
 
 		dst_next_p

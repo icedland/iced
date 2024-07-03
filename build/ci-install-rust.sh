@@ -16,7 +16,7 @@ if [[ "$OSTYPE" = "darwin"* ]]; then
 fi
 
 # It fails on Windows so disable auto self update
-rustup toolchain install 1.60.0 --no-self-update
+rustup toolchain install 1.63.0 --no-self-update
 rustup target add wasm32-unknown-unknown
 rustup update --no-self-update
 
