@@ -20,7 +20,7 @@ crate-type = ["cdylib"]      # Creates dynamic lib
 
 [package.metadata.winres]
 FileDescription = ""
-FileVersion = "1.0.6.0"
+FileVersion = "1.0.6.1"
 ProductName = "Iced"
 ProductVersion = "1.2.1.0"
 OriginalFilename = "Iced.dll"

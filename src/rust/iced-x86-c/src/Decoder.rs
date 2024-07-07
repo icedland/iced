@@ -169,9 +169,39 @@ pub unsafe extern "C" fn Decoder_Decode( Decoder: *mut Decoder, Instruction: *mu
     if Decoder.is_null() {
         return;
     }
+    if Instruction.is_null() {
+        return;
+    }    
     let mut obj = Box::from_raw( Decoder );
 
     obj.decode_out( Instruction.as_mut().unwrap() );
+
+    Box::into_raw( obj );
+}
+
+type
+  TDecoderCallback = unsafe extern "C" fn( Instruction: *mut Instruction, Stop : *mut bool, UserData : *const usize );
+
+#[cfg(feature = "formatter")]
+pub(crate) type  
+  TDecoderFormatCallback = unsafe extern "C" fn( Instruction: *mut Instruction, Output : *const u8, Size : usize, Stop : *mut bool, UserData : *const usize );  
+
+#[no_mangle]
+pub unsafe extern "C" fn Decoder_DecodeToEnd( Decoder: *mut Decoder, Callback: Option<TDecoderCallback>, UserData : *const usize ) {
+    if Decoder.is_null() {
+        return;
+    }
+    if Callback.is_none() {
+        return;
+    }    
+    let mut obj = Box::from_raw( Decoder );
+
+    let mut Instruction: Instruction = Instruction::new();
+    let mut Stop: bool = false;
+    while obj.can_decode() && !Stop {
+        obj.decode_out( &mut Instruction );
+        Callback.unwrap()( &mut Instruction, &mut Stop, UserData );
+    }   
 
     Box::into_raw( obj );
 }
@@ -187,6 +217,7 @@ pub unsafe extern "C" fn Decoder_GetConstantOffsets( Decoder: *mut Decoder, Inst
         return false;
     }
     let obj = Box::from_raw( Decoder );
+    
     *ConstantOffsets = obj.get_constant_offsets( Instruction.as_mut().unwrap() );
 
     Box::into_raw( obj );
