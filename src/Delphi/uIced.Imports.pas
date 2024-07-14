@@ -72,6 +72,7 @@ var
   // which avoids copying the decoded instruction to the caller's return variable.
   // See also [`last_error()`].
   Decoder_Decode : procedure( Decoder : Pointer; const Instruction : TInstruction ); cdecl = nil;
+  Decoder_DecodeToEnd : procedure( Decoder : Pointer; Callback : TDecoderCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Gets the offsets of the constants (memory displacement and immediate) in the decoded instruction.
   // The caller can check if there are any relocations at those addresses.
@@ -91,8 +92,11 @@ var
   MasmFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
+  MasmFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  MasmFormatter_DecodeFormatCallback : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
   MasmFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
   MasmFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  MasmFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Creates a Nasm formatter
   //
@@ -102,8 +106,11 @@ var
   NasmFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
+  NasmFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  NasmFormatter_DecodeFormatCallback : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
   NasmFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
   NasmFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  NasmFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Creates a Gas formatter
   //
@@ -113,8 +120,11 @@ var
   GasFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
+  GasFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  GasFormatter_DecodeFormatCallback : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
   GasFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
   GasFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  GasFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Creates a Intel formatter
   //
@@ -124,21 +134,28 @@ var
   IntelFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; OptionsProvider : TFormatterOptionsProviderCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
+  IntelFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  IntelFormatter_DecodeFormatCallback : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
   IntelFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
   IntelFormatter_FormatCallback : procedure( Formatter : Pointer; const Instruction: TInstruction; FormatterOutput: Pointer ); cdecl = nil;
+  IntelFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Creates a Fast formatter (Specialized)
   // NOTE: Fast Formatter only supports Specialized-Options
   FastFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
-  FastFormatter_Format : function( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ) : PAnsiChar; cdecl = nil;
+  FastFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  FastFormatter_Format : procedure( Formatter : Pointer; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  FastFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
   // Creates a Specialized formatter
   SpecializedFormatter_Create : function( SymbolResolver : TSymbolResolverCallback = nil; UserData : Pointer = nil ) : Pointer; cdecl = nil;
 
   // Format Instruction
+  SpecializedFormatter_DecodeFormat : procedure( Decoder : Pointer; Formatter : Pointer; Options : Byte; var Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
   SpecializedFormatter_Format : procedure( Formatter : Pointer; Options : Byte; const Instruction: TInstruction; var Output: PAnsiChar; var Size : NativeUInt ); cdecl = nil;
+  SpecializedFormatter_DecodeFormatToEnd : procedure( Decoder : Pointer; Formatter : Pointer; Options : Byte; Callback : TDecoderFormatCallback; UserData : Pointer = nil ); cdecl = nil;
 
 // Options
   // NOTE: Specialized Formatter only supports the following Options
@@ -2071,37 +2088,56 @@ begin
   @Decoder_GetLastError := GetProcAddress( Handle, 'Decoder_GetLastError' );
   @DecoderError_AsString := GetProcAddress( Handle, 'DecoderError_AsString' );
   @Decoder_Decode := GetProcAddress( Handle, 'Decoder_Decode' );
+  @Decoder_DecodeToEnd := GetProcAddress( Handle, 'Decoder_DecodeToEnd' );
   @Decoder_GetConstantOffsets := GetProcAddress( Handle, 'Decoder_GetConstantOffsets' );
 
   @FormatterOutput_Create := GetProcAddress( Handle, 'FormatterOutput_Create' );
 
   // MasmFormatter
   @MasmFormatter_Create := GetProcAddress( Handle, 'MasmFormatter_Create' );
+  @MasmFormatter_DecodeFormat := GetProcAddress( Handle, 'MasmFormatter_DecodeFormat' );
+  @MasmFormatter_DecodeFormatCallback := GetProcAddress( Handle, 'MasmFormatter_DecodeFormatCallback' );
   @MasmFormatter_Format := GetProcAddress( Handle, 'MasmFormatter_Format' );
   @MasmFormatter_FormatCallback := GetProcAddress( Handle, 'MasmFormatter_FormatCallback' );
+  @MasmFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'MasmFormatter_DecodeFormatToEnd' );
 
   // NasmFormatter
   @NasmFormatter_Create := GetProcAddress( Handle, 'NasmFormatter_Create' );
+  @NasmFormatter_DecodeFormat := GetProcAddress( Handle, 'NasmFormatter_DecodeFormat' );
+  @NasmFormatter_DecodeFormatCallback := GetProcAddress( Handle, 'NasmFormatter_DecodeFormatCallback' );
   @NasmFormatter_Format := GetProcAddress( Handle, 'NasmFormatter_Format' );
   @NasmFormatter_FormatCallback := GetProcAddress( Handle, 'NasmFormatter_FormatCallback' );
+  @NasmFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'NasmFormatter_DecodeFormatToEnd' );
 
   // GasFormatter
   @GasFormatter_Create := GetProcAddress( Handle, 'GasFormatter_Create' );
+  @GasFormatter_DecodeFormat := GetProcAddress( Handle, 'GasFormatter_DecodeFormat' );
+  @GasFormatter_DecodeFormatCallback := GetProcAddress( Handle, 'GasFormatter_DecodeFormatCallback' );
   @GasFormatter_Format := GetProcAddress( Handle, 'GasFormatter_Format' );
   @GasFormatter_FormatCallback := GetProcAddress( Handle, 'GasFormatter_FormatCallback' );
+  @GasFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'GasFormatter_DecodeFormatToEnd' );
+
 
   // IntelFormatter
   @IntelFormatter_Create := GetProcAddress( Handle, 'IntelFormatter_Create' );
+  @IntelFormatter_DecodeFormat := GetProcAddress( Handle, 'IntelFormatter_DecodeFormat' );
+  @IntelFormatter_DecodeFormatCallback := GetProcAddress( Handle, 'IntelFormatter_DecodeFormatCallback' );
   @IntelFormatter_Format := GetProcAddress( Handle, 'IntelFormatter_Format' );
   @IntelFormatter_FormatCallback := GetProcAddress( Handle, 'IntelFormatter_FormatCallback' );
+  @IntelFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'IntelFormatter_DecodeFormatToEnd' );
 
   // FastFormatter
   @FastFormatter_Create := GetProcAddress( Handle, 'FastFormatter_Create' );
+  @FastFormatter_DecodeFormat := GetProcAddress( Handle, 'FastFormatter_DecodeFormat' );
   @FastFormatter_Format := GetProcAddress( Handle, 'FastFormatter_Format' );
+  @FastFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'FastFormatter_DecodeFormatToEnd' );
 
   // SpecializedFormatter
   @SpecializedFormatter_Create := GetProcAddress( Handle, 'SpecializedFormatter_Create' );
+  @SpecializedFormatter_DecodeFormat := GetProcAddress( Handle, 'SpecializedFormatter_DecodeFormat' );
   @SpecializedFormatter_Format := GetProcAddress( Handle, 'SpecializedFormatter_Format' );
+  @SpecializedFormatter_DecodeFormatToEnd := GetProcAddress( Handle, 'SpecializedFormatter_DecodeFormatToEnd' );
+
   // Options
   @SpecializedFormatter_GetAlwaysShowMemorySize := GetProcAddress( Handle, 'SpecializedFormatter_GetAlwaysShowMemorySize' );
   @SpecializedFormatter_SetAlwaysShowMemorySize := GetProcAddress( Handle, 'SpecializedFormatter_SetAlwaysShowMemorySize' );

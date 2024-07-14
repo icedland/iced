@@ -40,11 +40,39 @@ const
                                              $18, $57, $0A, $00, $48, $33, $C4, $48, $89, $85, $F0, $00, $00, $00, $4C, $8B,
                                              $05, $2F, $24, $0A, $00, $48, $8D, $05, $78, $7C, $04, $00, $33, $FF
                                            );
+
+procedure DecodeFormatCallback( const Instruction: TInstruction; Formatted : PAnsiChar; Size : NativeUInt; var Stop : Boolean; UserData : Pointer ); cdecl;
+type
+  PPByte = ^PByte;
 var
-  Instruction : TInstruction;
   sOutput     : String;
-  start_index : Integer;
   i           : Integer;
+begin
+  // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
+
+  // Hex
+  sOutput := '';
+  for i := 0 to Instruction.len-1 do
+    begin
+    sOutput := sOutput + IntToHex( PPByte( UserData )^^, 2 );
+    Inc( PPByte( UserData )^ );
+    end;
+
+  if ( Instruction.len < HEXBYTES_COLUMN_BYTE_LENGTH ) then
+    begin
+    for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len-1 do
+      sOutput := sOutput + '  '
+    end;
+
+  WriteLn( Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Formatted );
+end;
+
+var
+  pData       : PByte;
+//  Instruction : TInstruction;
+//  pInstruction: PAnsiChar;
+//  sOutput     : String;
+//  i           : Integer;
 begin
   if NOT IsInitDLL then
     begin
@@ -75,19 +103,23 @@ begin
   // Change some options, there are many more
   Iced.Formatter.UseHexPrefix := True;
 
+  pData := @EXAMPLE_CODE[ 0 ];
+  Iced.DecodeFormatToEnd( DecodeFormatCallback, @pData );
+{
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+//    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
 
     // Hex
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
-    start_index := instruction.RIP-EXAMPLE_CODE_RIP;
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
     sOutput := '';
-    for i := start_index to start_index+Instruction.len-1 do
-      sOutput := sOutput + IntToHex( EXAMPLE_CODE[ i ], 2 );
+    for i := 0 to Instruction.len-1 do
+      begin
+      sOutput := sOutput + IntToHex( pData^, 2 );
+      Inc( pData );
+      end;
 
     if ( Instruction.len < HEXBYTES_COLUMN_BYTE_LENGTH ) then
       begin
@@ -95,10 +127,12 @@ begin
         sOutput := sOutput + '  '
       end;
 
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+//    sOutput := Format( '%.16x ', [ Instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+    sOutput := Format( '%.16x ', [ Instruction.RIP ] ) + sOutput + string( pInstruction );
 
     WriteLn( sOutput );
     end;
+}
 
   WriteLn( 'Press enter to exit.' );
   ReadLn;

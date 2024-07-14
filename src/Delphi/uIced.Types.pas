@@ -10,12 +10,12 @@ unit uIced.Types;
   Callback Samples
   ---
 
-function SymbolResolverCallback( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
+function SymbolResolverCallback( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
 begin
   result := '';
 end;
 
-procedure FormatterOptionsProviderCallback( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; var Options: TFormatterOperandOptions; var NumberOptions: TNumberFormattingOptions; UserData : Pointer ); cdecl;
+procedure FormatterOptionsProviderCallback( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; var Options: TFormatterOperandOptions; var NumberOptions: TNumberFormattingOptions; UserData : Pointer ); cdecl;
 begin
   NumberOptions.prefix                          := 0x;          // Number prefix or an empty string
   NumberOptions.suffix                          := '';          // Number suffix or an empty string
@@ -43894,8 +43894,6 @@ type
     function IsTMM : Boolean;
   end;
 
-  TVirtualAddressResolverCallback = function( Register: TRegister; Index : NativeUInt; Size : NativeUInt; var Address : UInt64; UserData : Pointer ) : boolean; cdecl;
-
   TOpKindType = (
     // A register ([`Register`]).
     //
@@ -44455,6 +44453,8 @@ type
 
     function AsString : String; {$IF CompilerVersion >= 23}inline;{$IFEND}
   end;
+
+  TVirtualAddressResolverCallback = function( Register: TRegister; Index : NativeUInt; Size : NativeUInt; var Address : UInt64; UserData : Pointer ) : boolean; cdecl;
 
   TInstruction = {$IFDEF UNICODE}packed record{$ELSE}object{$ENDIF}
     next_rip      : UInt64;
@@ -45218,7 +45218,7 @@ type
   end;
 //{$IFEND}
 
-  TConstantOffsets = {$IFDEF UNICODE}packed record{$ELSE}object{$ENDIF}
+  TConstantOffsets = {$IFDEF UNICODE}record{$ELSE}object{$ENDIF}
     displacement_offset : Byte;
     displacement_size   : Byte;
     immediate_offset    : Byte;
@@ -45753,8 +45753,10 @@ type
     nle = 1
   );
 
-  TSymbolResolverCallback = function( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer = nil ) : PAnsiChar; cdecl;
-  TFormatterOptionsProviderCallback = procedure( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; var Options: TFormatterOperandOptions; var NumberOptions: TNumberFormattingOptions; UserData : Pointer = nil ); cdecl;
+  TDecoderCallback = procedure( const Instruction: TInstruction; var Stop : Boolean; UserData : Pointer ); cdecl;
+  TDecoderFormatCallback = procedure( const Instruction: TInstruction; Formatted : PAnsiChar; Size : NativeUInt; var Stop : Boolean; UserData : Pointer ); cdecl;
+  TSymbolResolverCallback = function( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer = nil ) : PAnsiChar; cdecl;
+  TFormatterOptionsProviderCallback = procedure( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; var Options: TFormatterOperandOptions; var NumberOptions: TNumberFormattingOptions; UserData : Pointer = nil ); cdecl;
   TFormatterOutputCallback = procedure( Text : PAnsiChar; Kind : TFormatterTextKind; UserData : Pointer = nil ); cdecl;
 
 const

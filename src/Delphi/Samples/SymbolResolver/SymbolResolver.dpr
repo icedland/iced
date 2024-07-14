@@ -3,6 +3,11 @@ program SymbolResolver;
 {$APPTYPE CONSOLE}
 
 uses
+  madExcept,
+  madLinkDisAsm,
+  madListHardware,
+  madListProcesses,
+  madListModules,
   SysUtils,
   Classes,
 
@@ -27,7 +32,7 @@ const
                                               ( Offset: UInt64( $5AA55AA5 ); Name: 'my_data' )
                                             );
 
-function SymbolResolverCallback( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
+function SymbolResolverCallback( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
 var
   i : Integer;
 begin
@@ -49,6 +54,7 @@ const
 var
   Instruction : TInstruction;
   Offset      : UInt64;
+  pInstruction: PAnsiChar;
 begin
   if NOT IsInitDLL then
     begin
@@ -63,17 +69,23 @@ begin
   Iced.Decoder.SetData( @EXAMPLE_CODE[ 0 ], Length( EXAMPLE_CODE ), EXAMPLE_CODE_RIP, doNone );
   {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
 
-  Iced.Decoder.Decode( Instruction );
-
   Iced.Formatter.FormatterType  := ftNasm;
   Iced.Formatter.SymbolResolver := SymbolResolverCallback;
   Iced.Formatter.ShowSymbols    := True;
+
+  // True           : mov rcx,[rdx+my_data (5AA55AA5h)]
+  // False (Default): mov rcx,[rdx+my_data]
+  Iced.Formatter.ShowSymbolAddress := True;
 
   // True (Default): mov rcx, [rdx+my_data (0x5AA55AA5)]
   // False         : mov rcx, my_data (0x5AA55AA5)[rdx]
 //  Iced.Formatter.SymbolDisplacementInBrackets := True;
 
-  WriteLn( Iced.Formatter.FormatToString( Instruction ) );
+//  Iced.Decoder.Decode( Instruction );
+//  WriteLn( Iced.Formatter.FormatToString( Instruction ) );
+
+  Iced.DecodeFormat( Instruction, pInstruction );
+  WriteLn( string( pInstruction ) );
 
   WriteLn( 'Press enter to exit.' );
   ReadLn;

@@ -8,7 +8,7 @@ iced-x86 is a blazing fast and correct x86 (16/32/64-bit) instruction decoder, d
 - 👍 Supports all Intel and AMD instructions
 - 👍 Correct: All instructions are tested and iced has been tested against other disassemblers/assemblers (xed, gas, objdump, masm, dumpbin, nasm, ndisasm) and fuzzed
 - 👍 The formatter supports masm, nasm, gas (AT&T), Intel (XED) and there are many options to customize the output
-- 👍 Blazing fast: Decodes >200 MB/s, 93MB/s with Formatting
+- 👍 Blazing fast: Decodes >240 MB/s, 125MB/s with Formatting
 - 👍 Small decoded instructions, only 40 bytes and the decoder doesn't allocate any memory
 - 👍 The encoder can be used to re-encode decoded instructions at any address
 - 👍 API to get instruction info, eg. read/written registers, memory and rflags bits; CPUID feature flag, control flow info, etc
@@ -86,6 +86,7 @@ var
   sOutput     : String;
   start_index : Integer;
   i           : Integer;
+  pInstruction: PAnsiChar;  
 begin
   if NOT IsInitDLL then
     begin
@@ -110,7 +111,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
 
@@ -126,7 +127,7 @@ begin
         sOutput := sOutput + '  '
       end;
 
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + string( pInstruction );
 
     WriteLn( sOutput );
     end;
@@ -160,7 +161,7 @@ const
                                               ( Offset: UInt64( $5AA55AA5 ); Name: 'my_data' )
                                             );
 
-function SymbolResolverCallback( var Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
+function SymbolResolverCallback( const Instruction: TInstruction; Operand: Cardinal; InstructionOperand : Cardinal; Address: UInt64; Size: Cardinal; UserData : Pointer ) : PAnsiChar; cdecl;
 var
   i : Integer;
 begin
@@ -192,14 +193,13 @@ begin
   Iced.Decoder.Bitness := EXAMPLE_CODE_BITNESS;
   Iced.Decoder.SetData( @EXAMPLE_CODE[ 0 ], Length( EXAMPLE_CODE ), EXAMPLE_CODE_RIP, doNone );
 
-  Iced.Decoder.Decode( Instruction );
-
   Iced.Formatter.FormatterType  := ftNasm;
   Iced.Formatter.SymbolResolver := SymbolResolverCallback;
   Iced.Formatter.ShowSymbols    := True;
-
-  WriteLn( Iced.Formatter.FormatToString( Instruction ) );
-
+  
+  Iced.DecodeFormat( Instruction, pInstruction );
+  WriteLn( string( pInstruction ) );
+  
   WriteLn( 'Press enter to exit.' );
   ReadLn;
 ```
@@ -406,6 +406,7 @@ var
   sOutput     : String;
   start_index : Integer;
   i           : Integer;
+  pInstruction: PAnsiChar;  
 begin
   Iced.Decoder.Bitness := EXAMPLE_CODE_BITNESS;
 
@@ -422,7 +423,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
 
@@ -441,7 +442,7 @@ begin
         sOutput := sOutput + '  '
       end;
 
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + string( pInstruction );
 
     WriteLn( sOutput );
     end;
@@ -498,7 +499,7 @@ begin
     Iced.Decoder.Decode( Instruction );
     if NOT Instruction.IsValid then
       begin
-      WriteLn( 'Library not loaded.' );
+      WriteLn( 'Error: Decoding failed.' );
       WriteLn( 'Press enter to exit.' );
       ReadLn;
       Instructions.Free;
@@ -863,7 +864,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, tOutput );
 
     // Assembly
     C := Instruction.next_rip-Instruction.len;
@@ -877,10 +878,6 @@ begin
 
       S := S + ' ';
 
-    // For quick hacks, it's fine to use the Display trait to format an instruction,
-    // but for real code, use a formatter, eg. MasmFormatter. See other examples.
-
-    Iced.Formatter.Format( Instruction, tOutput );
     WriteLn( S + String( tOutput ) );
 
     // Gets offsets in the instruction of the displacement and immediates and their sizes.
@@ -1095,6 +1092,7 @@ var
   sOutput     : String;
   start_index : Integer;
   i           : Integer;
+  pInstruction: PAnsiChar;
 begin
   if NOT IsInitDLL then
     begin
@@ -1115,7 +1113,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
 
@@ -1131,7 +1129,7 @@ begin
         sOutput := sOutput + '  '
       end;
 
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + string( pInstruction );
 
     WriteLn( sOutput );
     end;
@@ -1175,11 +1173,35 @@ const
                                              $18, $57, $0A, $00, $48, $33, $C4, $48, $89, $85, $F0, $00, $00, $00, $4C, $8B,
                                              $05, $2F, $24, $0A, $00, $48, $8D, $05, $78, $7C, $04, $00, $33, $FF
                                            );
+
+procedure DecodeFormatCallback( const Instruction: TInstruction; Formatted : PAnsiChar; Size : NativeUInt; var Stop : Boolean; UserData : Pointer ); cdecl;
+type
+  PPByte = ^PByte;
 var
-  Instruction : TInstruction;
   sOutput     : String;
-  start_index : Integer;
   i           : Integer;
+begin
+  // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
+
+  // Hex
+  sOutput := '';
+  for i := 0 to Instruction.len-1 do
+    begin
+    sOutput := sOutput + IntToHex( PPByte( UserData )^^, 2 );
+    Inc( PPByte( UserData )^ );
+    end;
+
+  if ( Instruction.len < HEXBYTES_COLUMN_BYTE_LENGTH ) then
+    begin
+    for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len-1 do
+      sOutput := sOutput + '  '
+    end;
+
+  WriteLn( Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Formatted );
+end;
+
+var
+  pData : PByte;
 begin
   if NOT IsInitDLL then
     begin
@@ -1191,7 +1213,9 @@ begin
 
   Iced.Decoder.Bitness := EXAMPLE_CODE_BITNESS;
 
+  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
   Iced.Decoder.SetData( @EXAMPLE_CODE[ 0 ], Length( EXAMPLE_CODE ), EXAMPLE_CODE_RIP, doNONE );
+  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
 
   // Formatters: Masm*, Nasm*, Gas* (AT&T) and Intel* (XED).
   // For fastest code, see `SpecializedFormatter` which is ~3.3x faster. Use it if formatting
@@ -1208,28 +1232,8 @@ begin
   // Change some options, there are many more
   Iced.Formatter.UseHexPrefix := True;
 
-  while Iced.Decoder.CanDecode do
-    begin
-    Iced.Decoder.Decode( Instruction );
-
-    // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
-
-    // Hex
-    start_index := instruction.RIP-EXAMPLE_CODE_RIP;
-    sOutput := '';
-    for i := start_index to start_index+Instruction.len-1 do
-      sOutput := sOutput + IntToHex( EXAMPLE_CODE[ i ], 2 );
-
-    if ( Instruction.len < HEXBYTES_COLUMN_BYTE_LENGTH ) then
-      begin
-      for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len-1 do
-        sOutput := sOutput + '  '
-      end;
-
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
-
-    WriteLn( sOutput );
-    end;
+  pData := @EXAMPLE_CODE[ 0 ];
+  Iced.DecodeFormatToEnd( DecodeFormatCallback, @pData );
 
   WriteLn( 'Press enter to exit.' );
   ReadLn;
@@ -1283,6 +1287,7 @@ var
   i             : Integer;
   label1        : UInt64;
   data1         : UInt64;
+  pInstruction  : PAnsiChar;
 begin
   if NOT IsInitDLL then
     begin
@@ -1358,7 +1363,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Assembly
     S := Format( '%.16x ', [ Instruction.RIP ] );
@@ -1372,7 +1377,7 @@ begin
     for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len*2+1 do
       S := S + ' ';
 
-    WriteLn( S + Iced.Formatter.FormatToString( Instruction ) );
+    WriteLn( S + string( pInstruction ) );
     end;
 
   Instruction.from_declare_byte( Data, Length( raw_data ) );

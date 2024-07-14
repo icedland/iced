@@ -271,7 +271,7 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, tOutput );
 
     // Assembly
     {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
@@ -292,7 +292,7 @@ begin
     // but for real code, use a formatter, eg. MasmFormatter. See other examples.
 //    WriteLn( S + Instruction.Format );
 
-    Iced.Formatter.Format( Instruction, tOutput );
+//    Iced.Formatter.Format( Instruction, tOutput );
     WriteLn( S + tOutput );
 
     // Gets offsets in the instruction of the displacement and immediates and their sizes.

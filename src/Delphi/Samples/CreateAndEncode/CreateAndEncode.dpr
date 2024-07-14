@@ -50,6 +50,7 @@ var
   i             : Integer;
   label1        : UInt64;
   data1         : UInt64;
+  pInstruction  : PAnsiChar;
 begin
   if NOT IsInitDLL then
     begin
@@ -133,7 +134,8 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+//    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Assembly
     S := Format( '%.16x ', [ Instruction.RIP ] );
@@ -147,7 +149,8 @@ begin
     for i := 0 to HEXBYTES_COLUMN_BYTE_LENGTH-Instruction.len*2+1 do
       S := S + ' ';
 
-    WriteLn( S + Iced.Formatter.FormatToString( Instruction ) );
+//    WriteLn( S + Iced.Formatter.FormatToString( Instruction ) );
+    WriteLn( S + string( pInstruction ) );
     end;
 
 //  Data := PByte( Results.code_buffer ); // @raw_data[ 0 ];

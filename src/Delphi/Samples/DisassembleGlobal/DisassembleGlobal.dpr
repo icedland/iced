@@ -40,6 +40,7 @@ var
   sOutput     : String;
   start_index : Integer;
   i           : Integer;
+  pInstruction: PAnsiChar;  
 begin
   if NOT IsInitDLL then
     begin
@@ -66,7 +67,8 @@ begin
 
   while Iced.Decoder.CanDecode do
     begin
-    Iced.Decoder.Decode( Instruction );
+//    Iced.Decoder.Decode( Instruction );
+    Iced.DecodeFormat( Instruction, pInstruction );
 
     // Eg. "00007FFAC46ACDB2 488DAC2400FFFFFF     lea       rbp,[rsp-100h]"
 
@@ -84,7 +86,8 @@ begin
         sOutput := sOutput + '  '
       end;
 
-    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+//    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + Iced.Formatter.FormatToString( Instruction );
+    sOutput := Format( '%.16x ', [ instruction.RIP ] ) + sOutput + string( pInstruction );
 
     WriteLn( sOutput );
     end;
