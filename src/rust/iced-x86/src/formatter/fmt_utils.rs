@@ -71,6 +71,7 @@ pub(super) fn is_call(kind: FormatterFlowControl) -> bool {
 }
 
 #[must_use]
+#[allow(unexpected_cfgs)]
 pub(super) fn get_flow_control(instruction: &Instruction) -> FormatterFlowControl {
 	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 	match instruction.code() {
