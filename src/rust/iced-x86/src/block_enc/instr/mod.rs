@@ -130,6 +130,7 @@ impl InstrUtils {
 		format!("{} : 0x{:X}", error_message, instruction.ip())
 	}
 
+	#[allow(unexpected_cfgs)]
 	pub(super) fn create(block_encoder: &mut BlockEncInt, base: &mut InstrBase, instruction: &Instruction) -> Box<dyn Instr> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match instruction.code() {

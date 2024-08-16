@@ -141,6 +141,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 			EncodingKind::EVEX | EncodingKind::XOP | EncodingKind::D3NOW | EncodingKind::MVEX => return true,
 		}
 
+		#[allow(unexpected_cfgs)]
 		for &op_kind in self.op_code.op_kinds() {
 			#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 			match op_kind {
@@ -205,6 +206,7 @@ impl<'a, 'b> OpCodeFormatter<'a, 'b> {
 		false
 	}
 
+	#[allow(unexpected_cfgs)]
 	fn has_vsib(&self) -> bool {
 		for &op_kind in self.op_code.op_kinds() {
 			#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]

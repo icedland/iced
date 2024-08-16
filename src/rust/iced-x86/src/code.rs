@@ -44853,6 +44853,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[allow(clippy::match_like_matches_macro)]
+	#[allow(unexpected_cfgs)]
 	pub const fn is_string_instruction(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
@@ -45083,6 +45084,7 @@ impl Code {
 impl Code {
 	#[must_use]
 	#[allow(clippy::match_like_matches_macro)]
+	#[allow(unexpected_cfgs)]
 	pub(crate) const fn ignores_segment(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
@@ -45108,6 +45110,7 @@ impl Code {
 	#[must_use]
 	#[inline]
 	#[allow(clippy::match_like_matches_macro)]
+	#[allow(unexpected_cfgs)]
 	pub(crate) const fn ignores_index(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {
@@ -45123,6 +45126,7 @@ impl Code {
 
 	#[must_use]
 	#[inline]
+	#[allow(unexpected_cfgs)]
 	pub(crate) const fn is_tile_stride_index(self) -> bool {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self {

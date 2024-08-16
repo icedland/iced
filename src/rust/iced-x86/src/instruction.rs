@@ -2447,6 +2447,7 @@ impl Instruction {
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::match_single_binding)]
+	#[allow(unexpected_cfgs)]
 	pub const fn vsib(&self) -> Option<bool> {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		match self.code() {
@@ -2829,6 +2830,7 @@ impl Instruction {
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[allow(unexpected_cfgs)]
 	pub fn stack_pointer_increment(&self) -> i32 {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		#[allow(clippy::match_single_binding)]
@@ -2948,6 +2950,7 @@ impl Instruction {
 	/// ```
 	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
+	#[allow(unexpected_cfgs)]
 	pub fn fpu_stack_increment_info(&self) -> FpuStackIncrementInfo {
 		#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
 		#[allow(clippy::match_single_binding)]

@@ -287,6 +287,7 @@ fn encode_invalid_code_value_is_an_error() {
 }
 
 #[test]
+#[allow(unexpected_cfgs)]
 fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 	const RIP: u64 = 0;
 
