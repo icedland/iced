@@ -47,13 +47,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.10.3</version>
+      <version>5.11.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>5.10.3</version>
+      <version>5.11.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -151,7 +151,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-gpg-plugin</artifactId>
-        <version>3.2.4</version>
+        <version>3.2.5</version>
         <executions>
           <execution>
             <id>sign-artifacts</id>
