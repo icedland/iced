@@ -268,6 +268,7 @@ impl Op for OpIq {
 }
 
 #[allow(non_camel_case_types)]
+#[allow(dead_code)]
 pub(super) struct OpI4;
 impl Op for OpI4 {
 	fn encode(&self, encoder: &mut Encoder, instruction: &Instruction, operand: u32) {
@@ -484,6 +485,7 @@ impl Op for OpImm {
 }
 
 #[allow(non_camel_case_types)]
+#[allow(dead_code)]
 pub(super) struct OpHx {
 	pub(super) reg_lo: Register,
 	pub(super) reg_hi: Register,
