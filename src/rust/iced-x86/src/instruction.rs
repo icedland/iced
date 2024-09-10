@@ -349,9 +349,12 @@ impl Instruction {
 					| Code::Xchg_rm16_r16
 					| Code::Xchg_rm32_r32
 					| Code::Xchg_rm64_r64
-					| Code::Mov_rm8_r8 | Code::Mov_rm16_r16
-					| Code::Mov_rm32_r32 | Code::Mov_rm64_r64
-					| Code::Mov_rm8_imm8 | Code::Mov_rm16_imm16
+					| Code::Mov_rm8_r8
+					| Code::Mov_rm16_r16
+					| Code::Mov_rm32_r32
+					| Code::Mov_rm64_r64
+					| Code::Mov_rm8_imm8
+					| Code::Mov_rm16_imm16
 					| Code::Mov_rm32_imm32
 					| Code::Mov_rm64_imm32
 			)
