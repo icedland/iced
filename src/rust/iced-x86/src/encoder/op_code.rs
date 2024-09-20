@@ -77,6 +77,7 @@ pub struct OpCodeInfo {
 	group_index: i8,
 	rm_group_index: i8,
 	op_kinds: [OpCodeOperandKind; IcedConstants::MAX_OP_COUNT],
+	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
 }
 
 impl OpCodeInfo {
@@ -358,6 +359,7 @@ impl OpCodeInfo {
 			group_index,
 			rm_group_index,
 			op_kinds: [op0_kind, op1_kind, op2_kind, op3_kind, op4_kind],
+			op_accesses: [code.op0_access(), code.op1_access(), code.op2_access(), code.op3_access(), code.op4_access()],
 		};
 
 		if string_format {
@@ -1298,6 +1300,75 @@ impl OpCodeInfo {
 	#[inline]
 	pub fn op_count(&self) -> u32 {
 		instruction_op_counts::OP_COUNT[self.code() as usize] as u32
+	}
+
+	/// Gets operand #0's OpAccess
+	#[must_use]
+	#[inline]
+	pub const fn op0_access(&self) -> OpAccess {
+		self.op_accesses[0]
+	}
+
+	/// Gets operand #1's OpAccess
+	#[must_use]
+	#[inline]
+	pub const fn op1_access(&self) -> OpAccess {
+		self.op_accesses[1]
+	}
+
+	/// Gets operand #2's OpAccess
+	#[must_use]
+	#[inline]
+	pub const fn op2_access(&self) -> OpAccess {
+		self.op_accesses[2]
+	}
+
+	/// Gets operand #3's OpAccess
+	#[must_use]
+	#[inline]
+	pub const fn op3_access(&self) -> OpAccess {
+		self.op_accesses[3]
+	}
+
+	/// Gets operand #4's OpAccess
+	#[must_use]
+	#[inline]
+	pub const fn op4_access(&self) -> OpAccess {
+		self.op_accesses[4]
+	}
+
+	/// Gets an operand's opaccess
+	///
+	/// # Arguments
+	///
+	/// * `operand`: Operand number, 0-4
+	#[must_use]
+	#[inline]
+	pub fn op_access(&self, operand: u32) -> OpAccess {
+		match self.op_accesses.get(operand as usize) {
+			Some(&op_access) => op_access,
+			None => {
+				debug_assert!(false, "Invalid operand: {}", operand);
+				OpAccess::None
+			}
+		}
+	}
+
+	#[inline]
+	#[allow(clippy::missing_inline_in_public_items)]
+	#[doc(hidden)]
+	pub fn try_op_access(&self, operand: u32) -> Result<OpAccess, IcedError> {
+		match self.op_accesses.get(operand as usize) {
+			Some(&op_access) => Ok(op_access),
+			None => Err(IcedError::new("Invalid operand")),
+		}
+	}
+
+	/// Gets all operand accesses
+	#[must_use]
+	#[inline]
+	pub fn op_accesses(&self) -> &[OpAccess] {
+		&self.op_accesses[0..self.op_count() as usize]
 	}
 
 	/// Gets operand #0's opkind
