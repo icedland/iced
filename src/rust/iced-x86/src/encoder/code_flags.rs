@@ -4,7 +4,7 @@ use super::info::enums::{
 };
 use super::{Code, EncodingKind, OpAccess};
 use crate::info_table::TABLE;
-use std::mem;
+use core::mem;
 
 #[repr(transparent)]
 #[derive(Clone, Copy)]
