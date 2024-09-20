@@ -159,9 +159,7 @@ impl InstructionInfoFactory {
 		info.used_registers.clear();
 		info.used_memory_locations.clear();
 
-		let (flags1, flags2) = crate::info::info_table::TABLE[instruction.code() as usize];
-
-		// SAFETY: the transmutes on the generated data (flags1,flags2) are safe since we only generate valid enum variants
+		let (flags1, flags2) = *instruction.code().info_flags();
 
 		let code_size = instruction.code_size();
 		const _: () = assert!(InstructionInfoOptions::NO_MEMORY_USAGE == Flags::NO_MEMORY_USAGE);
@@ -170,12 +168,11 @@ impl InstructionInfoFactory {
 		if code_size == CodeSize::Code64 || code_size == CodeSize::Unknown {
 			flags |= Flags::IS_64BIT;
 		}
-		let encoding = (flags2 >> InfoFlags2::ENCODING_SHIFT) & InfoFlags2::ENCODING_MASK;
-		if encoding != EncodingKind::Legacy as u32 {
+		if flags2.encoding_kind() != EncodingKind::Legacy {
 			flags |= Flags::ZERO_EXT_VEC_REGS;
 		}
 
-		let op0_info = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO0_SHIFT) & InfoFlags1::OP_INFO0_MASK) as u8) };
+		let op0_info = instruction.code().op0_info();
 		let op0_access = match op0_info {
 			OpInfo0::None => OpAccess::None,
 			OpInfo0::Read => OpAccess::Read,
@@ -255,23 +252,12 @@ impl InstructionInfoFactory {
 
 		debug_assert!(instruction.op_count() as usize <= IcedConstants::MAX_OP_COUNT);
 		info.op_accesses[0] = op0_access;
-		let op1_info: OpInfo1 = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO1_SHIFT) & InfoFlags1::OP_INFO1_MASK) as u8) };
-		info.op_accesses[1] = OP_ACCESS_1[op1_info as usize];
-		let op2_info: OpInfo2 = unsafe { mem::transmute(((flags1 >> InfoFlags1::OP_INFO2_SHIFT) & InfoFlags1::OP_INFO2_MASK) as u8) };
-		info.op_accesses[2] = OP_ACCESS_2[op2_info as usize];
-		info.op_accesses[3] = if (flags1 & ((InfoFlags1::OP_INFO3_MASK) << InfoFlags1::OP_INFO3_SHIFT)) != 0 {
-			const _: () = assert!(InstrInfoConstants::OP_INFO3_COUNT == 2);
-			OpAccess::Read
-		} else {
-			OpAccess::None
-		};
-		info.op_accesses[4] = if (flags1 & ((InfoFlags1::OP_INFO4_MASK) << InfoFlags1::OP_INFO4_SHIFT)) != 0 {
-			const _: () = assert!(InstrInfoConstants::OP_INFO4_COUNT == 2);
-			OpAccess::Read
-		} else {
-			OpAccess::None
-		};
+		info.op_accesses[1] = flags1.op1_access();
+		info.op_accesses[2] = flags1.op2_access();
+		info.op_accesses[3] = flags1.op3_access();
+		info.op_accesses[4] = flags1.op4_access();
 		const _: () = assert!(IcedConstants::MAX_OP_COUNT == 5);
+		let op1_info = flags1.op1_info();
 
 		for i in 0..(instruction.op_count() as usize) {
 			// SAFETY: valid index since i < instruction.op_count() (<= MAX_OP_COUNT) and op_accesses.len() (== MAX_OP_COUNT)
@@ -321,7 +307,7 @@ impl InstructionInfoFactory {
 					const _: () = assert!(InfoFlags1::IGNORES_SEGMENT == 1 << 31);
 					const _: () = assert!(Register::None as u32 == 0);
 					let segment_register =
-						unsafe { mem::transmute((instruction.memory_segment() as u32 & !((flags1 as i32 >> 31) as u32)) as RegisterUnderlyingType) };
+						unsafe { mem::transmute((instruction.memory_segment() as u32 & !flags1.sign_mask()) as RegisterUnderlyingType) };
 					let base_register = instruction.memory_base();
 					if base_register == Register::RIP {
 						if (flags & Flags::NO_MEMORY_USAGE) == 0 {
@@ -360,7 +346,7 @@ impl InstructionInfoFactory {
 							Self::add_memory_segment_register(flags, info, segment_register, OpAccess::Read);
 						}
 					} else {
-						let (index_register, scale) = if (flags1 & InfoFlags1::IGNORES_INDEX_VA) != 0 {
+						let (index_register, scale) = if flags1.ignores_index_va() {
 							let index = instruction.memory_index();
 							if (flags & Flags::NO_REGISTER_USAGE) == 0 && index != Register::None {
 								Self::add_register(flags, info, index, OpAccess::Read);
@@ -427,18 +413,13 @@ impl InstructionInfoFactory {
 			}
 		}
 
-		let implied_access = unsafe { mem::transmute(((flags1 >> InfoFlags1::IMPLIED_ACCESS_SHIFT) & InfoFlags1::IMPLIED_ACCESS_MASK) as u8) };
+		let implied_access = flags1.implied_access();
 		if implied_access != ImpliedAccess::None {
 			Self::add_implied_accesses(implied_access, instruction, info, flags);
 		}
 
 		if instruction.has_op_mask() && (flags & Flags::NO_REGISTER_USAGE) == 0 {
-			Self::add_register(
-				flags,
-				info,
-				instruction.op_mask(),
-				if (flags1 & InfoFlags1::OP_MASK_READ_WRITE) != 0 { OpAccess::ReadWrite } else { OpAccess::Read },
-			);
+			Self::add_register(flags, info, instruction.op_mask(), if flags1.op_mask_read_write() { OpAccess::ReadWrite } else { OpAccess::Read });
 		}
 		info
 	}

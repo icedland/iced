@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (C) 2018-present iced project and contributors
 
+mod code_flags;
 mod encoder_data;
 mod enums;
 pub(crate) mod handlers_table;
