@@ -78,33 +78,40 @@ impl InfoFlags1 {
 			OpInfo0::WriteForce | OpInfo0::WriteForceP1 => OpAccess::Write,
 			OpInfo0::CondWrite => OpAccess::CondWrite,
 
-			OpInfo0::CondWrite32_ReadWrite64 => {
-				todo!()
-				/*
-				if (flags & Flags::IS_64BIT) != 0 {
-					OpAccess::ReadWrite
-				} else {
-					OpAccess::CondWrite
-				}
-				*/
-			}
-
+			// Codes having this OpInfo0:
+			// Cmovo_r32_rm32
+			// Cmovno_r32_rm32
+			// Cmovb_r32_rm32
+			// Cmovae_r32_rm32
+			// Cmove_r32_rm32
+			// Cmovne_r32_rm32
+			// Cmovbe_r32_rm32
+			// Cmova_r32_rm32
+			// Cmovs_r32_rm32
+			// Cmovns_r32_rm32
+			// Cmovp_r32_rm32
+			// Cmovnp_r32_rm32
+			// Cmovl_r32_rm32
+			// Cmovge_r32_rm32
+			// Cmovle_r32_rm32
+			// Cmovg_r32_rm32
+			OpInfo0::CondWrite32_ReadWrite64 => OpAccess::CondWrite,
 			OpInfo0::ReadWrite => OpAccess::ReadWrite,
-
 			OpInfo0::ReadWriteVmm => OpAccess::ReadWrite,
 			OpInfo0::ReadCondWrite => OpAccess::ReadCondWrite,
 			OpInfo0::NoMemAccess => OpAccess::NoMemAccess,
 
-			OpInfo0::WriteMem_ReadWriteReg => {
-				todo!()
-				/*
-				if instruction_internal::internal_op0_is_not_reg_or_op1_is_not_reg(instruction) {
-					OpAccess::Write
-				} else {
-					OpAccess::ReadWrite
-				}
-				*/
-			}
+			// Codes having this OpInfo0:
+			// Movss_xmm_xmmm32
+			// Movsd_xmm_xmmm64
+			// Movss_xmmm32_xmm
+			// Movsd_xmmm64_xmm
+			//
+			// Relevant part from the intel manual for movss
+			// "Legacy version: When the source and destination operands are XMM registers, bits (MAXVL-1:32) of the corresponding destination register are unmodified. When the source operand is a memory location and destination operand is an XMM registers, Bits (127:32) of the destination operand is cleared to all 0s, bits MAXVL:128 of the destination operand remains unchanged."
+			// When the operands are availale it is possible to decide whether this is
+			// `OpAccess::Write` or `OpAccess::ReadWrite` here we return the more general one.
+			OpInfo0::WriteMem_ReadWriteReg => OpAccess::ReadWrite,
 		};
 		op0_access
 	}
