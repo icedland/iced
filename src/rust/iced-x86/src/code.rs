@@ -5,6 +5,7 @@ use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
 use crate::info::enums::*;
+#[cfg(feature = "instr_info")]
 use crate::info::info_flags::{code_info_flags, InfoFlags1 as InfoFlags1Type, InfoFlags2 as InfoFlags2Type};
 use crate::mnemonics;
 use crate::*;
@@ -45144,6 +45145,7 @@ impl Code {
 	}
 }
 
+#[cfg(feature = "instr_info")]
 impl Code {
 	pub(crate) const fn info_flags(&self) -> &(InfoFlags1Type, InfoFlags2Type) {
 		code_info_flags(*self)
