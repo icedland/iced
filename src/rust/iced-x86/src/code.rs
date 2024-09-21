@@ -45153,31 +45153,9 @@ impl Code {
 		&self.info_flags().0
 	}
 
-	pub(crate) const fn info_flags2(&self) -> &InfoFlags2Type {
-		&self.info_flags().1
-	}
-
 	pub(crate) const fn op0_info(&self) -> OpInfo0 {
 		self.info_flags1().op0_info()
 	}
-
-	/*
-	pub(crate) const fn op1_info(&self) -> OpInfo1 {
-		self.info_flags1().op1_info()
-	}
-
-	pub(crate) const fn op2_info(&self) -> OpInfo2 {
-		self.info_flags1().op2_info()
-	}
-
-	pub(crate) const fn op3_info(&self) -> OpInfo3 {
-		self.info_flags1().op3_info()
-	}
-
-	pub(crate) const fn op4_info(&self) -> OpInfo4 {
-		self.info_flags1().op4_info()
-	}
-	*/
 
 	/// Gets operand #0's OpAccess
 	pub const fn op0_access(&self) -> OpAccess {
@@ -45202,20 +45180,5 @@ impl Code {
 	/// Gets operand #4's OpAccess
 	pub const fn op4_access(&self) -> OpAccess {
 		self.info_flags1().op4_access()
-	}
-}
-
-#[test]
-fn op0_info() {
-	for code in Code::values() {
-		match code.info_flags1().op0_info() {
-			OpInfo0::CondWrite32_ReadWrite64 => {
-				println!("Code {code:?} has condwrite32_readwrite64");
-			}
-			OpInfo0::WriteMem_ReadWriteReg => {
-				println!("Code {code:?} has writemem_readwritereg");
-			}
-			_ => (),
-		}
 	}
 }
