@@ -70,7 +70,7 @@ impl InfoFlags1 {
 	}
 
 	pub const fn op0_access(&self) -> OpAccess {
-		let op0_access = match self.op0_info() {
+		match self.op0_info() {
 			OpInfo0::None => OpAccess::None,
 			OpInfo0::Read => OpAccess::Read,
 			OpInfo0::Write => OpAccess::Write,
@@ -112,8 +112,7 @@ impl InfoFlags1 {
 			// When the operands are availale it is possible to decide whether this is
 			// `OpAccess::Write` or `OpAccess::ReadWrite` here we return the more general one.
 			OpInfo0::WriteMem_ReadWriteReg => OpAccess::ReadWrite,
-		};
-		op0_access
+		}
 	}
 
 	pub const fn op1_access(&self) -> OpAccess {

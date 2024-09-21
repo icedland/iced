@@ -45158,26 +45158,36 @@ impl Code {
 	}
 
 	/// Gets operand #0's OpAccess
+	#[must_use]
+	#[inline]
 	pub const fn op0_access(&self) -> OpAccess {
 		self.info_flags1().op0_access()
 	}
 
 	/// Gets operand #1's OpAccess
+	#[must_use]
+	#[inline]
 	pub const fn op1_access(&self) -> OpAccess {
 		self.info_flags1().op1_access()
 	}
 
 	/// Gets operand #2's OpAccess
+	#[must_use]
+	#[inline]
 	pub const fn op2_access(&self) -> OpAccess {
 		self.info_flags1().op2_access()
 	}
 
 	/// Gets operand #3's OpAccess
+	#[must_use]
+	#[inline]
 	pub const fn op3_access(&self) -> OpAccess {
 		self.info_flags1().op3_access()
 	}
 
 	/// Gets operand #4's OpAccess
+	#[must_use]
+	#[inline]
 	pub const fn op4_access(&self) -> OpAccess {
 		self.info_flags1().op4_access()
 	}
