@@ -5,6 +5,7 @@ use crate::iced_constants::IcedConstants;
 use crate::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
 use crate::info::enums::*;
+use crate::info::info_flags::{code_info_flags, InfoFlags1 as InfoFlags1Type, InfoFlags2 as InfoFlags2Type};
 use crate::mnemonics;
 use crate::*;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
@@ -45139,6 +45140,82 @@ impl Code {
 			=> true,
 			// GENERATOR-END: TileStrideIndexTable
 			_ => false,
+		}
+	}
+}
+
+impl Code {
+	pub(crate) const fn info_flags(&self) -> &(InfoFlags1Type, InfoFlags2Type) {
+		code_info_flags(*self)
+	}
+
+	pub(crate) const fn info_flags1(&self) -> &InfoFlags1Type {
+		&self.info_flags().0
+	}
+
+	pub(crate) const fn info_flags2(&self) -> &InfoFlags2Type {
+		&self.info_flags().1
+	}
+
+	pub(crate) const fn op0_info(&self) -> OpInfo0 {
+		self.info_flags1().op0_info()
+	}
+
+	/*
+	pub(crate) const fn op1_info(&self) -> OpInfo1 {
+		self.info_flags1().op1_info()
+	}
+
+	pub(crate) const fn op2_info(&self) -> OpInfo2 {
+		self.info_flags1().op2_info()
+	}
+
+	pub(crate) const fn op3_info(&self) -> OpInfo3 {
+		self.info_flags1().op3_info()
+	}
+
+	pub(crate) const fn op4_info(&self) -> OpInfo4 {
+		self.info_flags1().op4_info()
+	}
+	*/
+
+	/// Gets operand #0's OpAccess
+	pub const fn op0_access(&self) -> OpAccess {
+		self.info_flags1().op0_access()
+	}
+
+	/// Gets operand #1's OpAccess
+	pub const fn op1_access(&self) -> OpAccess {
+		self.info_flags1().op1_access()
+	}
+
+	/// Gets operand #2's OpAccess
+	pub const fn op2_access(&self) -> OpAccess {
+		self.info_flags1().op2_access()
+	}
+
+	/// Gets operand #3's OpAccess
+	pub const fn op3_access(&self) -> OpAccess {
+		self.info_flags1().op3_access()
+	}
+
+	/// Gets operand #4's OpAccess
+	pub const fn op4_access(&self) -> OpAccess {
+		self.info_flags1().op4_access()
+	}
+}
+
+#[test]
+fn op0_info() {
+	for code in Code::values() {
+		match code.info_flags1().op0_info() {
+			OpInfo0::CondWrite32_ReadWrite64 => {
+				println!("Code {code:?} has condwrite32_readwrite64");
+			}
+			OpInfo0::WriteMem_ReadWriteReg => {
+				println!("Code {code:?} has writemem_readwritereg");
+			}
+			_ => (),
 		}
 	}
 }
