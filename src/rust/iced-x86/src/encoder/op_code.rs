@@ -77,7 +77,7 @@ pub struct OpCodeInfo {
 	group_index: i8,
 	rm_group_index: i8,
 	op_kinds: [OpCodeOperandKind; IcedConstants::MAX_OP_COUNT],
-    #[cfg(feature = "instr_info")]
+	#[cfg(feature = "instr_info")]
 	op_accesses: [OpAccess; IcedConstants::MAX_OP_COUNT],
 }
 
@@ -360,7 +360,7 @@ impl OpCodeInfo {
 			group_index,
 			rm_group_index,
 			op_kinds: [op0_kind, op1_kind, op2_kind, op3_kind, op4_kind],
-            #[cfg(feature = "instr_info")]
+			#[cfg(feature = "instr_info")]
 			op_accesses: [code.op0_access(), code.op1_access(), code.op2_access(), code.op3_access(), code.op4_access()],
 		};
 
@@ -1497,7 +1497,6 @@ impl OpCodeInfo {
 		&self.op_accesses[0..self.op_count() as usize]
 	}
 }
-
 
 impl fmt::Display for OpCodeInfo {
 	#[inline]
