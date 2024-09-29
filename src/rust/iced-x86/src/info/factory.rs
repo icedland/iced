@@ -132,6 +132,23 @@ impl InstructionInfoFactory {
 	/// assert_eq!(regs[2].register(), Register::ESI);
 	/// assert_eq!(regs[2].access(), OpAccess::Read);
 	/// ```
+	///
+	/// Compared to [`Code::op_access`], the operand accesses are specified based on the operands. For example
+	/// `xor rax, rax` will have a single operand write and no operand reads, since it always sets
+	/// `rax` to zero.
+	/// ```
+	/// use iced_x86::*;
+	/// // xor rax, rax
+	/// let bytes = b"\x48\x31\xc0";
+	/// let mut decoder = Decoder::new(64, bytes, DecoderOptions::NONE);
+	/// let mut info_factory = InstructionInfoFactory::new();
+	///
+	/// let instr = decoder.decode();
+	/// let info = info_factory.info(&instr);
+	///
+	/// assert_eq!(info.op0_access(), OpAccess::Write);
+	/// assert_eq!(info.op1_access(), OpAccess::None);
+	/// ```
 	#[must_use]
 	#[inline]
 	pub fn info(&mut self, instruction: &Instruction) -> &InstructionInfo {

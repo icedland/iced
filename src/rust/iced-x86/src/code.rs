@@ -45193,4 +45193,18 @@ impl Code {
 	pub const fn op4_access(&self) -> OpAccess {
 		self.info_flags1().op4_access()
 	}
+
+	/// Gets an operand's [`OpAccess`]. Returns `OpAccess::None` if the operand does not exist.
+	#[must_use]
+	#[inline]
+	pub const fn op_access(&self, operand: u32) -> OpAccess {
+		match operand {
+			0 => self.op0_access(),
+			1 => self.op1_access(),
+			2 => self.op2_access(),
+			3 => self.op3_access(),
+			4 => self.op4_access(),
+			_ => OpAccess::None,
+		}
+	}
 }
