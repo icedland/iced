@@ -4,6 +4,7 @@
 pub(crate) mod cpuid_table;
 pub(crate) mod enums;
 pub(crate) mod factory;
+pub(crate) mod info_flags;
 pub(crate) mod info_table;
 pub(crate) mod rflags_table;
 #[cfg(test)]
