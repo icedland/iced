@@ -45194,7 +45194,11 @@ impl Code {
 		self.info_flags1().op4_access()
 	}
 
-	/// Gets an operand's [`OpAccess`]. Returns `OpAccess::None` if the operand does not exist.
+	/// Gets an operand's [`OpAccess`]
+	/// # Arguments
+	///
+	/// * `operand`: Operand number. If the operand does not exist the function will return
+	/// `OpAccess::None`
 	#[must_use]
 	#[inline]
 	pub const fn op_access(&self, operand: u32) -> OpAccess {
