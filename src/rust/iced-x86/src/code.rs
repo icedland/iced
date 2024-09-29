@@ -45197,8 +45197,7 @@ impl Code {
 	/// Gets an operand's [`OpAccess`]
 	/// # Arguments
 	///
-	/// * `operand`: Operand number. If the operand does not exist the function will return
-	/// `OpAccess::None`
+	/// * `operand`: Operand number. If the operand does not exist the function will return `OpAccess::None`
 	#[must_use]
 	#[inline]
 	pub const fn op_access(&self, operand: u32) -> OpAccess {
