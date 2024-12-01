@@ -282,6 +282,7 @@ impl<'a, 'b> InstructionFormatter<'a, 'b> {
 		}
 	}
 
+	#[allow(unexpected_cfgs)]
 	pub(super) fn format(&mut self) -> String {
 		if !self.op_code.is_instruction() {
 			match self.op_code.code() {
