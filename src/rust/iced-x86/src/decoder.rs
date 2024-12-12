@@ -505,19 +505,19 @@ where
 
 	// Next bytes to read if there's enough bytes left to read.
 	// This can be 1 byte past the last byte of `data`.
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	data_ptr: usize,
-	// This is `data.as_ptr() + data.len()` (1 byte past the last valid byte).
+	// This is `data as *const u8 + data.len()` (1 byte past the last valid byte).
 	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	data_ptr_end: usize,
 	// Set to cmp::min(self.data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end)
 	// and is guaranteed to not overflow
 	// Initialized in decode() to at most 15 bytes after data_ptr so read_uXX() fails quickly after at most 15 read bytes
 	// (1MB prefixes won't cause it to read 1MB prefixes, it will stop after at most 15).
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	max_data_ptr: usize,
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
@@ -879,7 +879,7 @@ impl<'a> Decoder<'a> {
 	/// ```
 	#[inline]
 	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
-		unsafe { Decoder::try_with_slice_ptr(bitness, data as *const _, ip, options) }
+		unsafe { Decoder::try_with_slice_ptr(bitness, data, ip, options) }
 	}
 
 	/// Creates a decoder from a raw slice pointer.
@@ -896,7 +896,12 @@ impl<'a> Decoder<'a> {
 	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
 	///
 	/// # Safety
-	/// `data` must be a valid pointer to a slice of bytes with lifetime at least that of the decoder.
+	/// For other safe methods to be safe, `data` must be a valid pointer to a slice of bytes with lifetime 
+	/// at least that of the decoder which is not mutably aliased.
+	/// 
+	/// It is not *immediately* UB for `data` to fail to uphold these invariants. In that case you must 
+	/// ensure that the subslice at offset equal to the current decoder position with length equal to the 
+	/// to-be-decoded instruction does uphold them.
 	/// 
 	/// # Examples
 	///
@@ -989,13 +994,13 @@ impl<'a> Decoder<'a> {
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
-		let data_ptr_end = data.as_ptr() as usize + data.len();
-		if data_ptr_end < data.as_ptr() as usize || {
+		let data_ptr_end = data as *const u8 as usize + data.len();
+		if data_ptr_end < data as *const u8 as usize || {
 			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow.
 			// Both of them can equal data_ptr_end (1 byte past the last valid byte).
 			// When reading a u8/u16/u32..., we calculate data_ptr.add({1,2,4,...MAX_READ_SIZE}) so it must not overflow.
 			// In decode(), we calculate data_ptr.add(MAX_INSTRUCTION_LENGTH) so it must not overflow.
-			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data.as_ptr() as usize
+			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data as *const u8 as usize
 		} {
 			return Err(IcedError::new("Invalid slice"));
 		}
@@ -1084,10 +1089,10 @@ impl<'a> Decoder<'a> {
 
 		Ok(Decoder {
 			ip,
-			data_ptr: data.as_ptr() as usize,
+			data_ptr: data as *const u8 as usize,
 			data_ptr_end,
-			max_data_ptr: data.as_ptr() as usize,
-			instr_start_data_ptr: data.as_ptr() as usize,
+			max_data_ptr: data as *const u8 as usize,
+			instr_start_data_ptr: data as *const u8 as usize,
 			handlers_map0: get_handlers(&tables.handlers_map0),
 			handlers_vex_map0,
 			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
@@ -1167,7 +1172,7 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline]
 	pub fn position(&self) -> usize {
-		self.data_ptr - self.data.as_ptr() as usize
+		self.data_ptr - self.data as *const u8 as usize
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
@@ -1218,7 +1223,7 @@ impl<'a> Decoder<'a> {
 		} else {
 			// - We verified the new offset above.
 			// - Referencing 1 byte past the last valid byte is safe as long as we don't dereference it.
-			self.data_ptr = self.data.as_ptr() as usize + new_pos;
+			self.data_ptr = self.data as *const u8 as usize + new_pos;
 			Ok(())
 		}
 	}

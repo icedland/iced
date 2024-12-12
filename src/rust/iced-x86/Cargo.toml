@@ -12,7 +12,7 @@ keywords = ["disassembler", "assembler", "x86", "amd64", "x86_64"]
 categories = ["no-std", "development-tools::debugging", "encoding", "hardware-support", "wasm"]
 # Don't include the tests when uploading to crates.io
 exclude = ["/src/**/test/", "/src/**/tests/", "/src/**/test_utils/"]
-rust-version = "1.63.0"
+rust-version = "1.79.0"
 
 # These features are documented in README.md / lib.rs
 [features]
