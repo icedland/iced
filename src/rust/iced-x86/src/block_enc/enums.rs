@@ -161,5 +161,9 @@ impl BlockEncoderOptions {
 	/// [`BlockEncoder`]: struct.BlockEncoder.html
 	/// [`ConstantOffsets`]: struct.ConstantOffsets.html
 	pub const RETURN_CONSTANT_OFFSETS: u32 = 0x0000_0008;
+	/// The [`BlockEncoder`] should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.
+	///
+	/// [`BlockEncoder`]: struct.BlockEncoder.html
+	pub const RETURN_ALL_NEW_INSTRUCTION_OFFSETS: u32 = 0x0000_0014;
 }
 // GENERATOR-END: BlockEncoderOptions

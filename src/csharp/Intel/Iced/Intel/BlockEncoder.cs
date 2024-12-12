@@ -130,6 +130,8 @@ namespace Iced.Intel {
 		ReturnNewInstructionOffsets = 0x00000004,
 		/// <summary>The <see cref="BlockEncoder"/> should return <see cref="ConstantOffsets"/></summary>
 		ReturnConstantOffsets = 0x00000008,
+		/// <summary>The <see cref="BlockEncoder"/> should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.</summary>
+		ReturnAllNewInstructionOffsets = 0x00000014,
 	}
 	// GENERATOR-END: BlockEncoderOptions
 
