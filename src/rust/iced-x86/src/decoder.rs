@@ -585,6 +585,14 @@ where
 	phantom: PhantomData<&'a [u8]>
 }
 
+// Safety: decoder is safe to send between threads
+unsafe impl<'a> Send for Decoder<'a> {}
+
+// Safety: data read by decoder is borrowed from an immutable u8 slice, unless
+// using the unsafe `try_with_slice_ptr` constructor. In this case, the caller
+// is responsible for making sure the slice pointer is never written to
+unsafe impl<'a> Sync for Decoder<'a> {}
+
 macro_rules! write_base_reg {
 	($instruction:ident, $expr:expr) => {
 		debug_assert!($expr < IcedConstants::REGISTER_ENUM_COUNT as u32);
