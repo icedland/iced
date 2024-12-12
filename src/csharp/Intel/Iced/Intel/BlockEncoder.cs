@@ -150,6 +150,8 @@ namespace Iced.Intel {
 		bool ReturnRelocInfos => (options & BlockEncoderOptions.ReturnRelocInfos) != 0;
 		bool ReturnNewInstructionOffsets => (options & BlockEncoderOptions.ReturnNewInstructionOffsets) != 0;
 		bool ReturnConstantOffsets => (options & BlockEncoderOptions.ReturnConstantOffsets) != 0;
+		bool ReturnAllNewInstructionOffsets => (options & BlockEncoderOptions.ReturnAllNewInstructionOffsets) != 0;
+
 
 		sealed class NullCodeWriter : CodeWriter {
 			public static readonly NullCodeWriter Instance = new NullCodeWriter();
@@ -330,7 +332,7 @@ namespace Iced.Intel {
 						return false;
 					}
 					if (newInstructionOffsets is not null) {
-						if (isOriginalInstruction)
+						if (isOriginalInstruction || ReturnAllNewInstructionOffsets)
 							newInstructionOffsets[j] = (uint)(ip - block.RIP);
 						else
 							newInstructionOffsets[j] = uint.MaxValue;

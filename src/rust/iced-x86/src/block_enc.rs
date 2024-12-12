@@ -421,7 +421,12 @@ impl BlockEncoder {
 					return Err(IcedError::new("Internal error"));
 				}
 				if (self.benc.options & BlockEncoderOptions::RETURN_NEW_INSTRUCTION_OFFSETS) != 0 {
-					new_instruction_offsets.push(if is_original_instruction { ctx.ip.wrapping_sub(ctx.block.rip) as u32 } else { u32::MAX });
+					let return_all_offsets = (self.benc.options & BlockEncoderOptions::RETURN_ALL_NEW_INSTRUCTION_OFFSETS) != 0;
+					new_instruction_offsets.push(if return_all_offsets || is_original_instruction { 
+						ctx.ip.wrapping_sub(ctx.block.rip) as u32 
+					} else { 
+						u32::MAX 
+					});
 				}
 				ctx.ip = ctx.ip.wrapping_add(size as u64);
 			}
