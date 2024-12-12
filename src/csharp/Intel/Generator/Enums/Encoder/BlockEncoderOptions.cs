@@ -21,5 +21,8 @@ namespace Generator.Enums.Encoder {
 
 		[Comment("The #(r:BlockEncoder)# should return #(r:ConstantOffsets)#")]
 		ReturnConstantOffsets		= 0x00000008,
+
+		[Comment("The #(r:BlockEncoder)# should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.")]
+		ReturnAllNewInstructionOffsets = 0x00000014
 	}
 }
