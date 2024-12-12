@@ -101,6 +101,7 @@ use crate::instruction_internal;
 use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::iter::FusedIterator;
+use core::marker::PhantomData;
 use core::{cmp, fmt, mem, ptr};
 
 #[rustfmt::skip]
@@ -578,8 +579,10 @@ where
 	// Offset of displacement in the instruction. Only used by get_constant_offsets() to return the offset of the displ
 	displ_index: u8,
 
-	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
-	data: &'a [u8],
+	// Input data provided by the user as a raw pointer to avoid potential UB from aliasing.
+	// When there's no more bytes left to read we'll return a NoMoreBytes error
+	data: *const [u8],
+	phantom: PhantomData<&'a [u8]>
 }
 
 macro_rules! write_base_reg {
@@ -866,10 +869,85 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
 	/// assert!(instr.has_lock_prefix());
 	/// ```
+	#[inline]
+	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
+		unsafe { Decoder::try_with_slice_ptr(bitness, data as *const _, ip, options) }
+	}
+
+	/// Creates a decoder from a raw slice pointer.
+	///
+	/// # Errors
+	///
+	/// Fails if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	/// * `data`: Data to decode
+	/// * `ip`: `RIP` value
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
+	///
+	/// # Safety
+	/// `data` must be a valid pointer to a slice of bytes with lifetime at least that of the decoder.
+	/// 
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg ah,[rdx+rsi+16h]
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3" as *const [u8];
+	/// let mut decoder = unsafe {
+	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	/// };
+	///
+	/// let instr1 = decoder.decode();
+	/// assert_eq!(instr1.code(), Code::Xchg_rm8_r8);
+	/// assert_eq!(instr1.mnemonic(), Mnemonic::Xchg);
+	/// assert_eq!(instr1.len(), 4);
+	///
+	/// let instr2 = decoder.decode();
+	/// assert_eq!(instr2.code(), Code::Add_rm32_imm8);
+	/// assert_eq!(instr2.mnemonic(), Mnemonic::Add);
+	/// assert_eq!(instr2.len(), 5);
+	///
+	/// let instr3 = decoder.decode();
+	/// assert_eq!(instr3.code(), Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert_eq!(instr3.mnemonic(), Mnemonic::Vmovdqu64);
+	/// assert_eq!(instr3.len(), 6);
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE" as *const [u8];
+	/// let mut decoder = unsafe {
+	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	/// };
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::INVALID);
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = unsafe {
+	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK).unwrap()
+	/// };
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
+	/// assert!(instr.has_lock_prefix());
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::let_unit_value)]
 	#[allow(trivial_casts)]
-	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
+	pub unsafe fn try_with_slice_ptr(bitness: u32, data: *const [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
 		let is64b_mode;
 		let default_code_size;
 		let default_operand_size;
@@ -1027,6 +1105,7 @@ impl<'a> Decoder<'a> {
 			default_code_size,
 			displ_index: 0,
 			data,
+			phantom: PhantomData
 		})
 	}
 
