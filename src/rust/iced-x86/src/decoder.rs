@@ -586,12 +586,12 @@ where
 }
 
 // Safety: decoder is safe to send between threads
-unsafe impl<'a> Send for Decoder<'a> {}
+unsafe impl Send for Decoder<'_> {}
 
 // Safety: data read by decoder is borrowed from an immutable u8 slice, unless
 // using the unsafe `try_with_slice_ptr` constructor. In this case, the caller
 // is responsible for making sure the slice pointer is never written to
-unsafe impl<'a> Sync for Decoder<'a> {}
+unsafe impl Sync for Decoder<'_> {}
 
 macro_rules! write_base_reg {
 	($instruction:ident, $expr:expr) => {
@@ -900,8 +900,8 @@ impl<'a> Decoder<'a> {
 	/// at least that of the decoder which is not mutably aliased.
 	/// 
 	/// It is not *immediately* UB for `data` to fail to uphold these invariants. In that case you must 
-	/// ensure that the subslice at offset equal to the current decoder position with length equal to the 
-	/// to-be-decoded instruction does uphold them.
+	/// ensure that whenever [`decode`] or [`decode_out`] is called, the subslice at the current decoder 
+	/// position with length equal to the to-be-decoded instruction does uphold them.
 	/// 
 	/// # Examples
 	///
@@ -913,7 +913,7 @@ impl<'a> Decoder<'a> {
 	/// // vmovdqu64 zmm18{k3}{z},zmm11
 	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3" as *const [u8];
 	/// let mut decoder = unsafe {
-	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
 	/// };
 	///
 	/// let instr1 = decoder.decode();
@@ -937,6 +937,8 @@ impl<'a> Decoder<'a> {
 	/// will decode some invalid encodings.
 	///
 	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	/// [`decode`]: #method.decode
+	/// [`decode_out`]: #method.decode_out
 	///
 	/// ```
 	/// use iced_x86::*;
@@ -944,14 +946,14 @@ impl<'a> Decoder<'a> {
 	/// // lock add esi,ecx   ; lock not allowed
 	/// let bytes = b"\xF0\x01\xCE" as *const [u8];
 	/// let mut decoder = unsafe {
-	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
 	/// };
 	/// let instr = decoder.decode();
 	/// assert_eq!(instr.code(), Code::INVALID);
 	///
 	/// // We want to decode some instructions with invalid encodings
 	/// let mut decoder = unsafe {
-	/// 	Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK).unwrap()
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK).unwrap()
 	/// };
 	/// let instr = decoder.decode();
 	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
