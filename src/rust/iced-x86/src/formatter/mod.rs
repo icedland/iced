@@ -743,3 +743,21 @@ fn get_mnemonic_cc<'a>(options: &FormatterOptions, cc_index: u32, mnemonics: &'a
 	debug_assert!(index < mnemonics.len());
 	&mnemonics[index]
 }
+
+pub(crate) fn eager_init() {
+	let _ = &fmt_consts::FORMATTER_CONSTANTS.a64;
+	let _ = &fmt_consts::ARRAY_CONSTS.byte_ptr;
+	let _ = &regs_tbl_ls::REGS_TBL.len();
+	// Some static variables are private. Use public functions to eagerly initialize them.
+	pseudo_ops::eager_init();
+	#[cfg(feature = "fast_fmt")]
+	fast::eager_init();
+	#[cfg(feature = "gas")]
+	gas::eager_init();
+	#[cfg(feature = "intel")]
+	intel::eager_init();
+	#[cfg(feature = "masm")]
+	masm::eager_init();
+	#[cfg(feature = "nasm")]
+	nasm::eager_init();
+}

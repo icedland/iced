@@ -259,3 +259,7 @@ fn create(cc: &[&str], size: usize, prefix: &str, suffix: &str) -> Vec<FastStrin
 	}
 	strings
 }
+
+pub(super) fn eager_init() {
+	let _ = &PSEUDO_OPS.cmppd;
+}

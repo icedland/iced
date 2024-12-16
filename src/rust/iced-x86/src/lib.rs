@@ -184,3 +184,13 @@ pub use crate::instruction::*;
 pub use crate::memory_size::*;
 pub use crate::mnemonic::*;
 pub use crate::register::*;
+
+/// ## eager_init function
+/// This routine initializes all static variables inside lazy_static. \
+/// Calling this routine is not required to use iced. The purpose of this routine is to
+/// minimalize memory allocations when using iced library.
+pub fn eager_init() {
+	decoder::eager_init();
+	encoder::eager_init();
+	formatter::eager_init();
+}

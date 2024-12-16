@@ -1678,3 +1678,8 @@ impl Encoder {
 		self.bitness
 	}
 }
+
+pub(crate) fn eager_init() {
+	let _ = &handlers_table::HANDLERS_TABLE.as_ptr();
+	let _ = &op_code_tbl::OP_CODE_INFO_TBL.as_ptr();
+}
