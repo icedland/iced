@@ -10,6 +10,7 @@ pub(crate) mod rflags_table;
 #[cfg(test)]
 mod tests;
 
+pub use self::info_flags::OpAccessOptions;
 use crate::iced_constants::IcedConstants;
 pub use crate::info::factory::*;
 use crate::*;

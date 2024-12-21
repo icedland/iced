@@ -6,7 +6,7 @@ use crate::iced_error::IcedError;
 #[cfg(feature = "instr_info")]
 use crate::info::enums::*;
 #[cfg(feature = "instr_info")]
-use crate::info::info_flags::{code_info_flags, InfoFlags1 as InfoFlags1Type, InfoFlags2 as InfoFlags2Type};
+use crate::info::info_flags::{code_info_flags, InfoFlags1 as InfoFlags1Type, InfoFlags2 as InfoFlags2Type, OpAccessOptions};
 use crate::mnemonics;
 use crate::*;
 use core::iter::{ExactSizeIterator, FusedIterator, Iterator};
@@ -45162,35 +45162,35 @@ impl Code {
 	/// Gets operand #0's OpAccess
 	#[must_use]
 	#[inline]
-	pub const fn op0_access(&self) -> OpAccess {
-		self.info_flags1().op0_access()
+	pub const fn op0_access(&self, options: OpAccessOptions) -> OpAccess {
+		self.info_flags1().op0_access(options)
 	}
 
 	/// Gets operand #1's OpAccess
 	#[must_use]
 	#[inline]
-	pub const fn op1_access(&self) -> OpAccess {
+	pub const fn op1_access(&self, _options: OpAccessOptions) -> OpAccess {
 		self.info_flags1().op1_access()
 	}
 
 	/// Gets operand #2's OpAccess
 	#[must_use]
 	#[inline]
-	pub const fn op2_access(&self) -> OpAccess {
+	pub const fn op2_access(&self, _options: OpAccessOptions) -> OpAccess {
 		self.info_flags1().op2_access()
 	}
 
 	/// Gets operand #3's OpAccess
 	#[must_use]
 	#[inline]
-	pub const fn op3_access(&self) -> OpAccess {
+	pub const fn op3_access(&self, _options: OpAccessOptions) -> OpAccess {
 		self.info_flags1().op3_access()
 	}
 
 	/// Gets operand #4's OpAccess
 	#[must_use]
 	#[inline]
-	pub const fn op4_access(&self) -> OpAccess {
+	pub const fn op4_access(&self, _options: OpAccessOptions) -> OpAccess {
 		self.info_flags1().op4_access()
 	}
 
@@ -45200,13 +45200,13 @@ impl Code {
 	/// * `operand`: Operand number. If the operand does not exist the function will return `OpAccess::None`
 	#[must_use]
 	#[inline]
-	pub const fn op_access(&self, operand: u32) -> OpAccess {
+	pub const fn op_access(&self, operand: u32, options: OpAccessOptions) -> OpAccess {
 		match operand {
-			0 => self.op0_access(),
-			1 => self.op1_access(),
-			2 => self.op2_access(),
-			3 => self.op3_access(),
-			4 => self.op4_access(),
+			0 => self.op0_access(options),
+			1 => self.op1_access(options),
+			2 => self.op2_access(options),
+			3 => self.op3_access(options),
+			4 => self.op4_access(options),
 			_ => OpAccess::None,
 		}
 	}
