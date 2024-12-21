@@ -168,6 +168,13 @@ impl OpAccessOptions {
 	const HAS_MEMORY_OPERAND_MASK: u8 = 1u8 << Self::HAS_MEMORY_OPERAND_SHIFT;
 	const IS_64_MASK: u8 = 1u8 << Self::IS_64_SHIFT;
 
+	/// Create a new `OpAccessOptions` with options set to `false`
+	#[must_use]
+	#[inline]
+	pub const fn new() -> Self {
+		Self(0)
+	}
+
 	/// Set whether it should be assumed that there is at least one memory operand when calculating operand access. Currently this
 	/// affects operand 0 of the following [`Code`]-s:
 	///
