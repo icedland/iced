@@ -130,9 +130,7 @@ jobs:
 
       - name: Install kcov
         shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install kcov
+        run: ./build/ci-install-pkg-fallback-to-ubuntu-2204-LTS.sh kcov
 
       - name: Build and test
         shell: bash
