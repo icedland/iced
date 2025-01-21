@@ -125,7 +125,7 @@ namespace Generator.Misc.Python {
 						}
 					}
 					else
-						writer.WriteLine($"class {pythonName}({baseClass}): ...");
+						writer.WriteLine($"class {pythonName}({baseClass}): ... # type: ignore");
 				}
 
 				var docGen = new PyiDocGen();
