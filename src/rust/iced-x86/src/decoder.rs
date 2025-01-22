@@ -101,6 +101,7 @@ use crate::instruction_internal;
 use crate::tuple_type_tbl::get_disp8n;
 use crate::*;
 use core::iter::FusedIterator;
+use core::marker::PhantomData;
 use core::{cmp, fmt, mem, ptr};
 
 #[rustfmt::skip]
@@ -504,19 +505,19 @@ where
 
 	// Next bytes to read if there's enough bytes left to read.
 	// This can be 1 byte past the last byte of `data`.
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	data_ptr: usize,
-	// This is `data.as_ptr() + data.len()` (1 byte past the last valid byte).
+	// This is `data as *const u8 + data.len()` (1 byte past the last valid byte).
 	// This is guaranteed to be >= data_ptr (see the ctor), in other words, it can't overflow to 0
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	data_ptr_end: usize,
 	// Set to cmp::min(self.data_ptr + IcedConstants::MAX_INSTRUCTION_LENGTH, self.data_ptr_end)
 	// and is guaranteed to not overflow
 	// Initialized in decode() to at most 15 bytes after data_ptr so read_uXX() fails quickly after at most 15 read bytes
 	// (1MB prefixes won't cause it to read 1MB prefixes, it will stop after at most 15).
-	// Invariant: data.as_ptr() <= data_ptr <= max_data_ptr <= data.as_ptr() + data.len() == data_ptr_end
+	// Invariant: data as *const u8 <= data_ptr <= max_data_ptr <= data as *const u8 + data.len() == data_ptr_end
 	// Invariant: {data_ptr,max_data_ptr,data_ptr_end}.add(max(MAX_READ_SIZE, MAX_INSTRUCTION_LENGTH)) doesn't overflow
 	max_data_ptr: usize,
 	// Initialized to start of data (data_ptr) when decode() is called. Used to calculate current IP/offset (when decoding) if needed.
@@ -578,9 +579,19 @@ where
 	// Offset of displacement in the instruction. Only used by get_constant_offsets() to return the offset of the displ
 	displ_index: u8,
 
-	// Input data provided by the user. When there's no more bytes left to read we'll return a NoMoreBytes error
-	data: &'a [u8],
+	// Input data provided by the user as a raw pointer to avoid potential UB from aliasing.
+	// When there's no more bytes left to read we'll return a NoMoreBytes error
+	data: *const [u8],
+	phantom: PhantomData<&'a [u8]>
 }
+
+// Safety: decoder is safe to send between threads
+unsafe impl Send for Decoder<'_> {}
+
+// Safety: data read by decoder is borrowed from an immutable u8 slice, unless
+// using the unsafe `try_with_slice_ptr` constructor. In this case, the caller
+// is responsible for making sure the slice pointer is never written to
+unsafe impl Sync for Decoder<'_> {}
 
 macro_rules! write_base_reg {
 	($instruction:ident, $expr:expr) => {
@@ -866,10 +877,92 @@ impl<'a> Decoder<'a> {
 	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
 	/// assert!(instr.has_lock_prefix());
 	/// ```
+	#[inline]
+	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
+		unsafe { Decoder::try_with_slice_ptr(bitness, data, ip, options) }
+	}
+
+	/// Creates a decoder from a raw slice pointer.
+	///
+	/// # Errors
+	///
+	/// Fails if `bitness` is not one of 16, 32, 64.
+	///
+	/// # Arguments
+	///
+	/// * `bitness`: 16, 32 or 64
+	/// * `data`: Data to decode
+	/// * `ip`: `RIP` value
+	/// * `options`: Decoder options, `0` or eg. `DecoderOptions::NO_INVALID_CHECK | DecoderOptions::AMD`
+	///
+	/// # Safety
+	/// For other safe methods to be safe, `data` must be a valid pointer to a slice of bytes with lifetime 
+	/// at least that of the decoder which is not mutably aliased.
+	/// 
+	/// It is not *immediately* UB for `data` to fail to uphold these invariants. In that case you must 
+	/// ensure that whenever [`decode`] or [`decode_out`] is called, the subslice at the current decoder 
+	/// position with length equal to the to-be-decoded instruction does uphold them.
+	/// 
+	/// # Examples
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // xchg ah,[rdx+rsi+16h]
+	/// // xacquire lock add dword ptr [rax],5Ah
+	/// // vmovdqu64 zmm18{k3}{z},zmm11
+	/// let bytes = b"\x86\x64\x32\x16\xF0\xF2\x83\x00\x5A\x62\xC1\xFE\xCB\x6F\xD3" as *const [u8];
+	/// let mut decoder = unsafe {
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	/// };
+	///
+	/// let instr1 = decoder.decode();
+	/// assert_eq!(instr1.code(), Code::Xchg_rm8_r8);
+	/// assert_eq!(instr1.mnemonic(), Mnemonic::Xchg);
+	/// assert_eq!(instr1.len(), 4);
+	///
+	/// let instr2 = decoder.decode();
+	/// assert_eq!(instr2.code(), Code::Add_rm32_imm8);
+	/// assert_eq!(instr2.mnemonic(), Mnemonic::Add);
+	/// assert_eq!(instr2.len(), 5);
+	///
+	/// let instr3 = decoder.decode();
+	/// assert_eq!(instr3.code(), Code::EVEX_Vmovdqu64_zmm_k1z_zmmm512);
+	/// assert_eq!(instr3.mnemonic(), Mnemonic::Vmovdqu64);
+	/// assert_eq!(instr3.len(), 6);
+	/// ```
+	///
+	/// It's sometimes useful to decode some invalid instructions, eg. `lock add esi,ecx`.
+	/// Pass in [`DecoderOptions::NO_INVALID_CHECK`] to the constructor and the decoder
+	/// will decode some invalid encodings.
+	///
+	/// [`DecoderOptions::NO_INVALID_CHECK`]: struct.DecoderOptions.html#associatedconstant.NO_INVALID_CHECK
+	/// [`decode`]: #method.decode
+	/// [`decode_out`]: #method.decode_out
+	///
+	/// ```
+	/// use iced_x86::*;
+	///
+	/// // lock add esi,ecx   ; lock not allowed
+	/// let bytes = b"\xF0\x01\xCE" as *const [u8];
+	/// let mut decoder = unsafe {
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NONE).unwrap()
+	/// };
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::INVALID);
+	///
+	/// // We want to decode some instructions with invalid encodings
+	/// let mut decoder = unsafe {
+	///     Decoder::try_with_slice_ptr(64, bytes, 0x1234_5678, DecoderOptions::NO_INVALID_CHECK).unwrap()
+	/// };
+	/// let instr = decoder.decode();
+	/// assert_eq!(instr.code(), Code::Add_rm32_r32);
+	/// assert!(instr.has_lock_prefix());
+	/// ```
 	#[allow(clippy::missing_inline_in_public_items)]
 	#[allow(clippy::let_unit_value)]
 	#[allow(trivial_casts)]
-	pub fn try_with_ip(bitness: u32, data: &'a [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
+	pub unsafe fn try_with_slice_ptr(bitness: u32, data: *const [u8], ip: u64, options: u32) -> Result<Decoder<'a>, IcedError> {
 		let is64b_mode;
 		let default_code_size;
 		let default_operand_size;
@@ -903,13 +996,13 @@ impl<'a> Decoder<'a> {
 			}
 			_ => return Err(IcedError::new("Invalid bitness")),
 		}
-		let data_ptr_end = data.as_ptr() as usize + data.len();
-		if data_ptr_end < data.as_ptr() as usize || {
+		let data_ptr_end = data as *const u8 as usize + data.len();
+		if data_ptr_end < data as *const u8 as usize || {
 			// Verify that max_data_ptr can never overflow and that data_ptr.add(N) can't overflow.
 			// Both of them can equal data_ptr_end (1 byte past the last valid byte).
 			// When reading a u8/u16/u32..., we calculate data_ptr.add({1,2,4,...MAX_READ_SIZE}) so it must not overflow.
 			// In decode(), we calculate data_ptr.add(MAX_INSTRUCTION_LENGTH) so it must not overflow.
-			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data.as_ptr() as usize
+			data_ptr_end.wrapping_add(cmp::max(IcedConstants::MAX_INSTRUCTION_LENGTH, Decoder::MAX_READ_SIZE)) < data as *const u8 as usize
 		} {
 			return Err(IcedError::new("Invalid slice"));
 		}
@@ -998,10 +1091,10 @@ impl<'a> Decoder<'a> {
 
 		Ok(Decoder {
 			ip,
-			data_ptr: data.as_ptr() as usize,
+			data_ptr: data as *const u8 as usize,
 			data_ptr_end,
-			max_data_ptr: data.as_ptr() as usize,
-			instr_start_data_ptr: data.as_ptr() as usize,
+			max_data_ptr: data as *const u8 as usize,
+			instr_start_data_ptr: data as *const u8 as usize,
 			handlers_map0: get_handlers(&tables.handlers_map0),
 			handlers_vex_map0,
 			handlers_vex: [handlers_vex_0f, handlers_vex_0f38, handlers_vex_0f3a],
@@ -1027,6 +1120,7 @@ impl<'a> Decoder<'a> {
 			default_code_size,
 			displ_index: 0,
 			data,
+			phantom: PhantomData
 		})
 	}
 
@@ -1080,7 +1174,7 @@ impl<'a> Decoder<'a> {
 	#[must_use]
 	#[inline]
 	pub fn position(&self) -> usize {
-		self.data_ptr - self.data.as_ptr() as usize
+		self.data_ptr - self.data as *const u8 as usize
 	}
 
 	/// Sets the current data position, which is the index into the data passed to the constructor.
@@ -1131,7 +1225,7 @@ impl<'a> Decoder<'a> {
 		} else {
 			// - We verified the new offset above.
 			// - Referencing 1 byte past the last valid byte is safe as long as we don't dereference it.
-			self.data_ptr = self.data.as_ptr() as usize + new_pos;
+			self.data_ptr = self.data as *const u8 as usize + new_pos;
 			Ok(())
 		}
 	}
