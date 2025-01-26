@@ -30,5 +30,9 @@ pub enum BlockEncoderOptions {
 	/// [`BlockEncoder`]: struct.BlockEncoder.html
 	/// [`ConstantOffsets`]: struct.ConstantOffsets.html
 	ReturnConstantOffsets = 0x0000_0008,
+	/// The [`BlockEncoder`] should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.
+	///
+	/// [`BlockEncoder`]: struct.BlockEncoder.html
+	ReturnAllNewInstructionOffsets = 0x0000_0014,
 }
 // GENERATOR-END: Enum
