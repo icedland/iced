@@ -2652,3 +2652,7 @@ impl<'a, 'b> IntoIterator for &'b mut Decoder<'a> {
 		DecoderIter { decoder: self }
 	}
 }
+
+pub(crate) fn eager_init() {
+	let _ = &handlers::tables::TABLES.handlers_evex_0f[0].0;
+}

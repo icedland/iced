@@ -1844,3 +1844,10 @@ pub type FastFormatter = SpecializedFormatter<DefaultFastFormatterTraitOptions>;
 pub struct DefaultSpecializedFormatterTraitOptions;
 
 impl SpecializedFormatterTraitOptions for DefaultSpecializedFormatterTraitOptions {}
+
+pub(super) fn eager_init() {
+	let _ = &fmt_tbl::FMT_DATA.flags;
+	let _ = &mem_size_tbl::MEM_SIZE_TBL.as_ptr();
+	let _ = &regs::REGS_TBL.as_ptr();
+	pseudo_ops_fast::eager_init();
+}

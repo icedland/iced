@@ -1717,3 +1717,9 @@ impl Formatter for NasmFormatter {
 		self.number_formatter.format_u64(&self.d.options, number_options, value)
 	}
 }
+
+pub(super) fn eager_init() {
+	let _ = &fmt_tbl::ALL_INFOS.as_ptr();
+	let _ = &mem_size_tbl::MEM_SIZE_TBL.as_ptr();
+	let _ = &regs::ALL_REGISTERS.as_ptr();
+}
