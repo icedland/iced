@@ -10,7 +10,7 @@ name = "_iced_x86_py"
 crate-type = ["cdylib"]
 
 [dependencies]
-bincode = "1.3.3"
+bincode = "2.0.1"
 
 [dependencies.pyo3]
 version = "0.22.0"
