@@ -2161,7 +2161,7 @@ impl Instruction {
 				self.regs[3] = Register::from_u8((new_value >> 8) as u8);
 			}
 			2 => self.immediate = (self.immediate & 0xFFFF_0000) | new_value as u32,
-			3 => self.immediate = self.immediate as u16 as u32 | (new_value as u32) << 16,
+			3 => self.immediate = ((self.immediate as u16) as u32) | ((new_value as u32) << 16),
 			4 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_FFFF_0000) | new_value as u64,
 			5 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_0000_FFFF) | ((new_value as u64) << 16),
 			6 => self.mem_displ = (self.mem_displ & 0xFFFF_0000_FFFF_FFFF) | ((new_value as u64) << 32),
@@ -2265,7 +2265,7 @@ impl Instruction {
 			}
 			1 => self.immediate = new_value,
 			2 => self.mem_displ = (self.mem_displ & 0xFFFF_FFFF_0000_0000) | new_value as u64,
-			3 => self.mem_displ = (self.mem_displ & 0x0000_0000_FFFF_FFFF) | (new_value as u64) << 32,
+			3 => self.mem_displ = (self.mem_displ & 0x0000_0000_FFFF_FFFF) | ((new_value as u64) << 32),
 			_ => return Err(IcedError::new("Invalid index")),
 		}
 		Ok(())
