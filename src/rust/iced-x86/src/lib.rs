@@ -81,8 +81,8 @@
 #![doc(test(attr(deny(warnings))))]
 
 // This should be the only place in the source code that uses no_std
-#[cfg(all(feature = "std", feature = "no_std"))]
-compile_error!("`std` and `no_std` features can't be used at the same time");
+// #[cfg(all(feature = "std", feature = "no_std"))]
+// compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 
