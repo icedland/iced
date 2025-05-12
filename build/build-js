@@ -111,7 +111,11 @@ gen_release() {
 	mkdir -p release
 	cp iced-x86-*.tgz release/
 	cd release
-	npm publish iced-x86-*.tgz --dry-run
+	# Disabled because it now checks the version number which is only updated
+	# when a new version is released. If it's the same version number, this
+	# will fail.
+	# "npm error You cannot publish over the previously published versions: XX.XX.XX"
+	#npm publish iced-x86-*.tgz --dry-run
 	cd ../..
 
 	cd "$curr_dir"

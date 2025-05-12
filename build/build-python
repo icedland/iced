@@ -111,7 +111,7 @@ generate_wheel() {
 
 	patchci_verify_patched
 
-	$python setup.py bdist_wheel
+	$python -m build
 
 	cd "$curr_dir"
 }
@@ -141,10 +141,14 @@ generate_docs() {
 	patchci_verify_patched
 
 	# Depends on generate_wheel output.
-	if [ ! -f "$(ls build/lib*/iced_x86/_iced_x86_py.*.*)" ]; then
-		echo "Couldn't find the built _iced_x86_py.*.* file"
+	if [ ! -f "$(ls dist/iced_x86-*-linux_x86_64.whl)" ]; then
+		echo "Couldn't find the built wheel file"
 		exit 1
 	fi
+	wheel=$(ls dist/iced_x86-*-linux_x86_64.whl)
+	rm -rf build/unpacked-wheel/
+	mkdir -p build/unpacked-wheel/
+	unzip "$wheel" -d build/unpacked-wheel/
 
 	echo "Generating HTML files"
 	#TODO: enable -W again, fails in GitHub Actions (py3.8) but not locally (py3.11)
