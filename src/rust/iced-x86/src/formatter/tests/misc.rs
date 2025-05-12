@@ -298,9 +298,7 @@ pub(in super::super) fn test_op_index(fmt_factory: fn() -> Box<dyn Formatter>) {
 		let instruction = decoder.decode();
 		assert_eq!(instruction.code(), info.code());
 
-		for i in &mut instr_to_formatter {
-			*i = None;
-		}
+		instr_to_formatter.fill(None);
 
 		let formatter_op_count = formatter.operand_count(&instruction);
 		let instruction_op_count = instruction.op_count();

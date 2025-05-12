@@ -12,9 +12,8 @@
 #
 import os
 import sys
-import sysconfig
-lib_dir = f"lib.{sysconfig.get_platform()}-cpython-{sys.version_info.major}{sys.version_info.minor}"
-sys.path.insert(0, os.path.abspath(os.path.join("..", "build", lib_dir)))
+# Make sure it can find the *.so file
+sys.path.insert(0, os.path.abspath(os.path.join("..", "build", "unpacked-wheel")))
 
 
 # -- Project information -----------------------------------------------------

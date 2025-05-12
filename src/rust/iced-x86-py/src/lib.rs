@@ -35,6 +35,7 @@
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
 #![allow(clippy::upper_case_acronyms)]
+#![allow(clippy::useless_conversion)] // This generates warnings with help that when followed creates compiler errors: eg. removing the brackets in PyResult<bool>
 #![allow(clippy::wrong_self_convention)]
 #![warn(clippy::cloned_instead_of_copied)]
 #![warn(clippy::dbg_macro)]
