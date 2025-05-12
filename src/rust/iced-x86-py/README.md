@@ -34,7 +34,7 @@ Prerequisites:
 
 ```sh
 # Create the wheel
-python3 setup.py bdist_wheel
+python3 -m build
 # Install the built wheel
 python3 -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 # Uninstall your built copy
@@ -48,7 +48,7 @@ Prerequisites (tests/docs):
 Tests:
 
 ```sh
-python3 setup.py bdist_wheel
+python3 -m build
 python3 -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 python3 -m pytest
 python3 -m pip uninstall -y iced-x86
@@ -57,8 +57,11 @@ python3 -m pip uninstall -y iced-x86
 Docs:
 
 ```sh
-# Need the built module in build/lib/
-python3 setup.py bdist_wheel
+# Need the built module in build/unpacked-wheel/
+python3 -m build
+rm -rf build/unpacked-wheel/
+mkdir -p build/unpacked-wheel/
+unzip dist/iced_x86-*-linux_x86_64.whl -d build/unpacked-wheel/
 # Build the docs
 python3 -m sphinx --color -n -W --keep-going -b html docs docs/_build
 # Test the doc examples
