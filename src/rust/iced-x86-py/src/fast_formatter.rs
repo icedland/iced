@@ -31,6 +31,7 @@ pub(crate) struct FastFormatter {
 }
 
 unsafe impl Send for FastFormatter {}
+unsafe impl Sync for FastFormatter {}
 
 #[pymethods]
 impl FastFormatter {
