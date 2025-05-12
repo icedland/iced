@@ -1414,7 +1414,7 @@ impl<'a> Decoder<'a> {
 		self.decode_table2(handler, instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
-		let instr_len = self.data_ptr as u32 - data_ptr as u32;
+		let instr_len = (self.data_ptr as u32).wrapping_sub(data_ptr as u32);
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
 		instruction_internal::internal_set_len(instruction, instr_len);
 		let orig_ip = self.ip;
@@ -1461,7 +1461,7 @@ impl<'a> Decoder<'a> {
 
 				self.state.flags = flags | StateFlags::IS_INVALID;
 
-				let instr_len = self.data_ptr as u32 - data_ptr as u32;
+				let instr_len = (self.data_ptr as u32).wrapping_sub(data_ptr as u32);
 				instruction_internal::internal_set_len(instruction, instr_len);
 				let ip = orig_ip.wrapping_add(instr_len as u64);
 				self.ip = ip;
