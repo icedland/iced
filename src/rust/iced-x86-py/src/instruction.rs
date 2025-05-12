@@ -7,7 +7,6 @@ use crate::op_code_info::OpCodeInfo;
 use crate::utils::{get_temporary_byte_array_ref, to_value_error};
 use bincode::{deserialize, serialize};
 use core::hash::{Hash, Hasher};
-use pyo3::class::basic::CompareOp;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::types::PyBytes;
@@ -188,9 +187,8 @@ impl Instruction {
 	/// Returns:
 	///     bytes: The unpickled state
 	#[pyo3(text_signature = "($self)")]
-	fn __getstate__(&self, py: Python<'_>) -> PyResult<PyObject> {
-		let state = PyBytes::new_bound(py, &serialize(&self.instr).map_err(to_value_error)?).to_object(py);
-		Ok(state)
+	fn __getstate__<'py>(&self, py: Python<'py>) -> PyResult<Bound<'py, PyBytes>> {
+		Ok(PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?))
 	}
 
 	/// Returns a copy of this instance.
@@ -4984,12 +4982,12 @@ impl Instruction {
 		self.format("")
 	}
 
-	fn __richcmp__(&self, other: PyRef<'_, Instruction>, op: CompareOp) -> PyObject {
-		match op {
-			CompareOp::Eq => (self.instr == other.instr).into_py(other.py()),
-			CompareOp::Ne => (self.instr != other.instr).into_py(other.py()),
-			_ => other.py().NotImplemented(),
-		}
+	fn __eq__(&self, other: &Self) -> bool {
+		self.instr == other.instr
+	}
+
+	fn __ne__(&self, other: &Self) -> bool {
+		self.instr != other.instr
 	}
 
 	fn __hash__(&self) -> u64 {

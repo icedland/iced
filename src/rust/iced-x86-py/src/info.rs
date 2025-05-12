@@ -4,7 +4,6 @@
 use crate::instruction::Instruction;
 use crate::utils::to_value_error;
 use core::hash::{Hash, Hasher};
-use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
 
@@ -63,12 +62,12 @@ impl UsedRegister {
 		*self
 	}
 
-	fn __richcmp__(&self, other: PyRef<'_, UsedRegister>, op: CompareOp) -> PyObject {
-		match op {
-			CompareOp::Eq => (self.info == other.info).into_py(other.py()),
-			CompareOp::Ne => (self.info != other.info).into_py(other.py()),
-			_ => other.py().NotImplemented(),
-		}
+	fn __eq__(&self, other: &Self) -> bool {
+		self.info == other.info
+	}
+
+	fn __ne__(&self, other: &Self) -> bool {
+		self.info != other.info
 	}
 
 	fn __hash__(&self) -> u64 {
@@ -181,12 +180,12 @@ impl UsedMemory {
 		*self
 	}
 
-	fn __richcmp__(&self, other: PyRef<'_, UsedMemory>, op: CompareOp) -> PyObject {
-		match op {
-			CompareOp::Eq => (self.info == other.info).into_py(other.py()),
-			CompareOp::Ne => (self.info != other.info).into_py(other.py()),
-			_ => other.py().NotImplemented(),
-		}
+	fn __eq__(&self, other: &Self) -> bool {
+		self.info == other.info
+	}
+
+	fn __ne__(&self, other: &Self) -> bool {
+		self.info != other.info
 	}
 
 	fn __hash__(&self) -> u64 {
