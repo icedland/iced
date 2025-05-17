@@ -179,13 +179,12 @@ misc_tests() {
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
 
-	echo "mypy"
-
 	mkdir -p .pyenv
 	rm -rf .pyenv/env2
 	$python -m venv .pyenv/env2
 	source .pyenv/env2/bin/activate
 	python -m pip install -r requirements-dev.txt
+	echo "mypy"
 	python -m mypy --version
 	python -m mypy --strict src/iced_x86
 	python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
