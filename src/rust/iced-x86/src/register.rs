@@ -1475,7 +1475,6 @@ impl fmt::Debug for Register {
 	}
 }
 impl Default for Register {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		Register::None

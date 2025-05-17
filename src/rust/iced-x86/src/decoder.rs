@@ -167,7 +167,6 @@ impl fmt::Debug for OpSize {
 	}
 }
 impl Default for OpSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpSize::Size16
@@ -201,7 +200,6 @@ impl fmt::Debug for DecoderError {
 	}
 }
 impl Default for DecoderError {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DecoderError::None
