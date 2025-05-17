@@ -31,7 +31,7 @@ fi
 sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" Cargo.toml
 
 echo "Python bins:"
-for PYBIN in /opt/python/*/bin/python; do
+for PYBIN in $(ls -v /opt/python/*/bin/python); do
 	if [ -f "$PYBIN" ]; then
 		echo "  $PYBIN"
 	fi
