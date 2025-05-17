@@ -117,7 +117,7 @@ fn verify_invalid_rex_mandatory_prefixes_vex_evex_xop_mvex() {
 					continue;
 				}
 				let (non_prefix_index, _) = skip_prefixes(&bytes, info.bitness());
-				if bytes[0..non_prefix_index].iter().any(|&b| b == 0x67) {
+				if bytes[0..non_prefix_index].contains(&0x67) {
 					continue;
 				}
 			}

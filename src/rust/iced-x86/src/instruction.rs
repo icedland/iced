@@ -3724,7 +3724,6 @@ impl Instruction {
 impl Eq for Instruction {}
 
 impl PartialEq<Instruction> for Instruction {
-	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn eq(&self, other: &Self) -> bool {
 		self.mem_displ == other.mem_displ
