@@ -26,7 +26,6 @@ impl fmt::Debug for RelocKind {
 	}
 }
 impl Default for RelocKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		RelocKind::Offset64

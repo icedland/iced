@@ -167,7 +167,6 @@ impl fmt::Debug for OpSize {
 	}
 }
 impl Default for OpSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpSize::Size16
@@ -201,7 +200,6 @@ impl fmt::Debug for DecoderError {
 	}
 }
 impl Default for DecoderError {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DecoderError::None
@@ -2635,7 +2633,6 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIntoIter<'a>;
 
-	#[must_use]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }
@@ -2646,7 +2643,6 @@ impl<'a, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
-	#[must_use]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }

@@ -126,7 +126,6 @@ impl fmt::Debug for CtorKind {
 	}
 }
 impl Default for CtorKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CtorKind::Previous
@@ -165,7 +164,6 @@ impl fmt::Debug for SignExtendInfo {
 	}
 }
 impl Default for SignExtendInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SignExtendInfo::None
@@ -198,7 +196,6 @@ impl fmt::Debug for SizeOverride {
 	}
 }
 impl Default for SizeOverride {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SizeOverride::None
@@ -237,7 +234,6 @@ impl fmt::Debug for BranchSizeInfo {
 	}
 }
 impl Default for BranchSizeInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		BranchSizeInfo::None
@@ -376,7 +372,6 @@ impl fmt::Debug for InstrOpKind {
 	}
 }
 impl Default for InstrOpKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrOpKind::Register
@@ -409,7 +404,6 @@ impl fmt::Debug for MemorySizeInfo {
 	}
 }
 impl Default for MemorySizeInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MemorySizeInfo::None
@@ -440,7 +434,6 @@ impl fmt::Debug for FarMemorySizeInfo {
 	}
 }
 impl Default for FarMemorySizeInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FarMemorySizeInfo::None

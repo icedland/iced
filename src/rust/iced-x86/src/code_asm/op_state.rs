@@ -40,7 +40,6 @@ impl fmt::Debug for MemoryOperandSize {
 	}
 }
 impl Default for MemoryOperandSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MemoryOperandSize::None

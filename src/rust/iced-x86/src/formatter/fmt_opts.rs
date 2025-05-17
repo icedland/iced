@@ -24,7 +24,6 @@ impl FormatterOptionString {
 }
 
 impl Default for FormatterOptionString {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FormatterOptionString::Str("")
@@ -33,7 +32,6 @@ impl Default for FormatterOptionString {
 
 impl Eq for FormatterOptionString {}
 impl PartialEq<FormatterOptionString> for FormatterOptionString {
-	#[must_use]
 	#[inline]
 	fn eq(&self, other: &FormatterOptionString) -> bool {
 		self.as_str() == other.as_str()
@@ -2153,7 +2151,6 @@ impl FormatterOptions {
 }
 
 impl Default for FormatterOptions {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FormatterOptions::new()

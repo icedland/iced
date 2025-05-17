@@ -1475,7 +1475,6 @@ impl fmt::Debug for Register {
 	}
 }
 impl Default for Register {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		Register::None
@@ -1618,7 +1617,6 @@ impl Register {
 impl Add<Register> for i32 {
 	type Output = Register;
 
-	#[must_use]
 	#[inline]
 	fn add(self, rhs: Register) -> Self::Output {
 		rhs.add(self as u32)
@@ -1628,7 +1626,6 @@ impl Add<Register> for i32 {
 impl Add<Register> for u32 {
 	type Output = Register;
 
-	#[must_use]
 	#[inline]
 	fn add(self, rhs: Register) -> Self::Output {
 		rhs.add(self)
@@ -1638,7 +1635,6 @@ impl Add<Register> for u32 {
 impl Add<i32> for Register {
 	type Output = Self;
 
-	#[must_use]
 	#[inline]
 	fn add(self, rhs: i32) -> Self::Output {
 		self.add(rhs as u32)
@@ -1648,7 +1644,6 @@ impl Add<i32> for Register {
 impl Add<u32> for Register {
 	type Output = Self;
 
-	#[must_use]
 	#[inline]
 	fn add(self, rhs: u32) -> Self::Output {
 		self.add(rhs)
@@ -1672,7 +1667,6 @@ impl AddAssign<u32> for Register {
 impl Sub<i32> for Register {
 	type Output = Self;
 
-	#[must_use]
 	#[inline]
 	fn sub(self, rhs: i32) -> Self::Output {
 		self.sub(rhs as u32)
@@ -1682,7 +1676,6 @@ impl Sub<i32> for Register {
 impl Sub<u32> for Register {
 	type Output = Self;
 
-	#[must_use]
 	#[inline]
 	fn sub(self, rhs: u32) -> Self::Output {
 		self.sub(rhs)

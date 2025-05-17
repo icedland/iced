@@ -44416,7 +44416,6 @@ impl fmt::Debug for Code {
 	}
 }
 impl Default for Code {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		Code::INVALID

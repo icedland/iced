@@ -176,7 +176,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04-arm]
 
     steps:
       - uses: actions/checkout@v4
@@ -184,8 +184,6 @@ jobs:
       - name: Build manylinux aarch64
         shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install qemu binfmt-support qemu-user-static
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
 

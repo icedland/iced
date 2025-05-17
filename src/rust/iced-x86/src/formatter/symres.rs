@@ -32,7 +32,6 @@ pub enum SymResString<'a> {
 	String(#[doc = "The string"] String),
 }
 impl Default for SymResString<'_> {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SymResString::Str("")

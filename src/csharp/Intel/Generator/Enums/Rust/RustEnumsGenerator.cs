@@ -261,7 +261,6 @@ namespace Generator.Enums.Rust {
 				writer.WriteLine(feature);
 			writer.WriteLine($"impl Default for {enumTypeName} {{");
 			using (writer.Indent()) {
-				writer.WriteLine(RustConstants.AttributeMustUse);
 				writer.WriteLine(RustConstants.AttributeInline);
 				writer.WriteLine("fn default() -> Self {");
 				using (writer.Indent()) {

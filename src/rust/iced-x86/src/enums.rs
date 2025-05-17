@@ -34,7 +34,6 @@ impl fmt::Debug for CodeSize {
 	}
 }
 impl Default for CodeSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CodeSize::Unknown
@@ -179,7 +178,6 @@ impl fmt::Debug for RoundingControl {
 	}
 }
 impl Default for RoundingControl {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		RoundingControl::None
@@ -466,7 +464,6 @@ impl fmt::Debug for OpKind {
 	}
 }
 impl Default for OpKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpKind::Register
@@ -609,7 +606,6 @@ impl fmt::Debug for VectorLength {
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
 impl Default for VectorLength {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		VectorLength::L128
@@ -645,7 +641,6 @@ impl fmt::Debug for MandatoryPrefixByte {
 }
 #[cfg(feature = "encoder")]
 impl Default for MandatoryPrefixByte {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MandatoryPrefixByte::None
@@ -692,7 +687,6 @@ impl fmt::Debug for EncodingKind {
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "instr_info", feature = "op_code_info"))]
 impl Default for EncodingKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		EncodingKind::Legacy
@@ -891,7 +885,6 @@ impl fmt::Debug for TupleType {
 }
 #[cfg(any(feature = "decoder", feature = "encoder", feature = "op_code_info"))]
 impl Default for TupleType {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		TupleType::N1
@@ -1063,7 +1056,6 @@ impl fmt::Debug for FlowControl {
 }
 #[cfg(feature = "instr_info")]
 impl Default for FlowControl {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FlowControl::Next
@@ -1540,7 +1532,6 @@ impl fmt::Debug for OpCodeOperandKind {
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for OpCodeOperandKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpCodeOperandKind::None
@@ -1691,7 +1682,6 @@ impl fmt::Debug for MvexEHBit {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexEHBit {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexEHBit::None
@@ -2406,7 +2396,6 @@ impl fmt::Debug for CpuidFeature {
 }
 #[cfg(feature = "instr_info")]
 impl Default for CpuidFeature {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CpuidFeature::INTEL8086
@@ -2612,7 +2601,6 @@ impl fmt::Debug for OpAccess {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpAccess {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpAccess::None
@@ -2804,7 +2792,6 @@ impl fmt::Debug for ConditionCode {
 }
 #[cfg(feature = "instr_info")]
 impl Default for ConditionCode {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		ConditionCode::None
@@ -2959,7 +2946,6 @@ impl fmt::Debug for MandatoryPrefix {
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for MandatoryPrefix {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MandatoryPrefix::None
@@ -3127,7 +3113,6 @@ impl fmt::Debug for OpCodeTableKind {
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for OpCodeTableKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpCodeTableKind::Normal
@@ -3272,7 +3257,6 @@ impl fmt::Debug for InstrScale {
 	}
 }
 impl Default for InstrScale {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrScale::Scale1
@@ -3448,7 +3432,6 @@ impl fmt::Debug for MvexConvFn {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexConvFn {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexConvFn::None
@@ -3641,7 +3624,6 @@ impl fmt::Debug for MvexRegMemConv {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexRegMemConv {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexRegMemConv::None
@@ -3825,7 +3807,6 @@ impl fmt::Debug for MvexTupleTypeLutKind {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexTupleTypeLutKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexTupleTypeLutKind::Int32
