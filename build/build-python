@@ -127,7 +127,7 @@ test_wheel() {
 	mkdir -p .pyenv
 	rm -rf .pyenv/env1
 	$python -m venv .pyenv/env1
-	source .pyenv/env1/bin/activate
+	. .pyenv/env1/bin/activate
 	python -m pip install -r requirements-dev.txt
 	python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 	python -m pytest --color=yes --code-highlight=yes
@@ -182,7 +182,7 @@ misc_tests() {
 	mkdir -p .pyenv
 	rm -rf .pyenv/env2
 	$python -m venv .pyenv/env2
-	source .pyenv/env2/bin/activate
+	. .pyenv/env2/bin/activate
 	python -m pip install -r requirements-dev.txt
 	echo "mypy"
 	python -m mypy --version
