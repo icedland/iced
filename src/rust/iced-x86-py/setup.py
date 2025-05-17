@@ -20,8 +20,6 @@ except:
 with open("README.md", "r", encoding="utf-8") as file:
 	readme_md = file.read()
 
-py_limited_api = any(arg == "--py-limited-api" or arg.startswith("--py-limited-api=") for arg in sys.argv)
-
 setup(
 	name="iced-x86",
 	version="1.21.0",
@@ -47,6 +45,8 @@ setup(
 		"Programming Language :: Python :: 3.9",
 		"Programming Language :: Python :: 3.10",
 		"Programming Language :: Python :: 3.11",
+		"Programming Language :: Python :: 3.12",
+		"Programming Language :: Python :: 3.13",
 		"Programming Language :: Python :: Implementation :: CPython",
 		"Programming Language :: Python :: Implementation :: PyPy",
 		"Programming Language :: Rust",
@@ -55,7 +55,7 @@ setup(
 	],
 	package_dir={"": "src"},
 	packages=["iced_x86"],
-	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All, py_limited_api=py_limited_api)],
+	rust_extensions=[RustExtension("iced_x86._iced_x86_py", path="Cargo.toml", strip=Strip.All)],
 	include_package_data=True,
 	zip_safe=False,
 )

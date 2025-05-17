@@ -89,7 +89,7 @@ generate_sdist() {
 
 	patchci_verify_not_patched
 
-	$python setup.py sdist
+	$python -m build --sdist
 
 	cd "$curr_dir"
 }
@@ -111,7 +111,7 @@ generate_wheel() {
 
 	patchci_verify_patched
 
-	$python -m build
+	$python -m build --wheel
 
 	cd "$curr_dir"
 }

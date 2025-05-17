@@ -1,5 +1,4 @@
 -r requirements.txt
-build
 mypy
 pylint
 sphinx
