@@ -9,7 +9,6 @@ env:
   CI_REQ_DOTNET_SDK_VER: '8.0.x'
   CI_NODE_MIN_VER: 'latest'
   RUSTFLAGS: '-D warnings'
-  MACOSX_DEPLOYMENT_TARGET: '10.12'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '8'
 
