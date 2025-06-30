@@ -40,6 +40,7 @@
 #![allow(clippy::redundant_locals)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
+#![allow(clippy::uninlined_format_args)] // Nope
 #![allow(clippy::upper_case_acronyms)]
 #![allow(clippy::wrong_self_convention)]
 #![warn(clippy::cloned_instead_of_copied)]

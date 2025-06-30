@@ -21,5 +21,5 @@ pub(crate) unsafe fn get_temporary_byte_array_ref<'a>(data: &'a Bound<'_, PyAny>
 
 #[inline(never)]
 pub(crate) fn to_value_error<S: Display>(error: S) -> PyErr {
-	PyValueError::new_err(format!("{}", error))
+	PyValueError::new_err(format!("{error}"))
 }
