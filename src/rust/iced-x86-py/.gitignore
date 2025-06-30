@@ -5,4 +5,4 @@ dist/
 .pytest_cache/
 .tox/
 __pycache__/
-.pyenv
+.venv

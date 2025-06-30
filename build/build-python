@@ -25,6 +25,7 @@ full_check=y
 gen_docs=y
 sdist_only=n
 set_rustflags=y
+delete_old_venv=y
 
 new_func() {
 	echo
@@ -89,7 +90,7 @@ generate_sdist() {
 
 	patchci_verify_not_patched
 
-	$python -m build --sdist
+	python -m build --sdist
 
 	cd "$curr_dir"
 }
@@ -111,7 +112,7 @@ generate_wheel() {
 
 	patchci_verify_patched
 
-	$python -m build --wheel
+	python -m build --wheel
 
 	cd "$curr_dir"
 }
@@ -124,15 +125,9 @@ test_wheel() {
 
 	patchci_verify_patched
 
-	mkdir -p .pyenv
-	rm -rf .pyenv/env1
-	$python -m venv .pyenv/env1
-	. .pyenv/env1/bin/activate
 	python -m pip install -r requirements-dev.txt
 	python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 	python -m pytest --color=yes --code-highlight=yes
-	deactivate
-	rm -rf .pyenv/env1
 
 	cd "$curr_dir"
 }
@@ -157,10 +152,10 @@ generate_docs() {
 
 	echo "Generating HTML files"
 	#TODO: enable -W again, fails in GitHub Actions (py3.8) but not locally (py3.11)
-	$python -m sphinx --color -n --keep-going -b html docs docs/_build
+	python -m sphinx --color -n --keep-going -b html docs docs/_build
 
 	echo "Running doc tests"
-	$python -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
+	python -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
 
 	cd "$curr_dir"
 }
@@ -179,23 +174,16 @@ misc_tests() {
 	echo "==== FORMAT CHECK ===="
 	cargo fmt -- --color always --check
 
-	mkdir -p .pyenv
-	rm -rf .pyenv/env2
-	$python -m venv .pyenv/env2
-	. .pyenv/env2/bin/activate
-	python -m pip install -r requirements-dev.txt
 	echo "mypy"
 	python -m mypy --version
 	python -m mypy --strict src/iced_x86
 	python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 	python -m mypy --strict tests/
-	deactivate
-	rm -rf .pyenv/env2
 
 	echo "pylint"
 	# It will fail to load _iced_x86_py since it's not in the correct dir, so disable the error
-	$python -m pylint --version
-	$python -m pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
+	python -m pylint --version
+	python -m pylint src/iced_x86 -d import-error --rcfile="$pysrc_dir/../pylintrc"
 
 	cd "$curr_dir"
 }
@@ -207,6 +195,7 @@ while [ "$#" -gt 0 ]; do
 	--python) shift; python=$1 ;;
 	--no-docs) gen_docs=n ;;
 	--no-set-rustflags) set_rustflags=n ;;
+	--no-delete-venv) delete_old_venv=n ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift
@@ -231,6 +220,15 @@ rustc --version
 echo "Python version"
 $python --version
 
+if [ "$delete_old_venv" = "y" ]; then
+	echo "Deleting old .venv: $pysrc_dir/.venv/"
+	rm -rf "$pysrc_dir/.venv/"
+fi
+$python -m venv "$pysrc_dir/.venv/"
+. "$pysrc_dir/.venv/bin/activate"
+echo "Installing dependencies..."
+python -m pip install -r "$pysrc_dir/requirements-dev.txt"
+
 verify_license_file
 
 if [ "$sdist_only" = "y" ]; then
@@ -239,11 +237,11 @@ if [ "$sdist_only" = "y" ]; then
 fi
 
 echo "pytest version"
-$python -m pytest --version
+python -m pytest --version
 
 if [ "$full_check" = "y" ] && [ "$gen_docs" = "y" ]; then
 	echo "sphinx version"
-	$python -m sphinx --version
+	python -m sphinx --version
 fi
 
 generate_sdist
