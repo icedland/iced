@@ -125,7 +125,6 @@ test_wheel() {
 
 	patchci_verify_patched
 
-	python -m pip install -r requirements-dev.txt
 	python -m pip install iced-x86 --no-index -f dist --only-binary iced-x86
 	python -m pytest --color=yes --code-highlight=yes
 
