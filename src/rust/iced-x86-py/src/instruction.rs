@@ -5057,7 +5057,7 @@ impl Instruction {
 				'G' => fmt_opts.set_gas_show_mnemonic_size_suffix(true),
 				'M' => fmt_opts.set_memory_size_options(iced_x86::MemorySizeOptions::Always),
 				'_' => fmt_opts.set_digit_separator("_"),
-				_ => return Err(PyValueError::new_err(format!("Unknown format specifier '{}' ('{}')", c, format_spec))),
+				_ => return Err(PyValueError::new_err(format!("Unknown format specifier '{c}' ('{format_spec}')"))),
 			}
 		}
 
