@@ -1,0 +1,66 @@
+[package]
+name = "iced-x86"
+# The version number can't be the same as iced-x86's version number or cargo build will fail
+version = "1.21.1000"
+license = "MIT"
+description = "iced-x86 is a blazing fast and correct x86/x64 disassembler, assembler and instruction decoder written in Rust and compiled to WebAssembly"
+homepage = "https://github.com/icedland/iced"
+repository = "https://github.com/icedland/iced"
+readme = "README.md"
+keywords = ["disassembler", "delphi", "pascal", "assembler", "x86", "amd64"]
+categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
+edition = "2021"
+publish = false
+rust-version = "1.60.0"
+build = "build.rs"
+
+[lib]
+crate-type = ["cdylib"]      # Creates dynamic lib
+# crate-type = ["staticlib"] # Creates static lib
+
+[package.metadata.winres]
+FileDescription = ""
+FileVersion = "1.0.6.1"
+ProductName = "Iced"
+ProductVersion = "1.2.1.0"
+OriginalFilename = "Iced.dll"
+LegalCopyright = "TetzkatLipHoka © 2022-2024"
+
+[dependencies]
+libc = "0.2.155"
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1.12"
+
+[features]
+#default = ["instr_api", "instr_create", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt", "code_asm", "mvex"]
+default = ["instr_api", "instr_create", "decoder", "encoder", "block_encoder", "op_code_info", "instr_info", "gas", "intel", "masm", "nasm", "fast_fmt", "mvex"]
+base = ["iced-x86-rust/std"]
+formatter = []
+instr_api = ["base"]
+decoder = ["base", "iced-x86-rust/decoder"]
+encoder = ["base", "iced-x86-rust/encoder"]
+block_encoder = ["base", "iced-x86-rust/block_encoder"]
+instr_create = ["base", "iced-x86-rust/encoder"]
+op_code_info = ["base", "iced-x86-rust/op_code_info"]
+instr_info = ["base", "iced-x86-rust/instr_info"]
+gas = ["base", "formatter", "iced-x86-rust/gas"]
+intel = ["base", "formatter", "iced-x86-rust/intel"]
+masm = ["base", "formatter", "iced-x86-rust/masm"]
+nasm = ["base", "formatter", "iced-x86-rust/nasm"]
+fast_fmt = ["base", "formatter", "iced-x86-rust/fast_fmt"]
+no_vex = ["iced-x86-rust/no_vex"]
+no_evex = ["iced-x86-rust/no_evex"]
+no_xop = ["iced-x86-rust/no_xop"]
+no_d3now = ["iced-x86-rust/no_d3now"]
+mvex = ["iced-x86-rust/mvex"]
+
+[dependencies.iced-x86-rust]
+package = "iced-x86"
+path = "../iced-x86"
+default-features = false
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
