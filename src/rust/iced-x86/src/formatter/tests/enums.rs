@@ -148,7 +148,6 @@ impl fmt::Debug for OptionsProps {
 	}
 }
 impl Default for OptionsProps {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OptionsProps::AddLeadingZeroToHexNumbers

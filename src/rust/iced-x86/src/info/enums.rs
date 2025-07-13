@@ -133,7 +133,6 @@ impl fmt::Debug for OpInfo0 {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo0 {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpInfo0::None
@@ -176,7 +175,6 @@ impl fmt::Debug for OpInfo1 {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo1 {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpInfo1::None
@@ -211,7 +209,6 @@ impl fmt::Debug for OpInfo2 {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo2 {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpInfo2::None
@@ -244,7 +241,6 @@ impl fmt::Debug for OpInfo3 {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo3 {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpInfo3::None
@@ -277,7 +273,6 @@ impl fmt::Debug for OpInfo4 {
 }
 #[cfg(feature = "instr_info")]
 impl Default for OpInfo4 {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpInfo4::None
@@ -708,7 +703,6 @@ impl fmt::Debug for ImpliedAccess {
 }
 #[cfg(feature = "instr_info")]
 impl Default for ImpliedAccess {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		ImpliedAccess::None
@@ -895,7 +889,6 @@ impl fmt::Debug for RflagsInfo {
 }
 #[cfg(feature = "instr_info")]
 impl Default for RflagsInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		RflagsInfo::None
@@ -1322,7 +1315,6 @@ impl fmt::Debug for CpuidFeatureInternal {
 }
 #[cfg(feature = "instr_info")]
 impl Default for CpuidFeatureInternal {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CpuidFeatureInternal::INTEL8086

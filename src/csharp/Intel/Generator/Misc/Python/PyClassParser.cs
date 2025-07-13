@@ -588,6 +588,13 @@ namespace Generator.Misc.Python {
 					}
 				}
 			}
+			else if (method.Name is "__eq__" or "__ne__") {
+				var newArgs = new List<PyMethodArg> {
+					new PyMethodArg(selfArgName, "&self", isSelf: true),
+					new PyMethodArg("other", "&Bound<'_, PyAny>", isSelf: false),
+				};
+				yield return new PyMethod(method.Name, method.DocComments, method.Attributes, newArgs, "bool");
+			}
 			else
 				yield return method;
 		}

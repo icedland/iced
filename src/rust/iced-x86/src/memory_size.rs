@@ -885,7 +885,6 @@ impl fmt::Debug for MemorySize {
 	}
 }
 impl Default for MemorySize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MemorySize::Unknown

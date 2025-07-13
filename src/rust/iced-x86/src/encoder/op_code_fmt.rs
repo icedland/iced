@@ -37,7 +37,6 @@ impl fmt::Debug for LKind {
 	}
 }
 impl Default for LKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		LKind::None

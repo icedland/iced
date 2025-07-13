@@ -24,7 +24,6 @@ impl fmt::Debug for SerializedDataKind {
 	}
 }
 impl Default for SerializedDataKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SerializedDataKind::HandlerReference
@@ -479,7 +478,6 @@ impl fmt::Debug for LegacyOpCodeHandlerKind {
 	}
 }
 impl Default for LegacyOpCodeHandlerKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		LegacyOpCodeHandlerKind::Bitness
@@ -662,7 +660,6 @@ impl fmt::Debug for EvexOpCodeHandlerKind {
 }
 #[cfg(not(feature = "no_evex"))]
 impl Default for EvexOpCodeHandlerKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		EvexOpCodeHandlerKind::Invalid
@@ -737,7 +734,6 @@ impl fmt::Debug for MvexOpCodeHandlerKind {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexOpCodeHandlerKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexOpCodeHandlerKind::Invalid
@@ -924,7 +920,6 @@ impl fmt::Debug for VexOpCodeHandlerKind {
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop")))]
 impl Default for VexOpCodeHandlerKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		VexOpCodeHandlerKind::Invalid

@@ -34,7 +34,6 @@ impl fmt::Debug for NumberBase {
 	}
 }
 impl Default for NumberBase {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		NumberBase::Hexadecimal
@@ -218,7 +217,6 @@ impl fmt::Debug for PrefixKind {
 	}
 }
 impl Default for PrefixKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		PrefixKind::ES
@@ -367,7 +365,6 @@ impl fmt::Debug for DecoratorKind {
 	}
 }
 impl Default for DecoratorKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DecoratorKind::Broadcast
@@ -515,7 +512,6 @@ impl fmt::Debug for NumberKind {
 	}
 }
 impl Default for NumberKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		NumberKind::Int8
@@ -659,7 +655,6 @@ impl fmt::Debug for FormatterFlowControl {
 	}
 }
 impl Default for FormatterFlowControl {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FormatterFlowControl::AlwaysShortBranch
@@ -693,7 +688,6 @@ impl fmt::Debug for CC_b {
 	}
 }
 impl Default for CC_b {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_b::b
@@ -833,7 +827,6 @@ impl fmt::Debug for CC_ae {
 	}
 }
 impl Default for CC_ae {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_ae::ae
@@ -970,7 +963,6 @@ impl fmt::Debug for CC_e {
 	}
 }
 impl Default for CC_e {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_e::e
@@ -1107,7 +1099,6 @@ impl fmt::Debug for CC_ne {
 	}
 }
 impl Default for CC_ne {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_ne::ne
@@ -1244,7 +1235,6 @@ impl fmt::Debug for CC_be {
 	}
 }
 impl Default for CC_be {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_be::be
@@ -1381,7 +1371,6 @@ impl fmt::Debug for CC_a {
 	}
 }
 impl Default for CC_a {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_a::a
@@ -1518,7 +1507,6 @@ impl fmt::Debug for CC_p {
 	}
 }
 impl Default for CC_p {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_p::p
@@ -1655,7 +1643,6 @@ impl fmt::Debug for CC_np {
 	}
 }
 impl Default for CC_np {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_np::np
@@ -1792,7 +1779,6 @@ impl fmt::Debug for CC_l {
 	}
 }
 impl Default for CC_l {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_l::l
@@ -1929,7 +1915,6 @@ impl fmt::Debug for CC_ge {
 	}
 }
 impl Default for CC_ge {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_ge::ge
@@ -2066,7 +2051,6 @@ impl fmt::Debug for CC_le {
 	}
 }
 impl Default for CC_le {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_le::le
@@ -2203,7 +2187,6 @@ impl fmt::Debug for CC_g {
 	}
 }
 impl Default for CC_g {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CC_g::g

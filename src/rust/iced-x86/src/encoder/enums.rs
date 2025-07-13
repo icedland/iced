@@ -37,7 +37,6 @@ impl fmt::Debug for DisplSize {
 	}
 }
 impl Default for DisplSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DisplSize::None
@@ -104,7 +103,6 @@ impl fmt::Debug for ImmSize {
 	}
 }
 impl Default for ImmSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		ImmSize::None
@@ -165,7 +163,6 @@ impl fmt::Debug for LegacyOpCodeTable {
 	}
 }
 impl Default for LegacyOpCodeTable {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		LegacyOpCodeTable::MAP0
@@ -202,7 +199,6 @@ impl fmt::Debug for VexOpCodeTable {
 }
 #[cfg(not(feature = "no_vex"))]
 impl Default for VexOpCodeTable {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		VexOpCodeTable::MAP0
@@ -237,7 +233,6 @@ impl fmt::Debug for XopOpCodeTable {
 }
 #[cfg(not(feature = "no_xop"))]
 impl Default for XopOpCodeTable {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		XopOpCodeTable::MAP8
@@ -260,7 +255,6 @@ pub(crate) enum EvexOpCodeTable {
 }
 #[cfg(not(feature = "no_evex"))]
 impl Default for EvexOpCodeTable {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		EvexOpCodeTable::MAP0F
@@ -281,7 +275,6 @@ pub(crate) enum MvexOpCodeTable {
 }
 #[cfg(feature = "mvex")]
 impl Default for MvexOpCodeTable {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MvexOpCodeTable::MAP0F
@@ -521,7 +514,6 @@ impl fmt::Debug for DecOptionValue {
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for DecOptionValue {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DecOptionValue::None
@@ -564,7 +556,6 @@ impl fmt::Debug for InstrStrFmtOption {
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
 impl Default for InstrStrFmtOption {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrStrFmtOption::None
@@ -601,7 +592,6 @@ impl fmt::Debug for WBit {
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl Default for WBit {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		WBit::W0
@@ -644,7 +634,6 @@ impl fmt::Debug for LBit {
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
 impl Default for LBit {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		LBit::L0
@@ -678,7 +667,6 @@ impl fmt::Debug for RepPrefixKind {
 	}
 }
 impl Default for RepPrefixKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		RepPrefixKind::None

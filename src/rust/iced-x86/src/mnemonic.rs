@@ -3813,7 +3813,6 @@ impl fmt::Debug for Mnemonic {
 	}
 }
 impl Default for Mnemonic {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		Mnemonic::INVALID

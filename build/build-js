@@ -21,6 +21,7 @@ else
 fi
 full_check=y
 set_rustflags=y
+publish_dry_run=n
 
 new_func() {
 	echo
@@ -111,7 +112,9 @@ gen_release() {
 	mkdir -p release
 	cp iced-x86-*.tgz release/
 	cd release
-	npm publish iced-x86-*.tgz --dry-run
+	if [ "$publish_dry_run" = "y" ]; then
+		npm publish iced-x86-*.tgz --dry-run
+	fi
 	cd ../..
 
 	cd "$curr_dir"
@@ -122,6 +125,7 @@ while [ "$#" -gt 0 ]; do
 	--quick-check) full_check=n ;;
 	--python) shift; python=$1 ;;
 	--no-set-rustflags) set_rustflags=n ;;
+	--publish-dry-run) publish_dry_run=y ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift

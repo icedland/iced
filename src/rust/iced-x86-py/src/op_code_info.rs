@@ -4,7 +4,6 @@
 use crate::enum_utils::to_code;
 use crate::utils::to_value_error;
 use core::hash::{Hash, Hasher};
-use pyo3::class::basic::CompareOp;
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
@@ -874,7 +873,7 @@ impl OpCodeInfo {
 		match format_spec {
 			"" | "i" => Ok(self.info.instruction_string()),
 			"o" => Ok(self.info.op_code_string()),
-			_ => Err(PyValueError::new_err(format!("Unknown format specifier '{}'", format_spec))),
+			_ => Err(PyValueError::new_err(format!("Unknown format specifier '{format_spec}'"))),
 		}
 	}
 
@@ -886,12 +885,12 @@ impl OpCodeInfo {
 		self.info.instruction_string()
 	}
 
-	fn __richcmp__(&self, other: PyRef<'_, OpCodeInfo>, op: CompareOp) -> PyObject {
-		match op {
-			CompareOp::Eq => (self.info.code() == other.info.code()).into_py(other.py()),
-			CompareOp::Ne => (self.info.code() != other.info.code()).into_py(other.py()),
-			_ => other.py().NotImplemented(),
-		}
+	fn __eq__(&self, other: &Self) -> bool {
+		self.info.code() == other.info.code()
+	}
+
+	fn __ne__(&self, other: &Self) -> bool {
+		self.info.code() != other.info.code()
 	}
 
 	fn __hash__(&self) -> u64 {

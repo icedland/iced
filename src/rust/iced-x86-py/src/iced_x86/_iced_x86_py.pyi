@@ -9,53 +9,123 @@ from collections.abc import Iterator
 from enum import IntEnum, IntFlag
 from typing import Any, List, Optional, Union
 
-class CC_a(IntEnum): ... # type: ignore
-class CC_ae(IntEnum): ... # type: ignore
-class CC_b(IntEnum): ... # type: ignore
-class CC_be(IntEnum): ... # type: ignore
-class CC_e(IntEnum): ... # type: ignore
-class CC_g(IntEnum): ... # type: ignore
-class CC_ge(IntEnum): ... # type: ignore
-class CC_l(IntEnum): ... # type: ignore
-class CC_le(IntEnum): ... # type: ignore
-class CC_ne(IntEnum): ... # type: ignore
-class CC_np(IntEnum): ... # type: ignore
-class CC_p(IntEnum): ... # type: ignore
-class Code(IntEnum): ... # type: ignore
-class CodeSize(IntEnum): ... # type: ignore
-class ConditionCode(IntEnum): ... # type: ignore
-class CpuidFeature(IntEnum): ... # type: ignore
-class DecoderError(IntEnum): ... # type: ignore
+class CC_a(IntEnum):
+	A = 0
+	...
+class CC_ae(IntEnum):
+	AE = 0
+	...
+class CC_b(IntEnum):
+	B = 0
+	...
+class CC_be(IntEnum):
+	BE = 0
+	...
+class CC_e(IntEnum):
+	E = 0
+	...
+class CC_g(IntEnum):
+	G = 0
+	...
+class CC_ge(IntEnum):
+	GE = 0
+	...
+class CC_l(IntEnum):
+	L = 0
+	...
+class CC_le(IntEnum):
+	LE = 0
+	...
+class CC_ne(IntEnum):
+	NE = 0
+	...
+class CC_np(IntEnum):
+	NP = 0
+	...
+class CC_p(IntEnum):
+	P = 0
+	...
+class Code(IntEnum):
+	INVALID = 0
+	...
+class CodeSize(IntEnum):
+	UNKNOWN = 0
+	...
+class ConditionCode(IntEnum):
+	NONE = 0
+	...
+class CpuidFeature(IntEnum):
+	INTEL8086 = 0
+	...
+class DecoderError(IntEnum):
+	NONE = 0
+	...
 class DecoderOptions(IntFlag):
 	NONE = 0x0000_0000
 	...
-class EncodingKind(IntEnum): ... # type: ignore
-class FlowControl(IntEnum): ... # type: ignore
+class EncodingKind(IntEnum):
+	LEGACY = 0
+	...
+class FlowControl(IntEnum):
+	NEXT = 0
+	...
 class FormatMnemonicOptions(IntFlag):
 	NONE = 0x0000_0000
 	...
-class FormatterSyntax(IntEnum): ... # type: ignore
-class MandatoryPrefix(IntEnum): ... # type: ignore
-class MemorySize(IntEnum): ... # type: ignore
-class MemorySizeOptions(IntEnum): ... # type: ignore
-class Mnemonic(IntEnum): ... # type: ignore
-class MvexConvFn(IntEnum): ... # type: ignore
-class MvexEHBit(IntEnum): ... # type: ignore
-class MvexRegMemConv(IntEnum): ... # type: ignore
-class MvexTupleTypeLutKind(IntEnum): ... # type: ignore
-class OpAccess(IntEnum): ... # type: ignore
-class OpCodeOperandKind(IntEnum): ... # type: ignore
-class OpCodeTableKind(IntEnum): ... # type: ignore
-class OpKind(IntEnum): ... # type: ignore
+class FormatterSyntax(IntEnum):
+	GAS = 0
+	...
+class MandatoryPrefix(IntEnum):
+	NONE = 0
+	...
+class MemorySize(IntEnum):
+	UNKNOWN = 0
+	...
+class MemorySizeOptions(IntEnum):
+	DEFAULT = 0
+	...
+class Mnemonic(IntEnum):
+	INVALID = 0
+	...
+class MvexConvFn(IntEnum):
+	NONE = 0
+	...
+class MvexEHBit(IntEnum):
+	NONE = 0
+	...
+class MvexRegMemConv(IntEnum):
+	NONE = 0
+	...
+class MvexTupleTypeLutKind(IntEnum):
+	INT32 = 0
+	...
+class OpAccess(IntEnum):
+	NONE = 0
+	...
+class OpCodeOperandKind(IntEnum):
+	NONE = 0
+	...
+class OpCodeTableKind(IntEnum):
+	NORMAL = 0
+	...
+class OpKind(IntEnum):
+	REGISTER = 0
+	...
 class Register(IntEnum):
 	NONE = 0
 	...
 class RepPrefixKind(IntEnum):
 	NONE = 0
 	...
-class RflagsBits(IntFlag): ... # type: ignore
-class RoundingControl(IntEnum): ... # type: ignore
-class TupleType(IntEnum): ... # type: ignore
+class RflagsBits(IntFlag):
+	NONE = 0x0000_0000
+	...
+class RoundingControl(IntEnum):
+	NONE = 0
+	...
+class TupleType(IntEnum):
+	N1 = 0
+	...
 
 class BlockEncoder:
 	"""

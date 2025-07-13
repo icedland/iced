@@ -2,7 +2,6 @@
 // Copyright (C) 2018-present iced project and contributors
 
 use core::hash::{Hash, Hasher};
-use pyo3::class::basic::CompareOp;
 use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
 
@@ -109,12 +108,12 @@ impl ConstantOffsets {
 		*self
 	}
 
-	fn __richcmp__(&self, other: PyRef<'_, ConstantOffsets>, op: CompareOp) -> PyObject {
-		match op {
-			CompareOp::Eq => (self.offsets == other.offsets).into_py(other.py()),
-			CompareOp::Ne => (self.offsets != other.offsets).into_py(other.py()),
-			_ => other.py().NotImplemented(),
-		}
+	fn __eq__(&self, other: &Self) -> bool {
+		self.offsets == other.offsets
+	}
+
+	fn __ne__(&self, other: &Self) -> bool {
+		self.offsets != other.offsets
 	}
 
 	fn __hash__(&self) -> u64 {
