@@ -92,7 +92,6 @@ pub struct GasFormatter {
 }
 
 impl Default for GasFormatter {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		GasFormatter::new()
@@ -1322,13 +1321,11 @@ impl GasFormatter {
 }
 
 impl Formatter for GasFormatter {
-	#[must_use]
 	#[inline]
 	fn options(&self) -> &FormatterOptions {
 		&self.d.options
 	}
 
-	#[must_use]
 	#[inline]
 	fn options_mut(&mut self) -> &mut FormatterOptions {
 		&mut self.d.options
@@ -1342,7 +1339,6 @@ impl Formatter for GasFormatter {
 		self.format_mnemonic(instruction, output, &op_info, &mut column, options);
 	}
 
-	#[must_use]
 	#[allow(clippy::missing_inline_in_public_items)]
 	fn operand_count(&mut self, instruction: &Instruction) -> u32 {
 		let instr_info = &self.d.instr_infos[instruction.code() as usize];
@@ -1426,111 +1422,94 @@ impl Formatter for GasFormatter {
 		}
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_register(&mut self, register: Register) -> &str {
 		GasFormatter::get_reg_str(&self.d, register)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i8(&mut self, value: i8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i8(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i16(&mut self, value: i16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i16(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i32(&mut self, value: i32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i32(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i64(&mut self, value: i64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_i64(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u8(&mut self, value: u8) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u8(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u16(&mut self, value: u16) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u16(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u32(&mut self, value: u32) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u32(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u64(&mut self, value: u64) -> &str {
 		let number_options = NumberFormattingOptions::with_immediate(&self.d.options);
 		self.number_formatter.format_u64(&self.d.options, &number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i8_options(&mut self, value: i8, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i8(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i16_options(&mut self, value: i16, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i16(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i32_options(&mut self, value: i32, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i32(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_i64_options(&mut self, value: i64, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_i64(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u8_options(&mut self, value: u8, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u8(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u16_options(&mut self, value: u16, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u16(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u32_options(&mut self, value: u32, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u32(&self.d.options, number_options, value)
 	}
 
-	#[must_use]
 	#[inline]
 	fn format_u64_options(&mut self, value: u64, number_options: &NumberFormattingOptions<'_>) -> &str {
 		self.number_formatter.format_u64(&self.d.options, number_options, value)

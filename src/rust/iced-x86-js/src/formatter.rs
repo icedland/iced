@@ -162,7 +162,7 @@ impl Formatter {
 	pub fn op_access(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<OpAccess>, JsValue> {
 		self.formatter
 			.op_access(&instruction.0, operand)
-			.map_or_else(|error| Err(js_sys::Error::new(&format!("{}", error)).into()), |value| Ok(value.map(iced_to_op_access)))
+			.map_or_else(|error| Err(js_sys::Error::new(&format!("{error}")).into()), |value| Ok(value.map(iced_to_op_access)))
 	}
 
 	/// Converts a formatter operand index to an instruction operand index. Returns `undefined` if it's an operand added by the formatter
@@ -179,7 +179,7 @@ impl Formatter {
 	/// [`operandCount`]: #method.operand_count
 	#[wasm_bindgen(js_name = "getInstructionOperand")]
 	pub fn get_instruction_operand(&mut self, instruction: &Instruction, operand: u32) -> Result<Option<u32>, JsValue> {
-		self.formatter.get_instruction_operand(&instruction.0, operand).map_or_else(|error| Err(js_sys::Error::new(&format!("{}", error)).into()), Ok)
+		self.formatter.get_instruction_operand(&instruction.0, operand).map_or_else(|error| Err(js_sys::Error::new(&format!("{error}")).into()), Ok)
 	}
 
 	/// Converts an instruction operand index to a formatter operand index. Returns `undefined` if the instruction operand isn't used by the formatter
@@ -198,7 +198,7 @@ impl Formatter {
 	) -> Result<Option<u32>, JsValue> {
 		self.formatter
 			.get_formatter_operand(&instruction.0, instructionOperand)
-			.map_or_else(|error| Err(js_sys::Error::new(&format!("{}", error)).into()), Ok)
+			.map_or_else(|error| Err(js_sys::Error::new(&format!("{error}")).into()), Ok)
 	}
 
 	/// Formats an operand. This is a formatter operand and not necessarily a real instruction operand.
@@ -219,7 +219,7 @@ impl Formatter {
 		let mut output = String::new();
 		self.formatter
 			.format_operand(&instruction.0, &mut output, operand)
-			.map_or_else(|error| Err(js_sys::Error::new(&format!("{}", error)).into()), |_| Ok(output))
+			.map_or_else(|error| Err(js_sys::Error::new(&format!("{error}")).into()), |_| Ok(output))
 	}
 
 	/// Formats an operand separator

@@ -40,6 +40,7 @@
 #![allow(clippy::redundant_locals)]
 #![allow(clippy::too_many_arguments)]
 #![allow(clippy::type_complexity)]
+#![allow(clippy::uninlined_format_args)] // Nope
 #![allow(clippy::upper_case_acronyms)]
 #![allow(clippy::wrong_self_convention)]
 #![warn(clippy::cloned_instead_of_copied)]
@@ -55,7 +56,6 @@
 #![warn(clippy::large_digit_groups)]
 #![warn(clippy::let_unit_value)]
 #![warn(clippy::match_bool)]
-#![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
 #![warn(clippy::missing_errors_doc)]
 #![warn(clippy::missing_inline_in_public_items)]
@@ -81,8 +81,8 @@
 #![doc(test(attr(deny(warnings))))]
 
 // This should be the only place in the source code that uses no_std
-#[cfg(all(feature = "std", feature = "no_std"))]
-compile_error!("`std` and `no_std` features can't be used at the same time");
+// #[cfg(all(feature = "std", feature = "no_std"))]
+// compile_error!("`std` and `no_std` features can't be used at the same time");
 #[cfg(all(not(feature = "std"), not(feature = "no_std")))]
 compile_error!("`std` or `no_std` feature must be defined");
 

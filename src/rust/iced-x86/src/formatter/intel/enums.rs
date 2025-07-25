@@ -100,7 +100,6 @@ impl fmt::Debug for CtorKind {
 	}
 }
 impl Default for CtorKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		CtorKind::Previous
@@ -133,7 +132,6 @@ impl fmt::Debug for SizeOverride {
 	}
 }
 impl Default for SizeOverride {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SizeOverride::None
@@ -162,7 +160,6 @@ impl fmt::Debug for BranchSizeInfo {
 	}
 }
 impl Default for BranchSizeInfo {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		BranchSizeInfo::None
@@ -277,7 +274,6 @@ impl fmt::Debug for InstrOpKind {
 	}
 }
 impl Default for InstrOpKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		InstrOpKind::Register

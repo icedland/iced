@@ -9,7 +9,6 @@ env:
   CI_REQ_DOTNET_SDK_VER: '8.0.x'
   CI_NODE_MIN_VER: 'latest'
   RUSTFLAGS: '-D warnings'
-  MACOSX_DEPLOYMENT_TARGET: '10.12'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '8'
 
@@ -148,7 +147,7 @@ jobs:
           if [[ "$OSTYPE" != "linux-gnu"* ]]; then
             extra_args=--quick-check
           fi
-          ./build/build-js --no-set-rustflags $extra_args
+          ./build/build-js --no-set-rustflags --publish-dry-run $extra_args
 
       - uses: actions/upload-artifact@v4
         if: startsWith(matrix.os, 'ubuntu-')
@@ -176,25 +175,22 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04-arm]
 
     steps:
       - uses: actions/checkout@v4
 
-      # TODO: this fails in GitHub Actions, but works locally, so disable for now.
-      # - name: Build manylinux aarch64
-      #   shell: bash
-      #   run: |
-      #     sudo apt-get update
-      #     sudo apt-get install qemu-user-static
-      #     git clean -xdf
-      #     ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
-      #
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: py-dist-${{matrix.os}}-aarch64
-      #     path: /tmp/py-dist
-      #     if-no-files-found: error
+      - name: Build manylinux aarch64
+        shell: bash
+        run: |
+          git clean -xdf
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: py-dist-${{matrix.os}}-aarch64
+          path: /tmp/py-dist
+          if-no-files-found: error
 
   #############################################################################
   #############################################################################
@@ -308,8 +304,8 @@ jobs:
   #############################################################################
   #############################################################################
 
-  build-rust-python-macos-x64:
-    name: Python (${{matrix.os}}) x64
+  build-rust-python-macos-aarch64:
+    name: Python (${{matrix.os}}) aarch64
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -322,69 +318,69 @@ jobs:
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      # NOTE: We use setup-miniconda and not setup-python because setup-python's
-      #       binaries target a later macos version and will produce warnings
-      #       when building wheels on macos.
-      #           https://github.com/actions/setup-python/issues/26
-      #       This also means that all bash shells (that use Python) must
-      #       use the -le options:
-      #           shell: bash -le {0}
-      #       setup-python is faster to install than setup-miniconda so we only
-      #       use setup-miniconda if this is a macos image.
-      - uses: conda-incubator/setup-miniconda@v3.1.0
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.9'
       - name: Install Python tools
-        shell: bash -le {0}
+        shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.8'
+          python --version 2>&1 | grep 'Python 3\.9'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
-        shell: bash -le {0}
+        shell: bash
         run: |
           ./build/build-python --no-set-rustflags --python python --quick-check
           git clean -xdf
 
-      - uses: conda-incubator/setup-miniconda@v3.1.0
-        with:
-          python-version: '3.8'
-      - name: Build and test the wheel
-        shell: bash -le {0}
-        run: |
-          python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: conda-incubator/setup-miniconda@v3.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.9'
       - name: Build and test the wheel
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.9'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
-      - uses: conda-incubator/setup-miniconda@v3.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       - name: Build and test the wheel
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.10'
           bash build/ci-py-build-wheels.sh
 
-      - uses: conda-incubator/setup-miniconda@v3.1.0
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Build and test the wheel
-        shell: bash -le {0}
+        shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.11'
           bash build/ci-py-build-wheels.sh
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.12'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.13'
+          bash build/ci-py-build-wheels.sh
+
       - uses: actions/upload-artifact@v4
         with:
-          name: py-dist-${{matrix.os}}-x64
+          name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
           if-no-files-found: error
 
@@ -459,12 +455,40 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: 'pypy-3.8'
+          python-version: '3.12'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.12'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.13'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 'pypy-3.10'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version
-          python --version 2>&1 | grep 'Python 3\.8'
+          python --version 2>&1 | grep 'Python 3\.10'
+          bash build/ci-py-build-wheels.sh --build --py-kind pypy
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 'pypy-3.11'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version
+          python --version 2>&1 | grep 'Python 3\.11'
           bash build/ci-py-build-wheels.sh --build --py-kind pypy
 
       - name: Fix upload path
@@ -543,6 +567,26 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.11'
           bash build/ci-py-build-wheels.sh
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.12'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.13'
+          bash build/ci-py-build-wheels.sh
+
       - name: Fix upload path
         shell: bash
         run: |
@@ -570,7 +614,7 @@ jobs:
       - build-rust-python-linux-x64
       - build-rust-python-linux-x86
       - build-rust-python-musllinux-x64
-      - build-rust-python-macos-x64
+      - build-rust-python-macos-aarch64
       - build-rust-python-windows-x64
       - build-rust-python-windows-x86
 

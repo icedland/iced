@@ -87,7 +87,6 @@ impl fmt::Debug for FormatterTextKind {
 	}
 }
 impl Default for FormatterTextKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		FormatterTextKind::Text
@@ -282,7 +281,6 @@ impl fmt::Debug for PseudoOpsKind {
 	}
 }
 impl Default for PseudoOpsKind {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		PseudoOpsKind::cmpps
@@ -318,7 +316,6 @@ impl fmt::Debug for MemorySizeOptions {
 	}
 }
 impl Default for MemorySizeOptions {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		MemorySizeOptions::Default

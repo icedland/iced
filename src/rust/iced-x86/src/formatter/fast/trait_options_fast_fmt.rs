@@ -33,7 +33,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn space_after_operand_separator(options: &FastFormatterOptions) -> bool {
 		options.space_after_operand_separator()
@@ -49,7 +48,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn rip_relative_addresses(options: &FastFormatterOptions) -> bool {
 		options.rip_relative_addresses()
@@ -65,7 +63,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn use_pseudo_ops(options: &FastFormatterOptions) -> bool {
 		options.use_pseudo_ops()
@@ -81,7 +78,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn show_symbol_address(options: &FastFormatterOptions) -> bool {
 		options.show_symbol_address()
@@ -98,7 +94,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn always_show_segment_register(options: &FastFormatterOptions) -> bool {
 		options.always_show_segment_register()
@@ -114,7 +109,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn always_show_memory_size(options: &FastFormatterOptions) -> bool {
 		options.always_show_memory_size()
@@ -130,7 +124,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn uppercase_hex(options: &FastFormatterOptions) -> bool {
 		options.uppercase_hex()
@@ -146,7 +139,6 @@ impl SpecializedFormatterTraitOptions for DefaultFastFormatterTraitOptions {
 	/// # Arguments
 	///
 	/// * `options`: Current formatter options
-	#[must_use]
 	#[inline]
 	fn use_hex_prefix(options: &FastFormatterOptions) -> bool {
 		options.use_hex_prefix()

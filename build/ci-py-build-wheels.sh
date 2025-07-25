@@ -82,9 +82,9 @@ if [ "$build" = "y" ]; then
 
 	extra_args=
 	if [ "$py_kind" = "cpy" ]; then
-		extra_args=--py-limited-api=cp38
+		extra_args="--config-setting=--build-option=--py-limited-api=cp38"
 	fi
-	"$python" setup.py bdist_wheel $extra_args
+	"$python" -m build --wheel $extra_args
 	mkdir -p /tmp/py-dist
 	cp dist/* /tmp/py-dist
 

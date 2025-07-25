@@ -745,7 +745,6 @@ pub struct SpecializedFormatter<TraitOptions: SpecializedFormatterTraitOptions> 
 }
 
 impl<TraitOptions: SpecializedFormatterTraitOptions> Default for SpecializedFormatter<TraitOptions> {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		SpecializedFormatter::<TraitOptions>::new()

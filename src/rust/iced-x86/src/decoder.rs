@@ -167,7 +167,6 @@ impl fmt::Debug for OpSize {
 	}
 }
 impl Default for OpSize {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		OpSize::Size16
@@ -201,7 +200,6 @@ impl fmt::Debug for DecoderError {
 	}
 }
 impl Default for DecoderError {
-	#[must_use]
 	#[inline]
 	fn default() -> Self {
 		DecoderError::None
@@ -1414,7 +1412,7 @@ impl<'a> Decoder<'a> {
 		self.decode_table2(handler, instruction);
 
 		debug_assert_eq!(data_ptr, self.instr_start_data_ptr);
-		let instr_len = self.data_ptr as u32 - data_ptr as u32;
+		let instr_len = (self.data_ptr as u32).wrapping_sub(data_ptr as u32);
 		debug_assert!(instr_len <= IcedConstants::MAX_INSTRUCTION_LENGTH as u32); // Could be 0 if there were no bytes available
 		instruction_internal::internal_set_len(instruction, instr_len);
 		let orig_ip = self.ip;
@@ -1461,7 +1459,7 @@ impl<'a> Decoder<'a> {
 
 				self.state.flags = flags | StateFlags::IS_INVALID;
 
-				let instr_len = self.data_ptr as u32 - data_ptr as u32;
+				let instr_len = (self.data_ptr as u32).wrapping_sub(data_ptr as u32);
 				instruction_internal::internal_set_len(instruction, instr_len);
 				let ip = orig_ip.wrapping_add(instr_len as u64);
 				self.ip = ip;
@@ -2635,7 +2633,6 @@ impl<'a> IntoIterator for Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIntoIter<'a>;
 
-	#[must_use]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIntoIter { decoder: self }
@@ -2646,7 +2643,6 @@ impl<'a, 'b> IntoIterator for &'b mut Decoder<'a> {
 	type Item = Instruction;
 	type IntoIter = DecoderIter<'a, 'b>;
 
-	#[must_use]
 	#[inline]
 	fn into_iter(self) -> Self::IntoIter {
 		DecoderIter { decoder: self }

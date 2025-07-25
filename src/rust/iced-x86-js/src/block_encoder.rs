@@ -66,6 +66,6 @@ impl BlockEncoder {
 	fn encode_core(&mut self, rip: u64) -> Result<Vec<u8>, JsValue> {
 		let block = InstructionBlock::new(&self.instructions, rip);
 		iced_x86_rust::BlockEncoder::encode(self.bitness, block, self.options)
-			.map_or_else(|error| Err(js_sys::Error::new(&format!("{}", error)).into()), |result| Ok(result.code_buffer))
+			.map_or_else(|error| Err(js_sys::Error::new(&format!("{error}")).into()), |result| Ok(result.code_buffer))
 	}
 }

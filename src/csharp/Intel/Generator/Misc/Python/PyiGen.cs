@@ -105,6 +105,13 @@ namespace Generator.Misc.Python {
 				var allEnumTypes = exportedPythonTypes.Enums.Select(a => (enumType: a, pythonName: a.Name(idConverter)));
 				var toEnumType = allEnumTypes.ToDictionary(a => a.pythonName, a => a.enumType, StringComparer.Ordinal);
 				foreach (var (enumType, pythonName) in allEnumTypes.OrderBy(a => a.pythonName, StringComparer.Ordinal)) {
+					// mypy now complains if there are no enum values in the *.pyi file so add
+					// at least one enum value to each enum.
+					if (!reqEnumFields.TryGetValue(enumType, out var hash))
+						reqEnumFields.Add(enumType, hash = new HashSet<EnumValue>());
+					if (hash.Count == 0 && enumType.Values.Length != 0)
+						hash.Add(enumType.Values[0]);
+
 					var baseClass = enumType.IsFlags ? "IntFlag" : "IntEnum";
 					if (reqEnumFields.TryGetValue(enumType, out var fields)) {
 						writer.WriteLine($"class {pythonName}({baseClass}):");
@@ -125,7 +132,7 @@ namespace Generator.Misc.Python {
 						}
 					}
 					else
-						writer.WriteLine($"class {pythonName}({baseClass}): ...");
+						writer.WriteLine($"class {pythonName}({baseClass}): ... # type: ignore");
 				}
 
 				var docGen = new PyiDocGen();

@@ -52,6 +52,7 @@ pub(crate) struct Formatter {
 }
 
 unsafe impl Send for Formatter {}
+unsafe impl Sync for Formatter {}
 
 #[pymethods]
 impl Formatter {

@@ -22,7 +22,6 @@ env:
   CI_REQ_DOTNET_SDK_VER: '8.0.x'
   CI_NODE_MIN_VER: 'latest'
   RUSTFLAGS: '-D warnings'
-  MACOSX_DEPLOYMENT_TARGET: '10.12'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '8'
 
@@ -130,9 +129,7 @@ jobs:
 
       - name: Install kcov
         shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install kcov
+        run: ./build/ci-install-pkg-fallback-to-ubuntu-2204-LTS.sh kcov
 
       - name: Build and test
         shell: bash

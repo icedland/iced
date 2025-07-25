@@ -50,7 +50,6 @@
 #![warn(clippy::large_digit_groups)]
 #![warn(clippy::let_unit_value)]
 #![warn(clippy::match_bool)]
-#![warn(clippy::match_on_vec_items)]
 #![warn(clippy::match_wild_err_arm)]
 #![warn(clippy::needless_borrow)]
 #![warn(clippy::print_stderr)]
