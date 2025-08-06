@@ -636,7 +636,7 @@ jobs:
           node-version: ${{env.CI_NODE_MIN_VER}}
           registry-url: "https://registry.npmjs.org"
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           path: /tmp/artifacts
 
