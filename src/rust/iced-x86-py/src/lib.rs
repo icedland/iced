@@ -41,7 +41,6 @@
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::debug_assert_with_mut_call)]
 #![warn(clippy::default_trait_access)]
-#![warn(clippy::doc_markdown)]
 #![warn(clippy::empty_line_after_outer_attr)]
 #![warn(clippy::expect_used)]
 #![warn(clippy::explicit_into_iter_loop)]
