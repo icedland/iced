@@ -255,3 +255,7 @@ fn create(sb: &mut String, cc: &[&str], size: usize, prefix: &str, suffix: &str)
 	}
 	strings
 }
+
+pub(super) fn eager_init() {
+	let _ = &PSEUDO_OPS.cmppd;
+}
