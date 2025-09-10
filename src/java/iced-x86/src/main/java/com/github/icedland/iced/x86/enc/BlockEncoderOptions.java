@@ -32,4 +32,8 @@ public final class BlockEncoderOptions {
 	 * The {@link com.github.icedland.iced.x86.enc.BlockEncoder} should return {@link com.github.icedland.iced.x86.ConstantOffsets}
 	 */
 	public static final int RETURN_CONSTANT_OFFSETS = 0x0000_0008;
+	/**
+	 * The {@link com.github.icedland.iced.x86.enc.BlockEncoder} should return new instruction offsets.<!-- --> For instructions that have been rewritten (e.<!-- -->g.<!-- --> to fix branches), the offset to the resulting block of instructions is returned.<!-- -->
+	 */
+	public static final int RETURN_ALL_NEW_INSTRUCTION_OFFSETS = 0x0000_0014;
 }

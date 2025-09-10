@@ -44,6 +44,10 @@ public final class BlockEncoder {
 		return (options & BlockEncoderOptions.RETURN_CONSTANT_OFFSETS) != 0;
 	}
 
+	private boolean returnAllConstantOffsets() {
+		return (options & BlockEncoderOptions.RETURN_ALL_NEW_INSTRUCTION_OFFSETS) != 0;
+	}
+
 	private static final class NullCodeWriter implements CodeWriter {
 		public static final NullCodeWriter instance = new NullCodeWriter();
 
@@ -244,6 +248,7 @@ public final class BlockEncoder {
 
 		BlockEncoderResult[] resultArray = new BlockEncoderResult[blocks.length];
 		TryEncodeResult tryEncResult = new TryEncodeResult();
+		boolean returnAllOffsets = returnAllConstantOffsets();
 		for (int i = 0; i < blocks.length; i++) {
 			Block block = blocks[i];
 			Encoder encoder = new Encoder(bitness, block.codeWriter);
@@ -263,7 +268,7 @@ public final class BlockEncoder {
 				if (size != instr.size)
 					return "Internal error: didn't write all bytes";
 				if (newInstructionOffsets != null) {
-					if (tryEncResult.isOriginalInstruction)
+					if (tryEncResult.isOriginalInstruction || returnAllOffsets)
 						newInstructionOffsets[j] = (int)(ip - block.rip);
 					else
 						newInstructionOffsets[j] = 0xFFFF_FFFF;
