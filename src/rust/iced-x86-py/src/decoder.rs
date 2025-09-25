@@ -15,7 +15,7 @@ enum DecoderDataRef {
 	None,
 	Vec(#[allow(dead_code)] Vec<u8>),
 	#[allow(dead_code)]
-	PyObj(PyObject),
+	PyObj(Py<PyAny>),
 }
 
 /// Decodes 16/32/64-bit x86 instructions
