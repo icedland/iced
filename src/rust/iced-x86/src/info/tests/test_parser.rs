@@ -246,15 +246,14 @@ impl IntoIter {
 				continue;
 			}
 			let key;
-			let value;
-			if let Some(index) = kv.find('=') {
+			let value = if let Some(index) = kv.find('=') {
 				let s = kv.split_at(index);
 				key = s.0;
-				value = &s.1[1..];
+				&s.1[1..]
 			} else {
 				key = kv;
-				value = "";
-			}
+				""
+			};
 
 			match *(*TO_INSTRUCTION_INFO_KEYS).get(key).unwrap_or(&u32::MAX) {
 				InstructionInfoKeys::IS_PRIVILEGED => {
