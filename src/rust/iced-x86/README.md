@@ -1278,6 +1278,16 @@ Output:
 */
 ```
 
+## Eagerly initialize `iced` crate
+This crate depends on `lazy_static` to lazily initialize the library on-demand. However, in some circumstances, memory allocators may become unavailable after initialization stage (e.g.: You cannot call `ExAllocatePool` if `IRQL>DISPATCH_LEVEL`). Therefore, eager initialization may become necessary. \
+To eagerly initialize the `iced` crate, call the `eager_init` function in your initialization routine:
+```Rust
+use iced_x86;
+
+iced_x86::eager_init();
+```
+**Caveat:** Unlike decoders, creating formatters will still trigger memory allocations. Therefore, set up your formatter as/inside a global variable.
+
 ## Minimum supported `rustc` version
 
 iced-x86 supports `rustc` `1.63.0` or later.
