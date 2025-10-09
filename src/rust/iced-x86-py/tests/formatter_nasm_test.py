@@ -115,3 +115,19 @@ def test_format() -> None:
 	assert formatter.format_u16(0x89AB) == "89ABh"
 	assert formatter.format_u32(0x89ABCDEF) == "89ABCDEFh"
 	assert formatter.format_u64(0xFEDCBA9876543210) == "0FEDCBA9876543210h"
+
+def test_format_with_symbol_resolver():
+	def symbol_resolver(instr, op, instr_op, addr, addr_size):
+		if addr == 0x00:
+			return "foo"
+		elif addr == 0x0B:
+			return "boo"
+		else:
+			return None
+
+	instr1, _, _, instr4, _, _, instr7 = list(Decoder(32, b"\xE8\x06\x00\x00\x00\x31\xDB\xF7\xE2\xEB\xF5\x83\xC0\x0E\xC3\x8D\x81\x0B\x00\x00\x00"))
+	formatter = Formatter(FORMATTER_SYNTAX, symbol_resolver)
+
+	assert formatter.format(instr1) == "call boo"
+	assert formatter.format(instr4) == "jmp short foo"
+	assert formatter.format(instr7) == "lea eax,[ecx+boo]"
