@@ -41,7 +41,7 @@ jobs:
           fi
           ./build/build-dotnet $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: nupkg
@@ -76,7 +76,7 @@ jobs:
           fi
           ./build/build-java $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: java
@@ -149,7 +149,7 @@ jobs:
           fi
           ./build/build-js --no-set-rustflags --publish-dry-run $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: npm
@@ -186,7 +186,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -242,7 +242,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_x86_64" --pypy
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-x64
           path: /tmp/py-dist
@@ -268,7 +268,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_i686"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-x86
           path: /tmp/py-dist
@@ -294,7 +294,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_1_x86_64"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-x86_64-musllinux
           path: /tmp/py-dist
@@ -378,7 +378,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.13'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -496,7 +496,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-x64
           path: py-dist
@@ -592,7 +592,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: py-dist-${{matrix.os}}-x86
           path: py-dist
