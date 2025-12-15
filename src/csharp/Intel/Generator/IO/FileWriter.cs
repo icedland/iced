@@ -48,6 +48,12 @@ namespace Generator.IO {
 				multiLineComment = ("", "-- ", "");
 				break;
 
+			case TargetLanguage.Cpp:
+				numberByteFormat = "0x{0:X2}";
+				singleLineCommentPrefix = "// ";
+				multiLineComment = ("", "// ", "");
+				break;
+
 			default:
 				throw new InvalidOperationException();
 			}
