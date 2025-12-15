@@ -43,11 +43,33 @@ target_include_directories( iced_x86
 
 target_compile_features( iced_x86 PUBLIC cxx_std_23 )
 
-# Enable warnings
+# Enable warnings and aggressive optimizations
 if( MSVC )
   target_compile_options( iced_x86 PRIVATE /W4 )
+  # Aggressive optimizations for Release builds
+  target_compile_options( iced_x86 PRIVATE
+    $<$<CONFIG:Release>:/O2>           # Maximum optimization
+    $<$<CONFIG:Release>:/Ob3>          # Aggressive inlining
+    $<$<CONFIG:Release>:/Oi>           # Enable intrinsic functions
+    $<$<CONFIG:Release>:/Ot>           # Favor fast code
+    $<$<CONFIG:Release>:/GT>           # Fiber-safe optimizations
+    $<$<CONFIG:Release>:/GL>           # Whole program optimization
+    $<$<CONFIG:Release>:/Gy>           # Function-level linking
+    $<$<CONFIG:Release>:/arch:AVX2>    # Use AVX2 instructions
+  )
+  # Link-time code generation for Release
+  set_target_properties( iced_x86 PROPERTIES
+    STATIC_LIBRARY_OPTIONS "$<$<CONFIG:Release>:/LTCG>"
+  )
 else()
   target_compile_options( iced_x86 PRIVATE -Wall -Wextra -Wpedantic )
+  # Aggressive optimizations for Release builds (GCC/Clang)
+  target_compile_options( iced_x86 PRIVATE
+    $<$<CONFIG:Release>:-O3>
+    $<$<CONFIG:Release>:-march=native>
+    $<$<CONFIG:Release>:-flto>
+    $<$<CONFIG:Release>:-fno-exceptions>
+  )
 endif()
 
 # Installation

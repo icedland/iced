@@ -10,11 +10,11 @@
 #include <span>
 #include <vector>
 #include <variant>
-#include <functional>
 
 #include "handlers.hpp"
 #include "serialized_data_kind.hpp"
 #include "legacy_op_code_handler_kind.hpp"
+#include "compiler_intrinsics.hpp"
 #include "../code.hpp"
 #include "../register.hpp"
 
@@ -61,8 +61,9 @@ private:
 /// @brief Handler info - either single handler or array of handlers
 using HandlerInfo = std::variant<HandlerEntry, std::vector<HandlerEntry>>;
 
-/// @brief Handler reader function type
-using HandlerReaderFn = std::function<void( class TableDeserializer&, std::vector<HandlerEntry>& )>;
+/// @brief Handler reader function type - using raw function pointer for performance
+/// std::function has significant overhead: heap allocation, type erasure, cannot be inlined
+using HandlerReaderFn = void (*)( class TableDeserializer&, std::vector<HandlerEntry>& );
 
 /// @brief Table deserializer - reads binary table data and builds handler tree
 class TableDeserializer {

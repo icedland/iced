@@ -1,3 +1,5 @@
 .vscode/
 coverage.info
 /cov-out/
+/src/bench
+/src/cpp/iced-x86/build

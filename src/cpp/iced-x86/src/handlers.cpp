@@ -121,7 +121,8 @@ void OpCodeHandler_AnotherTable::decode( const OpCodeHandler* self_ptr, Decoder&
   auto b = *byte_opt;
   auto& entry = self->handlers[b];
 
-  if ( entry.handler->has_modrm ) {
+  // Read modrm if required and not already read
+  if ( entry.handler->has_modrm && !decoder.state().modrm_read ) {
     auto modrm_opt = decoder.read_byte();
     if ( !modrm_opt ) {
       decoder.set_invalid_instruction();
@@ -132,6 +133,7 @@ void OpCodeHandler_AnotherTable::decode( const OpCodeHandler* self_ptr, Decoder&
     decoder.state().reg = ( m >> 3 ) & 7;
     decoder.state().mod_ = m >> 6;
     decoder.state().rm = m & 7;
+    decoder.state().modrm_read = true;
   }
 
   entry.decode( entry.handler, decoder, instruction );
@@ -167,7 +169,7 @@ void OpCodeHandler_Bitness::decode( const OpCodeHandler* self_ptr, Decoder& deco
   } else {
     entry = &self->handler_1632;
   }
-  entry->decode( entry->handler, decoder, instruction );
+  decoder.decode_table( *entry, instruction );
 }
 
 void OpCodeHandler_Bitness_DontReadModRM::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -179,7 +181,7 @@ void OpCodeHandler_Bitness_DontReadModRM::decode( const OpCodeHandler* self_ptr,
   } else {
     entry = &self->handler_1632;
   }
-  entry->decode( entry->handler, decoder, instruction );
+  decoder.decode_table( *entry, instruction );
 }
 
 // ============================================================================
@@ -190,7 +192,7 @@ void OpCodeHandler_MandatoryPrefix::decode( const OpCodeHandler* self_ptr, Decod
   auto* self = reinterpret_cast<const OpCodeHandler_MandatoryPrefix*>( self_ptr );
   auto prefix_idx = static_cast<size_t>( decoder.state().mandatory_prefix );
   auto& entry = self->handlers[prefix_idx];
-  entry.decode( entry.handler, decoder, instruction );
+  decoder.decode_table( entry, instruction );
 }
 
 void OpCodeHandler_MandatoryPrefix3::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -230,7 +232,7 @@ void OpCodeHandler_Options::decode( const OpCodeHandler* self_ptr, Decoder& deco
   } else {
     entry = &self->handler_default;
   }
-  entry->decode( entry->handler, decoder, instruction );
+  decoder.decode_table( *entry, instruction );
 }
 
 void OpCodeHandler_Options_DontReadModRM::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -242,7 +244,7 @@ void OpCodeHandler_Options_DontReadModRM::decode( const OpCodeHandler* self_ptr,
   } else {
     entry = &self->handler_default;
   }
-  entry->decode( entry->handler, decoder, instruction );
+  decoder.decode_table( *entry, instruction );
 }
 
 void OpCodeHandler_Options1632::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -261,7 +263,7 @@ void OpCodeHandler_Options1632::decode( const OpCodeHandler* self_ptr, Decoder& 
   } else {
     entry = &self->handler_default;
   }
-  entry->decode( entry->handler, decoder, instruction );
+  decoder.decode_table( *entry, instruction );
 }
 
 // ============================================================================
@@ -920,6 +922,7 @@ void OpCodeHandler_Eb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, 
 void OpCodeHandler_Eb_Gb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_Eb_Gb*>( self_ptr );
   instr.set_code( self->code );
+  decoder.state().flags |= self->flags;  // Apply flags (e.g., ALLOW_LOCK)
 
   // Op1: Gb (reg field + REX.R), with REX extension handling
   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base;

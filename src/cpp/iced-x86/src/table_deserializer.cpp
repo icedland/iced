@@ -253,14 +253,16 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
     case LegacyOpCodeHandlerKind::BITNESS: {
       auto handler_1632 = deserializer.read_handler();
       auto handler_64 = deserializer.read_handler();
-      result.push_back( make_handler( OpCodeHandler_Bitness{ true, handler_1632, handler_64 } ) );
+      // has_modrm = false - this is a dispatch handler
+      result.push_back( make_handler( OpCodeHandler_Bitness{ false, handler_1632, handler_64 } ) );
       return;
     }
 
     case LegacyOpCodeHandlerKind::BITNESS_DONT_READ_MOD_RM: {
       auto handler_1632 = deserializer.read_handler();
       auto handler_64 = deserializer.read_handler();
-      result.push_back( make_handler( OpCodeHandler_Bitness_DontReadModRM{ true, handler_1632, handler_64 } ) );
+      // has_modrm = false - this is a dispatch handler
+      result.push_back( make_handler( OpCodeHandler_Bitness_DontReadModRM{ false, handler_1632, handler_64 } ) );
       return;
     }
 
@@ -283,8 +285,9 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
       auto default_handler = deserializer.read_handler();
       auto handler1 = deserializer.read_handler();
       auto options1 = deserializer.read_decoder_options();
+      // has_modrm = false - this is a dispatch handler
       result.push_back( make_handler( OpCodeHandler_Options{
-        true, default_handler, handler1, options1, get_invalid_handler(), 0 } ) );
+        false, default_handler, handler1, options1, get_invalid_handler(), 0 } ) );
       return;
     }
 
@@ -294,8 +297,9 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
       auto options1 = deserializer.read_decoder_options();
       auto handler2 = deserializer.read_handler();
       auto options2 = deserializer.read_decoder_options();
+      // has_modrm = false - this is a dispatch handler
       result.push_back( make_handler( OpCodeHandler_Options{
-        true, default_handler, handler1, options1, handler2, options2 } ) );
+        false, default_handler, handler1, options1, handler2, options2 } ) );
       return;
     }
 
@@ -313,7 +317,7 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
       auto handler1 = deserializer.read_handler();
       auto options1 = deserializer.read_decoder_options();
       result.push_back( make_handler( OpCodeHandler_Options1632{
-        true, default_handler, handler1, options1, get_invalid_handler(), 0 } ) );
+        false, default_handler, handler1, options1, get_invalid_handler(), 0 } ) );
       return;
     }
 
@@ -324,7 +328,7 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
       auto handler2 = deserializer.read_handler();
       auto options2 = deserializer.read_decoder_options();
       result.push_back( make_handler( OpCodeHandler_Options1632{
-        true, default_handler, handler1, options1, handler2, options2 } ) );
+        false, default_handler, handler1, options1, handler2, options2 } ) );
       return;
     }
 

@@ -253,6 +253,26 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "[[nodiscard]] std::optional<uint64_t> read_u64() noexcept;" );
 				writer.WriteLine();
 
+				writer.WriteLine( "/// @brief Reads a byte from the input stream without bounds checking." );
+				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
+				writer.WriteLine( "[[nodiscard]] uint8_t read_byte_unchecked() noexcept;" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Reads a word (2 bytes) from the input stream without bounds checking." );
+				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
+				writer.WriteLine( "[[nodiscard]] uint16_t read_u16_unchecked() noexcept;" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Reads a dword (4 bytes) from the input stream without bounds checking." );
+				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
+				writer.WriteLine( "[[nodiscard]] uint32_t read_u32_unchecked() noexcept;" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Reads a qword (8 bytes) from the input stream without bounds checking." );
+				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
+				writer.WriteLine( "[[nodiscard]] uint64_t read_u64_unchecked() noexcept;" );
+				writer.WriteLine();
+
 				// State manipulation
 				writer.WriteLine( "/// @brief Sets the instruction as invalid." );
 				writer.WriteLine( "void set_invalid_instruction() noexcept;" );
@@ -530,19 +550,17 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "instr_start_position_ = position_;" );
 				writer.WriteLine( "max_instr_position_ = std::min( position_ + MAX_INSTRUCTION_LENGTH, data_.size() );" );
 				writer.WriteLine();
-				writer.WriteLine( "// Read first byte" );
-				writer.WriteLine( "auto b_opt = read_byte();" );
-				writer.WriteLine( "if ( !b_opt ) {" );
+				writer.WriteLine( "// Read first byte - use direct access for speed" );
+				writer.WriteLine( "if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "auto b = static_cast<std::size_t>( *b_opt );" );
+				writer.WriteLine( "auto b = static_cast<std::size_t>( data_[position_++] );" );
 				writer.WriteLine();
 				writer.WriteLine( "// Check for REX prefix in 64-bit mode" );
 				writer.WriteLine( "if ( bitness_ == 64 && ( b & 0xF0 ) == 0x40 ) {" );
-				writer.WriteLine( "  // REX prefix" );
-				writer.WriteLine( "  auto next_opt = read_byte();" );
-				writer.WriteLine( "  if ( !next_opt ) {" );
+				writer.WriteLine( "  // REX prefix - need another byte" );
+				writer.WriteLine( "  if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
 				writer.WriteLine( "    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "    return;" );
 				writer.WriteLine( "  }" );
@@ -557,7 +575,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  state_.extra_index_register_base = ( static_cast<uint32_t>( b ) & 2 ) << 2;" );
 				writer.WriteLine( "  state_.extra_base_register_base = ( static_cast<uint32_t>( b ) & 1 ) << 3;" );
 				writer.WriteLine();
-				writer.WriteLine( "  b = static_cast<std::size_t>( *next_opt );" );
+				writer.WriteLine( "  b = static_cast<std::size_t>( data_[position_++] );" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
 				writer.WriteLine( "// Look up handler" );
@@ -707,6 +725,55 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return std::nullopt;" );
 				writer.WriteLine( "}" );
+				writer.WriteLine( "uint64_t result = static_cast<uint64_t>( data_[position_] ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );" );
+				writer.WriteLine( "position_ += 8;" );
+				writer.WriteLine( "return result;" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine();
+
+			// read_byte_unchecked()
+			writer.WriteLine( "uint8_t Decoder::read_byte_unchecked() noexcept {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "return data_[position_++];" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine();
+
+			// read_u16_unchecked()
+			writer.WriteLine( "uint16_t Decoder::read_u16_unchecked() noexcept {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "uint16_t result = static_cast<uint16_t>( data_[position_] ) |" );
+				writer.WriteLine( "                  ( static_cast<uint16_t>( data_[position_ + 1] ) << 8 );" );
+				writer.WriteLine( "position_ += 2;" );
+				writer.WriteLine( "return result;" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine();
+
+			// read_u32_unchecked()
+			writer.WriteLine( "uint32_t Decoder::read_u32_unchecked() noexcept {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "uint32_t result = static_cast<uint32_t>( data_[position_] ) |" );
+				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |" );
+				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );" );
+				writer.WriteLine( "position_ += 4;" );
+				writer.WriteLine( "return result;" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine();
+
+			// read_u64_unchecked()
+			writer.WriteLine( "uint64_t Decoder::read_u64_unchecked() noexcept {" );
+			using ( writer.Indent() ) {
 				writer.WriteLine( "uint64_t result = static_cast<uint64_t>( data_[position_] ) |" );
 				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |" );
 				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |" );
