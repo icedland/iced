@@ -126,39 +126,43 @@ Instruction Decoder::decode_out( DecoderError& error ) noexcept {
 	return instr;
 }
 
-void Decoder::decode_out( Instruction& instruction, DecoderError& error ) noexcept {
-	// Reset the instruction for reuse
-	instruction = Instruction{};
+void Decoder::decode_out( Instruction& __restrict instruction, DecoderError& __restrict error ) noexcept {
+	// Reset the instruction for reuse - use memset for speed
+	std::memset( &instruction, 0, sizeof( Instruction ) );
 	error = DecoderError::NONE;
 
-	if ( position_ >= data_.size() ) {
+	if ( position_ >= data_.size() ) [[unlikely]] {
 	  error = DecoderError::NO_MORE_BYTES;
 	  return;
 	}
 
 	decode_internal( instruction );
 
-	// Check for errors
-	if ( ( state_.flags & StateFlags::NO_MORE_BYTES ) != 0 ) {
-	  error = DecoderError::NO_MORE_BYTES;
-	} else if ( ( state_.flags & StateFlags::IS_INVALID ) != 0 ) {
-	  error = DecoderError::INVALID_INSTRUCTION;
+	// Check for errors - combine flag checks
+	uint32_t err_flags = state_.flags & ( StateFlags::NO_MORE_BYTES | StateFlags::IS_INVALID );
+	if ( err_flags != 0 ) [[unlikely]] {
+	  error = ( err_flags & StateFlags::NO_MORE_BYTES ) ? DecoderError::NO_MORE_BYTES : DecoderError::INVALID_INSTRUCTION;
 	}
 }
 
 void Decoder::decode_internal( Instruction& instruction ) noexcept {
-	// Reset state (matches Rust decoder.rs line ~1372-1381)
-	state_.extra_register_base = 0;
-	state_.extra_index_register_base = 0;
-	state_.extra_base_register_base = 0;
-	state_.extra_index_register_base_vsib = 0;  // EVEX.V' for VSIB - must be reset!
-	state_.flags = 0;
-	state_.mandatory_prefix = DecoderMandatoryPrefix::PNP;
+	// Reset state - clear 5 consecutive uint32_t fields at once
+	// Fields: extra_register_base, extra_index_register_base, extra_base_register_base,
+	//         extra_index_register_base_vsib, flags
+	std::memset( &state_.extra_register_base, 0, 5 * sizeof( uint32_t ) );
+	
+	// Clear vvvv fields (2 consecutive uint32_t)
 	state_.vvvv = 0;
 	state_.vvvv_invalid_check = 0;
+	
+	// Set address/operand size (these are set, not cleared)
 	state_.address_size = default_address_size_;
 	state_.operand_size = default_operand_size_;
 	state_.segment_prio = 0;
+	state_.dummy = 0;
+	
+	// Less frequently used
+	state_.mandatory_prefix = DecoderMandatoryPrefix::PNP;
 	state_.modrm_read = false;
 
 	instr_start_position_ = position_;
@@ -171,7 +175,7 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	}
 	auto b = static_cast<std::size_t>( data_[position_++] );
 
-	// Check for REX prefix in 64-bit mode
+	// Check for REX prefix in 64-bit mode (common case)
 	if ( bitness_ == 64 && ( b & 0xF0 ) == 0x40 ) {
 	  // REX prefix
 	  if ( position_ >= max_instr_position_ ) [[unlikely]] {
@@ -179,7 +183,7 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	    return;
 	  }
 
-	  uint32_t flags = state_.flags | StateFlags::HAS_REX;
+	  uint32_t flags = StateFlags::HAS_REX;
 	  if ( ( b & 8 ) != 0 ) {
 	    flags |= StateFlags::W;
 	    state_.operand_size = OpSize::SIZE64;
@@ -192,13 +196,8 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	  b = static_cast<std::size_t>( data_[position_++] );
 	}
 
-	// Look up handler
-	if ( b < handlers_map0_.size() ) {
-	  auto& handler = handlers_map0_[b];
-	  decode_table( handler, instruction );
-	} else {
-	  set_invalid_instruction();
-	}
+	// Look up handler - handlers_map0_ always has 256 entries
+	decode_table( handlers_map0_[b], instruction );
 
 	// Calculate instruction length
 	auto instr_len = static_cast<uint32_t>( position_ - instr_start_position_ );
@@ -210,32 +209,32 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	instruction.set_next_ip( ip_ );
 	instruction.set_code_size( default_code_size_ );
 
-	// Post-process RIP/EIP-relative addressing: convert displacement to absolute address
+	// Fast path: check if any post-processing needed
 	auto flags = state_.flags;
-	if ( ( flags & ( StateFlags::IP_REL64 | StateFlags::IP_REL32 | StateFlags::IS_INVALID ) ) != 0 ) {
-	  if ( ( flags & StateFlags::IP_REL64 ) != 0 ) {
-	    // RIP-relative: target = next_ip + displacement
-	    auto addr = ip_ + instruction.memory_displacement64();
-	    instruction.set_memory_displacement64( addr );
-	  } else if ( ( flags & StateFlags::IP_REL32 ) != 0 ) {
-	    // EIP-relative: target = next_ip + displacement (32-bit)
-	    auto addr = static_cast<uint32_t>( ip_ ) + static_cast<uint32_t>( instruction.memory_displacement64() );
-	    instruction.set_memory_displacement64( addr );
+	if ( ( flags & ( StateFlags::IP_REL64 | StateFlags::IP_REL32 | StateFlags::IS_INVALID | StateFlags::LOCK ) ) == 0 ) [[likely]] {
+	  return;
+	}
+
+	// Post-process RIP/EIP-relative addressing
+	if ( ( flags & StateFlags::IP_REL64 ) != 0 ) {
+	  auto addr = ip_ + instruction.memory_displacement64();
+	  instruction.set_memory_displacement64( addr );
+	  // Check if we can exit early (common case: just RIP-relative, no error)
+	  if ( ( flags & ( StateFlags::IS_INVALID | StateFlags::LOCK ) ) == 0 ) [[likely]] {
+	    return;
 	  }
+	} else if ( ( flags & StateFlags::IP_REL32 ) != 0 ) {
+	  auto addr = static_cast<uint32_t>( ip_ ) + static_cast<uint32_t>( instruction.memory_displacement64() );
+	  instruction.set_memory_displacement64( addr );
 	}
 
-	// Handle invalid instructions and LOCK prefix validation (matches Rust decoder.rs line ~1442-1443)
-	// Invalid if: IS_INVALID flag is set, OR LOCK prefix used without ALLOW_LOCK (when invalid checking is enabled)
-	bool is_invalid = ( state_.flags & StateFlags::IS_INVALID ) != 0;
+	// Handle invalid instructions and LOCK prefix validation
+	bool is_invalid = ( flags & StateFlags::IS_INVALID ) != 0;
 	if ( !is_invalid ) {
-	  // Check LOCK prefix validation: LOCK set but ALLOW_LOCK not set
-	  is_invalid = ( ( ( state_.flags & ( StateFlags::LOCK | StateFlags::ALLOW_LOCK ) ) & invalid_check_mask_ ) == StateFlags::LOCK );
+	  is_invalid = ( ( ( flags & ( StateFlags::LOCK | StateFlags::ALLOW_LOCK ) ) & invalid_check_mask_ ) == StateFlags::LOCK );
 	}
-	if ( is_invalid ) {
-	  instruction = Instruction{};
-	  instruction.set_code( Code::INVALID );
-
-	  instr_len = static_cast<uint32_t>( position_ - instr_start_position_ );
+	if ( is_invalid ) [[unlikely]] {
+	  std::memset( &instruction, 0, sizeof( Instruction ) );
 	  instruction.set_length( instr_len );
 	  ip_ = orig_ip + instr_len;
 	  instruction.set_next_ip( ip_ );
@@ -565,13 +564,13 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 
 void Decoder::decode_vex2( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
+	// Don't return early - need to read VEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
-	  return;
 	}
 
-	// Clear W flag and reset REX extension bits
+	// Clear W flag (undo what decode_out() did if it got a REX prefix)
 	state_.flags &= ~StateFlags::W;
 	state_.extra_index_register_base = 0;
 	state_.extra_base_register_base = 0;
@@ -606,8 +605,13 @@ void Decoder::decode_vex2( Instruction& instruction ) noexcept {
 
 	// VEX2 implies map 0F (map_index = 0)
 	auto table = get_vex_table( 0 );
+	
+	// Reset modrm_read - the VEX byte was read as modrm but it's not the instruction's modrm
+	state_.modrm_read = false;
+	
 	if ( table.empty() || opcode >= table.size() ) {
-	  set_invalid_instruction();
+	  // Still need to read modrm for correct instruction length
+	  decode_table( internal::get_invalid_handler(), instruction );
 	  return;
 	}
 
@@ -616,13 +620,13 @@ void Decoder::decode_vex2( Instruction& instruction ) noexcept {
 
 void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
+	// Don't return early - need to read VEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
-	  return;
 	}
 
-	// Clear W flag
+	// Clear W flag (undo what decode_out() did if it got a REX prefix)
 	state_.flags &= ~StateFlags::W;
 	state_.extra_register_base_evex = 0;
 	state_.extra_base_register_base_evex = 0;
@@ -630,20 +634,14 @@ void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// state_.modrm contains VEX byte2 (P0: RXBmmmmm)
 	uint32_t p0 = state_.modrm;
 
-	// Read VEX byte3 (P1: WvvvvLpp) and opcode
-	auto p1_opt = read_byte();
-	if ( !p1_opt ) {
+	// Read VEX byte3 (P1: WvvvvLpp) and opcode as u16 (like Rust)
+	if ( !can_read( 2 ) ) {
 	  set_invalid_instruction();
 	  return;
 	}
-	uint32_t p1 = *p1_opt;
-
-	auto opcode_opt = read_byte();
-	if ( !opcode_opt ) {
-	  set_invalid_instruction();
-	  return;
-	}
-	uint32_t opcode = *opcode_opt;
+	uint16_t b2 = read_u16_fast();
+	uint32_t p1 = b2 & 0xFF;
+	uint32_t opcode = ( b2 >> 8 ) & 0xFF;
 
 	// Extract P1 fields:
 	// Bit 7: W (REX.W equivalent)
@@ -671,14 +669,20 @@ void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// Map select: mmmmm field (1=0F, 2=0F38, 3=0F3A)
 	uint32_t map = ( p0 & 0x1F );
 	if ( map == 0 || map > 3 ) {
-	  set_invalid_instruction();
+	  // Still need to read modrm for correct instruction length
+	  decode_table( internal::get_invalid_handler(), instruction );
 	  return;
 	}
 	uint32_t map_index = map - 1;  // Convert to 0-based index
 
 	auto table = get_vex_table( map_index );
+	
+	// Reset modrm_read - the VEX bytes were read but not the instruction's modrm
+	state_.modrm_read = false;
+	
 	if ( table.empty() || opcode >= table.size() ) {
-	  set_invalid_instruction();
+	  // Still need to read modrm for correct instruction length
+	  decode_table( internal::get_invalid_handler(), instruction );
 	  return;
 	}
 
@@ -687,42 +691,35 @@ void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 
 void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
+	// Don't return early - need to read EVEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
-	  return;
 	}
+
+	// Undo what decode_out() did if it got a REX prefix
+	state_.flags &= ~StateFlags::W;
 
 	// state_.modrm contains P0 (first EVEX payload byte)
 	uint32_t p0 = state_.modrm;
 
-	// Read P1, P2, and opcode
-	auto p1_opt = read_byte();
-	if ( !p1_opt ) {
+	// Read P1, P2, opcode, and modrm as a single u32 (like Rust does)
+	// This ensures we always consume 4 bytes for EVEX, even if invalid
+	if ( !can_read( 4 ) ) {
 	  set_invalid_instruction();
 	  return;
 	}
-	uint32_t p1 = *p1_opt;
+	uint32_t d = read_u32_fast();
+	uint32_t p1 = d & 0xFF;
+	uint32_t p2 = ( d >> 8 ) & 0xFF;
+	uint32_t opcode = ( d >> 16 ) & 0xFF;
+	uint32_t modrm = ( d >> 24 ) & 0xFF;
 
 	// Validate EVEX: P1 bit 2 must be 1
 	if ( ( p1 & 0x04 ) == 0 ) {
 	  set_invalid_instruction();
 	  return;
 	}
-
-	auto p2_opt = read_byte();
-	if ( !p2_opt ) {
-	  set_invalid_instruction();
-	  return;
-	}
-	uint32_t p2 = *p2_opt;
-
-	auto opcode_opt = read_byte();
-	if ( !opcode_opt ) {
-	  set_invalid_instruction();
-	  return;
-	}
-	uint32_t opcode = *opcode_opt;
 
 	// Extract P1 fields:
 	// Bit 7: W
@@ -778,7 +775,7 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	// Bit 3: must be 0 for EVEX (vs MVEX)
 	// Bits 2-0: mm (map select)
 	if ( ( p0 & 0x08 ) != 0 ) {
-	  // Bit 3 must be 0 for EVEX
+	  // Bit 3 must be 0 for EVEX (we don't support MVEX)
 	  set_invalid_instruction();
 	  return;
 	}
@@ -813,18 +810,39 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	}
 
 	auto table = get_evex_table( map_index );
+	
+	// Set modrm state from the byte we already read
+	state_.modrm = modrm;
+	state_.reg = ( modrm >> 3 ) & 7;
+	state_.mod_ = modrm >> 6;
+	state_.rm = modrm & 7;
+	state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;
+	
 	if ( table.empty() || opcode >= table.size() ) {
-	  set_invalid_instruction();
-	  return;
+	    set_invalid_instruction();
+	    return;
 	}
 
-	decode_table( table[opcode], instruction );
+	// Call handler directly - modrm already parsed
+	auto& handler = table[opcode];
+	handler.decode( handler.handler, *this, instruction );
 }
 
 void Decoder::decode_xop( Instruction& instruction ) noexcept {
 	// XOP prefix (0x8F followed by XOP-specific bytes)
 	// XOP uses same basic structure as VEX3 but different map values
 	// For now, mark as invalid - XOP is AMD-specific and rarely used
+	// But we need to read the XOP bytes for correct instruction length
+	// XOP format: 8F [XOP1=modrm already read] [XOP2] [opcode] [modrm if needed]
+	
+	// Read XOP2 + opcode (2 bytes) like Rust does
+	if ( !can_read( 2 ) ) {
+	  set_invalid_instruction();
+	  return;
+	}
+	position_ += 2;  // Skip XOP2 and opcode bytes
+	
+	// XOP is not supported, mark as invalid
 	set_invalid_instruction();
 }
 
@@ -832,7 +850,9 @@ void Decoder::decode_3dnow( Instruction& instruction ) noexcept {
 	// 3DNow! instructions (0x0F 0x0F ... suffix)
 	// These are legacy AMD instructions
 	// For now, mark as invalid - 3DNow! is deprecated
-	set_invalid_instruction();
+	// Reset modrm_read and read modrm for correct instruction length
+	state_.modrm_read = false;
+	decode_table( internal::get_invalid_handler(), instruction );
 }
 
 void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index, uint32_t tuple_type ) noexcept {

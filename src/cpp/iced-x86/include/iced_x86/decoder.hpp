@@ -15,10 +15,18 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <cstring>
 #include <span>
 #include <expected>
 #include <optional>
 #include <vector>
+
+// Force inlining for hot path functions
+#ifdef _MSC_VER
+#define ICED_FORCEINLINE __forceinline
+#else
+#define ICED_FORCEINLINE __attribute__((always_inline)) inline
+#endif
 
 namespace iced_x86 {
 
@@ -190,7 +198,7 @@ public:
 
 	/// @brief Fast byte read - returns 0 and sets error flag on failure.
 	/// Like Rust's read_u8(), errors are checked later via state flags.
-	[[nodiscard]] uint32_t read_u8_fast() noexcept {
+	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u8_fast() noexcept {
 	  if ( position_ < max_instr_position_ ) [[likely]] {
 	    return data_[position_++];
 	  }
@@ -199,10 +207,10 @@ public:
 	}
 
 	/// @brief Fast u16 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] uint32_t read_u16_fast() noexcept {
+	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u16_fast() noexcept {
 	  if ( position_ + 2 <= max_instr_position_ ) [[likely]] {
-	    uint32_t result = static_cast<uint32_t>( data_[position_] ) |
-	                      ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 );
+	    uint16_t result;
+	    std::memcpy( &result, &data_[position_], 2 );
 	    position_ += 2;
 	    return result;
 	  }
@@ -211,12 +219,10 @@ public:
 	}
 
 	/// @brief Fast u32 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] uint32_t read_u32_fast() noexcept {
+	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u32_fast() noexcept {
 	  if ( position_ + 4 <= max_instr_position_ ) [[likely]] {
-	    uint32_t result = static_cast<uint32_t>( data_[position_] ) |
-	                      ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |
-	                      ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |
-	                      ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );
+	    uint32_t result;
+	    std::memcpy( &result, &data_[position_], 4 );
 	    position_ += 4;
 	    return result;
 	  }
@@ -225,16 +231,10 @@ public:
 	}
 
 	/// @brief Fast u64 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] uint64_t read_u64_fast() noexcept {
+	[[nodiscard]] ICED_FORCEINLINE uint64_t read_u64_fast() noexcept {
 	  if ( position_ + 8 <= max_instr_position_ ) [[likely]] {
-	    uint64_t result = static_cast<uint64_t>( data_[position_] ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |
-	                      ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );
+	    uint64_t result;
+	    std::memcpy( &result, &data_[position_], 8 );
 	    position_ += 8;
 	    return result;
 	  }
@@ -287,6 +287,20 @@ public:
 
 	/// @brief Sets the instruction as invalid.
 	void set_invalid_instruction() noexcept;
+
+	/// @brief Reads modrm byte unconditionally (for sub-handlers that need fresh modrm).
+	void read_modrm() noexcept {
+	  if ( position_ >= max_instr_position_ ) [[unlikely]] {
+	    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
+	    return;
+	  }
+	  auto m = static_cast<uint32_t>( data_[position_++] );
+	  state_.modrm = m;
+	  state_.reg = ( m >> 3 ) & 7;
+	  state_.mod_ = m >> 6;
+	  state_.rm = m & 7;
+	  state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;
+	}
 
 	/// @brief Checks if running in 64-bit mode.
 	[[nodiscard]] bool is_64bit_mode() const noexcept { return bitness_ == 64; }

@@ -169,7 +169,11 @@ void OpCodeHandler_Bitness::decode( const OpCodeHandler* self_ptr, Decoder& deco
   } else {
     entry = &self->handler_1632;
   }
-  decoder.decode_table( *entry, instruction );
+  // Read modrm unconditionally if sub-handler needs it (like Rust behavior)
+  if ( entry->handler->has_modrm ) {
+    decoder.read_modrm();
+  }
+  entry->decode( entry->handler, decoder, instruction );
 }
 
 void OpCodeHandler_Bitness_DontReadModRM::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -181,7 +185,8 @@ void OpCodeHandler_Bitness_DontReadModRM::decode( const OpCodeHandler* self_ptr,
   } else {
     entry = &self->handler_1632;
   }
-  decoder.decode_table( *entry, instruction );
+  // DontReadModRM - call directly without reading modrm
+  entry->decode( entry->handler, decoder, instruction );
 }
 
 // ============================================================================
@@ -192,7 +197,8 @@ void OpCodeHandler_MandatoryPrefix::decode( const OpCodeHandler* self_ptr, Decod
   auto* self = reinterpret_cast<const OpCodeHandler_MandatoryPrefix*>( self_ptr );
   auto prefix_idx = static_cast<size_t>( decoder.state().mandatory_prefix );
   auto& entry = self->handlers[prefix_idx];
-  decoder.decode_table( entry, instruction );
+  // Call directly - modrm was already read by caller if needed
+  entry.decode( entry.handler, decoder, instruction );
 }
 
 void OpCodeHandler_MandatoryPrefix3::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -232,7 +238,11 @@ void OpCodeHandler_Options::decode( const OpCodeHandler* self_ptr, Decoder& deco
   } else {
     entry = &self->handler_default;
   }
-  decoder.decode_table( *entry, instruction );
+  // Read modrm unconditionally if sub-handler needs it (like Rust behavior)
+  if ( entry->handler->has_modrm ) {
+    decoder.read_modrm();
+  }
+  entry->decode( entry->handler, decoder, instruction );
 }
 
 void OpCodeHandler_Options_DontReadModRM::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -244,7 +254,8 @@ void OpCodeHandler_Options_DontReadModRM::decode( const OpCodeHandler* self_ptr,
   } else {
     entry = &self->handler_default;
   }
-  decoder.decode_table( *entry, instruction );
+  // DontReadModRM - call directly without reading modrm
+  entry->decode( entry->handler, decoder, instruction );
 }
 
 void OpCodeHandler_Options1632::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
@@ -263,7 +274,11 @@ void OpCodeHandler_Options1632::decode( const OpCodeHandler* self_ptr, Decoder& 
   } else {
     entry = &self->handler_default;
   }
-  decoder.decode_table( *entry, instruction );
+  // Read modrm unconditionally if sub-handler needs it (like Rust behavior)
+  if ( entry->handler->has_modrm ) {
+    decoder.read_modrm();
+  }
+  entry->decode( entry->handler, decoder, instruction );
 }
 
 // ============================================================================
@@ -278,8 +293,19 @@ void OpCodeHandler_VEX3::decode( const OpCodeHandler* /*self_ptr*/, Decoder& dec
   decoder.decode_vex3( instruction );
 }
 
-void OpCodeHandler_XOP::decode( const OpCodeHandler* /*self_ptr*/, Decoder& decoder, Instruction& instruction ) {
-  decoder.decode_xop( instruction );
+void OpCodeHandler_XOP::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  auto* self = reinterpret_cast<const OpCodeHandler_XOP*>( self_ptr );
+  // Check if this is XOP prefix or POP instruction
+  // XOP prefix: modrm & 0x1F >= 8 (m-mmmmm field >= 8)
+  // POP r/m: modrm & 0x1F < 8 (mod != 3 and rm < 8)
+  if ( ( decoder.state().modrm & 0x1F ) < 8 ) {
+    // Not XOP prefix - fall through to POP handler
+    auto& handler = self->handler_reg0;
+    handler.decode( handler.handler, decoder, instruction );
+  } else {
+    // XOP prefix
+    decoder.decode_xop( instruction );
+  }
 }
 
 void OpCodeHandler_EVEX::decode( const OpCodeHandler* /*self_ptr*/, Decoder& decoder, Instruction& instruction ) {
@@ -701,15 +727,15 @@ void OpCodeHandler_Ev_Sw::decode( const OpCodeHandler* self_ptr, Decoder& decode
 
   // Op1: Sreg (segment register from reg field)
   // Segment registers are ES, CS, SS, DS, FS, GS (0-5)
+  // But don't return early - need to read memory operand for correct length
   uint32_t sreg_idx = decoder.state().reg;
   if ( sreg_idx > 5 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   instr.set_op1_register( add_reg( Register::ES, sreg_idx ) );
   instr.set_op1_kind( OpKind::REGISTER );
 
-  // Op0: Ev
+  // Op0: Ev (always read to get correct instruction length)
   Register reg_base = get_gpr_base( op_size );
   if ( decoder.state().mod_ == 3 ) {
     uint32_t rm_idx = decoder.state().rm + decoder.state().extra_base_register_base;
@@ -2202,15 +2228,15 @@ void OpCodeHandler_M_Sw::decode( const OpCodeHandler* self_ptr, Decoder& decoder
   instr.set_code( self->code );
 
   // Op1: Sreg (segment register from reg field)
+  // But don't return early - need to read memory operand for correct length
   uint32_t sreg_idx = decoder.state().reg;
   if ( sreg_idx > 5 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   instr.set_op1_register( add_reg( Register::ES, sreg_idx ) );
   instr.set_op1_kind( OpKind::REGISTER );
 
-  // Op0: Memory (must be memory)
+  // Op0: Memory (must be memory, but still read for correct length)
   if ( decoder.state().mod_ == 3 ) {
     decoder.set_invalid_instruction();
   } else {
@@ -2225,15 +2251,15 @@ void OpCodeHandler_Sw_M::decode( const OpCodeHandler* self_ptr, Decoder& decoder
   instr.set_code( self->code );
 
   // Op0: Sreg (segment register from reg field)
+  // But don't return early - need to read memory operand for correct length
   uint32_t sreg_idx = decoder.state().reg;
   if ( sreg_idx > 5 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   instr.set_op0_register( add_reg( Register::ES, sreg_idx ) );
   instr.set_op0_kind( OpKind::REGISTER );
 
-  // Op1: Memory (must be memory)
+  // Op1: Memory (must be memory, but still read for correct length)
   if ( decoder.state().mod_ == 3 ) {
     decoder.set_invalid_instruction();
   } else {
@@ -2937,15 +2963,15 @@ void OpCodeHandler_Sw_Ev::decode( const OpCodeHandler* self_ptr, Decoder& decode
 
   // Op0: Sreg (segment register from reg field)
   uint32_t sreg_idx = decoder.state().reg;
-  // Can't load CS (index 1)
+  // Can't load CS (index 1) or invalid segment register (> 5)
+  // But don't return early - need to read memory operand for correct length
   if ( sreg_idx == 1 || sreg_idx > 5 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   instr.set_op0_register( add_reg( Register::ES, sreg_idx ) );
   instr.set_op0_kind( OpKind::REGISTER );
 
-  // Op1: Ev
+  // Op1: Ev (always read to get correct instruction length)
   Register reg_base = get_gpr_base( op_size );
   if ( decoder.state().mod_ == 3 ) {
     uint32_t rm_idx = decoder.state().rm + decoder.state().extra_base_register_base;
@@ -4169,6 +4195,12 @@ void OpCodeHandler_VEX_VHWIb::decode( const OpCodeHandler* self_ptr, Decoder& de
 // VEX WV - W=dest(rm), V=src(reg)
 void OpCodeHandler_VEX_WV::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_VEX_WV*>( self_ptr );
+  
+  // Validate vvvv (must be 0 for instructions that don't use vvvv)
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
+  
   instr.set_code( self->code );
   
   auto vl = decoder.state().vector_length;

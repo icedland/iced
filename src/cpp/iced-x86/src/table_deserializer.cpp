@@ -1120,7 +1120,7 @@ void read_legacy_handlers( TableDeserializer& deserializer, std::vector<HandlerE
 
     case LegacyOpCodeHandlerKind::MEM_BX: {
       auto code = deserializer.read_code();
-      result.push_back( make_handler( OpCodeHandler_MemBx{ true, code } ) );
+      result.push_back( make_handler( OpCodeHandler_MemBx{ false, code } ) );  // XLAT has no modrm
       return;
     }
 
@@ -1772,7 +1772,8 @@ void read_vex_handlers( TableDeserializer& deserializer, std::vector<HandlerEntr
       return;
 
     case VexOpCodeHandlerKind::INVALID_NO_MOD_RM:
-      result.push_back( get_invalid_no_modrm_handler() );
+      // For VEX, invalid opcodes should still read modrm to match Rust behavior
+      result.push_back( get_invalid_handler() );
       return;
 
     case VexOpCodeHandlerKind::HANDLER_REFERENCE:

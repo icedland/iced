@@ -278,6 +278,21 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "void set_invalid_instruction() noexcept;" );
 				writer.WriteLine();
 
+				writer.WriteLine( "/// @brief Reads modrm byte unconditionally (for sub-handlers that need fresh modrm)." );
+				writer.WriteLine( "void read_modrm() noexcept {" );
+				writer.WriteLine( "  if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
+				writer.WriteLine( "    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
+				writer.WriteLine( "    return;" );
+				writer.WriteLine( "  }" );
+				writer.WriteLine( "  auto m = static_cast<uint32_t>( data_[position_++] );" );
+				writer.WriteLine( "  state_.modrm = m;" );
+				writer.WriteLine( "  state_.reg = ( m >> 3 ) & 7;" );
+				writer.WriteLine( "  state_.mod_ = m >> 6;" );
+				writer.WriteLine( "  state_.rm = m & 7;" );
+				writer.WriteLine( "  state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
 				writer.WriteLine( "/// @brief Checks if running in 64-bit mode." );
 				writer.WriteLine( "[[nodiscard]] bool is_64bit_mode() const noexcept { return bitness_ == 64; }" );
 				writer.WriteLine();
