@@ -180,6 +180,9 @@ public:
 	/// @brief Gets the decoder options.
 	[[nodiscard]] DecoderOptions::Value options() const noexcept { return options_; }
 
+	/// @brief Checks if AMD decoder option is enabled.
+	[[nodiscard]] bool has_amd_option() const noexcept { return ( options_ & DecoderOptions::AMD ) != 0; }
+
 	/// @brief Gets the decoder state (for handler use).
 	[[nodiscard]] DecoderState& state() noexcept { return state_; }
 	[[nodiscard]] const DecoderState& state() const noexcept { return state_; }

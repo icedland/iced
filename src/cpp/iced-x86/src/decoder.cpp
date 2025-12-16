@@ -823,6 +823,14 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	    return;
 	}
 
+	// Invalid if LL=3 (Unknown vector length) and no embedded rounding (B=0)
+	// Rust uses B=0x10 so (flags & B) | LL == 3 works. We use a direct check instead.
+	if ( ( state_.vector_length == VectorLength::UNKNOWN ) && 
+	     ( ( state_.flags & StateFlags::B ) == 0 ) &&
+	     ( invalid_check_mask_ != 0 ) ) {
+	    set_invalid_instruction();
+	}
+
 	// Call handler directly - modrm already parsed
 	auto& handler = table[opcode];
 	handler.decode( handler.handler, *this, instruction );
@@ -831,9 +839,7 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 void Decoder::decode_xop( Instruction& instruction ) noexcept {
 	// XOP prefix (0x8F followed by XOP-specific bytes)
 	// XOP uses same basic structure as VEX3 but different map values
-	// For now, mark as invalid - XOP is AMD-specific and rarely used
-	// But we need to read the XOP bytes for correct instruction length
-	// XOP format: 8F [XOP1=modrm already read] [XOP2] [opcode] [modrm if needed]
+	// XOP format: 8F [modrm=P0 already read] [P1=XOP2] [opcode] [modrm if handler needs it]
 	
 	// Read XOP2 + opcode (2 bytes) like Rust does
 	if ( !can_read( 2 ) ) {
@@ -842,17 +848,89 @@ void Decoder::decode_xop( Instruction& instruction ) noexcept {
 	}
 	position_ += 2;  // Skip XOP2 and opcode bytes
 	
+	// Calculate XOP map index from modrm (P0) that was already read
+	// XOP maps: map8=0, map9=1, mapA=2
+	// Rust: handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8))
+	uint32_t p0 = state_.modrm;
+	uint32_t map_idx = ( p0 & 0x1F ) - 8;
+	
+	// Only read modrm if XOP map is valid (index 0, 1, or 2)
+	// If map is invalid, don't read extra bytes
+	if ( map_idx < 3 && can_read( 1 ) ) {
+	  // Valid XOP map - would need modrm for handler
+	  // But we don't support XOP, so just read the modrm to get correct length
+	  position_ += 1;
+	}
+	
 	// XOP is not supported, mark as invalid
 	set_invalid_instruction();
 }
 
 void Decoder::decode_3dnow( Instruction& instruction ) noexcept {
-	// 3DNow! instructions (0x0F 0x0F ... suffix)
-	// These are legacy AMD instructions
-	// For now, mark as invalid - 3DNow! is deprecated
-	// Reset modrm_read and read modrm for correct instruction length
-	state_.modrm_read = false;
-	decode_table( internal::get_invalid_handler(), instruction );
+	// 3DNow! format: 0F 0F [modrm] [SIB/disp] [suffix]
+	// modrm is already read before this function is called
+	
+	// Read memory operand if mod != 3
+	if ( state_.mod_ != 3 ) {
+	  // Skip reading memory operand bytes for correct instruction length
+	  // This mimics what read_op_mem_tuple_type would read
+	  if ( state_.address_size == OpSize::SIZE16 ) {
+	    // 16-bit addressing
+	    if ( state_.mod_ == 0 && state_.rm == 6 ) {
+	      // [disp16]
+	      if ( can_read( 2 ) ) position_ += 2;
+	    } else if ( state_.mod_ == 1 ) {
+	      // [base+disp8]
+	      if ( can_read( 1 ) ) position_ += 1;
+	    } else if ( state_.mod_ == 2 ) {
+	      // [base+disp16]
+	      if ( can_read( 2 ) ) position_ += 2;
+	    }
+	  } else {
+	    // 32/64-bit addressing
+	    if ( state_.mod_ == 0 ) {
+	      if ( state_.rm == 4 ) {
+	        // SIB byte needed
+	        if ( can_read( 1 ) ) {
+	          auto sib = data_[position_++];
+	          if ( ( sib & 7 ) == 5 ) {
+	            // [disp32 + index*scale]
+	            if ( can_read( 4 ) ) position_ += 4;
+	          }
+	        }
+	      } else if ( state_.rm == 5 ) {
+	        // [disp32] or [RIP+disp32]
+	        if ( can_read( 4 ) ) position_ += 4;
+	      }
+	    } else if ( state_.mod_ == 1 ) {
+	      if ( state_.rm == 4 ) {
+	        // [SIB+disp8]
+	        if ( can_read( 1 ) ) position_ += 1;  // SIB
+	        if ( can_read( 1 ) ) position_ += 1;  // disp8
+	      } else {
+	        // [base+disp8]
+	        if ( can_read( 1 ) ) position_ += 1;
+	      }
+	    } else if ( state_.mod_ == 2 ) {
+	      if ( state_.rm == 4 ) {
+	        // [SIB+disp32]
+	        if ( can_read( 1 ) ) position_ += 1;  // SIB
+	        if ( can_read( 4 ) ) position_ += 4;  // disp32
+	      } else {
+	        // [base+disp32]
+	        if ( can_read( 4 ) ) position_ += 4;
+	      }
+	    }
+	  }
+	}
+	
+	// Read suffix byte (determines the actual 3DNow! instruction)
+	if ( can_read( 1 ) ) {
+	  position_ += 1;
+	}
+	
+	// 3DNow! is not supported, mark as invalid
+	set_invalid_instruction();
 }
 
 void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index, uint32_t tuple_type ) noexcept {

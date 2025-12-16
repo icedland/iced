@@ -948,7 +948,6 @@ void OpCodeHandler_Eb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, 
 void OpCodeHandler_Eb_Gb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_Eb_Gb*>( self_ptr );
   instr.set_code( self->code );
-  decoder.state().flags |= self->flags;  // Apply flags (e.g., ALLOW_LOCK)
 
   // Op1: Gb (reg field + REX.R), with REX extension handling
   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base;
@@ -967,6 +966,8 @@ void OpCodeHandler_Eb_Gb::decode( const OpCodeHandler* self_ptr, Decoder& decode
     instr.set_op0_register( add_reg( Register::AL, rm_idx ) );
     instr.set_op0_kind( OpKind::REGISTER );
   } else {
+    // Only allow LOCK prefix for memory operands
+    decoder.state().flags |= self->flags;
     instr.set_op0_kind( OpKind::MEMORY );
     decoder.read_op_mem( instr, 0 );
   }
@@ -1518,20 +1519,34 @@ void OpCodeHandler_Gv_Ma::decode( const OpCodeHandler* self_ptr, Decoder& decode
 // OpCodeHandler_Gv_N: Gv, Nq (MMX register)
 void OpCodeHandler_Gv_N::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_Gv_N*>( self_ptr );
-  auto op_size = decoder.state().operand_size;
-  instr.set_code( op_size == OpSize::SIZE16 ? self->code16 : self->code32 );
+  
+  // Check REX.W for 64-bit vs 32-bit code selection
+  if ( ( decoder.state().flags & StateFlags::W ) != 0 ) {
+    instr.set_code( self->code32 );  // code32 is actually code64 in the pair
+  } else {
+    instr.set_code( self->code16 );  // code16 is actually code32 in the pair
+  }
 
-  Register reg_base = op_size == OpSize::SIZE16 ? Register::AX : Register::EAX;
+  Register reg_base;
+  if ( ( decoder.state().flags & StateFlags::W ) != 0 ) {
+    reg_base = Register::RAX;
+  } else {
+    reg_base = Register::EAX;
+  }
 
   // Op0: Gv
   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base;
   instr.set_op0_register( add_reg( reg_base, reg_idx ) );
   instr.set_op0_kind( OpKind::REGISTER );
 
-  // Op1: Nq (MMX register from r/m field)
-  uint32_t rm_idx = decoder.state().rm;
-  instr.set_op1_register( add_reg( Register::MM0, rm_idx ) );
-  instr.set_op1_kind( OpKind::REGISTER );
+  // Op1: Nq (MMX register from r/m field) - requires mod==3
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_idx = decoder.state().rm;
+    instr.set_op1_register( add_reg( Register::MM0, rm_idx ) );
+    instr.set_op1_kind( OpKind::REGISTER );
+  } else {
+    decoder.set_invalid_instruction();
+  }
 }
 
 // OpCodeHandler_Gv_N_Ib_REX: Gv, Nq, Ib with REX.W
@@ -1928,8 +1943,11 @@ void OpCodeHandler_Jz::decode( const OpCodeHandler* self_ptr, Decoder& decoder, 
   auto* self = reinterpret_cast<const OpCodeHandler_Jz*>( self_ptr );
   
   if ( decoder.is_64bit_mode() ) {
-    // 64-bit mode: default is 64-bit branch
-    if ( decoder.state().operand_size != OpSize::SIZE16 ) {
+    // 64-bit mode: In 64-bit mode, these instructions always use 32-bit immediate
+    // unless AMD mode is enabled AND operand_size is 16-bit
+    // Rust logic: if (NOT_AMD_MODE | (operand_size != Size16)) != 0 => use 32-bit
+    bool use_16bit = decoder.has_amd_option() && decoder.state().operand_size == OpSize::SIZE16;
+    if ( !use_16bit ) {
       auto imm_opt = decoder.read_u32();
       if ( !imm_opt ) {
         decoder.set_invalid_instruction();
@@ -4108,6 +4126,12 @@ void OpCodeHandler_VEX_VHW::decode( const OpCodeHandler* self_ptr, Decoder& deco
 // VEX VW - V=dest, W=rm (2 operand)
 void OpCodeHandler_VEX_VW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_VEX_VW*>( self_ptr );
+  
+  // Validate: vvvv must be 1111 (unused) for 2-operand instructions
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
+  
   instr.set_code( self->code );
   
   auto vl = decoder.state().vector_length;
@@ -5694,9 +5718,9 @@ void OpCodeHandler_EVEX_VkW::decode( const OpCodeHandler* self_ptr, Decoder& dec
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_VkW*>( self_ptr );
   
   // Validate: vvvv must be 1111 (unused) for 2-operand instructions
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
+  // Don't return early - continue decoding to get correct instruction length
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   
   instr.set_code( self->code );
@@ -5712,9 +5736,8 @@ void OpCodeHandler_EVEX_VkW::decode( const OpCodeHandler* self_ptr, Decoder& dec
     instr.set_op1_register( add_reg( self->base_reg2, rm_idx ) );
     instr.set_op1_kind( OpKind::REGISTER );
     // Validate: b bit must be 0 for reg-reg
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
   } else {
     instr.set_op1_kind( OpKind::MEMORY );
@@ -5722,9 +5745,8 @@ void OpCodeHandler_EVEX_VkW::decode( const OpCodeHandler* self_ptr, Decoder& dec
     if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
       if ( self->can_broadcast ) {
         instr.set_is_broadcast( true );
-      } else {
+      } else if ( decoder.invalid_check_mask() != 0 ) {
         decoder.set_invalid_instruction();
-        return;
       }
     }
     // Use tuple type for proper displacement scaling
@@ -5736,9 +5758,9 @@ void OpCodeHandler_EVEX_VkW_er::decode( const OpCodeHandler* self_ptr, Decoder& 
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_VkW_er*>( self_ptr );
   
   // Validate: vvvv must be 1111 (unused) for 2-operand instructions
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
+  // Don't return early - continue decoding to get correct instruction length
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
     decoder.set_invalid_instruction();
-    return;
   }
   
   instr.set_code( self->code );
@@ -6182,12 +6204,6 @@ void OpCodeHandler_EVEX_MV::decode( const OpCodeHandler* self_ptr, Decoder& deco
 void OpCodeHandler_EVEX_VW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_VW*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
   
   // Op0: V (reg field) - no mask
@@ -6195,15 +6211,22 @@ void OpCodeHandler_EVEX_VW::decode( const OpCodeHandler* self_ptr, Decoder& deco
   instr.set_op0_register( add_reg( self->base_reg, reg_idx ) );
   instr.set_op0_kind( OpKind::REGISTER );
   
+  // Validate: z must be 0, vvvv must be 1111 (unused), aaa must be 0
+  // Don't return early - must read memory operand for correct instruction length
+  if ( ( ( ( decoder.state().flags & StateFlags::Z ) | decoder.state().vvvv_invalid_check | decoder.state().aaa ) 
+         & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
+  
   // Op1: W (r/m field)
   if ( decoder.state().mod_ == 3 ) {
     uint32_t rm_idx = decoder.state().rm + decoder.state().extra_base_register_base + decoder.state().extra_base_register_base_evex;
     instr.set_op1_register( add_reg( self->base_reg, rm_idx ) );
     instr.set_op1_kind( OpKind::REGISTER );
     // Validate: b bit must be 0 for reg-reg
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    // Don't return early for reg-reg since no more bytes to read
+    if ( ( ( decoder.state().flags & StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
   } else {
     instr.set_op1_kind( OpKind::MEMORY );
@@ -6215,18 +6238,19 @@ void OpCodeHandler_EVEX_VW::decode( const OpCodeHandler* self_ptr, Decoder& deco
 void OpCodeHandler_EVEX_VW_er::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_VW_er*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
   
   // Op0: V (reg field) - no mask
   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base + decoder.state().extra_register_base_evex;
   instr.set_op0_register( add_reg( self->base_reg, reg_idx ) );
   instr.set_op0_kind( OpKind::REGISTER );
+  
+  // Validate: z must be 0, vvvv must be 1111 (unused), aaa must be 0
+  // Don't return early - must read memory operand for correct instruction length
+  if ( ( ( ( decoder.state().flags & StateFlags::Z ) | decoder.state().vvvv_invalid_check | decoder.state().aaa ) 
+         & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
   
   // Op1: W (r/m field)
   if ( decoder.state().mod_ == 3 ) {
@@ -6240,9 +6264,9 @@ void OpCodeHandler_EVEX_VW_er::decode( const OpCodeHandler* self_ptr, Decoder& d
   } else {
     instr.set_op1_kind( OpKind::MEMORY );
     // B bit must be 0 for memory operand (no broadcast for this handler)
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    // Don't return early - must read memory operand for correct instruction length
+    if ( ( ( decoder.state().flags & StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
     // Use tuple type for proper displacement scaling
     decoder.read_op_mem_evex( instr, 1, self->tuple_type );
@@ -6252,13 +6276,14 @@ void OpCodeHandler_EVEX_VW_er::decode( const OpCodeHandler* self_ptr, Decoder& d
 void OpCodeHandler_EVEX_WV::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_WV*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
+  
+  // Validate: z must be 0, vvvv must be 1111 (unused), aaa must be 0
+  // Don't return early - must read memory operand for correct instruction length
+  if ( ( ( ( decoder.state().flags & StateFlags::Z ) | decoder.state().vvvv_invalid_check | decoder.state().aaa ) 
+         & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
   
   // Op0: W (r/m field) - dest
   if ( decoder.state().mod_ == 3 ) {
@@ -6266,9 +6291,8 @@ void OpCodeHandler_EVEX_WV::decode( const OpCodeHandler* self_ptr, Decoder& deco
     instr.set_op0_register( add_reg( self->base_reg, rm_idx ) );
     instr.set_op0_kind( OpKind::REGISTER );
     // Validate: b bit must be 0 for reg-reg
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    if ( ( ( decoder.state().flags & StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
   } else {
     instr.set_op0_kind( OpKind::MEMORY );
@@ -6285,13 +6309,13 @@ void OpCodeHandler_EVEX_WV::decode( const OpCodeHandler* self_ptr, Decoder& deco
 void OpCodeHandler_EVEX_WkV::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_WkV*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
+  
+  // Validate: vvvv must be 1111 (unused)
+  // Don't return early - must read memory operand for correct instruction length
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
   
   // Op0: W{k} (r/m field) - dest with mask
   if ( decoder.state().mod_ == 3 ) {
@@ -6299,18 +6323,16 @@ void OpCodeHandler_EVEX_WkV::decode( const OpCodeHandler* self_ptr, Decoder& dec
     instr.set_op0_register( add_reg( self->base_reg1, rm_idx ) );
     instr.set_op0_kind( OpKind::REGISTER );
     // Validate: b bit must be 0 for reg-reg
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    if ( ( ( decoder.state().flags & StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
   } else {
     instr.set_op0_kind( OpKind::MEMORY );
     if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
       if ( self->can_broadcast ) {
         instr.set_is_broadcast( true );
-      } else {
+      } else if ( decoder.invalid_check_mask() != 0 ) {
         decoder.set_invalid_instruction();
-        return;
       }
     }
     // Use tuple type for proper displacement scaling
@@ -6326,13 +6348,13 @@ void OpCodeHandler_EVEX_WkV::decode( const OpCodeHandler* self_ptr, Decoder& dec
 void OpCodeHandler_EVEX_WkVIb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_WkVIb*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
+  
+  // Validate: vvvv must be 1111 (unused)
+  // Don't return early - must read memory operand and immediate for correct instruction length
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
   
   // Op0: W{k} (r/m field) - dest with mask
   if ( decoder.state().mod_ == 3 ) {
@@ -6340,9 +6362,8 @@ void OpCodeHandler_EVEX_WkVIb::decode( const OpCodeHandler* self_ptr, Decoder& d
     instr.set_op0_register( add_reg( self->base_reg1, rm_idx ) );
     instr.set_op0_kind( OpKind::REGISTER );
     // Validate: b bit must be 0 for reg-reg
-    if ( ( decoder.state().flags & static_cast<uint32_t>( StateFlags::B ) ) != 0 ) {
+    if ( ( ( decoder.state().flags & StateFlags::B ) & decoder.invalid_check_mask() ) != 0 ) {
       decoder.set_invalid_instruction();
-      return;
     }
   } else {
     instr.set_op0_kind( OpKind::MEMORY );
@@ -6359,7 +6380,7 @@ void OpCodeHandler_EVEX_WkVIb::decode( const OpCodeHandler* self_ptr, Decoder& d
   auto imm = decoder.read_byte();
   if ( !imm ) {
     decoder.set_invalid_instruction();
-    return;
+    return;  // OK to return here - can't read more bytes
   }
   instr.set_op2_kind( OpKind::IMMEDIATE8 );
   instr.set_immediate8( static_cast<uint8_t>( *imm ) );
@@ -6368,13 +6389,13 @@ void OpCodeHandler_EVEX_WkVIb::decode( const OpCodeHandler* self_ptr, Decoder& d
 void OpCodeHandler_EVEX_WkVIb_er::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_WkVIb_er*>( self_ptr );
   
-  // Validate: vvvv must be 1111 (unused)
-  if ( decoder.state().vvvv_invalid_check != 0 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
   instr.set_code( self->code );
+  
+  // Validate: vvvv must be 1111 (unused)
+  // Don't return early - must read memory operand and immediate for correct instruction length
+  if ( ( decoder.state().vvvv_invalid_check & decoder.invalid_check_mask() ) != 0 ) {
+    decoder.set_invalid_instruction();
+  }
   
   // Op0: W{k} (r/m field) - dest with mask
   if ( decoder.state().mod_ == 3 ) {
@@ -6401,7 +6422,7 @@ void OpCodeHandler_EVEX_WkVIb_er::decode( const OpCodeHandler* self_ptr, Decoder
   auto imm = decoder.read_byte();
   if ( !imm ) {
     decoder.set_invalid_instruction();
-    return;
+    return;  // OK to return here - can't read more bytes
   }
   instr.set_op2_kind( OpKind::IMMEDIATE8 );
   instr.set_immediate8( static_cast<uint8_t>( *imm ) );
