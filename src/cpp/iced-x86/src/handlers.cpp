@@ -6973,17 +6973,21 @@ void OpCodeHandler_EVEX_VSIB_k1::decode( const OpCodeHandler* self_ptr, Decoder&
     decoder.set_invalid_instruction();
   }
   
-  instr.set_code( self->code );
-  
-  // Op0: VSIB memory operand
-  if ( decoder.state().mod_ == 3 ) {
-    // VSIB requires memory operand, register form is invalid
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
-  instr.set_op0_kind( OpKind::MEMORY );
-  decoder.read_op_mem_vsib( instr, 0, self->vsib_base, self->tuple_type );
+   instr.set_code( self->code );
+
+   // Op0: VSIB memory operand
+   if ( decoder.state().mod_ == 3 ) {
+     // VSIB requires memory operand, register form is invalid
+     decoder.set_invalid_instruction();
+     return;
+   }
+
+   // Set opmask register
+   Register opmask = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + decoder.state().aaa );
+   instr.set_op_mask( opmask );
+
+   instr.set_op0_kind( OpKind::MEMORY );
+   decoder.read_op_mem_vsib( instr, 0, self->vsib_base, self->tuple_type );
 }
 
 void OpCodeHandler_EVEX_VSIB_k1_VX::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
@@ -7000,44 +7004,52 @@ void OpCodeHandler_EVEX_VSIB_k1_VX::decode( const OpCodeHandler* self_ptr, Decod
     decoder.set_invalid_instruction();
   }
   
-  instr.set_code( self->code );
-  
-  // Op0: VSIB memory operand (destination for scatter)
-  if ( decoder.state().mod_ == 3 ) {
-    decoder.set_invalid_instruction();
-    return;
-  }
-  
-  instr.set_op0_kind( OpKind::MEMORY );
-  decoder.read_op_mem_vsib( instr, 0, self->vsib_base, self->tuple_type );
-  
-  // Op1: V (reg field) - vector register source
-  uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base + decoder.state().extra_register_base_evex;
-  instr.set_op1_register( add_reg( self->base_reg, reg_idx ) );
-  instr.set_op1_kind( OpKind::REGISTER );
+   instr.set_code( self->code );
+
+   // Op0: VSIB memory operand (destination for scatter)
+   if ( decoder.state().mod_ == 3 ) {
+     decoder.set_invalid_instruction();
+     return;
+   }
+
+   // Set opmask register
+   Register opmask = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + decoder.state().aaa );
+   instr.set_op_mask( opmask );
+
+   instr.set_op0_kind( OpKind::MEMORY );
+   decoder.read_op_mem_vsib( instr, 0, self->vsib_base, self->tuple_type );
+
+   // Op1: V (reg field) - vector register source
+   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base + decoder.state().extra_register_base_evex;
+   instr.set_op1_register( add_reg( self->base_reg, reg_idx ) );
+   instr.set_op1_kind( OpKind::REGISTER );
 }
 
 void OpCodeHandler_EVEX_Vk_VSIB::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instr ) {
-  // EVEX gather instructions: vector destination with VSIB memory source
-  // Format: V{k}, VSIB_mem
-  // Example: VPGATHERDD xmm2{k1}, [rax+xmm1*4]
-  auto* self = reinterpret_cast<const OpCodeHandler_EVEX_Vk_VSIB*>( self_ptr );
-  
-  // Validation: b and z must be 0, vvvv must be 1111 (unused), mask k1-k7 required
-  // Also: dest register and VSIB index must be different
-  if ( decoder.invalid_check_mask() != 0 &&
-       ( ( ( static_cast<uint32_t>( decoder.state().flags & ( StateFlags::Z | StateFlags::B ) ) ) |
-           ( decoder.state().vvvv_invalid_check & 0xF ) ) != 0 ||
-         decoder.state().aaa == 0 ) ) {
-    decoder.set_invalid_instruction();
-  }
-  
-  instr.set_code( self->code );
-  
-  // Op0: V{k} (reg field) - vector register destination with mask
-  uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base + decoder.state().extra_register_base_evex;
-  instr.set_op0_register( add_reg( self->base_reg, reg_idx ) );
-  instr.set_op0_kind( OpKind::REGISTER );
+   // EVEX gather instructions: vector destination with VSIB memory source
+   // Format: V{k}, VSIB_mem
+   // Example: VPGATHERDD xmm2{k1}, [rax+xmm1*4]
+   auto* self = reinterpret_cast<const OpCodeHandler_EVEX_Vk_VSIB*>( self_ptr );
+
+   // Validation: b and z must be 0, vvvv must be 1111 (unused), mask k1-k7 required
+   // Also: dest register and VSIB index must be different
+   if ( decoder.invalid_check_mask() != 0 &&
+        ( ( ( static_cast<uint32_t>( decoder.state().flags & ( StateFlags::Z | StateFlags::B ) ) ) |
+            ( decoder.state().vvvv_invalid_check & 0xF ) ) != 0 ||
+          decoder.state().aaa == 0 ) ) {
+     decoder.set_invalid_instruction();
+   }
+
+   instr.set_code( self->code );
+
+   // Op0: V{k} (reg field) - vector register destination with mask
+   uint32_t reg_idx = decoder.state().reg + decoder.state().extra_register_base + decoder.state().extra_register_base_evex;
+   instr.set_op0_register( add_reg( self->base_reg, reg_idx ) );
+   instr.set_op0_kind( OpKind::REGISTER );
+
+   // Set opmask register
+   Register opmask = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + decoder.state().aaa );
+   instr.set_op_mask( opmask );
   
   // Op1: VSIB memory operand (source for gather)
   if ( decoder.state().mod_ == 3 ) {
@@ -7309,6 +7321,474 @@ void OpCodeHandler_EVEX_V_H_Ev_Ib::decode( const OpCodeHandler* self_ptr, Decode
   }
   instr.set_op3_kind( OpKind::IMMEDIATE8 );
   instr.set_immediate8( static_cast<uint8_t>( *imm ) );
+}
+
+// ============================================================================
+// MVEX handlers - Stub implementations for constexpr mode
+// ============================================================================
+
+} // anonymous namespace
+
+} // namespace internal
+
+// ============================================================================
+// MVEX handlers
+// ============================================================================
+
+namespace iced_x86 {
+namespace internal {
+
+// Helper function for MVEX register/memory conversion
+MvexRegMemConv get_mvex_reg_mem_conv(uint32_t sss) {
+  // SSS field determines conversion type
+  switch (sss) {
+    case 0: return MvexRegMemConv::NONE;
+    case 1: return MvexRegMemConv::MEM_CONV_BROADCAST1;
+    case 2: return MvexRegMemConv::MEM_CONV_BROADCAST4;
+    case 3: return MvexRegMemConv::MEM_CONV_FLOAT16;
+    case 4: return MvexRegMemConv::MEM_CONV_UINT8;
+    case 5: return MvexRegMemConv::MEM_CONV_UINT16;
+    case 6: return MvexRegMemConv::MEM_CONV_SINT16;
+    case 7: return MvexRegMemConv::NONE; // reserved
+    default: return MvexRegMemConv::NONE;
+  }
+}
+
+// OpCodeHandler_MVEX_EH: Eviction hint dispatcher
+void OpCodeHandler_MVEX_EH::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_EH*>( self_ptr );
+
+  // Dispatch based on eviction hint bit
+  bool has_eh = (decoder.state().flags & StateFlags::MVEX_EH) != 0;
+  const HandlerEntry& handler = has_eh ? self.handler_eh1 : self.handler_eh0;
+  decoder.decode_table( handler, instruction );
+}
+
+// OpCodeHandler_MVEX_M: Memory-only operand
+void OpCodeHandler_MVEX_M::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_M*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv is zero
+  if ( decoder.state().vvvv != 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // Memory-only operand, no registers
+  instruction.set_op_mask( Register::NONE );
+
+  // If mod==3 (register), invalid
+  if ( decoder.state().mod_ == 3 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  decoder.read_op_mem_evex( instruction, 0, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+  instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+}
+
+// OpCodeHandler_MVEX_MV: Memory destination, ZMM source
+void OpCodeHandler_MVEX_MV::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_MV*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv
+  if ( decoder.state().vvvv != 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // Memory destination
+  instruction.set_op0_kind( OpKind::MEMORY );
+
+  // ZMM source register
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op1_register( src_reg );
+
+  // If mod==3 (register), invalid
+  if ( decoder.state().mod_ == 3 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  decoder.read_op_mem_evex( instruction, 0, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+  instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+}
+
+// OpCodeHandler_MVEX_VW: ZMM destination, ZMM/memory source
+void OpCodeHandler_MVEX_VW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VW*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv
+  if ( decoder.state().vvvv != 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    // Register source
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op1_register( src_reg );
+  } else {
+    // Memory source
+    decoder.read_op_mem_evex( instruction, 1, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+}
+
+// OpCodeHandler_MVEX_VKW: ZMM dest, K mask source, ZMM/memory source
+void OpCodeHandler_MVEX_VKW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VKW*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv ≤ 7 (K0-K7 only)
+  if ( decoder.state().vvvv > 7 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // K mask source from vvvv
+  Register mask_reg = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + ( decoder.state().vvvv & 7 ) );
+  instruction.set_op1_register( mask_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op2_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 2, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+}
+
+// OpCodeHandler_MVEX_VWIb: ZMM dest, ZMM/memory source, immediate byte
+void OpCodeHandler_MVEX_VWIb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VWIb*>( self_ptr );
+
+  // Use W bit to select code
+  Code code = ( decoder.state().flags & StateFlags::W ) != 0 ? self.code : self.code;
+  instruction.set_code( code );
+
+  // Validate vvvv
+  if ( decoder.state().vvvv != 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op1_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 1, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+
+  // Immediate byte
+  auto imm = decoder.read_byte();
+  if ( !imm ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+  instruction.set_op2_kind( OpKind::IMMEDIATE8 );
+  instruction.set_immediate8( *imm );
+}
+
+// OpCodeHandler_MVEX_VHW: ZMM dest, ZMM source from vvvv, ZMM/memory source
+void OpCodeHandler_MVEX_VHW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VHW*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM source from vvvv
+  uint32_t vvvv_reg_num = ( decoder.state().vvvv & 0x0F );
+  Register vvvv_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + vvvv_reg_num );
+  instruction.set_op1_register( vvvv_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op2_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 2, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+}
+
+// OpCodeHandler_MVEX_VHWIb: ZMM dest, ZMM source from vvvv, ZMM/memory source, immediate
+void OpCodeHandler_MVEX_VHWIb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VHWIb*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM source from vvvv
+  uint32_t vvvv_reg_num = ( decoder.state().vvvv & 0x0F );
+  Register vvvv_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + vvvv_reg_num );
+  instruction.set_op1_register( vvvv_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op2_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 2, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+
+  // Immediate byte
+  auto imm = decoder.read_byte();
+  if ( !imm ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+  instruction.set_op3_kind( OpKind::IMMEDIATE8 );
+  instruction.set_immediate8( *imm );
+}
+
+// OpCodeHandler_MVEX_HWIb: H-vector, W-operand, Immediate
+void OpCodeHandler_MVEX_HWIb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_HWIb*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // ZMM destination from vvvv
+  uint32_t vvvv_reg_num = ( decoder.state().vvvv & 0x0F );
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + vvvv_reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op1_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 1, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+
+  // Immediate byte
+  auto imm = decoder.read_byte();
+  if ( !imm ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+  instruction.set_op2_kind( OpKind::IMMEDIATE8 );
+  instruction.set_immediate8( *imm );
+}
+
+// OpCodeHandler_MVEX_KHW: K-mask, H-vector, W-operand
+void OpCodeHandler_MVEX_KHW::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_KHW*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // K destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM source from vvvv
+  uint32_t vvvv_reg_num = ( decoder.state().vvvv & 0x0F );
+  Register vvvv_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + vvvv_reg_num );
+  instruction.set_op1_register( vvvv_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op2_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 2, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+}
+
+// OpCodeHandler_MVEX_KHWIb: K-mask, H-vector, W-operand, Immediate
+void OpCodeHandler_MVEX_KHWIb::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_KHWIb*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // K destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // ZMM source from vvvv
+  uint32_t vvvv_reg_num = ( decoder.state().vvvv & 0x0F );
+  Register vvvv_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + vvvv_reg_num );
+  instruction.set_op1_register( vvvv_reg );
+
+  // ZMM or memory source
+  if ( decoder.state().mod_ == 3 ) {
+    uint32_t rm_reg_num = decoder.state().rm + decoder.state().extra_base_register_base;
+    Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + rm_reg_num );
+    instruction.set_op2_register( src_reg );
+  } else {
+    decoder.read_op_mem_evex( instruction, 2, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+    instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+  }
+
+  // Immediate byte
+  auto imm = decoder.read_byte();
+  if ( !imm ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+  instruction.set_op2_kind( OpKind::IMMEDIATE8 );
+  instruction.set_immediate8( *imm );
+}
+
+// OpCodeHandler_MVEX_VSIB: VSIB memory-only
+void OpCodeHandler_MVEX_VSIB::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VSIB*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv and require opmask
+  if ( decoder.state().vvvv != 0 || decoder.state().aaa == 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // Memory-only operand
+  instruction.set_op_mask( Register::NONE );
+
+  // If mod==3 (register), invalid
+  if ( decoder.state().mod_ == 3 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // VSIB memory with ZMM index
+  uint32_t index_reg_num = decoder.state().rm + decoder.state().extra_index_register_base;
+  if ( index_reg_num >= 8 ) {
+    index_reg_num += decoder.state().extra_index_register_base_vsib;
+  }
+  Register index_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + index_reg_num );
+
+  uint32_t base_reg_num = decoder.state().extra_base_register_base_evex;
+  Register base_reg = base_reg_num != 0 ? static_cast<Register>( static_cast<uint32_t>( Register::RAX ) + base_reg_num - 1 ) : Register::NONE;
+
+  decoder.read_op_mem_vsib( instruction, 0, index_reg, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+  instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+}
+
+// OpCodeHandler_MVEX_VSIB_V: VSIB memory dest, ZMM source
+void OpCodeHandler_MVEX_VSIB_V::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_VSIB_V*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv and require opmask
+  if ( decoder.state().vvvv != 0 || decoder.state().aaa == 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // VSIB memory destination
+  instruction.set_op0_kind( OpKind::MEMORY );
+
+  // ZMM source
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register src_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op1_register( src_reg );
+
+  // Opmask register
+  Register opmask = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + decoder.state().aaa );
+  instruction.set_op_mask( opmask );
+
+  // If mod==3 (register), invalid
+  if ( decoder.state().mod_ == 3 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // VSIB memory with ZMM index
+  uint32_t index_reg_num = decoder.state().rm + decoder.state().extra_index_register_base;
+  if ( index_reg_num >= 8 ) {
+    index_reg_num += decoder.state().extra_index_register_base_vsib;
+  }
+  Register index_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + index_reg_num );
+
+  uint32_t base_reg_num = decoder.state().extra_base_register_base_evex;
+  Register base_reg = base_reg_num != 0 ? static_cast<Register>( static_cast<uint32_t>( Register::RAX ) + base_reg_num - 1 ) : Register::NONE;
+
+  decoder.read_op_mem_vsib( instruction, 0, index_reg, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+  instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
+}
+
+// OpCodeHandler_MVEX_V_VSIB: ZMM dest, VSIB memory source
+void OpCodeHandler_MVEX_V_VSIB::decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction ) {
+  const auto& self = *reinterpret_cast<const OpCodeHandler_MVEX_V_VSIB*>( self_ptr );
+  instruction.set_code( self.code );
+
+  // Validate vvvv and require opmask
+  if ( decoder.state().vvvv != 0 || decoder.state().aaa == 0 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // ZMM destination
+  uint32_t reg_num = decoder.state().reg + decoder.state().extra_register_base;
+  Register dst_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + reg_num );
+  instruction.set_op0_register( dst_reg );
+
+  // Opmask register
+  Register opmask = static_cast<Register>( static_cast<uint32_t>( Register::K0 ) + decoder.state().aaa );
+  instruction.set_op_mask( opmask );
+
+  // If mod==3 (register), invalid
+  if ( decoder.state().mod_ == 3 ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  // VSIB memory with ZMM index
+  uint32_t index_reg_num = decoder.state().rm + decoder.state().extra_index_register_base;
+  if ( index_reg_num >= 8 ) {
+    index_reg_num += decoder.state().extra_index_register_base_vsib;
+  }
+  Register index_reg = static_cast<Register>( static_cast<uint32_t>( Register::ZMM0 ) + index_reg_num );
+
+  uint32_t base_reg_num = decoder.state().extra_base_register_base_evex;
+  Register base_reg = base_reg_num != 0 ? static_cast<Register>( static_cast<uint32_t>( Register::RAX ) + base_reg_num - 1 ) : Register::NONE;
+
+  // Validate destination register != index register (HW restriction)
+  if ( reg_num == index_reg_num ) {
+    decoder.set_invalid_instruction();
+    return;
+  }
+
+  decoder.read_op_mem_vsib( instruction, 1, index_reg, static_cast<uint32_t>(get_mvex_reg_mem_conv( decoder.state().aaa )) );
+  instruction.set_mvex_reg_mem_conv( get_mvex_reg_mem_conv( decoder.state().aaa ) );
 }
 
 } // namespace internal

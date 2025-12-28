@@ -44,7 +44,22 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "#include \"iced_x86/decoder_error.hpp\"" );
 			writer.WriteLine( "#include \"iced_x86/decoder_options.hpp\"" );
 			writer.WriteLine( "#include \"iced_x86/code_size.hpp\"" );
-			writer.WriteLine( "#include \"iced_x86/internal/handlers.hpp\"" );
+			writer.WriteLine();
+			writer.WriteLine( "#if ICED_X86_CONSTEXPR_HANDLERS" );
+			writer.WriteLine( "  #include \"iced_x86/internal/handlers.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/constexpr_legacy_tables.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/constexpr_vex_tables.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/constexpr_evex_tables.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/constexpr_xop_tables.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/constexpr_mvex_tables.hpp\"" );
+			writer.WriteLine( "#else" );
+			writer.WriteLine( "  #include \"iced_x86/internal/handlers.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/data_legacy.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/data_vex.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/data_evex.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/data_xop.hpp\"" );
+			writer.WriteLine( "  #include \"iced_x86/internal/data_mvex.hpp\"" );
+			writer.WriteLine( "#endif" );
 			writer.WriteLine();
 			writer.WriteLine( "#include \"iced_x86/internal/compiler_intrinsics.hpp\"" );
 			writer.WriteLine();
@@ -117,6 +132,9 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "static constexpr uint32_t IP_REL32 = 1u << 9;" );
 				writer.WriteLine( "static constexpr uint32_t B = 1u << 10;  // EVEX.b broadcast/rounding" );
 				writer.WriteLine( "static constexpr uint32_t Z = 1u << 11;  // EVEX.z zeroing-masking" );
+				writer.WriteLine( "static constexpr uint32_t MVEX_EH = 1u << 12;  // MVEX eviction hint" );
+				writer.WriteLine( "static constexpr uint32_t MVEX_SSS_MASK = 0x7u;" );
+				writer.WriteLine( "static constexpr uint32_t MVEX_SSS_SHIFT = 16u;" );
 			}
 			writer.WriteLine( "};" );
 			writer.WriteLine();
@@ -426,6 +444,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Decodes EVEX (62) prefix and dispatches to EVEX handler." );
 				writer.WriteLine( "void decode_evex( Instruction& instruction ) noexcept;" );
+				writer.WriteLine( "void decode_mvex( uint32_t p0, uint32_t p1, uint32_t p2, uint32_t opcode, Instruction& instruction ) noexcept;" );
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Decodes XOP prefix and dispatches to XOP handler." );
 				writer.WriteLine( "void decode_xop( Instruction& instruction ) noexcept;" );
@@ -442,6 +461,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "/// @param map_index Map index (0=0F, 1=0F38, 2=0F3A, 4=MAP5, 5=MAP6)" );
 				writer.WriteLine( "/// @return Handler table span (empty if invalid)" );
 				writer.WriteLine( "[[nodiscard]] std::span<const internal::HandlerEntry> get_evex_table( uint32_t map_index ) const noexcept;" );
+				writer.WriteLine( "[[nodiscard]] std::span<const internal::HandlerEntry> get_mvex_table( uint32_t map_index ) const noexcept;" );
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Gets the mask for register extension bits (0xF in 64-bit, 0x7 in 32/16-bit)." );
 				writer.WriteLine( "[[nodiscard]] uint32_t reg15_mask() const noexcept { return bitness_ == 64 ? 0xF : 0x7; }" );
@@ -505,14 +525,48 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_0f3a_;" );
 				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_map5_;" );
 				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_map6_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_xop_map8_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_xop_map9_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_xop_map10_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_mvex_0f;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_mvex_0f38;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_mvex_0f3a;" );
 				writer.WriteLine();
 				writer.WriteLine( "// Masks for bitness-dependent behavior" );
 				writer.WriteLine( "uint32_t mask_e0_ = 0;  // E0 mask for inverted bits (0xE0 in 64-bit, 0 in 32/16-bit)" );
 				writer.WriteLine( "uint32_t invalid_check_mask_ = 0;  // For checking invalid prefix combinations" );
 				writer.WriteLine();
+				writer.WriteLine( "// Undef in case something else defined it" );
+				writer.WriteLine( "#ifdef MAX_INSTRUCTION_LENGTH" );
+				writer.WriteLine( "#undef MAX_INSTRUCTION_LENGTH" );
+				writer.WriteLine( "#endif" );
 				writer.WriteLine( "static constexpr std::size_t MAX_INSTRUCTION_LENGTH = 15;" );
 				writer.WriteLine();
 				writer.WriteLine( "// Static handler tables - initialized once, shared by all Decoder instances" );
+				writer.WriteLine( "#if ICED_X86_CONSTEXPR_HANDLERS" );
+				writer.WriteLine( "// Constexpr mode: use spans pointing to static arrays (zero runtime init)" );
+				writer.WriteLine( "struct Tables {" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_map0;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_0f;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_0f38;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_0f3a;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_vex_0f;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_vex_0f38;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_vex_0f3a;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_evex_0f;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_evex_0f38;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_evex_0f3a;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_evex_map5;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_evex_map6;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_xop_map8;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_xop_map9;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_xop_map10;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_mvex_0f;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_mvex_0f38;" );
+				writer.WriteLine( "  std::span<const internal::HandlerEntry> handlers_mvex_0f3a;" );
+				writer.WriteLine( "};" );
+				writer.WriteLine( "#else" );
+				writer.WriteLine( "// Runtime mode: use vectors filled by deserializer" );
 				writer.WriteLine( "struct Tables {" );
 				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_map0;" );
 				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_vex_0f;" );
@@ -524,6 +578,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_map5;" );
 				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_map6;" );
 				writer.WriteLine( "};" );
+				writer.WriteLine( "#endif" );
 				writer.WriteLine();
 				writer.WriteLine( "static const Tables& get_tables();" );
 			}
@@ -555,8 +610,41 @@ namespace Generator.Decoder.Cpp {
 		}
 
 		void WriteDecoderSourceMethods( FileWriter writer ) {
-			// Static tables initialization (Meyers singleton)
-			writer.WriteLine( "// Static tables - initialized once, shared by all Decoder instances (like Rust's lazy_static)" );
+			// Static tables initialization
+			writer.WriteLine( "#if ICED_X86_CONSTEXPR_HANDLERS" );
+			writer.WriteLine( "// Constexpr tables - zero runtime initialization overhead" );
+			writer.WriteLine( "const Decoder::Tables& Decoder::get_tables() {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "// Return reference to constexpr tables" );
+				writer.WriteLine( "// Note: Can't use constexpr here because std::span's constructor may not be constexpr" );
+				writer.WriteLine( "// in all implementations, but the underlying arrays are compile-time constants" );
+				writer.WriteLine( "static const Tables tables{" );
+				using ( writer.Indent() ) {
+					writer.WriteLine( "internal::constexpr_handlers::legacy_handlers_map0," );
+					writer.WriteLine( "internal::constexpr_handlers::legacy_handlers_0f," );
+					writer.WriteLine( "internal::constexpr_handlers::legacy_handlers_0f38," );
+					writer.WriteLine( "internal::constexpr_handlers::legacy_handlers_0f3a," );
+					writer.WriteLine( "internal::constexpr_handlers::vex_handlers_0f," );
+					writer.WriteLine( "internal::constexpr_handlers::vex_handlers_0f38," );
+					writer.WriteLine( "internal::constexpr_handlers::vex_handlers_0f3a," );
+					writer.WriteLine( "internal::constexpr_handlers::evex_handlers_0f," );
+					writer.WriteLine( "internal::constexpr_handlers::evex_handlers_0f38," );
+					writer.WriteLine( "internal::constexpr_handlers::evex_handlers_0f3a," );
+					writer.WriteLine( "internal::constexpr_handlers::evex_handlers_map5," );
+					writer.WriteLine( "internal::constexpr_handlers::evex_handlers_map6," );
+					writer.WriteLine( "internal::constexpr_handlers::xop_handlers_map8," );
+					writer.WriteLine( "internal::constexpr_handlers::xop_handlers_map9," );
+					writer.WriteLine( "internal::constexpr_handlers::xop_handlers_map10," );
+					writer.WriteLine( "internal::constexpr_handlers::mvex_handlers_0f," );
+					writer.WriteLine( "internal::constexpr_handlers::mvex_handlers_0f38," );
+					writer.WriteLine( "internal::constexpr_handlers::mvex_handlers_0f3a" );
+				}
+				writer.WriteLine( "};" );
+				writer.WriteLine( "return tables;" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine( "#else" );
+			writer.WriteLine( "// Runtime-deserialized tables - Meyers singleton" );
 			writer.WriteLine( "const Decoder::Tables& Decoder::get_tables() {" );
 			using ( writer.Indent() ) {
 				writer.WriteLine( "// Meyers singleton - thread-safe in C++11 and later" );
@@ -587,6 +675,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "return tables;" );
 			}
 			writer.WriteLine( "}" );
+			writer.WriteLine( "#endif // !ICED_X86_CONSTEXPR_HANDLERS" );
 			writer.WriteLine();
 
 			// Constructor
@@ -1227,6 +1316,19 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "}" );
 			}
 			writer.WriteLine( "}" );
+
+			// get_mvex_table()
+			writer.WriteLine();
+			writer.WriteLine( "std::span<const internal::HandlerEntry> Decoder::get_mvex_table( uint32_t map_index ) const noexcept {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "switch ( map_index ) {" );
+				writer.WriteLine( "  case 0: return handlers_mvex_0f;" );
+				writer.WriteLine( "  case 1: return handlers_mvex_0f38;" );
+				writer.WriteLine( "  case 2: return handlers_mvex_0f3a;" );
+				writer.WriteLine( "  default: return {};" );
+				writer.WriteLine( "}" );
+			}
+			writer.WriteLine( "}" );
 		}
 
 		void WriteVex2DecodeMethod( FileWriter writer ) {
@@ -1273,13 +1375,15 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "state_.vvvv = vvvv & reg15_mask();" );
 				writer.WriteLine();
 				writer.WriteLine( "// VEX2 implies map 0F (map_index = 0)" );
-				writer.WriteLine( "auto* table = get_vex_table( 0 );" );
-				writer.WriteLine( "if ( !table || opcode >= table->size() ) {" );
+				writer.WriteLine( "auto table = get_vex_table( 0 );" );
+				writer.WriteLine( "if ( table.empty() || opcode >= table.size() ) {" );
 				writer.WriteLine( "  set_invalid_instruction();" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "decode_table( (*table)[opcode], instruction );" );
+				writer.WriteLine( "// Reset modrm_read so the instruction handler can read the actual ModRM" );
+				writer.WriteLine( "state_.modrm_read = false;" );
+				writer.WriteLine( "decode_table( table[opcode], instruction );" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
@@ -1349,13 +1453,15 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "}" );
 				writer.WriteLine( "uint32_t map_index = map - 1;  // Convert to 0-based index" );
 				writer.WriteLine();
-				writer.WriteLine( "auto* table = get_vex_table( map_index );" );
-				writer.WriteLine( "if ( !table || opcode >= table->size() ) {" );
+				writer.WriteLine( "auto table = get_vex_table( map_index );" );
+				writer.WriteLine( "if ( table.empty() || opcode >= table.size() ) {" );
 				writer.WriteLine( "  set_invalid_instruction();" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "decode_table( (*table)[opcode], instruction );" );
+				writer.WriteLine( "// Reset modrm_read so the instruction handler can read the actual ModRM" );
+				writer.WriteLine( "state_.modrm_read = false;" );
+				writer.WriteLine( "decode_table( table[opcode], instruction );" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
@@ -1453,11 +1559,11 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine();
 				writer.WriteLine( "// Extract P0 fields (EVEX-specific R', X', B' extensions):" );
 				writer.WriteLine( "// Bit 7: ~R, Bit 6: ~X, Bit 5: ~B, Bit 4: ~R'" );
-				writer.WriteLine( "// Bit 3: must be 0 for EVEX (vs MVEX)" );
+				writer.WriteLine( "// Bit 3: 0=EVEX, 1=MVEX" );
 				writer.WriteLine( "// Bits 2-0: mm (map select)" );
 				writer.WriteLine( "if ( ( p0 & 0x08 ) != 0 ) {" );
-				writer.WriteLine( "  // Bit 3 must be 0 for EVEX" );
-				writer.WriteLine( "  set_invalid_instruction();" );
+				writer.WriteLine( "  // MVEX: switch to MVEX decoding" );
+				writer.WriteLine( "  decode_mvex( p0, p1, p2, opcode, instruction );" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
@@ -1490,13 +1596,118 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "    return;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "auto* table = get_evex_table( map_index );" );
-				writer.WriteLine( "if ( !table || opcode >= table->size() ) {" );
+				writer.WriteLine( "auto table = get_mvex_table( map_index );" );
+				writer.WriteLine( "if ( table.empty() || opcode >= table.size() ) {" );
 				writer.WriteLine( "  set_invalid_instruction();" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "decode_table( (*table)[opcode], instruction );" );
+				writer.WriteLine( "// Invalid if LL=3 (Unknown vector length) and no embedded rounding (B=0)" );
+				writer.WriteLine( "// Rust uses B=0x10 so (flags & B) | LL == 3 works. We use a direct check instead." );
+				writer.WriteLine( "if ( ( state_.vector_length == VectorLength::UNKNOWN ) && " );
+				writer.WriteLine( "     ( ( state_.flags & StateFlags::B ) == 0 ) &&" );
+				writer.WriteLine( "     ( invalid_check_mask_ != 0 ) ) {" );
+				writer.WriteLine( "    set_invalid_instruction();" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Reset modrm_read so the instruction handler can read the actual ModRM" );
+				writer.WriteLine( "state_.modrm_read = false;" );
+				writer.WriteLine( "decode_table( table[opcode], instruction );" );
+			}
+			writer.WriteLine( "}" );
+
+			// decode_mvex
+			writer.WriteLine();
+			writer.WriteLine( "void Decoder::decode_mvex( uint32_t p0, uint32_t p1, uint32_t p2, uint32_t opcode, Instruction& instruction ) noexcept {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "// MVEX prefix (0x62 with bit 3 set in P0)" );
+				writer.WriteLine( "// MVEX format: 62 [P0] [P1] [P2] [opcode] [modrm if handler needs it]" );
+				writer.WriteLine();
+				writer.WriteLine( "// Validate MVEX: P1 bit 2 must be 1 (same as EVEX)" );
+				writer.WriteLine( "if ( ( p1 & 0x04 ) == 0 ) {" );
+				writer.WriteLine( "  set_invalid_instruction();" );
+				writer.WriteLine( "  return;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Extract P1 fields (same as EVEX):" );
+				writer.WriteLine( "// Bit 7: W" );
+				writer.WriteLine( "// Bits 6-3: ~vvvv" );
+				writer.WriteLine( "// Bit 2: must be 1 (already checked)" );
+				writer.WriteLine( "// Bits 1-0: pp" );
+				writer.WriteLine( "state_.mandatory_prefix = static_cast<DecoderMandatoryPrefix>( p1 & 3 );" );
+				writer.WriteLine( "if ( ( p1 & 0x80 ) != 0 ) {" );
+				writer.WriteLine( "  state_.flags |= StateFlags::W;" );
+				writer.WriteLine( "} else {" );
+				writer.WriteLine( "  state_.flags &= ~StateFlags::W;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Extract P2 fields (MVEX-specific):" );
+				writer.WriteLine( "// Bit 7: ~E (eviction hint)" );
+				writer.WriteLine( "// Bits 6-4: SSS (swizzle/SAE/conversion)" );
+				writer.WriteLine( "// Bit 3: V' (vvvv extension)" );
+				writer.WriteLine( "// Bits 2-0: kkk (opmask register)" );
+				writer.WriteLine( "uint32_t sss = ( p2 >> 4 ) & 7;" );
+				writer.WriteLine( "state_.flags |= sss << StateFlags::MVEX_SSS_SHIFT;" );
+				writer.WriteLine( "if ( ( p2 & 0x80 ) == 0 ) {" );
+				writer.WriteLine( "  state_.flags |= StateFlags::MVEX_EH;" );
+				writer.WriteLine( "  instruction.set_is_mvex_eviction_hint( true );" );
+				writer.WriteLine( "}" );
+				writer.WriteLine( "state_.aaa = p2 & 7;" );
+				writer.WriteLine( "instruction.set_op_mask( static_cast<Register>(" );
+				writer.WriteLine( "  static_cast<uint32_t>( Register::K0 ) + state_.aaa ) );" );
+				writer.WriteLine();
+				writer.WriteLine( "// vvvv from P1 and V' from P2" );
+				writer.WriteLine( "uint32_t vvvv_low = ( ~p1 >> 3 ) & 0x0F;" );
+				writer.WriteLine( "if ( bitness_ == 64 ) {" );
+				writer.WriteLine( "  uint32_t v_prime = ( ~p2 & 8 ) << 1;  // V' bit -> bit 4" );
+				writer.WriteLine( "  state_.extra_index_register_base_vsib = v_prime;" );
+				writer.WriteLine( "  state_.vvvv = v_prime + vvvv_low;" );
+				writer.WriteLine( "  state_.vvvv_invalid_check = state_.vvvv;" );
+				writer.WriteLine( "} else {" );
+				writer.WriteLine( "  state_.vvvv = vvvv_low & 0x7;" );
+				writer.WriteLine( "  state_.vvvv_invalid_check = vvvv_low;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Extract P0 fields (MVEX R', X', B' extensions):" );
+				writer.WriteLine( "// Bit 7: ~R, Bit 6: ~X, Bit 5: ~B, Bit 4: ~R'" );
+				writer.WriteLine( "// Bit 3: must be 1 for MVEX (already checked)" );
+				writer.WriteLine( "// Bits 2-0: mm (map select)" );
+				writer.WriteLine( "if ( bitness_ == 64 ) {" );
+				writer.WriteLine( "  uint32_t p0_inv = ~p0;" );
+				writer.WriteLine( "  state_.extra_register_base = ( p0_inv >> 4 ) & 8;       // R -> bit 3" );
+				writer.WriteLine( "  state_.extra_index_register_base = ( p0_inv >> 3 ) & 8; // X -> bit 3" );
+				writer.WriteLine( "  state_.extra_register_base_evex = p0_inv & 0x10;        // R' -> bit 4" );
+				writer.WriteLine( "  state_.extra_base_register_base_evex = ( p0_inv >> 2 ) & 0x18; // X' and B'" );
+				writer.WriteLine( "  state_.extra_base_register_base = ( p0_inv >> 2 ) & 8; // B -> bit 3" );
+				writer.WriteLine( "} else {" );
+				writer.WriteLine( "  state_.extra_register_base = 0;" );
+				writer.WriteLine( "  state_.extra_index_register_base = 0;" );
+				writer.WriteLine( "  state_.extra_register_base_evex = 0;" );
+				writer.WriteLine( "  state_.extra_base_register_base_evex = 0;" );
+				writer.WriteLine( "  state_.extra_base_register_base = 0;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Map select: mm field (1=0F, 2=0F38, 3=0F3A)" );
+				writer.WriteLine( "uint32_t map = ( p0 & 0x07 );" );
+				writer.WriteLine( "uint32_t map_index;" );
+				writer.WriteLine( "switch ( map ) {" );
+				writer.WriteLine( "  case 1: map_index = 0; break;  // 0F" );
+				writer.WriteLine( "  case 2: map_index = 1; break;  // 0F38" );
+				writer.WriteLine( "  case 3: map_index = 2; break;  // 0F3A" );
+				writer.WriteLine( "  default:" );
+				writer.WriteLine( "    set_invalid_instruction();" );
+				writer.WriteLine( "    return;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "auto table = get_mvex_table( map_index );" );
+				writer.WriteLine( "if ( table.empty() || opcode >= table.size() ) {" );
+				writer.WriteLine( "  set_invalid_instruction();" );
+				writer.WriteLine( "  return;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+				writer.WriteLine( "// Reset modrm_read so the instruction handler can read the actual ModRM" );
+				writer.WriteLine( "state_.modrm_read = false;" );
+				writer.WriteLine( "decode_table( table[opcode], instruction );" );
 			}
 			writer.WriteLine( "}" );
 
@@ -1506,8 +1717,26 @@ namespace Generator.Decoder.Cpp {
 			using ( writer.Indent() ) {
 				writer.WriteLine( "// XOP prefix (0x8F followed by XOP-specific bytes)" );
 				writer.WriteLine( "// XOP uses same basic structure as VEX3 but different map values" );
-				writer.WriteLine( "// For now, mark as invalid - XOP is AMD-specific and rarely used" );
-				writer.WriteLine( "set_invalid_instruction();" );
+				writer.WriteLine( "// XOP format: 8F [modrm=P0 already read] [P1=XOP2] [opcode] [modrm if handler needs it]" );
+				writer.WriteLine();
+				writer.WriteLine( "// Read XOP2 + opcode (2 bytes) like Rust does" );
+				writer.WriteLine( "if ( !can_read( 2 ) ) {" );
+				writer.WriteLine( "  set_invalid_instruction();" );
+				writer.WriteLine( "  return;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine( "data_ptr_ += 2;  // Skip XOP2 and opcode bytes" );
+				writer.WriteLine();
+				writer.WriteLine( "// Calculate XOP map index from modrm (P0) that was already read" );
+				writer.WriteLine( "// XOP maps: map8=0, map9=1, mapA=2" );
+				writer.WriteLine( "// Rust: handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8))" );
+				writer.WriteLine( "uint32_t p0 = state_.modrm;" );
+				writer.WriteLine( "uint32_t map_idx = ( p0 & 0x1F ) - 8;" );
+				writer.WriteLine();
+				writer.WriteLine( "// Only read modrm if XOP map is valid (index 0, 1, or 2)" );
+				writer.WriteLine( "// If map is invalid, don't read extra bytes" );
+				writer.WriteLine( "if ( map_idx < 3 && can_read( 1 ) ) {" );
+				writer.WriteLine( "  // Valid XOP map - would need modrm for handler" );
+				writer.WriteLine( "}" );
 			}
 			writer.WriteLine( "}" );
 

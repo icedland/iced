@@ -77,7 +77,6 @@ namespace Generator.Encoder.Cpp {
 			writer.WriteLine("#include \"rep_prefix_kind.hpp\"");
 			writer.WriteLine("#include <cstdint>");
 			writer.WriteLine("#include <span>");
-			writer.WriteLine("#include <stdexcept>");
 			writer.WriteLine();
 			writer.WriteLine($"namespace {CppConstants.Namespace} {{");
 			writer.WriteLine();

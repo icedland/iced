@@ -7,13 +7,28 @@
 #ifndef ICED_X86_DECODER_HPP
 #define ICED_X86_DECODER_HPP
 
-#ifndef ICED_X86_NO_DECODER
-
 #include "iced_x86/instruction.hpp"
 #include "iced_x86/decoder_error.hpp"
 #include "iced_x86/decoder_options.hpp"
 #include "iced_x86/code_size.hpp"
-#include "iced_x86/internal/handlers.hpp"
+
+#if ICED_X86_CONSTEXPR_HANDLERS
+  #include "iced_x86/internal/handlers.hpp"
+  #include "iced_x86/internal/constexpr_legacy_tables.hpp"
+  #include "iced_x86/internal/constexpr_vex_tables.hpp"
+  #include "iced_x86/internal/constexpr_evex_tables.hpp"
+  #include "iced_x86/internal/constexpr_xop_tables.hpp"
+  #include "iced_x86/internal/constexpr_mvex_tables.hpp"
+#else
+  #include "iced_x86/internal/handlers.hpp"
+  #include "iced_x86/internal/data_legacy.hpp"
+  #include "iced_x86/internal/data_vex.hpp"
+  #include "iced_x86/internal/data_evex.hpp"
+  #include "iced_x86/internal/data_xop.hpp"
+  #include "iced_x86/internal/data_mvex.hpp"
+#endif
+
+#include "iced_x86/internal/compiler_intrinsics.hpp"
 
 #include <cstdint>
 #include <cstddef>
@@ -22,13 +37,6 @@
 #include <expected>
 #include <optional>
 #include <vector>
-
-// Force inlining for hot path functions
-#ifdef _MSC_VER
-#define ICED_FORCEINLINE __forceinline
-#else
-#define ICED_FORCEINLINE __attribute__((always_inline)) inline
-#endif
 
 namespace iced_x86 {
 
@@ -67,6 +75,9 @@ struct StateFlags {
 	static constexpr uint32_t IP_REL32 = 1u << 9;
 	static constexpr uint32_t B = 1u << 10;  // EVEX.b broadcast/rounding
 	static constexpr uint32_t Z = 1u << 11;  // EVEX.z zeroing-masking
+	static constexpr uint32_t MVEX_EH = 1u << 12;  // MVEX eviction hint
+	static constexpr uint32_t MVEX_SSS_MASK = 0x7u;
+	static constexpr uint32_t MVEX_SSS_SHIFT = 16u;
 };
 
 /// @brief Vector length for VEX/EVEX instructions
@@ -86,32 +97,32 @@ struct DecoderState {
 	uint32_t mod_ = 0;
 	uint32_t reg = 0;
 	uint32_t rm = 0;
-	
+
 	// Fields cleared together in decode_internal() - keep adjacent for cache efficiency
 	uint32_t extra_register_base = 0;
 	uint32_t extra_index_register_base = 0;
 	uint32_t extra_base_register_base = 0;
 	uint32_t extra_index_register_base_vsib = 0; // EVEX.V' for VSIB
 	uint32_t flags = 0;
-	
+
 	// These are also cleared together
 	uint32_t vvvv = 0;
 	uint32_t vvvv_invalid_check = 0;  // For validation
-	
+
 	// EVEX-specific fields
 	uint32_t aaa = 0;  // EVEX opmask register (k0-k7)
 	uint32_t extra_register_base_evex = 0;    // EVEX.R' extension
 	uint32_t extra_base_register_base_evex = 0; // EVEX.X' and B' extensions
-	
+
 	// Memory index for dispatch tables
 	uint32_t mem_index = 0;
-	
+
 	// These 4 bytes are accessed/written together - keep 4-byte aligned
 	OpSize address_size = OpSize::SIZE64;
 	OpSize operand_size = OpSize::SIZE32;
 	uint8_t segment_prio = 0;
 	uint8_t dummy = 0;  // Padding to align, also helps compiler clear all 4 at once
-	
+
 	// Less frequently used fields at end
 	DecoderMandatoryPrefix mandatory_prefix = DecoderMandatoryPrefix::PNP;
 	VectorLength vector_length = VectorLength::L128;
@@ -145,16 +156,11 @@ public:
 	/// @param[out] error Set to the error code if decoding fails
 	[[nodiscard]] Instruction decode_out( DecoderError& error ) noexcept;
 
-	/// @brief Decodes the next instruction into an existing instruction object.
-	/// @param[out] instruction Instruction to decode into (will be reset)
-	/// @param[out] error Set to the error code if decoding fails
-	void decode_out( Instruction& instruction, DecoderError& error ) noexcept;
-
 	/// @brief Checks if there are more bytes to decode.
 	[[nodiscard]] bool can_decode() const noexcept;
 
 	/// @brief Gets current position in bytes.
-	[[nodiscard]] std::size_t position() const noexcept { return position_; }
+	[[nodiscard]] std::size_t position() const noexcept { return static_cast<std::size_t>( data_ptr_ - data_.data() ); }
 
 	/// @brief Sets current position in bytes.
 	void set_position( std::size_t pos ) noexcept;
@@ -164,11 +170,11 @@ public:
 
 	/// @brief Gets current read position IP as 32-bit value.
 	/// This returns the IP at the current read position (ip_ + bytes read so far).
-	[[nodiscard]] uint32_t current_ip32() const noexcept { return static_cast<uint32_t>( ip_ + position_ - instr_start_position_ ); }
+	[[nodiscard]] uint32_t current_ip32() const noexcept { return static_cast<uint32_t>( ip_ + ( data_ptr_ - instr_start_ptr_ ) ); }
 
 	/// @brief Gets current read position IP as 64-bit value.
 	/// This returns the IP at the current read position (ip_ + bytes read so far).
-	[[nodiscard]] uint64_t current_ip64() const noexcept { return ip_ + position_ - instr_start_position_; }
+	[[nodiscard]] uint64_t current_ip64() const noexcept { return ip_ + static_cast<uint64_t>( data_ptr_ - instr_start_ptr_ ); }
 
 	/// @brief Sets current instruction pointer.
 	void set_ip( uint64_t ip ) noexcept { ip_ = ip; }
@@ -203,20 +209,21 @@ public:
 
 	/// @brief Fast byte read - returns 0 and sets error flag on failure.
 	/// Like Rust's read_u8(), errors are checked later via state flags.
-	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u8_fast() noexcept {
-	  if ( position_ < max_instr_position_ ) [[likely]] {
-	    return data_[position_++];
+	/// Uses pointer arithmetic for optimal codegen.
+	[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u8_fast() noexcept {
+	  if ( data_ptr_ < max_data_ptr_ ) [[likely]] {
+	    return *data_ptr_++;
 	  }
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return 0;
 	}
 
 	/// @brief Fast u16 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u16_fast() noexcept {
-	  if ( position_ + 2 <= max_instr_position_ ) [[likely]] {
+	[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u16_fast() noexcept {
+	  if ( data_ptr_ + 1 < max_data_ptr_ ) [[likely]] {
 	    uint16_t result;
-	    std::memcpy( &result, &data_[position_], 2 );
-	    position_ += 2;
+	    std::memcpy( &result, data_ptr_, 2 );
+	    data_ptr_ += 2;
 	    return result;
 	  }
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
@@ -224,11 +231,11 @@ public:
 	}
 
 	/// @brief Fast u32 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] ICED_FORCEINLINE uint32_t read_u32_fast() noexcept {
-	  if ( position_ + 4 <= max_instr_position_ ) [[likely]] {
+	[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u32_fast() noexcept {
+	  if ( data_ptr_ + 3 < max_data_ptr_ ) [[likely]] {
 	    uint32_t result;
-	    std::memcpy( &result, &data_[position_], 4 );
-	    position_ += 4;
+	    std::memcpy( &result, data_ptr_, 4 );
+	    data_ptr_ += 4;
 	    return result;
 	  }
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
@@ -236,11 +243,11 @@ public:
 	}
 
 	/// @brief Fast u64 read - returns 0 and sets error flag on failure.
-	[[nodiscard]] ICED_FORCEINLINE uint64_t read_u64_fast() noexcept {
-	  if ( position_ + 8 <= max_instr_position_ ) [[likely]] {
+	[[nodiscard]] ICED_FORCE_INLINE uint64_t read_u64_fast() noexcept {
+	  if ( data_ptr_ + 7 < max_data_ptr_ ) [[likely]] {
 	    uint64_t result;
-	    std::memcpy( &result, &data_[position_], 8 );
-	    position_ += 8;
+	    std::memcpy( &result, data_ptr_, 8 );
+	    data_ptr_ += 8;
 	    return result;
 	  }
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
@@ -250,44 +257,36 @@ public:
 	/// @brief Fast unchecked byte read - caller must ensure bytes are available.
 	/// Use can_read(1) to check first.
 	[[nodiscard]] uint8_t read_byte_unchecked() noexcept {
-	  return data_[position_++];
+	  return *data_ptr_++;
 	}
 
 	/// @brief Fast unchecked u16 read - caller must ensure bytes are available.
 	[[nodiscard]] uint16_t read_u16_unchecked() noexcept {
-	  uint16_t result = static_cast<uint16_t>( data_[position_] ) |
-	                    ( static_cast<uint16_t>( data_[position_ + 1] ) << 8 );
-	  position_ += 2;
+	  uint16_t result;
+	  std::memcpy( &result, data_ptr_, 2 );
+	  data_ptr_ += 2;
 	  return result;
 	}
 
 	/// @brief Fast unchecked u32 read - caller must ensure bytes are available.
 	[[nodiscard]] uint32_t read_u32_unchecked() noexcept {
-	  uint32_t result = static_cast<uint32_t>( data_[position_] ) |
-	                    ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |
-	                    ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |
-	                    ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );
-	  position_ += 4;
+	  uint32_t result;
+	  std::memcpy( &result, data_ptr_, 4 );
+	  data_ptr_ += 4;
 	  return result;
 	}
 
 	/// @brief Fast unchecked u64 read - caller must ensure bytes are available.
 	[[nodiscard]] uint64_t read_u64_unchecked() noexcept {
-	  uint64_t result = static_cast<uint64_t>( data_[position_] ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |
-	                    ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );
-	  position_ += 8;
+	  uint64_t result;
+	  std::memcpy( &result, data_ptr_, 8 );
+	  data_ptr_ += 8;
 	  return result;
 	}
 
 	/// @brief Check if n bytes can be read within the current instruction.
 	[[nodiscard]] bool can_read( std::size_t n ) const noexcept {
-	  return position_ + n <= max_instr_position_;
+	  return data_ptr_ + n <= max_data_ptr_;
 	}
 
 	/// @brief Sets the instruction as invalid.
@@ -295,16 +294,17 @@ public:
 
 	/// @brief Reads modrm byte unconditionally (for sub-handlers that need fresh modrm).
 	void read_modrm() noexcept {
-	  if ( position_ >= max_instr_position_ ) [[unlikely]] {
+	  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {
 	    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	    return;
 	  }
-	  auto m = static_cast<uint32_t>( data_[position_++] );
+	  auto m = static_cast<uint32_t>( *data_ptr_++ );
 	  state_.modrm = m;
 	  state_.reg = ( m >> 3 ) & 7;
 	  state_.mod_ = m >> 6;
 	  state_.rm = m & 7;
 	  state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;
+	  state_.modrm_read = true;
 	}
 
 	/// @brief Checks if running in 64-bit mode.
@@ -336,6 +336,7 @@ public:
 
 	/// @brief Decodes EVEX (62) prefix and dispatches to EVEX handler.
 	void decode_evex( Instruction& instruction ) noexcept;
+	void decode_mvex( uint32_t p0, uint32_t p1, uint32_t p2, uint32_t opcode, Instruction& instruction ) noexcept;
 
 	/// @brief Decodes XOP prefix and dispatches to XOP handler.
 	void decode_xop( Instruction& instruction ) noexcept;
@@ -352,6 +353,7 @@ public:
 	/// @param map_index Map index (0=0F, 1=0F38, 2=0F3A, 4=MAP5, 5=MAP6)
 	/// @return Handler table span (empty if invalid)
 	[[nodiscard]] std::span<const internal::HandlerEntry> get_evex_table( uint32_t map_index ) const noexcept;
+	[[nodiscard]] std::span<const internal::HandlerEntry> get_mvex_table( uint32_t map_index ) const noexcept;
 
 	/// @brief Gets the mask for register extension bits (0xF in 64-bit, 0x7 in 32/16-bit).
 	[[nodiscard]] uint32_t reg15_mask() const noexcept { return bitness_ == 64 ? 0xF : 0x7; }
@@ -378,10 +380,14 @@ private:
 	void read_op_mem_16( Instruction& instruction, uint32_t operand_index ) noexcept;
 	bool read_sib( Instruction& instruction ) noexcept;
 
+	// Pointer-based data access (like Rust) for better codegen
+	const uint8_t* data_ptr_ = nullptr;       // Current read position
+	const uint8_t* data_ptr_end_ = nullptr;   // End of data buffer
+	const uint8_t* max_data_ptr_ = nullptr;   // Max position for current instruction (data_ptr + 15)
+	const uint8_t* instr_start_ptr_ = nullptr; // Start of current instruction
+
+	// Keep span for API compatibility (position(), max_position(), etc.)
 	std::span< const uint8_t > data_;
-	std::size_t position_ = 0;
-	std::size_t instr_start_position_ = 0;
-	std::size_t max_instr_position_ = 0;
 	uint64_t ip_ = 0;
 	uint32_t bitness_ = 64;
 	DecoderOptions::Value options_ = DecoderOptions::NONE;
@@ -406,31 +412,64 @@ private:
 	std::span<const internal::HandlerEntry> handlers_evex_0f3a_;
 	std::span<const internal::HandlerEntry> handlers_evex_map5_;
 	std::span<const internal::HandlerEntry> handlers_evex_map6_;
+	std::span<const internal::HandlerEntry> handlers_xop_map8_;
+	std::span<const internal::HandlerEntry> handlers_xop_map9_;
+	std::span<const internal::HandlerEntry> handlers_xop_map10_;
+	std::span<const internal::HandlerEntry> handlers_mvex_0f;
+	std::span<const internal::HandlerEntry> handlers_mvex_0f38;
+	std::span<const internal::HandlerEntry> handlers_mvex_0f3a;
 
 	// Masks for bitness-dependent behavior
 	uint32_t mask_e0_ = 0;  // E0 mask for inverted bits (0xE0 in 64-bit, 0 in 32/16-bit)
 	uint32_t invalid_check_mask_ = 0;  // For checking invalid prefix combinations
 
+	// Undef in case something else defined it
+	#ifdef MAX_INSTRUCTION_LENGTH
+	#undef MAX_INSTRUCTION_LENGTH
+	#endif
 	static constexpr std::size_t MAX_INSTRUCTION_LENGTH = 15;
 
 	// Static handler tables - initialized once, shared by all Decoder instances
+	#if ICED_X86_CONSTEXPR_HANDLERS
+	// Constexpr mode: use spans pointing to static arrays (zero runtime init)
 	struct Tables {
-		std::vector<internal::HandlerEntry> handlers_map0;
-		std::vector<internal::HandlerEntry> handlers_vex_0f;
-		std::vector<internal::HandlerEntry> handlers_vex_0f38;
-		std::vector<internal::HandlerEntry> handlers_vex_0f3a;
-		std::vector<internal::HandlerEntry> handlers_evex_0f;
-		std::vector<internal::HandlerEntry> handlers_evex_0f38;
-		std::vector<internal::HandlerEntry> handlers_evex_0f3a;
-		std::vector<internal::HandlerEntry> handlers_evex_map5;
-		std::vector<internal::HandlerEntry> handlers_evex_map6;
+	  std::span<const internal::HandlerEntry> handlers_map0;
+	  std::span<const internal::HandlerEntry> handlers_0f;
+	  std::span<const internal::HandlerEntry> handlers_0f38;
+	  std::span<const internal::HandlerEntry> handlers_0f3a;
+	  std::span<const internal::HandlerEntry> handlers_vex_0f;
+	  std::span<const internal::HandlerEntry> handlers_vex_0f38;
+	  std::span<const internal::HandlerEntry> handlers_vex_0f3a;
+	  std::span<const internal::HandlerEntry> handlers_evex_0f;
+	  std::span<const internal::HandlerEntry> handlers_evex_0f38;
+	  std::span<const internal::HandlerEntry> handlers_evex_0f3a;
+	  std::span<const internal::HandlerEntry> handlers_evex_map5;
+	  std::span<const internal::HandlerEntry> handlers_evex_map6;
+	  std::span<const internal::HandlerEntry> handlers_xop_map8;
+	  std::span<const internal::HandlerEntry> handlers_xop_map9;
+	  std::span<const internal::HandlerEntry> handlers_xop_map10;
+	  std::span<const internal::HandlerEntry> handlers_mvex_0f;
+	  std::span<const internal::HandlerEntry> handlers_mvex_0f38;
+	  std::span<const internal::HandlerEntry> handlers_mvex_0f3a;
 	};
+	#else
+	// Runtime mode: use vectors filled by deserializer
+	struct Tables {
+	  std::vector<internal::HandlerEntry> handlers_map0;
+	  std::vector<internal::HandlerEntry> handlers_vex_0f;
+	  std::vector<internal::HandlerEntry> handlers_vex_0f38;
+	  std::vector<internal::HandlerEntry> handlers_vex_0f3a;
+	  std::vector<internal::HandlerEntry> handlers_evex_0f;
+	  std::vector<internal::HandlerEntry> handlers_evex_0f38;
+	  std::vector<internal::HandlerEntry> handlers_evex_0f3a;
+	  std::vector<internal::HandlerEntry> handlers_evex_map5;
+	  std::vector<internal::HandlerEntry> handlers_evex_map6;
+	};
+	#endif
 
 	static const Tables& get_tables();
 };
 
 } // namespace iced_x86
-
-#endif // !ICED_X86_NO_DECODER
 
 #endif // ICED_X86_DECODER_HPP

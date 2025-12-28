@@ -12,11 +12,13 @@ namespace iced_x86 {
 namespace internal {
 
 // ============================================================================
-// Constexpr helper to create HandlerEntry from a handler struct
+// Helper to create HandlerEntry from a handler struct
+// Note: Uses reinterpret_cast which is not constexpr-compatible, so handlers
+// using this must be declared with constinit instead of constexpr
 // ============================================================================
 
 template<typename T>
-constexpr HandlerEntry make_handler_entry( const T* handler ) noexcept {
+inline HandlerEntry make_handler_entry( const T* handler ) noexcept {
 	return HandlerEntry{ T::decode, reinterpret_cast<const OpCodeHandler*>( handler ) };
 }
 
@@ -31,15 +33,16 @@ inline constexpr OpCodeHandler_Invalid handler_invalid{ true };
 inline constexpr OpCodeHandler_Invalid handler_invalid_no_modrm{ false };
 
 // Helper to get invalid handler entries
-inline constexpr HandlerEntry null_handler_entry() noexcept {
+// Note: These are not constexpr because make_handler_entry uses reinterpret_cast
+inline HandlerEntry null_handler_entry() noexcept {
 	return make_handler_entry( &handler_null );
 }
 
-inline constexpr HandlerEntry invalid_handler_entry() noexcept {
+inline HandlerEntry invalid_handler_entry() noexcept {
 	return make_handler_entry( &handler_invalid );
 }
 
-inline constexpr HandlerEntry invalid_no_modrm_handler_entry() noexcept {
+inline HandlerEntry invalid_no_modrm_handler_entry() noexcept {
 	return make_handler_entry( &handler_invalid_no_modrm );
 }
 

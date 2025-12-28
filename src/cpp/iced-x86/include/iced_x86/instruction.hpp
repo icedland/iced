@@ -195,6 +195,9 @@ struct Instruction {
 	/// @brief Sets the memory operand index scale (1, 2, 4, or 8).
 	void set_memory_index_scale( uint32_t value ) noexcept;
 
+	/// @brief Internal: Sets scale directly (0-3 maps to 1/2/4/8). For decoder use only.
+	constexpr void set_scale_internal( uint8_t value ) noexcept { scale_ = value; }
+
 	/// @brief Gets the 32-bit memory displacement.
 	[[nodiscard]] constexpr uint32_t memory_displacement32() const noexcept { return static_cast< uint32_t >( mem_displ_ ); }
 

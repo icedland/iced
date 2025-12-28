@@ -41,6 +41,14 @@ option( ICED_X86_NO_EVEX "Disable EVEX instruction support" OFF )
 option( ICED_X86_NO_XOP "Disable XOP instruction support" OFF )
 option( ICED_X86_NO_D3NOW "Disable 3DNow instruction support" OFF )
 
+# CPU architecture for code generation (not instruction decoding)
+# Options: "native", "avx2", "avx", "sse4.2", "sse2", or empty for default
+set( ICED_X86_ARCH "sse4.2" CACHE STRING "Target CPU architecture for optimizations (native, avx2, avx, sse4.2, sse2)" )
+
+# Use constexpr handler tables (eliminates runtime deserialization)
+# Note: constexpr handlers require additional work to fully support all handler types
+option( ICED_X86_CONSTEXPR_HANDLERS "Use constexpr handler tables instead of runtime deserialization" OFF )
+
 # ============================================================================
 # Feature Validation
 # ============================================================================
@@ -61,7 +69,6 @@ endif()
 # Core sources (always needed)
 set( ICED_X86_CORE_SOURCES
   src/instruction.cpp
-  src/instruction_create.cpp
   src/tables.cpp
   src/register_info.cpp
   src/memory_size_info.cpp
@@ -72,11 +79,16 @@ set( ICED_X86_CORE_SOURCES
 set( ICED_X86_DECODER_SOURCES
   src/decoder.cpp
   src/handlers.cpp
-  src/table_deserializer.cpp
 )
 
-# Encoder sources
+# Table deserializer is only needed when not using constexpr handlers
+if( NOT ICED_X86_CONSTEXPR_HANDLERS )
+  list( APPEND ICED_X86_DECODER_SOURCES src/table_deserializer.cpp )
+endif()
+
+# Encoder sources (includes instruction_create for programmatic instruction building)
 set( ICED_X86_ENCODER_SOURCES
+  src/instruction_create.cpp
   src/encoder.cpp
   src/encoder_handlers.cpp
   src/encoder_methods.cpp
@@ -137,16 +149,23 @@ if( MSVC )
   target_compile_options( iced_x86 PRIVATE /W4 )
   # Aggressive optimizations for Release builds
   target_compile_options( iced_x86 PRIVATE
-    $<$<CONFIG:Release>:/O2>           # Maximum optimization
-    $<$<CONFIG:Release>:/Ob3>          # Aggressive inlining
-    $<$<CONFIG:Release>:/Oi>           # Enable intrinsic functions
-    $<$<CONFIG:Release>:/Ot>           # Favor fast code
-    $<$<CONFIG:Release>:/GT>           # Fiber-safe optimizations
-    $<$<CONFIG:Release>:/GL>           # Whole program optimization
-    $<$<CONFIG:Release>:/Gy>           # Function-level linking
-    $<$<CONFIG:Release>:/arch:AVX2>    # Use AVX2 instructions
-    $<$<CONFIG:Release>:/EHsc>         # Enable exceptions
+    $<$<CONFIG:Release>:/O2>
+    $<$<CONFIG:Release>:/Ob3>
+    $<$<CONFIG:Release>:/Oi>
+    $<$<CONFIG:Release>:/Ot>
+    $<$<CONFIG:Release>:/GT>
+    $<$<CONFIG:Release>:/GL>
+    $<$<CONFIG:Release>:/Gy>
+    $<$<CONFIG:Release>:/EHsc>
   )
+  # Architecture-specific optimizations for MSVC
+  if( ICED_X86_ARCH STREQUAL "native" OR ICED_X86_ARCH STREQUAL "avx2" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:/arch:AVX2> )
+  elseif( ICED_X86_ARCH STREQUAL "avx" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:/arch:AVX> )
+  elseif( ICED_X86_ARCH STREQUAL "sse4.2" OR ICED_X86_ARCH STREQUAL "sse2" )
+    # SSE2 is the default for x64, no flag needed (SSE4.2 has no specific MSVC flag)
+  endif()
   # Link-time code generation for Release
   set_target_properties( iced_x86 PROPERTIES
     STATIC_LIBRARY_OPTIONS "$<$<CONFIG:Release>:/LTCG>"
@@ -156,14 +175,30 @@ else()
   # Aggressive optimizations for Release builds (GCC/Clang)
   target_compile_options( iced_x86 PRIVATE
     $<$<CONFIG:Release>:-O3>
-    $<$<CONFIG:Release>:-march=native>
     $<$<CONFIG:Release>:-flto>
   )
+  # Architecture-specific optimizations for GCC/Clang
+  if( ICED_X86_ARCH STREQUAL "native" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:-march=native> )
+  elseif( ICED_X86_ARCH STREQUAL "avx2" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:-march=haswell> )
+  elseif( ICED_X86_ARCH STREQUAL "avx" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:-march=sandybridge> )
+  elseif( ICED_X86_ARCH STREQUAL "sse4.2" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:-march=nehalem> )
+  elseif( ICED_X86_ARCH STREQUAL "sse2" )
+    target_compile_options( iced_x86 PRIVATE $<$<CONFIG:Release>:-march=x86-64> )
+  endif()
 endif()
 
 # ============================================================================
 # Feature-based Preprocessor Definitions
 # ============================================================================
+
+# Constexpr handlers flag
+if( ICED_X86_CONSTEXPR_HANDLERS )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_CONSTEXPR_HANDLERS=1 )
+endif()
 
 # Core feature flags
 if( NOT ICED_X86_DECODER )
@@ -259,6 +294,7 @@ message( STATUS "  Intel Fmt:     ${ICED_X86_INTEL}" )
 message( STATUS "  MASM Fmt:      ${ICED_X86_MASM}" )
 message( STATUS "  NASM Fmt:      ${ICED_X86_NASM}" )
 message( STATUS "  Fast Fmt:      ${ICED_X86_FAST_FMT}" )
+message( STATUS "  Target Arch:   ${ICED_X86_ARCH}" )
 
 # Tests
 option( ICED_X86_BUILD_TESTS "Build unit tests" ON )

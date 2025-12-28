@@ -10,6 +10,14 @@
 #include <cstdint>
 #include <cstddef>
 
+// Undef Windows SDK macros that conflict with mnemonic names
+#ifdef IN
+#undef IN
+#endif
+#ifdef OUT
+#undef OUT
+#endif
+
 namespace iced_x86 {
 
 /// @brief Mnemonic

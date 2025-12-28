@@ -10,7 +10,36 @@
 
 namespace iced_x86 {
 
-// Static tables - initialized once, shared by all Decoder instances (like Rust's lazy_static)
+#if ICED_X86_CONSTEXPR_HANDLERS
+// Constexpr tables - zero runtime initialization overhead
+const Decoder::Tables& Decoder::get_tables() {
+	// Return reference to constexpr tables
+	// Note: Can't use constexpr here because std::span's constructor may not be constexpr
+	// in all implementations, but the underlying arrays are compile-time constants
+	static const Tables tables{
+		internal::constexpr_handlers::legacy_handlers_map0,
+		internal::constexpr_handlers::legacy_handlers_0f,
+		internal::constexpr_handlers::legacy_handlers_0f38,
+		internal::constexpr_handlers::legacy_handlers_0f3a,
+		internal::constexpr_handlers::vex_handlers_0f,
+		internal::constexpr_handlers::vex_handlers_0f38,
+		internal::constexpr_handlers::vex_handlers_0f3a,
+		internal::constexpr_handlers::evex_handlers_0f,
+		internal::constexpr_handlers::evex_handlers_0f38,
+		internal::constexpr_handlers::evex_handlers_0f3a,
+		internal::constexpr_handlers::evex_handlers_map5,
+		internal::constexpr_handlers::evex_handlers_map6,
+		internal::constexpr_handlers::xop_handlers_map8,
+		internal::constexpr_handlers::xop_handlers_map9,
+		internal::constexpr_handlers::xop_handlers_map10,
+		internal::constexpr_handlers::mvex_handlers_0f,
+		internal::constexpr_handlers::mvex_handlers_0f38,
+		internal::constexpr_handlers::mvex_handlers_0f3a
+	};
+	return tables;
+}
+#else
+// Runtime-deserialized tables - Meyers singleton
 const Decoder::Tables& Decoder::get_tables() {
 	// Meyers singleton - thread-safe in C++11 and later
 	static Tables tables = []() {
@@ -19,24 +48,25 @@ const Decoder::Tables& Decoder::get_tables() {
 
 		auto vex_tables = internal::read_vex_tables();
 		if ( vex_tables.size() >= 3 ) {
-			t.handlers_vex_0f = std::move( vex_tables[0] );
-			t.handlers_vex_0f38 = std::move( vex_tables[1] );
-			t.handlers_vex_0f3a = std::move( vex_tables[2] );
+		  t.handlers_vex_0f = std::move( vex_tables[0] );
+		  t.handlers_vex_0f38 = std::move( vex_tables[1] );
+		  t.handlers_vex_0f3a = std::move( vex_tables[2] );
 		}
 
 		auto evex_tables = internal::read_evex_tables();
 		if ( evex_tables.size() >= 5 ) {
-			t.handlers_evex_0f = std::move( evex_tables[0] );
-			t.handlers_evex_0f38 = std::move( evex_tables[1] );
-			t.handlers_evex_0f3a = std::move( evex_tables[2] );
-			t.handlers_evex_map5 = std::move( evex_tables[3] );
-			t.handlers_evex_map6 = std::move( evex_tables[4] );
+		  t.handlers_evex_0f = std::move( evex_tables[0] );
+		  t.handlers_evex_0f38 = std::move( evex_tables[1] );
+		  t.handlers_evex_0f3a = std::move( evex_tables[2] );
+		  t.handlers_evex_map5 = std::move( evex_tables[3] );
+		  t.handlers_evex_map6 = std::move( evex_tables[4] );
 		}
 
 		return t;
 	}();
 	return tables;
 }
+#endif // !ICED_X86_CONSTEXPR_HANDLERS
 
 Decoder::Decoder(
   uint32_t bitness,
@@ -44,10 +74,11 @@ Decoder::Decoder(
   uint64_t ip,
   DecoderOptions::Value options
 ) noexcept
-  : data_( data )
-  , position_( 0 )
-  , instr_start_position_( 0 )
-  , max_instr_position_( 0 )
+  : data_ptr_( data.data() )
+  , data_ptr_end_( data.data() + data.size() )
+  , max_data_ptr_( data.data() )
+  , instr_start_ptr_( data.data() )
+  , data_( data )
   , ip_( ip )
   , bitness_( bitness )
   , options_( options )
@@ -109,7 +140,7 @@ Instruction Decoder::decode_out( DecoderError& error ) noexcept {
 	Instruction instr{};
 	error = DecoderError::NONE;
 
-	if ( position_ >= data_.size() ) {
+	if ( data_ptr_ >= data_ptr_end_ ) {
 	  error = DecoderError::NO_MORE_BYTES;
 	  return instr;
 	}
@@ -126,64 +157,48 @@ Instruction Decoder::decode_out( DecoderError& error ) noexcept {
 	return instr;
 }
 
-void Decoder::decode_out( Instruction& __restrict instruction, DecoderError& __restrict error ) noexcept {
-	// Reset the instruction for reuse - use memset for speed
-	std::memset( &instruction, 0, sizeof( Instruction ) );
-	error = DecoderError::NONE;
-
-	if ( position_ >= data_.size() ) [[unlikely]] {
-	  error = DecoderError::NO_MORE_BYTES;
-	  return;
-	}
-
-	decode_internal( instruction );
-
-	// Check for errors - combine flag checks
-	uint32_t err_flags = state_.flags & ( StateFlags::NO_MORE_BYTES | StateFlags::IS_INVALID );
-	if ( err_flags != 0 ) [[unlikely]] {
-	  error = ( err_flags & StateFlags::NO_MORE_BYTES ) ? DecoderError::NO_MORE_BYTES : DecoderError::INVALID_INSTRUCTION;
-	}
-}
-
 void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	// Reset state - clear 5 consecutive uint32_t fields at once
 	// Fields: extra_register_base, extra_index_register_base, extra_base_register_base,
 	//         extra_index_register_base_vsib, flags
 	std::memset( &state_.extra_register_base, 0, 5 * sizeof( uint32_t ) );
-	
+
 	// Clear vvvv fields (2 consecutive uint32_t)
 	state_.vvvv = 0;
 	state_.vvvv_invalid_check = 0;
-	
+
 	// Set address/operand size (these are set, not cleared)
 	state_.address_size = default_address_size_;
 	state_.operand_size = default_operand_size_;
 	state_.segment_prio = 0;
 	state_.dummy = 0;
-	
+
 	// Less frequently used
 	state_.mandatory_prefix = DecoderMandatoryPrefix::PNP;
 	state_.modrm_read = false;
 
-	instr_start_position_ = position_;
-	max_instr_position_ = std::min( position_ + MAX_INSTRUCTION_LENGTH, data_.size() );
+	// Set up pointers for this instruction
+	instr_start_ptr_ = data_ptr_;
+	// Max instruction length is 15 bytes, but don't exceed data end
+	auto remaining = static_cast<std::size_t>( data_ptr_end_ - data_ptr_ );
+	max_data_ptr_ = data_ptr_ + ( remaining < MAX_INSTRUCTION_LENGTH ? remaining : MAX_INSTRUCTION_LENGTH );
 
-	// Read first byte - check once then use unchecked reads
-	if ( position_ >= max_instr_position_ ) [[unlikely]] {
+	// Read first byte - use direct pointer access for speed
+	if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return;
 	}
-	auto b = static_cast<std::size_t>( data_[position_++] );
+	auto b = static_cast<std::size_t>( *data_ptr_++ );
 
-	// Check for REX prefix in 64-bit mode (common case)
+	// Check for REX prefix in 64-bit mode
 	if ( bitness_ == 64 && ( b & 0xF0 ) == 0x40 ) {
-	  // REX prefix
-	  if ( position_ >= max_instr_position_ ) [[unlikely]] {
+	  // REX prefix - need another byte
+	  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {
 	    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	    return;
 	  }
 
-	  uint32_t flags = StateFlags::HAS_REX;
+	  uint32_t flags = state_.flags | StateFlags::HAS_REX;
 	  if ( ( b & 8 ) != 0 ) {
 	    flags |= StateFlags::W;
 	    state_.operand_size = OpSize::SIZE64;
@@ -193,14 +208,19 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	  state_.extra_index_register_base = ( static_cast<uint32_t>( b ) & 2 ) << 2;
 	  state_.extra_base_register_base = ( static_cast<uint32_t>( b ) & 1 ) << 3;
 
-	  b = static_cast<std::size_t>( data_[position_++] );
+	  b = static_cast<std::size_t>( *data_ptr_++ );
 	}
 
-	// Look up handler - handlers_map0_ always has 256 entries
-	decode_table( handlers_map0_[b], instruction );
+	// Look up handler
+	if ( b < handlers_map0_.size() ) {
+	  auto& handler = handlers_map0_[b];
+	  decode_table( handler, instruction );
+	} else {
+	  set_invalid_instruction();
+	}
 
-	// Calculate instruction length
-	auto instr_len = static_cast<uint32_t>( position_ - instr_start_position_ );
+	// Calculate instruction length from pointers
+	auto instr_len = static_cast<uint32_t>( data_ptr_ - instr_start_ptr_ );
 	instruction.set_length( instr_len );
 
 	// Update IP
@@ -209,32 +229,32 @@ void Decoder::decode_internal( Instruction& instruction ) noexcept {
 	instruction.set_next_ip( ip_ );
 	instruction.set_code_size( default_code_size_ );
 
-	// Fast path: check if any post-processing needed
+	// Post-process RIP/EIP-relative addressing: convert displacement to absolute address
 	auto flags = state_.flags;
-	if ( ( flags & ( StateFlags::IP_REL64 | StateFlags::IP_REL32 | StateFlags::IS_INVALID | StateFlags::LOCK ) ) == 0 ) [[likely]] {
-	  return;
-	}
-
-	// Post-process RIP/EIP-relative addressing
-	if ( ( flags & StateFlags::IP_REL64 ) != 0 ) {
-	  auto addr = ip_ + instruction.memory_displacement64();
-	  instruction.set_memory_displacement64( addr );
-	  // Check if we can exit early (common case: just RIP-relative, no error)
-	  if ( ( flags & ( StateFlags::IS_INVALID | StateFlags::LOCK ) ) == 0 ) [[likely]] {
-	    return;
+	if ( ( flags & ( StateFlags::IP_REL64 | StateFlags::IP_REL32 | StateFlags::IS_INVALID ) ) != 0 ) {
+	  if ( ( flags & StateFlags::IP_REL64 ) != 0 ) {
+	    // RIP-relative: target = next_ip + displacement
+	    auto addr = ip_ + instruction.memory_displacement64();
+	    instruction.set_memory_displacement64( addr );
+	  } else if ( ( flags & StateFlags::IP_REL32 ) != 0 ) {
+	    // EIP-relative: target = next_ip + displacement (32-bit)
+	    auto addr = static_cast<uint32_t>( ip_ ) + static_cast<uint32_t>( instruction.memory_displacement64() );
+	    instruction.set_memory_displacement64( addr );
 	  }
-	} else if ( ( flags & StateFlags::IP_REL32 ) != 0 ) {
-	  auto addr = static_cast<uint32_t>( ip_ ) + static_cast<uint32_t>( instruction.memory_displacement64() );
-	  instruction.set_memory_displacement64( addr );
 	}
 
-	// Handle invalid instructions and LOCK prefix validation
-	bool is_invalid = ( flags & StateFlags::IS_INVALID ) != 0;
+	// Handle invalid instructions and LOCK prefix validation (matches Rust decoder.rs line ~1442-1443)
+	// Invalid if: IS_INVALID flag is set, OR LOCK prefix used without ALLOW_LOCK (when invalid checking is enabled)
+	bool is_invalid = ( state_.flags & StateFlags::IS_INVALID ) != 0;
 	if ( !is_invalid ) {
-	  is_invalid = ( ( ( flags & ( StateFlags::LOCK | StateFlags::ALLOW_LOCK ) ) & invalid_check_mask_ ) == StateFlags::LOCK );
+	  // Check LOCK prefix validation: LOCK set but ALLOW_LOCK not set
+	  is_invalid = ( ( ( state_.flags & ( StateFlags::LOCK | StateFlags::ALLOW_LOCK ) ) & invalid_check_mask_ ) == StateFlags::LOCK );
 	}
-	if ( is_invalid ) [[unlikely]] {
-	  std::memset( &instruction, 0, sizeof( Instruction ) );
+	if ( is_invalid ) {
+	  instruction = Instruction{};
+	  instruction.set_code( Code::INVALID );
+
+	  instr_len = static_cast<uint32_t>( data_ptr_ - instr_start_ptr_ );
 	  instruction.set_length( instr_len );
 	  ip_ = orig_ip + instr_len;
 	  instruction.set_next_ip( ip_ );
@@ -248,11 +268,11 @@ void Decoder::decode_table( internal::HandlerEntry handler, Instruction& instruc
 	// 1. Handler requires modrm, AND
 	// 2. Modrm hasn't already been read for this instruction
 	if ( handler.handler->has_modrm && !state_.modrm_read ) {
-	  if ( position_ >= max_instr_position_ ) [[unlikely]] {
+	  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {
 	    set_invalid_instruction();
 	    return;
 	  }
-	  auto m = static_cast<uint32_t>( data_[position_++] );
+	  auto m = static_cast<uint32_t>( *data_ptr_++ );
 	  state_.modrm = m;
 	  state_.reg = ( m >> 3 ) & 7;
 	  state_.mod_ = m >> 6;
@@ -265,63 +285,56 @@ void Decoder::decode_table( internal::HandlerEntry handler, Instruction& instruc
 }
 
 bool Decoder::can_decode() const noexcept {
-	return position_ < data_.size();
+	return data_ptr_ < data_ptr_end_;
 }
 
 void Decoder::set_position( std::size_t pos ) noexcept {
 	if ( pos <= data_.size() ) {
-	  int64_t diff = static_cast<int64_t>( pos ) - static_cast<int64_t>( position_ );
-	  position_ = pos;
+	  auto new_ptr = data_.data() + pos;
+	  int64_t diff = new_ptr - data_ptr_;
+	  data_ptr_ = new_ptr;
 	  ip_ = static_cast<uint64_t>( static_cast<int64_t>( ip_ ) + diff );
 	}
 }
 
 std::optional<uint8_t> Decoder::read_byte() noexcept {
-	if ( position_ >= max_instr_position_ ) {
+	if ( data_ptr_ >= max_data_ptr_ ) {
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return std::nullopt;
 	}
-	return data_[position_++];
+	return *data_ptr_++;
 }
 
 std::optional<uint16_t> Decoder::read_u16() noexcept {
-	if ( position_ + 2 > max_instr_position_ ) {
+	if ( data_ptr_ + 2 > max_data_ptr_ ) {
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return std::nullopt;
 	}
-	uint16_t result = static_cast<uint16_t>( data_[position_] ) |
-	                  ( static_cast<uint16_t>( data_[position_ + 1] ) << 8 );
-	position_ += 2;
+	uint16_t result;
+	std::memcpy( &result, data_ptr_, 2 );
+	data_ptr_ += 2;
 	return result;
 }
 
 std::optional<uint32_t> Decoder::read_u32() noexcept {
-	if ( position_ + 4 > max_instr_position_ ) {
+	if ( data_ptr_ + 4 > max_data_ptr_ ) {
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return std::nullopt;
 	}
-	uint32_t result = static_cast<uint32_t>( data_[position_] ) |
-	                  ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |
-	                  ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |
-	                  ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );
-	position_ += 4;
+	uint32_t result;
+	std::memcpy( &result, data_ptr_, 4 );
+	data_ptr_ += 4;
 	return result;
 }
 
 std::optional<uint64_t> Decoder::read_u64() noexcept {
-	if ( position_ + 8 > max_instr_position_ ) {
+	if ( data_ptr_ + 8 > max_data_ptr_ ) {
 	  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;
 	  return std::nullopt;
 	}
-	uint64_t result = static_cast<uint64_t>( data_[position_] ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |
-	                  ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );
-	position_ += 8;
+	uint64_t result;
+	std::memcpy( &result, data_ptr_, 8 );
+	data_ptr_ += 8;
 	return result;
 }
 
@@ -374,8 +387,9 @@ void Decoder::read_op_mem_32_or_64( Instruction& instruction, uint32_t operand_i
 	    read_sib( instruction );
 	  } else if ( state_.rm == 5 ) {
 	    // RIP/EIP-relative or disp32
-	    auto disp = read_u32_fast();
-	    instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	    auto disp = read_u32();
+	    if ( !disp ) return;
+	    instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	    instruction.set_memory_displ_size( 4 );
 	    if ( bitness_ == 64 ) {
 	      instruction.set_memory_base( Register::RIP );
@@ -397,8 +411,9 @@ void Decoder::read_op_mem_32_or_64( Instruction& instruction, uint32_t operand_i
 	    instruction.set_memory_base( static_cast<Register>(
 	      static_cast<uint32_t>( base_reg ) + state_.rm + state_.extra_base_register_base ) );
 	  }
-	  auto disp = read_u8_fast();
-	  instruction.set_memory_displacement64( static_cast<int8_t>( disp ) );
+	  auto disp = read_byte();
+	  if ( !disp ) return;
+	  instruction.set_memory_displacement64( static_cast<int8_t>( *disp ) );
 	  instruction.set_memory_displ_size( 1 );
 	} else if ( state_.mod_ == 2 ) {
 	  // 32-bit displacement
@@ -408,8 +423,9 @@ void Decoder::read_op_mem_32_or_64( Instruction& instruction, uint32_t operand_i
 	    instruction.set_memory_base( static_cast<Register>(
 	      static_cast<uint32_t>( base_reg ) + state_.rm + state_.extra_base_register_base ) );
 	  }
-	  auto disp = read_u32_fast();
-	  instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	  auto disp = read_u32();
+	  if ( !disp ) return;
+	  instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	  instruction.set_memory_displ_size( 4 );
 	}
 
@@ -423,7 +439,9 @@ void Decoder::read_op_mem_32_or_64( Instruction& instruction, uint32_t operand_i
 }
 
 bool Decoder::read_sib( Instruction& instruction ) noexcept {
-	auto sib = read_u8_fast();
+	auto sib_opt = read_byte();
+	if ( !sib_opt ) return false;
+	auto sib = static_cast<uint32_t>( *sib_opt );
 
 	// Scale: bits 7-6 (0-3 maps to 1, 2, 4, 8)
 	instruction.set_memory_index_scale( 1u << ( sib >> 6 ) );
@@ -442,8 +460,9 @@ bool Decoder::read_sib( Instruction& instruction ) noexcept {
 	uint32_t base = ( sib & 7 ) + state_.extra_base_register_base;
 	if ( ( sib & 7 ) == 5 && state_.mod_ == 0 ) {
 	  // Special case: base=5 with mod=0 means disp32 only
-	  auto disp = read_u32_fast();
-	  instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	  auto disp = read_u32();
+	  if ( !disp ) return false;
+	  instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	  instruction.set_memory_displ_size( 4 );
 	} else {
 	  instruction.set_memory_base( static_cast<Register>(
@@ -468,8 +487,9 @@ void Decoder::read_op_mem_16( Instruction& instruction, uint32_t operand_index )
 
 	if ( state_.mod_ == 0 && state_.rm == 6 ) {
 	  // disp16 only
-	  auto disp = read_u16_fast();
-	  instruction.set_memory_displacement64( disp );
+	  auto disp = read_u16();
+	  if ( !disp ) return;
+	  instruction.set_memory_displacement64( *disp );
 	  instruction.set_memory_displ_size( 2 );
 	} else {
 	  auto& regs = mem_regs_16[state_.rm];
@@ -479,12 +499,14 @@ void Decoder::read_op_mem_16( Instruction& instruction, uint32_t operand_index )
 	  }
 
 	  if ( state_.mod_ == 1 ) {
-	    auto disp = read_u8_fast();
-	    instruction.set_memory_displacement64( static_cast<int8_t>( disp ) );
+	    auto disp = read_byte();
+	    if ( !disp ) return;
+	    instruction.set_memory_displacement64( static_cast<int8_t>( *disp ) );
 	    instruction.set_memory_displ_size( 1 );
 	  } else if ( state_.mod_ == 2 ) {
-	    auto disp = read_u16_fast();
-	    instruction.set_memory_displacement64( disp );
+	    auto disp = read_u16();
+	    if ( !disp ) return;
+	    instruction.set_memory_displacement64( *disp );
 	    instruction.set_memory_displ_size( 2 );
 	  }
 	}
@@ -502,14 +524,19 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 	// VSIB addressing always requires a SIB byte (mod != 3, rm == 4)
 	// The index register comes from VSIB, not from SIB.index
 
-	if ( state_.address_size == OpSize::SIZE16 ) [[unlikely]] {
+	if ( state_.address_size == OpSize::SIZE16 ) {
 	  // 16-bit addressing doesn't support VSIB
 	  set_invalid_instruction();
 	  return;
 	}
 
 	// Read the SIB byte
-	uint32_t sib = read_u8_fast();
+	auto sib_opt = read_byte();
+	if ( !sib_opt ) {
+	  set_invalid_instruction();
+	  return;
+	}
+	uint32_t sib = *sib_opt;
 
 	// Extract SIB fields
 	uint32_t scale = 1u << ( sib >> 6 );
@@ -529,8 +556,9 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 	if ( state_.mod_ == 0 ) {
 	  if ( ( sib & 7 ) == 5 ) {
 	    // No base register, just disp32
-	    auto disp = read_u32_fast();
-	    instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	    auto disp = read_u32();
+	    if ( !disp ) return;
+	    instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	    instruction.set_memory_displ_size( 4 );
 	  } else {
 	    instruction.set_memory_base( static_cast<Register>( static_cast<uint32_t>( base_reg ) + base ) );
@@ -538,8 +566,9 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 	} else if ( state_.mod_ == 1 ) {
 	  // 8-bit displacement (scaled by tuple_type for EVEX)
 	  instruction.set_memory_base( static_cast<Register>( static_cast<uint32_t>( base_reg ) + base ) );
-	  auto disp = read_u8_fast();
-	  int32_t scaled_disp = static_cast<int8_t>( disp );
+	  auto disp = read_byte();
+	  if ( !disp ) return;
+	  int32_t scaled_disp = static_cast<int8_t>( *disp );
 	  if ( tuple_type != 0 ) {
 	    scaled_disp *= static_cast<int32_t>( tuple_type );
 	  }
@@ -548,8 +577,9 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 	} else if ( state_.mod_ == 2 ) {
 	  // 32-bit displacement
 	  instruction.set_memory_base( static_cast<Register>( static_cast<uint32_t>( base_reg ) + base ) );
-	  auto disp = read_u32_fast();
-	  instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	  auto disp = read_u32();
+	  if ( !disp ) return;
+	  instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	  instruction.set_memory_displ_size( 4 );
 	}
 
@@ -564,13 +594,13 @@ void Decoder::read_op_mem_vsib( Instruction& instruction, uint32_t operand_index
 
 void Decoder::decode_vex2( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
-	// Don't return early - need to read VEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
+	  return;
 	}
 
-	// Clear W flag (undo what decode_out() did if it got a REX prefix)
+	// Clear W flag and reset REX extension bits
 	state_.flags &= ~StateFlags::W;
 	state_.extra_index_register_base = 0;
 	state_.extra_base_register_base = 0;
@@ -605,28 +635,25 @@ void Decoder::decode_vex2( Instruction& instruction ) noexcept {
 
 	// VEX2 implies map 0F (map_index = 0)
 	auto table = get_vex_table( 0 );
-	
-	// Reset modrm_read - the VEX byte was read as modrm but it's not the instruction's modrm
-	state_.modrm_read = false;
-	
 	if ( table.empty() || opcode >= table.size() ) {
-	  // Still need to read modrm for correct instruction length
-	  decode_table( internal::get_invalid_handler(), instruction );
+	  set_invalid_instruction();
 	  return;
 	}
 
+	// Reset modrm_read so the instruction handler can read the actual ModRM
+	state_.modrm_read = false;
 	decode_table( table[opcode], instruction );
 }
 
 void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
-	// Don't return early - need to read VEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
+	  return;
 	}
 
-	// Clear W flag (undo what decode_out() did if it got a REX prefix)
+	// Clear W flag
 	state_.flags &= ~StateFlags::W;
 	state_.extra_register_base_evex = 0;
 	state_.extra_base_register_base_evex = 0;
@@ -634,14 +661,20 @@ void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// state_.modrm contains VEX byte2 (P0: RXBmmmmm)
 	uint32_t p0 = state_.modrm;
 
-	// Read VEX byte3 (P1: WvvvvLpp) and opcode as u16 (like Rust)
-	if ( !can_read( 2 ) ) {
+	// Read VEX byte3 (P1: WvvvvLpp) and opcode
+	auto p1_opt = read_byte();
+	if ( !p1_opt ) {
 	  set_invalid_instruction();
 	  return;
 	}
-	uint16_t b2 = read_u16_fast();
-	uint32_t p1 = b2 & 0xFF;
-	uint32_t opcode = ( b2 >> 8 ) & 0xFF;
+	uint32_t p1 = *p1_opt;
+
+	auto opcode_opt = read_byte();
+	if ( !opcode_opt ) {
+	  set_invalid_instruction();
+	  return;
+	}
+	uint32_t opcode = *opcode_opt;
 
 	// Extract P1 fields:
 	// Bit 7: W (REX.W equivalent)
@@ -669,57 +702,60 @@ void Decoder::decode_vex3( Instruction& instruction ) noexcept {
 	// Map select: mmmmm field (1=0F, 2=0F38, 3=0F3A)
 	uint32_t map = ( p0 & 0x1F );
 	if ( map == 0 || map > 3 ) {
-	  // Still need to read modrm for correct instruction length
-	  decode_table( internal::get_invalid_handler(), instruction );
+	  set_invalid_instruction();
 	  return;
 	}
 	uint32_t map_index = map - 1;  // Convert to 0-based index
 
 	auto table = get_vex_table( map_index );
-	
-	// Reset modrm_read - the VEX bytes were read but not the instruction's modrm
-	state_.modrm_read = false;
-	
 	if ( table.empty() || opcode >= table.size() ) {
-	  // Still need to read modrm for correct instruction length
-	  decode_table( internal::get_invalid_handler(), instruction );
+	  set_invalid_instruction();
 	  return;
 	}
 
+	// Reset modrm_read so the instruction handler can read the actual ModRM
+	state_.modrm_read = false;
 	decode_table( table[opcode], instruction );
 }
 
 void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	// Validate: no REX prefix and no mandatory prefix already set
-	// Don't return early - need to read EVEX bytes for correct instruction length
 	if ( ( ( ( state_.flags & StateFlags::HAS_REX ) |
 	        static_cast<uint32_t>( state_.mandatory_prefix ) ) & invalid_check_mask_ ) != 0 ) {
 	  set_invalid_instruction();
+	  return;
 	}
-
-	// Undo what decode_out() did if it got a REX prefix
-	state_.flags &= ~StateFlags::W;
 
 	// state_.modrm contains P0 (first EVEX payload byte)
 	uint32_t p0 = state_.modrm;
 
-	// Read P1, P2, opcode, and modrm as a single u32 (like Rust does)
-	// This ensures we always consume 4 bytes for EVEX, even if invalid
-	if ( !can_read( 4 ) ) {
+	// Read P1, P2, and opcode
+	auto p1_opt = read_byte();
+	if ( !p1_opt ) {
 	  set_invalid_instruction();
 	  return;
 	}
-	uint32_t d = read_u32_fast();
-	uint32_t p1 = d & 0xFF;
-	uint32_t p2 = ( d >> 8 ) & 0xFF;
-	uint32_t opcode = ( d >> 16 ) & 0xFF;
-	uint32_t modrm = ( d >> 24 ) & 0xFF;
+	uint32_t p1 = *p1_opt;
 
 	// Validate EVEX: P1 bit 2 must be 1
 	if ( ( p1 & 0x04 ) == 0 ) {
 	  set_invalid_instruction();
 	  return;
 	}
+
+	auto p2_opt = read_byte();
+	if ( !p2_opt ) {
+	  set_invalid_instruction();
+	  return;
+	}
+	uint32_t p2 = *p2_opt;
+
+	auto opcode_opt = read_byte();
+	if ( !opcode_opt ) {
+	  set_invalid_instruction();
+	  return;
+	}
+	uint32_t opcode = *opcode_opt;
 
 	// Extract P1 fields:
 	// Bit 7: W
@@ -772,11 +808,11 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 
 	// Extract P0 fields (EVEX-specific R', X', B' extensions):
 	// Bit 7: ~R, Bit 6: ~X, Bit 5: ~B, Bit 4: ~R'
-	// Bit 3: must be 0 for EVEX (vs MVEX)
+	// Bit 3: 0=EVEX, 1=MVEX
 	// Bits 2-0: mm (map select)
 	if ( ( p0 & 0x08 ) != 0 ) {
-	  // Bit 3 must be 0 for EVEX (we don't support MVEX)
-	  set_invalid_instruction();
+	  // MVEX: switch to MVEX decoding
+	  decode_mvex( p0, p1, p2, opcode, instruction );
 	  return;
 	}
 
@@ -809,18 +845,10 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	    return;
 	}
 
-	auto table = get_evex_table( map_index );
-	
-	// Set modrm state from the byte we already read
-	state_.modrm = modrm;
-	state_.reg = ( modrm >> 3 ) & 7;
-	state_.mod_ = modrm >> 6;
-	state_.rm = modrm & 7;
-	state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;
-	
+	auto table = get_mvex_table( map_index );
 	if ( table.empty() || opcode >= table.size() ) {
-	    set_invalid_instruction();
-	    return;
+	  set_invalid_instruction();
+	  return;
 	}
 
 	// Invalid if LL=3 (Unknown vector length) and no embedded rounding (B=0)
@@ -831,111 +859,137 @@ void Decoder::decode_evex( Instruction& instruction ) noexcept {
 	    set_invalid_instruction();
 	}
 
-	// Call handler directly - modrm already parsed
-	auto& handler = table[opcode];
-	handler.decode( handler.handler, *this, instruction );
+	// Reset modrm_read so the instruction handler can read the actual ModRM
+	state_.modrm_read = false;
+	decode_table( table[opcode], instruction );
+}
+
+void Decoder::decode_mvex( uint32_t p0, uint32_t p1, uint32_t p2, uint32_t opcode, Instruction& instruction ) noexcept {
+	// MVEX prefix (0x62 with bit 3 set in P0)
+	// MVEX format: 62 [P0] [P1] [P2] [opcode] [modrm if handler needs it]
+
+	// Validate MVEX: P1 bit 2 must be 1 (same as EVEX)
+	if ( ( p1 & 0x04 ) == 0 ) {
+	  set_invalid_instruction();
+	  return;
+	}
+
+	// Extract P1 fields (same as EVEX):
+	// Bit 7: W
+	// Bits 6-3: ~vvvv
+	// Bit 2: must be 1 (already checked)
+	// Bits 1-0: pp
+	state_.mandatory_prefix = static_cast<DecoderMandatoryPrefix>( p1 & 3 );
+	if ( ( p1 & 0x80 ) != 0 ) {
+	  state_.flags |= StateFlags::W;
+	} else {
+	  state_.flags &= ~StateFlags::W;
+	}
+
+	// Extract P2 fields (MVEX-specific):
+	// Bit 7: ~E (eviction hint)
+	// Bits 6-4: SSS (swizzle/SAE/conversion)
+	// Bit 3: V' (vvvv extension)
+	// Bits 2-0: kkk (opmask register)
+	uint32_t sss = ( p2 >> 4 ) & 7;
+	state_.flags |= sss << StateFlags::MVEX_SSS_SHIFT;
+	if ( ( p2 & 0x80 ) == 0 ) {
+	  state_.flags |= StateFlags::MVEX_EH;
+	  instruction.set_is_mvex_eviction_hint( true );
+	}
+	state_.aaa = p2 & 7;
+	instruction.set_op_mask( static_cast<Register>(
+	  static_cast<uint32_t>( Register::K0 ) + state_.aaa ) );
+
+	// vvvv from P1 and V' from P2
+	uint32_t vvvv_low = ( ~p1 >> 3 ) & 0x0F;
+	if ( bitness_ == 64 ) {
+	  uint32_t v_prime = ( ~p2 & 8 ) << 1;  // V' bit -> bit 4
+	  state_.extra_index_register_base_vsib = v_prime;
+	  state_.vvvv = v_prime + vvvv_low;
+	  state_.vvvv_invalid_check = state_.vvvv;
+	} else {
+	  state_.vvvv = vvvv_low & 0x7;
+	  state_.vvvv_invalid_check = vvvv_low;
+	}
+
+	// Extract P0 fields (MVEX R', X', B' extensions):
+	// Bit 7: ~R, Bit 6: ~X, Bit 5: ~B, Bit 4: ~R'
+	// Bit 3: must be 1 for MVEX (already checked)
+	// Bits 2-0: mm (map select)
+	if ( bitness_ == 64 ) {
+	  uint32_t p0_inv = ~p0;
+	  state_.extra_register_base = ( p0_inv >> 4 ) & 8;       // R -> bit 3
+	  state_.extra_index_register_base = ( p0_inv >> 3 ) & 8; // X -> bit 3
+	  state_.extra_register_base_evex = p0_inv & 0x10;        // R' -> bit 4
+	  state_.extra_base_register_base_evex = ( p0_inv >> 2 ) & 0x18; // X' and B'
+	  state_.extra_base_register_base = ( p0_inv >> 2 ) & 8; // B -> bit 3
+	} else {
+	  state_.extra_register_base = 0;
+	  state_.extra_index_register_base = 0;
+	  state_.extra_register_base_evex = 0;
+	  state_.extra_base_register_base_evex = 0;
+	  state_.extra_base_register_base = 0;
+	}
+
+	// Map select: mm field (1=0F, 2=0F38, 3=0F3A)
+	uint32_t map = ( p0 & 0x07 );
+	uint32_t map_index;
+	switch ( map ) {
+	  case 1: map_index = 0; break;  // 0F
+	  case 2: map_index = 1; break;  // 0F38
+	  case 3: map_index = 2; break;  // 0F3A
+	  default:
+	    set_invalid_instruction();
+	    return;
+	}
+
+	auto table = get_mvex_table( map_index );
+	if ( table.empty() || opcode >= table.size() ) {
+	  set_invalid_instruction();
+	  return;
+	}
+
+	// Reset modrm_read so the instruction handler can read the actual ModRM
+	state_.modrm_read = false;
+	decode_table( table[opcode], instruction );
 }
 
 void Decoder::decode_xop( Instruction& instruction ) noexcept {
 	// XOP prefix (0x8F followed by XOP-specific bytes)
 	// XOP uses same basic structure as VEX3 but different map values
 	// XOP format: 8F [modrm=P0 already read] [P1=XOP2] [opcode] [modrm if handler needs it]
-	
+
 	// Read XOP2 + opcode (2 bytes) like Rust does
 	if ( !can_read( 2 ) ) {
 	  set_invalid_instruction();
 	  return;
 	}
-	position_ += 2;  // Skip XOP2 and opcode bytes
-	
+	data_ptr_ += 2;  // Skip XOP2 and opcode bytes
+
 	// Calculate XOP map index from modrm (P0) that was already read
 	// XOP maps: map8=0, map9=1, mapA=2
 	// Rust: handlers_xop.get(((b1 & 0x1F) as usize).wrapping_sub(8))
 	uint32_t p0 = state_.modrm;
 	uint32_t map_idx = ( p0 & 0x1F ) - 8;
-	
+
 	// Only read modrm if XOP map is valid (index 0, 1, or 2)
 	// If map is invalid, don't read extra bytes
 	if ( map_idx < 3 && can_read( 1 ) ) {
 	  // Valid XOP map - would need modrm for handler
-	  // But we don't support XOP, so just read the modrm to get correct length
-	  position_ += 1;
 	}
-	
-	// XOP is not supported, mark as invalid
-	set_invalid_instruction();
 }
 
 void Decoder::decode_3dnow( Instruction& instruction ) noexcept {
-	// 3DNow! format: 0F 0F [modrm] [SIB/disp] [suffix]
-	// modrm is already read before this function is called
-	
-	// Read memory operand if mod != 3
-	if ( state_.mod_ != 3 ) {
-	  // Skip reading memory operand bytes for correct instruction length
-	  // This mimics what read_op_mem_tuple_type would read
-	  if ( state_.address_size == OpSize::SIZE16 ) {
-	    // 16-bit addressing
-	    if ( state_.mod_ == 0 && state_.rm == 6 ) {
-	      // [disp16]
-	      if ( can_read( 2 ) ) position_ += 2;
-	    } else if ( state_.mod_ == 1 ) {
-	      // [base+disp8]
-	      if ( can_read( 1 ) ) position_ += 1;
-	    } else if ( state_.mod_ == 2 ) {
-	      // [base+disp16]
-	      if ( can_read( 2 ) ) position_ += 2;
-	    }
-	  } else {
-	    // 32/64-bit addressing
-	    if ( state_.mod_ == 0 ) {
-	      if ( state_.rm == 4 ) {
-	        // SIB byte needed
-	        if ( can_read( 1 ) ) {
-	          auto sib = data_[position_++];
-	          if ( ( sib & 7 ) == 5 ) {
-	            // [disp32 + index*scale]
-	            if ( can_read( 4 ) ) position_ += 4;
-	          }
-	        }
-	      } else if ( state_.rm == 5 ) {
-	        // [disp32] or [RIP+disp32]
-	        if ( can_read( 4 ) ) position_ += 4;
-	      }
-	    } else if ( state_.mod_ == 1 ) {
-	      if ( state_.rm == 4 ) {
-	        // [SIB+disp8]
-	        if ( can_read( 1 ) ) position_ += 1;  // SIB
-	        if ( can_read( 1 ) ) position_ += 1;  // disp8
-	      } else {
-	        // [base+disp8]
-	        if ( can_read( 1 ) ) position_ += 1;
-	      }
-	    } else if ( state_.mod_ == 2 ) {
-	      if ( state_.rm == 4 ) {
-	        // [SIB+disp32]
-	        if ( can_read( 1 ) ) position_ += 1;  // SIB
-	        if ( can_read( 4 ) ) position_ += 4;  // disp32
-	      } else {
-	        // [base+disp32]
-	        if ( can_read( 4 ) ) position_ += 4;
-	      }
-	    }
-	  }
-	}
-	
-	// Read suffix byte (determines the actual 3DNow! instruction)
-	if ( can_read( 1 ) ) {
-	  position_ += 1;
-	}
-	
-	// 3DNow! is not supported, mark as invalid
+	// 3DNow! instructions (0x0F 0x0F ... suffix)
+	// These are legacy AMD instructions
+	// For now, mark as invalid - 3DNow! is deprecated
 	set_invalid_instruction();
 }
 
 void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index, uint32_t tuple_type ) noexcept {
 	// EVEX memory operand with tuple type scaling for compressed displacement
-	if ( state_.address_size == OpSize::SIZE16 ) [[unlikely]] {
+	if ( state_.address_size == OpSize::SIZE16 ) {
 	  read_op_mem_16( instruction, operand_index );
 	  return;
 	}
@@ -950,8 +1004,9 @@ void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index
 	    read_sib( instruction );
 	  } else if ( state_.rm == 5 ) {
 	    // RIP/EIP-relative or disp32
-	    auto disp = read_u32_fast();
-	    instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	    auto disp = read_u32();
+	    if ( !disp ) return;
+	    instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	    instruction.set_memory_displ_size( 4 );
 	    if ( bitness_ == 64 ) {
 	      instruction.set_memory_base( Register::RIP );
@@ -973,8 +1028,9 @@ void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index
 	    instruction.set_memory_base( static_cast<Register>(
 	      static_cast<uint32_t>( base_reg ) + state_.rm + state_.extra_base_register_base + state_.extra_base_register_base_evex ) );
 	  }
-	  auto disp = read_u8_fast();
-	  int32_t scaled_disp = static_cast<int8_t>( disp );
+	  auto disp = read_byte();
+	  if ( !disp ) return;
+	  int32_t scaled_disp = static_cast<int8_t>( *disp );
 	  if ( tuple_type != 0 ) {
 	    scaled_disp *= static_cast<int32_t>( tuple_type );
 	  }
@@ -988,8 +1044,9 @@ void Decoder::read_op_mem_evex( Instruction& instruction, uint32_t operand_index
 	    instruction.set_memory_base( static_cast<Register>(
 	      static_cast<uint32_t>( base_reg ) + state_.rm + state_.extra_base_register_base + state_.extra_base_register_base_evex ) );
 	  }
-	  auto disp = read_u32_fast();
-	  instruction.set_memory_displacement64( static_cast<int32_t>( disp ) );
+	  auto disp = read_u32();
+	  if ( !disp ) return;
+	  instruction.set_memory_displacement64( static_cast<int32_t>( *disp ) );
 	  instruction.set_memory_displ_size( 4 );
 	}
 
@@ -1017,6 +1074,15 @@ std::span<const internal::HandlerEntry> Decoder::get_evex_table( uint32_t map_in
 	  case 2: return handlers_evex_0f3a_;
 	  case 4: return handlers_evex_map5_;
 	  case 5: return handlers_evex_map6_;
+	  default: return {};
+	}
+}
+
+std::span<const internal::HandlerEntry> Decoder::get_mvex_table( uint32_t map_index ) const noexcept {
+	switch ( map_index ) {
+	  case 0: return handlers_mvex_0f;
+	  case 1: return handlers_mvex_0f38;
+	  case 2: return handlers_mvex_0f3a;
 	  default: return {};
 	}
 }

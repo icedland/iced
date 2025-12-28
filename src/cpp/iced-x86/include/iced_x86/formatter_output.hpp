@@ -13,7 +13,7 @@
 namespace iced_x86 {
 
 // Forward declaration
-class Instruction;
+struct Instruction;
 
 /// @brief Used by a Formatter to write all text
 /// 

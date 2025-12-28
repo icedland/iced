@@ -47,7 +47,7 @@ void TableDeserializer::deserialize() {
 
 std::vector<HandlerEntry> TableDeserializer::table( std::size_t index ) {
   auto& info = id_to_handler_[index];
-  if ( auto* handlers = std::get_if<std::vector<HandlerEntry>>( &info ) ) {
+  if ( auto* handlers = info.get_array() ) {
     return std::move( *handlers );
   }
   // Should not happen for table entries
@@ -139,7 +139,7 @@ std::vector<HandlerEntry> TableDeserializer::read_handlers( std::size_t count ) 
 HandlerEntry TableDeserializer::read_handler_reference() {
   auto index = static_cast<std::size_t>( reader_.read_u8() );
   auto& info = id_to_handler_[index];
-  if ( auto* handler = std::get_if<HandlerEntry>( &info ) ) {
+  if ( auto* handler = info.get_single() ) {
     return *handler;
   }
   // Should not happen
@@ -151,7 +151,7 @@ std::vector<HandlerEntry> TableDeserializer::read_array_reference( uint32_t kind
   // Assert: read_kind == kind
   auto index = static_cast<std::size_t>( reader_.read_u8() );
   auto& info = id_to_handler_[index];
-  if ( auto* handlers = std::get_if<std::vector<HandlerEntry>>( &info ) ) {
+  if ( auto* handlers = info.get_array() ) {
     // Clone the vector (there can be duplicate references)
     return *handlers;
   }
@@ -1963,16 +1963,16 @@ void read_vex_handlers( TableDeserializer& deserializer, std::vector<HandlerEntr
     case VexOpCodeHandlerKind::VWIB_2: {
       auto reg = deserializer.read_register();
       auto code = deserializer.read_code();
-      // VWIb struct: has_modrm, code_w0, code_w1, base_reg1, base_reg2
-      result.push_back( make_handler( OpCodeHandler_VEX_VWIb{ true, code, code, reg, reg } ) );
+      // VWIb struct: has_modrm, base_reg1, base_reg2, code_w0, code_w1
+      result.push_back( make_handler( OpCodeHandler_VEX_VWIb{ true, reg, reg, code, code } ) );
       return;
     }
 
     case VexOpCodeHandlerKind::VWIB_3: {
       auto reg = deserializer.read_register();
       auto [c1, c2] = deserializer.read_code2();
-      // VWIb struct: has_modrm, code_w0, code_w1, base_reg1, base_reg2
-      result.push_back( make_handler( OpCodeHandler_VEX_VWIb{ true, c1, c2, reg, reg } ) );
+      // VWIb struct: has_modrm, base_reg1, base_reg2, code_w0, code_w1
+      result.push_back( make_handler( OpCodeHandler_VEX_VWIb{ true, reg, reg, c1, c2 } ) );
       return;
     }
 
@@ -2504,7 +2504,7 @@ void read_evex_handlers( TableDeserializer& deserializer, std::vector<HandlerEnt
       auto code = deserializer.read_code();
       auto tt = read_tuple_type( deserializer );
       auto only_sae = deserializer.read_boolean();
-      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg, reg, code, tt, only_sae } ) );
+      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg, reg, code, tt, only_sae, false } ) );
       return;
     }
 
@@ -2514,7 +2514,7 @@ void read_evex_handlers( TableDeserializer& deserializer, std::vector<HandlerEnt
       auto code = deserializer.read_code();
       auto tt = read_tuple_type( deserializer );
       auto only_sae = deserializer.read_boolean();
-      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg1, reg2, code, tt, only_sae } ) );
+      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg1, reg2, code, tt, only_sae, false } ) );
       return;
     }
 
@@ -2523,9 +2523,9 @@ void read_evex_handlers( TableDeserializer& deserializer, std::vector<HandlerEnt
       auto reg2 = deserializer.read_register();
       auto code = deserializer.read_code();
       auto tt = read_tuple_type( deserializer );
-      [[maybe_unused]] auto only_sae = deserializer.read_boolean();
-      [[maybe_unused]] auto _ = deserializer.read_boolean();
-      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg1, reg2, code, tt, only_sae } ) );
+      auto only_sae = deserializer.read_boolean();
+      auto can_broadcast = deserializer.read_boolean();
+      result.push_back( make_handler( OpCodeHandler_EVEX_VkW_er{ true, reg1, reg2, code, tt, only_sae, can_broadcast } ) );
       return;
     }
 

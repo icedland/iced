@@ -8,7 +8,7 @@
 #include "iced_x86/op_kind.hpp"
 #include "iced_x86/register.hpp"
 #include "iced_x86/rep_prefix_kind.hpp"
-#include <stdexcept>
+
 #include <cstring>
 
 namespace iced_x86 {
@@ -320,7 +320,7 @@ Register get_address_base_register(uint32_t address_size) {
 	case 32: return Register::EDI;
 	case 64: return Register::RDI;
 	default:
-		throw std::invalid_argument("address_size must be 16, 32, or 64");
+		__assume(false);
 	}
 }
 
@@ -330,7 +330,7 @@ Register get_address_index_register(uint32_t address_size) {
 	case 32: return Register::ESI;
 	case 64: return Register::RSI;
 	default:
-		throw std::invalid_argument("address_size must be 16, 32, or 64");
+		__assume(false);
 	}
 }
 
@@ -825,7 +825,7 @@ Instruction InstructionFactory::with_xbegin(uint32_t bitness, uint64_t target) {
 		instruction.set_near_branch64(target);
 		break;
 	default:
-		throw std::invalid_argument("bitness must be 16, 32, or 64");
+		__assume(false);
 	}
 	return instruction;
 }
@@ -1083,17 +1083,17 @@ Instruction InstructionFactory::with_rep_movsq(uint32_t address_size) {
 
 Instruction InstructionFactory::with_maskmovq(uint32_t address_size, Register register1, Register register2, Register segment_prefix) {
 	(void)address_size; (void)register1; (void)register2; (void)segment_prefix;
-	throw std::runtime_error("Not implemented: with_maskmovq");
+	__assume(false); // Not implemented: with_maskmovq");
 }
 
 Instruction InstructionFactory::with_maskmovdqu(uint32_t address_size, Register register1, Register register2, Register segment_prefix) {
 	(void)address_size; (void)register1; (void)register2; (void)segment_prefix;
-	throw std::runtime_error("Not implemented: with_maskmovdqu");
+	__assume(false); // Not implemented: with_maskmovdqu");
 }
 
 Instruction InstructionFactory::with_vmaskmovdqu(uint32_t address_size, Register register1, Register register2, Register segment_prefix) {
 	(void)address_size; (void)register1; (void)register2; (void)segment_prefix;
-	throw std::runtime_error("Not implemented: with_vmaskmovdqu");
+	__assume(false); // Not implemented: with_vmaskmovdqu");
 }
 
 // ============================================================================
@@ -1125,7 +1125,7 @@ Instruction InstructionFactory::with_declare_byte_2(uint8_t b0, uint8_t b1) {
 
 Instruction InstructionFactory::with_declare_byte_3(uint8_t b0, uint8_t b1, uint8_t b2) {
 	(void)b0; (void)b1; (void)b2;
-	throw std::runtime_error("Not implemented: with_declare_byte_3");
+	__assume(false); // Not implemented: with_declare_byte_3");
 }
 
 Instruction InstructionFactory::with_declare_byte_4(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3) {
@@ -1142,72 +1142,72 @@ Instruction InstructionFactory::with_declare_byte_4(uint8_t b0, uint8_t b1, uint
 
 Instruction InstructionFactory::with_declare_byte_5(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4;
-	throw std::runtime_error("Not implemented: with_declare_byte_5");
+	__assume(false); // Not implemented: with_declare_byte_5");
 }
 
 Instruction InstructionFactory::with_declare_byte_6(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5;
-	throw std::runtime_error("Not implemented: with_declare_byte_6");
+	__assume(false); // Not implemented: with_declare_byte_6");
 }
 
 Instruction InstructionFactory::with_declare_byte_7(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6;
-	throw std::runtime_error("Not implemented: with_declare_byte_7");
+	__assume(false); // Not implemented: with_declare_byte_7");
 }
 
 Instruction InstructionFactory::with_declare_byte_8(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7;
-	throw std::runtime_error("Not implemented: with_declare_byte_8");
+	__assume(false); // Not implemented: with_declare_byte_8");
 }
 
 Instruction InstructionFactory::with_declare_byte_9(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8;
-	throw std::runtime_error("Not implemented: with_declare_byte_9");
+	__assume(false); // Not implemented: with_declare_byte_9");
 }
 
 Instruction InstructionFactory::with_declare_byte_10(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9;
-	throw std::runtime_error("Not implemented: with_declare_byte_10");
+	__assume(false); // Not implemented: with_declare_byte_10");
 }
 
 Instruction InstructionFactory::with_declare_byte_11(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10;
-	throw std::runtime_error("Not implemented: with_declare_byte_11");
+	__assume(false); // Not implemented: with_declare_byte_11");
 }
 
 Instruction InstructionFactory::with_declare_byte_12(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10, uint8_t b11) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10; (void)b11;
-	throw std::runtime_error("Not implemented: with_declare_byte_12");
+	__assume(false); // Not implemented: with_declare_byte_12");
 }
 
 Instruction InstructionFactory::with_declare_byte_13(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10, uint8_t b11, uint8_t b12) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10; (void)b11; (void)b12;
-	throw std::runtime_error("Not implemented: with_declare_byte_13");
+	__assume(false); // Not implemented: with_declare_byte_13");
 }
 
 Instruction InstructionFactory::with_declare_byte_14(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10, uint8_t b11, uint8_t b12, uint8_t b13) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10; (void)b11; (void)b12; (void)b13;
-	throw std::runtime_error("Not implemented: with_declare_byte_14");
+	__assume(false); // Not implemented: with_declare_byte_14");
 }
 
 Instruction InstructionFactory::with_declare_byte_15(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10, uint8_t b11, uint8_t b12, uint8_t b13, uint8_t b14) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10; (void)b11; (void)b12; (void)b13; (void)b14;
-	throw std::runtime_error("Not implemented: with_declare_byte_15");
+	__assume(false); // Not implemented: with_declare_byte_15");
 }
 
 Instruction InstructionFactory::with_declare_byte_16(uint8_t b0, uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4, uint8_t b5, uint8_t b6, uint8_t b7, uint8_t b8, uint8_t b9, uint8_t b10, uint8_t b11, uint8_t b12, uint8_t b13, uint8_t b14, uint8_t b15) {
 	(void)b0; (void)b1; (void)b2; (void)b3; (void)b4; (void)b5; (void)b6; (void)b7; (void)b8; (void)b9; (void)b10; (void)b11; (void)b12; (void)b13; (void)b14; (void)b15;
-	throw std::runtime_error("Not implemented: with_declare_byte_16");
+	__assume(false); // Not implemented: with_declare_byte_16");
 }
 
 Instruction InstructionFactory::with_declare_byte(const uint8_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_byte(ptr)");
+	__assume(false); // Not implemented: with_declare_byte(ptr)");
 }
 
 Instruction InstructionFactory::with_declare_byte_span(std::span<const uint8_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_byte_span");
+	__assume(false); // Not implemented: with_declare_byte_span");
 }
 
 // Word declarations
@@ -1227,52 +1227,52 @@ Instruction InstructionFactory::with_declare_word_2(uint16_t w0, uint16_t w1) {
 
 Instruction InstructionFactory::with_declare_word_3(uint16_t w0, uint16_t w1, uint16_t w2) {
 	(void)w0; (void)w1; (void)w2;
-	throw std::runtime_error("Not implemented: with_declare_word_3");
+	__assume(false); // Not implemented: with_declare_word_3");
 }
 
 Instruction InstructionFactory::with_declare_word_4(uint16_t w0, uint16_t w1, uint16_t w2, uint16_t w3) {
 	(void)w0; (void)w1; (void)w2; (void)w3;
-	throw std::runtime_error("Not implemented: with_declare_word_4");
+	__assume(false); // Not implemented: with_declare_word_4");
 }
 
 Instruction InstructionFactory::with_declare_word_5(uint16_t w0, uint16_t w1, uint16_t w2, uint16_t w3, uint16_t w4) {
 	(void)w0; (void)w1; (void)w2; (void)w3; (void)w4;
-	throw std::runtime_error("Not implemented: with_declare_word_5");
+	__assume(false); // Not implemented: with_declare_word_5");
 }
 
 Instruction InstructionFactory::with_declare_word_6(uint16_t w0, uint16_t w1, uint16_t w2, uint16_t w3, uint16_t w4, uint16_t w5) {
 	(void)w0; (void)w1; (void)w2; (void)w3; (void)w4; (void)w5;
-	throw std::runtime_error("Not implemented: with_declare_word_6");
+	__assume(false); // Not implemented: with_declare_word_6");
 }
 
 Instruction InstructionFactory::with_declare_word_7(uint16_t w0, uint16_t w1, uint16_t w2, uint16_t w3, uint16_t w4, uint16_t w5, uint16_t w6) {
 	(void)w0; (void)w1; (void)w2; (void)w3; (void)w4; (void)w5; (void)w6;
-	throw std::runtime_error("Not implemented: with_declare_word_7");
+	__assume(false); // Not implemented: with_declare_word_7");
 }
 
 Instruction InstructionFactory::with_declare_word_8(uint16_t w0, uint16_t w1, uint16_t w2, uint16_t w3, uint16_t w4, uint16_t w5, uint16_t w6, uint16_t w7) {
 	(void)w0; (void)w1; (void)w2; (void)w3; (void)w4; (void)w5; (void)w6; (void)w7;
-	throw std::runtime_error("Not implemented: with_declare_word_8");
+	__assume(false); // Not implemented: with_declare_word_8");
 }
 
 Instruction InstructionFactory::with_declare_word(const uint8_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_word(u8 ptr)");
+	__assume(false); // Not implemented: with_declare_word(u8 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_word_span(std::span<const uint8_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_word_span(u8)");
+	__assume(false); // Not implemented: with_declare_word_span(u8)");
 }
 
 Instruction InstructionFactory::with_declare_word(const uint16_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_word(u16 ptr)");
+	__assume(false); // Not implemented: with_declare_word(u16 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_word_span(std::span<const uint16_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_word_span(u16)");
+	__assume(false); // Not implemented: with_declare_word_span(u16)");
 }
 
 // Dword declarations
@@ -1292,32 +1292,32 @@ Instruction InstructionFactory::with_declare_dword_2(uint32_t d0, uint32_t d1) {
 
 Instruction InstructionFactory::with_declare_dword_3(uint32_t d0, uint32_t d1, uint32_t d2) {
 	(void)d0; (void)d1; (void)d2;
-	throw std::runtime_error("Not implemented: with_declare_dword_3");
+	__assume(false); // Not implemented: with_declare_dword_3");
 }
 
 Instruction InstructionFactory::with_declare_dword_4(uint32_t d0, uint32_t d1, uint32_t d2, uint32_t d3) {
 	(void)d0; (void)d1; (void)d2; (void)d3;
-	throw std::runtime_error("Not implemented: with_declare_dword_4");
+	__assume(false); // Not implemented: with_declare_dword_4");
 }
 
 Instruction InstructionFactory::with_declare_dword(const uint8_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_dword(u8 ptr)");
+	__assume(false); // Not implemented: with_declare_dword(u8 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_dword_span(std::span<const uint8_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_dword_span(u8)");
+	__assume(false); // Not implemented: with_declare_dword_span(u8)");
 }
 
 Instruction InstructionFactory::with_declare_dword(const uint32_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_dword(u32 ptr)");
+	__assume(false); // Not implemented: with_declare_dword(u32 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_dword_span(std::span<const uint32_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_dword_span(u32)");
+	__assume(false); // Not implemented: with_declare_dword_span(u32)");
 }
 
 // Qword declarations
@@ -1330,27 +1330,27 @@ Instruction InstructionFactory::with_declare_qword_1(uint64_t q0) {
 
 Instruction InstructionFactory::with_declare_qword_2(uint64_t q0, uint64_t q1) {
 	(void)q0; (void)q1;
-	throw std::runtime_error("Not implemented: with_declare_qword_2");
+	__assume(false); // Not implemented: with_declare_qword_2");
 }
 
 Instruction InstructionFactory::with_declare_qword(const uint8_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_qword(u8 ptr)");
+	__assume(false); // Not implemented: with_declare_qword(u8 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_qword_span(std::span<const uint8_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_qword_span(u8)");
+	__assume(false); // Not implemented: with_declare_qword_span(u8)");
 }
 
 Instruction InstructionFactory::with_declare_qword(const uint64_t* data, size_t length) {
 	(void)data; (void)length;
-	throw std::runtime_error("Not implemented: with_declare_qword(u64 ptr)");
+	__assume(false); // Not implemented: with_declare_qword(u64 ptr)");
 }
 
 Instruction InstructionFactory::with_declare_qword_span(std::span<const uint64_t> data) {
 	(void)data;
-	throw std::runtime_error("Not implemented: with_declare_qword_span(u64)");
+	__assume(false); // Not implemented: with_declare_qword_span(u64)");
 }
 
 } // namespace iced_x86

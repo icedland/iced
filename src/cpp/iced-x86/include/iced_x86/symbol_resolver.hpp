@@ -16,7 +16,7 @@
 namespace iced_x86 {
 
 // Forward declaration
-class Instruction;
+struct Instruction;
 
 /// @brief Symbol flags returned by a symbol resolver
 enum class SymbolFlags : uint32_t {

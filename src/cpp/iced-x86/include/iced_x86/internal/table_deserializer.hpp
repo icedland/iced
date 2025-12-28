@@ -9,7 +9,6 @@
 #include <cstddef>
 #include <span>
 #include <vector>
-#include <variant>
 
 #include "handlers.hpp"
 #include "serialized_data_kind.hpp"
@@ -58,8 +57,68 @@ private:
   std::size_t pos_;
 };
 
-/// @brief Handler info - either single handler or array of handlers
-using HandlerInfo = std::variant<HandlerEntry, std::vector<HandlerEntry>>;
+/// @brief Handler info - either single handler or array of handlers (RTTI-free, pointer-based)
+struct HandlerInfo {
+  // Uses pointer + size to distinguish:
+  // - single handler: array_ptr == nullptr, single contains the handler
+  // - array: array_ptr != nullptr, points to heap-allocated vector
+  HandlerEntry single{};
+  std::vector<HandlerEntry>* array_ptr = nullptr;
+  
+  // Default constructor - creates empty single handler
+  HandlerInfo() noexcept = default;
+  
+  // Constructor from single handler
+  HandlerInfo( HandlerEntry entry ) noexcept : single( entry ), array_ptr( nullptr ) {}
+  
+  // Constructor from array (move) - takes ownership via heap allocation
+  HandlerInfo( std::vector<HandlerEntry>&& arr ) noexcept 
+    : single{}, array_ptr( new std::vector<HandlerEntry>( std::move( arr ) ) ) {}
+  
+  // Destructor
+  ~HandlerInfo() {
+    delete array_ptr;
+  }
+  
+  // Move constructor
+  HandlerInfo( HandlerInfo&& other ) noexcept 
+    : single( other.single ), array_ptr( other.array_ptr ) {
+    other.array_ptr = nullptr;
+  }
+  
+  // Move assignment
+  HandlerInfo& operator=( HandlerInfo&& other ) noexcept {
+    if ( this != &other ) {
+      delete array_ptr;
+      single = other.single;
+      array_ptr = other.array_ptr;
+      other.array_ptr = nullptr;
+    }
+    return *this;
+  }
+  
+  // Delete copy operations
+  HandlerInfo( const HandlerInfo& ) = delete;
+  HandlerInfo& operator=( const HandlerInfo& ) = delete;
+  
+  // Accessors
+  [[nodiscard]] bool is_single() const noexcept { return array_ptr == nullptr; }
+  [[nodiscard]] bool is_array() const noexcept { return array_ptr != nullptr; }
+  
+  [[nodiscard]] HandlerEntry* get_single() noexcept {
+    return array_ptr == nullptr ? &single : nullptr;
+  }
+  [[nodiscard]] const HandlerEntry* get_single() const noexcept {
+    return array_ptr == nullptr ? &single : nullptr;
+  }
+  
+  [[nodiscard]] std::vector<HandlerEntry>* get_array() noexcept {
+    return array_ptr;
+  }
+  [[nodiscard]] const std::vector<HandlerEntry>* get_array() const noexcept {
+    return array_ptr;
+  }
+};
 
 /// @brief Handler reader function type - using raw function pointer for performance
 /// std::function has significant overhead: heap allocation, type erasure, cannot be inlined

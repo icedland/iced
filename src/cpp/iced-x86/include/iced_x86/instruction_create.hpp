@@ -14,7 +14,6 @@
 #include "rep_prefix_kind.hpp"
 #include <cstdint>
 #include <span>
-#include <stdexcept>
 
 namespace iced_x86 {
 

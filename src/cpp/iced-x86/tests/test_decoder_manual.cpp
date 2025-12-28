@@ -704,15 +704,15 @@ TEST_CASE( "Decoder: VEX VGATHERDPS (VSIB gather)", "[decoder][vex][vsib][manual
 
 TEST_CASE( "Decoder: EVEX VPGATHERDD (VSIB gather)", "[decoder][evex][vsib][manual]" ) {
 	// VPGATHERDD xmm2{k1}, [rax+xmm1*4]
-	// EVEX.128.66.0F38.W0 90 /vsib
-	// 62 F2 7D 09 90 14 88
+	// EVEX.128.66.0F38.W0 DC /vsib
+	// 62 F2 7D 09 DC 14 88
 	// P0: 62 = EVEX prefix
 	// P1: F2 = R:1 X:1 B:1 R':1 0 0 mm:10 (0F38)
 	// P2: 7D = W:0 vvvv:1111 1 pp:01 (66)
 	// P3: 09 = z:0 L'L:00 b:0 V':1 aaa:001 (k1)
 	// 90 = opcode
 	// 14 88 = ModRM + SIB
-	const uint8_t data[] = { 0x62, 0xF2, 0x7D, 0x09, 0x90, 0x14, 0x88 };
+	const uint8_t data[] = { 0x62, 0xF2, 0x7D, 0x09, 0xDC, 0x14, 0x88 };
 	Decoder decoder( 64, data, 0x1000 );
 	
 	DecoderError error;

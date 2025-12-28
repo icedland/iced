@@ -199,6 +199,18 @@ namespace Generator.Enums.Cpp {
 				writer.WriteLine( $"#include {include}" );
 			writer.WriteLine();
 
+			// Workaround for Windows SDK headers that define IN and OUT as macros
+			if ( enumType.TypeId == TypeIds.Mnemonic ) {
+				writer.WriteLine( "// Undef Windows SDK macros that conflict with mnemonic names" );
+				writer.WriteLine( "#ifdef IN" );
+				writer.WriteLine( "#undef IN" );
+				writer.WriteLine( "#endif" );
+				writer.WriteLine( "#ifdef OUT" );
+				writer.WriteLine( "#undef OUT" );
+				writer.WriteLine( "#endif" );
+				writer.WriteLine();
+			}
+
 			// Open namespace
 			if ( info.IsInternal ) {
 				writer.WriteLine( $"namespace {CppConstants.Namespace} {{" );

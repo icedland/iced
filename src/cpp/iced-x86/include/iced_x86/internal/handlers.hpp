@@ -1754,10 +1754,10 @@ struct OpCodeHandler_VEX_VW {
 // VEX VWIb - V=dest, W=rm, Ib=immediate byte
 struct OpCodeHandler_VEX_VWIb {
   bool has_modrm;
-  Code code_w0;        // Code when W=0
-  Code code_w1;        // Code when W=1
   Register base_reg1;
   Register base_reg2;
+  Code code_w0;        // Code when W=0
+  Code code_w1;        // Code when W=1
 
   static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
 };
@@ -2439,6 +2439,7 @@ struct OpCodeHandler_EVEX_VkW_er {
   Code code;
   uint8_t tuple_type;
   bool only_sae;
+  bool can_broadcast;
 
   static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
 };
@@ -2821,6 +2822,123 @@ struct OpCodeHandler_EVEX_V_H_Ev_Ib {
   Code code64;
   uint8_t tuple_type32;
   uint8_t tuple_type64;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// ============================================================================
+// MVEX handlers (Knights Corner)
+// ============================================================================
+
+// MVEX M - memory only operand
+struct OpCodeHandler_MVEX_M {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX MV - M=dest, V=src
+struct OpCodeHandler_MVEX_MV {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VW - V=dest, W=src
+struct OpCodeHandler_MVEX_VW {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VWIb - V=dest, W=src, Ib=imm
+struct OpCodeHandler_MVEX_VWIb {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VHW - V=dest, H=vvvv, W=src
+struct OpCodeHandler_MVEX_VHW {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VHWIb - V=dest, H=vvvv, W=src, Ib=imm
+struct OpCodeHandler_MVEX_VHWIb {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX HWIb - H=dest(vvvv), W=src, Ib=imm
+struct OpCodeHandler_MVEX_HWIb {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VKW - V=dest, K=mask, W=src
+struct OpCodeHandler_MVEX_VKW {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX KHW - K=dest, H=vvvv, W=src
+struct OpCodeHandler_MVEX_KHW {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX KHWIb - K=dest, H=vvvv, W=src, Ib=imm
+struct OpCodeHandler_MVEX_KHWIb {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VSIB - VSIB memory addressing
+struct OpCodeHandler_MVEX_VSIB {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX VSIB_V - VSIB with V operand
+struct OpCodeHandler_MVEX_VSIB_V {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX V_VSIB - V with VSIB addressing
+struct OpCodeHandler_MVEX_V_VSIB {
+  bool has_modrm;
+  Code code;
+
+  static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
+};
+
+// MVEX EH - dispatches based on eviction hint flag
+struct OpCodeHandler_MVEX_EH {
+  bool has_modrm;
+  HandlerEntry handler_eh0;  // When eviction hint not set
+  HandlerEntry handler_eh1;  // When eviction hint set
 
   static void decode( const OpCodeHandler* self_ptr, Decoder& decoder, Instruction& instruction );
 };
