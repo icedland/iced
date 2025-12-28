@@ -7,6 +7,8 @@
 #ifndef ICED_X86_DECODER_HPP
 #define ICED_X86_DECODER_HPP
 
+#ifndef ICED_X86_NO_DECODER
+
 #include "iced_x86/instruction.hpp"
 #include "iced_x86/decoder_error.hpp"
 #include "iced_x86/decoder_options.hpp"
@@ -428,5 +430,7 @@ private:
 };
 
 } // namespace iced_x86
+
+#endif // !ICED_X86_NO_DECODER
 
 #endif // ICED_X86_DECODER_HPP

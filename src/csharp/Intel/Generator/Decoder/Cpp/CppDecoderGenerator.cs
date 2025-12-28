@@ -46,8 +46,11 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "#include \"iced_x86/code_size.hpp\"" );
 			writer.WriteLine( "#include \"iced_x86/internal/handlers.hpp\"" );
 			writer.WriteLine();
+			writer.WriteLine( "#include \"iced_x86/internal/compiler_intrinsics.hpp\"" );
+			writer.WriteLine();
 			writer.WriteLine( "#include <cstdint>" );
 			writer.WriteLine( "#include <cstddef>" );
+			writer.WriteLine( "#include <cstring>" );
 			writer.WriteLine( "#include <span>" );
 			writer.WriteLine( "#include <expected>" );
 			writer.WriteLine( "#include <optional>" );
@@ -130,30 +133,48 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "};" );
 			writer.WriteLine();
 
-			// Decoder state struct
+			// Decoder state struct - layout optimized to match Rust for efficient bulk clearing
 			writer.WriteLine( "/// @brief Decoder state" );
+			writer.WriteLine( "/// Layout optimized to match Rust: fields cleared together are adjacent," );
+			writer.WriteLine( "/// small fields grouped to avoid padding." );
 			writer.WriteLine( "struct DecoderState {" );
 			using ( writer.Indent() ) {
+				writer.WriteLine( "// First 4 fields - read from modrm byte" );
 				writer.WriteLine( "uint32_t modrm = 0;" );
 				writer.WriteLine( "uint32_t mod_ = 0;" );
 				writer.WriteLine( "uint32_t reg = 0;" );
 				writer.WriteLine( "uint32_t rm = 0;" );
-				writer.WriteLine( "uint32_t flags = 0;" );
+				writer.WriteLine();
+				writer.WriteLine( "// Fields cleared together in decode_internal() - keep adjacent for cache efficiency" );
 				writer.WriteLine( "uint32_t extra_register_base = 0;" );
 				writer.WriteLine( "uint32_t extra_index_register_base = 0;" );
 				writer.WriteLine( "uint32_t extra_base_register_base = 0;" );
-				writer.WriteLine( "uint32_t extra_register_base_evex = 0;    // EVEX.R' extension" );
-				writer.WriteLine( "uint32_t extra_base_register_base_evex = 0; // EVEX.X' and B' extensions" );
 				writer.WriteLine( "uint32_t extra_index_register_base_vsib = 0; // EVEX.V' for VSIB" );
+				writer.WriteLine( "uint32_t flags = 0;" );
+				writer.WriteLine();
+				writer.WriteLine( "// These are also cleared together" );
 				writer.WriteLine( "uint32_t vvvv = 0;" );
 				writer.WriteLine( "uint32_t vvvv_invalid_check = 0;  // For validation" );
+				writer.WriteLine();
+				writer.WriteLine( "// EVEX-specific fields" );
 				writer.WriteLine( "uint32_t aaa = 0;  // EVEX opmask register (k0-k7)" );
+				writer.WriteLine( "uint32_t extra_register_base_evex = 0;    // EVEX.R' extension" );
+				writer.WriteLine( "uint32_t extra_base_register_base_evex = 0; // EVEX.X' and B' extensions" );
+				writer.WriteLine();
+				writer.WriteLine( "// Memory index for dispatch tables" );
 				writer.WriteLine( "uint32_t mem_index = 0;" );
-				writer.WriteLine( "OpSize operand_size = OpSize::SIZE32;" );
+				writer.WriteLine();
+				writer.WriteLine( "// These 4 bytes are accessed/written together - keep 4-byte aligned" );
 				writer.WriteLine( "OpSize address_size = OpSize::SIZE64;" );
+				writer.WriteLine( "OpSize operand_size = OpSize::SIZE32;" );
+				writer.WriteLine( "uint8_t segment_prio = 0;" );
+				writer.WriteLine( "uint8_t dummy = 0;  // Padding to align, also helps compiler clear all 4 at once" );
+				writer.WriteLine();
+				writer.WriteLine( "// Less frequently used fields at end" );
 				writer.WriteLine( "DecoderMandatoryPrefix mandatory_prefix = DecoderMandatoryPrefix::PNP;" );
 				writer.WriteLine( "VectorLength vector_length = VectorLength::L128;" );
-				writer.WriteLine( "uint8_t segment_prio = 0;" );
+				writer.WriteLine( "bool modrm_read = false;  // Track if modrm has been read for this instruction" );
+				writer.WriteLine( "uint8_t pad_ = 0;  // Explicit padding" );
 			}
 			writer.WriteLine( "};" );
 			writer.WriteLine();
@@ -194,7 +215,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine();
 
 				writer.WriteLine( "/// @brief Gets current position in bytes." );
-				writer.WriteLine( "[[nodiscard]] std::size_t position() const noexcept { return position_; }" );
+				writer.WriteLine( "[[nodiscard]] std::size_t position() const noexcept { return static_cast<std::size_t>( data_ptr_ - data_.data() ); }" );
 				writer.WriteLine();
 
 				writer.WriteLine( "/// @brief Sets current position in bytes." );
@@ -207,12 +228,12 @@ namespace Generator.Decoder.Cpp {
 
 				writer.WriteLine( "/// @brief Gets current read position IP as 32-bit value." );
 				writer.WriteLine( "/// This returns the IP at the current read position (ip_ + bytes read so far)." );
-				writer.WriteLine( "[[nodiscard]] uint32_t current_ip32() const noexcept { return static_cast<uint32_t>( ip_ + position_ - instr_start_position_ ); }" );
+				writer.WriteLine( "[[nodiscard]] uint32_t current_ip32() const noexcept { return static_cast<uint32_t>( ip_ + ( data_ptr_ - instr_start_ptr_ ) ); }" );
 				writer.WriteLine();
 
 				writer.WriteLine( "/// @brief Gets current read position IP as 64-bit value." );
 				writer.WriteLine( "/// This returns the IP at the current read position (ip_ + bytes read so far)." );
-				writer.WriteLine( "[[nodiscard]] uint64_t current_ip64() const noexcept { return ip_ + position_ - instr_start_position_; }" );
+				writer.WriteLine( "[[nodiscard]] uint64_t current_ip64() const noexcept { return ip_ + static_cast<uint64_t>( data_ptr_ - instr_start_ptr_ ); }" );
 				writer.WriteLine();
 
 				writer.WriteLine( "/// @brief Sets current instruction pointer." );
@@ -229,6 +250,10 @@ namespace Generator.Decoder.Cpp {
 
 				writer.WriteLine( "/// @brief Gets the decoder options." );
 				writer.WriteLine( "[[nodiscard]] DecoderOptions::Value options() const noexcept { return options_; }" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Checks if AMD decoder option is enabled." );
+				writer.WriteLine( "[[nodiscard]] bool has_amd_option() const noexcept { return ( options_ & DecoderOptions::AMD ) != 0; }" );
 				writer.WriteLine();
 
 				writer.WriteLine( "/// @brief Gets the decoder state (for handler use)." );
@@ -253,24 +278,95 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "[[nodiscard]] std::optional<uint64_t> read_u64() noexcept;" );
 				writer.WriteLine();
 
-				writer.WriteLine( "/// @brief Reads a byte from the input stream without bounds checking." );
-				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
-				writer.WriteLine( "[[nodiscard]] uint8_t read_byte_unchecked() noexcept;" );
+				writer.WriteLine( "/// @brief Fast byte read - returns 0 and sets error flag on failure." );
+				writer.WriteLine( "/// Like Rust's read_u8(), errors are checked later via state flags." );
+				writer.WriteLine( "/// Uses pointer arithmetic for optimal codegen." );
+				writer.WriteLine( "[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u8_fast() noexcept {" );
+				writer.WriteLine( "  if ( data_ptr_ < max_data_ptr_ ) [[likely]] {" );
+				writer.WriteLine( "    return *data_ptr_++;" );
+				writer.WriteLine( "  }" );
+				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
+				writer.WriteLine( "  return 0;" );
+				writer.WriteLine( "}" );
 				writer.WriteLine();
 
-				writer.WriteLine( "/// @brief Reads a word (2 bytes) from the input stream without bounds checking." );
-				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
-				writer.WriteLine( "[[nodiscard]] uint16_t read_u16_unchecked() noexcept;" );
+				writer.WriteLine( "/// @brief Fast u16 read - returns 0 and sets error flag on failure." );
+				writer.WriteLine( "[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u16_fast() noexcept {" );
+				writer.WriteLine( "  if ( data_ptr_ + 1 < max_data_ptr_ ) [[likely]] {" );
+				writer.WriteLine( "    uint16_t result;" );
+				writer.WriteLine( "    std::memcpy( &result, data_ptr_, 2 );" );
+				writer.WriteLine( "    data_ptr_ += 2;" );
+				writer.WriteLine( "    return result;" );
+				writer.WriteLine( "  }" );
+				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
+				writer.WriteLine( "  return 0;" );
+				writer.WriteLine( "}" );
 				writer.WriteLine();
 
-				writer.WriteLine( "/// @brief Reads a dword (4 bytes) from the input stream without bounds checking." );
-				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
-				writer.WriteLine( "[[nodiscard]] uint32_t read_u32_unchecked() noexcept;" );
+				writer.WriteLine( "/// @brief Fast u32 read - returns 0 and sets error flag on failure." );
+				writer.WriteLine( "[[nodiscard]] ICED_FORCE_INLINE uint32_t read_u32_fast() noexcept {" );
+				writer.WriteLine( "  if ( data_ptr_ + 3 < max_data_ptr_ ) [[likely]] {" );
+				writer.WriteLine( "    uint32_t result;" );
+				writer.WriteLine( "    std::memcpy( &result, data_ptr_, 4 );" );
+				writer.WriteLine( "    data_ptr_ += 4;" );
+				writer.WriteLine( "    return result;" );
+				writer.WriteLine( "  }" );
+				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
+				writer.WriteLine( "  return 0;" );
+				writer.WriteLine( "}" );
 				writer.WriteLine();
 
-				writer.WriteLine( "/// @brief Reads a qword (8 bytes) from the input stream without bounds checking." );
-				writer.WriteLine( "/// @warning Caller must ensure there are enough bytes available." );
-				writer.WriteLine( "[[nodiscard]] uint64_t read_u64_unchecked() noexcept;" );
+				writer.WriteLine( "/// @brief Fast u64 read - returns 0 and sets error flag on failure." );
+				writer.WriteLine( "[[nodiscard]] ICED_FORCE_INLINE uint64_t read_u64_fast() noexcept {" );
+				writer.WriteLine( "  if ( data_ptr_ + 7 < max_data_ptr_ ) [[likely]] {" );
+				writer.WriteLine( "    uint64_t result;" );
+				writer.WriteLine( "    std::memcpy( &result, data_ptr_, 8 );" );
+				writer.WriteLine( "    data_ptr_ += 8;" );
+				writer.WriteLine( "    return result;" );
+				writer.WriteLine( "  }" );
+				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
+				writer.WriteLine( "  return 0;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Fast unchecked byte read - caller must ensure bytes are available." );
+				writer.WriteLine( "/// Use can_read(1) to check first." );
+				writer.WriteLine( "[[nodiscard]] uint8_t read_byte_unchecked() noexcept {" );
+				writer.WriteLine( "  return *data_ptr_++;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Fast unchecked u16 read - caller must ensure bytes are available." );
+				writer.WriteLine( "[[nodiscard]] uint16_t read_u16_unchecked() noexcept {" );
+				writer.WriteLine( "  uint16_t result;" );
+				writer.WriteLine( "  std::memcpy( &result, data_ptr_, 2 );" );
+				writer.WriteLine( "  data_ptr_ += 2;" );
+				writer.WriteLine( "  return result;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Fast unchecked u32 read - caller must ensure bytes are available." );
+				writer.WriteLine( "[[nodiscard]] uint32_t read_u32_unchecked() noexcept {" );
+				writer.WriteLine( "  uint32_t result;" );
+				writer.WriteLine( "  std::memcpy( &result, data_ptr_, 4 );" );
+				writer.WriteLine( "  data_ptr_ += 4;" );
+				writer.WriteLine( "  return result;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Fast unchecked u64 read - caller must ensure bytes are available." );
+				writer.WriteLine( "[[nodiscard]] uint64_t read_u64_unchecked() noexcept {" );
+				writer.WriteLine( "  uint64_t result;" );
+				writer.WriteLine( "  std::memcpy( &result, data_ptr_, 8 );" );
+				writer.WriteLine( "  data_ptr_ += 8;" );
+				writer.WriteLine( "  return result;" );
+				writer.WriteLine( "}" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Check if n bytes can be read within the current instruction." );
+				writer.WriteLine( "[[nodiscard]] bool can_read( std::size_t n ) const noexcept {" );
+				writer.WriteLine( "  return data_ptr_ + n <= max_data_ptr_;" );
+				writer.WriteLine( "}" );
 				writer.WriteLine();
 
 				// State manipulation
@@ -280,16 +376,17 @@ namespace Generator.Decoder.Cpp {
 
 				writer.WriteLine( "/// @brief Reads modrm byte unconditionally (for sub-handlers that need fresh modrm)." );
 				writer.WriteLine( "void read_modrm() noexcept {" );
-				writer.WriteLine( "  if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
+				writer.WriteLine( "  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {" );
 				writer.WriteLine( "    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "    return;" );
 				writer.WriteLine( "  }" );
-				writer.WriteLine( "  auto m = static_cast<uint32_t>( data_[position_++] );" );
+				writer.WriteLine( "  auto m = static_cast<uint32_t>( *data_ptr_++ );" );
 				writer.WriteLine( "  state_.modrm = m;" );
 				writer.WriteLine( "  state_.reg = ( m >> 3 ) & 7;" );
 				writer.WriteLine( "  state_.mod_ = m >> 6;" );
 				writer.WriteLine( "  state_.rm = m & 7;" );
 				writer.WriteLine( "  state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;" );
+				writer.WriteLine( "  state_.modrm_read = true;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
 
@@ -338,13 +435,13 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Gets the VEX handler table for the specified map." );
 				writer.WriteLine( "/// @param map_index Map index (0=0F, 1=0F38, 2=0F3A)" );
-				writer.WriteLine( "/// @return Handler table or nullptr if invalid" );
-				writer.WriteLine( "[[nodiscard]] const std::vector<internal::HandlerEntry>* get_vex_table( uint32_t map_index ) const noexcept;" );
+				writer.WriteLine( "/// @return Handler table span (empty if invalid)" );
+				writer.WriteLine( "[[nodiscard]] std::span<const internal::HandlerEntry> get_vex_table( uint32_t map_index ) const noexcept;" );
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Gets the EVEX handler table for the specified map." );
 				writer.WriteLine( "/// @param map_index Map index (0=0F, 1=0F38, 2=0F3A, 4=MAP5, 5=MAP6)" );
-				writer.WriteLine( "/// @return Handler table or nullptr if invalid" );
-				writer.WriteLine( "[[nodiscard]] const std::vector<internal::HandlerEntry>* get_evex_table( uint32_t map_index ) const noexcept;" );
+				writer.WriteLine( "/// @return Handler table span (empty if invalid)" );
+				writer.WriteLine( "[[nodiscard]] std::span<const internal::HandlerEntry> get_evex_table( uint32_t map_index ) const noexcept;" );
 				writer.WriteLine();
 				writer.WriteLine( "/// @brief Gets the mask for register extension bits (0xF in 64-bit, 0x7 in 32/16-bit)." );
 				writer.WriteLine( "[[nodiscard]] uint32_t reg15_mask() const noexcept { return bitness_ == 64 ? 0xF : 0x7; }" );
@@ -357,13 +454,18 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "/// @param operand_index Which operand slot (0-4)" );
 				writer.WriteLine( "/// @param tuple_type Tuple type for EVEX displacement scaling" );
 				writer.WriteLine( "void read_op_mem_evex( Instruction& instruction, uint32_t operand_index, uint32_t tuple_type ) noexcept;" );
+				writer.WriteLine();
+
+				writer.WriteLine( "/// @brief Dispatch to a handler, reading modrm if required." );
+				writer.WriteLine( "/// @param handler The handler entry to dispatch to" );
+				writer.WriteLine( "/// @param instruction The instruction being decoded" );
+				writer.WriteLine( "void decode_table( internal::HandlerEntry handler, Instruction& instruction ) noexcept;" );
 			}
 
 			writer.WriteLine();
 			writer.WriteLine( "private:" );
 			using ( writer.Indent() ) {
 				writer.WriteLine( "void decode_internal( Instruction& instruction ) noexcept;" );
-				writer.WriteLine( "void decode_table( internal::HandlerEntry handler, Instruction& instruction ) noexcept;" );
 				writer.WriteLine();
 				writer.WriteLine( "// Memory decoding helpers" );
 				writer.WriteLine( "void read_op_mem_32_or_64( Instruction& instruction, uint32_t operand_index ) noexcept;" );
@@ -371,10 +473,14 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "bool read_sib( Instruction& instruction ) noexcept;" );
 				writer.WriteLine();
 
+				writer.WriteLine( "// Pointer-based data access (like Rust) for better codegen" );
+				writer.WriteLine( "const uint8_t* data_ptr_ = nullptr;       // Current read position" );
+				writer.WriteLine( "const uint8_t* data_ptr_end_ = nullptr;   // End of data buffer" );
+				writer.WriteLine( "const uint8_t* max_data_ptr_ = nullptr;   // Max position for current instruction (data_ptr + 15)" );
+				writer.WriteLine( "const uint8_t* instr_start_ptr_ = nullptr; // Start of current instruction" );
+				writer.WriteLine();
+				writer.WriteLine( "// Keep span for API compatibility (position(), max_position(), etc.)" );
 				writer.WriteLine( "std::span< const uint8_t > data_;" );
-				writer.WriteLine( "std::size_t position_ = 0;" );
-				writer.WriteLine( "std::size_t instr_start_position_ = 0;" );
-				writer.WriteLine( "std::size_t max_instr_position_ = 0;" );
 				writer.WriteLine( "uint64_t ip_ = 0;" );
 				writer.WriteLine( "uint32_t bitness_ = 64;" );
 				writer.WriteLine( "DecoderOptions::Value options_ = DecoderOptions::NONE;" );
@@ -389,26 +495,37 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "// Decoder state" );
 				writer.WriteLine( "DecoderState state_;" );
 				writer.WriteLine();
-				writer.WriteLine( "// Handler tables" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_map0_;" );
-				writer.WriteLine();
-				writer.WriteLine( "// VEX handler tables (map 0F, 0F38, 0F3A)" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_vex_0f_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_vex_0f38_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_vex_0f3a_;" );
-				writer.WriteLine();
-				writer.WriteLine( "// EVEX handler tables (map 0F, 0F38, 0F3A, MAP5, MAP6)" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_evex_0f_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_evex_0f38_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_evex_0f3a_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_evex_map5_;" );
-				writer.WriteLine( "std::vector<internal::HandlerEntry> handlers_evex_map6_;" );
+				writer.WriteLine( "// Pointers to static handler tables (shared across all Decoder instances)" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_map0_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_vex_0f_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_vex_0f38_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_vex_0f3a_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_0f_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_0f38_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_0f3a_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_map5_;" );
+				writer.WriteLine( "std::span<const internal::HandlerEntry> handlers_evex_map6_;" );
 				writer.WriteLine();
 				writer.WriteLine( "// Masks for bitness-dependent behavior" );
 				writer.WriteLine( "uint32_t mask_e0_ = 0;  // E0 mask for inverted bits (0xE0 in 64-bit, 0 in 32/16-bit)" );
 				writer.WriteLine( "uint32_t invalid_check_mask_ = 0;  // For checking invalid prefix combinations" );
 				writer.WriteLine();
 				writer.WriteLine( "static constexpr std::size_t MAX_INSTRUCTION_LENGTH = 15;" );
+				writer.WriteLine();
+				writer.WriteLine( "// Static handler tables - initialized once, shared by all Decoder instances" );
+				writer.WriteLine( "struct Tables {" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_map0;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_vex_0f;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_vex_0f38;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_vex_0f3a;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_0f;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_0f38;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_0f3a;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_map5;" );
+				writer.WriteLine( "  std::vector<internal::HandlerEntry> handlers_evex_map6;" );
+				writer.WriteLine( "};" );
+				writer.WriteLine();
+				writer.WriteLine( "static const Tables& get_tables();" );
 			}
 
 			writer.WriteLine( "};" );
@@ -438,6 +555,40 @@ namespace Generator.Decoder.Cpp {
 		}
 
 		void WriteDecoderSourceMethods( FileWriter writer ) {
+			// Static tables initialization (Meyers singleton)
+			writer.WriteLine( "// Static tables - initialized once, shared by all Decoder instances (like Rust's lazy_static)" );
+			writer.WriteLine( "const Decoder::Tables& Decoder::get_tables() {" );
+			using ( writer.Indent() ) {
+				writer.WriteLine( "// Meyers singleton - thread-safe in C++11 and later" );
+				writer.WriteLine( "static Tables tables = []() {" );
+				using ( writer.Indent() ) {
+					writer.WriteLine( "Tables t;" );
+					writer.WriteLine( "t.handlers_map0 = internal::read_legacy_tables();" );
+					writer.WriteLine();
+					writer.WriteLine( "auto vex_tables = internal::read_vex_tables();" );
+					writer.WriteLine( "if ( vex_tables.size() >= 3 ) {" );
+					writer.WriteLine( "  t.handlers_vex_0f = std::move( vex_tables[0] );" );
+					writer.WriteLine( "  t.handlers_vex_0f38 = std::move( vex_tables[1] );" );
+					writer.WriteLine( "  t.handlers_vex_0f3a = std::move( vex_tables[2] );" );
+					writer.WriteLine( "}" );
+					writer.WriteLine();
+					writer.WriteLine( "auto evex_tables = internal::read_evex_tables();" );
+					writer.WriteLine( "if ( evex_tables.size() >= 5 ) {" );
+					writer.WriteLine( "  t.handlers_evex_0f = std::move( evex_tables[0] );" );
+					writer.WriteLine( "  t.handlers_evex_0f38 = std::move( evex_tables[1] );" );
+					writer.WriteLine( "  t.handlers_evex_0f3a = std::move( evex_tables[2] );" );
+					writer.WriteLine( "  t.handlers_evex_map5 = std::move( evex_tables[3] );" );
+					writer.WriteLine( "  t.handlers_evex_map6 = std::move( evex_tables[4] );" );
+					writer.WriteLine( "}" );
+					writer.WriteLine();
+					writer.WriteLine( "return t;" );
+				}
+				writer.WriteLine( "}();" );
+				writer.WriteLine( "return tables;" );
+			}
+			writer.WriteLine( "}" );
+			writer.WriteLine();
+
 			// Constructor
 			writer.WriteLine( "Decoder::Decoder(" );
 			writer.WriteLine( "  uint32_t bitness," );
@@ -445,10 +596,11 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "  uint64_t ip," );
 			writer.WriteLine( "  DecoderOptions::Value options" );
 			writer.WriteLine( ") noexcept" );
-			writer.WriteLine( "  : data_( data )" );
-			writer.WriteLine( "  , position_( 0 )" );
-			writer.WriteLine( "  , instr_start_position_( 0 )" );
-			writer.WriteLine( "  , max_instr_position_( 0 )" );
+			writer.WriteLine( "  : data_ptr_( data.data() )" );
+			writer.WriteLine( "  , data_ptr_end_( data.data() + data.size() )" );
+			writer.WriteLine( "  , max_data_ptr_( data.data() )" );
+			writer.WriteLine( "  , instr_start_ptr_( data.data() )" );
+			writer.WriteLine( "  , data_( data )" );
 			writer.WriteLine( "  , ip_( ip )" );
 			writer.WriteLine( "  , bitness_( bitness )" );
 			writer.WriteLine( "  , options_( options )" );
@@ -480,25 +632,17 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "    break;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "// Initialize handler tables" );
-				writer.WriteLine( "handlers_map0_ = internal::read_legacy_tables();" );
-				writer.WriteLine();
-				writer.WriteLine( "// Initialize VEX/EVEX tables" );
-				writer.WriteLine( "auto vex_tables = internal::read_vex_tables();" );
-				writer.WriteLine( "if ( vex_tables.size() >= 3 ) {" );
-				writer.WriteLine( "  handlers_vex_0f_ = std::move( vex_tables[0] );" );
-				writer.WriteLine( "  handlers_vex_0f38_ = std::move( vex_tables[1] );" );
-				writer.WriteLine( "  handlers_vex_0f3a_ = std::move( vex_tables[2] );" );
-				writer.WriteLine( "}" );
-				writer.WriteLine();
-				writer.WriteLine( "auto evex_tables = internal::read_evex_tables();" );
-				writer.WriteLine( "if ( evex_tables.size() >= 5 ) {" );
-				writer.WriteLine( "  handlers_evex_0f_ = std::move( evex_tables[0] );" );
-				writer.WriteLine( "  handlers_evex_0f38_ = std::move( evex_tables[1] );" );
-				writer.WriteLine( "  handlers_evex_0f3a_ = std::move( evex_tables[2] );" );
-				writer.WriteLine( "  handlers_evex_map5_ = std::move( evex_tables[3] );" );
-				writer.WriteLine( "  handlers_evex_map6_ = std::move( evex_tables[4] );" );
-				writer.WriteLine( "}" );
+				writer.WriteLine( "// Get reference to static tables (initialized once, shared by all decoders)" );
+				writer.WriteLine( "const auto& tables = get_tables();" );
+				writer.WriteLine( "handlers_map0_ = tables.handlers_map0;" );
+				writer.WriteLine( "handlers_vex_0f_ = tables.handlers_vex_0f;" );
+				writer.WriteLine( "handlers_vex_0f38_ = tables.handlers_vex_0f38;" );
+				writer.WriteLine( "handlers_vex_0f3a_ = tables.handlers_vex_0f3a;" );
+				writer.WriteLine( "handlers_evex_0f_ = tables.handlers_evex_0f;" );
+				writer.WriteLine( "handlers_evex_0f38_ = tables.handlers_evex_0f38;" );
+				writer.WriteLine( "handlers_evex_0f3a_ = tables.handlers_evex_0f3a;" );
+				writer.WriteLine( "handlers_evex_map5_ = tables.handlers_evex_map5;" );
+				writer.WriteLine( "handlers_evex_map6_ = tables.handlers_evex_map6;" );
 				writer.WriteLine();
 				writer.WriteLine( "// Set up masks for bitness-dependent behavior" );
 				writer.WriteLine( "mask_e0_ = ( bitness == 64 ) ? 0xE0u : 0u;" );
@@ -527,7 +671,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "Instruction instr{};" );
 				writer.WriteLine( "error = DecoderError::NONE;" );
 				writer.WriteLine();
-				writer.WriteLine( "if ( position_ >= data_.size() ) {" );
+				writer.WriteLine( "if ( data_ptr_ >= data_ptr_end_ ) {" );
 				writer.WriteLine( "  error = DecoderError::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return instr;" );
 				writer.WriteLine( "}" );
@@ -549,33 +693,42 @@ namespace Generator.Decoder.Cpp {
 			// decode_internal()
 			writer.WriteLine( "void Decoder::decode_internal( Instruction& instruction ) noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "// Reset state (matches Rust decoder.rs line ~1372-1381)" );
-				writer.WriteLine( "state_.extra_register_base = 0;" );
-				writer.WriteLine( "state_.extra_index_register_base = 0;" );
-				writer.WriteLine( "state_.extra_base_register_base = 0;" );
-				writer.WriteLine( "state_.extra_index_register_base_vsib = 0;  // EVEX.V' for VSIB - must be reset!" );
-				writer.WriteLine( "state_.flags = 0;" );
-				writer.WriteLine( "state_.mandatory_prefix = DecoderMandatoryPrefix::PNP;" );
+				writer.WriteLine( "// Reset state - clear 5 consecutive uint32_t fields at once" );
+				writer.WriteLine( "// Fields: extra_register_base, extra_index_register_base, extra_base_register_base," );
+				writer.WriteLine( "//         extra_index_register_base_vsib, flags" );
+				writer.WriteLine( "std::memset( &state_.extra_register_base, 0, 5 * sizeof( uint32_t ) );" );
+				writer.WriteLine();
+				writer.WriteLine( "// Clear vvvv fields (2 consecutive uint32_t)" );
 				writer.WriteLine( "state_.vvvv = 0;" );
 				writer.WriteLine( "state_.vvvv_invalid_check = 0;" );
+				writer.WriteLine();
+				writer.WriteLine( "// Set address/operand size (these are set, not cleared)" );
 				writer.WriteLine( "state_.address_size = default_address_size_;" );
 				writer.WriteLine( "state_.operand_size = default_operand_size_;" );
 				writer.WriteLine( "state_.segment_prio = 0;" );
+				writer.WriteLine( "state_.dummy = 0;" );
 				writer.WriteLine();
-				writer.WriteLine( "instr_start_position_ = position_;" );
-				writer.WriteLine( "max_instr_position_ = std::min( position_ + MAX_INSTRUCTION_LENGTH, data_.size() );" );
+				writer.WriteLine( "// Less frequently used" );
+				writer.WriteLine( "state_.mandatory_prefix = DecoderMandatoryPrefix::PNP;" );
+				writer.WriteLine( "state_.modrm_read = false;" );
 				writer.WriteLine();
-				writer.WriteLine( "// Read first byte - use direct access for speed" );
-				writer.WriteLine( "if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
+				writer.WriteLine( "// Set up pointers for this instruction" );
+				writer.WriteLine( "instr_start_ptr_ = data_ptr_;" );
+				writer.WriteLine( "// Max instruction length is 15 bytes, but don't exceed data end" );
+				writer.WriteLine( "auto remaining = static_cast<std::size_t>( data_ptr_end_ - data_ptr_ );" );
+				writer.WriteLine( "max_data_ptr_ = data_ptr_ + ( remaining < MAX_INSTRUCTION_LENGTH ? remaining : MAX_INSTRUCTION_LENGTH );" );
+				writer.WriteLine();
+				writer.WriteLine( "// Read first byte - use direct pointer access for speed" );
+				writer.WriteLine( "if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "auto b = static_cast<std::size_t>( data_[position_++] );" );
+				writer.WriteLine( "auto b = static_cast<std::size_t>( *data_ptr_++ );" );
 				writer.WriteLine();
 				writer.WriteLine( "// Check for REX prefix in 64-bit mode" );
 				writer.WriteLine( "if ( bitness_ == 64 && ( b & 0xF0 ) == 0x40 ) {" );
 				writer.WriteLine( "  // REX prefix - need another byte" );
-				writer.WriteLine( "  if ( position_ >= max_instr_position_ ) [[unlikely]] {" );
+				writer.WriteLine( "  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {" );
 				writer.WriteLine( "    state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "    return;" );
 				writer.WriteLine( "  }" );
@@ -590,7 +743,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  state_.extra_index_register_base = ( static_cast<uint32_t>( b ) & 2 ) << 2;" );
 				writer.WriteLine( "  state_.extra_base_register_base = ( static_cast<uint32_t>( b ) & 1 ) << 3;" );
 				writer.WriteLine();
-				writer.WriteLine( "  b = static_cast<std::size_t>( data_[position_++] );" );
+				writer.WriteLine( "  b = static_cast<std::size_t>( *data_ptr_++ );" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
 				writer.WriteLine( "// Look up handler" );
@@ -601,8 +754,8 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  set_invalid_instruction();" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
-				writer.WriteLine( "// Calculate instruction length" );
-				writer.WriteLine( "auto instr_len = static_cast<uint32_t>( position_ - instr_start_position_ );" );
+				writer.WriteLine( "// Calculate instruction length from pointers" );
+				writer.WriteLine( "auto instr_len = static_cast<uint32_t>( data_ptr_ - instr_start_ptr_ );" );
 				writer.WriteLine( "instruction.set_length( instr_len );" );
 				writer.WriteLine();
 				writer.WriteLine( "// Update IP" );
@@ -636,7 +789,7 @@ namespace Generator.Decoder.Cpp {
 				writer.WriteLine( "  instruction = Instruction{};" );
 				writer.WriteLine( "  instruction.set_code( Code::INVALID );" );
 				writer.WriteLine();
-				writer.WriteLine( "  instr_len = static_cast<uint32_t>( position_ - instr_start_position_ );" );
+				writer.WriteLine( "  instr_len = static_cast<uint32_t>( data_ptr_ - instr_start_ptr_ );" );
 				writer.WriteLine( "  instruction.set_length( instr_len );" );
 				writer.WriteLine( "  ip_ = orig_ip + instr_len;" );
 				writer.WriteLine( "  instruction.set_next_ip( ip_ );" );
@@ -650,18 +803,21 @@ namespace Generator.Decoder.Cpp {
 			// decode_table()
 			writer.WriteLine( "void Decoder::decode_table( internal::HandlerEntry handler, Instruction& instruction ) noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "if ( handler.handler->has_modrm ) {" );
-				writer.WriteLine( "  auto m_opt = read_byte();" );
-				writer.WriteLine( "  if ( !m_opt ) {" );
+				writer.WriteLine( "// Only read modrm if:" );
+				writer.WriteLine( "// 1. Handler requires modrm, AND" );
+				writer.WriteLine( "// 2. Modrm hasn't already been read for this instruction" );
+				writer.WriteLine( "if ( handler.handler->has_modrm && !state_.modrm_read ) {" );
+				writer.WriteLine( "  if ( data_ptr_ >= max_data_ptr_ ) [[unlikely]] {" );
 				writer.WriteLine( "    set_invalid_instruction();" );
 				writer.WriteLine( "    return;" );
 				writer.WriteLine( "  }" );
-				writer.WriteLine( "  auto m = static_cast<uint32_t>( *m_opt );" );
+				writer.WriteLine( "  auto m = static_cast<uint32_t>( *data_ptr_++ );" );
 				writer.WriteLine( "  state_.modrm = m;" );
 				writer.WriteLine( "  state_.reg = ( m >> 3 ) & 7;" );
 				writer.WriteLine( "  state_.mod_ = m >> 6;" );
 				writer.WriteLine( "  state_.rm = m & 7;" );
 				writer.WriteLine( "  state_.mem_index = ( state_.mod_ << 3 ) | state_.rm;" );
+				writer.WriteLine( "  state_.modrm_read = true;" );
 				writer.WriteLine( "}" );
 				writer.WriteLine();
 				writer.WriteLine( "handler.decode( handler.handler, *this, instruction );" );
@@ -672,7 +828,7 @@ namespace Generator.Decoder.Cpp {
 			// can_decode()
 			writer.WriteLine( "bool Decoder::can_decode() const noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "return position_ < data_.size();" );
+				writer.WriteLine( "return data_ptr_ < data_ptr_end_;" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
@@ -681,8 +837,9 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "void Decoder::set_position( std::size_t pos ) noexcept {" );
 			using ( writer.Indent() ) {
 				writer.WriteLine( "if ( pos <= data_.size() ) {" );
-				writer.WriteLine( "  int64_t diff = static_cast<int64_t>( pos ) - static_cast<int64_t>( position_ );" );
-				writer.WriteLine( "  position_ = pos;" );
+				writer.WriteLine( "  auto new_ptr = data_.data() + pos;" );
+				writer.WriteLine( "  int64_t diff = new_ptr - data_ptr_;" );
+				writer.WriteLine( "  data_ptr_ = new_ptr;" );
 				writer.WriteLine( "  ip_ = static_cast<uint64_t>( static_cast<int64_t>( ip_ ) + diff );" );
 				writer.WriteLine( "}" );
 			}
@@ -692,11 +849,11 @@ namespace Generator.Decoder.Cpp {
 			// read_byte()
 			writer.WriteLine( "std::optional<uint8_t> Decoder::read_byte() noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "if ( position_ >= max_instr_position_ ) {" );
+				writer.WriteLine( "if ( data_ptr_ >= max_data_ptr_ ) {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return std::nullopt;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "return data_[position_++];" );
+				writer.WriteLine( "return *data_ptr_++;" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
@@ -704,13 +861,13 @@ namespace Generator.Decoder.Cpp {
 			// read_u16()
 			writer.WriteLine( "std::optional<uint16_t> Decoder::read_u16() noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "if ( position_ + 2 > max_instr_position_ ) {" );
+				writer.WriteLine( "if ( data_ptr_ + 2 > max_data_ptr_ ) {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return std::nullopt;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "uint16_t result = static_cast<uint16_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint16_t>( data_[position_ + 1] ) << 8 );" );
-				writer.WriteLine( "position_ += 2;" );
+				writer.WriteLine( "uint16_t result;" );
+				writer.WriteLine( "std::memcpy( &result, data_ptr_, 2 );" );
+				writer.WriteLine( "data_ptr_ += 2;" );
 				writer.WriteLine( "return result;" );
 			}
 			writer.WriteLine( "}" );
@@ -719,15 +876,13 @@ namespace Generator.Decoder.Cpp {
 			// read_u32()
 			writer.WriteLine( "std::optional<uint32_t> Decoder::read_u32() noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "if ( position_ + 4 > max_instr_position_ ) {" );
+				writer.WriteLine( "if ( data_ptr_ + 4 > max_data_ptr_ ) {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return std::nullopt;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "uint32_t result = static_cast<uint32_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );" );
-				writer.WriteLine( "position_ += 4;" );
+				writer.WriteLine( "uint32_t result;" );
+				writer.WriteLine( "std::memcpy( &result, data_ptr_, 4 );" );
+				writer.WriteLine( "data_ptr_ += 4;" );
 				writer.WriteLine( "return result;" );
 			}
 			writer.WriteLine( "}" );
@@ -736,72 +891,20 @@ namespace Generator.Decoder.Cpp {
 			// read_u64()
 			writer.WriteLine( "std::optional<uint64_t> Decoder::read_u64() noexcept {" );
 			using ( writer.Indent() ) {
-				writer.WriteLine( "if ( position_ + 8 > max_instr_position_ ) {" );
+				writer.WriteLine( "if ( data_ptr_ + 8 > max_data_ptr_ ) {" );
 				writer.WriteLine( "  state_.flags |= StateFlags::IS_INVALID | StateFlags::NO_MORE_BYTES;" );
 				writer.WriteLine( "  return std::nullopt;" );
 				writer.WriteLine( "}" );
-				writer.WriteLine( "uint64_t result = static_cast<uint64_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );" );
-				writer.WriteLine( "position_ += 8;" );
+				writer.WriteLine( "uint64_t result;" );
+				writer.WriteLine( "std::memcpy( &result, data_ptr_, 8 );" );
+				writer.WriteLine( "data_ptr_ += 8;" );
 				writer.WriteLine( "return result;" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
 
-			// read_byte_unchecked()
-			writer.WriteLine( "uint8_t Decoder::read_byte_unchecked() noexcept {" );
-			using ( writer.Indent() ) {
-				writer.WriteLine( "return data_[position_++];" );
-			}
-			writer.WriteLine( "}" );
-			writer.WriteLine();
-
-			// read_u16_unchecked()
-			writer.WriteLine( "uint16_t Decoder::read_u16_unchecked() noexcept {" );
-			using ( writer.Indent() ) {
-				writer.WriteLine( "uint16_t result = static_cast<uint16_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint16_t>( data_[position_ + 1] ) << 8 );" );
-				writer.WriteLine( "position_ += 2;" );
-				writer.WriteLine( "return result;" );
-			}
-			writer.WriteLine( "}" );
-			writer.WriteLine();
-
-			// read_u32_unchecked()
-			writer.WriteLine( "uint32_t Decoder::read_u32_unchecked() noexcept {" );
-			using ( writer.Indent() ) {
-				writer.WriteLine( "uint32_t result = static_cast<uint32_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 1] ) << 8 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 2] ) << 16 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint32_t>( data_[position_ + 3] ) << 24 );" );
-				writer.WriteLine( "position_ += 4;" );
-				writer.WriteLine( "return result;" );
-			}
-			writer.WriteLine( "}" );
-			writer.WriteLine();
-
-			// read_u64_unchecked()
-			writer.WriteLine( "uint64_t Decoder::read_u64_unchecked() noexcept {" );
-			using ( writer.Indent() ) {
-				writer.WriteLine( "uint64_t result = static_cast<uint64_t>( data_[position_] ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 1] ) << 8 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 2] ) << 16 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 3] ) << 24 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 4] ) << 32 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 5] ) << 40 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 6] ) << 48 ) |" );
-				writer.WriteLine( "                  ( static_cast<uint64_t>( data_[position_ + 7] ) << 56 );" );
-				writer.WriteLine( "position_ += 8;" );
-				writer.WriteLine( "return result;" );
-			}
-			writer.WriteLine( "}" );
-			writer.WriteLine();
+			// Note: read_byte_unchecked, read_u16_unchecked, read_u32_unchecked, read_u64_unchecked
+			// are now defined inline in the header for better inlining
 
 			// set_invalid_instruction()
 			writer.WriteLine( "void Decoder::set_invalid_instruction() noexcept {" );
@@ -1099,28 +1202,28 @@ namespace Generator.Decoder.Cpp {
 			WriteEvexDecodeMethod( writer );
 
 			// get_vex_table()
-			writer.WriteLine( "const std::vector<internal::HandlerEntry>* Decoder::get_vex_table( uint32_t map_index ) const noexcept {" );
+			writer.WriteLine( "std::span<const internal::HandlerEntry> Decoder::get_vex_table( uint32_t map_index ) const noexcept {" );
 			using ( writer.Indent() ) {
 				writer.WriteLine( "switch ( map_index ) {" );
-				writer.WriteLine( "  case 0: return &handlers_vex_0f_;" );
-				writer.WriteLine( "  case 1: return &handlers_vex_0f38_;" );
-				writer.WriteLine( "  case 2: return &handlers_vex_0f3a_;" );
-				writer.WriteLine( "  default: return nullptr;" );
+				writer.WriteLine( "  case 0: return handlers_vex_0f_;" );
+				writer.WriteLine( "  case 1: return handlers_vex_0f38_;" );
+				writer.WriteLine( "  case 2: return handlers_vex_0f3a_;" );
+				writer.WriteLine( "  default: return {};" );
 				writer.WriteLine( "}" );
 			}
 			writer.WriteLine( "}" );
 			writer.WriteLine();
 
 			// get_evex_table()
-			writer.WriteLine( "const std::vector<internal::HandlerEntry>* Decoder::get_evex_table( uint32_t map_index ) const noexcept {" );
+			writer.WriteLine( "std::span<const internal::HandlerEntry> Decoder::get_evex_table( uint32_t map_index ) const noexcept {" );
 			using ( writer.Indent() ) {
 				writer.WriteLine( "switch ( map_index ) {" );
-				writer.WriteLine( "  case 0: return &handlers_evex_0f_;" );
-				writer.WriteLine( "  case 1: return &handlers_evex_0f38_;" );
-				writer.WriteLine( "  case 2: return &handlers_evex_0f3a_;" );
-				writer.WriteLine( "  case 4: return &handlers_evex_map5_;" );
-				writer.WriteLine( "  case 5: return &handlers_evex_map6_;" );
-				writer.WriteLine( "  default: return nullptr;" );
+				writer.WriteLine( "  case 0: return handlers_evex_0f_;" );
+				writer.WriteLine( "  case 1: return handlers_evex_0f38_;" );
+				writer.WriteLine( "  case 2: return handlers_evex_0f3a_;" );
+				writer.WriteLine( "  case 4: return handlers_evex_map5_;" );
+				writer.WriteLine( "  case 5: return handlers_evex_map6_;" );
+				writer.WriteLine( "  default: return {};" );
 				writer.WriteLine( "}" );
 			}
 			writer.WriteLine( "}" );

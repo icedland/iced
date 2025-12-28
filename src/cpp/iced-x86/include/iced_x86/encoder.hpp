@@ -5,6 +5,8 @@
 #ifndef ICED_X86_ENCODER_HPP
 #define ICED_X86_ENCODER_HPP
 
+#ifndef ICED_X86_NO_ENCODER
+
 #include "iced_x86/instruction.hpp"
 #include "iced_x86/code_size.hpp"
 #include "iced_x86/internal/encoder_flags.hpp"
@@ -239,5 +241,7 @@ private:
 };
 
 } // namespace iced_x86
+
+#endif // !ICED_X86_NO_ENCODER
 
 #endif // ICED_X86_ENCODER_HPP

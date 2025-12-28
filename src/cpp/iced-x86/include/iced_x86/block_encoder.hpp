@@ -5,6 +5,8 @@
 #ifndef ICED_X86_BLOCK_ENCODER_HPP
 #define ICED_X86_BLOCK_ENCODER_HPP
 
+#ifndef ICED_X86_NO_BLOCK_ENCODER
+
 #include "instruction.hpp"
 #include "encoder.hpp"
 #include <cstdint>
@@ -140,5 +142,7 @@ private:
 };
 
 } // namespace iced_x86
+
+#endif // !ICED_X86_NO_BLOCK_ENCODER
 
 #endif // ICED_X86_BLOCK_ENCODER_HPP

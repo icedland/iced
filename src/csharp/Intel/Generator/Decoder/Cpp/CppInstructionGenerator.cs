@@ -257,6 +257,9 @@ namespace Generator.Decoder.Cpp {
 			writer.WriteLine( "/// @brief Sets the memory operand index scale (1, 2, 4, or 8)." );
 			writer.WriteLine( "void set_memory_index_scale( uint32_t value ) noexcept;" );
 			writer.WriteLine();
+			writer.WriteLine( "/// @brief Internal: Sets scale directly (0-3 maps to 1/2/4/8). For decoder use only." );
+			writer.WriteLine( "constexpr void set_scale_internal( uint8_t value ) noexcept { scale_ = value; }" );
+			writer.WriteLine();
 			writer.WriteLine( "/// @brief Gets the 32-bit memory displacement." );
 			writer.WriteLine( "[[nodiscard]] constexpr uint32_t memory_displacement32() const noexcept { return static_cast< uint32_t >( mem_displ_ ); }" );
 			writer.WriteLine();

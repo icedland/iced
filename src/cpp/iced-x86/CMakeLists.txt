@@ -15,25 +15,114 @@ set( CMAKE_CXX_STANDARD 23 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
 
-# Library target
-add_library( iced_x86
+# ============================================================================
+# Feature Options (matching Rust Cargo.toml features)
+# ============================================================================
+
+# Core features (match Rust default features)
+option( ICED_X86_DECODER "Enable decoder functionality" ON )
+option( ICED_X86_ENCODER "Enable encoder functionality" ON )
+option( ICED_X86_BLOCK_ENCODER "Enable block encoder functionality" ON )
+
+# Information features
+option( ICED_X86_OP_CODE_INFO "Enable opcode information functionality" ON )
+option( ICED_X86_INSTR_INFO "Enable instruction information functionality" ON )
+
+# Formatter features
+option( ICED_X86_GAS "Enable gas formatter" ON )
+option( ICED_X86_INTEL "Enable intel formatter" ON )
+option( ICED_X86_MASM "Enable masm formatter" ON )
+option( ICED_X86_NASM "Enable nasm formatter" ON )
+option( ICED_X86_FAST_FMT "Enable fast formatter" ON )
+
+# Instruction set exclusion features (like Rust's no_*)
+option( ICED_X86_NO_VEX "Disable VEX instruction support" OFF )
+option( ICED_X86_NO_EVEX "Disable EVEX instruction support" OFF )
+option( ICED_X86_NO_XOP "Disable XOP instruction support" OFF )
+option( ICED_X86_NO_D3NOW "Disable 3DNow instruction support" OFF )
+
+# ============================================================================
+# Feature Validation
+# ============================================================================
+
+# Validate feature dependencies
+if( ICED_X86_BLOCK_ENCODER AND NOT ICED_X86_ENCODER )
+  message(FATAL_ERROR "ICED_X86_BLOCK_ENCODER requires ICED_X86_ENCODER to be enabled")
+endif()
+
+if( ICED_X86_ENCODER AND NOT ICED_X86_DECODER )
+  message(FATAL_ERROR "ICED_X86_ENCODER requires ICED_X86_DECODER to be enabled (encoder uses decoder tables)")
+endif()
+
+# ============================================================================
+# Source Files - Conditionally included based on features
+# ============================================================================
+
+# Core sources (always needed)
+set( ICED_X86_CORE_SOURCES
   src/instruction.cpp
   src/instruction_create.cpp
   src/tables.cpp
+  src/register_info.cpp
+  src/memory_size_info.cpp
+  src/mvex_info_data.cpp
+)
+
+# Decoder sources
+set( ICED_X86_DECODER_SOURCES
   src/decoder.cpp
   src/handlers.cpp
   src/table_deserializer.cpp
+)
+
+# Encoder sources
+set( ICED_X86_ENCODER_SOURCES
   src/encoder.cpp
   src/encoder_handlers.cpp
   src/encoder_methods.cpp
   src/encoder_ops.cpp
-  src/mvex_info_data.cpp
-  src/register_info.cpp
-  src/op_code_info.cpp
-  src/block_encoder.cpp
-  src/instruction_info.cpp
-  src/memory_size_info.cpp
 )
+
+# Block encoder sources
+set( ICED_X86_BLOCK_ENCODER_SOURCES
+  src/block_encoder.cpp
+)
+
+# Op code info sources
+set( ICED_X86_OP_CODE_INFO_SOURCES
+  src/op_code_info.cpp
+)
+
+# Instruction info sources
+set( ICED_X86_INSTR_INFO_SOURCES
+  src/instruction_info.cpp
+)
+
+# Build the source list based on enabled features
+set( ICED_X86_SOURCES ${ICED_X86_CORE_SOURCES} )
+
+if( ICED_X86_DECODER )
+  list( APPEND ICED_X86_SOURCES ${ICED_X86_DECODER_SOURCES} )
+endif()
+
+if( ICED_X86_ENCODER )
+  list( APPEND ICED_X86_SOURCES ${ICED_X86_ENCODER_SOURCES} )
+endif()
+
+if( ICED_X86_BLOCK_ENCODER )
+  list( APPEND ICED_X86_SOURCES ${ICED_X86_BLOCK_ENCODER_SOURCES} )
+endif()
+
+if( ICED_X86_OP_CODE_INFO )
+  list( APPEND ICED_X86_SOURCES ${ICED_X86_OP_CODE_INFO_SOURCES} )
+endif()
+
+if( ICED_X86_INSTR_INFO )
+  list( APPEND ICED_X86_SOURCES ${ICED_X86_INSTR_INFO_SOURCES} )
+endif()
+
+# Library target
+add_library( iced_x86 ${ICED_X86_SOURCES} )
 
 target_include_directories( iced_x86
   PUBLIC
@@ -56,6 +145,7 @@ if( MSVC )
     $<$<CONFIG:Release>:/GL>           # Whole program optimization
     $<$<CONFIG:Release>:/Gy>           # Function-level linking
     $<$<CONFIG:Release>:/arch:AVX2>    # Use AVX2 instructions
+    $<$<CONFIG:Release>:/EHsc>         # Enable exceptions
   )
   # Link-time code generation for Release
   set_target_properties( iced_x86 PROPERTIES
@@ -68,8 +158,71 @@ else()
     $<$<CONFIG:Release>:-O3>
     $<$<CONFIG:Release>:-march=native>
     $<$<CONFIG:Release>:-flto>
-    $<$<CONFIG:Release>:-fno-exceptions>
   )
+endif()
+
+# ============================================================================
+# Feature-based Preprocessor Definitions
+# ============================================================================
+
+# Core feature flags
+if( NOT ICED_X86_DECODER )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_DECODER )
+endif()
+
+if( NOT ICED_X86_ENCODER )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_ENCODER )
+endif()
+
+if( NOT ICED_X86_BLOCK_ENCODER )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_BLOCK_ENCODER )
+endif()
+
+# Information feature flags
+if( NOT ICED_X86_OP_CODE_INFO )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_OP_CODE_INFO )
+endif()
+
+if( NOT ICED_X86_INSTR_INFO )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_INSTR_INFO )
+endif()
+
+# Formatter feature flags
+if( NOT ICED_X86_GAS )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_GAS )
+endif()
+
+if( NOT ICED_X86_INTEL )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_INTEL )
+endif()
+
+if( NOT ICED_X86_MASM )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_MASM )
+endif()
+
+if( NOT ICED_X86_NASM )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_NASM )
+endif()
+
+if( NOT ICED_X86_FAST_FMT )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_FAST_FMT )
+endif()
+
+# Instruction set exclusion flags
+if( ICED_X86_NO_VEX )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_VEX_INSTRUCTIONS )
+endif()
+
+if( ICED_X86_NO_EVEX )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_EVEX_INSTRUCTIONS )
+endif()
+
+if( ICED_X86_NO_XOP )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_XOP_INSTRUCTIONS )
+endif()
+
+if( ICED_X86_NO_D3NOW )
+  target_compile_definitions( iced_x86 PUBLIC ICED_X86_NO_D3NOW_INSTRUCTIONS )
 endif()
 
 # Installation
@@ -90,6 +243,22 @@ install( EXPORT iced_x86-targets
   NAMESPACE iced_x86::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/iced_x86
 )
+
+# ============================================================================
+# Feature Summary
+# ============================================================================
+
+message( STATUS "iced-x86 C++ library configuration:" )
+message( STATUS "  Decoder:       ${ICED_X86_DECODER}" )
+message( STATUS "  Encoder:       ${ICED_X86_ENCODER}" )
+message( STATUS "  Block Encoder: ${ICED_X86_BLOCK_ENCODER}" )
+message( STATUS "  OpCode Info:   ${ICED_X86_OP_CODE_INFO}" )
+message( STATUS "  Instr Info:    ${ICED_X86_INSTR_INFO}" )
+message( STATUS "  GAS Formatter: ${ICED_X86_GAS}" )
+message( STATUS "  Intel Fmt:     ${ICED_X86_INTEL}" )
+message( STATUS "  MASM Fmt:      ${ICED_X86_MASM}" )
+message( STATUS "  NASM Fmt:      ${ICED_X86_NASM}" )
+message( STATUS "  Fast Fmt:      ${ICED_X86_FAST_FMT}" )
 
 # Tests
 option( ICED_X86_BUILD_TESTS "Build unit tests" ON )

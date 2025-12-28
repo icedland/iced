@@ -3,3 +3,6 @@ coverage.info
 /cov-out/
 /src/bench
 /src/cpp/iced-x86/build
+/build-disasm
+/src/cpp/iced-x86/build-decoder-only
+/src/cpp/yaxpeax-ref

@@ -5,6 +5,8 @@
 #ifndef ICED_X86_OP_CODE_INFO_HPP
 #define ICED_X86_OP_CODE_INFO_HPP
 
+#ifndef ICED_X86_NO_OP_CODE_INFO
+
 #include "iced_x86/code.hpp"
 #include "iced_x86/mnemonic.hpp"
 #include "iced_x86/encoding_kind.hpp"
@@ -432,5 +434,7 @@ namespace CodeExtensions {
 }
 
 } // namespace iced_x86
+
+#endif // !ICED_X86_NO_OP_CODE_INFO
 
 #endif // ICED_X86_OP_CODE_INFO_HPP

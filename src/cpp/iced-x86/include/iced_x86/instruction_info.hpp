@@ -5,6 +5,8 @@
 #ifndef ICED_X86_INSTRUCTION_INFO_HPP
 #define ICED_X86_INSTRUCTION_INFO_HPP
 
+#ifndef ICED_X86_NO_INSTR_INFO
+
 #include "instruction.hpp"
 #include "register.hpp"
 #include "op_access.hpp"
@@ -271,5 +273,7 @@ void negate_condition_code( Instruction& instruction ) noexcept;
 } // namespace InstructionExtensions
 
 } // namespace iced_x86
+
+#endif // !ICED_X86_NO_INSTR_INFO
 
 #endif // ICED_X86_INSTRUCTION_INFO_HPP

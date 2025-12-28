@@ -10,7 +10,7 @@
 /// @file
 /// @brief Main include file for iced-x86 C++ library.
 
-// Core types
+// Core types (always included)
 #include "iced_x86/code.hpp"
 #include "iced_x86/code_size.hpp"
 #include "iced_x86/register.hpp"
@@ -19,30 +19,57 @@
 #include "iced_x86/op_kind.hpp"
 #include "iced_x86/rounding_control.hpp"
 
-// Instruction
+// Instruction (always included)
 #include "iced_x86/instruction.hpp"
 #include "iced_x86/instruction_create.hpp"
 #include "iced_x86/memory_operand.hpp"
 
-// Decoder
+// Decoder (conditional)
+#ifndef ICED_X86_NO_DECODER
 #include "iced_x86/decoder_error.hpp"
 #include "iced_x86/decoder_options.hpp"
 #include "iced_x86/decoder.hpp"
+#endif
 
-// Encoder
+// Encoder (conditional)
+#ifndef ICED_X86_NO_ENCODER
 #include "iced_x86/encoder.hpp"
+#endif
 
-// Formatter
+// Block Encoder (conditional)
+#ifndef ICED_X86_NO_BLOCK_ENCODER
+#include "iced_x86/block_encoder.hpp"
+#endif
+
+// Formatter (conditional)
+#ifndef ICED_X86_NO_INTEL
+#include "iced_x86/intel_formatter.hpp"
+#endif
+
+#ifndef ICED_X86_NO_MASM
+#include "iced_x86/masm_formatter.hpp"
+#endif
+
+#ifndef ICED_X86_NO_NASM
+#include "iced_x86/nasm_formatter.hpp"
+#endif
+
+#ifndef ICED_X86_NO_GAS
+#include "iced_x86/gas_formatter.hpp"
+#endif
+
+#ifndef ICED_X86_NO_FAST_FMT
+#include "iced_x86/fast_formatter.hpp"
+#endif
+
+// Formatter common types (include if any formatter is enabled)
+#if !defined(ICED_X86_NO_INTEL) || !defined(ICED_X86_NO_MASM) || !defined(ICED_X86_NO_NASM) || !defined(ICED_X86_NO_GAS) || !defined(ICED_X86_NO_FAST_FMT)
 #include "iced_x86/formatter_text_kind.hpp"
 #include "iced_x86/formatter_options.hpp"
 #include "iced_x86/formatter_output.hpp"
-#include "iced_x86/intel_formatter.hpp"
-#include "iced_x86/masm_formatter.hpp"
-#include "iced_x86/nasm_formatter.hpp"
-#include "iced_x86/gas_formatter.hpp"
-#include "iced_x86/fast_formatter.hpp"
+#endif
 
-// Additional types
+// Additional types (always included - basic enums)
 #include "iced_x86/encoding_kind.hpp"
 #include "iced_x86/flow_control.hpp"
 #include "iced_x86/cpuid_feature.hpp"
@@ -51,10 +78,17 @@
 // Constants
 #include "iced_x86/iced_constants.hpp"
 
-// Register info
+// Register info (always included)
 #include "iced_x86/register_info.hpp"
 
-// OpCode info
+// OpCode info (conditional)
+#ifndef ICED_X86_NO_OP_CODE_INFO
 #include "iced_x86/op_code_info.hpp"
+#endif
+
+// Instruction info (conditional)
+#ifndef ICED_X86_NO_INSTR_INFO
+#include "iced_x86/instruction_info.hpp"
+#endif
 
 #endif // ICED_X86_ICED_X86_HPP
