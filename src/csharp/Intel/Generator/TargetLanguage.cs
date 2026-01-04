@@ -12,5 +12,6 @@ namespace Generator {
 		Python,
 		Lua,
 		Java,
+		Cpp,
 	}
 }

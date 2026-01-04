@@ -128,6 +128,7 @@ Options:
         py (Python)
         lua (Lua)
         java (Java)
+        cpp (C++)
 --no-formatter
     Don't include any formatter
 --no-gas
@@ -165,7 +166,7 @@ Options:
 		}
 
 		static bool TryParseCommandLine(string[] args, [NotNullWhen(true)] out CommandLineOptions? options, [NotNullWhen(false)] out string? error) {
-			if (Enum.GetValues<TargetLanguage>().Length != 7)
+			if (Enum.GetValues<TargetLanguage>().Length != 8)
 				throw new InvalidOperationException("Enum updated, update help message and this method");
 			options = new CommandLineOptions();
 			for (int i = 0; i < args.Length; i++) {
@@ -202,6 +203,9 @@ Options:
 						break;
 					case "java":
 						options.Languages.Add(TargetLanguage.Java);
+						break;
+					case "cpp":
+						options.Languages.Add(TargetLanguage.Cpp);
 						break;
 					default:
 						error = $"Unknown language: {value}";
