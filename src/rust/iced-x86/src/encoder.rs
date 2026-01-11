@@ -271,6 +271,7 @@ impl Encoder {
 		// requires 3 instructions.
 		self.sib = 0;
 
+		let position = self.buffer.len();
 		let handler = self.handlers[instruction.code() as usize];
 		self.handler = handler;
 		self.op_code = handler.op_code;
@@ -354,6 +355,7 @@ impl Encoder {
 			self.set_error_message(format!("Instruction length > {} bytes", IcedConstants::MAX_INSTRUCTION_LENGTH));
 		}
 		if !self.error_message.is_empty() {
+			self.buffer.truncate(position);
 			Err(IcedError::with_string(mem::take(&mut self.error_message)))
 		} else {
 			Ok(instr_len)
