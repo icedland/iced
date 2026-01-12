@@ -42,7 +42,7 @@ namespace Generator.InstructionInfo.Rust {
 			using (var writer = new FileWriter(TargetLanguage.Rust, FileUtils.OpenWrite(filename))) {
 				writer.WriteFileHeader();
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
-				writer.WriteLine($"pub(crate) static TABLE: [(u32, u32); {infos.Length}] = [");
+				writer.WriteLine($"pub(crate) const TABLE: [(u32, u32); {infos.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var info in infos)
 						writer.WriteLine($"({NumberFormatter.FormatHexUInt32WithSep(info.dword1)}, {NumberFormatter.FormatHexUInt32WithSep(info.dword2)}),// {info.def.Code.Name(idConverter)}");
@@ -119,7 +119,7 @@ namespace Generator.InstructionInfo.Rust {
 				var opInfo = opInfos[index];
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				var name = idConverter.Constant($"OpAccess_{index}");
-				writer.WriteLine($"pub(super) static {name}: [{opAccessTypeStr}; {opInfo.Values.Length}] = [");
+				writer.WriteLine($"pub(super) const {name}: [{opAccessTypeStr}; {opInfo.Values.Length}] = [");
 				using (writer.Indent()) {
 					foreach (var value in opInfo.Values) {
 						var v = ToOpAccess(value);
