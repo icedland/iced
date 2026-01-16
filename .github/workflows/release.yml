@@ -26,7 +26,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-dotnet@v5
         with:
@@ -41,7 +41,7 @@ jobs:
           fi
           ./build/build-dotnet $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: nupkg
@@ -60,7 +60,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -76,7 +76,7 @@ jobs:
           fi
           ./build/build-java $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: java
@@ -95,7 +95,7 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -126,13 +126,13 @@ jobs:
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
@@ -149,7 +149,7 @@ jobs:
           fi
           ./build/build-js --no-set-rustflags --publish-dry-run $extra_args
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: startsWith(matrix.os, 'ubuntu-')
         with:
           name: npm
@@ -178,7 +178,7 @@ jobs:
         os: [ubuntu-24.04-arm]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Build manylinux aarch64
         shell: bash
@@ -186,7 +186,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -204,7 +204,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -242,7 +242,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_x86_64" --pypy
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-x64
           path: /tmp/py-dist
@@ -260,7 +260,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Build manylinux i686
         shell: bash
@@ -268,7 +268,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_i686"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-x86
           path: /tmp/py-dist
@@ -286,7 +286,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Build musllinux x86_64
         shell: bash
@@ -294,7 +294,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_1_x86_64"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-x86_64-musllinux
           path: /tmp/py-dist
@@ -312,7 +312,7 @@ jobs:
         os: [macos-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -378,7 +378,7 @@ jobs:
           python --version 2>&1 | grep 'Python 3\.13'
           bash build/ci-py-build-wheels.sh
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -396,7 +396,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -496,7 +496,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-x64
           path: py-dist
@@ -514,7 +514,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -592,7 +592,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: py-dist-${{matrix.os}}-x86
           path: py-dist
@@ -619,7 +619,7 @@ jobs:
       - build-rust-python-windows-x86
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-dotnet@v5
         with:
@@ -631,12 +631,12 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.x'
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
           registry-url: "https://registry.npmjs.org"
 
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v7
         with:
           path: /tmp/artifacts
 

@@ -39,7 +39,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-dotnet@v5
         with:
@@ -49,13 +49,13 @@ jobs:
         shell: bash
         run: ./build/build-dotnet --quick-check
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: nupkg
           path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: coverage.info
           path: src/csharp/Intel/Iced.UnitTests/coverage.info
@@ -88,7 +88,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-java@v5
         with:
@@ -99,7 +99,7 @@ jobs:
         shell: bash
         run: ./build/build-java --quick-check
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: java
           path: src/java/iced-x86/target/iced-x86*
@@ -117,7 +117,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -135,7 +135,7 @@ jobs:
         shell: bash
         run: ./build/build-rust --no-set-rustflags --no-tests --test-current --test-msrv --test-no_std --coverage
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: rust-coverage
           path: cov-out/rust/merged/
@@ -168,13 +168,13 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
 
@@ -186,7 +186,7 @@ jobs:
         shell: bash
         run: ./build/build-js --no-set-rustflags --quick-check
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: npm
           path: src/rust/iced-x86-js/pkg/release/iced-x86-*.tgz
@@ -204,7 +204,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
@@ -235,7 +235,7 @@ jobs:
         os: [ubuntu-latest]
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Rust
         shell: bash
