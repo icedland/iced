@@ -54,19 +54,49 @@ pub(crate) struct Formatter {
 unsafe impl Send for Formatter {}
 unsafe impl Sync for Formatter {}
 
+struct SymbolResolverAdapter {
+	resolver: PyObject,
+}
+
+impl SymbolResolverAdapter {
+	fn new(resolver: PyObject) -> SymbolResolverAdapter {
+		SymbolResolverAdapter { resolver }
+	}
+}
+
+impl iced_x86::SymbolResolver for SymbolResolverAdapter {
+	fn symbol(
+		&mut self, _instruction: &iced_x86::Instruction, _operand: u32, _instruction_operand: Option<u32>, address: u64, _address_size: u32,
+	) -> Option<iced_x86::SymbolResult<'_>> {
+		let instr = Instruction { instr: *_instruction };
+		Python::with_gil(|py| {
+			let sym: Option<String> =
+				self.resolver.call1(py, (instr, _operand, _instruction_operand, address, _address_size)).unwrap().extract(py).unwrap();
+
+			if let Some(val) = sym {
+				Some(iced_x86::SymbolResult::with_string(address, val))
+			} else {
+				None
+			}
+		})
+	}
+}
+
 #[pymethods]
 impl Formatter {
 	#[new]
-	#[pyo3(text_signature = "(syntax)")]
-	fn new(syntax: u32) -> PyResult<Self> {
+	#[pyo3(signature = (syntax, symbol_resolver = None))]
+	fn new(syntax: u32, symbol_resolver: Option<PyObject>) -> PyResult<Self> {
+		let resolver = symbol_resolver.map(|val| -> Box<dyn iced_x86::SymbolResolver> { Box::new(SymbolResolverAdapter::new(val)) });
+
 		let formatter: Box<dyn iced_x86::Formatter> = if syntax == FormatterSyntax::Gas as u32 {
-			Box::new(iced_x86::GasFormatter::new())
+			Box::new(iced_x86::GasFormatter::with_options(resolver, None))
 		} else if syntax == FormatterSyntax::Intel as u32 {
-			Box::new(iced_x86::IntelFormatter::new())
+			Box::new(iced_x86::IntelFormatter::with_options(resolver, None))
 		} else if syntax == FormatterSyntax::Masm as u32 {
-			Box::new(iced_x86::MasmFormatter::new())
+			Box::new(iced_x86::MasmFormatter::with_options(resolver, None))
 		} else if syntax == FormatterSyntax::Nasm as u32 {
-			Box::new(iced_x86::NasmFormatter::new())
+			Box::new(iced_x86::NasmFormatter::with_options(resolver, None))
 		} else {
 			return Err(PyValueError::new_err("Invalid formatter syntax"));
 		};
