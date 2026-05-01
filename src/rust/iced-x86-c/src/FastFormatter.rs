@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultFastFormatterTraitOptions};
@@ -68,7 +68,7 @@ pub unsafe extern "C" fn FastFormatter_Format( Formatter: *mut TFastFormatter, I
     }
     (*Output) = obj.Output.as_ptr();
     (*Size) = obj.Output.len();
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 // Decode and Format Instruction
@@ -94,7 +94,7 @@ pub unsafe extern "C" fn FastFormatter_DecodeFormat( Decoder: *mut Decoder, Form
     // Decode
     let mut obj = Box::from_raw( Decoder );    
     obj.decode_out( Instruction.as_mut().unwrap() );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     // Format
     let mut obj = Box::from_raw( Formatter );
@@ -108,7 +108,7 @@ pub unsafe extern "C" fn FastFormatter_DecodeFormat( Decoder: *mut Decoder, Form
     }
     (*Output) = obj.Output.as_ptr();
     (*Size) = obj.Output.len();
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 // Decode and Format Instruction until end
@@ -146,6 +146,6 @@ pub unsafe extern "C" fn FastFormatter_DecodeFormatToEnd( Decoder: *mut Decoder,
 
         Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );
     }
-    Box::into_raw( formatter );
-    Box::into_raw( decoder );    
+    let _ = Box::into_raw( formatter );
+    let _ = Box::into_raw( decoder );    
 }

@@ -2,11 +2,12 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::Register;
 use std::mem::transmute;// Enum<->Int
+use std::slice;
 
 #[cfg(feature = "instr_info")]
 #[no_mangle]
@@ -54,11 +55,11 @@ pub unsafe extern "C" fn Register_AsString( Register : u8, Output : *mut u8, Siz
     
     let register : Register = transmute( Register as u8 );
     let output = format!("{register:?}");
-    
-    let aOutput = Output as *mut [u8;1024];
     let aSource = output.as_bytes();
-        
-    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
-    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
-    (*aOutput)[n] = 0;
+
+    let n = std::cmp::min(aSource.len(), Size - 1);
+    let aOutput = slice::from_raw_parts_mut(Output, Size);
+
+    aOutput[..n].copy_from_slice(&aSource[..n]);
+    aOutput[n] = 0;
 }

@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, Encoder, ConstantOffsets};
@@ -49,7 +49,7 @@ pub unsafe extern "C" fn Encoder_Encode( Encoder: *mut Encoder, Instruction: *mu
 
     let value = obj.encode( Instruction.as_mut().unwrap(), RIP );
     
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     match value {
         Ok( v ) => return v,
@@ -71,7 +71,7 @@ pub unsafe extern "C" fn Encoder_WriteByte( Encoder: *mut Encoder, Value : u8 ) 
 
     obj.write_u8( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -95,7 +95,7 @@ pub unsafe extern "C" fn Encoder_GetBuffer( Encoder: *mut Encoder, Buffer : *mut
     let mut obj = Box::from_raw( Encoder );
 
     let value = obj.take_buffer();
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     let mut l = value.len();
     if l > Size {
@@ -135,7 +135,7 @@ pub unsafe extern "C" fn Encoder_SetBuffer( Encoder: *mut Encoder, Buffer : *mut
         obj.set_buffer( Vec::from_raw_parts( Buffer, 0/*Used*/, Size/*TotalSize*/ ) );
     }
     
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -151,7 +151,7 @@ pub unsafe extern "C" fn Encoder_GetConstantOffsets( Encoder: *mut Encoder, Cons
     let obj = Box::from_raw( Encoder );
     *ConstantOffsets = obj.get_constant_offsets();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 // Disables 2-byte VEX encoding and encodes all VEX instructions with the 3-byte VEX encoding
@@ -164,7 +164,7 @@ pub unsafe extern "C" fn Encoder_GetPreventVex2( Encoder: *mut Encoder ) -> bool
 
     let value = obj.prevent_vex2();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -182,7 +182,7 @@ pub unsafe extern "C" fn Encoder_SetPreventVex2( Encoder: *mut Encoder, Value : 
 
     obj.set_prevent_vex2( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -197,7 +197,7 @@ pub unsafe extern "C" fn Encoder_GetVexWig( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.vex_wig();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -215,7 +215,7 @@ pub unsafe extern "C" fn Encoder_SetVexWig( Encoder: *mut Encoder, Value : u32 )
 
     obj.set_vex_wig( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -230,7 +230,7 @@ pub unsafe extern "C" fn Encoder_GetVexLig( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.vex_lig();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -248,7 +248,7 @@ pub unsafe extern "C" fn Encoder_SetVexLig( Encoder: *mut Encoder, Value : u32 )
 
     obj.set_vex_lig( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -263,7 +263,7 @@ pub unsafe extern "C" fn Encoder_GetEvexWig( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.evex_wig();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -281,7 +281,7 @@ pub unsafe extern "C" fn Encoder_SetEvexWig( Encoder: *mut Encoder, Value : u32 
 
     obj.set_evex_wig( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -296,7 +296,7 @@ pub unsafe extern "C" fn Encoder_GetEvexLig( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.evex_lig();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -314,7 +314,7 @@ pub unsafe extern "C" fn Encoder_SetEvexLig( Encoder: *mut Encoder, Value : u32 
 
     obj.set_evex_lig( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -330,7 +330,7 @@ pub unsafe extern "C" fn Encoder_GetMvexWig( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.mvex_wig();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -349,7 +349,7 @@ pub unsafe extern "C" fn Encoder_SetMvexWig( Encoder: *mut Encoder, Value : u32 
 
     obj.set_mvex_wig( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -364,7 +364,7 @@ pub unsafe extern "C" fn Encoder_GetBitness( Encoder: *mut Encoder ) -> u32 {
 
     let value = obj.bitness();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return value;
 }

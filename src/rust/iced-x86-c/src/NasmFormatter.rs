@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, Formatter, NasmFormatter};
@@ -31,15 +31,15 @@ pub extern "C" fn NasmFormatter_Create( SymbolResolver : Option<TSymbolResolverC
     if !SymbolResolver.is_none() && !OptionsProvider.is_none() {
         let symbols = Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData });
         let options = Box::new( TFormatterOptionsProvider { callback:OptionsProvider, userData:UserData });
-        Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( Some( symbols ), Some( options ) ), Output: String::new() } ) )
+        return Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( Some( symbols ), Some( options ) ), Output: String::new() } ) )
     } else if !SymbolResolver.is_none() {
         let symbols = Box::new( TSymbolResolver { callback:SymbolResolver, userData:UserData });
-        Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( Some( symbols ), None ), Output: String::new() } ) )
+        return Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( Some( symbols ), None ), Output: String::new() } ) )
     } else if !OptionsProvider.is_none() {
         let options = Box::new( TFormatterOptionsProvider { callback:OptionsProvider, userData:UserData });
-        Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( None, Some( options ) ), Output: String::new() } ) )
+        return Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( None, Some( options ) ), Output: String::new() } ) )
     } else {
-        Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( None, None ), Output: String::new() } ) )
+        return Box::into_raw( Box::new( TNasmFormatter { Formatter: NasmFormatter::with_options( None, None ), Output: String::new() } ) )
     }
 }
 
@@ -66,7 +66,7 @@ pub unsafe extern "C" fn NasmFormatter_Format( Formatter: *mut TNasmFormatter, I
     obj.Output.as_mut_vec().resize( newsize, 0 );    
     (*Output) = obj.Output.as_ptr();
     (*Size) = obj.Output.len();
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
     }
     
 #[no_mangle]
@@ -84,8 +84,8 @@ pub unsafe extern "C" fn NasmFormatter_FormatCallback( Formatter: *mut TNasmForm
     let mut obj = Box::from_raw( Formatter );
     let mut output = Box::from_raw( FormatterOutput );
     obj.Formatter.format( Instruction.as_mut().unwrap(), output.as_mut() );
-    Box::into_raw( output );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( output );
+    let _ = Box::into_raw( obj );
 }
 
 // Decode and Format Instruction
@@ -111,7 +111,7 @@ pub unsafe extern "C" fn NasmFormatter_DecodeFormat( Decoder: *mut Decoder, Form
     // Decode
     let mut obj = Box::from_raw( Decoder );    
     obj.decode_out( Instruction.as_mut().unwrap() );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     // Format
     let mut obj = Box::from_raw( Formatter );
@@ -121,7 +121,7 @@ pub unsafe extern "C" fn NasmFormatter_DecodeFormat( Decoder: *mut Decoder, Form
     obj.Output.as_mut_vec().resize( newsize, 0 );    
     (*Output) = obj.Output.as_ptr();
     (*Size) = obj.Output.len();
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 #[cfg(feature = "decoder")]
@@ -143,14 +143,14 @@ pub unsafe extern "C" fn NasmFormatter_DecodeFormatCallback( Decoder: *mut Decod
     // Decode
     let mut obj = Box::from_raw( Decoder );    
     obj.decode_out( Instruction.as_mut().unwrap() );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     // Format
     let mut obj = Box::from_raw( Formatter );
     let mut output = Box::from_raw( FormatterOutput );
     obj.Formatter.format( Instruction.as_mut().unwrap(), output.as_mut() );
-    Box::into_raw( output );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( output );
+    let _ = Box::into_raw( obj );
 }
 
 // Decode and Format Instruction until end
@@ -183,8 +183,8 @@ pub unsafe extern "C" fn NasmFormatter_DecodeFormatToEnd( Decoder: *mut Decoder,
 
         Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );
     }
-    Box::into_raw( formatter );
-    Box::into_raw( decoder );    
+    let _ = Box::into_raw( formatter );
+    let _ = Box::into_raw( decoder );    
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -203,7 +203,7 @@ pub unsafe extern "C" fn NasmFormatter_GetShowSignExtendedImmediateSize( Formatt
 
     let value = obj.Formatter.options_mut().nasm_show_sign_extended_immediate_size();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -226,7 +226,7 @@ pub unsafe extern "C" fn NasmFormatter_SetShowSignExtendedImmediateSize( Formatt
 
     obj.Formatter.options_mut().set_nasm_show_sign_extended_immediate_size( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }

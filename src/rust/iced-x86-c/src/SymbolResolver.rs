@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, SymbolResolver, SymbolResult};
@@ -30,7 +30,7 @@ pub(crate) type
 }
 
 impl SymbolResolver for TSymbolResolver {
-    fn symbol( &mut self, Instruction: &Instruction, Operand: u32, InstructionOperand: Option<u32>, Address: u64, Size: u32 ) -> Option<SymbolResult> {
+    fn symbol( &mut self, Instruction: &Instruction, Operand: u32, InstructionOperand: Option<u32>, Address: u64, Size: u32 ) -> Option<SymbolResult<'_>> {
         unsafe {
             if !self.callback.is_none() {   
                 //let value = self.callback.unwrap()( &mut u as *mut u32, &mut i as *mut i32 );// Var-Parameter-Sample

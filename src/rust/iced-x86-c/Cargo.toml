@@ -20,14 +20,14 @@ crate-type = ["cdylib"]      # Creates dynamic lib
 
 [package.metadata.winres]
 FileDescription = ""
-FileVersion = "1.0.6.1"
+FileVersion = "1.0.6.3"
 ProductName = "Iced"
 ProductVersion = "1.2.1.0"
 OriginalFilename = "Iced.dll"
-LegalCopyright = "TetzkatLipHoka © 2022-2024"
+LegalCopyright = "TetzkatLipHoka © 2022-2026"
 
 [dependencies]
-libc = "0.2.155"
+libc = "0.2.186"
 
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1.12"

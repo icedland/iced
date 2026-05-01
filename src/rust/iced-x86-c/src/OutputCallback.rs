@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 //#![allow( non_snake_case )]
@@ -41,5 +41,5 @@ pub extern "C" fn FormatterOutput_Create( Callback : Option<TFormatterOutputCall
         return null_mut();
     }
 
-    Box::into_raw( Box::new( TFormatterOutput { callback:Callback, userData:UserData }) )
+    return Box::into_raw( Box::new( TFormatterOutput { callback:Callback, userData:UserData }) )
 }

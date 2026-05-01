@@ -3,7 +3,7 @@ unit uIced;
 {
   Iced (Dis)Assembler
 
-  TetzkatLipHoka 2022-2024
+  TetzkatLipHoka 2022-2026
 }
 
 // MS Finish details ..
@@ -541,7 +541,7 @@ type
   PIcedReferenceScanResults = ^tIcedReferenceScanResults;
 
   tIcedAssemblyScanMode = (
-    asmEqual, asmSimiliar, asmWildcard
+    asmEqual, asmSimiliar, asmStrictSimiliar, asmWildcard
     {$IF CompilerVersion >= 22}, asmRegExp{$IFEND} // XE
   );
 
@@ -688,12 +688,22 @@ begin
   fBitness  := Bitness;
   fData     := nil;
   fSize     := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fIPosition:= 0;
   {$IFDEF DECODER_LOCAL_POSITION}
   fPosition := 0;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 destructor TIcedDecoder.Destroy;
@@ -750,12 +760,22 @@ begin
     end;
   fData     := Data;
   fSize     := Size;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fIPosition:= 0;
   {$IFDEF DECODER_LOCAL_POSITION}
   fPosition := 0;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   fHandle := Decoder_Create( Cardinal( fBitness ), Data, Size, IP, Options );
 end;
@@ -770,14 +790,34 @@ end;
 
 function TIcedDecoder.GetIP : UInt64;
 begin
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( self = nil ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := Decoder_GetIP( fHandle );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 procedure TIcedDecoder.SetIP( Value : UInt64 );
@@ -789,18 +829,38 @@ end;
 
 function TIcedDecoder.GetPosition : NativeUInt;
 begin
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( self = nil ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   result := fPosition;
   {$ELSE}
   result := Decoder_GetPosition( fHandle );
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 procedure TIcedDecoder.SetPosition( Value : NativeUInt );
@@ -824,15 +884,35 @@ end;
 
 function TIcedDecoder.GetMaxPosition : NativeUInt;
 begin
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( self = nil ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := fSize;
 //  result := Decoder_GetMaxPosition( fHandle );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIcedDecoder.GetInstructionFirstByte : PByte;
@@ -890,21 +970,41 @@ begin
     Exit;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fIPosition := fPosition;
   {$ELSE}
   fIPosition := Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   Decoder_Decode( fHandle, Instruction );
 
   {$IFDEF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 //  fPosition := Position;
   Inc( fPosition, Instruction.len );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$ENDIF DECODER_LOCAL_POSITION}
 end;
 
@@ -931,9 +1031,19 @@ begin
   // Details
   Details.Items[ Details.Count ].Code                 := Instruction.code;
   Move( Instruction.Regs[ 0 ], Details.Items[ Details.Count ].Registers[ 0 ], Length( Details.Items[ Details.Count ].Registers )*SizeOf( Details.Items[ Details.Count ].Registers[ 0 ] ) );
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Details.Items[ Details.Count ].Offset               := Instruction.RIP;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Details.Items[ Details.Count ].Size                 := Instruction.len;
 
   FillChar( Details.Items[ Details.Count ].Registers_, SizeOf( Details.Items[ Details.Count ].Registers_ ), 0 ); // MS ?
@@ -983,9 +1093,19 @@ If Length = 3 or Displacement starts at 3 its not used
 
     FillChar( Details.JumpTargets[ Details.Items[ Details.Count ].JumpTargetID ], SizeOf( Details.JumpTargets[ Details.Items[ Details.Count ].JumpTargetID ] ), 0 );
 //    Details.JumpTargets[ Details.Items[ Details.Count ].JumpTargetID ].IsRegJump     := Instruction.IsRegJump;
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     Details.JumpTargets[ Details.Items[ Details.Count ].JumpTargetID ].Target        := Instruction.mem_displ;
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     end
   else
     Details.Items[ Details.Count ].JumpTargetID := 0;
@@ -1006,13 +1126,23 @@ begin
     Exit;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fIPosition := fPosition;
   {$ELSE}
   fIPosition := Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   Decoder_Decode( fHandle, Instruction );
   GenerateDetails( Instruction, Details );
@@ -1029,13 +1159,23 @@ begin
   if ( self = nil ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fIPosition := fPosition;
   {$ELSE}
   fIPosition := Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   Decoder_DecodeToEnd( fHandle, Callback, UserData );
 
@@ -1058,9 +1198,19 @@ begin
   inherited Create;
   fHandle  := nil;
   fBitness := Bitness;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fCapacity := Capacity;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 destructor TIcedEncoder.Destroy;
@@ -1103,23 +1253,53 @@ end;
 
 function TIcedEncoder.GetCapacity : NativeUInt;
 begin
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( self = nil ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := fCapacity;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 procedure TIcedEncoder.SetCapacity( Value : NativeUInt );
 begin
   if ( self = nil ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fCapacity := Value;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   if ( fHandle <> nil ) then
     begin
@@ -3796,13 +3976,23 @@ begin
   if ( self = nil ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fDecoder.fIPosition := fDecoder.fPosition;
   {$ELSE}
   fDecoder.fIPosition := fDecoder.Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   t := 0;
   case Formatter.FormatterType of
@@ -3835,13 +4025,23 @@ begin
   if ( self = nil ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fDecoder.fIPosition := fDecoder.fPosition;
   {$ELSE}
   fDecoder.fIPosition := fDecoder.Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   t := 0;
   case Formatter.FormatterType of
@@ -3874,13 +4074,23 @@ begin
     Exit;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fDecoder.fIPosition := fDecoder.fPosition;
   {$ELSE}
   fDecoder.fIPosition := fDecoder.Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   case Formatter.FormatterType of
     ftMasm,
@@ -3911,13 +4121,23 @@ begin
     Exit;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fDecoder.fIPosition := fDecoder.fPosition;
   {$ELSE}
   fDecoder.fIPosition := fDecoder.Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   case Formatter.FormatterType of
     ftMasm,
@@ -3946,13 +4166,23 @@ begin
   if ( self = nil ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   {$IFDEF DECODER_LOCAL_POSITION}
   fDecoder.fIPosition := fDecoder.fPosition;
   {$ELSE}
   fDecoder.fIPosition := fDecoder.Position;
   {$ENDIF DECODER_LOCAL_POSITION}
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   case Formatter.FormatterType of
 //    ftMasm        : MasmFormatter_DecodeFormatToEnd( fDecoder.Handle, Formatter.Handle, Callback, UserData );
@@ -4531,9 +4761,19 @@ begin
           SetLength( Details^.Items, Details^.Count+DETAILS_BLOCKSIZE );
 
         FillChar( Details^.Items[ Details^.Count ], SizeOf( TIcedDetail ), 0 );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Details^.Items[ Details^.Count ].Offset := CodeOffset;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Inc( Details^.Count );
         end;
       {$ENDIF AssemblyTools}
@@ -4553,9 +4793,19 @@ begin
           SetLength( Details^.Items, Details^.Count+DETAILS_BLOCKSIZE );
 
         FillChar( Details^.Items[ Details^.Count ], SizeOf( TIcedDetail ), 0 );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Details^.Items[ Details^.Count ].Offset := CodeOffset;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Inc( Details^.Count );
         end;
       {$ENDIF AssemblyTools}
@@ -4606,9 +4856,19 @@ begin
           SetLength( Details^.Items, Details^.Count+DETAILS_BLOCKSIZE );
 
         FillChar( Details^.Items[ Details^.Count ], SizeOf( tIcedDetail ), 0 );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Details^.Items[ Details^.Count ].Offset := CodeOffset;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND}
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
 
         Inc( Details^.Count );
         end;
@@ -4649,9 +4909,19 @@ begin
         StrL_Hex[ StrL_Hex.Count-1 ] := StrL_Hex[ StrL_Hex.Count-1 ] + sCom;
       end;
 
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND}
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     Inc( CodeOffset, Length( Bts ) );
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND}
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     SetLength( Bts, 0 );
     end;
 
@@ -5805,10 +6075,20 @@ begin
 
   Decoder2 := TIcedDecoder.Create( fDecoder.Bitness );
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Offset := Offset-CodeOffset;
   OffsetCompare := OffsetCompare-CodeOffset;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Size := Size-( Offset-CodeOffset );
   SizeCompare := SizeCompare-( OffsetCompare-CodeOffset );
 
@@ -5827,10 +6107,20 @@ begin
                   end;
   end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fDecoder.SetData( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( Data ) + Offset ), Size, CodeOffset );
   Decoder2.SetData( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( DataCompare ) + OffsetCompare ), SizeCompare, CodeOffset );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   while ( Count > 0 ) AND ( fDecoder.CanDecode ) AND ( Decoder2.CanDecode ) do
     begin
@@ -5842,9 +6132,19 @@ begin
 
 //    Inc( Data, Inst1.len );
 //    Inc( DataCompare, Inst2.len );
-//    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+//    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+//      {$IFOPT R+}
+//        {$DEFINE RANGECHECK_REENABLE}
+//        {$RANGECHECKS OFF} // {$R-}
+//      {$ENDIF}
+//    {$IFEND CompilerVersion <= 20} 
 //    Inc( CodeOffset, Inst1.len );
-//    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+//    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+//      {$IFDEF RANGECHECK_REENABLE}
+//        {$RANGECHECKS ON} // {$R+}
+//        {$UNDEF RANGECHECK_REENABLE}
+//      {$ENDIF}
+//    {$IFEND CompilerVersion <= 20} 
     Dec( Count );
     end;
   Decoder2.free;
@@ -5905,9 +6205,19 @@ begin
 
     if ( Offsets.displacement_size > 0 ) OR ( Offsets.immediate_size > 0 ) OR ( Offsets.immediate_size2 > 0 ) then
       begin
-      {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFOPT R+}
+          {$DEFINE RANGECHECK_REENABLE}
+          {$RANGECHECKS OFF} // {$R-}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       Off := Instruction.next_rip;
-      {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFDEF RANGECHECK_REENABLE}
+          {$RANGECHECKS ON} // {$R+}
+          {$UNDEF RANGECHECK_REENABLE}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
 
       case Offsets.displacement_size of
         1 : Disp := PShortInt( PAnsiChar( UserData^.Data{fDecoder.InstructionFirstByte} ) + Offsets.displacement_offset )^;
@@ -5969,19 +6279,34 @@ begin
           begin
           if ( UserData^.Count >= Length( UserData^.results^ ) ) then
             SetLength( UserData^.results^, Length( UserData^.results^ )+BLOCK_SIZE );
-          {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+          {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+            {$IFOPT R+}
+              {$DEFINE RANGECHECK_REENABLE}
+              {$RANGECHECKS OFF} // {$R-}
+            {$ENDIF}
+          {$IFEND CompilerVersion <= 20} 
           UserData^.results^[ UserData^.Count ].Origin      := Instruction.RIP;
           UserData^.results^[ UserData^.Count ].Instruction := string( UserData^.Formatter.FormatToString( Instruction ) );
           UserData^.results^[ UserData^.Count ].vPointer    := Off;
           UserData^.results^[ UserData^.Count ].Count       := 0;
-          {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+          {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+            {$IFDEF RANGECHECK_REENABLE}
+              {$RANGECHECKS ON} // {$R+}
+              {$UNDEF RANGECHECK_REENABLE}
+            {$ENDIF}
+          {$IFEND CompilerVersion <= 20} 
           Inc( UserData^.Count );
           end;
         end;
       end;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData^.done := UserData^.done + Instruction.len;
   Inc( UserData^.Data, Instruction.len );
 //    Inc( UserData^.CodeOffset, Instruction.len );
@@ -5989,7 +6314,12 @@ begin
     Dec( UserData^.Upd, Instruction.len )
   else
     UserData^.Upd := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.PointerScan( Data : PByte; Size : Cardinal; var results : tIcedPointerScanResults; CodeOffset : UInt64 = UInt64( 0 ); ProcessEvent : tIcedPointerScanProcessEvent = nil ) : Cardinal;
@@ -6007,9 +6337,19 @@ begin
 
   fDecoder.SetData( Data, Size, CodeOffset );
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData.done := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   UserData.Data := Data;
   UserData.Size := Size;
@@ -6075,9 +6415,19 @@ begin
 
     if ( Offsets.displacement_size > 0 ) OR ( Offsets.immediate_size > 0 ) OR ( Offsets.immediate_size2 > 0 ) then
       begin
-      {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFOPT R+}
+          {$DEFINE RANGECHECK_REENABLE}
+          {$RANGECHECKS OFF} // {$R-}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       Off := Instruction.next_rip;
-      {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFDEF RANGECHECK_REENABLE}
+          {$RANGECHECKS ON} // {$R+}
+          {$UNDEF RANGECHECK_REENABLE}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
 
       case Offsets.displacement_size of
         1 : Disp := PShortInt( PAnsiChar( UserData^.Data{fDecoder.InstructionFirstByte} ) + Offsets.displacement_offset )^;
@@ -6125,16 +6475,31 @@ begin
         begin
         if ( UserData^.Count >= Length( UserData^.Results^ ) ) then
           SetLength( UserData^.Results^, Length( UserData^.Results^ )+BLOCK_SIZE );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         UserData^.Results^[ UserData^.Count ].Origin      := Instruction.RIP;
         UserData^.Results^[ UserData^.Count ].Instruction := string( UserData^.Formatter.FormatToString( Instruction ) );
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Inc( UserData^.Count );
         end;
       end;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData^.done := UserData^.done + Instruction.len;
   Inc( UserData^.Data, Instruction.len );
 //    Inc( UserData^.CodeOffset, Instruction.len );
@@ -6142,7 +6507,12 @@ begin
     Dec( UserData^.Upd, Instruction.len )
   else
     UserData^.Upd := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.ReferenceScan( Data : PByte; Size : Cardinal; Reference : UInt64; var results : tIcedReferenceScanResults; CodeOffset : UInt64 = UInt64( 0 ); ProcessEvent : tIcedPointerScanProcessEvent = nil ) : Cardinal;
@@ -6160,10 +6530,20 @@ begin
 
   fDecoder.SetData( Data, Size, CodeOffset );
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData.Reference := Reference;
   UserData.done := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   UserData.Data := Data;
   UserData.Size := Size;
@@ -6338,7 +6718,7 @@ begin
     begin
     UserData^.ProcessEvent( UserData^.done, UserData^.size, Stop );
     if Stop then
-      Exit;;
+      Exit;
     UserData^.Upd := UserData^.UpdBytes;
     end;
 
@@ -6357,9 +6737,19 @@ begin
     if b then
       begin
       if ( UserData^.CurCount = 0 ) then
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20}
         UserData^.Offset := Instruction.RIP;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20}
 
       if ( UserData^.CurCount = UserData^.Assembly.Count-1 ) then
         begin
@@ -6384,10 +6774,20 @@ begin
 
         if ( UserData^.Count >= Length( UserData^.Results^ ) ) then
           SetLength( UserData^.Results^, Length( UserData^.Results^ )+BLOCK_SIZE );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20}
         UserData^.Results^[ UserData^.Count ].Origin      := UserData^.Offset;
         UserData^.Results^[ UserData^.Count ].Instruction := Trim( UserData^.sInstruction.Text );
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20}
         Inc( UserData^.Count );
 
         UserData^.CurCount := 0;
@@ -6420,7 +6820,12 @@ begin
     {$IFEND Declared( RegularExpressions )}
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
   UserData^.done := UserData^.done + Instruction.len;
 //  Inc( UserData^.Data, Instruction.len );
 //  Inc( UserData^.CodeOffset, Instruction.len );
@@ -6428,7 +6833,12 @@ begin
     Dec( UserData^.Upd, Instruction.len )
   else
     UserData^.Upd := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
 end;
 
 function TIced.AssemblyScan( Data : PByte; Size : Cardinal; Assembly : String; var results : tIcedReferenceScanResults; CodeOffset : UInt64 = UInt64( 0 ); Mode : tIcedAssemblyScanMode = asmEqual; ProcessEvent : tIcedPointerScanProcessEvent = nil ) : Cardinal;
@@ -6448,7 +6858,7 @@ begin
     Exit;
   if ( Assembly = '' ) then
     Exit;
-  if ( Mode = asmSimiliar ) then
+  if ( Mode in [ asmSimiliar, asmStrictSimiliar ] ) then
     Exit;
 
   UserData.Assembly := TStringList.Create;
@@ -6481,13 +6891,13 @@ begin
 
       {$IF Declared( asmRegExp )}
       if ( Mode <> asmRegExp ) then
-      {$IFEND}      
+      {$IFEND}
         begin
         if fFormatter.fOptions.SpaceAfterOperandSeparator then
           S := StringReplace( S, ',', ', ', [ rfReplaceAll ] )
         else
-          S := StringReplace( S, ', ', ',', [ rfReplaceAll ] );        
-        
+          S := StringReplace( S, ', ', ',', [ rfReplaceAll ] );
+
         if fFormatter.fOptions.SpaceAfterMemoryBracket then
           begin
           S := StringReplace( S, '[', '[ ', [ rfReplaceAll ] );
@@ -6498,7 +6908,7 @@ begin
           S := StringReplace( S, '[ ', '[', [ rfReplaceAll ] );
           S := StringReplace( S, ' ]', ']', [ rfReplaceAll ] );
           end;
-          
+
         if fFormatter.fOptions.SpaceBetweenMemoryAddOperators then
           begin
           S := StringReplace( S, '+', ' + ', [ rfReplaceAll ] );
@@ -6509,11 +6919,11 @@ begin
           S := StringReplace( S, ' +', '+', [ rfReplaceAll ] );
           S := StringReplace( S, '+ ', '+', [ rfReplaceAll ] );
           S := StringReplace( S, ' -', '-', [ rfReplaceAll ] );
-          S := StringReplace( S, '- ', '-', [ rfReplaceAll ] );        
-          end;          
+          S := StringReplace( S, '- ', '-', [ rfReplaceAll ] );
+          end;
         end;
-      
-      if ( Mode = asmEqual ) then 
+
+      if ( Mode = asmEqual ) then
         begin
         if fFormatter.fOptions.SpaceBetweenMemoryMulOperators then
           S := StringReplace( S, '*', ' * ', [ rfReplaceAll ] )
@@ -6523,7 +6933,7 @@ begin
           S := StringReplace( S, '* ', '*', [ rfReplaceAll ] );
           end;
         end;
-        
+
       S := StringReplace( S, ' ,', ',', [ rfReplaceAll ] );
       tS := '';
       while ( tS <> S ) do
@@ -6535,11 +6945,43 @@ begin
       end;
     end;
 
+  {$IF Declared( RegularExpressions )}
+  if ( Mode = asmRegExp ) then
+    begin
+    for i := UserData.Assembly.Count-1 downTo 0 do
+      begin
+      UserData.RegEx := TRegEx.Create( UserData.Assembly[ i ] );
+      try
+        UserData.RegEx.IsMatch( 'mov rax, [rax]' );
+      except
+        on E: Exception do
+          begin
+          SetLength( results, 1 );
+          results[ 0 ].Instruction := Format( 'Line %d: %s ("%s")', [ i+1, E.ToString, UserData.Assembly[ i ] ] );
+
+          UserData.Assembly.free;
+          Exit;
+          end;
+      end;
+      end;
+    end;
+  {$IFEND}
+
   fDecoder.SetData( Data, Size, CodeOffset );
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
   UserData.done := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
 
   UserData.Size := Size;
   UserData.Results := @Results;
@@ -6550,14 +6992,19 @@ begin
   UserData.Mode := Mode;
   UserData.CurCount := 0;
   UserData.sInstruction := TStringList.Create;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
   UserData.Offset := CodeOffset;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
-
-  {$IF Declared( RegularExpressions )}
-  if Mode = asmRegExp then
-    UserData.RegEx := TRegEx.Create( UserData.Assembly[ 0 ] );
-  {$IFEND}
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20}
 
   DecodeFormatToEnd( @AssemblyScanFormattedCallback, @UserData );
 
@@ -6617,19 +7064,38 @@ begin
 
   if Instruction.IsValid then
     begin
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
     case UserData^.Mode of
-      asmEqual    : b := Instruction.IsEqual( {$R-}UserData^.Assembly^[ UserData^.CurCount ]{$R+} );
-      asmSimiliar : b := Instruction.IsSimiliar( {$R-}UserData^.Assembly^[ UserData^.CurCount ]{$R+} );
+      asmEqual          : b := Instruction.IsEqual( UserData^.Assembly^[ UserData^.CurCount ] );
+      asmSimiliar       : b := Instruction.IsSimiliar( UserData^.Assembly^[ UserData^.CurCount ], 0{MaxDisplacement}, False{StrictType} );
+      asmStrictSimiliar : b := Instruction.IsSimiliar( UserData^.Assembly^[ UserData^.CurCount ], 0{MaxDisplacement}, True{StrictType} );
     else
       b := False;
     end;
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}    
 
     if b then
       begin
       if ( UserData^.CurCount = 0 ) then
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         UserData^.Offset := Instruction.RIP;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
       UserData^.sInstruction := UserData^.sInstruction + string( UserData^.Formatter.FormatToString( Instruction ) ) + #13#10;
       Inc( UserData^.CurCount );
 
@@ -6637,10 +7103,20 @@ begin
         begin
         if ( UserData^.Count >= Length( UserData^.Results^ ) ) then
           SetLength( UserData^.Results^, Length( UserData^.Results^ )+BLOCK_SIZE );
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         UserData^.Results^[ UserData^.Count ].Origin      := UserData^.Offset;
         UserData^.Results^[ UserData^.Count ].Instruction := Copy( UserData^.sInstruction, 1, Length( UserData^.sInstruction )-2 );
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         Inc( UserData^.Count );
 
         UserData^.CurCount := 0;
@@ -6654,7 +7130,12 @@ begin
       end;
     end;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData^.done := UserData^.done + Instruction.len;
 //  Inc( UserData^.Data, Instruction.len );
 //  Inc( UserData^.CodeOffset, Instruction.len );
@@ -6662,7 +7143,12 @@ begin
     Dec( UserData^.Upd, Instruction.len )
   else
     UserData^.Upd := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.AssemblyScan( Data : PByte; Size : Cardinal; Assembly : PInstruction; AssemblyCount : Cardinal; var results : tIcedReferenceScanResults; CodeOffset : UInt64 = UInt64( 0 ); Mode : tIcedAssemblyScanMode = asmEqual; ProcessEvent : tIcedPointerScanProcessEvent = nil ) : Cardinal;
@@ -6679,14 +7165,24 @@ begin
     Exit;
   if ( Assembly = nil ) OR ( AssemblyCount = 0 ) then
     Exit;
-  if NOT ( Mode in [ asmEqual, asmSimiliar ] ) then
+  if NOT ( Mode in [ asmEqual, asmSimiliar, asmStrictSimiliar ] ) then
     Exit;
 
   fDecoder.SetData( Data, Size, CodeOffset );
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData.done := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   UserData.Size := Size;
   UserData.Results := @Results;
@@ -6700,9 +7196,19 @@ begin
   UserData.AssemblyCount := AssemblyCount;
   UserData.sInstruction := '';
   UserData.CurCount := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   UserData.Offset := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   fDecoder.DecodeToEnd( @AssemblyScanCallback, @UserData );
 
@@ -6747,7 +7253,12 @@ var
   Instruction : TInstruction;
   i           : Cardinal;
 begin
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := 0;
   if ( self = nil ) then
     Exit;
@@ -6796,7 +7307,12 @@ begin
         end;
       end;
     end;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.FindInstruction( Data : TMemoryStream; Offset : UInt64; CodeOffset : UInt64 = UInt64( 0 ); {$IFDEF AssemblyTools}Details : pIcedDetails = nil;{$ENDIF} DecoderSettings : Cardinal = doNONE ) : Cardinal;
@@ -6806,9 +7322,19 @@ begin
     result := 0;
     Exit;
     end;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := FindInstruction( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( Data.Memory )+Data.Position ), Data.Size-Data.Position, Offset, CodeOffset, {$IFDEF AssemblyTools}Details,{$ENDIF} DecoderSettings );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.FindNextInstruction( Data : TMemoryStream; CodeOffset : UInt64; Address : UInt64; var Offset : UInt64; InstructionCount : Word = 1; InstructionBytes : pByteInstruction = nil; Instruction : PString = nil; {$IFDEF AssemblyTools}Details : pIcedDetails = nil;{$ENDIF} DecoderSettings : Cardinal = doNONE ) : Cardinal;
@@ -6818,9 +7344,19 @@ begin
     result := 0;
     Exit;
     end;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   result := FindNextInstruction( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( Data.Memory )+Data.Position ), Data.Size-Data.Position, Address, Offset, CodeOffset, InstructionCount, InstructionBytes, Instruction, {$IFDEF AssemblyTools}Details,{$ENDIF} DecoderSettings );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 end;
 
 function TIced.FindNextInstruction( Data : PByte; Size : Cardinal; CodeOffset : UInt64; Address : UInt64; var Offset : UInt64; InstructionCount : Word = 1; InstructionBytes : pByteInstruction = nil; Instruction : PString = nil; {$IFDEF AssemblyTools}Details : pIcedDetails = nil;{$ENDIF} DecoderSettings : Cardinal = doNONE ) : Cardinal;
@@ -6834,17 +7370,37 @@ begin
   if ( Data = nil ) OR ( Size = 0 ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( Address > CodeOffset+Size ) then
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118  
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
     Exit;
 
   if ( CodeOffset > Address ) then
     Exit;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   fDecoder.SetData( {$IF CompilerVersion < 23}PByte( PAnsiChar{$ELSE}( PByte{$IFEND}( Data ) + CodeOffset ), Size-CodeOffset, 0{Address}, DecoderSettings );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   Inc( InstructionCount );
   {$IFDEF AssemblyTools}
@@ -6868,9 +7424,19 @@ begin
 
   if ( InstructionCount = 0 ) then
     begin
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     Offset := Inst.RIP+Address;
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     result := Inst.len;
 
     if ( InstructionBytes <> nil ) then
@@ -6884,9 +7450,19 @@ end;
 function TIced.FindPreviousInstructionCount( Code : TMemoryStream; CodeOffset : UInt64; Address : UInt64; var Offset : UInt64; InstructionCount : Word = 1; InstructionBytes : pByteInstruction = nil; Instruction : PString = nil; Detail : px86AssemblyDetail = nil ) : Cardinal;
 begin
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Offset := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( InstructionBytes <> nil ) then
     FillChar( InstructionBytes^, SizeOf( InstructionBytes^ ), 0 );
   if ( Instruction <> nil ) then
@@ -6909,9 +7485,19 @@ var
   B        : PByte;
 begin
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Offset := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( InstructionBytes <> nil ) then
     FillChar( InstructionBytes^, SizeOf( InstructionBytes^ ), 0 );
   if ( Instruction <> nil ) then
@@ -6928,9 +7514,19 @@ begin
     Exit;
 
   StrL_Out := TStringList.Create;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( Execute( Pointer( {$IF CompilerVersion < 23}PAnsiChar{$ELSE}PByte{$IFEND}( Code ) + CodeOffset ), MAX_INSTRUCTION_LEN_, StrL_Out, Address, nil, nil ) > 0 ) then
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
     CurInst := StrL_Out[ 0 ]
   else
     begin
@@ -6946,25 +7542,55 @@ begin
     StrL_Out.Clear;
     FillChar( tDetails, SizeOf( tDetails ), 0 );
 
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     if ( Execute( Code, ( InstructionCount+1 )*MAX_INSTRUCTION_LEN_, StrL_Out, Address-( Cardinal( InstructionCount*MAX_INSTRUCTION_LEN_-i ) ), nil, @tDetails ) > 0 ) then
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
       begin
       for j := InstructionCount to StrL_Out.Count-1 do
         begin
         if ( tDetails.Items[ j ].Offset = Address ) AND ( StrL_Out[ j ] = CurInst ) AND ( StrL_Out[ j-InstructionCount ] <> 'INVALID' ) then
           begin
-          {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+          {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+            {$IFOPT R+}
+              {$DEFINE RANGECHECK_REENABLE}
+              {$RANGECHECKS OFF} // {$R-}
+            {$ENDIF}
+          {$IFEND CompilerVersion <= 20} 
           Offset := tDetails.Items[ j-InstructionCount ].Offset;
           result := tDetails.Items[ j ].Offset;
           result := result-Offset;
-          {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+          {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+            {$IFDEF RANGECHECK_REENABLE}
+              {$RANGECHECKS ON} // {$R+}
+              {$UNDEF RANGECHECK_REENABLE}
+            {$ENDIF}
+          {$IFEND CompilerVersion <= 20} 
           if ( InstructionBytes <> nil ) then
             begin
             B := Code;
-            {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+            {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+              {$IFOPT R+}
+                {$DEFINE RANGECHECK_REENABLE}
+                {$RANGECHECKS OFF} // {$R-}
+              {$ENDIF}
+            {$IFEND CompilerVersion <= 20} 
             Inc( B, Offset - Address );
-            {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+            {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+              {$IFDEF RANGECHECK_REENABLE}
+                {$RANGECHECKS ON} // {$R+}
+                {$UNDEF RANGECHECK_REENABLE}
+              {$ENDIF}
+            {$IFEND CompilerVersion <= 20} 
             CopyMemory( InstructionBytes, B, tDetails.Items[ j-InstructionCount ].Size );
             end;
           if ( Instruction <> nil ) then
@@ -6985,9 +7611,19 @@ end;
 function TIced.FindPreviousInstruction( Code : TMemoryStream; CodeOffset : UInt64; Address : UInt64; var Offset : UInt64; DesiredInstructionOffset : UInt64; InstructionBytes : pByteInstruction = nil; Instruction : PString = nil; Detail : pIcedDetail = nil ) : Cardinal;
 begin
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Offset := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( InstructionBytes <> nil ) then
     FillChar( InstructionBytes^, SizeOf( InstructionBytes^ ), 0 );
   if ( Instruction <> nil ) then
@@ -7010,9 +7646,19 @@ var
   bOK      : Boolean;
 begin
   result := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Offset := 0;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( InstructionBytes <> nil ) then
     FillChar( InstructionBytes^, SizeOf( InstructionBytes^ ), 0 );
   if ( Instruction <> nil ) then
@@ -7025,17 +7671,37 @@ begin
     Exit;
 //  if ( Size < ( InstructionCount+1 )*MAX_INSTRUCTION_LEN_ ) then
 //    Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( CodeOffset < MAX_INSTRUCTION_LEN_ ) then
     Exit;
   if ( DesiredInstructionOffset >= Address ) OR ( DesiredInstructionOffset-MAX_INSTRUCTION_LEN_ < Address-CodeOffset ) then
     Exit;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   StrL_Out := TStringList.Create;
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   if ( Execute( Pointer( {$IF CompilerVersion < 23}PAnsiChar{$ELSE}PByte{$IFEND}( Code ) + CodeOffset ), MAX_INSTRUCTION_LEN_, StrL_Out, Address, nil, nil ) > 0 ) then
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
     CurInst := StrL_Out[ 0 ]
   else
     begin
@@ -7050,9 +7716,19 @@ begin
     SetLength( tDetails.Items, 0 );
     SetLength( tDetails.JumpTargets, 0 );
     FillChar( tDetails, SizeOf( tDetails ), 0 );
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     if ( Execute( Pointer( {$IF CompilerVersion < 23}PAnsiChar{$ELSE}PByte{$IFEND}( Code ) + i ), Address-DesiredInstructionOffset+MAX_INSTRUCTION_LEN_, StrL_Out, Address-CodeOffset+Cardinal( i ), nil, @tDetails ) > 0 ) then
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
       begin
       bOK := False;
       k := StrL_Out.Count;
@@ -7077,14 +7753,24 @@ begin
         begin
         if ( DesiredInstructionOffset > tDetails.Items[ j ].Offset ) then
           Continue;
-        {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFOPT R+}
+            {$DEFINE RANGECHECK_REENABLE}
+            {$RANGECHECKS OFF} // {$R-}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         if ( Offset = 0 ) OR ( ABS( tDetails.Items[ j ].Offset - DesiredInstructionOffset ) < ABS( Offset-DesiredInstructionOffset ) ) then
           begin
           Offset := tDetails.Items[ j ].Offset;
           result := Address-Offset;
           k      := j;
           end;
-        {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+        {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+          {$IFDEF RANGECHECK_REENABLE}
+            {$RANGECHECKS ON} // {$R+}
+            {$UNDEF RANGECHECK_REENABLE}
+          {$ENDIF}
+        {$IFEND CompilerVersion <= 20} 
         end;
 
       if ( InstructionBytes <> nil ) then
@@ -7274,9 +7960,19 @@ begin
     Exit;
   AOutput.Clear;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Iced.Decoder.SetData( Data, Size, ARIP, doNONE );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Iced.Formatter.FormatterType   := FormatterType;
   Iced.Formatter.SymbolResolver  := SymbolResolver;
   Iced.Formatter.OptionsProvider := FormatterOptionsProviderCallback;
@@ -7291,9 +7987,19 @@ begin
       else
         Iced.DecodeFormat( Instruction, tOutput );
 
-      {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFOPT R+}
+          {$DEFINE RANGECHECK_REENABLE}
+          {$RANGECHECKS OFF} // {$R-}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       C := Instruction.next_rip-Instruction.len;
-      {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFDEF RANGECHECK_REENABLE}
+          {$RANGECHECKS ON} // {$R+}
+          {$UNDEF RANGECHECK_REENABLE}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       S := Format( '%.16x ', [ C ] );
 
       for i := 0 to Instruction.len-1 do
@@ -7468,9 +8174,19 @@ begin
 //  if ( Output <> nil ) then
 //    AOutput.Clear;
 
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Iced.Decoder.SetData( Data, Size, ARIP, doNONE );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 //  if LocalBuffer AND NOT BlockEncode then
 //    begin
 //    SetLength( Buffer, Size );
@@ -7522,9 +8238,19 @@ begin
       begin
       Iced.DecodeFormat( Instruction, tOutput );
 
-      {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFOPT R+}
+          {$DEFINE RANGECHECK_REENABLE}
+          {$RANGECHECKS OFF} // {$R-}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       C := Instruction.next_rip-Instruction.len;
-      {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+      {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+        {$IFDEF RANGECHECK_REENABLE}
+          {$RANGECHECKS ON} // {$R+}
+          {$UNDEF RANGECHECK_REENABLE}
+        {$ENDIF}
+      {$IFEND CompilerVersion <= 20} 
       S := Format( '%.16x ', [ C ] );
       
       for i := 0 to Instruction.len-1 do
@@ -7549,10 +8275,20 @@ var
 
   function CreateLabel : UInt64;
   begin
-    {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFOPT R+}
+        {$DEFINE RANGECHECK_REENABLE}
+        {$RANGECHECKS OFF} // {$R-}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
     result := LabelID;
     Inc( LabelID );
-    {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+    {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+      {$IFDEF RANGECHECK_REENABLE}
+        {$RANGECHECKS ON} // {$R+}
+        {$UNDEF RANGECHECK_REENABLE}
+      {$ENDIF}
+    {$IFEND CompilerVersion <= 20} 
   end;
 
   function AddLabel( ID : UInt64; Instruction : TInstruction ) : TInstruction;
@@ -7583,11 +8319,21 @@ begin
   // All created instructions get an IP of 0. The label id is just an IP.
   // The branch instruction's *target* IP should be equal to the IP of the
   // target instruction.
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   LabelID := 1;
 
   label1 := CreateLabel;
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
 
   SetLength( Instructions, 18 );
   Instructions[ 0 ] := {T}Instruction.with1( Push_r64, RBP );
@@ -7618,13 +8364,23 @@ begin
   Instructions[ 14 ] := AddLabel( label1, {T}Instruction.with2( Xor_r32_rm32, R15D, R15D ) );
 
   // Create an instruction that accesses some data using an RIP relative memory operand
-  {$IF CompilerVersion < 23}{$RANGECHECKS OFF}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFOPT R+}
+      {$DEFINE RANGECHECK_REENABLE}
+      {$RANGECHECKS OFF} // {$R-}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   data1 := CreateLabel;
   Instructions[ 15 ] := {T}Instruction.with2(
         Lea_r64_m,
         R14,
         {T}MemoryOperand.with_base_displ( RIP, Int64( data1 ) ) );
-  {$IF CompilerVersion < 23}{$RANGECHECKS ON}{$IFEND} // RangeCheck might cause Internal-Error C1118
+  {$IF CompilerVersion <= 20} // RangeCheck might cause Internal-Error C1118
+    {$IFDEF RANGECHECK_REENABLE}
+      {$RANGECHECKS ON} // {$R+}
+      {$UNDEF RANGECHECK_REENABLE}
+    {$ENDIF}
+  {$IFEND CompilerVersion <= 20} 
   Instructions[ 16 ] := {T}Instruction.with_( Nopd );
   Instructions[ 17 ] := AddLabel( data1, {T}Instruction.with_declare_byte( raw_data ) );
   Instructions[ 18 ] := {T}Instruction.with_declare_byte( raw_data );

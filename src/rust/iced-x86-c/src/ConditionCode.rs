@@ -2,11 +2,12 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::ConditionCode;
 use std::mem::transmute;// Enum<->Int
+use std::slice;
 
 #[no_mangle]
 pub unsafe extern "C" fn ConditionCode_AsString( ConditionCode : u8, Output : *mut u8, Size : usize ) { // FFI-Unsafe: ConditionCode
@@ -19,11 +20,11 @@ pub unsafe extern "C" fn ConditionCode_AsString( ConditionCode : u8, Output : *m
     
     let conditionCode : ConditionCode = transmute( ConditionCode as u8 );
     let output = format!("{conditionCode:?}");
-    
-    let aOutput = Output as *mut [u8;1024];
     let aSource = output.as_bytes();
-        
-    let n = std::cmp::min( aSource.len(), Size/*(*aOutput).len()*/ );
-    (*aOutput)[0..n].copy_from_slice(&aSource[0..n]);
-    (*aOutput)[n] = 0;
+
+    let n = std::cmp::min(aSource.len(), Size - 1);
+    let aOutput = slice::from_raw_parts_mut(Output, Size);
+
+    aOutput[..n].copy_from_slice(&aSource[..n]);
+    aOutput[n] = 0;
 }

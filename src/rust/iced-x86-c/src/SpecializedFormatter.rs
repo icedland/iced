@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, SpecializedFormatter, DefaultSpecializedFormatterTraitOptions};
@@ -70,7 +70,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
     }
     (*Output) = obj.Output.as_ptr();
     (*Size) = obj.Output.len();    
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 */
 
@@ -102,7 +102,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
 
         1 => {
@@ -117,7 +117,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         2 => {
@@ -127,7 +127,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
             *obj.Output.as_mut_ptr().add(obj.Output.len()) = 0;
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         3 => {
@@ -142,7 +142,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         4 => {
@@ -157,7 +157,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         5 => {
@@ -172,7 +172,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         6 => {
@@ -187,7 +187,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         7 => {
@@ -202,7 +202,7 @@ pub unsafe extern "C" fn SpecializedFormatter_Format( Formatter: *mut TSpecializ
             }
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }   
 
         _ => {
@@ -238,7 +238,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
     // Decode
     let mut obj = Box::from_raw( Decoder );    
     obj.decode_out( Instruction.as_mut().unwrap() );
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     // Format
     match Options {
@@ -254,7 +254,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
 
         1 => {
@@ -269,7 +269,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         2 => {
@@ -284,7 +284,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
                 let newsize = obj.Output.len()+1;
                 obj.Output.as_mut_vec().resize( newsize, 0 );    
             }  
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         3 => {
@@ -299,7 +299,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         4 => {
@@ -314,7 +314,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         5 => {
@@ -329,7 +329,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         6 => {
@@ -344,7 +344,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }            
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }
     
         7 => {
@@ -359,7 +359,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw(obj);
+            let _ = Box::into_raw(obj);
         }   
 
         _ => {
@@ -375,7 +375,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormat( Decoder: *mut Decode
             }
             (*Output) = obj.Output.as_ptr();
             (*Size) = obj.Output.len();
-            Box::into_raw( obj ); 
+            let _ = Box::into_raw( obj ); 
 */            
             return;
         }        
@@ -416,7 +416,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
 
         1 => {
@@ -435,7 +435,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         2 => {
@@ -454,7 +454,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         3 => {
@@ -473,7 +473,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         4 => {
@@ -492,7 +492,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         5 => {
@@ -511,7 +511,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         6 => {
@@ -530,7 +530,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }
     
         7 => {
@@ -549,7 +549,7 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             }
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
         }   
 
         _ => {
@@ -569,13 +569,13 @@ pub unsafe extern "C" fn SpecializedFormatter_DecodeFormatToEnd( Decoder: *mut D
 
                 Callback.unwrap()( &mut instruction, formatter.Output.as_ptr(), formatter.Output.len(), &mut stop, UserData );                           
             } 
-            Box::into_raw(formatter);
+            let _ = Box::into_raw(formatter);
  */                        
             //return;
         }        
     }
     
-    Box::into_raw( decoder );    
+    let _ = Box::into_raw( decoder );    
 }
 
 // NOTE: Specialized Formatter only supports the following Options
@@ -596,7 +596,7 @@ pub unsafe extern "C" fn SpecializedFormatter_GetAlwaysShowMemorySize( Formatter
 
     let value = obj.Formatter.options_mut().always_show_memory_size();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -619,7 +619,7 @@ pub unsafe extern "C" fn SpecializedFormatter_SetAlwaysShowMemorySize( Formatter
 
     obj.Formatter.options_mut().set_always_show_memory_size( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -639,7 +639,7 @@ pub unsafe extern "C" fn SpecializedFormatter_GetUseHexPrefix( Formatter: *mut T
 
     let value = obj.Formatter.options_mut().use_hex_prefix();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -662,7 +662,7 @@ pub unsafe extern "C" fn SpecializedFormatter_SetUseHexPrefix( Formatter: *mut T
 
     obj.Formatter.options_mut().set_use_hex_prefix( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }

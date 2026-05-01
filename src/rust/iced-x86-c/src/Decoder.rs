@@ -2,7 +2,7 @@
     Iced (Dis)Assembler
     C-Compatible Exports
   
-    TetzkatLipHoka 2022-2024
+    TetzkatLipHoka 2022-2026
 */
 
 use iced_x86_rust::{Instruction, Decoder, ConstantOffsets};
@@ -45,7 +45,7 @@ pub unsafe extern "C" fn Decoder_CanDecode( Decoder: *mut Decoder ) -> bool {
 
     let value = obj.can_decode();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return value;
 }
@@ -60,7 +60,7 @@ pub unsafe extern "C" fn Decoder_GetIP( Decoder: *mut Decoder ) -> u64 {
 
     let value = obj.ip();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return value;
 }
@@ -76,7 +76,7 @@ pub unsafe extern "C" fn Decoder_SetIP( Decoder: *mut Decoder, Value : u64 ) -> 
 
     obj.set_ip( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return true;
 }
@@ -91,7 +91,7 @@ pub unsafe extern "C" fn Decoder_GetBitness( Decoder: *mut Decoder ) -> u32 {
 
     let value = obj.bitness();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return value;
 }
@@ -107,7 +107,7 @@ pub unsafe extern "C" fn Decoder_GetMaxPosition( Decoder: *mut Decoder ) -> usiz
 
     let value = obj.max_position();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -124,7 +124,7 @@ pub unsafe extern "C" fn Decoder_GetPosition( Decoder: *mut Decoder ) -> usize {
 
     let value = obj.position();
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
  
     return value;
 }
@@ -140,7 +140,7 @@ pub unsafe extern "C" fn Decoder_SetPosition( Decoder: *mut Decoder, Value : usi
 
     let value = obj.set_position( Value );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 
     return value.is_ok();
 }
@@ -156,7 +156,7 @@ pub unsafe extern "C" fn Decoder_GetLastError( Decoder: *mut Decoder ) -> u8 { /
 
     let value: u8/*TDecoderError*/ = obj.last_error() as u8;
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
    
     return value;
 }
@@ -176,7 +176,7 @@ pub unsafe extern "C" fn Decoder_Decode( Decoder: *mut Decoder, Instruction: *mu
 
     obj.decode_out( Instruction.as_mut().unwrap() );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 type
@@ -203,7 +203,7 @@ pub unsafe extern "C" fn Decoder_DecodeToEnd( Decoder: *mut Decoder, Callback: O
         Callback.unwrap()( &mut Instruction, &mut Stop, UserData );
     }   
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
 }
 
 // Gets the offsets of the constants ( memory displacement and immediate ) in the decoded instruction.
@@ -220,6 +220,6 @@ pub unsafe extern "C" fn Decoder_GetConstantOffsets( Decoder: *mut Decoder, Inst
     
     *ConstantOffsets = obj.get_constant_offsets( Instruction.as_mut().unwrap() );
 
-    Box::into_raw( obj );
+    let _ = Box::into_raw( obj );
     return true;
 }
