@@ -9,6 +9,7 @@ use crate::decoder::handlers::*;
 use crate::decoder::*;
 use crate::iced_constants::IcedConstants;
 use crate::instruction_internal;
+use crate::OpKind;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
@@ -213,6 +214,14 @@ impl OpCodeHandler_Prefix67 {
 
 		decoder.reset_rex_prefix_state();
 		decoder.call_opcode_handlers_map0_table(instruction);
+
+		// If the instruction has no memory operand of any kind, the 0x67 prefix had no
+		// semantic effect. Record it so formatters can emit a16/a32/a64 to reproduce the
+		// original encoding. All memory-related OpKind values start at MemorySegSI (15).
+		let has_mem = (0..instruction.op_count()).any(|i| instruction.op_kind(i) as u32 >= OpKind::MemorySegSI as u32);
+		if !has_mem {
+			instruction.set_has_address_size_prefix(true);
+		}
 	}
 }
 
