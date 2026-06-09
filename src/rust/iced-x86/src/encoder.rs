@@ -1131,6 +1131,66 @@ impl Encoder {
 
 	fn write_prefixes(&mut self, instruction: &Instruction, can_write_f3: bool) {
 		debug_assert_eq!(self.handler.is_special_instr, false);
+		// If the decoder recorded the original prefix bytes AND the instruction has a
+		// segment override, emit them in legacy order — but only bytes that the
+		// canonical encoder would also emit. This preserves non-canonical prefix
+		// ordering (e.g. 67 66 2E for LIDT vs canonical 2E 66 67) while silently
+		// dropping bytes that are mandatory opcode prefixes emitted by the handler
+		// (e.g. the 66h in a MASKMOVDQU encoding, which the LegacyHandler emits
+		// as mandatory_prefix after write_prefixes returns).
+		if !instruction.legacy_prefix_bytes().is_empty() && instruction.segment_prefix() != Register::None {
+			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
+			let seg = instruction.segment_prefix();
+			// SAFETY: segment_prefix() != None implies a valid segment register index
+			let seg_byte =
+				unsafe { *SEGMENT_OVERRIDES.get_unchecked((seg as usize).wrapping_sub(Register::ES as usize)) };
+
+			// Build the canonical prefix byte set (mirrors the canonical emission below)
+			let mut canonical = [0u8; 8];
+			let mut canonical_n = 0usize;
+			canonical[canonical_n] = seg_byte;
+			canonical_n += 1;
+			if (self.encoder_flags & EncoderFlags::PF0) != 0 || instruction.has_lock_prefix() {
+				canonical[canonical_n] = 0xF0;
+				canonical_n += 1;
+			}
+			if (self.encoder_flags & EncoderFlags::P66) != 0 {
+				canonical[canonical_n] = 0x66;
+				canonical_n += 1;
+			}
+			if (self.encoder_flags & EncoderFlags::P67) != 0 || instruction.has_address_size_prefix() {
+				canonical[canonical_n] = 0x67;
+				canonical_n += 1;
+			}
+			if can_write_f3 && instruction.has_repe_prefix() {
+				canonical[canonical_n] = 0xF3;
+				canonical_n += 1;
+			}
+			if instruction.has_repne_prefix() {
+				canonical[canonical_n] = 0xF2;
+				canonical_n += 1;
+			}
+			// Emit legacy bytes that are in the canonical set, preserving legacy order.
+			// Each canonical slot is matched at most once to prevent emitting redundant
+			// copies when legacy contains repeated prefix bytes (e.g. 26 26 26 ADD).
+			let mut canonical_used = [false; 8];
+			for &b in instruction.legacy_prefix_bytes() {
+				for i in 0..canonical_n {
+					if !canonical_used[i] && canonical[i] == b {
+						self.write_byte_internal(b as u32);
+						canonical_used[i] = true;
+						break;
+					}
+				}
+			}
+			// Emit any canonical bytes absent from legacy (ensures no prefix is dropped)
+			for i in 0..canonical_n {
+				if !canonical_used[i] {
+					self.write_byte_internal(canonical[i] as u32);
+				}
+			}
+			return;
+		}
 		let seg = instruction.segment_prefix();
 		if seg != Register::None {
 			static SEGMENT_OVERRIDES: [u8; 6] = [0x26, 0x2E, 0x36, 0x3E, 0x64, 0x65];
