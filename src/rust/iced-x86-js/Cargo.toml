@@ -11,7 +11,7 @@ keywords = ["disassembler", "javascript", "assembler", "x86", "amd64"]
 categories = ["wasm", "development-tools::debugging", "encoding", "hardware-support"]
 edition = "2021"
 publish = false
-rust-version = "1.63.0"
+rust-version = "1.64.0"
 
 [lib]
 # Adding "rlib" increases the wasm file size, so ... don't do it
@@ -39,8 +39,8 @@ no_d3now = ["iced-x86-rust/no_d3now"]
 mvex = ["iced-x86-rust/mvex"]
 
 [dependencies]
-wasm-bindgen = { version = "0.2.79", features = ["strict-macro"] }
-js-sys = "0.3.56"
+wasm-bindgen = { version = "0.2.125", features = ["strict-macro"] }
+js-sys = "0.3.102"
 
 [dependencies.iced-x86-rust]
 package = "iced-x86"

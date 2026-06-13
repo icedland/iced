@@ -69,7 +69,7 @@ pub(in super::super) fn symbol_resolver_test(
 	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<dyn Formatter>,
 ) {
 	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
-	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
+	for (info, formatted_line) in infos.iter().zip(formatted_lines) {
 		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
 		let mut formatter = fmt_factory(symbol_resolver);
 		for props in &info.options {
@@ -98,7 +98,7 @@ pub(in super::super) fn symbol_resolver_test_fast<TraitOptions: SpecializedForma
 	dir: &str, filename: &str, fmt_factory: fn(symbol_resolver: Box<dyn SymbolResolver>) -> Box<SpecializedFormatter<TraitOptions>>,
 ) {
 	let (infos, formatted_lines) = get_infos_and_lines(dir, filename);
-	for (info, formatted_line) in infos.iter().zip(formatted_lines.into_iter()) {
+	for (info, formatted_line) in infos.iter().zip(formatted_lines) {
 		let symbol_resolver = Box::new(SymbolResolverImpl { info, vec: Vec::new() });
 		let mut formatter = fmt_factory(symbol_resolver);
 		for props in &info.options {

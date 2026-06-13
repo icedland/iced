@@ -9,7 +9,7 @@ use std::collections::hash_map::DefaultHasher;
 ///
 /// Call :class:`Decoder.get_constant_offsets` or :class:`Encoder.get_constant_offsets` to get the
 /// offsets of the constants after the instruction has been decoded/encoded.
-#[pyclass(module = "iced_x86._iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py", skip_from_py_object)]
 #[derive(Copy, Clone)]
 pub(crate) struct ConstantOffsets {
 	pub(crate) offsets: iced_x86::ConstantOffsets,

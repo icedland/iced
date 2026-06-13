@@ -75,7 +75,7 @@
           <source>8</source>
           <target>8</target>
           <compilerArgs>
-            <arg>-Xlint:all,-auxiliaryclass</arg>
+            <arg>-Xlint:all,-auxiliaryclass,-options</arg>
             <arg>-Werror</arg>
           </compilerArgs>
         </configuration>

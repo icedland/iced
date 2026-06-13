@@ -13,11 +13,8 @@ if [ "$OSTYPE" = "msys" ]; then
 else
 	is_windows=n
 fi
-net_tfm="net8.0"
+net_tfm="net10.0"
 net_std="netstandard2.0"
-net_framework_tfm="net48"
-xunit_version="2.4.1"
-xunit_net_tfm_version="net472"
 configuration=Release
 full_check=y
 gen_check=y

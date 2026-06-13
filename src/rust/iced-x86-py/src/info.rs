@@ -8,7 +8,7 @@ use pyo3::prelude::*;
 use std::collections::hash_map::DefaultHasher;
 
 /// A register used by an instruction
-#[pyclass(module = "iced_x86._iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py", skip_from_py_object)]
 #[derive(Copy, Clone)]
 pub(crate) struct UsedRegister {
 	info: iced_x86::UsedRegister,
@@ -78,7 +78,7 @@ impl UsedRegister {
 }
 
 /// A memory location used by an instruction
-#[pyclass(module = "iced_x86._iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py", skip_from_py_object)]
 #[derive(Copy, Clone)]
 pub(crate) struct UsedMemory {
 	info: iced_x86::UsedMemory,
