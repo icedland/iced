@@ -346,7 +346,7 @@ final class DecEncTests {
 						assertEquals(info.code, instruction1.getCode());
 					}
 					{
-						bytes[evexIndex + 2] ^= 0x80;
+						bytes[evexIndex + 2] ^= (byte)0x80;
 						Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 						instruction2 = decoder.decode();
 						assertEquals(info.code, instruction2.getCode());
@@ -360,7 +360,7 @@ final class DecEncTests {
 						assertEquals(info.code, instruction.getCode());
 					}
 					{
-						bytes[evexIndex + 2] ^= 0x80;
+						bytes[evexIndex + 2] ^= (byte)0x80;
 						Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 						Instruction instruction = decoder.decode();
 						assertNotEquals(info.code, instruction.getCode());
@@ -381,7 +381,7 @@ final class DecEncTests {
 						assertEquals(info.code, instruction1.getCode());
 					}
 					{
-						bytes[vexIndex + 2] ^= 0x80;
+						bytes[vexIndex + 2] ^= (byte)0x80;
 						Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 						instruction2 = decoder.decode();
 						assertEquals(info.code, instruction2.getCode());
@@ -395,7 +395,7 @@ final class DecEncTests {
 						assertEquals(info.code, instruction.getCode());
 					}
 					{
-						bytes[vexIndex + 2] ^= 0x80;
+						bytes[vexIndex + 2] ^= (byte)0x80;
 						Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 						Instruction instruction = decoder.decode();
 						assertNotEquals(info.code, instruction.getCode());
@@ -549,7 +549,7 @@ final class DecEncTests {
 				Decoder decoder = new Decoder(info.bitness, bytes, info.options);
 				instruction1 = decoder.decode();
 			}
-			bytes[bytes.length - 1] ^= 0x80;
+			bytes[bytes.length - 1] ^= (byte)0x80;
 			{
 				Decoder decoder = new Decoder(info.bitness, bytes, info.options);
 				instruction2 = decoder.decode();
@@ -647,7 +647,7 @@ final class DecEncTests {
 
 			if (opCode.canBroadcast() && !isRegOnly) {
 				{
-					bytes[evexIndex + 3] &= 0xEF;
+					bytes[evexIndex + 3] &= (byte)0xEF;
 					Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 					Instruction instruction = decoder.decode();
 					assertEquals(info.code, instruction.getCode());
@@ -663,7 +663,7 @@ final class DecEncTests {
 			}
 			else {
 				if (!isSaeOrEr) {
-					bytes[evexIndex + 3] &= 0xEF;
+					bytes[evexIndex + 3] &= (byte)0xEF;
 					Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 					Instruction instruction = decoder.decode();
 					assertEquals(info.code, instruction.getCode());
@@ -1114,7 +1114,7 @@ final class DecEncTests {
 				else if (!other_reg) {
 					bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
 					if (info.bitness != 64)
-						bytes[vexIndex + 1] |= 0x80;
+						bytes[vexIndex + 1] |= (byte)0x80;
 					Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 					Instruction instruction = decoder.decode();
 					assertEquals(info.code, instruction.getCode());
@@ -1332,7 +1332,7 @@ final class DecEncTests {
 				else if (!other_reg) {
 					bytes[vexIndex + 1] = (byte)(b1 ^ 0x80);
 					if (info.bitness != 64)
-						bytes[vexIndex + 1] |= 0x80;
+						bytes[vexIndex + 1] |= (byte)0x80;
 					Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 					Instruction instruction = decoder.decode();
 					assertEquals(info.code, instruction.getCode());
@@ -1447,7 +1447,7 @@ final class DecEncTests {
 					// vidx = V' X sib.index
 					bytes[evexIndex + 1] = (byte)((p0 & ~0xD0) | /*R'*/(t & 0x10) | /*R*/((t & 0x08) << 4) | /*X*/((t & 0x08) << 3));
 					if (info.bitness != 64)
-						bytes[evexIndex + 1] |= 0xC0;
+						bytes[evexIndex + 1] |= (byte)0xC0;
 					bytes[evexIndex + 3] = (byte)((p2 & ~0x08) | /*V'*/((t & 0x10) >>> 1));
 					bytes[evexIndex + 5] = (byte)((m & 0xC7) | /*modrm.reg*/((i & 7) << 3));
 					bytes[evexIndex + 6] = (byte)((s & 0xC7) | /*sib.index*/((i & 7) << 3));
@@ -2808,7 +2808,7 @@ final class DecEncTests {
 			}
 
 			int evexIndex = getEvexIndex(bytes);
-			bytes[evexIndex + 3] &= 0xF8;
+			bytes[evexIndex + 3] &= (byte)0xF8;
 			{
 				Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 				Instruction instruction = decoder.decode();
@@ -3096,7 +3096,7 @@ final class DecEncTests {
 			if ((bytes[mIndex] & 0xFF) >= 0xC0)
 				bytes[mIndex] &= 0x3F;
 			else
-				bytes[mIndex] |= 0xC0;
+				bytes[mIndex] |= (byte)0xC0;
 			{
 				Decoder decoder = new Decoder(info.bitness, new ByteArrayCodeReader(bytes), info.options);
 				Instruction instruction = decoder.decode();

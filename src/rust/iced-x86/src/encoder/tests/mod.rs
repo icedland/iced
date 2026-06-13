@@ -302,7 +302,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		(64, "41 0F10 8E 78563412", RIP, Instruction::with2(Code::Movups_xmm_xmmm128, Register::XMM1, memory64).unwrap()),
 	];
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "__internal_dont_use", rustfmt::skip)]
 	#[cfg(not(feature = "no_vex"))]
 	{
 		tests.push((16, "C5F8 10 8C 3412", RIP, Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory16).unwrap()));
@@ -310,7 +310,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "C4C178 10 8E 78563412", RIP, Instruction::with2(Code::VEX_Vmovups_xmm_xmmm128, Register::XMM1, memory64).unwrap()));
 	}
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "__internal_dont_use", rustfmt::skip)]
 	#[cfg(not(feature = "no_evex"))]
 	{
 		tests.push((16, "62 F17C08 10 8C 3412", RIP, Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory16).unwrap()));
@@ -318,7 +318,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "62 D17C08 10 8E 78563412", RIP, Instruction::with2(Code::EVEX_Vmovups_xmm_k1z_xmmm128, Register::XMM1, memory64).unwrap()));
 	}
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "__internal_dont_use", rustfmt::skip)]
 	#[cfg(not(feature = "no_xop"))]
 	{
 		tests.push((16, "8F E878C0 8C 3412 A5", RIP, Instruction::with3(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory16, 0xA5).unwrap()));
@@ -326,7 +326,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "8F C878C0 8E 78563412 A5", RIP, Instruction::with3(Code::XOP_Vprotb_xmm_xmmm128_imm8, Register::XMM1, memory64, 0xA5).unwrap()));
 	}
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "__internal_dont_use", rustfmt::skip)]
 	#[cfg(not(feature = "no_d3now"))]
 	{
 		tests.push((16, "0F0F 8C 3412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory16).unwrap()));
@@ -334,7 +334,7 @@ fn displsize_eq_1_uses_long_form_if_it_does_not_fit_in_1_byte() {
 		tests.push((64, "0F0F 8E 78563412 0C", RIP, Instruction::with2(Code::D3NOW_Pi2fw_mm_mmm64, Register::MM1, memory64).unwrap()));
 	}
 
-	#[cfg_attr(feature = "cargo-fmt", rustfmt::skip)]
+	#[cfg_attr(feature = "__internal_dont_use", rustfmt::skip)]
 	#[cfg(feature = "mvex")]
 	{
 		tests.push((64, "62 D17808 28 8E 78563412", RIP, Instruction::with2(Code::MVEX_Vmovaps_zmm_k1_zmmmt, Register::ZMM1, memory64).unwrap()));

@@ -114,12 +114,12 @@ impl Decoder {
 		// #[pyo3(signature = (...))] line assumption
 		const _: () = assert!(iced_x86::DecoderOptions::NONE == 0);
 
-		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = data.downcast::<PyBytes>() {
+		let (data_ref, decoder_data): (DecoderDataRef, &'static [u8]) = if let Ok(bytes) = data.cast::<PyBytes>() {
 			//TODO: try to use a reference to the original data like we did with PyO3 0.20 and earlier, see previous commit
 			let vec_data: Vec<_> = bytes.as_bytes().into();
 			let decoder_data = unsafe { slice::from_raw_parts(vec_data.as_ptr(), vec_data.len()) };
 			(DecoderDataRef::Vec(vec_data), decoder_data)
-		} else if let Ok(bytearray) = data.downcast::<PyByteArray>() {
+		} else if let Ok(bytearray) = data.cast::<PyByteArray>() {
 			//TODO: support bytearray without copying its data by getting a ref to its data every time the Decoder is used (also update the ctor args docs)
 			let vec_data: Vec<_> = unsafe { bytearray.as_bytes().into() };
 			let decoder_data = unsafe { slice::from_raw_parts(vec_data.as_ptr(), vec_data.len()) };

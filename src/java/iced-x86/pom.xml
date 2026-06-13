@@ -47,13 +47,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>6.0.1</version>
+      <version>6.1.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
-      <version>6.0.1</version>
+      <version>6.1.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -66,23 +66,23 @@
       </plugin>
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.5.0</version>
       </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.14.1</version>
+        <version>3.15.0</version>
         <configuration>
           <source>8</source>
           <target>8</target>
           <compilerArgs>
-            <arg>-Xlint:all,-auxiliaryclass</arg>
+            <arg>-Xlint:all,-auxiliaryclass,-options</arg>
             <arg>-Werror</arg>
           </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.6</version>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>

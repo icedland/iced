@@ -188,7 +188,7 @@ impl BlockEncoder {
 			this.blocks.push((block, start_index, end_index));
 		}
 		// Optimize from low to high addresses
-		this.blocks.sort_unstable_by(|a, b| a.0.rip.cmp(&b.0.rip));
+		this.blocks.sort_unstable_by_key(|a| a.0.rip);
 
 		this.benc.to_instr_index = Vec::with_capacity(instr_count);
 		// There must not be any instructions with the same IP, except if IP = 0 (default value)
@@ -209,7 +209,7 @@ impl BlockEncoder {
 			}
 		}
 		// We sort them in reverse order so that if we must remove the 'ip==0' entry, we just need to pop()
-		this.benc.to_instr_index.sort_unstable_by(|a, b| b.0.cmp(&a.0));
+		this.benc.to_instr_index.sort_unstable_by_key(|a| core::cmp::Reverse(a.0));
 		if num_ip_0 > 1 {
 			this.benc.has_multiple_zero_ip_instrs = true;
 			if let Some(kv) = this.benc.to_instr_index.last() {

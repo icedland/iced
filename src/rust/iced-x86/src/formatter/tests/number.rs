@@ -121,7 +121,7 @@ pub(in super::super) fn number_tests(fmt_factory: fn() -> Box<dyn Formatter>) {
 		panic!("Files don't have the same amount of lines: {} != {}", numbers.len(), formatted_numbers.len());
 	}
 
-	for (number, formatted_strings) in numbers.into_iter().zip(formatted_numbers.into_iter()) {
+	for (number, formatted_strings) in numbers.into_iter().zip(formatted_numbers) {
 		assert_eq!(formatted_strings.len(), NUMBER_BASES.len());
 		for (&base, formatted_string) in NUMBER_BASES.iter().zip(formatted_strings.iter().map(String::as_str)) {
 			let mut formatter = fmt_factory();

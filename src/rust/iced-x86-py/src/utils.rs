@@ -9,9 +9,9 @@ use std::fmt::Display;
 /// Gets a ref to the bytes or an error. It assumes the input data is not modified
 /// if it's mutable (eg. if it's a `bytearray`)
 pub(crate) unsafe fn get_temporary_byte_array_ref<'a>(data: &'a Bound<'_, PyAny>) -> PyResult<&'a [u8]> {
-	if let Ok(bytes) = data.downcast::<PyBytes>() {
+	if let Ok(bytes) = data.cast::<PyBytes>() {
 		Ok(bytes.as_bytes())
-	} else if let Ok(bytearray) = data.downcast::<PyByteArray>() {
+	} else if let Ok(bytearray) = data.cast::<PyByteArray>() {
 		Ok(bytearray.as_bytes())
 	} else {
 		//TODO: support memoryview (also update docs and Decoder ctor and the message below)

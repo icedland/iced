@@ -12,7 +12,7 @@ public final class EncoderException extends RuntimeException {
 	/**
 	 * The instruction the {@link Encoder} failed to encode
 	 */
-	public final Instruction instruction;
+	public final transient Instruction instruction;
 
 	EncoderException(String message, Instruction instruction) {
 		super(message);

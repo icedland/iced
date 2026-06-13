@@ -29,8 +29,10 @@
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::collapsible_else_if)]
 #![allow(clippy::collapsible_if)]
+#![allow(clippy::collapsible_match)]
 #![allow(clippy::field_reassign_with_default)]
 #![allow(clippy::implied_bounds_in_impls)]
+#![allow(clippy::int_plus_one)]
 #![allow(clippy::manual_range_contains)]
 #![allow(clippy::match_ref_pats)]
 #![allow(clippy::missing_transmute_annotations)] // TODO: enable again
