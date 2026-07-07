@@ -63,7 +63,7 @@ public final class CodeValueTests {
 			default:
 				throw new UnsupportedOperationException();
 			}
-			tested[info.code] |= flags;
+			tested[info.code] |= (byte)flags;
 		}
 
 		for (NonDecodedTestCase info : NonDecodedInstructions.getTests()) {
@@ -81,7 +81,7 @@ public final class CodeValueTests {
 			default:
 				throw new UnsupportedOperationException();
 			}
-			tested[info.instruction.getCode()] |= flags;
+			tested[info.instruction.getCode()] |= (byte)flags;
 		}
 
 		for (Integer c : DecoderTestUtils.notDecoded) {

@@ -153,7 +153,7 @@ use std::collections::hash_map::DefaultHasher;
 /// M      Always show the memory size (eg. ``BYTE PTR``) even when not needed
 /// _      Use digit separators (eg. ``0x12345678`` vs ``0x1234_5678``) (ignored by fast fmt)
 /// ====== =============================================================================
-#[pyclass(module = "iced_x86._iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py", from_py_object)]
 #[derive(Copy, Clone)]
 pub(crate) struct Instruction {
 	pub(crate) instr: iced_x86::Instruction,
@@ -173,7 +173,7 @@ impl Instruction {
 	///     state (Any): unpickled state
 	#[pyo3(text_signature = "($self, state)")]
 	fn __setstate__(&mut self, state: &Bound<'_, PyAny>) -> PyResult<()> {
-		match state.downcast::<PyBytes>() {
+		match state.cast::<PyBytes>() {
 			Ok(s) => {
 				self.instr = deserialize(s.as_bytes()).map_err(to_value_error)?;
 				Ok(())

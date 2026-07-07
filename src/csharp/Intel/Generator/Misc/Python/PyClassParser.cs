@@ -159,8 +159,9 @@ namespace Generator.Misc.Python {
 			foreach (var pyClass in classes) {
 				var pyClassAttr = pyClass.Attributes.Attributes.FirstOrDefault(a => a.Kind == AttributeKind.PyClass);
 				const string expectedPyClassAttr = "#[pyclass(module = \"iced_x86._iced_x86_py\")]";
-				if (pyClassAttr?.Text != expectedPyClassAttr)
-					throw GetException($"Class {pyClass.Name}: Expected this #[pyclass] attribute: {expectedPyClassAttr}");
+				var text = pyClassAttr?.Text ?? "";
+				if (text != expectedPyClassAttr && !text.StartsWith("#[pyclass(module = \"iced_x86._iced_x86_py\",", StringComparison.Ordinal))
+					throw GetException($"Class {pyClass.Name}: Expected this #[pyclass] attribute: {expectedPyClassAttr} (it is: {text})");
 
 				var ctor = pyClass.Methods.FirstOrDefault(a => a.Attributes.Any(AttributeKind.New));
 				int argsSectCount = pyClass.DocComments.Sections.OfType<ArgsDocCommentSection>().Count();

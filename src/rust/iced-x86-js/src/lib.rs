@@ -24,6 +24,7 @@
 #![allow(clippy::cast_lossless)]
 #![allow(clippy::collapsible_else_if)]
 #![allow(clippy::collapsible_if)]
+#![allow(clippy::doc_markdown)]
 #![allow(clippy::drop_non_drop)] // wasm-bindgen warning
 #![allow(clippy::field_reassign_with_default)]
 #![allow(clippy::manual_range_contains)]
@@ -39,7 +40,6 @@
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::debug_assert_with_mut_call)]
 #![warn(clippy::default_trait_access)]
-#![warn(clippy::doc_markdown)]
 #![warn(clippy::empty_line_after_outer_attr)]
 #![warn(clippy::expect_used)]
 #![warn(clippy::explicit_into_iter_loop)]

@@ -18,7 +18,7 @@ use std::collections::hash_map::DefaultHasher;
 ///     `displ_size` (int): (default = ``0``) 0 (no displ), 1 (16/32/64-bit, but use 2/4/8 if it doesn't fit in a `i8`), 2 (16-bit), 4 (32-bit) or 8 (64-bit)
 ///     `is_broadcast` (bool): (default = ``False``) ``True`` if it's broadcast memory (EVEX instructions)
 ///     `seg` (:class:`Register`): (default = :class:`Register.NONE`) Segment override or :class:`Register.NONE`
-#[pyclass(module = "iced_x86._iced_x86_py")]
+#[pyclass(module = "iced_x86._iced_x86_py", from_py_object)]
 #[derive(Copy, Clone)]
 pub(crate) struct MemoryOperand {
 	pub(crate) mem: iced_x86::MemoryOperand,

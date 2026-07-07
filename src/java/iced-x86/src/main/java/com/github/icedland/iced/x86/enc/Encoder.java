@@ -696,7 +696,7 @@ public final class Encoder {
 					encoderFlags |= EncoderFlags.HIGH_LEGACY_8_BIT_REGS;
 			}
 			modRM |= (byte)(regNum & 7);
-			modRM |= 0xC0;
+			modRM |= (byte)0xC0;
 			encoderFlags |= (regNum >>> 3) & 3;
 			assert Integer.compareUnsigned(regNum, 31) <= 0 : regNum;
 		}
@@ -845,7 +845,7 @@ public final class Encoder {
 				this.displSize = DisplSize.SIZE1;
 			}
 			else if (displSize == 2) {
-				modRM |= 0x80;
+				modRM |= (byte)0x80;
 				this.displSize = DisplSize.SIZE2;
 			}
 			else {
@@ -997,7 +997,7 @@ public final class Encoder {
 			this.displSize = DisplSize.SIZE1;
 		}
 		else if (displSize == addrSize / 8) {
-			modRM |= 0x80;
+			modRM |= (byte)0x80;
 			this.displSize = DisplSize.SIZE4;
 		}
 		else if (displSize == 0) {
