@@ -15,4 +15,6 @@ return {
 	ReturnNewInstructionOffsets = 0x00000004,
 	---The `BlockEncoder` should return `ConstantOffsets`
 	ReturnConstantOffsets = 0x00000008,
+	---The `BlockEncoder` should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.
+	ReturnAllNewInstructionOffsets = 0x00000014,
 }
