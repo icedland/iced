@@ -486,6 +486,8 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
+	///
+	/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 	unsafe fn always_show_scale(lua, this: &Formatter) -> 1 {
 		unsafe { lua.push(this.inner.options().always_show_scale()); }
 	}

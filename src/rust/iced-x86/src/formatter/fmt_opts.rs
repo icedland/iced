@@ -620,6 +620,8 @@ impl FormatterOptions {
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
+	///
+	/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 	#[must_use]
 	#[inline]
 	pub const fn always_show_scale(&self) -> bool {
@@ -632,6 +634,8 @@ impl FormatterOptions {
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
+	///
+	/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 	///
 	/// # Arguments
 	///

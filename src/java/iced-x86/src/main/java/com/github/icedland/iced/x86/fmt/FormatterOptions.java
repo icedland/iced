@@ -443,6 +443,8 @@ public final class FormatterOptions {
 	 * {@code true}: {@code mov eax,[rbx+rcx*1]}
 	 * <p>
 	 * {@code false}: {@code mov eax,[rbx+rcx]}
+	 * <p>
+	 * The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. {@code mov eax,[rcx*1+10h]} since {@code [rcx+10h]} uses {@code rcx} as the base register.
 	 */
 	public boolean getAlwaysShowScale() {
 		return (flags1 & Flags1.ALWAYS_SHOW_SCALE) != 0;
@@ -456,6 +458,8 @@ public final class FormatterOptions {
 	 * {@code true}: {@code mov eax,[rbx+rcx*1]}
 	 * <p>
 	 * {@code false}: {@code mov eax,[rbx+rcx]}
+	 * <p>
+	 * The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. {@code mov eax,[rcx*1+10h]} since {@code [rcx+10h]} uses {@code rcx} as the base register.
 	 */
 	public void setAlwaysShowScale(boolean value) {
 		if (value)
