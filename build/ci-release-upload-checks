@@ -1,0 +1,46 @@
+#!/bin/sh
+set -e
+
+# Checks that the tools used to upload a release are installed and work, and that the Python files
+# are valid (twine check). Installs the npm version used for publishing (CI_NPM_VER env var).
+#
+# Used by the release workflow before uploading, and by test release builds so a problem is
+# found before a real release.
+#
+# Usage: ci-release-upload-checks <python-dir>
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $0 <python-dir>"
+	exit 1
+fi
+py_dist_dir=$1
+if [ -z "$CI_NPM_VER" ]; then
+	echo "CI_NPM_VER env var isn't set"
+	exit 1
+fi
+
+echo "==== twine check ===="
+python -m pip install -U twine
+if [ -n "$(ls -A "$py_dist_dir" 2>/dev/null)" ]; then
+	python -m twine check "$py_dist_dir"/*
+else
+	echo "SKIPPED: no Python files in $py_dist_dir"
+fi
+
+echo "==== dotnet nuget push ===="
+dotnet nuget push --help > /dev/null
+echo "OK"
+
+echo "==== cargo publish ===="
+cargo publish --help > /dev/null
+echo "OK"
+
+echo "==== npm stage publish ===="
+# npm trusted publishing + 'npm stage' need a recent npm
+npm install -g "npm@$CI_NPM_VER"
+npm --version
+npm stage publish --help > /dev/null
+echo "OK"
+
+echo "==== mvn ===="
+mvn --version

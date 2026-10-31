@@ -99,6 +99,71 @@ jobs:
   #############################################################################
   #############################################################################
 
+  # Test release builds only (a real release does this in the upload job before uploading):
+  # verifies the build artifacts and the upload tools with the same scripts as the upload job, so
+  # eg. a renamed file or a version mismatch is found before a real release. Artifact groups that
+  # weren't built (unchecked) are skipped with a message.
+  check-artifacts:
+    if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && !contains(needs.*.result, 'failure') }}
+    runs-on: ubuntu-26.04
+    name: Check artifacts
+    needs:
+      - dotnet
+      - java
+      - js
+      - python
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # Same tools as the upload job
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+      - uses: actions/setup-java@v6
+        with:
+          distribution: ${{env.JAVA_DISTRIBUTION}}
+          java-version: ${{env.JAVA_VERSION}}
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{env.CI_NODE_MIN_VER}}
+
+      - uses: actions/download-artifact@v8
+        with:
+          path: ${{runner.temp}}/artifacts
+
+      - name: Verify the artifacts
+        shell: bash
+        env:
+          BUILT_DOTNET: ${{inputs.dotnet}}
+          BUILT_JAVA: ${{inputs.java}}
+          BUILT_JS: ${{inputs.js}}
+          BUILT_PYTHON_LINUX: ${{inputs.python_linux}}
+          BUILT_PYTHON_MACOS: ${{inputs.python_macos}}
+          BUILT_PYTHON_WINDOWS: ${{inputs.python_windows}}
+        run: |
+          # Only check the groups that were built (checked)
+          groups=()
+          [[ "$BUILT_DOTNET" == "true" ]] && groups+=(dotnet)
+          [[ "$BUILT_JAVA" == "true" ]] && groups+=(java)
+          [[ "$BUILT_JS" == "true" ]] && groups+=(js)
+          [[ "$BUILT_PYTHON_LINUX" == "true" ]] && groups+=(python-linux)
+          [[ "$BUILT_PYTHON_MACOS" == "true" ]] && groups+=(python-macos)
+          [[ "$BUILT_PYTHON_WINDOWS" == "true" ]] && groups+=(python-windows)
+          groups_str=$(IFS=,; echo "${groups[*]}")
+          ./build/ci-verify-release-artifacts --groups "$groups_str" "$RUNNER_TEMP/artifacts" "$RUNNER_TEMP/py-dist"
+
+      - name: Upload checks
+        shell: bash
+        run: ./build/ci-release-upload-checks "$RUNNER_TEMP/py-dist"
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   # Checks that NuGet trusted publishing works (the nuget.org policy matches this repo/workflow/user)
   # by getting a temporary API key. Nothing is pushed. In a real release, upload-files needs this
   # job so nothing gets uploaded anywhere if it fails.
@@ -171,46 +236,13 @@ jobs:
 
       - name: Verify downloads
         shell: bash
-        run: |
-          if [ -z "$(ls -A /tmp/artifacts/nupkg/Iced.*.nupkg)" ]; then
-            echo "Missing nupkg files"
-            exit 1
-          fi
-          if [ -z "$(ls -A /tmp/artifacts/npm/iced-x86-*.tgz)" ]; then
-            echo "Missing npm files"
-            exit 1
-          fi
-
-          mkdir /tmp/py-dist-tmp
-          mkdir /tmp/py-dist
-          for path in /tmp/artifacts/py-dist-*; do
-            cp "$path/"* /tmp/py-dist-tmp
-          done
-
-          mv /tmp/py-dist-tmp/iced_x86-*.whl /tmp/py-dist
-          # Newer setuptools versions use the normalized name in the sdist filename (PEP 625), eg.
-          # iced_x86-1.22.0.tar.gz, not iced-x86-1.22.0.tar.gz
-          mv /tmp/py-dist-tmp/iced_x86-*.tar.gz /tmp/py-dist
-
-          if [ -n "$(ls -A /tmp/py-dist-tmp/* 2>/dev/null)" ]; then
-            ls -l /tmp/py-dist-tmp
-            echo "Unknown files found (see above)"
-            echo "If it's a new Python version, see the Python version comment in lang-python.yml"
-            exit 1
-          fi
-          rmdir /tmp/py-dist-tmp
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: ./build/ci-verify-release-artifacts --tag "$RELEASE_TAG" /tmp/artifacts /tmp/py-dist
 
       - name: Upload checks
         shell: bash
-        run: |
-          python -m pip install -U twine
-          python -m twine check /tmp/py-dist/*
-          dotnet nuget push --help
-          cargo publish --help
-          # npm trusted publishing + 'npm stage' need a recent npm
-          npm install -g "npm@${CI_NPM_VER}"
-          npm stage publish --help
-          mvn --help
+        run: ./build/ci-release-upload-checks /tmp/py-dist
 
       # Uses NuGet trusted publishing (OIDC), no stored API key. The temporary API key is only
       # valid for 1 hour, so get it right before pushing.
