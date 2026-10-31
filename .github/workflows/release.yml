@@ -90,7 +90,7 @@ jobs:
 
   upload-files:
     if: github.event_name == 'release'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     name: Upload files
     needs:
       - dotnet

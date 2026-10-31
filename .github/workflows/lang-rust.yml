@@ -18,7 +18,7 @@ jobs:
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-latest", "macos-latest"]' || '["ubuntu-latest"]') }}
+        os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-26.04", "macos-latest"]' || '["ubuntu-26.04"]') }}
 
     steps:
       - uses: actions/checkout@v7
