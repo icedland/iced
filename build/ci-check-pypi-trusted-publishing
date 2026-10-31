@@ -1,0 +1,80 @@
+#!/bin/sh
+set -e
+
+# Checks that PyPI trusted publishing works (the PyPI publisher config matches this
+# repo/workflow) by exchanging the GitHub Actions OIDC token for a short-lived PyPI API token.
+# Nothing is uploaded and the token isn't used (it expires automatically).
+#
+# The real upload uses pypa/gh-action-pypi-publish. This uses PyPI's documented manual token
+# exchange (https://docs.pypi.org/trusted-publishers/using-a-publisher/), which PyPI says isn't a
+# stable interface, so if this check breaks but uploading works, the check needs to be updated.
+#
+# Requires: GitHub Actions with 'permissions: id-token: write'
+
+if [ ! "$GITHUB_ACTIONS" ]; then
+	echo "This file should only be executed from GitHub Actions"
+	exit 1
+fi
+if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ] || [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then
+	echo "ERROR: No GitHub OIDC token available. The job needs 'permissions: id-token: write'"
+	exit 1
+fi
+
+pypi_url=https://pypi.org
+
+# Prints a top level JSON value (or an empty string if it's missing or the input isn't JSON, eg. an
+# HTML error page)
+json_value() {
+	python3 -c '
+import json, sys
+try:
+	v = json.load(sys.stdin).get(sys.argv[1])
+except Exception:
+	v = None
+print("" if v is None else v)
+' "$1"
+}
+
+# Prints only the error message fields of a JSON response (never the whole response, it could
+# contain a token)
+json_errors() {
+	python3 -c '
+import json, sys
+try:
+	d = json.load(sys.stdin)
+	print("message:", d.get("message"), "| errors:", json.dumps(d.get("errors")))
+except Exception:
+	print("(not a JSON response)")
+'
+}
+
+audience=$(curl -sSf -m 60 "$pypi_url/_/oidc/audience" | json_value audience)
+if [ -z "$audience" ]; then
+	echo "ERROR: Couldn't get the OIDC audience from $pypi_url"
+	exit 1
+fi
+
+oidc_token=$(curl -sSf -m 60 -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=$audience" | json_value value)
+if [ -z "$oidc_token" ]; then
+	echo "ERROR: Couldn't get a GitHub OIDC token"
+	exit 1
+fi
+
+# Never print the response, it contains the PyPI API token if it succeeded
+response=$(printf '{"token":"%s"}' "$oidc_token" | curl -sS -m 60 -X POST -H "Content-Type: application/json" --data @- "$pypi_url/_/oidc/mint-token") || response=
+oidc_token=
+token=$(echo "$response" | json_value token)
+if [ -n "$token" ]; then
+	# Make sure it's never shown in the log, whatever happens below
+	echo "::add-mask::$token"
+fi
+success=$(echo "$response" | json_value success)
+if [ "$success" = "True" ] && [ -n "$token" ]; then
+	token=
+	echo "OK: PyPI trusted publishing works (got a short-lived API token, it's not used)"
+else
+	token=
+	echo "ERROR: PyPI trusted publishing failed. Check the publisher config on pypi.org (owner, repository, workflow, environment)."
+	echo "PyPI's error: $(echo "$response" | json_errors)"
+	exit 1
+fi
