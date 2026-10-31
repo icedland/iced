@@ -204,8 +204,9 @@ jobs:
         with:
           distribution: ${{env.JAVA_DISTRIBUTION}}
           java-version: ${{env.JAVA_VERSION}}
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
+          # Must match publishingServerId in pom.xml (central-publishing-maven-plugin)
+          server-id: central
+          server-username: MAVEN_CENTRAL_USERNAME
           server-password: MAVEN_CENTRAL_TOKEN
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
@@ -215,6 +216,7 @@ jobs:
           cd src/java/iced-x86
           mvn deploy
         env:
-          MAVEN_USERNAME: wtfsck
+          # Central Portal user token (username + password), not the account name
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
