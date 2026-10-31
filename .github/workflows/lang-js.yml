@@ -6,6 +6,10 @@ on:
         description: "Release build (all OSes, full tests on Linux) instead of a quick PR build"
         type: boolean
         default: false
+      test_release:
+        description: "Test release build (manual run). The npm version may already have been published since the version usually hasn't been bumped yet."
+        type: boolean
+        default: false
 
 # Keep this in sync with the other *.yml files
 env:
@@ -17,6 +21,8 @@ jobs:
     name: ${{matrix.os}}
     runs-on: ${{matrix.os}}
     strategy:
+      # Don't cancel the other OSes if one fails, we want to see all failures (eg. in a test release build)
+      fail-fast: false
       matrix:
         os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-26.04", "macos-latest"]' || '["ubuntu-26.04"]') }}
 
@@ -39,6 +45,7 @@ jobs:
         shell: bash
         env:
           IS_RELEASE: ${{inputs.release}}
+          IS_TEST_RELEASE: ${{inputs.test_release}}
         run: |
           if [[ "$IS_RELEASE" != "true" ]]; then
             extra_args=(--quick-check)
@@ -46,6 +53,9 @@ jobs:
             extra_args=(--publish-dry-run --quick-check)
           else
             extra_args=(--publish-dry-run)
+          fi
+          if [[ "$IS_RELEASE" == "true" && "$IS_TEST_RELEASE" == "true" ]]; then
+            extra_args+=(--allow-published-version)
           fi
           ./build/build-js --no-set-rustflags "${extra_args[@]}"
 

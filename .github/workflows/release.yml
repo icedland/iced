@@ -73,6 +73,7 @@ jobs:
     uses: ./.github/workflows/lang-js.yml
     with:
       release: true
+      test_release: ${{ github.event_name == 'workflow_dispatch' }}
 
   python:
     name: Python

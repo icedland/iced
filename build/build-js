@@ -22,6 +22,7 @@ fi
 full_check=y
 set_rustflags=y
 publish_dry_run=n
+allow_published_version=n
 
 new_func() {
 	echo
@@ -113,7 +114,23 @@ gen_release() {
 	cp iced-x86-*.tgz release/
 	cd release
 	if [ "$publish_dry_run" = "y" ]; then
-		npm publish iced-x86-*.tgz --dry-run
+		dry_run_log=$(mktemp)
+		if npm publish iced-x86-*.tgz --dry-run > "$dry_run_log" 2>&1; then
+			dry_run_ok=y
+		else
+			dry_run_ok=n
+		fi
+		cat "$dry_run_log"
+		if [ "$dry_run_ok" = "n" ]; then
+			# Test release builds run before the version has been bumped
+			if [ "$allow_published_version" = "y" ] && grep -q "cannot publish over the previously published version" "$dry_run_log"; then
+				echo "WARNING: This npm version has already been published. Ignoring it (--allow-published-version)."
+			else
+				rm -f "$dry_run_log"
+				exit 1
+			fi
+		fi
+		rm -f "$dry_run_log"
 	fi
 	cd ../..
 
@@ -126,6 +143,7 @@ while [ "$#" -gt 0 ]; do
 	--python) shift; python=$1 ;;
 	--no-set-rustflags) set_rustflags=n ;;
 	--publish-dry-run) publish_dry_run=y ;;
+	--allow-published-version) allow_published_version=y ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift
