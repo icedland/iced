@@ -154,6 +154,7 @@ pub(crate) enum OpSize {
 	Size32,
 	Size64,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_SIZE: [&str; 3] = [
 	"Size16",

@@ -53,6 +53,7 @@ pub(crate) enum CtorKind {
 	mem16,
 	Reg32,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 43] = [
 	"Previous",
@@ -124,6 +125,7 @@ pub(crate) enum SizeOverride {
 	Size32,
 	Size64,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"None",
@@ -217,6 +219,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 38] = [
 	"Register",

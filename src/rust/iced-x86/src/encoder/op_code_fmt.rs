@@ -23,6 +23,7 @@ pub(crate) enum LKind {
 	/// .LZ
 	LZ,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_LKIND: [&str; 4] = [
 	"None",

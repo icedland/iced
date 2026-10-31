@@ -20,6 +20,7 @@ pub(crate) enum DisplSize {
 	RipRelSize4_Target32,
 	RipRelSize4_Target64,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_DISPL_SIZE: [&str; 7] = [
 	"None",
@@ -74,6 +75,7 @@ pub(crate) enum ImmSize {
 	SizeIbReg,
 	Size1OpCode,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_IMM_SIZE: [&str; 19] = [
 	"None",
@@ -149,6 +151,7 @@ pub(crate) enum LegacyOpCodeTable {
 	MAP0F38,
 	MAP0F3A,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_LEGACY_OP_CODE_TABLE: [&str; 4] = [
 	"MAP0",
@@ -183,6 +186,7 @@ pub(crate) enum VexOpCodeTable {
 	MAP0F3A,
 }
 #[cfg(not(feature = "no_vex"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_VEX_OP_CODE_TABLE: [&str; 4] = [
 	"MAP0",
@@ -218,6 +222,7 @@ pub(crate) enum XopOpCodeTable {
 	MAP10,
 }
 #[cfg(not(feature = "no_xop"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_XOP_OP_CODE_TABLE: [&str; 3] = [
 	"MAP8",
@@ -484,6 +489,7 @@ pub(crate) enum DecOptionValue {
 	KNC,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_DEC_OPTION_VALUE: [&str; 18] = [
 	"None",
@@ -537,6 +543,7 @@ pub(crate) enum InstrStrFmtOption {
 	VecIndexSameAsOpIndex,
 }
 #[cfg(all(feature = "encoder", feature = "op_code_info"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_INSTR_STR_FMT_OPTION: [&str; 7] = [
 	"None",
@@ -576,6 +583,7 @@ pub(crate) enum WBit {
 	WIG32,
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_WBIT: [&str; 4] = [
 	"W0",
@@ -615,6 +623,7 @@ pub(crate) enum LBit {
 	L512,
 }
 #[cfg(any(not(feature = "no_vex"), not(feature = "no_xop"), not(feature = "no_evex"), feature = "mvex"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_LBIT: [&str; 7] = [
 	"L0",

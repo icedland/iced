@@ -59,6 +59,7 @@ pub(crate) enum CtorKind {
 	STi_ST,
 	XLAT,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 49] = [
 	"Previous",
@@ -185,6 +186,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 30] = [
 	"Register",
