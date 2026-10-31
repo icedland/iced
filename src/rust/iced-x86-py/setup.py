@@ -21,7 +21,7 @@ with open("README.md", "r", encoding="utf-8") as file:
 
 setup(
 	name="iced-x86",
-	version="1.21.0",
+	version="1.22.0",
 	license="MIT",
 	author_email="wtfsck@protonmail.com",
 	author="wtfsck",
