@@ -1,0 +1,244 @@
+#!/bin/bash
+set -e
+
+# Verifies the downloaded release artifacts (all build jobs' artifacts) before uploading them,
+# and copies the Python files (wheels + sdist) to one dir.
+#
+# Everything is checked before the first upload so a release isn't half-published (eg. NuGet,
+# crates.io and PyPI get the new version but then the npm or Maven upload fails):
+#	- all files have the same version (the one in src/rust/iced-x86/Cargo.toml) and match the tag
+#	- the exact set of NuGet, npm and Java files exists
+#	- exactly one sdist and at least one wheel for each platform we build
+#	- no unknown or duplicate Python files
+#
+# Used by the release workflow before uploading, and by test release builds so a problem is
+# found before a real release.
+#
+# Usage: ci-verify-release-artifacts [--tag <tag>] [--groups <list>] <artifacts-dir> <python-output-dir>
+#	--tag <tag>			The release tag, eg. v1.22.0, must match the version
+#	--groups <list>		Comma separated list of the groups that were built (default: all):
+#						dotnet,java,js,python-linux,python-macos,python-windows
+#						Test release builds with some groups unchecked only check the built
+#						groups (the others are skipped with a message). A real release builds all.
+
+root_dir=$(dirname "$0")
+root_dir=$(cd "$root_dir/.." && pwd)
+if [ ! -f "$root_dir/LICENSE.txt" ]; then
+	echo "Couldn't find the root dir"
+	exit 1
+fi
+
+tag=
+groups=dotnet,java,js,python-linux,python-macos,python-windows
+positional=()
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	--tag|--groups)
+		if [ "$#" -lt 2 ]; then
+			echo "Missing value for $1"
+			exit 1
+		fi
+		case $1 in
+		--tag) tag=$2 ;;
+		--groups) groups=$2 ;;
+		esac
+		shift
+		;;
+	-*) echo "Unknown arg: $1"; exit 1 ;;
+	*) positional+=("$1") ;;
+	esac
+	shift
+done
+if [ "${#positional[@]}" -ne 2 ]; then
+	echo "Usage: $0 [--tag <tag>] [--groups <list>] <artifacts-dir> <python-output-dir>"
+	exit 1
+fi
+artifacts_dir=${positional[0]}
+py_dist_dir=${positional[1]}
+
+if [ ! -d "$artifacts_dir" ]; then
+	echo "Dir does not exist: $artifacts_dir"
+	exit 1
+fi
+# Everything in the Python output dir gets uploaded, so it must not contain any other files
+if [ -n "$(ls -A "$py_dist_dir" 2>/dev/null)" ]; then
+	echo "The Python output dir isn't empty: $py_dist_dir"
+	exit 1
+fi
+
+errors=0
+error() {
+	echo "ERROR: $1"
+	errors=$((errors + 1))
+}
+
+# All published versions must be the same as the Rust crate's version
+version=$(sed -n 's/^version = "\([^"]*\)"$/\1/p' "$root_dir/src/rust/iced-x86/Cargo.toml" | head -1)
+if [ -z "$version" ]; then
+	echo "ERROR: Couldn't read the version from src/rust/iced-x86/Cargo.toml"
+	exit 1
+fi
+echo "Expected version: $version"
+if [ -n "$tag" ]; then
+	if [ "$tag" != "v$version" ]; then
+		error "Release tag '$tag' doesn't match the version in src/rust/iced-x86/Cargo.toml (expected tag 'v$version')"
+	else
+		echo "OK: release tag $tag"
+	fi
+fi
+
+echo "Artifacts:"
+ls -l "$artifacts_dir"
+
+for g in $(echo "$groups" | tr ',' ' '); do
+	case $g in
+	dotnet|java|js|python-linux|python-macos|python-windows) ;;
+	*) echo "Unknown group: $g"; exit 1 ;;
+	esac
+done
+echo "Groups: $groups"
+
+# Returns 0 if group $1 was built
+built() {
+	case ",$groups," in
+	*",$1,"*) return 0 ;;
+	*) return 1 ;;
+	esac
+}
+
+# Returns 0 if the artifact should be checked: group $1, artifact dir $2, description $3
+have_group() {
+	if ! built "$1"; then
+		echo "SKIPPED: $3 (group '$1' wasn't built)"
+		return 1
+	fi
+	if [ -d "$artifacts_dir/$2" ]; then
+		return 0
+	fi
+	error "Missing artifact '$2' ($3)"
+	return 1
+}
+
+# Checks that a dir contains exactly the expected files (and no other files)
+check_exact_files() {
+	dir=$1
+	what=$2
+	shift 2
+	for name in "$@"; do
+		if [ ! -f "$dir/$name" ]; then
+			error "$what: missing $name (wrong version or did the filename format change?)"
+		fi
+	done
+	for path in "$dir"/*; do
+		[ -f "$path" ] || continue
+		name=$(basename "$path")
+		expected=n
+		for e in "$@"; do
+			[ "$name" = "$e" ] && expected=y
+		done
+		if [ "$expected" != "y" ]; then
+			error "$what: unexpected file $name (wrong version or a new file?)"
+		fi
+	done
+}
+
+# NuGet
+if have_group dotnet nupkg "NuGet"; then
+	check_exact_files "$artifacts_dir/nupkg" "NuGet" "Iced.$version.nupkg" "Iced.$version.snupkg"
+fi
+
+# npm. 'npm stage publish iced-x86-*.tgz' requires exactly one file
+if have_group js npm "npm"; then
+	check_exact_files "$artifacts_dir/npm" "npm" "iced-x86-$version.tgz"
+fi
+
+# Java. Maven publishes the version in pom.xml. The .asc files only exist if they were signed.
+if have_group java java "Maven"; then
+	java_files=("iced-x86-$version.jar" "iced-x86-$version-sources.jar" "iced-x86-$version-javadoc.jar" "iced-x86-$version.pom")
+	java_expected=("${java_files[@]}")
+	if [ -n "$(ls -A "$artifacts_dir"/java/*.asc 2>/dev/null)" ]; then
+		for f in "${java_files[@]}"; do
+			java_expected+=("$f.asc")
+		done
+	fi
+	check_exact_files "$artifacts_dir/java" "Maven" "${java_expected[@]}"
+fi
+
+# Python
+py_artifacts=("$artifacts_dir"/py-dist-*)
+if ! built python-linux && ! built python-macos && ! built python-windows; then
+	echo "SKIPPED: PyPI (no Python groups were built)"
+elif [ ! -d "${py_artifacts[0]}" ]; then
+	error "Missing Python artifacts (no py-dist-* artifacts)"
+else
+	py_dist_tmp=$(mktemp -d)
+	trap 'rm -rf "$py_dist_tmp"' EXIT
+	mkdir -p "$py_dist_dir"
+	for path in "${py_artifacts[@]}"; do
+		for file in "$path"/*; do
+			[ -f "$file" ] || continue
+			name=$(basename "$file")
+			if [ -e "$py_dist_tmp/$name" ]; then
+				error "PyPI: duplicate file $name (in more than one py-dist-* artifact)"
+			else
+				cp "$file" "$py_dist_tmp/"
+			fi
+		done
+	done
+
+	# Newer setuptools versions use the normalized name in the sdist filename (PEP 625), eg.
+	# iced_x86-1.22.0.tar.gz, not iced-x86-1.22.0.tar.gz
+	# The sdist is built by the Linux x64 job
+	sdist="iced_x86-$version.tar.gz"
+	if [ -f "$py_dist_tmp/$sdist" ]; then
+		mv "$py_dist_tmp/$sdist" "$py_dist_dir/"
+	elif built python-linux; then
+		error "PyPI: missing sdist $sdist (wrong version or did the filename format change?)"
+	fi
+
+	for wheel in "$py_dist_tmp"/iced_x86-"$version"-*.whl; do
+		[ -f "$wheel" ] || continue
+		mv "$wheel" "$py_dist_dir/"
+	done
+
+	# At least one wheel for each platform we build (a missing matrix entry or job is an error).
+	# If a platform is added/removed in lang-python.yml, update this list.
+	required_wheels=(
+		"python-linux:cp3*-abi3-manylinux*_x86_64.whl:CPython Linux x86_64 (manylinux)"
+		"python-linux:cp3*-abi3-manylinux*_aarch64.whl:CPython Linux aarch64 (manylinux)"
+		"python-linux:cp3*-abi3-musllinux_*_x86_64.whl:CPython Linux x86_64 (musllinux)"
+		"python-linux:pp3*-manylinux*_x86_64.whl:PyPy Linux x86_64"
+		"python-macos:cp3*-abi3-macosx_*.whl:CPython macOS"
+		"python-windows:cp3*-abi3-win_amd64.whl:CPython Windows x64"
+		"python-windows:cp3*-abi3-win32.whl:CPython Windows x86"
+		"python-windows:pp3*-win_amd64.whl:PyPy Windows x64"
+	)
+	for entry in "${required_wheels[@]}"; do
+		group=${entry%%:*}
+		rest=${entry#*:}
+		pattern=${rest%%:*}
+		desc=${rest#*:}
+		if ! built "$group"; then
+			echo "SKIPPED: PyPI wheel for $desc (group '$group' wasn't built)"
+			continue
+		fi
+		# shellcheck disable=SC2086
+		if ! ls "$py_dist_dir"/iced_x86-"$version"-$pattern > /dev/null 2>&1; then
+			error "PyPI: missing wheel for $desc (iced_x86-$version-$pattern)"
+		fi
+	done
+
+	if [ -n "$(ls -A "$py_dist_tmp" 2>/dev/null)" ]; then
+		ls -l "$py_dist_tmp"
+		error "PyPI: unknown files found (see above). Wrong version? If it's a new Python version, see the Python version comment in lang-python.yml"
+	fi
+
+	echo "Python files:"
+	ls -l "$py_dist_dir"
+fi
+
+if [ "$errors" -ne 0 ]; then
+	echo "Found $errors error(s), not uploading anything"
+	exit 1
+fi
+echo "OK: All release artifacts verified (version $version)"
