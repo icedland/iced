@@ -1,0 +1,67 @@
+name: C#
+on:
+  workflow_call:
+    inputs:
+      release:
+        description: "Release build (all OSes, full tests on Linux) instead of a quick PR build"
+        type: boolean
+        default: false
+
+# Keep this in sync with the other *.yml files
+env:
+  CI_REQ_DOTNET_SDK_VER: '8.0.x'
+
+jobs:
+  build-dotnet:
+    name: ${{matrix.os}}
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-latest", "macos-latest"]' || '["ubuntu-latest"]') }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
+
+      - name: Build and test
+        shell: bash
+        env:
+          IS_RELEASE: ${{inputs.release}}
+        run: |
+          extra_args=()
+          if [[ "$IS_RELEASE" != "true" || "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=(--quick-check)
+          fi
+          ./build/build-dotnet "${extra_args[@]}"
+
+      - uses: actions/upload-artifact@v7
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: nupkg
+          path: src/csharp/Intel/Iced/bin/Release/*.*nupkg
+          if-no-files-found: error
+
+      - uses: actions/upload-artifact@v7
+        if: ${{ !inputs.release }}
+        with:
+          name: coverage.info
+          path: src/csharp/Intel/Iced.UnitTests/coverage.info
+          if-no-files-found: error
+
+      - name: Upload coverage report
+        if: ${{ !inputs.release && github.ref == 'refs/heads/master' }}
+        shell: bash
+        continue-on-error: true
+        run: |
+          # https://docs.codecov.com/docs/codecov-uploader
+          curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+          curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+          gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+          shasum -a 256 -c codecov.SHA256SUM
+          chmod +x codecov
+          ./codecov -t "${{secrets.CODECOV_TOKEN}}" -f "src/csharp/Intel/Iced.UnitTests/coverage.info"
