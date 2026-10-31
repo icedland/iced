@@ -109,10 +109,14 @@ build_test_rock_lua() {
 
 	ICED_LUA_EXTRA_FEATURES="extra_checks" luarocks make iced_x86-*.rockspec --local --lua-version $lua_maj.$lua_min
 
-	eval $(luarocks path --lua-version $lua_maj.$lua_min)
 	busted_filename=/tmp/tmp-busted-runner
 	echo "require 'busted.runner'({ standalone = false })" > "$busted_filename"
-	"$lua" -- "$busted_filename" -m "./tests/?.lua" tests
+	# Subshell: LUA_PATH/LUA_CPATH are for this Lua version only. luarocks (below) could be
+	# running on another Lua version and wouldn't find its own modules.
+	(
+		eval "$(luarocks path --lua-version $lua_maj.$lua_min)"
+		"$lua" -- "$busted_filename" -m "./tests/?.lua" tests
+	)
 
 	luarocks remove iced_x86 --local --lua-version $lua_maj.$lua_min
 }
