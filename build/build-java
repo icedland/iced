@@ -10,6 +10,7 @@ fi
 
 full_check=y
 test_code=y
+sign=n
 
 new_func() {
 	echo
@@ -25,15 +26,137 @@ build_test() {
 	curr_dir=$(pwd)
 	cd "$root_dir/src/java/iced-x86"
 
-	mvn clean package
+	if [ "$sign" = "y" ]; then
+		# 'verify' runs maven-gpg-plugin, just like 'mvn deploy' does when publishing
+		mvn clean verify
+		verify_signatures
+	else
+		mvn clean package
+	fi
 
 	cd "$curr_dir"
+}
+
+# Make sure all files that get uploaded to Maven Central have a valid signature.
+# Must be called from the Maven project dir after 'mvn verify'.
+verify_signatures() {
+	new_func "Verify signatures"
+
+	gpg --version | head -1
+	found_jar=n
+	for file in target/iced-x86-*.jar target/iced-x86-*.pom; do
+		[ -f "$file" ] || continue
+		case "$file" in
+		*.jar) found_jar=y ;;
+		esac
+		if [ ! -f "$file.asc" ]; then
+			echo "Missing signature: $file.asc"
+			exit 1
+		fi
+		echo "Verifying $file.asc"
+		gpg --verify "$file.asc" "$file"
+	done
+	if [ "$found_jar" != "y" ]; then
+		echo "No jar files found"
+		exit 1
+	fi
+	for suffix in "" -sources -javadoc; do
+		if ! ls target/iced-x86-*"$suffix".jar.asc > /dev/null 2>&1; then
+			echo "Missing signature for the iced-x86*$suffix.jar file"
+			exit 1
+		fi
+	done
+
+	verify_signatures_with_keyservers
+}
+
+# Maven Central verifies the signatures with the public key from the public keyservers, not
+# with our local copy. Verify them the same way so eg. a renewed key that wasn't re-uploaded
+# (keyservers still have the expired key) is detected now and not when uploading.
+verify_signatures_with_keyservers() {
+	new_func "Verify signatures with the public keyservers' copy of the key"
+
+	first_asc=$(ls target/iced-x86-*.jar.asc | head -1)
+	key_id=$(gpg --batch --list-packets "$first_asc" 2>/dev/null | sed -n 's/.*keyid \([0-9A-Fa-f]\{16\}\).*/\1/p' | head -1)
+	if [ -z "$key_id" ]; then
+		echo "Couldn't get the signing key id from $first_asc"
+		exit 1
+	fi
+	echo "Signing key id: $key_id"
+
+	# Required keyservers fail the build, optional ones (unreliable) only print a warning
+	for server in keyserver.ubuntu.com:required keys.openpgp.org:required pgp.mit.edu:optional; do
+		name=${server%:*}
+		kind=${server#*:}
+		case "$name" in
+		keys.openpgp.org) url="https://keys.openpgp.org/vks/v1/by-keyid/$key_id" ;;
+		*) url="https://$name/pks/lookup?op=get&options=mr&search=0x$key_id" ;;
+		esac
+		if [ "$kind" = "required" ]; then
+			max_time=60 attempts=3
+		else
+			# Don't waste minutes waiting for an unreliable server
+			max_time=20 attempts=2
+		fi
+		if check_signatures_with_keyserver "$name" "$url" "$max_time" "$attempts"; then
+			echo "OK: $name"
+		elif [ "$kind" = "required" ]; then
+			echo "ERROR: $name: the public key is missing/expired/invalid, or the signatures don't verify with it. Maven Central would reject the upload. Upload the current public key to $name."
+			exit 1
+		else
+			echo "WARNING: $name: couldn't verify the signatures with its copy of the key (it's often down)"
+		fi
+	done
+}
+
+# Returns 0 if all signatures verify with the key downloaded from the keyserver
+# Args: name url max-time-per-attempt attempts
+check_signatures_with_keyserver() {
+	ks_name=$1
+	ks_url=$2
+	ks_max_time=$3
+	ks_attempts=$4
+	ks_home=$(mktemp -d)
+	chmod 700 "$ks_home"
+	ks_ok=n
+	attempt=1
+	while [ "$attempt" -le "$ks_attempts" ]; do
+		if curl -sSf -m "$ks_max_time" -o "$ks_home/key.asc" "$ks_url" && grep -q 'BEGIN PGP PUBLIC KEY BLOCK' "$ks_home/key.asc"; then
+			ks_ok=y
+			break
+		fi
+		echo "$ks_name: couldn't download the key (attempt $attempt/$ks_attempts)"
+		attempt=$((attempt + 1))
+		[ "$attempt" -le "$ks_attempts" ] && sleep 5
+	done
+	if [ "$ks_ok" = "y" ]; then
+		GNUPGHOME="$ks_home" gpg --batch --quiet --import "$ks_home/key.asc" > /dev/null 2>&1 || ks_ok=n
+	fi
+	if [ "$ks_ok" = "y" ]; then
+		for asc in target/iced-x86-*.jar.asc target/iced-x86-*.pom.asc; do
+			[ -f "$asc" ] || continue
+			# GOODSIG = good signature from a key that's currently valid. An expired or revoked key gives
+			# EXPKEYSIG/REVKEYSIG instead, and a bad or unverifiable signature gives BADSIG/ERRSIG.
+			status=$(GNUPGHOME="$ks_home" gpg --batch --status-fd 1 --verify "$asc" "${asc%.asc}" 2> /dev/null || true)
+			if echo "$status" | grep -q '^\[GNUPG:\] GOODSIG ' && ! echo "$status" | grep -qE '^\[GNUPG:\] (EXPKEYSIG|REVKEYSIG|BADSIG|ERRSIG|EXPSIG) '; then
+				echo "$ks_name: good signature: $asc"
+			else
+				echo "$ks_name: verification failed: $asc"
+				echo "$status" | grep -E '^\[GNUPG:\] (GOODSIG|EXPKEYSIG|REVKEYSIG|BADSIG|ERRSIG|EXPSIG|KEYEXPIRED|NO_PUBKEY) ' || true
+				ks_ok=n
+			fi
+		done
+	fi
+	GNUPGHOME="$ks_home" gpgconf --kill all > /dev/null 2>&1 || true
+	rm -rf "$ks_home"
+	[ "$ks_ok" = "y" ]
 }
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
 	--quick-check) full_check=n ;;
 	--no-test) test_code=n ;;
+	--sign) sign=y ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift

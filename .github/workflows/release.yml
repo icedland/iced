@@ -40,8 +40,12 @@ on:
 env:
   CI_REQ_DOTNET_SDK_VER: '10.0.x'
   CI_NODE_MIN_VER: 'latest'
+  # npm major version (eg. 'npm stage' needs npm >= 11.15.0)
+  CI_NPM_VER: '12'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '17'
+  # nuget.org username (profile name, not the email address) used by NuGet trusted publishing
+  NUGET_USER: 'wtfsck'
 
 jobs:
   dotnet:
@@ -58,6 +62,12 @@ jobs:
     uses: ./.github/workflows/lang-java.yml
     with:
       release: true
+      # Verify the GPG key/passphrase (MAVEN_GPG_*) and the Central Portal token
+      # (MAVEN_CENTRAL_*) work before the upload job runs
+      sign: true
+      check_central_token: true
+      test_release: ${{ github.event_name == 'workflow_dispatch' }}
+    secrets: inherit
 
   rust:
     name: Rust
@@ -89,11 +99,49 @@ jobs:
   #############################################################################
   #############################################################################
 
+  # Checks that NuGet trusted publishing works (the nuget.org policy matches this repo/workflow/user)
+  # by getting a temporary API key. Nothing is pushed. In a real release, upload-files needs this
+  # job so nothing gets uploaded anywhere if it fails.
+  check-nuget-login:
+    if: github.event_name != 'workflow_dispatch' || inputs.dotnet
+    runs-on: ubuntu-26.04
+    name: Check NuGet login
+    permissions:
+      # Required for NuGet trusted publishing (OIDC)
+      id-token: write
+
+    steps:
+      - name: NuGet login (trusted publishing)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{env.NUGET_USER}}
+
+      - name: Check the temporary API key
+        shell: bash
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
+        run: |
+          if [ -z "$NUGET_API_KEY" ]; then
+            echo "ERROR: NuGet login didn't return an API key"
+            exit 1
+          fi
+          echo "OK: NuGet trusted publishing works (got a temporary API key, it's not used)"
+
+  #############################################################################
+  #############################################################################
+  #############################################################################
+
   upload-files:
     if: github.event_name == 'release'
     runs-on: ubuntu-26.04
     name: Upload files
+    permissions:
+      contents: read
+      # Required for npm and NuGet trusted publishing (OIDC)
+      id-token: write
     needs:
+      - check-nuget-login
       - dotnet
       - java
       - rust
@@ -116,7 +164,6 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
-          registry-url: "https://registry.npmjs.org"
 
       - uses: actions/download-artifact@v8
         with:
@@ -158,14 +205,26 @@ jobs:
           python -m twine check /tmp/py-dist/*
           dotnet nuget push --help
           cargo publish --help
-          npm publish --help
+          # npm trusted publishing + 'npm stage' need a recent npm
+          npm install -g "npm@${CI_NPM_VER}"
+          npm stage publish --help
           mvn --help
+
+      # Uses NuGet trusted publishing (OIDC), no stored API key. The temporary API key is only
+      # valid for 1 hour, so get it right before pushing.
+      - name: NuGet login (trusted publishing)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: ${{env.NUGET_USER}}
 
       - name: Upload to nuget.org
         shell: bash
+        env:
+          NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
         run: |
           for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
-            dotnet nuget push "$file" --api-key "${{secrets.NUGET_APIKEY}}" --source https://api.nuget.org/v3/index.json
+            dotnet nuget push "$file" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
           done
 
       - name: Upload to crates.io
@@ -185,20 +244,21 @@ jobs:
         run: |
           python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
 
-      - name: Upload to npmjs.com
+      # Uses npm trusted publishing (OIDC), no token. The version is only staged
+      # and must be approved on npmjs.com (2FA) before it's published.
+      - name: Upload to npmjs.com (staged)
         shell: bash
         run: |
-          npm publish /tmp/artifacts/npm/iced-x86-*.tgz
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          npm stage publish /tmp/artifacts/npm/iced-x86-*.tgz
 
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v6
         with:
           distribution: ${{env.JAVA_DISTRIBUTION}}
           java-version: ${{env.JAVA_VERSION}}
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
+          # Must match publishingServerId in pom.xml (central-publishing-maven-plugin)
+          server-id: central
+          server-username: MAVEN_CENTRAL_USERNAME
           server-password: MAVEN_CENTRAL_TOKEN
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
@@ -208,6 +268,7 @@ jobs:
           cd src/java/iced-x86
           mvn deploy
         env:
-          MAVEN_USERNAME: wtfsck
+          # Central Portal user token (username + password), not the account name
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
