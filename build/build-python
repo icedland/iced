@@ -150,8 +150,7 @@ generate_docs() {
 	unzip "$wheel" -d build/unpacked-wheel/
 
 	echo "Generating HTML files"
-	#TODO: enable -W again, fails in GitHub Actions (py3.8) but not locally (py3.11)
-	python -m sphinx --color -n --keep-going -b html docs docs/_build
+	python -m sphinx --color -n -W --keep-going -b html docs docs/_build
 
 	echo "Running doc tests"
 	python -m sphinx --color -n -W --keep-going -b doctest docs docs/_build

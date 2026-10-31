@@ -162,11 +162,11 @@ jobs:
 
   # If the supported Python versions get updated (added/removed), do:
   # - Update .github/workflows/*.yml
-  #     - Search for 3.8, 3\.8, 38, py38
-  # - Update build/ci-py-build-wheels.sh (update cp38)
-  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py38" to min supported version)
-  # - Update src/rust/iced-x86-py/README.md (py min ver: 'Python >= 3.8')
-  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 38)
+  #     - Search for 3.11, 3\.11, 311, py311
+  # - Update build/ci-py-build-wheels.sh (update cp311)
+  # - Update src/rust/iced-x86-py/Cargo.toml (update "abi3-py311" to min supported version)
+  # - Update src/rust/iced-x86-py/README.md (py min ver: 'Python >= 3.11')
+  # - Update src/rust/iced-x86-py/build-wheels.sh (search for eg. 311)
   # - Update src/rust/iced-x86-py/setup.py (Python versions)
   # - Update src/rust/iced-x86-py/tox.ini
 
@@ -212,11 +212,11 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.8'
+          python-version: '3.11'
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.8'
+          python --version 2>&1 | grep 'Python 3\.11'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -292,7 +292,7 @@ jobs:
         shell: bash
         run: |
           git clean -xdf
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_1_x86_64"
+          ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_2_x86_64"
 
       - uses: actions/upload-artifact@v7
         with:
@@ -320,11 +320,11 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.9'
+          python-version: '3.11'
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.9'
+          python --version 2>&1 | grep 'Python 3\.11'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -335,30 +335,12 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.9'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.9'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.10'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.10'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v7
-        with:
           python-version: '3.11'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.11'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v7
         with:
@@ -376,6 +358,24 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.13'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.14'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.15'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.15'
           bash build/ci-py-build-wheels.sh
 
       - uses: actions/upload-artifact@v7
@@ -404,11 +404,11 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.8'
+          python-version: '3.11'
       - name: Install Python tools
         shell: bash
         run: |
-          python --version 2>&1 | grep 'Python 3\.8'
+          python --version 2>&1 | grep 'Python 3\.11'
           python -m pip install -r src/rust/iced-x86-py/requirements-dev.txt
 
       - name: Build and test
@@ -419,39 +419,12 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.8'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.9'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.9'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.10'
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.10'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v7
-        with:
           python-version: '3.11'
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.11'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v7
         with:
@@ -473,13 +446,21 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: 'pypy-3.10'
+          python-version: '3.14'
       - name: Build and test the wheel
         shell: bash
         run: |
-          python --version
-          python --version 2>&1 | grep 'Python 3\.10'
-          bash build/ci-py-build-wheels.sh --build --py-kind pypy
+          python --version 2>&1 | grep 'Python 3\.14'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.15'
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.15'
+          bash build/ci-py-build-wheels.sh
 
       - uses: actions/setup-python@v7
         with:
@@ -529,43 +510,13 @@ jobs:
 
       - uses: actions/setup-python@v7
         with:
-          python-version: '3.8'
-          architecture: x86
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.8'
-          bash build/ci-py-build-wheels.sh --build
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.9'
-          architecture: x86
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.9'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.10'
-          architecture: x86
-      - name: Build and test the wheel
-        shell: bash
-        run: |
-          python --version 2>&1 | grep 'Python 3\.10'
-          bash build/ci-py-build-wheels.sh
-
-      - uses: actions/setup-python@v7
-        with:
           python-version: '3.11'
           architecture: x86
       - name: Build and test the wheel
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.11'
-          bash build/ci-py-build-wheels.sh
+          bash build/ci-py-build-wheels.sh --build
 
       - uses: actions/setup-python@v7
         with:
@@ -585,6 +536,26 @@ jobs:
         shell: bash
         run: |
           python --version 2>&1 | grep 'Python 3\.13'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.14'
+          bash build/ci-py-build-wheels.sh
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.15'
+          architecture: x86
+      - name: Build and test the wheel
+        shell: bash
+        run: |
+          python --version 2>&1 | grep 'Python 3\.15'
           bash build/ci-py-build-wheels.sh
 
       - name: Fix upload path
