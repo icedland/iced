@@ -188,7 +188,9 @@ jobs:
           done
 
           mv /tmp/py-dist-tmp/iced_x86-*.whl /tmp/py-dist
-          mv /tmp/py-dist-tmp/iced-x86-*.tar.gz /tmp/py-dist
+          # Newer setuptools versions use the normalized name in the sdist filename (PEP 625), eg.
+          # iced_x86-1.22.0.tar.gz, not iced-x86-1.22.0.tar.gz
+          mv /tmp/py-dist-tmp/iced_x86-*.tar.gz /tmp/py-dist
 
           if [ -n "$(ls -A /tmp/py-dist-tmp/* 2>/dev/null)" ]; then
             ls -l /tmp/py-dist-tmp
