@@ -16,6 +16,8 @@ jobs:
     name: ${{matrix.os}}
     runs-on: ${{matrix.os}}
     strategy:
+      # Don't cancel the other OSes if one fails, we want to see all failures (eg. in a test release build)
+      fail-fast: false
       matrix:
         os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-26.04", "macos-latest"]' || '["ubuntu-26.04"]') }}
 
