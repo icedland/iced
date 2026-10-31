@@ -36,7 +36,7 @@ for PYBIN in $(ls -v /opt/python/*/bin/python); do
 		echo "  $PYBIN"
 	fi
 done
-CPYBINS="$(ls -v /opt/python/{cp38-cp38,cp39-cp39,cp310-cp310,cp311-cp311,cp312-cp312,cp313-cp313}/bin/python)"
+CPYBINS="$(ls -v /opt/python/{cp311-cp311,cp312-cp312,cp313-cp313,cp314-cp314,cp315-cp315}/bin/python)"
 cpython_found=
 for PYBIN in $CPYBINS; do
 	if [ -f "$PYBIN" ]; then
@@ -57,7 +57,7 @@ PYPYBINS=
 if [ "$pypy" = "y" ]; then
 	PYPYBINS=$(ls -v /opt/python/pp*-pypy*/bin/python)
 	pypy_found=
-	for PYBIN in $CPYBINS; do
+	for PYBIN in $PYPYBINS; do
 		if [ -f "$PYBIN" ]; then
 			pypy_found=1
 			break
@@ -73,11 +73,11 @@ for PYBIN in $PYPYBINS; do
 	echo "  $PYBIN"
 done
 
-for PYBIN in /opt/python/cp38*/bin/python; do
+for PYBIN in /opt/python/cp311-cp311/bin/python; do
 	# Make sure the files don't get extra *.so files (should be 1 per file)
 	rm -rf build/
 	"$PYBIN" -m pip install -r requirements.txt
-	"$PYBIN" -m build --wheel --config-setting=--build-option=--py-limited-api=cp38
+	"$PYBIN" -m build --wheel --config-setting=--build-option=--py-limited-api=cp311
 done
 for PYBIN in $PYPYBINS; do
 	if [ -f "$PYBIN" ]; then

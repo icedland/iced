@@ -108,6 +108,7 @@ pub(crate) enum OpInfo0 {
 	WriteForceP1,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_INFO0: [&str; 13] = [
 	"None",
@@ -156,6 +157,7 @@ pub(crate) enum OpInfo1 {
 	Write,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_INFO1: [&str; 7] = [
 	"None",
@@ -194,6 +196,7 @@ pub(crate) enum OpInfo2 {
 	ReadWrite,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_INFO2: [&str; 3] = [
 	"None",
@@ -227,6 +230,7 @@ pub(crate) enum OpInfo3 {
 	Read,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_INFO3: [&str; 2] = [
 	"None",
@@ -259,6 +263,7 @@ pub(crate) enum OpInfo4 {
 	Read,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OP_INFO4: [&str; 2] = [
 	"None",
@@ -490,6 +495,7 @@ pub(crate) enum ImpliedAccess {
 	t_Rmem_Wmem_Rrcx_Rrbx_Rds_Weax,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_IMPLIED_ACCESS: [&str; 201] = [
 	"None",
@@ -798,6 +804,7 @@ pub(crate) enum RflagsInfo {
 	W_z_U_acops,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_RFLAGS_INFO: [&str; 79] = [
 	"None",
@@ -1104,6 +1111,7 @@ pub(crate) enum CpuidFeatureInternal {
 	AVX_VNNI_INT16,
 }
 #[cfg(feature = "instr_info")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_CPUID_FEATURE_INTERNAL: [&str; 199] = [
 	"INTEL8086",

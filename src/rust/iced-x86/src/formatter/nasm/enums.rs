@@ -63,6 +63,7 @@ pub(crate) enum CtorKind {
 	Reg32,
 	reverse,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_CTOR_KIND: [&str; 53] = [
 	"Previous",
@@ -147,6 +148,7 @@ pub(crate) enum SignExtendInfo {
 	Sex2,
 	Sex4,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_SIGN_EXTEND_INFO: [&str; 7] = [
 	"None",
@@ -182,6 +184,7 @@ pub(crate) enum SizeOverride {
 	Size32,
 	Size64,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_SIZE_OVERRIDE: [&str; 4] = [
 	"None",
@@ -217,6 +220,7 @@ pub(crate) enum BranchSizeInfo {
 	Dword,
 	Short,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_BRANCH_SIZE_INFO: [&str; 7] = [
 	"None",
@@ -324,6 +328,7 @@ pub(crate) enum InstrOpKind {
 	DeclareDword,
 	DeclareQword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_INSTR_OP_KIND: [&str; 38] = [
 	"Register",
@@ -390,6 +395,7 @@ pub(crate) enum MemorySizeInfo {
 	Dword,
 	Qword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_MEMORY_SIZE_INFO: [&str; 4] = [
 	"None",
@@ -421,6 +427,7 @@ pub(crate) enum FarMemorySizeInfo {
 	Word,
 	Dword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_FAR_MEMORY_SIZE_INFO: [&str; 3] = [
 	"None",

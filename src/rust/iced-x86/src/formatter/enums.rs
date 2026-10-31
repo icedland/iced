@@ -638,6 +638,7 @@ pub(crate) enum FormatterFlowControl {
 	FarCall,
 	Xbegin,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_FORMATTER_FLOW_CONTROL: [&str; 7] = [
 	"AlwaysShortBranch",

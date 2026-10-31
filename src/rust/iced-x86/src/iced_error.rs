@@ -39,6 +39,6 @@ impl Error for IcedError {}
 impl fmt::Display for IcedError {
 	#[inline]
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-		write!(f, "{}", &self.error)
+		write!(f, "{}", self.error)
 	}
 }

@@ -74,6 +74,7 @@ pub(crate) enum OptionsProps {
 	DecoderOptions,
 	ShowUselessPrefixes,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_OPTIONS_PROPS: [&str; 64] = [
 	"AddLeadingZeroToHexNumbers",

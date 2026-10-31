@@ -590,6 +590,7 @@ pub(crate) enum VectorLength {
 	Unknown,
 }
 #[cfg(any(feature = "decoder", feature = "encoder"))]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_VECTOR_LENGTH: [&str; 4] = [
 	"L128",
@@ -625,6 +626,7 @@ pub(crate) enum MandatoryPrefixByte {
 	PF2,
 }
 #[cfg(feature = "encoder")]
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_MANDATORY_PREFIX_BYTE: [&str; 4] = [
 	"None",
@@ -3243,6 +3245,7 @@ pub(crate) enum InstrScale {
 	Scale4 = 2,
 	Scale8 = 3,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_INSTR_SCALE: [&str; 4] = [
 	"Scale1",

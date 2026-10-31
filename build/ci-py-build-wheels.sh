@@ -9,21 +9,70 @@ fi
 python=python
 py_kind=cpy
 build=n
+versions=
 
 while [ "$#" -gt 0 ]; do
 	case $1 in
 	--python) shift; python=$1 ;;
 	--py-kind) shift; py_kind=$1 ;;
 	--build) build=y ;;
+	# Space/newline separated CPython versions, eg. "3.11 3.12 3.13". They must all be in PATH
+	# (eg. installed by one setup-python step). The wheel is built with the first one (if --build)
+	# and tested with all of them. Overrides --python and --py-kind.
+	--versions) shift; versions=$1 ;;
 	*) echo "Unknown arg: $1"; exit 1 ;;
 	esac
 	shift
 done
 
-"$python" --version
-"$python" -m pip --version
+# Finds the CPython interpreter with version $1 (eg. 3.12) in PATH. Works on Windows too where
+# all interpreters are called python.exe so we can't use eg. python3.12
+find_cpython() {
+	local wanted=$1
+	local dir exe found
+	local IFS=:
+	for dir in $PATH; do
+		case "$dir" in
+		# Windows Store 'python.exe' stubs
+		*WindowsApps*) continue ;;
+		esac
+		for exe in "$dir/python.exe" "$dir/python"; do
+			if [ -f "$exe" ] && [ -x "$exe" ]; then
+				found=$("$exe" -c 'import platform, sys; print("%s %d.%d" % (platform.python_implementation(), sys.version_info[0], sys.version_info[1]))' 2>/dev/null || true)
+				if [ "$found" = "CPython $wanted" ]; then
+					echo "$exe"
+					return 0
+				fi
+			fi
+		done
+	done
+	echo "Couldn't find CPython $wanted in PATH" 1>&2
+	return 1
+}
 
-"$python" -m pip install -U setuptools wheel setuptools-rust pytest
+pythons=()
+if [ -n "$versions" ]; then
+	py_kind=cpy
+	# Split on spaces and newlines
+	for ver in $versions; do
+		py=$(find_cpython "$ver")
+		pythons+=("$py")
+	done
+	if [ "${#pythons[@]}" -eq 0 ]; then
+		echo "--versions: no versions"
+		exit 1
+	fi
+else
+	pythons=("$python")
+fi
+build_python=${pythons[0]}
+
+for py in "${pythons[@]}"; do
+	echo "Python: $py"
+	"$py" --version
+	"$py" -m pip --version
+	"$py" -m pip install -U build setuptools wheel setuptools-rust pytest
+done
 
 # Needed so the wheel files don't get extra *.{so,pyd} files (should have exactly one)
 # from earlier builds
@@ -80,18 +129,21 @@ if [ "$build" = "y" ]; then
 	patchci_patch
 	patchci_verify_patched
 
-	extra_args=
+	extra_args=()
 	if [ "$py_kind" = "cpy" ]; then
-		extra_args="--config-setting=--build-option=--py-limited-api=cp38"
+		extra_args=(--config-setting=--build-option=--py-limited-api=cp311)
 	fi
-	"$python" -m build --wheel $extra_args
+	echo "Building the wheel with $build_python"
+	"$build_python" -m build --wheel "${extra_args[@]}"
 	mkdir -p /tmp/py-dist
 	cp dist/* /tmp/py-dist
 
 	patchci_undo_patch
 fi
 
-echo "Testing it"
-"$python" -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary iced-x86
-"$python" -m pytest --color=yes --code-highlight=yes
-"$python" -m pip uninstall -y iced-x86
+for py in "${pythons[@]}"; do
+	echo "Testing it with $py"
+	"$py" -m pip install iced-x86 --no-index -f /tmp/py-dist --only-binary iced-x86
+	"$py" -m pytest --color=yes --code-highlight=yes
+	"$py" -m pip uninstall -y iced-x86
+done

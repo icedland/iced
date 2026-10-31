@@ -239,6 +239,7 @@ pub(crate) enum PseudoOpsKind {
 	vpcmpd6,
 	vpcmpud6,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_PSEUDO_OPS_KIND: [&str; 32] = [
 	"cmpps",

@@ -1,0 +1,57 @@
+name: JavaScript
+on:
+  workflow_call:
+    inputs:
+      release:
+        description: "Release build (all OSes, full tests on Linux) instead of a quick PR build"
+        type: boolean
+        default: false
+
+# Keep this in sync with the other *.yml files
+env:
+  CI_NODE_MIN_VER: 'latest'
+  RUSTFLAGS: '-D warnings'
+
+jobs:
+  build-rust-js-wasm:
+    name: ${{matrix.os}}
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-26.04", "macos-latest"]' || '["ubuntu-26.04"]') }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Rust
+        shell: bash
+        run: bash build/ci-install-rust.sh
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{env.CI_NODE_MIN_VER}}
+
+      - name: Install wasm-pack
+        shell: bash
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Build and test
+        shell: bash
+        env:
+          IS_RELEASE: ${{inputs.release}}
+        run: |
+          if [[ "$IS_RELEASE" != "true" ]]; then
+            extra_args=(--quick-check)
+          elif [[ "$OSTYPE" != "linux-gnu"* ]]; then
+            extra_args=(--publish-dry-run --quick-check)
+          else
+            extra_args=(--publish-dry-run)
+          fi
+          ./build/build-js --no-set-rustflags "${extra_args[@]}"
+
+      - uses: actions/upload-artifact@v7
+        if: startsWith(matrix.os, 'ubuntu-')
+        with:
+          name: npm
+          path: src/rust/iced-x86-js/pkg/release/iced-x86-*.tgz
+          if-no-files-found: error

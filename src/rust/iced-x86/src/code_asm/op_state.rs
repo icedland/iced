@@ -20,6 +20,7 @@ pub(crate) enum MemoryOperandSize {
 	Yword,
 	Zword,
 }
+#[allow(dead_code)]
 #[rustfmt::skip]
 static GEN_DEBUG_MEMORY_OPERAND_SIZE: [&str; 10] = [
 	"None",

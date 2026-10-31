@@ -231,6 +231,8 @@ namespace Generator.Enums.Rust {
 			if (needsStringsTable) {
 				if (feature is not null)
 					writer.WriteLine(feature);
+				if (!enumType.IsPublic)
+					writer.WriteLine(RustConstants.AttributeAllowDeadCode);
 				writer.WriteLine(RustConstants.AttributeNoRustFmt);
 				writer.WriteLine($"static {arrayName}: [&str; {enumValues.Length}] = [");
 				using (writer.Indent()) {
