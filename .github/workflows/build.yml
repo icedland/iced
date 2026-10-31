@@ -21,7 +21,8 @@ jobs:
   dotnet:
     name: C#
     uses: ./.github/workflows/lang-dotnet.yml
-    secrets: inherit
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   java:
     name: Java
@@ -30,7 +31,8 @@ jobs:
   rust:
     name: Rust
     uses: ./.github/workflows/lang-rust.yml
-    secrets: inherit
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   js:
     name: JavaScript
