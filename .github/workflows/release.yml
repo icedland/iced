@@ -54,7 +54,6 @@ jobs:
     uses: ./.github/workflows/lang-dotnet.yml
     with:
       release: true
-    secrets: inherit
 
   java:
     name: Java
@@ -67,7 +66,11 @@ jobs:
       sign: true
       check_central_token: true
       test_release: ${{ github.event_name == 'workflow_dispatch' }}
-    secrets: inherit
+    secrets:
+      MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+      MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+      MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+      MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
   rust:
     name: Rust
@@ -75,7 +78,6 @@ jobs:
     uses: ./.github/workflows/lang-rust.yml
     with:
       release: true
-    secrets: inherit
 
   js:
     name: JavaScript
@@ -164,25 +166,31 @@ jobs:
   #############################################################################
   #############################################################################
 
-  # Checks that NuGet trusted publishing works (the nuget.org policy matches this repo/workflow/user)
-  # by getting a temporary API key. Nothing is pushed. In a real release, upload-files needs this
-  # job so nothing gets uploaded anywhere if it fails.
-  check-nuget-login:
-    if: github.event_name != 'workflow_dispatch' || inputs.dotnet
+  # Checks that trusted publishing works for NuGet, crates.io and PyPI (each registry's trusted
+  # publisher config matches this repo/workflow) by getting temporary tokens. Nothing is uploaded and
+  # the tokens aren't used (upload-files gets its own right before uploading). In a real release,
+  # upload-files needs this job so nothing gets uploaded anywhere if it fails.
+  check-trusted-publishing:
+    if: github.event_name != 'workflow_dispatch' || inputs.dotnet || inputs.rust || inputs.python_linux || inputs.python_macos || inputs.python_windows
     runs-on: ubuntu-26.04
-    name: Check NuGet login
+    name: Check trusted publishing
     permissions:
-      # Required for NuGet trusted publishing (OIDC)
+      contents: read
+      # Required for trusted publishing (OIDC)
       id-token: write
 
     steps:
+      - uses: actions/checkout@v7
+
       - name: NuGet login (trusted publishing)
+        if: github.event_name != 'workflow_dispatch' || inputs.dotnet
         uses: NuGet/login@v1
         id: nuget-login
         with:
           user: ${{env.NUGET_USER}}
 
-      - name: Check the temporary API key
+      - name: Check the temporary NuGet API key
+        if: github.event_name != 'workflow_dispatch' || inputs.dotnet
         shell: bash
         env:
           NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
@@ -192,6 +200,29 @@ jobs:
             exit 1
           fi
           echo "OK: NuGet trusted publishing works (got a temporary API key, it's not used)"
+
+      # The token is revoked automatically when the job ends
+      - name: crates.io login (trusted publishing)
+        if: github.event_name != 'workflow_dispatch' || inputs.rust
+        uses: rust-lang/crates-io-auth-action@v1
+        id: crates-io-auth
+
+      - name: Check the temporary crates.io token
+        if: github.event_name != 'workflow_dispatch' || inputs.rust
+        shell: bash
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.crates-io-auth.outputs.token }}
+        run: |
+          if [ -z "$CARGO_REGISTRY_TOKEN" ]; then
+            echo "ERROR: crates.io login didn't return a token"
+            exit 1
+          fi
+          echo "OK: crates.io trusted publishing works (got a temporary token, it's not used)"
+
+      - name: Check PyPI trusted publishing
+        if: github.event_name != 'workflow_dispatch' || inputs.python_linux || inputs.python_macos || inputs.python_windows
+        shell: bash
+        run: ./build/ci-check-pypi-trusted-publishing
 
   #############################################################################
   #############################################################################
@@ -203,10 +234,10 @@ jobs:
     name: Upload files
     permissions:
       contents: read
-      # Required for npm and NuGet trusted publishing (OIDC)
+      # Required for npm, NuGet, crates.io and PyPI trusted publishing (OIDC)
       id-token: write
     needs:
-      - check-nuget-login
+      - check-trusted-publishing
       - dotnet
       - java
       - rust
@@ -261,10 +292,16 @@ jobs:
             dotnet nuget push "$file" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
           done
 
+      # Uses crates.io trusted publishing (OIDC), no stored token. The temporary token is valid
+      # for 30 minutes and revoked when the job ends, so get it right before publishing.
+      - name: crates.io login (trusted publishing)
+        uses: rust-lang/crates-io-auth-action@v1
+        id: crates-io-auth
+
       - name: Upload to crates.io
         shell: bash
         env:
-          CARGO_REGISTRY_TOKEN: ${{secrets.CRATES_IO_TOKEN}}
+          CARGO_REGISTRY_TOKEN: ${{ steps.crates-io-auth.outputs.token }}
         run: |
           git reset .
           git checkout .
@@ -273,10 +310,22 @@ jobs:
           # --no-verify: we've tested building everything already
           cargo publish --color always --no-verify
 
-      - name: Upload to pypi.org
+      # The PyPI action runs in a Docker container which only sees the workspace (not /tmp), so copy
+      # the files to the workspace. Must be after 'Upload to crates.io' since it runs 'git clean'.
+      - name: Copy the Python files to the workspace
         shell: bash
         run: |
-          python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
+          rm -rf pypi-dist
+          mkdir pypi-dist
+          cp /tmp/py-dist/* pypi-dist/
+          ls -l pypi-dist
+
+      # Uses PyPI trusted publishing (OIDC), no stored token. Also uploads PEP 740 attestations
+      # (signed provenance) for each file.
+      - name: Upload to pypi.org
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: pypi-dist/
 
       # Uses npm trusted publishing (OIDC), no token. The version is only staged
       # and must be approved on npmjs.com (2FA) before it's published.
