@@ -9,6 +9,7 @@ use crate::decoder::handlers::*;
 use crate::decoder::*;
 use crate::iced_constants::IcedConstants;
 use crate::instruction_internal;
+use crate::OpKind;
 
 // SAFETY:
 //	code: let this = unsafe { &*(self_ptr as *const Self) };
@@ -133,6 +134,12 @@ impl OpCodeHandler_PrefixEsCsSsDs {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		static SEG_BYTES: [u8; 4] = [0x26, 0x2E, 0x36, 0x3E]; // ES CS SS DS
+		let seg_idx = (this.seg as usize).wrapping_sub(Register::ES as usize);
+		if seg_idx < SEG_BYTES.len() {
+			instruction.push_legacy_prefix(SEG_BYTES[seg_idx]);
+		}
+
 		if !decoder.is64b_mode || decoder.state.segment_prio == 0 {
 			instruction.set_segment_prefix(this.seg);
 		}
@@ -160,6 +167,9 @@ impl OpCodeHandler_PrefixFsGs {
 		let this = unsafe { &*(self_ptr as *const Self) };
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		let fs_gs_byte: u8 = if this.seg == Register::FS { 0x64 } else { 0x65 };
+		instruction.push_legacy_prefix(fs_gs_byte);
+
 		instruction.set_segment_prefix(this.seg);
 		decoder.state.segment_prio = 1;
 
@@ -182,6 +192,8 @@ impl OpCodeHandler_Prefix66 {
 
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
+
+		instruction.push_legacy_prefix(0x66);
 
 		decoder.state.flags |= StateFlags::HAS66;
 		decoder.state.operand_size = decoder.default_inverted_operand_size;
@@ -209,10 +221,20 @@ impl OpCodeHandler_Prefix67 {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		instruction.push_legacy_prefix(0x67);
+
 		decoder.state.address_size = decoder.default_inverted_address_size;
 
 		decoder.reset_rex_prefix_state();
 		decoder.call_opcode_handlers_map0_table(instruction);
+
+		// If the instruction has no memory operand of any kind, the 0x67 prefix had no
+		// semantic effect. Record it so formatters can emit a16/a32/a64 to reproduce the
+		// original encoding. All memory-related OpKind values start at MemorySegSI (15).
+		let has_mem = (0..instruction.op_count()).any(|i| instruction.op_kind(i) as u32 >= OpKind::MemorySegSI as u32);
+		if !has_mem {
+			instruction.set_has_address_size_prefix(true);
+		}
 	}
 }
 
@@ -231,6 +253,7 @@ impl OpCodeHandler_PrefixF0 {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		instruction.push_legacy_prefix(0xF0);
 		instruction.set_has_lock_prefix(true);
 		decoder.state.flags |= StateFlags::LOCK;
 
@@ -254,6 +277,7 @@ impl OpCodeHandler_PrefixF2 {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		instruction.push_legacy_prefix(0xF2);
 		instruction_internal::internal_set_has_repne_prefix(instruction);
 		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF2;
 
@@ -277,6 +301,7 @@ impl OpCodeHandler_PrefixF3 {
 	fn decode(_self_ptr: *const OpCodeHandler, decoder: &mut Decoder<'_>, instruction: &mut Instruction) {
 		debug_assert_eq!(decoder.state.encoding(), EncodingKind::Legacy as u32);
 
+		instruction.push_legacy_prefix(0xF3);
 		instruction_internal::internal_set_has_repe_prefix(instruction);
 		decoder.state.mandatory_prefix = DecoderMandatoryPrefix::PF3;
 

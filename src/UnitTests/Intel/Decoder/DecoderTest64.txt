@@ -55,7 +55,7 @@ F0 00 CE, INVALID, INVALID, 0, code=Add_rm8_r8
 45 00 F0, Add_rm8_r8, Add, 2, op0=r;r8l op1=r;r14l
 41 00 D9, Add_rm8_r8, Add, 2, op0=r;r9l op1=r;bl
 44 00 EC, Add_rm8_r8, Add, 2, op0=r;spl op1=r;r13l
-66 67 4E 00 EC, Add_rm8_r8, Add, 2, op0=r;spl op1=r;r13l enc=4400EC
+66 67 4E 00 EC, Add_rm8_r8, Add, 2, op0=r;spl op1=r;r13l enc=674400EC
 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 00 38, Add_rm8_r8, Add, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -109,7 +109,7 @@ F0 02 CE, INVALID, INVALID, 0, code=Add_r8_rm8
 45 02 F0, Add_r8_rm8, Add, 2, op0=r;r14l op1=r;r8l
 41 02 D9, Add_r8_rm8, Add, 2, op0=r;bl op1=r;r9l
 44 02 EC, Add_r8_rm8, Add, 2, op0=r;r13l op1=r;spl
-66 67 4E 02 EC, Add_r8_rm8, Add, 2, op0=r;r13l op1=r;spl enc=4402EC
+66 67 4E 02 EC, Add_r8_rm8, Add, 2, op0=r;r13l op1=r;spl enc=674402EC
 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 F0 02 38, Add_r8_rm8, Add, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8 decopt=NoInvalidCheck lock
 F0 02 38, INVALID, INVALID, 0, code=Add_r8_rm8
@@ -160,7 +160,7 @@ F0 08 CE, INVALID, INVALID, 0, code=Or_rm8_r8
 45 08 F0, Or_rm8_r8, Or, 2, op0=r;r8l op1=r;r14l
 41 08 D9, Or_rm8_r8, Or, 2, op0=r;r9l op1=r;bl
 44 08 EC, Or_rm8_r8, Or, 2, op0=r;spl op1=r;r13l
-66 67 4E 08 EC, Or_rm8_r8, Or, 2, op0=r;spl op1=r;r13l enc=4408EC
+66 67 4E 08 EC, Or_rm8_r8, Or, 2, op0=r;spl op1=r;r13l enc=674408EC
 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 08 38, Or_rm8_r8, Or, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -211,7 +211,7 @@ F0 F2 48 09 18, Or_rm64_r64, Or, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock xa
 45 0A F0, Or_r8_rm8, Or, 2, op0=r;r14l op1=r;r8l
 41 0A D9, Or_r8_rm8, Or, 2, op0=r;bl op1=r;r9l
 44 0A EC, Or_r8_rm8, Or, 2, op0=r;r13l op1=r;spl
-66 67 4E 0A EC, Or_r8_rm8, Or, 2, op0=r;r13l op1=r;spl enc=440AEC
+66 67 4E 0A EC, Or_r8_rm8, Or, 2, op0=r;r13l op1=r;spl enc=67440AEC
 0A 38, Or_r8_rm8, Or, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 0B CE, Or_r16_rm16, Or, 2, op0=r;cx op1=r;si
@@ -260,7 +260,7 @@ F0 10 CE, INVALID, INVALID, 0, code=Adc_rm8_r8
 45 10 F0, Adc_rm8_r8, Adc, 2, op0=r;r8l op1=r;r14l
 41 10 D9, Adc_rm8_r8, Adc, 2, op0=r;r9l op1=r;bl
 44 10 EC, Adc_rm8_r8, Adc, 2, op0=r;spl op1=r;r13l
-66 67 4E 10 EC, Adc_rm8_r8, Adc, 2, op0=r;spl op1=r;r13l enc=4410EC
+66 67 4E 10 EC, Adc_rm8_r8, Adc, 2, op0=r;spl op1=r;r13l enc=674410EC
 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 10 38, Adc_rm8_r8, Adc, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -311,7 +311,7 @@ F0 F2 48 11 18, Adc_rm64_r64, Adc, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 12 F0, Adc_r8_rm8, Adc, 2, op0=r;r14l op1=r;r8l
 41 12 D9, Adc_r8_rm8, Adc, 2, op0=r;bl op1=r;r9l
 44 12 EC, Adc_r8_rm8, Adc, 2, op0=r;r13l op1=r;spl
-66 67 4E 12 EC, Adc_r8_rm8, Adc, 2, op0=r;r13l op1=r;spl enc=4412EC
+66 67 4E 12 EC, Adc_r8_rm8, Adc, 2, op0=r;r13l op1=r;spl enc=674412EC
 12 38, Adc_r8_rm8, Adc, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 13 CE, Adc_r16_rm16, Adc, 2, op0=r;cx op1=r;si
@@ -360,7 +360,7 @@ F0 18 CE, INVALID, INVALID, 0, code=Sbb_rm8_r8
 45 18 F0, Sbb_rm8_r8, Sbb, 2, op0=r;r8l op1=r;r14l
 41 18 D9, Sbb_rm8_r8, Sbb, 2, op0=r;r9l op1=r;bl
 44 18 EC, Sbb_rm8_r8, Sbb, 2, op0=r;spl op1=r;r13l
-66 67 4E 18 EC, Sbb_rm8_r8, Sbb, 2, op0=r;spl op1=r;r13l enc=4418EC
+66 67 4E 18 EC, Sbb_rm8_r8, Sbb, 2, op0=r;spl op1=r;r13l enc=674418EC
 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 18 38, Sbb_rm8_r8, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -411,7 +411,7 @@ F0 F2 48 19 18, Sbb_rm64_r64, Sbb, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 1A F0, Sbb_r8_rm8, Sbb, 2, op0=r;r14l op1=r;r8l
 41 1A D9, Sbb_r8_rm8, Sbb, 2, op0=r;bl op1=r;r9l
 44 1A EC, Sbb_r8_rm8, Sbb, 2, op0=r;r13l op1=r;spl
-66 67 4E 1A EC, Sbb_r8_rm8, Sbb, 2, op0=r;r13l op1=r;spl enc=441AEC
+66 67 4E 1A EC, Sbb_r8_rm8, Sbb, 2, op0=r;r13l op1=r;spl enc=67441AEC
 1A 38, Sbb_r8_rm8, Sbb, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 1B CE, Sbb_r16_rm16, Sbb, 2, op0=r;cx op1=r;si
@@ -460,7 +460,7 @@ F0 20 CE, INVALID, INVALID, 0, code=And_rm8_r8
 45 20 F0, And_rm8_r8, And, 2, op0=r;r8l op1=r;r14l
 41 20 D9, And_rm8_r8, And, 2, op0=r;r9l op1=r;bl
 44 20 EC, And_rm8_r8, And, 2, op0=r;spl op1=r;r13l
-66 67 4E 20 EC, And_rm8_r8, And, 2, op0=r;spl op1=r;r13l enc=4420EC
+66 67 4E 20 EC, And_rm8_r8, And, 2, op0=r;spl op1=r;r13l enc=674420EC
 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 20 38, And_rm8_r8, And, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -511,7 +511,7 @@ F0 F2 48 21 18, And_rm64_r64, And, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 22 F0, And_r8_rm8, And, 2, op0=r;r14l op1=r;r8l
 41 22 D9, And_r8_rm8, And, 2, op0=r;bl op1=r;r9l
 44 22 EC, And_r8_rm8, And, 2, op0=r;r13l op1=r;spl
-66 67 4E 22 EC, And_r8_rm8, And, 2, op0=r;r13l op1=r;spl enc=4422EC
+66 67 4E 22 EC, And_r8_rm8, And, 2, op0=r;r13l op1=r;spl enc=674422EC
 22 38, And_r8_rm8, And, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 23 CE, And_r16_rm16, And, 2, op0=r;cx op1=r;si
@@ -560,7 +560,7 @@ F0 28 CE, INVALID, INVALID, 0, code=Sub_rm8_r8
 45 28 F0, Sub_rm8_r8, Sub, 2, op0=r;r8l op1=r;r14l
 41 28 D9, Sub_rm8_r8, Sub, 2, op0=r;r9l op1=r;bl
 44 28 EC, Sub_rm8_r8, Sub, 2, op0=r;spl op1=r;r13l
-66 67 4E 28 EC, Sub_rm8_r8, Sub, 2, op0=r;spl op1=r;r13l enc=4428EC
+66 67 4E 28 EC, Sub_rm8_r8, Sub, 2, op0=r;spl op1=r;r13l enc=674428EC
 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 28 38, Sub_rm8_r8, Sub, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -611,7 +611,7 @@ F0 F2 48 29 18, Sub_rm64_r64, Sub, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 2A F0, Sub_r8_rm8, Sub, 2, op0=r;r14l op1=r;r8l
 41 2A D9, Sub_r8_rm8, Sub, 2, op0=r;bl op1=r;r9l
 44 2A EC, Sub_r8_rm8, Sub, 2, op0=r;r13l op1=r;spl
-66 67 4E 2A EC, Sub_r8_rm8, Sub, 2, op0=r;r13l op1=r;spl enc=442AEC
+66 67 4E 2A EC, Sub_r8_rm8, Sub, 2, op0=r;r13l op1=r;spl enc=67442AEC
 2A 38, Sub_r8_rm8, Sub, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 2B CE, Sub_r16_rm16, Sub, 2, op0=r;cx op1=r;si
@@ -660,7 +660,7 @@ F0 30 CE, INVALID, INVALID, 0, code=Xor_rm8_r8
 45 30 F0, Xor_rm8_r8, Xor, 2, op0=r;r8l op1=r;r14l
 41 30 D9, Xor_rm8_r8, Xor, 2, op0=r;r9l op1=r;bl
 44 30 EC, Xor_rm8_r8, Xor, 2, op0=r;spl op1=r;r13l
-66 67 4E 30 EC, Xor_rm8_r8, Xor, 2, op0=r;spl op1=r;r13l enc=4430EC
+66 67 4E 30 EC, Xor_rm8_r8, Xor, 2, op0=r;spl op1=r;r13l enc=674430EC
 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 30 38, Xor_rm8_r8, Xor, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -711,7 +711,7 @@ F0 F2 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 32 F0, Xor_r8_rm8, Xor, 2, op0=r;r14l op1=r;r8l
 41 32 D9, Xor_r8_rm8, Xor, 2, op0=r;bl op1=r;r9l
 44 32 EC, Xor_r8_rm8, Xor, 2, op0=r;r13l op1=r;spl
-66 67 4E 32 EC, Xor_r8_rm8, Xor, 2, op0=r;r13l op1=r;spl enc=4432EC
+66 67 4E 32 EC, Xor_r8_rm8, Xor, 2, op0=r;r13l op1=r;spl enc=674432EC
 32 38, Xor_r8_rm8, Xor, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 33 CE, Xor_r16_rm16, Xor, 2, op0=r;cx op1=r;si
@@ -759,7 +759,7 @@ F0 F2 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 38 F0, Cmp_rm8_r8, Cmp, 2, op0=r;r8l op1=r;r14l
 41 38 D9, Cmp_rm8_r8, Cmp, 2, op0=r;r9l op1=r;bl
 44 38 EC, Cmp_rm8_r8, Cmp, 2, op0=r;spl op1=r;r13l
-66 67 4E 38 EC, Cmp_rm8_r8, Cmp, 2, op0=r;spl op1=r;r13l enc=4438EC
+66 67 4E 38 EC, Cmp_rm8_r8, Cmp, 2, op0=r;spl op1=r;r13l enc=674438EC
 38 38, Cmp_rm8_r8, Cmp, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 
 66 39 CE, Cmp_rm16_r16, Cmp, 2, op0=r;si op1=r;cx
@@ -795,7 +795,7 @@ F0 F2 48 31 18, Xor_rm64_r64, Xor, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx lock 
 45 3A F0, Cmp_r8_rm8, Cmp, 2, op0=r;r14l op1=r;r8l
 41 3A D9, Cmp_r8_rm8, Cmp, 2, op0=r;bl op1=r;r9l
 44 3A EC, Cmp_r8_rm8, Cmp, 2, op0=r;r13l op1=r;spl
-66 67 4E 3A EC, Cmp_r8_rm8, Cmp, 2, op0=r;r13l op1=r;spl enc=443AEC
+66 67 4E 3A EC, Cmp_r8_rm8, Cmp, 2, op0=r;r13l op1=r;spl enc=67443AEC
 3A 38, Cmp_r8_rm8, Cmp, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 3B CE, Cmp_r16_rm16, Cmp, 2, op0=r;cx op1=r;si
@@ -1975,7 +1975,7 @@ F0 48 83 F7 5A, INVALID, INVALID, 0, code=Xor_rm64_imm8
 45 84 F0, Test_rm8_r8, Test, 2, op0=r;r8l op1=r;r14l
 41 84 D9, Test_rm8_r8, Test, 2, op0=r;r9l op1=r;bl
 44 84 EC, Test_rm8_r8, Test, 2, op0=r;spl op1=r;r13l
-66 67 4E 84 EC, Test_rm8_r8, Test, 2, op0=r;spl op1=r;r13l enc=4484EC
+66 67 4E 84 EC, Test_rm8_r8, Test, 2, op0=r;spl op1=r;r13l enc=674484EC
 84 38, Test_rm8_r8, Test, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 
 66 85 CE, Test_rm16_r16, Test, 2, op0=r;si op1=r;cx
@@ -2012,7 +2012,7 @@ F0 86 CE, INVALID, INVALID, 0, code=Xchg_rm8_r8
 45 86 F0, Xchg_rm8_r8, Xchg, 2, op0=r;r8l op1=r;r14l
 41 86 D9, Xchg_rm8_r8, Xchg, 2, op0=r;r9l op1=r;bl
 44 86 EC, Xchg_rm8_r8, Xchg, 2, op0=r;spl op1=r;r13l
-66 67 4E 86 EC, Xchg_rm8_r8, Xchg, 2, op0=r;spl op1=r;r13l enc=4486EC
+66 67 4E 86 EC, Xchg_rm8_r8, Xchg, 2, op0=r;spl op1=r;r13l enc=674486EC
 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 86 38, Xchg_rm8_r8, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -2071,7 +2071,7 @@ F2 48 87 18, Xchg_rm64_r64, Xchg, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx xacqui
 45 88 F0, Mov_rm8_r8, Mov, 2, op0=r;r8l op1=r;r14l
 41 88 D9, Mov_rm8_r8, Mov, 2, op0=r;r9l op1=r;bl
 44 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l
-66 67 4E 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l enc=4488EC
+66 67 4E 88 EC, Mov_rm8_r8, Mov, 2, op0=r;spl op1=r;r13l enc=674488EC
 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F3 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh xrelease repe
 F2 88 38, Mov_rm8_r8, Mov, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh repne
@@ -2115,7 +2115,7 @@ F2 48 89 18, Mov_rm64_r64, Mov, 2, op0=m;ds;rax;;1;0;0;UInt64 op1=r;rbx repne
 45 8A F0, Mov_r8_rm8, Mov, 2, op0=r;r14l op1=r;r8l
 41 8A D9, Mov_r8_rm8, Mov, 2, op0=r;bl op1=r;r9l
 44 8A EC, Mov_r8_rm8, Mov, 2, op0=r;r13l op1=r;spl
-66 67 4E 8A EC, Mov_r8_rm8, Mov, 2, op0=r;r13l op1=r;spl enc=448AEC
+66 67 4E 8A EC, Mov_r8_rm8, Mov, 2, op0=r;r13l op1=r;spl enc=67448AEC
 8A 38, Mov_r8_rm8, Mov, 2, op0=r;bh op1=m;ds;rax;;1;0;0;UInt8
 
 66 8B CE, Mov_r16_rm16, Mov, 2, op0=r;cx op1=r;si
@@ -15228,7 +15228,7 @@ F0 0FB0 CE, INVALID, INVALID, 0, code=Cmpxchg_rm8_r8
 45 0FB0 F0, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;r8l op1=r;r14l
 41 0FB0 D9, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;r9l op1=r;bl
 44 0FB0 EC, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;spl op1=r;r13l
-66 67 4E 0FB0 EC, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;spl op1=r;r13l enc=440FB0EC
+66 67 4E 0FB0 EC, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=r;spl op1=r;r13l enc=67440FB0EC
 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 0FB0 38, Cmpxchg_rm8_r8, Cmpxchg, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -15805,7 +15805,7 @@ F0 0FC0 CE, INVALID, INVALID, 0, code=Xadd_rm8_r8
 45 0FC0 F0, Xadd_rm8_r8, Xadd, 2, op0=r;r8l op1=r;r14l
 41 0FC0 D9, Xadd_rm8_r8, Xadd, 2, op0=r;r9l op1=r;bl
 44 0FC0 EC, Xadd_rm8_r8, Xadd, 2, op0=r;spl op1=r;r13l
-66 67 4E 0FC0 EC, Xadd_rm8_r8, Xadd, 2, op0=r;spl op1=r;r13l enc=440FC0EC
+66 67 4E 0FC0 EC, Xadd_rm8_r8, Xadd, 2, op0=r;spl op1=r;r13l enc=67440FC0EC
 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh
 F0 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock
 F0 F3 0FC0 38, Xadd_rm8_r8, Xadd, 2, op0=m;ds;rax;;1;0;0;UInt8 op1=r;bh lock xrelease repe
@@ -32061,13 +32061,13 @@ C4A3FB F0 10 A5, VEX_Rorx_r64_rm64_imm8, Rorx, 3, op0=r;rdx op1=m;ds;rax;;1;0;0;
 8FC978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;r11d
 8F6978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
 8FA978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
-67 8FE978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=8FE97812C3
+67 8FE978 12 C3, XOP_Llwpcb_r32, Llwpcb, 1, op0=r;ebx enc=678FE97812C3
 
 8FE9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx
 8FC9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;r11
 8F69F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
 8FA9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
-67 8FE9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=8FE9F812C3
+67 8FE9F8 12 C3, XOP_Llwpcb_r64, Llwpcb, 1, op0=r;rbx enc=678FE9F812C3
 
 8FE978 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;ebx
 8FC978 12 CB, XOP_Slwpcb_r32, Slwpcb, 1, op0=r;r11d
