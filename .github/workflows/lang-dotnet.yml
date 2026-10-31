@@ -9,7 +9,7 @@ on:
 
 # Keep this in sync with the other *.yml files
 env:
-  CI_REQ_DOTNET_SDK_VER: '8.0.x'
+  CI_REQ_DOTNET_SDK_VER: '10.0.x'
 
 jobs:
   build-dotnet:
