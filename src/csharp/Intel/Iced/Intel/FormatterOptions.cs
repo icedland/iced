@@ -306,6 +306,9 @@ namespace Iced.Intel {
 		/// <see langword="true"/>: <c>mov eax,[rbx+rcx*1]</c>
 		/// <br/>
 		/// <see langword="false"/>: <c>mov eax,[rbx+rcx]</c>
+		/// <br/>
+		/// <br/>
+		/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. <c>mov eax,[rcx*1+10h]</c> since <c>[rcx+10h]</c> uses <c>rcx</c> as the base register.
 		/// </summary>
 		public bool AlwaysShowScale {
 			get => (flags1 & Flags1.AlwaysShowScale) != 0;

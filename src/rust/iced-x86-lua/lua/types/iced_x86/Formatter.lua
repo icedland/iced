@@ -415,6 +415,8 @@ function Formatter:set_scale_before_index(new_value) end
 -----------|-------|--------
 ---_ | `true` | `mov eax,[rbx+rcx*1]`
 ---👍 | `false` | `mov eax,[rbx+rcx]`
+---
+---The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 function Formatter:always_show_scale() end
 
 ---Always show the scale value even if it's `*1`
@@ -425,6 +427,8 @@ function Formatter:always_show_scale() end
 -----------|-------|--------
 ---_ | `true` | `mov eax,[rbx+rcx*1]`
 ---👍 | `false` | `mov eax,[rbx+rcx]`
+---
+---The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 function Formatter:set_always_show_scale(new_value) end
 
 ---Always show the effective segment register.

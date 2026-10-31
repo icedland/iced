@@ -708,6 +708,8 @@ impl Formatter {
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
+	///
+	/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 	#[wasm_bindgen(getter)]
 	#[wasm_bindgen(js_name = "alwaysShowScale")]
 	pub fn always_show_scale(&self) -> bool {
@@ -720,6 +722,8 @@ impl Formatter {
 	/// --------|-------|--------
 	/// _ | `true` | `mov eax,[rbx+rcx*1]`
 	/// 👍 | `false` | `mov eax,[rbx+rcx]`
+	///
+	/// The scale is always shown if there's an index register but no base register (Intel, MASM and NASM syntax), eg. `mov eax,[rcx*1+10h]` since `[rcx+10h]` uses `rcx` as the base register.
 	///
 	/// # Arguments
 	///
