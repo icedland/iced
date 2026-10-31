@@ -10,7 +10,7 @@ env:
   CI_NODE_MIN_VER: 'latest'
   RUSTFLAGS: '-D warnings'
   JAVA_DISTRIBUTION: 'temurin'
-  JAVA_VERSION: '8'
+  JAVA_VERSION: '17'
 
 jobs:
 
