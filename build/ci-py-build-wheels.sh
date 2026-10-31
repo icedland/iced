@@ -104,8 +104,9 @@ patchci_patch() {
 	curr_dir=$(pwd)
 	cd "$root_dir"
 
-	if [ "$OSTYPE" = "msys" ]; then
-		iced_x86_dir="$(pwd -W)/../iced-x86"
+	# Windows (Git Bash/MSYS/Cygwin): cargo needs a Windows path (C:/...), not /c/...
+	if command -v cygpath > /dev/null 2>&1; then
+		iced_x86_dir="$(cygpath -m "$(pwd)")/../iced-x86"
 	else
 		iced_x86_dir="$(pwd)/../iced-x86"
 	fi
