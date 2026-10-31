@@ -1,0 +1,86 @@
+#!/bin/sh
+set -e
+
+# Checks (read-only, nothing is uploaded) that the Maven Central Portal user token
+# (MAVEN_CENTRAL_USERNAME + MAVEN_CENTRAL_TOKEN env vars) is valid and has access to
+# the namespace, and that this version hasn't been published yet.
+#
+# Uses the Central Portal Publisher API:
+#	GET /api/v1/publisher/published?namespace=&name=&version=
+
+root_dir=$(dirname "$0")
+root_dir=$(cd "$root_dir/.." && pwd)
+if [ ! -f "$root_dir/LICENSE.txt" ]; then
+	echo "Couldn't find the root dir"
+	exit 1
+fi
+
+allow_published_version=n
+central_url=https://central.sonatype.com
+
+while [ "$#" -gt 0 ]; do
+	case $1 in
+	# Test release builds run before the version has been bumped
+	--allow-published-version) allow_published_version=y ;;
+	*) echo "Unknown arg: $1"; exit 1 ;;
+	esac
+	shift
+done
+
+if [ -z "$MAVEN_CENTRAL_USERNAME" ] || [ -z "$MAVEN_CENTRAL_TOKEN" ]; then
+	echo "MAVEN_CENTRAL_USERNAME and/or MAVEN_CENTRAL_TOKEN env vars aren't set"
+	exit 1
+fi
+
+cd "$root_dir/src/java/iced-x86"
+mvn_eval() {
+	mvn -q help:evaluate -Dexpression="$1" -DforceStdout
+}
+namespace=$(mvn_eval project.groupId)
+name=$(mvn_eval project.artifactId)
+version=$(mvn_eval project.version)
+if [ -z "$namespace" ] || [ -z "$name" ] || [ -z "$version" ]; then
+	echo "Couldn't read groupId/artifactId/version from pom.xml"
+	exit 1
+fi
+echo "Checking Maven Central Portal token: $namespace:$name:$version"
+
+response_file=$(mktemp)
+# Don't print the auth header, it's not masked in CI logs (only the secrets are)
+auth=$(printf '%s:%s' "$MAVEN_CENTRAL_USERNAME" "$MAVEN_CENTRAL_TOKEN" | base64 | tr -d '\n')
+http_code=$(curl -sS -m 60 -o "$response_file" -w '%{http_code}' \
+	-H "Authorization: Bearer $auth" \
+	"$central_url/api/v1/publisher/published?namespace=$namespace&name=$name&version=$version") || http_code=000
+auth=
+response=$(cat "$response_file")
+rm -f "$response_file"
+
+case "$http_code" in
+200)
+	if echo "$response" | grep -q '"published" *: *true'; then
+		if [ "$allow_published_version" = "y" ]; then
+			echo "WARNING: $namespace:$name:$version has already been published to Maven Central. Ignoring it (--allow-published-version)."
+		else
+			echo "ERROR: $namespace:$name:$version has already been published to Maven Central"
+			exit 1
+		fi
+	elif echo "$response" | grep -q '"published" *: *false'; then
+		echo "OK: The token is valid and $namespace:$name:$version hasn't been published yet"
+	else
+		echo "ERROR: Unexpected response: $response"
+		exit 1
+	fi
+	;;
+401)
+	echo "ERROR: The Maven Central Portal token is invalid or has expired (HTTP 401). Generate a new user token and update MAVEN_CENTRAL_USERNAME and MAVEN_CENTRAL_TOKEN."
+	exit 1
+	;;
+403)
+	echo "ERROR: The Maven Central Portal token doesn't have access to namespace $namespace (HTTP 403)"
+	exit 1
+	;;
+*)
+	echo "ERROR: Unexpected HTTP status $http_code from $central_url: $response"
+	exit 1
+	;;
+esac

@@ -60,6 +60,12 @@ jobs:
     uses: ./.github/workflows/lang-java.yml
     with:
       release: true
+      # Verify the GPG key/passphrase (MAVEN_GPG_*) and the Central Portal token
+      # (MAVEN_CENTRAL_*) work before the upload job runs
+      sign: true
+      check_central_token: true
+      test_release: ${{ github.event_name == 'workflow_dispatch' }}
+    secrets: inherit
 
   rust:
     name: Rust

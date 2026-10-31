@@ -6,6 +6,27 @@ on:
         description: "Release build (all OSes, full tests on Linux) instead of a quick PR build"
         type: boolean
         default: false
+      sign:
+        description: "Sign the artifacts (Linux only) with the Maven Central GPG key and verify the signatures, so a key/passphrase problem is found before uploading"
+        type: boolean
+        default: false
+      check_central_token:
+        description: "Check (read-only, Linux only) that the Maven Central Portal token is valid and that this version hasn't been published yet"
+        type: boolean
+        default: false
+      test_release:
+        description: "Test release build (manual run). The version may already have been published since the version usually hasn't been bumped yet."
+        type: boolean
+        default: false
+    secrets:
+      MAVEN_GPG_PRIVATE_KEY:
+        required: false
+      MAVEN_GPG_PASSPHRASE:
+        required: false
+      MAVEN_CENTRAL_USERNAME:
+        required: false
+      MAVEN_CENTRAL_TOKEN:
+        required: false
 
 # Keep this in sync with the other *.yml files
 env:
@@ -29,15 +50,38 @@ jobs:
         with:
           distribution: ${{env.JAVA_DISTRIBUTION}}
           java-version: ${{env.JAVA_VERSION}}
+          # Same as the 'Set up Apache Maven Central' step in release.yml. An empty key = don't import a key
+          gpg-private-key: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && secrets.MAVEN_GPG_PRIVATE_KEY || '' }}
+          gpg-passphrase: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && 'MAVEN_GPG_PASSPHRASE' || '' }}
+
+      # Before the build so a bad token fails quickly
+      - name: Check Maven Central Portal token
+        if: inputs.check_central_token && startsWith(matrix.os, 'ubuntu-')
+        shell: bash
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          IS_TEST_RELEASE: ${{inputs.test_release}}
+        run: |
+          args=()
+          if [[ "$IS_TEST_RELEASE" == "true" ]]; then
+            args+=(--allow-published-version)
+          fi
+          ./build/ci-check-maven-central "${args[@]}"
 
       - name: Build and test
         shell: bash
         env:
           IS_RELEASE: ${{inputs.release}}
+          SIGN: ${{ inputs.sign && startsWith(matrix.os, 'ubuntu-') }}
+          MAVEN_GPG_PASSPHRASE: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && secrets.MAVEN_GPG_PASSPHRASE || '' }}
         run: |
           extra_args=()
           if [[ "$IS_RELEASE" != "true" || "$OSTYPE" != "linux-gnu"* ]]; then
             extra_args=(--quick-check)
+          fi
+          if [[ "$SIGN" == "true" ]]; then
+            extra_args+=(--sign)
           fi
           ./build/build-java "${extra_args[@]}"
 
