@@ -52,7 +52,7 @@ jobs:
           java-version: ${{env.JAVA_VERSION}}
           # Same as the 'Set up Apache Maven Central' step in release.yml. An empty key = don't import a key
           gpg-private-key: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && secrets.MAVEN_GPG_PRIVATE_KEY || '' }}
-          gpg-passphrase: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && 'MAVEN_GPG_PASSPHRASE' || '' }}
+          gpg-passphrase-env-var: ${{ (inputs.sign && startsWith(matrix.os, 'ubuntu-')) && 'MAVEN_GPG_PASSPHRASE' || '' }}
 
       # Before the build so a bad token fails quickly
       - name: Check Maven Central Portal token
