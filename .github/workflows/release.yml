@@ -1,8 +1,40 @@
 # This is triggered when a new release is created (using the GitHub UI)
+# or Actions -> New release -> Run workflow.
 name: New Release
+run-name: ${{ github.event_name == 'release' && format('Release {0}', github.event.release.tag_name) || format('Test release build ({0})', github.ref_name) }}
 on:
   release:
     types: [released]
+  workflow_dispatch:
+    inputs:
+      dotnet:
+        description: "C#"
+        type: boolean
+        default: true
+      java:
+        description: "Java"
+        type: boolean
+        default: true
+      rust:
+        description: "Rust"
+        type: boolean
+        default: true
+      js:
+        description: "JavaScript"
+        type: boolean
+        default: true
+      python_linux:
+        description: "Python: Linux wheels + sdist"
+        type: boolean
+        default: true
+      python_macos:
+        description: "Python: macOS wheels"
+        type: boolean
+        default: true
+      python_windows:
+        description: "Python: Windows wheels"
+        type: boolean
+        default: true
 
 # Keep this in sync with the other *.yml files
 env:
@@ -11,10 +43,10 @@ env:
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '17'
 
-# The build jobs are in the lang-*.yml files. They're shared with build.yml.
 jobs:
   dotnet:
     name: C#
+    if: github.event_name != 'workflow_dispatch' || inputs.dotnet
     uses: ./.github/workflows/lang-dotnet.yml
     with:
       release: true
@@ -22,12 +54,14 @@ jobs:
 
   java:
     name: Java
+    if: github.event_name != 'workflow_dispatch' || inputs.java
     uses: ./.github/workflows/lang-java.yml
     with:
       release: true
 
   rust:
     name: Rust
+    if: github.event_name != 'workflow_dispatch' || inputs.rust
     uses: ./.github/workflows/lang-rust.yml
     with:
       release: true
@@ -35,21 +69,27 @@ jobs:
 
   js:
     name: JavaScript
+    if: github.event_name != 'workflow_dispatch' || inputs.js
     uses: ./.github/workflows/lang-js.yml
     with:
       release: true
 
   python:
     name: Python
+    if: github.event_name != 'workflow_dispatch' || inputs.python_linux || inputs.python_macos || inputs.python_windows
     uses: ./.github/workflows/lang-python.yml
     with:
       release: true
+      linux: ${{ github.event_name != 'workflow_dispatch' || inputs.python_linux }}
+      macos: ${{ github.event_name != 'workflow_dispatch' || inputs.python_macos }}
+      windows: ${{ github.event_name != 'workflow_dispatch' || inputs.python_windows }}
 
   #############################################################################
   #############################################################################
   #############################################################################
 
   upload-files:
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     name: Upload files
     needs:

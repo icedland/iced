@@ -6,6 +6,18 @@ on:
         description: "Release build (sdist + wheels for all platforms) instead of a quick PR build"
         type: boolean
         default: false
+      linux:
+        description: "Build/test the Linux wheels + sdist"
+        type: boolean
+        default: true
+      macos:
+        description: "Build/test the macOS wheels"
+        type: boolean
+        default: true
+      windows:
+        description: "Build/test the Windows wheels"
+        type: boolean
+        default: true
 
 # Keep this in sync with the other *.yml files
 env:
@@ -29,6 +41,7 @@ jobs:
 
   build-rust-python-linux-x64:
     name: ${{matrix.os}} x64
+    if: ${{ !inputs.release || inputs.linux }}
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -86,7 +99,7 @@ jobs:
 
   build-rust-python-linux-aarch64:
     name: ${{matrix.os}} aarch64
-    if: inputs.release
+    if: inputs.release && inputs.linux
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -113,7 +126,7 @@ jobs:
 
   build-rust-python-linux-x86:
     name: ${{matrix.os}} x86
-    if: inputs.release
+    if: inputs.release && inputs.linux
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -140,7 +153,7 @@ jobs:
 
   build-rust-python-musllinux-x64:
     name: ${{matrix.os}} x64 (musllinux)
-    if: inputs.release
+    if: inputs.release && inputs.linux
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -167,7 +180,7 @@ jobs:
 
   build-rust-python-macos-aarch64:
     name: ${{matrix.os}} aarch64
-    if: inputs.release
+    if: inputs.release && inputs.macos
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -252,7 +265,7 @@ jobs:
 
   build-rust-python-windows-x64:
     name: ${{matrix.os}} x64
-    if: inputs.release
+    if: inputs.release && inputs.windows
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
@@ -352,7 +365,7 @@ jobs:
 
   build-rust-python-windows-x86:
     name: ${{matrix.os}} x86
-    if: inputs.release
+    if: inputs.release && inputs.windows
     runs-on: ${{matrix.os}}
     strategy:
       matrix:

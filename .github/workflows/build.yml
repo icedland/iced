@@ -17,7 +17,6 @@ on:
     branches:
       - master
 
-# The jobs are in the lang-*.yml files. They're shared with release.yml.
 jobs:
   dotnet:
     name: C#
