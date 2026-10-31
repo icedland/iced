@@ -223,7 +223,12 @@ if [ "$delete_old_venv" = "y" ]; then
 	rm -rf "$pysrc_dir/.venv/"
 fi
 $python -m venv "$pysrc_dir/.venv/"
-. "$pysrc_dir/.venv/bin/activate"
+# Windows venvs use Scripts/ instead of bin/
+if [ -f "$pysrc_dir/.venv/Scripts/activate" ]; then
+	. "$pysrc_dir/.venv/Scripts/activate"
+else
+	. "$pysrc_dir/.venv/bin/activate"
+fi
 echo "Installing dependencies..."
 python -m pip install -r "$pysrc_dir/requirements-dev.txt"
 

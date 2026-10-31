@@ -314,7 +314,7 @@ jobs:
       - name: Install 32-bit Rust
         shell: bash
         run: |
-          rustup install stable-i686-pc-windows-msvc --no-self-update
+          rustup install stable-i686-pc-windows-msvc --no-self-update --force-non-host
           rustup default stable-i686-pc-windows-msvc
           rustup show
 

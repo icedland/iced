@@ -115,7 +115,7 @@ build_test() {
 		else
 			cov_dir="$root_dir"
 		fi
-		dotnet test "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj" -c $configuration -f $net_tfm -p:Exclude='"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts"' -p:ExcludeByFile="$cov_dir/src/csharp/Intel/Iced/**/*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collect_coverage -p:CoverletOutputFormat=lcov --no-build -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64
+		dotnet test "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj" -c $configuration -f $net_tfm -p:Exclude='"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts"' -p:ExcludeByFile="$cov_dir/src/csharp/Intel/Iced/**/*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collect_coverage -p:CoverletOutputFormat=lcov --no-build -- RunConfiguration.NoAutoReporters=true
 	fi
 
 	if [ "$pack_code" = "y" ]; then
