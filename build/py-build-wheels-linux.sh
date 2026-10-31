@@ -24,15 +24,10 @@ while [ "$#" -gt 0 ]; do
 	shift
 done
 
-linux32=
-if echo "$manylinux_image" | grep i686; then
-	linux32=linux32
-fi
-
 mkdir -p /tmp/py-dist
 container_name=$(docker run --rm -itd "$manylinux_image")
 docker cp "$root_dir/src/rust" "$container_name:/tmp/iced-build"
-docker exec -w /tmp/iced-build/iced-x86-py "$container_name" $linux32 bash build-wheels.sh "$manylinux_image" $extra_args
+docker exec -w /tmp/iced-build/iced-x86-py "$container_name" bash build-wheels.sh "$manylinux_image" $extra_args
 docker cp "$container_name:/tmp/iced-build/iced-x86-py/dist" /tmp/py-dist
 mv /tmp/py-dist/dist/* /tmp/py-dist
 rmdir /tmp/py-dist/dist

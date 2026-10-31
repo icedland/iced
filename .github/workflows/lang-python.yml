@@ -133,33 +133,6 @@ jobs:
   #############################################################################
   #############################################################################
 
-  build-rust-python-linux-x86:
-    name: ${{matrix.os}} x86
-    if: inputs.release && inputs.linux
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-26.04]
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Build manylinux i686
-        shell: bash
-        run: |
-          git clean -xdf
-          ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_i686"
-
-      - uses: actions/upload-artifact@v7
-        with:
-          name: py-dist-${{matrix.os}}-x86
-          path: /tmp/py-dist
-          if-no-files-found: error
-
-  #############################################################################
-  #############################################################################
-  #############################################################################
-
   build-rust-python-musllinux-x64:
     name: ${{matrix.os}} x64 (musllinux)
     if: inputs.release && inputs.linux
