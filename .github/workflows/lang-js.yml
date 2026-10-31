@@ -14,6 +14,8 @@ on:
 # Keep this in sync with the other *.yml files
 env:
   CI_NODE_MIN_VER: 'latest'
+  # npm major version (eg. 'npm stage' needs npm >= 11.15.0)
+  CI_NPM_VER: '12'
   RUSTFLAGS: '-D warnings'
 
 jobs:
@@ -36,6 +38,11 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
+
+      # Always use the latest npm (eg. 'npm stage publish' used by build-js --publish-dry-run needs a recent npm)
+      - name: Update npm
+        shell: bash
+        run: npm install -g "npm@${CI_NPM_VER}"
 
       - name: Install wasm-pack
         shell: bash

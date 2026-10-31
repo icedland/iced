@@ -40,6 +40,8 @@ on:
 env:
   CI_REQ_DOTNET_SDK_VER: '10.0.x'
   CI_NODE_MIN_VER: 'latest'
+  # npm major version (eg. 'npm stage' needs npm >= 11.15.0)
+  CI_NPM_VER: '12'
   JAVA_DISTRIBUTION: 'temurin'
   JAVA_VERSION: '17'
 
@@ -93,6 +95,10 @@ jobs:
     if: github.event_name == 'release'
     runs-on: ubuntu-26.04
     name: Upload files
+    permissions:
+      contents: read
+      # Required for npm trusted publishing (OIDC)
+      id-token: write
     needs:
       - dotnet
       - java
@@ -116,7 +122,6 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: ${{env.CI_NODE_MIN_VER}}
-          registry-url: "https://registry.npmjs.org"
 
       - uses: actions/download-artifact@v8
         with:
@@ -158,7 +163,9 @@ jobs:
           python -m twine check /tmp/py-dist/*
           dotnet nuget push --help
           cargo publish --help
-          npm publish --help
+          # npm trusted publishing + 'npm stage' need a recent npm
+          npm install -g "npm@${CI_NPM_VER}"
+          npm stage publish --help
           mvn --help
 
       - name: Upload to nuget.org
@@ -185,12 +192,12 @@ jobs:
         run: |
           python -m twine upload --non-interactive -u __token__ -p "${{secrets.PYPI_TOKEN}}" /tmp/py-dist/*
 
-      - name: Upload to npmjs.com
+      # Uses npm trusted publishing (OIDC), no token. The version is only staged
+      # and must be approved on npmjs.com (2FA) before it's published.
+      - name: Upload to npmjs.com (staged)
         shell: bash
         run: |
-          npm publish /tmp/artifacts/npm/iced-x86-*.tgz
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          npm stage publish /tmp/artifacts/npm/iced-x86-*.tgz
 
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v6

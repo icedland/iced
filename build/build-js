@@ -115,7 +115,8 @@ gen_release() {
 	cd release
 	if [ "$publish_dry_run" = "y" ]; then
 		dry_run_log=$(mktemp)
-		if npm publish iced-x86-*.tgz --dry-run > "$dry_run_log" 2>&1; then
+		# Same command as the real upload in release.yml (staged publish via npm trusted publishing)
+		if npm stage publish iced-x86-*.tgz --dry-run > "$dry_run_log" 2>&1; then
 			dry_run_ok=y
 		else
 			dry_run_ok=n
