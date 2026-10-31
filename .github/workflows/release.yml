@@ -268,7 +268,8 @@ jobs:
       - name: Publish to Apache Maven Central
         run: |
           cd src/java/iced-x86
-          mvn deploy
+          # -DskipTests: the java job already ran all tests (and signed + verified the files) on this commit
+          mvn deploy -DskipTests
         env:
           # Central Portal user token (username + password), not the account name
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
