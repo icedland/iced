@@ -122,9 +122,9 @@ patchci_patch() {
 		exit 1
 	fi
 
-	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
-
+	# $cargo_toml is relative to the original dir
 	cd "$curr_dir"
+	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
 }
 
 patchci_undo_patch() {
