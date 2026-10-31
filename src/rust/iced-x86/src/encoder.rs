@@ -1150,7 +1150,7 @@ impl Encoder {
 		if (self.encoder_flags & EncoderFlags::P66) != 0 {
 			self.write_byte_internal(0x66);
 		}
-		if (self.encoder_flags & EncoderFlags::P67) != 0 {
+		if (self.encoder_flags & EncoderFlags::P67) != 0 || instruction.has_address_size_prefix() {
 			self.write_byte_internal(0x67);
 		}
 		if can_write_f3 && instruction.has_repe_prefix() {
