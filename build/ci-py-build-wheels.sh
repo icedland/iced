@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+root_dir=$(dirname "$0")
+root_dir=$(cd "$root_dir/.." && pwd)
+if [ ! -f "$root_dir/LICENSE.txt" ]; then
+	echo "Couldn't find the root dir"
+	exit 1
+fi
+
 if [ ! "$GITHUB_ACTIONS" ]; then
 	echo "This file should only be executed from GitHub Actions"
 	exit 1
@@ -104,19 +111,20 @@ patchci_patch() {
 	curr_dir=$(pwd)
 	cd "$root_dir"
 
-	if [ "$OSTYPE" = "msys" ]; then
-		iced_x86_dir="$(pwd -W)/../iced-x86"
+	# Windows (Git Bash/MSYS/Cygwin): cargo needs a Windows path (C:/...), not /c/...
+	if command -v cygpath > /dev/null 2>&1; then
+		iced_x86_dir="$(cygpath -m "$(pwd)")/src/rust/iced-x86"
 	else
-		iced_x86_dir="$(pwd)/../iced-x86"
+		iced_x86_dir="$(pwd)/src/rust/iced-x86"
 	fi
 	if [ ! -d "$iced_x86_dir" ]; then
 		echo "Dir does not exist: $iced_x86_dir"
 		exit 1
 	fi
 
-	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
-
+	# $cargo_toml is relative to the original dir
 	cd "$curr_dir"
+	sed -i -e "s&^#pathci$&path = \"$iced_x86_dir\"&" "$cargo_toml"
 }
 
 patchci_undo_patch() {

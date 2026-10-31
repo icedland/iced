@@ -8,11 +8,11 @@ if [ ! -f "$root_dir/LICENSE.txt" ]; then
 	exit 1
 fi
 
-if [ "$OSTYPE" = "msys" ]; then
-	is_windows=y
-else
-	is_windows=n
-fi
+# Don't use $OSTYPE, it's not always "msys" in Git Bash on Windows
+case "$(uname -s)" in
+MINGW*|MSYS*|CYGWIN*) is_windows=y ;;
+*) is_windows=n ;;
+esac
 net_tfm="net10.0"
 net_std="netstandard2.0"
 configuration=Release
@@ -115,7 +115,7 @@ build_test() {
 		else
 			cov_dir="$root_dir"
 		fi
-		dotnet test "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj" -c $configuration -f $net_tfm -p:Exclude='"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts"' -p:ExcludeByFile="$cov_dir/src/csharp/Intel/Iced/**/*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collect_coverage -p:CoverletOutputFormat=lcov --no-build -- RunConfiguration.NoAutoReporters=true RunConfiguration.TargetPlatform=X64
+		dotnet test "$root_dir/src/csharp/Intel/Iced.UnitTests/Iced.UnitTests.csproj" -c $configuration -f $net_tfm -p:Exclude='"[Iced]Iced.Intel.InstructionMemorySizes,[Iced]Iced.Intel.EncoderInternal.OpCodeHandlers,[Iced]Iced.Intel.InstructionInfoInternal.InfoHandlers,[Iced]Iced.Intel.MnemonicUtils,[Iced]Iced.Intel.InstructionOpCounts"' -p:ExcludeByFile="$cov_dir/src/csharp/Intel/Iced/**/*.g.cs" -p:ExcludeByAttribute='ObsoleteAttribute' -p:CollectCoverage=$collect_coverage -p:CoverletOutputFormat=lcov --no-build -- RunConfiguration.NoAutoReporters=true
 	fi
 
 	if [ "$pack_code" = "y" ]; then

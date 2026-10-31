@@ -10,11 +10,11 @@ fi
 pysrc_dir="$root_dir/src/rust/iced-x86-py"
 cargo_toml="$pysrc_dir/Cargo.toml"
 
-if [ "$OSTYPE" = "msys" ]; then
-	is_windows=y
-else
-	is_windows=n
-fi
+# Don't use $OSTYPE, it's not always "msys" in Git Bash on Windows
+case "$(uname -s)" in
+MINGW*|MSYS*|CYGWIN*) is_windows=y ;;
+*) is_windows=n ;;
+esac
 
 if [ "$is_windows" = "y" ]; then
 	python=python
@@ -63,8 +63,9 @@ patchci_patch() {
 	curr_dir=$(pwd)
 	cd "$root_dir"
 
-	if [ "$OSTYPE" = "msys" ]; then
-		iced_x86_dir="$(pwd -W)/src/rust/iced-x86"
+	# Windows (Git Bash/MSYS/Cygwin): cargo needs a Windows path (C:/...), not /c/...
+	if [ "$is_windows" = "y" ]; then
+		iced_x86_dir="$(cygpath -m "$(pwd)")/src/rust/iced-x86"
 	else
 		iced_x86_dir="$(pwd)/src/rust/iced-x86"
 	fi
@@ -223,7 +224,12 @@ if [ "$delete_old_venv" = "y" ]; then
 	rm -rf "$pysrc_dir/.venv/"
 fi
 $python -m venv "$pysrc_dir/.venv/"
-. "$pysrc_dir/.venv/bin/activate"
+# Windows venvs use Scripts/ instead of bin/
+if [ -f "$pysrc_dir/.venv/Scripts/activate" ]; then
+	. "$pysrc_dir/.venv/Scripts/activate"
+else
+	. "$pysrc_dir/.venv/bin/activate"
+fi
 echo "Installing dependencies..."
 python -m pip install -r "$pysrc_dir/requirements-dev.txt"
 
