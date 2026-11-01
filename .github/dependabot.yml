@@ -28,6 +28,11 @@ updates:
     commit-message:
       prefix: "deps(rust)"
     labels: ["dependencies", "Rust"]
+    ignore:
+      # bincode is unmaintained. 2.x needs a newer MSRV and has a different API,
+      # 3.0.0 is a tombstone release that only contains a compile_error!()
+      - dependency-name: "bincode"
+        versions: [">= 2"]
     groups:
       # One PR per dependency even if it's used by several crates (eg. libc)
       cargo:

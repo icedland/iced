@@ -2299,6 +2299,10 @@ class Instruction:
 		### Args:
 
 		- `state` (Any): unpickled state
+
+		### Warning:
+
+		- Pickled instructions can only be unpickled by the same iced-x86 version that pickled them. The format can change in any new version.
 		"""
 		...
 	def __getstate__(self) -> bytes:
@@ -2308,6 +2312,10 @@ class Instruction:
 		### Returns:
 
 		- bytes: The unpickled state
+
+		### Warning:
+
+		- Pickled instructions can only be unpickled by the same iced-x86 version that pickled them. The format can change in any new version.
 		"""
 		...
 	def __copy__(self) -> Instruction:

@@ -171,6 +171,9 @@ impl Instruction {
 	///
 	/// Args:
 	///     state (Any): unpickled state
+	///
+	/// Warning:
+	///     Pickled instructions can only be unpickled by the same iced-x86 version that pickled them. The format can change in any new version.
 	#[pyo3(text_signature = "($self, state)")]
 	fn __setstate__(&mut self, state: &Bound<'_, PyAny>) -> PyResult<()> {
 		match state.cast::<PyBytes>() {
@@ -186,6 +189,9 @@ impl Instruction {
 	///
 	/// Returns:
 	///     bytes: The unpickled state
+	///
+	/// Warning:
+	///     Pickled instructions can only be unpickled by the same iced-x86 version that pickled them. The format can change in any new version.
 	#[pyo3(text_signature = "($self)")]
 	fn __getstate__<'py>(&self, py: Python<'py>) -> PyResult<Bound<'py, PyBytes>> {
 		Ok(PyBytes::new(py, &serialize(&self.instr).map_err(to_value_error)?))

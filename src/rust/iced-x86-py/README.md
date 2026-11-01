@@ -68,6 +68,10 @@ python3 -m sphinx --color -n -W --keep-going -b html docs docs/_build
 python3 -m sphinx --color -n -W --keep-going -b doctest docs docs/_build
 ```
 
+## Pickle support
+
+`Instruction`s can be pickled, but the pickled data is only supported by the same iced-x86 version that created it. The format can change in any new version, so don't use it for long-term storage or to exchange data between different iced-x86 versions.
+
 ## How-tos
 
 - [Disassemble (decode and format instructions)](#disassemble-decode-and-format-instructions)
