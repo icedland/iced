@@ -39,7 +39,8 @@ on:
 # Keep this in sync with the other *.yml files
 env:
   CI_REQ_DOTNET_SDK_VER: '10.0.x'
-  CI_NODE_MIN_VER: 'latest'
+  # Newest LTS, not 'latest': 'latest' can resolve to a pre-release (it once picked v27.0.0-alpha)
+  CI_NODE_VER: 'lts/*'
   # npm major version (eg. 'npm stage' needs npm >= 11.15.0)
   CI_NPM_VER: '12'
   JAVA_DISTRIBUTION: 'temurin'
@@ -131,7 +132,7 @@ jobs:
           python-version: '3.x'
       - uses: actions/setup-node@v7
         with:
-          node-version: ${{env.CI_NODE_MIN_VER}}
+          node-version: ${{env.CI_NODE_VER}}
 
       - uses: actions/download-artifact@v8
         with:
@@ -259,7 +260,7 @@ jobs:
           python-version: '3.x'
       - uses: actions/setup-node@v7
         with:
-          node-version: ${{env.CI_NODE_MIN_VER}}
+          node-version: ${{env.CI_NODE_VER}}
 
       - uses: actions/download-artifact@v8
         with:
