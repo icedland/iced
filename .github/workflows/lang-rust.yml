@@ -6,9 +6,6 @@ on:
         description: "Release build (all OSes, full tests on Linux) instead of a quick PR build"
         type: boolean
         default: false
-    secrets:
-      CODECOV_TOKEN:
-        required: false
 
 # Keep this in sync with the other *.yml files
 env:
@@ -67,7 +64,8 @@ jobs:
         continue-on-error: true
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          # Needs 'id-token: write', granted by the caller (build.yml)
+          use_oidc: true
           # Upload errors show as an annotation on the run; continue-on-error keeps the step and job green
           fail_ci_if_error: true
           files: cov-out/rust/merged/kcov-merged/cobertura.xml
