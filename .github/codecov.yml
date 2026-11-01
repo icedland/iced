@@ -1,17 +1,8 @@
-codecov:
-  require_ci_to_pass: yes
-
+# Coverage is only for stats, it must never pass/fail a commit or PR
 coverage:
   status:
-    patch:
-      default:
-        target: 0%
-        threshold: 0%
-        base: auto
-        informational: true
-    project:
-      default:
-        target: 0%
-        threshold: 0%
-        base: auto
-        informational: true
+    project: off
+    patch: off
+
+# Stats only, no PR comments
+comment: false
