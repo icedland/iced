@@ -3,39 +3,72 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps(actions)"
+    labels: ["dependencies", "github_actions"]
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: "cargo"
+    directories:
+      - "/src/rust/iced-x86"
+      - "/src/rust/iced-x86-fzgt"
+      - "/src/rust/iced-x86-js"
+      - "/src/rust/iced-x86-lua"
+      - "/src/rust/iced-x86-py"
+      - "/src/rust/loona"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps(rust)"
+    labels: ["dependencies", "Rust"]
+    groups:
+      # One PR per dependency even if it's used by several crates (eg. libc)
+      cargo:
+        group-by: dependency-name
 
   - package-ecosystem: "nuget"
-    directory: "/src/csharp/Intel/"
+    directory: "/src/csharp/Intel"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps(dotnet)"
+    labels: ["dependencies", ".NET"]
+    groups:
+      nuget-minor-patch:
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: "maven"
     directory: "/src/java/iced-x86"
     schedule:
-      interval: "daily"
-
-  - package-ecosystem: "cargo"
-    directory: "/src/rust/iced-x86/"
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "cargo"
-    directory: "/src/rust/iced-x86-fzgt/"
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "cargo"
-    directory: "/src/rust/iced-x86-js/"
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "cargo"
-    directory: "/src/rust/iced-x86-py/"
-    schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps(java)"
+    labels: ["dependencies", "java"]
+    # A dependency is put in the first group it matches
+    groups:
+      maven-plugins:
+        patterns: ["org.apache.maven.plugins:*"]
+        update-types: ["minor", "patch"]
+      maven-minor-patch:
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: "npm"
-    directory: "/src/rust/iced-x86-js/src/tests/"
+    directory: "/src/rust/iced-x86-js/src/tests"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "deps(js)"
+    labels: ["dependencies", "javascript"]
