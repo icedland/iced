@@ -1,0 +1,125 @@
+#!/bin/bash
+set -e
+
+# Checks if this version has already been published to a registry. Used by the release workflow's
+# upload jobs so an upload can be re-run (eg. GitHub's 'Re-run failed jobs') without failing because
+# the version already exists.
+#
+# Exit code:
+#	0	The version has been published
+#	1	The version hasn't been published
+#	2	Error (eg. unexpected HTTP status), don't upload
+#
+# Usage: ci-release-is-published crates|npm|maven
+#	maven needs the MAVEN_CENTRAL_USERNAME and MAVEN_CENTRAL_TOKEN env vars (Central Portal user token)
+#
+# NuGet (dotnet nuget push --skip-duplicate) and PyPI (pypa/gh-action-pypi-publish skip-existing)
+# skip existing files themselves so they don't use this script.
+
+root_dir=$(dirname "$0")
+root_dir=$(cd "$root_dir/.." && pwd)
+if [ ! -f "$root_dir/LICENSE.txt" ]; then
+	echo "Couldn't find the root dir"
+	exit 2
+fi
+
+if [ "$#" -ne 1 ]; then
+	echo "Usage: $0 crates|npm|maven"
+	exit 2
+fi
+registry=$1
+
+# Same version as ci-verify-release-artifacts (it verifies that all files have this version)
+version=$(sed -n 's/^version = "\([^"]*\)"$/\1/p' "$root_dir/src/rust/iced-x86/Cargo.toml" | head -1)
+if [ -z "$version" ]; then
+	echo "ERROR: Couldn't read the version from src/rust/iced-x86/Cargo.toml"
+	exit 2
+fi
+
+response_file=$(mktemp)
+trap 'rm -f "$response_file"' EXIT
+
+# Prints the HTTP status code (000 if the request failed). The response body is saved in $response_file.
+http_get() {
+	curl -sS -m 60 -o "$response_file" -w '%{http_code}' "$@" || true
+}
+
+# Prints a message and exits with the right exit code: description, HTTP status code
+exit_200_404() {
+	case "$2" in
+	200)
+		echo "$1 $version has already been published"
+		exit 0
+		;;
+	404)
+		echo "$1 $version hasn't been published yet"
+		exit 1
+		;;
+	*)
+		echo "ERROR: Unexpected HTTP status $2 when checking if $1 $version has been published: $(head -c 1000 "$response_file")"
+		exit 2
+		;;
+	esac
+}
+
+case $registry in
+crates)
+	# crates.io requires a User-Agent: https://crates.io/data-access
+	http_code=$(http_get -A "iced release workflow (https://github.com/icedland/iced)" "https://crates.io/api/v1/crates/iced-x86/$version")
+	exit_200_404 "crates.io iced-x86" "$http_code"
+	;;
+
+npm)
+	# Only finds published versions, not staged versions (waiting for approval on npmjs.com). Staging a
+	# version that's already staged fails (staged and published versions share the same version index).
+	http_code=$(http_get "https://registry.npmjs.org/iced-x86/$version")
+	exit_200_404 "npm iced-x86" "$http_code"
+	;;
+
+maven)
+	if [ -z "$MAVEN_CENTRAL_USERNAME" ] || [ -z "$MAVEN_CENTRAL_TOKEN" ]; then
+		echo "MAVEN_CENTRAL_USERNAME and/or MAVEN_CENTRAL_TOKEN env vars aren't set"
+		exit 2
+	fi
+	cd "$root_dir/src/java/iced-x86"
+	mvn_eval() {
+		mvn -q help:evaluate -Dexpression="$1" -DforceStdout
+	}
+	namespace=$(mvn_eval project.groupId)
+	name=$(mvn_eval project.artifactId)
+	pom_version=$(mvn_eval project.version)
+	if [ -z "$namespace" ] || [ -z "$name" ] || [ -z "$pom_version" ]; then
+		echo "ERROR: Couldn't read groupId/artifactId/version from pom.xml"
+		exit 2
+	fi
+	if [ "$pom_version" != "$version" ]; then
+		echo "ERROR: pom.xml version $pom_version != Cargo.toml version $version"
+		exit 2
+	fi
+
+	# Central Portal Publisher API (same as ci-check-maven-central). Don't print the auth header,
+	# it's not masked in CI logs (only the secrets are).
+	auth=$(printf '%s:%s' "$MAVEN_CENTRAL_USERNAME" "$MAVEN_CENTRAL_TOKEN" | base64 | tr -d '\n')
+	http_code=$(http_get -H "Authorization: Bearer $auth" \
+		"https://central.sonatype.com/api/v1/publisher/published?namespace=$namespace&name=$name&version=$version")
+	auth=
+	if [ "$http_code" != "200" ]; then
+		echo "ERROR: Unexpected HTTP status $http_code from the Maven Central Portal (401 = invalid/expired token): $(head -c 1000 "$response_file")"
+		exit 2
+	fi
+	if grep -q '"published" *: *true' "$response_file"; then
+		echo "Maven Central $namespace:$name $version has already been published"
+		exit 0
+	elif grep -q '"published" *: *false' "$response_file"; then
+		echo "Maven Central $namespace:$name $version hasn't been published yet"
+		exit 1
+	fi
+	echo "ERROR: Unexpected response from the Maven Central Portal: $(head -c 1000 "$response_file")"
+	exit 2
+	;;
+
+*)
+	echo "Unknown registry: $registry"
+	exit 2
+	;;
+esac
