@@ -21,8 +21,10 @@ jobs:
   dotnet:
     name: C#
     uses: ./.github/workflows/lang-dotnet.yml
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    permissions:
+      contents: read
+      # Codecov OIDC upload
+      id-token: write
 
   java:
     name: Java
@@ -31,8 +33,10 @@ jobs:
   rust:
     name: Rust
     uses: ./.github/workflows/lang-rust.yml
-    secrets:
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    permissions:
+      contents: read
+      # Codecov OIDC upload
+      id-token: write
 
   js:
     name: JavaScript
