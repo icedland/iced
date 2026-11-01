@@ -57,13 +57,13 @@ jobs:
         os: [ubuntu-26.04]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.11'
       - name: Install Python tools
@@ -95,7 +95,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_x86_64" --pypy
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: inputs.release
         with:
           name: py-dist-${{matrix.os}}-x64
@@ -115,7 +115,7 @@ jobs:
         os: [ubuntu-26.04-arm]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build manylinux aarch64
         shell: bash
@@ -123,7 +123,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/manylinux2014_aarch64"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -142,7 +142,7 @@ jobs:
         os: [ubuntu-26.04]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build musllinux x86_64
         shell: bash
@@ -150,7 +150,7 @@ jobs:
           git clean -xdf
           ./build/py-build-wheels-linux.sh "quay.io/pypa/musllinux_1_2_x86_64"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: py-dist-${{matrix.os}}-x86_64-musllinux
           path: /tmp/py-dist
@@ -169,13 +169,13 @@ jobs:
         os: [macos-latest]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.11'
       - name: Install Python tools
@@ -190,14 +190,14 @@ jobs:
           ./build/build-python --no-set-rustflags --python python --quick-check
           git clean -xdf
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{env.CPYTHON_VERSIONS}}
       - name: Build and test the wheels
         shell: bash
         run: bash build/ci-py-build-wheels.sh --build --versions "$CPYTHON_VERSIONS"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: py-dist-${{matrix.os}}-aarch64
           path: /tmp/py-dist
@@ -216,13 +216,13 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.11'
       - name: Install Python tools
@@ -237,14 +237,14 @@ jobs:
           ./build/build-python --no-set-rustflags --python python --quick-check
           git clean -xdf
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{env.CPYTHON_VERSIONS}}
       - name: Build and test the wheels
         shell: bash
         run: bash build/ci-py-build-wheels.sh --build --versions "$CPYTHON_VERSIONS"
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: 'pypy-3.11'
       - name: Build and test the wheel
@@ -259,7 +259,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: py-dist-${{matrix.os}}-x64
           path: py-dist
@@ -278,7 +278,7 @@ jobs:
         os: [windows-latest]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Rust
         shell: bash
@@ -291,7 +291,7 @@ jobs:
           rustup default stable-i686-pc-windows-msvc --force-non-host
           rustup show
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{env.CPYTHON_VERSIONS}}
           architecture: x86
@@ -304,7 +304,7 @@ jobs:
         run: |
           git clean -xdf
           cp -r /tmp/py-dist .
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: py-dist-${{matrix.os}}-x86
           path: py-dist

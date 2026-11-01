@@ -26,13 +26,13 @@ jobs:
         os: ${{ fromJSON(inputs.release && '["windows-latest", "ubuntu-26.04", "macos-latest"]' || '["ubuntu-26.04"]') }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Rust
         shell: bash
         run: bash build/ci-install-rust.sh
 
-      - uses: actions/setup-dotnet@v6
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
 
@@ -54,7 +54,7 @@ jobs:
           fi
           ./build/build-rust --no-set-rustflags "${extra_args[@]}"
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ !inputs.release }}
         with:
           name: rust-coverage
