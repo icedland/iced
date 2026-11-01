@@ -102,12 +102,12 @@ jobs:
   #############################################################################
   #############################################################################
 
-  # Test release builds only (a real release does this in the upload job before uploading):
-  # verifies the build artifacts and the upload tools with the same scripts as the upload job, so
-  # eg. a renamed file or a version mismatch is found before a real release. Artifact groups that
-  # weren't built (unchecked) are skipped with a message.
+  # Verifies the build artifacts and the upload tools before anything is uploaded. In a real release,
+  # all upload jobs need this job so nothing gets uploaded anywhere if it fails (eg. a renamed file
+  # or a version that doesn't match the tag). Test release builds run it too so a problem is found
+  # before a real release. Artifact groups that weren't built (unchecked) are skipped with a message.
   check-artifacts:
-    if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && !contains(needs.*.result, 'failure') }}
+    if: ${{ !cancelled() && !contains(needs.*.result, 'failure') }}
     runs-on: ubuntu-26.04
     name: Check artifacts
     needs:
@@ -119,7 +119,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      # Same tools as the upload job
+      # Same tools as the upload jobs
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
@@ -141,6 +141,7 @@ jobs:
       - name: Verify the artifacts
         shell: bash
         env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
           BUILT_DOTNET: ${{inputs.dotnet}}
           BUILT_JAVA: ${{inputs.java}}
           BUILT_JS: ${{inputs.js}}
@@ -148,16 +149,22 @@ jobs:
           BUILT_PYTHON_MACOS: ${{inputs.python_macos}}
           BUILT_PYTHON_WINDOWS: ${{inputs.python_windows}}
         run: |
-          # Only check the groups that were built (checked)
-          groups=()
-          [[ "$BUILT_DOTNET" == "true" ]] && groups+=(dotnet)
-          [[ "$BUILT_JAVA" == "true" ]] && groups+=(java)
-          [[ "$BUILT_JS" == "true" ]] && groups+=(js)
-          [[ "$BUILT_PYTHON_LINUX" == "true" ]] && groups+=(python-linux)
-          [[ "$BUILT_PYTHON_MACOS" == "true" ]] && groups+=(python-macos)
-          [[ "$BUILT_PYTHON_WINDOWS" == "true" ]] && groups+=(python-windows)
-          groups_str=$(IFS=,; echo "${groups[*]}")
-          ./build/ci-verify-release-artifacts --groups "$groups_str" "$RUNNER_TEMP/artifacts" "$RUNNER_TEMP/py-dist"
+          if [[ "$GITHUB_EVENT_NAME" == "release" ]]; then
+            # A real release builds all groups and the version must match the tag
+            args=(--tag "$RELEASE_TAG")
+          else
+            # Only check the groups that were built (checked)
+            groups=()
+            [[ "$BUILT_DOTNET" == "true" ]] && groups+=(dotnet)
+            [[ "$BUILT_JAVA" == "true" ]] && groups+=(java)
+            [[ "$BUILT_JS" == "true" ]] && groups+=(js)
+            [[ "$BUILT_PYTHON_LINUX" == "true" ]] && groups+=(python-linux)
+            [[ "$BUILT_PYTHON_MACOS" == "true" ]] && groups+=(python-macos)
+            [[ "$BUILT_PYTHON_WINDOWS" == "true" ]] && groups+=(python-windows)
+            groups_str=$(IFS=,; echo "${groups[*]}")
+            args=(--groups "$groups_str")
+          fi
+          ./build/ci-verify-release-artifacts "${args[@]}" "$RUNNER_TEMP/artifacts" "$RUNNER_TEMP/py-dist"
 
       - name: Upload checks
         shell: bash
@@ -169,8 +176,8 @@ jobs:
 
   # Checks that trusted publishing works for NuGet, crates.io and PyPI (each registry's trusted
   # publisher config matches this repo/workflow) by getting temporary tokens. Nothing is uploaded and
-  # the tokens aren't used (upload-files gets its own right before uploading). In a real release,
-  # upload-files needs this job so nothing gets uploaded anywhere if it fails.
+  # the tokens aren't used (each upload job gets its own right before uploading). In a real release,
+  # all upload jobs need this job so nothing gets uploaded anywhere if it fails.
   check-trusted-publishing:
     if: github.event_name != 'workflow_dispatch' || inputs.dotnet || inputs.rust || inputs.python_linux || inputs.python_macos || inputs.python_windows
     runs-on: ubuntu-26.04
@@ -229,15 +236,27 @@ jobs:
   #############################################################################
   #############################################################################
 
-  upload-files:
+  # One upload job per registry so a failed upload doesn't stop the other uploads. Fix the problem
+  # (eg. regenerate an expired token) and use 'Re-run failed jobs' to re-run only the failed upload
+  # job(s). Each upload skips files/versions that have already been uploaded so a job that failed
+  # after uploading some files can be re-run.
+  #
+  # All upload jobs need all build jobs + check-artifacts + check-trusted-publishing, so nothing is
+  # uploaded unless everything was built and verified.
+  #
+  # 'Re-run failed jobs' uses the workflow files and scripts from the release tag, so it can't fix a
+  # bug in them.
+
+  upload-nuget:
     if: github.event_name == 'release'
     runs-on: ubuntu-26.04
-    name: Upload files
+    name: Upload to nuget.org
     permissions:
       contents: read
-      # Required for npm, NuGet, crates.io and PyPI trusted publishing (OIDC)
+      # Required for trusted publishing (OIDC)
       id-token: write
-    needs:
+    needs: &upload-needs
+      - check-artifacts
       - check-trusted-publishing
       - dotnet
       - java
@@ -246,35 +265,14 @@ jobs:
       - python
 
     steps:
-      - uses: actions/checkout@v7
-
       - uses: actions/setup-dotnet@v6
         with:
           dotnet-version: ${{env.CI_REQ_DOTNET_SDK_VER}}
-      - uses: actions/setup-java@v6
-        with:
-          distribution: ${{env.JAVA_DISTRIBUTION}}
-          java-version: ${{env.JAVA_VERSION}}
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.x'
-      - uses: actions/setup-node@v7
-        with:
-          node-version: ${{env.CI_NODE_VER}}
 
       - uses: actions/download-artifact@v8
         with:
-          path: /tmp/artifacts
-
-      - name: Verify downloads
-        shell: bash
-        env:
-          RELEASE_TAG: ${{ github.event.release.tag_name }}
-        run: ./build/ci-verify-release-artifacts --tag "$RELEASE_TAG" /tmp/artifacts /tmp/py-dist
-
-      - name: Upload checks
-        shell: bash
-        run: ./build/ci-release-upload-checks /tmp/py-dist
+          name: nupkg
+          path: ${{runner.temp}}/nupkg
 
       # Uses NuGet trusted publishing (OIDC), no stored API key. The temporary API key is only
       # valid for 1 hour, so get it right before pushing.
@@ -284,56 +282,156 @@ jobs:
         with:
           user: ${{env.NUGET_USER}}
 
+      # --skip-duplicate: files that have already been uploaded (eg. a re-run) are skipped. The
+      # .snupkg files are pushed separately (--no-symbols) so a re-run also uploads a .snupkg whose
+      # .nupkg was uploaded but the .snupkg upload failed.
       - name: Upload to nuget.org
         shell: bash
         env:
           NUGET_API_KEY: ${{ steps.nuget-login.outputs.NUGET_API_KEY }}
         run: |
-          for file in /tmp/artifacts/nupkg/Iced.*.nupkg; do
-            dotnet nuget push "$file" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json
+          for file in "$RUNNER_TEMP"/nupkg/Iced.*.nupkg; do
+            dotnet nuget push "$file" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
           done
+          for file in "$RUNNER_TEMP"/nupkg/Iced.*.snupkg; do
+            dotnet nuget push "$file" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          done
+
+  upload-crates-io:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-26.04
+    name: Upload to crates.io
+    permissions:
+      contents: read
+      # Required for trusted publishing (OIDC)
+      id-token: write
+    needs: *upload-needs
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check if it has already been published
+        id: published
+        shell: bash
+        run: |
+          status=0
+          ./build/ci-release-is-published crates || status=$?
+          case $status in
+          0) echo "published=true" >> "$GITHUB_OUTPUT" ;;
+          1) echo "published=false" >> "$GITHUB_OUTPUT" ;;
+          *) exit 1 ;;
+          esac
 
       # Uses crates.io trusted publishing (OIDC), no stored token. The temporary token is valid
       # for 30 minutes and revoked when the job ends, so get it right before publishing.
       - name: crates.io login (trusted publishing)
+        if: steps.published.outputs.published == 'false'
         uses: rust-lang/crates-io-auth-action@v1
         id: crates-io-auth
 
       - name: Upload to crates.io
+        if: steps.published.outputs.published == 'false'
         shell: bash
         env:
           CARGO_REGISTRY_TOKEN: ${{ steps.crates-io-auth.outputs.token }}
         run: |
-          git reset .
-          git checkout .
-          git clean -xdf
           cd src/rust/iced-x86
           # --no-verify: we've tested building everything already
           cargo publish --color always --no-verify
 
-      # The PyPI action runs in a Docker container which only sees the workspace (not /tmp), so copy
-      # the files to the workspace. Must be after 'Upload to crates.io' since it runs 'git clean'.
-      - name: Copy the Python files to the workspace
+  upload-pypi:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-26.04
+    name: Upload to pypi.org
+    permissions:
+      contents: read
+      # Required for trusted publishing (OIDC)
+      id-token: write
+    needs: *upload-needs
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: py-dist-*
+          path: ${{runner.temp}}/artifacts
+
+      # Copies the wheels + sdist to one dir (same files as check-artifacts verified). The PyPI action
+      # runs in a Docker container which only sees the workspace, so the dir must be in the workspace.
+      - name: Collect the Python files
         shell: bash
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
-          rm -rf pypi-dist
-          mkdir pypi-dist
-          cp /tmp/py-dist/* pypi-dist/
-          ls -l pypi-dist
+          ./build/ci-verify-release-artifacts --tag "$RELEASE_TAG" --groups python-linux,python-macos,python-windows "$RUNNER_TEMP/artifacts" pypi-dist
 
       # Uses PyPI trusted publishing (OIDC), no stored token. Also uploads PEP 740 attestations
-      # (signed provenance) for each file.
+      # (signed provenance) for each file. skip-existing: files that have already been uploaded
+      # (eg. a re-run) are skipped.
       - name: Upload to pypi.org
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: pypi-dist/
+          skip-existing: true
+
+  upload-npm:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-26.04
+    name: Upload to npmjs.com
+    permissions:
+      contents: read
+      # Required for trusted publishing (OIDC)
+      id-token: write
+    needs: *upload-needs
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{env.CI_NODE_VER}}
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: npm
+          path: ${{runner.temp}}/npm
+
+      - name: Check if it has already been published
+        id: published
+        shell: bash
+        run: |
+          status=0
+          ./build/ci-release-is-published npm || status=$?
+          case $status in
+          0) echo "published=true" >> "$GITHUB_OUTPUT" ;;
+          1) echo "published=false" >> "$GITHUB_OUTPUT" ;;
+          *) exit 1 ;;
+          esac
 
       # Uses npm trusted publishing (OIDC), no token. The version is only staged
       # and must be approved on npmjs.com (2FA) before it's published.
+      # If this fails because the version has already been staged (eg. a re-run after the request
+      # succeeded but the job failed), approve the staged version on npmjs.com instead.
       - name: Upload to npmjs.com (staged)
+        if: steps.published.outputs.published == 'false'
         shell: bash
         run: |
-          npm stage publish /tmp/artifacts/npm/iced-x86-*.tgz
+          # npm trusted publishing + 'npm stage' need a recent npm
+          npm install -g "npm@$CI_NPM_VER"
+          npm --version
+          npm stage publish "$RUNNER_TEMP"/npm/iced-x86-*.tgz
+
+  upload-maven-central:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-26.04
+    name: Upload to Maven Central
+    permissions:
+      contents: read
+    needs: *upload-needs
+
+    steps:
+      - uses: actions/checkout@v7
 
       - name: Set up Apache Maven Central
         uses: actions/setup-java@v6
@@ -347,7 +445,26 @@ jobs:
           gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
           gpg-passphrase-env-var: MAVEN_GPG_PASSPHRASE
 
+      # A deployment that's still being validated/published (eg. the previous run timed out waiting)
+      # isn't 'published' yet. Re-deploying it fails (Maven Central rejects duplicate versions), so
+      # check its status at https://central.sonatype.com/publishing/deployments instead.
+      - name: Check if it has already been published
+        id: published
+        shell: bash
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+        run: |
+          status=0
+          ./build/ci-release-is-published maven || status=$?
+          case $status in
+          0) echo "published=true" >> "$GITHUB_OUTPUT" ;;
+          1) echo "published=false" >> "$GITHUB_OUTPUT" ;;
+          *) exit 1 ;;
+          esac
+
       - name: Publish to Apache Maven Central
+        if: steps.published.outputs.published == 'false'
         run: |
           cd src/java/iced-x86
           # -DskipTests: the java job already ran all tests (and signed + verified the files) on this commit
