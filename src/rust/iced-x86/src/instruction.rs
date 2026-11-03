@@ -28,6 +28,7 @@ impl InstrFlags1 {
 	pub(crate) const OP_MASK_SHIFT: u32 = 0x0000_000F;
 	pub(crate) const CODE_SIZE_MASK: u32 = 0x0000_0003;
 	pub(crate) const CODE_SIZE_SHIFT: u32 = 0x0000_0012;
+	pub(crate) const HAS_ADDRESS_SIZE_PREFIX: u32 = 0x0010_0000;
 	pub(crate) const BROADCAST: u32 = 0x0400_0000;
 	pub(crate) const SUPPRESS_ALL_EXCEPTIONS: u32 = 0x0800_0000;
 	pub(crate) const ZEROING_MASKING: u32 = 0x1000_0000;
@@ -484,6 +485,30 @@ impl Instruction {
 			self.flags1 |= InstrFlags1::LOCK_PREFIX;
 		} else {
 			self.flags1 &= !InstrFlags1::LOCK_PREFIX;
+		}
+	}
+
+	/// `true` if the instruction has a useless address-size prefix (`67h`) that the decoder
+	/// could not associate with any memory operand (e.g. `67 90` = `a32 nop` in 32-bit mode).
+	/// Formatters should emit an `a16`/`a32`/`a64` keyword when this is `true` so that
+	/// assemblers can reproduce the original encoding.
+	#[must_use]
+	#[inline]
+	pub const fn has_address_size_prefix(&self) -> bool {
+		(self.flags1 & InstrFlags1::HAS_ADDRESS_SIZE_PREFIX) != 0
+	}
+
+	/// `true` if the instruction has a useless address-size prefix (`67h`)
+	///
+	/// # Arguments
+	///
+	/// * `new_value`: new value
+	#[inline]
+	pub fn set_has_address_size_prefix(&mut self, new_value: bool) {
+		if new_value {
+			self.flags1 |= InstrFlags1::HAS_ADDRESS_SIZE_PREFIX;
+		} else {
+			self.flags1 &= !InstrFlags1::HAS_ADDRESS_SIZE_PREFIX;
 		}
 	}
 
