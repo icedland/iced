@@ -10,12 +10,9 @@ rust-version = "1.64.0"
 [features]
 default = []
 lua5_1 = []
-lua5_1_3 = ["lua5_1"]
 lua5_2 = []
-lua5_2_2 = ["lua5_2"]
 lua5_3 = []
 lua5_4 = []
-lua5_4_3 = ["lua5_4"]
 extra_checks = []
 
 [dependencies]

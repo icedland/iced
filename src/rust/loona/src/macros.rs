@@ -4,6 +4,7 @@
 #[macro_export]
 macro_rules! cstr {
 	($s:expr) => {{
+		// static check, don't remove it
 		const STR: &'static str = $s;
 		$crate::lua::LuaCStr(concat!($s, "\0").as_bytes())
 	}};

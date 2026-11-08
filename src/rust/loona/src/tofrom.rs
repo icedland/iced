@@ -23,19 +23,6 @@ pub trait ToLua {
 	unsafe fn to_lua(&self, lua: &Lua<'_>);
 }
 
-/// A value that is ignored
-#[derive(Debug, Clone, Copy)]
-pub struct LuaIgnore;
-
-impl<'lua> FromLua<'lua> for LuaIgnore {
-	type RetType = Self;
-
-	#[inline]
-	unsafe fn from_lua(_lua: &Lua<'lua>, _idx: c_int) -> Self::RetType {
-		Self
-	}
-}
-
 /// Any value, the index is stored in the instance
 #[derive(Debug, Clone, Copy)]
 pub struct LuaAny {
@@ -92,17 +79,9 @@ macro_rules! create_lua_option {
 // SAFETY: caller guarantees `idx` is valid to pass to these functions
 create_lua_option! { lua, idx {
 	LuaDefaultBool : bool => unsafe { lua.get_bool(idx) },
-	LuaDefaultChar : char => unsafe { lua.get_char(idx) },
-	LuaDefaultI8 : i8 => unsafe { lua.get_i8(idx) },
-	LuaDefaultI16 : i16 => unsafe { lua.get_i16(idx) },
-	LuaDefaultI32 : i32 => unsafe { lua.get_i32(idx) },
 	LuaDefaultI64 : i64 => unsafe { lua.get_i64(idx) },
-	LuaDefaultIsize : isize => unsafe { lua.get_isize(idx) },
-	LuaDefaultU8 : u8 => unsafe { lua.get_u8(idx) },
-	LuaDefaultU16 : u16 => unsafe { lua.get_u16(idx) },
 	LuaDefaultU32 : u32 => unsafe { lua.get_u32(idx) },
 	LuaDefaultU64 : u64 => unsafe { lua.get_u64(idx) },
-	LuaDefaultUsize : usize => unsafe { lua.get_usize(idx) },
 }}
 
 macro_rules! impl_from_lua {
