@@ -167,6 +167,19 @@ impl<'lua> Lua<'lua> {
 		}
 	}
 
+	/// Allocates the userdata before calling `create()` so an OOM error can't leak the value.
+	/// `create()` may raise a Lua error; the uninitialized userdata has no metatable so no `__gc` runs.
+	#[inline]
+	pub unsafe fn push_user_data_with<T: LuaUserData, F: FnOnce() -> T>(&self, create: F) -> &'lua mut T {
+		unsafe {
+			// Make sure it's not a common number, it should be 'random'
+			debug_assert!(T::UNIQUE_ID > 0x1_0000);
+			let ptr_ud = self.new_user_data_no_uv(mem::size_of::<WrappedUserData<T>>()).cast::<WrappedUserData<T>>();
+			ptr::write(ptr_ud, WrappedUserData { id: T::UNIQUE_ID, ud: create() });
+			&mut (*ptr_ud).ud
+		}
+	}
+
 	#[inline]
 	pub unsafe fn push_user_data_copy<T: LuaUserData + Copy>(&self, ud: &T) -> &'lua mut T {
 		unsafe {
@@ -613,6 +626,7 @@ impl<'lua> Lua<'lua> {
 	{
 		unsafe {
 			if !self.is_table(idx) {
+				drop(read_elem);
 				self.throw_error_msg("Expected a table");
 			}
 			let len = self.raw_len(idx);
@@ -632,8 +646,9 @@ impl<'lua> Lua<'lua> {
 				match read_elem(self) {
 					Ok(value) => result.push(value),
 					Err(e) => {
-						// lua_error() longjmps past this frame so drop it now or it's leaked
+						// lua_error() longjmps past this frame so drop them now or they're leaked
 						drop(result);
+						drop(read_elem);
 						self.throw_error(e)
 					}
 				}

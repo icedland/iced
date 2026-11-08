@@ -118,14 +118,15 @@ lua_pub_methods! { static DECODER_EXPORTS =>
 	/// ```
 	unsafe fn new(lua, bitness: u32, data: &[u8], options: LuaDefaultU32<{DecoderOptions::NONE}>, ip: LuaDefaultU64<0>) -> 1 {
 		unsafe {
-			let decoder = match Decoder::new(bitness, data, options, ip) {
+			// Metatable and userdata are allocated before the decoder so an OOM error can't leak it
+			lua_get_or_init_metatable!(Decoder : lua);
+			let _ = lua.push_user_data_with(|| match Decoder::new(bitness, data, options, ip) {
 				Ok(decoder) => decoder,
 				Err(e) => lua.throw_error(e),
-			};
-			let _ = lua.push_user_data(decoder);
-
-			lua_get_or_init_metatable!(Decoder : lua);
+			});
+			lua.push_value(-2);
 			let _ = lua.set_metatable(-2);
+			lua.replace(-2);
 		}
 	}
 

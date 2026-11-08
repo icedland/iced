@@ -75,13 +75,15 @@ lua_pub_methods! { static ENCODER_EXPORTS =>
 	unsafe fn new(lua, bitness: u32, capacity: Option<usize>) -> 1 {
 		unsafe {
 			let capacity = capacity.unwrap_or(0);
-			let encoder = match iced_x86::Encoder::try_with_capacity(bitness, capacity) {
+			// Metatable and userdata are allocated before the encoder so an OOM error can't leak it
+			lua_get_or_init_metatable!(Encoder : lua);
+			let _ = lua.push_user_data_with(|| match iced_x86::Encoder::try_with_capacity(bitness, capacity) {
 				Ok(encoder) => Encoder { inner: encoder },
 				Err(e) => lua.throw_error(e),
-			};
-			let _ = lua.push_user_data(encoder);
-			lua_get_or_init_metatable!(Encoder : lua);
+			});
+			lua.push_value(-2);
 			let _ = lua.set_metatable(-2);
+			lua.replace(-2);
 		}
 	}
 

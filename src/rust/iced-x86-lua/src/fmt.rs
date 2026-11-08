@@ -37,12 +37,14 @@ struct Formatter {
 }
 
 impl Formatter {
-	unsafe fn push_new<'lua>(lua: &Lua<'lua>, fmt: Formatter) -> &'lua mut Formatter {
+	unsafe fn push_new<'lua>(lua: &Lua<'lua>, create: impl FnOnce() -> Formatter) -> &'lua mut Formatter {
 		unsafe {
-			let fmt = lua.push_user_data(fmt);
-
+			// Metatable and userdata are allocated before the formatter so an OOM error can't leak it
 			lua_get_or_init_metatable!(Formatter: lua);
+			let fmt = lua.push_user_data_with(create);
+			lua.push_value(-2);
 			let _ = lua.set_metatable(-2);
+			lua.replace(-2);
 			fmt
 		}
 	}
@@ -96,19 +98,22 @@ lua_pub_methods! { static FORMATTER_EXPORTS =>
 	/// assert(disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]")
 	/// ```
 	unsafe fn new(lua, syntax: u32) -> 1 {
-		let formatter: Box<dyn iced_x86::Formatter> = if syntax == FormatterSyntax::Gas as u32 {
-			Box::new(iced_x86::GasFormatter::new())
-		} else if syntax == FormatterSyntax::Intel as u32 {
-			Box::new(iced_x86::IntelFormatter::new())
-		} else if syntax == FormatterSyntax::Masm as u32 {
-			Box::new(iced_x86::MasmFormatter::new())
-		} else if syntax == FormatterSyntax::Nasm as u32 {
-			Box::new(iced_x86::NasmFormatter::new())
-		} else {
-			unsafe { lua.throw_error(LuaError::MessageStr("Invalid formatter syntax")) }
-		};
-		let formatter = Formatter { output: String::new(), inner: formatter };
-		unsafe { let _ = Formatter::push_new(lua, formatter); }
+		unsafe {
+			let _ = Formatter::push_new(lua, || {
+				let formatter: Box<dyn iced_x86::Formatter> = if syntax == FormatterSyntax::Gas as u32 {
+					Box::new(iced_x86::GasFormatter::new())
+				} else if syntax == FormatterSyntax::Intel as u32 {
+					Box::new(iced_x86::IntelFormatter::new())
+				} else if syntax == FormatterSyntax::Masm as u32 {
+					Box::new(iced_x86::MasmFormatter::new())
+				} else if syntax == FormatterSyntax::Nasm as u32 {
+					Box::new(iced_x86::NasmFormatter::new())
+				} else {
+					lua.throw_error(LuaError::MessageStr("Invalid formatter syntax"))
+				};
+				Formatter { output: String::new(), inner: formatter }
+			});
+		}
 	}
 
 	/// Formats the whole instruction: prefixes, mnemonic, operands

@@ -83,12 +83,21 @@ lua_pub_methods! { static BLOCK_ENCODER_EXPORTS =>
 				}
 			});
 			let block = iced_x86::InstructionBlock::new(&instrs, rip);
-			match iced_x86::BlockEncoder::encode(bitness, block, options) {
-				Ok(result) => {
+			let result = iced_x86::BlockEncoder::encode(bitness, block, options);
+			// Lua errors longjmp past this frame so drop it now or it's leaked
+			drop(instrs);
+			match result {
+				Ok(mut result) => {
+					let code_buffer = std::mem::take(&mut result.code_buffer);
+					drop(result);
+					// Push the bytes first so `code_buffer` isn't alive during the other allocating calls
+					lua.push_bytes(&code_buffer);
+					drop(code_buffer);
 					lua.create_table(0, 1);
 					lua.push("code_buffer");
-					lua.push(result.code_buffer);
+					lua.push_value(-3);
 					lua.raw_set(-3);
+					lua.replace(-2);
 				}
 				Err(e) => lua.throw_error(e),
 			}
