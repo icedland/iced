@@ -2266,3 +2266,29 @@ fn test_invalid_br(
 		assert!(encoder.encode(&instr, instr_addr).is_err());
 	}
 }
+
+fn roundtrip_bytes(bitness: u32, bytes: &[u8], ip: u64) {
+	let mut decoder = Decoder::with_ip(bitness, bytes, ip, DecoderOptions::NONE);
+	let insn = decoder.decode();
+	assert!(!insn.is_invalid(), "decode failed for {:02x?}", bytes);
+	assert_eq!(insn.len(), bytes.len(), "decoded length mismatch");
+	let mut encoder = Encoder::new(bitness);
+	let n = encoder.encode(&insn, ip).expect("encode failed");
+	let encoded = encoder.take_buffer();
+	assert_eq!(encoded, bytes, "round-trip mismatch: got {:02x?}, want {:02x?}", encoded, bytes);
+	let _ = n;
+}
+
+#[test]
+fn legacy_prefix_order_lidt_16bit() {
+	// LIDT [cs:0xaf] with non-canonical prefix order 67 66 2E (a32 o32 cs)
+	// as found in MBM firmware; canonical order would be 2E 66 67.
+	roundtrip_bytes(16, &[0x67, 0x66, 0x2E, 0x0F, 0x01, 0x1D, 0xAF, 0x00, 0x00, 0x00], 0x0010_7168);
+}
+
+#[test]
+fn legacy_prefix_order_lgdt_16bit() {
+	// LGDT [cs:0xb5] with same non-canonical prefix order.
+	roundtrip_bytes(16, &[0x67, 0x66, 0x2E, 0x0F, 0x01, 0x15, 0xB5, 0x00, 0x00, 0x00], 0x0010_7172);
+}
+
