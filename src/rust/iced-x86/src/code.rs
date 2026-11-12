@@ -44668,6 +44668,19 @@ impl Code {
 		(crate::info::info_table::TABLE[self as usize].1 & InfoFlags2::SAVE_RESTORE) != 0
 	}
 
+	/// Checks if it's a return instruction
+	#[must_use]
+	#[inline]
+	pub const fn is_return(self) -> bool {
+		return match self{
+			Code::Retnw | Code::Retnw_imm16 | Code::Retnd |  Code::Retnd_imm16 | Code::Retnq | Code::Retnq_imm16 |
+			Code::Retfw | Code::Retfw_imm16 | Code::Retfd | Code::Retfd_imm16 | Code::Retfq | Code::Retfq_imm16 |
+			Code::Iretd | Code::Iretq | Code::Iretw | Code::Sysretd | Code::Sysretq | Code::Uiret |
+			Code::Sysexitd | Code::Sysexitq => true,
+			_ => false
+		}
+	}
+
 	/// Checks if it's a `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]

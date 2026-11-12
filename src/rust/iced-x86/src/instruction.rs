@@ -3464,6 +3464,13 @@ impl Instruction {
 		crate::info::rflags_table::FLAGS_MODIFIED[self.rflags_info() as usize] as u32
 	}
 
+	/// Checks if it's a return instruction
+	#[must_use]
+	#[inline]
+	pub const fn is_return(&self) -> bool {
+		self.code().is_return()
+	}
+
 	/// Checks if it's a `Jcc SHORT` or `Jcc NEAR` instruction
 	#[must_use]
 	#[inline]
