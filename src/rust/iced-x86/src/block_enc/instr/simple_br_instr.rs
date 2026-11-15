@@ -235,11 +235,11 @@ impl Instr for SimpleBranchInstr {
 
 					_ => unreachable!(),
 				};
-				instr_len = ctx
-					.block
-					.encoder
-					.encode(&instr, ctx.ip.wrapping_add(size as u64))
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
+				instr_len =
+					ctx.block
+						.encoder
+						.encode(&instr, ctx.ip.wrapping_add(size as u64))
+						.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				size += instr_len;
 
 				instr.set_code(code_near);
@@ -292,11 +292,11 @@ impl Instr for SimpleBranchInstr {
 
 					_ => unreachable!(),
 				}
-				instr_len = ctx
-					.block
-					.encoder
-					.encode(&instr, ctx.ip.wrapping_add(size as u64))
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
+				instr_len =
+					ctx.block
+						.encoder
+						.encode(&instr, ctx.ip.wrapping_add(size as u64))
+						.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				size += instr_len;
 
 				InstrUtils::encode_branch_to_pointer_data(

@@ -231,11 +231,11 @@ impl Instr for JccInstr {
 				debug_assert!(ctx.block.encoder.bitness() == 64);
 				debug_assert!(self.long_instruction_size64 <= i8::MAX as u8);
 				instr.set_near_branch64(ctx.ip.wrapping_add(self.long_instruction_size64 as u64));
-				let instr_len = ctx
-					.block
-					.encoder
-					.encode(&instr, ctx.ip)
-					.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
+				let instr_len =
+					ctx.block
+						.encoder
+						.encode(&instr, ctx.ip)
+						.map_err(|err| IcedError::with_string(InstrUtils::create_error_message(err, &self.instruction)))? as u32;
 				InstrUtils::encode_branch_to_pointer_data(
 					ctx.block,
 					false,

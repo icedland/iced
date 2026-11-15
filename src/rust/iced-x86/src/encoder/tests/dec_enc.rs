@@ -416,7 +416,8 @@ fn test_lig_instructions_ignore_l() {
 					bytes[evex_index + 3] = orig_byte ^ (i << 5);
 					let ll = (bytes[evex_index + 3] >> 5) & 3;
 					let invalid = (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) == 0
-						&& ll == 3 && (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
+						&& ll == 3
+						&& (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
 					if invalid {
 						let mut decoder = Decoder::new(info.bitness(), &bytes, info.decoder_options());
 						instruction2 = decoder.decode();
@@ -1669,7 +1670,8 @@ fn verify_that_test_cases_test_enough_bits() {
 
 				let ll = (bytes[evex_index + 3] >> 5) & 3;
 				let invalid = (info.decoder_options() & DecoderOptions::NO_INVALID_CHECK) == 0
-					&& ll == 3 && (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
+					&& ll == 3
+					&& (bytes[evex_index + 5] < 0xC0 || (bytes[evex_index + 3] & 0x10) == 0);
 				if !invalid {
 					tested.l_bits |= 1 << 3;
 				}
