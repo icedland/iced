@@ -374,6 +374,7 @@ jobs:
         with:
           packages-dir: pypi-dist/
           skip-existing: true
+          attestations: true
 
   upload-npm:
     if: github.event_name == 'release'
@@ -420,7 +421,7 @@ jobs:
           # npm trusted publishing + 'npm stage' need a recent npm
           npm install -g "npm@$CI_NPM_VER"
           npm --version
-          npm stage publish "$RUNNER_TEMP"/npm/iced-x86-*.tgz
+          npm stage publish --provenance "$RUNNER_TEMP"/npm/iced-x86-*.tgz
 
   upload-maven-central:
     if: github.event_name == 'release'
