@@ -253,8 +253,10 @@ jobs:
     name: Upload to nuget.org
     permissions:
       contents: read
-      # Required for trusted publishing (OIDC)
+      # Required for trusted publishing (OIDC) and attestations
       id-token: write
+      attestations: write
+      artifact-metadata: write
     needs: &upload-needs
       - check-artifacts
       - check-trusted-publishing
@@ -273,6 +275,14 @@ jobs:
         with:
           name: nupkg
           path: ${{runner.temp}}/nupkg
+
+      # nuget.org has no provenance support, so attest on GitHub (gh attestation verify)
+      - name: Attest build provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: |
+            ${{runner.temp}}/nupkg/Iced.*.nupkg
+            ${{runner.temp}}/nupkg/Iced.*.snupkg
 
       # Uses NuGet trusted publishing (OIDC), no stored API key. The temporary API key is only
       # valid for 1 hour, so get it right before pushing.
