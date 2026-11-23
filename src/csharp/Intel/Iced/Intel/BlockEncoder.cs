@@ -130,6 +130,8 @@ namespace Iced.Intel {
 		ReturnNewInstructionOffsets = 0x00000004,
 		/// <summary>The <see cref="BlockEncoder"/> should return <see cref="ConstantOffsets"/></summary>
 		ReturnConstantOffsets = 0x00000008,
+		/// <summary>The <see cref="BlockEncoder"/> should return new instruction offsets. For instructions that have been rewritten (e.g. to fix branches), the offset to the resulting block of instructions is returned.</summary>
+		ReturnAllNewInstructionOffsets = 0x00000014,
 	}
 	// GENERATOR-END: BlockEncoderOptions
 
@@ -148,6 +150,8 @@ namespace Iced.Intel {
 		bool ReturnRelocInfos => (options & BlockEncoderOptions.ReturnRelocInfos) != 0;
 		bool ReturnNewInstructionOffsets => (options & BlockEncoderOptions.ReturnNewInstructionOffsets) != 0;
 		bool ReturnConstantOffsets => (options & BlockEncoderOptions.ReturnConstantOffsets) != 0;
+		bool ReturnAllNewInstructionOffsets => (options & BlockEncoderOptions.ReturnAllNewInstructionOffsets) != 0;
+
 
 		sealed class NullCodeWriter : CodeWriter {
 			public static readonly NullCodeWriter Instance = new NullCodeWriter();
@@ -328,7 +332,7 @@ namespace Iced.Intel {
 						return false;
 					}
 					if (newInstructionOffsets is not null) {
-						if (isOriginalInstruction)
+						if (isOriginalInstruction || ReturnAllNewInstructionOffsets)
 							newInstructionOffsets[j] = (uint)(ip - block.RIP);
 						else
 							newInstructionOffsets[j] = uint.MaxValue;
