@@ -2266,3 +2266,4 @@ fn test_invalid_br(
 		assert!(encoder.encode(&instr, instr_addr).is_err());
 	}
 }
+

@@ -146,11 +146,12 @@ impl NasmFormatter {
 		let mut need_space = false;
 		if (mnemonic_options & FormatMnemonicOptions::NO_PREFIXES) == 0 && (op_info.flags & InstrOpInfoFlags::MNEMONIC_IS_DIRECTIVE) == 0 {
 			let prefix_seg = instruction.segment_prefix();
+			let has_useless_addr_pfx = instruction.has_address_size_prefix() && self.d.options.show_useless_prefixes();
 
 			const PREFIX_FLAGS: u32 = (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::OP_SIZE_SHIFT)
 				| (InstrOpInfoFlags::SIZE_OVERRIDE_MASK << InstrOpInfoFlags::ADDR_SIZE_SHIFT)
 				| InstrOpInfoFlags::BND_PREFIX;
-			if ((prefix_seg as u32) | instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction) | (op_info.flags & PREFIX_FLAGS))
+			if ((prefix_seg as u32) | instruction_internal::internal_has_any_of_lock_rep_repne_prefix(instruction) | (op_info.flags & PREFIX_FLAGS) | has_useless_addr_pfx as u32)
 				!= 0
 			{
 				let mut prefix;
@@ -165,6 +166,16 @@ impl NasmFormatter {
 					[((op_info.flags as usize) >> InstrOpInfoFlags::ADDR_SIZE_SHIFT) & InstrOpInfoFlags::SIZE_OVERRIDE_MASK as usize];
 				if !prefix.is_default() {
 					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, prefix, PrefixKind::AddressSize, &mut need_space);
+				}
+
+				if has_useless_addr_pfx {
+					// Emit a16/a32 to reproduce the useless 0x67 prefix.
+					// 0x67 in 32-bit mode selects 16-bit addressing; in 16/64-bit mode it selects 32-bit.
+					let addr_pfx = match instruction.code_size() {
+						CodeSize::Code32 => &self.d.str_.a16,
+						_ => &self.d.str_.a32,
+					};
+					NasmFormatter::format_prefix(&self.d.options, output, instruction, column, addr_pfx, PrefixKind::AddressSize, &mut need_space);
 				}
 
 				let has_notrack_prefix = prefix_seg == Register::DS && is_notrack_prefix_branch(instruction.code());
