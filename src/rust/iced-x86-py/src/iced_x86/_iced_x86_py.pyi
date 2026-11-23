@@ -996,7 +996,7 @@ class Formatter:
 	assert disasm == "VCVTNE2PS2BF16 zmm2{k5}{z},zmm6,dword bcst [rax+4]"
 	```
 	"""
-	def __init__(self, syntax: FormatterSyntax) -> None: ...
+	def __init__(self, syntax: FormatterSyntax, symbol_resolver: Callable) -> None: ...
 	def format(self, instruction: Instruction) -> str:
 		"""
 		Formats the whole instruction: prefixes, mnemonic, operands
