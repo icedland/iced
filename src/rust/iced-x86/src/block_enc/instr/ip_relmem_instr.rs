@@ -95,8 +95,12 @@ impl Instr for IpRelMemOpInstr {
 			InstrKind::Unchanged | InstrKind::Rip | InstrKind::Eip => {
 				if self.instr_kind == InstrKind::Rip {
 					self.instruction.set_memory_base(Register::RIP);
+					// Rewriting to RIP-relative drops any address-size prefix (67h) that
+					// was part of the original absolute-addressing form.
+					self.instruction.clear_legacy_prefix_bytes();
 				} else if self.instr_kind == InstrKind::Eip {
 					self.instruction.set_memory_base(Register::EIP);
+					self.instruction.clear_legacy_prefix_bytes();
 				} else {
 					debug_assert!(self.instr_kind == InstrKind::Unchanged);
 				};
