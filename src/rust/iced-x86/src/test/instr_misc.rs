@@ -698,3 +698,21 @@ fn verify_get_set_immediate() {
 fn verify_instruction_size() {
 	const _: () = assert!(mem::size_of::<Instruction>() == INSTRUCTION_TOTAL_SIZE);
 }
+
+#[test]
+fn checks_if_return_instruction(){
+	let machine_code: [u8; 9]  = [0xc2, 0x90, 0x90, 0xc3, 0xca, 090, 0x90, 0xcb, 0xcf];
+	let bad: [u8; 5] = [0xcc, 0x90, 0x00, 0x00, 0xd7//xlatb];
+	let mut formatter: NasmFormatter = NasmFormatter::new();
+	let mut output: String = String::new();
+	let mut decoder: Decoder<'_> = Decoder::with_ip(32, &machine_code, 0x0000_0004_0000_0000, DecoderOptions::NONE);
+
+	for inst in &mut decoder{
+		assert_eq!(true, inst.is_return());		//Function added
+	};
+
+	decoder = Decoder::with_ip(32, &bad, 0x0000_0004_0000_0000, DecoderOptions::NONE);
+	for inst in &mut decoder{
+		assert_eq!(false, inst.is_return());	//Function added
+	};
+}
